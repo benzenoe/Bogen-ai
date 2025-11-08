@@ -494,6 +494,39 @@ p {
   50% { opacity: 1; transform: scale(1.1); }
 }
 
+/* Dynamic Calendar Icon */
+.calendar-icon {
+  width: 60px;
+  height: 60px;
+  background: linear-gradient(to bottom, #8b5cf6 0%, #8b5cf6 30%, #ffffff 30%, #ffffff 100%);
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.calendar-month {
+  position: absolute;
+  top: 6px;
+  font-size: 0.65rem;
+  font-weight: 700;
+  color: #ffffff;
+  letter-spacing: 0.5px;
+}
+
+.calendar-day {
+  position: absolute;
+  bottom: 8px;
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: #1a2332;
+  line-height: 1;
+}
+
 /* Right Section - Badge Icons (25%) */
 .masthead-right {
   flex: 0 0 25%;

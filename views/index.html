@@ -98,7 +98,12 @@
           <!-- Digital elements -->
           <div class="digital-side">
             <div class="ai-element chat" style="--glow-color: #00d4ff;">💬</div>
-            <div class="ai-element calendar" style="--glow-color: #8b5cf6;">📅</div>
+            <div class="ai-element calendar-dynamic" style="--glow-color: #8b5cf6;">
+              <div class="calendar-icon">
+                <div class="calendar-month" id="calendar-month">JAN</div>
+                <div class="calendar-day" id="calendar-day">1</div>
+              </div>
+            </div>
             <div class="ai-element workflow" style="--glow-color: #ff6b4a;">⚡</div>
           </div>
         </div>
@@ -438,6 +443,27 @@
 
   <!-- Scripts -->
   <script src="/js/common.js"></script>
+  <script>
+    // Update calendar icon with current date
+    function updateCalendar() {
+      const today = new Date();
+      const months = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'];
+
+      const monthElement = document.getElementById('calendar-month');
+      const dayElement = document.getElementById('calendar-day');
+
+      if (monthElement && dayElement) {
+        monthElement.textContent = months[today.getMonth()];
+        dayElement.textContent = today.getDate();
+      }
+    }
+
+    // Update on page load
+    updateCalendar();
+
+    // Update daily at midnight
+    setInterval(updateCalendar, 86400000); // 24 hours in milliseconds
+  </script>
 
 </body>
 </html>
