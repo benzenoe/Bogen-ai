@@ -854,7 +854,8 @@ p {
     max-width: 300px !important;
     width: 100% !important;
     height: auto !important;
-    aspect-ratio: 1 / 1 !important;
+    aspect-ratio: 10 / 9 !important;
+    object-position: center top !important;
   }
 
   .nav-menu {
