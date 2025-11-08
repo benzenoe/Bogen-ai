@@ -30,8 +30,9 @@ app.use((req, res, next) => {
     // Set cookie for referral tracking (90-day attribution)
     res.cookie('bogen_ref', req.query.ref, {
       maxAge: 90 * 24 * 60 * 60 * 1000, // 90 days
-      httpOnly: true,
-      secure: process.env.NODE_ENV === 'production'
+      httpOnly: false, // Allow client-side reading for debugging
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: 'lax' // Allow cookie to work across page navigation
     });
     console.log('Referral cookie set:', req.query.ref);
   }
