@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact Us - Bogen.ai</title>
+  <meta name="description" content="Get a custom AI automation proposal within 24 hours. No obligation, just real solutions for your business.">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="/css/global.css">
+  <style>
+    .tabs {
+      display: flex;
+      gap: 0;
+      margin-bottom: var(--spacing-lg);
+      border-bottom: 2px solid var(--light-gray);
+    }
+
+    .tab {
+      flex: 1;
+      padding: var(--spacing-md);
+      background: transparent;
+      border: none;
+      font-family: var(--font-sans);
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--medium-gray);
+      cursor: pointer;
+      transition: all var(--transition-fast);
+      position: relative;
+    }
+
+    .tab.active {
+      color: var(--navy);
+    }
+
+    .tab.active::after {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: var(--gold);
+    }
+
+    .tab-content {
+      display: none;
+    }
+
+    .tab-content.active {
+      display: block;
+    }
+
+    .checkbox-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: var(--spacing-sm);
+    }
+
+    @media (max-width: 768px) {
+      .checkbox-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="header">
+    <div class="container">
+      <nav class="nav">
+        <a href="/" class="logo">bogen<span>.ai</span></a>
+
+        <ul class="nav-menu">
+          <li><a href="/" class="nav-link">Home</a></li>
+          <li><a href="/#services" class="nav-link">Services</a></li>
+          <li><a href="/about-edmund" class="nav-link">About Edmund</a></li>
+          <li><a href="/about-eytan" class="nav-link">About Eytan</a></li>
+          <li><a href="/partner-program" class="nav-link">Partner Program</a></li>
+          <li><a href="/contact" class="btn btn-primary btn-sm active">Get Started</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-content">
+      <h1>Let's Transform Your Business</h1>
+      <p>Request a custom proposal or join our partner program. We'll respond within 24 hours.</p>
+    </div>
+  </section>
+
+  <!-- Contact Form Section -->
+  <section class="section">
+    <div class="container" style="max-width: 800px;">
+
+      <!-- Tabs -->
+      <div class="tabs">
+        <button class="tab active" onclick="switchTab('client')">I Need AI Services</button>
+        <button class="tab" onclick="switchTab('partner')">I Want to Partner</button>
+      </div>
+
+      <!-- Client Form -->
+      <div id="client-form" class="tab-content active">
+        <h2 class="mb-lg">Request a Custom Proposal</h2>
+        <p class="text-gray mb-xl">Tell us about your business and we'll create a tailored AI automation package with transparent pricing and ROI projections. You'll receive your proposal within 24 hours.</p>
+
+        <form id="clientInquiryForm" onsubmit="handleClientSubmit(event)">
+          <div class="grid grid-2 gap-md">
+            <div class="form-group">
+              <label class="form-label">Name *</label>
+              <input type="text" name="name" class="form-input" required>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Email *</label>
+              <input type="email" name="email" class="form-input" required>
+            </div>
+          </div>
+
+          <div class="grid grid-2 gap-md">
+            <div class="form-group">
+              <label class="form-label">Phone</label>
+              <input type="tel" name="phone" class="form-input">
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Company</label>
+              <input type="text" name="company" class="form-input">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Industry</label>
+            <select name="industry" class="form-select">
+              <option value="">Select your industry</option>
+              <option value="real-estate">Real Estate</option>
+              <option value="legal">Legal Services</option>
+              <option value="medical">Medical/Healthcare</option>
+              <option value="home-services">Home Services</option>
+              <option value="e-commerce">E-commerce</option>
+              <option value="consulting">Consulting/Coaching</option>
+              <option value="financial">Financial Services</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Which services interest you? (Select all that apply)</label>
+            <div class="checkbox-grid">
+              <div class="form-checkbox">
+                <input type="checkbox" name="services" value="24/7 AI Assistant" id="s1">
+                <label for="s1">24/7 AI Assistant</label>
+              </div>
+              <div class="form-checkbox">
+                <input type="checkbox" name="services" value="Email Automation" id="s2">
+                <label for="s2">Email Automation</label>
+              </div>
+              <div class="form-checkbox">
+                <input type="checkbox" name="services" value="Lead Qualification" id="s3">
+                <label for="s3">Lead Qualification</label>
+              </div>
+              <div class="form-checkbox">
+                <input type="checkbox" name="services" value="Appointment Scheduling" id="s4">
+                <label for="s4">Appointment Scheduling</label>
+              </div>
+              <div class="form-checkbox">
+                <input type="checkbox" name="services" value="Social Media Automation" id="s5">
+                <label for="s5">Social Media Automation</label>
+              </div>
+              <div class="form-checkbox">
+                <input type="checkbox" name="services" value="Customer Follow-up" id="s6">
+                <label for="s6">Customer Follow-up</label>
+              </div>
+              <div class="form-checkbox">
+                <input type="checkbox" name="services" value="Content Creation" id="s7">
+                <label for="s7">Content Creation</label>
+              </div>
+              <div class="form-checkbox">
+                <input type="checkbox" name="services" value="Data Entry/Processing" id="s8">
+                <label for="s8">Data Entry/Processing</label>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Approximate Monthly Budget</label>
+            <select name="monthly_budget" class="form-select">
+              <option value="">Select a range</option>
+              <option value="under-500">Under $500</option>
+              <option value="500-1000">$500 - $1,000</option>
+              <option value="1000-2500">$1,000 - $2,500</option>
+              <option value="2500-plus">$2,500+</option>
+              <option value="not-sure">Not sure yet</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Tell us about your business and what you're hoping to achieve with AI automation</label>
+            <textarea name="business_description" class="form-textarea" rows="5"></textarea>
+          </div>
+
+          <button type="submit" class="btn btn-primary btn-lg">Request Custom Proposal</button>
+        </form>
+      </div>
+
+      <!-- Partner Form -->
+      <div id="partner-form" class="tab-content">
+        <h2 class="mb-lg">Join Our Partner Program</h2>
+        <p class="text-gray mb-xl">Earn 20% recurring commission by introducing businesses to bogen.ai. We'll review your application and respond within 24 hours.</p>
+
+        <form id="partnerApplicationForm" onsubmit="handlePartnerSubmit(event)">
+          <div class="grid grid-2 gap-md">
+            <div class="form-group">
+              <label class="form-label">Name *</label>
+              <input type="text" name="name" class="form-input" required>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Email *</label>
+              <input type="email" name="email" class="form-input" required>
+            </div>
+          </div>
+
+          <div class="grid grid-2 gap-md">
+            <div class="form-group">
+              <label class="form-label">Phone</label>
+              <input type="tel" name="phone" class="form-input">
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">LinkedIn Profile</label>
+              <input type="url" name="linkedin_url" class="form-input" placeholder="https://linkedin.com/in/yourname">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Password * (minimum 8 characters)</label>
+            <input type="password" name="password" class="form-input" minlength="8" required>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">What industries do you work with? (Select all that apply)</label>
+            <div class="checkbox-grid">
+              <div class="form-checkbox">
+                <input type="checkbox" name="industries" value="Real Estate" id="i1">
+                <label for="i1">Real Estate</label>
+              </div>
+              <div class="form-checkbox">
+                <input type="checkbox" name="industries" value="Legal Services" id="i2">
+                <label for="i2">Legal Services</label>
+              </div>
+              <div class="form-checkbox">
+                <input type="checkbox" name="industries" value="Medical/Healthcare" id="i3">
+                <label for="i3">Medical/Healthcare</label>
+              </div>
+              <div class="form-checkbox">
+                <input type="checkbox" name="industries" value="Home Services" id="i4">
+                <label for="i4">Home Services</label>
+              </div>
+              <div class="form-checkbox">
+                <input type="checkbox" name="industries" value="E-commerce" id="i5">
+                <label for="i5">E-commerce</label>
+              </div>
+              <div class="form-checkbox">
+                <input type="checkbox" name="industries" value="Consulting/Coaching" id="i6">
+                <label for="i6">Consulting/Coaching</label>
+              </div>
+              <div class="form-checkbox">
+                <input type="checkbox" name="industries" value="Financial Services" id="i7">
+                <label for="i7">Financial Services</label>
+              </div>
+              <div class="form-checkbox">
+                <input type="checkbox" name="industries" value="Other" id="i8">
+                <label for="i8">Other</label>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">How do you know business owners? Tell us about your network and experience. *</label>
+            <textarea name="how_they_know_businesses" class="form-textarea" rows="5" required></textarea>
+          </div>
+
+          <button type="submit" class="btn btn-primary btn-lg">Apply to Become a Partner</button>
+        </form>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-column">
+          <h4>About</h4>
+          <ul class="footer-links">
+            <li><a href="/about-edmund">About Edmund</a></li>
+            <li><a href="/about-eytan">About Eytan</a></li>
+            <li><a href="/contact">Contact Us</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-column">
+          <h4>Services</h4>
+          <ul class="footer-links">
+            <li><a href="/services/communication-customer-interaction">Communication & Customer</a></li>
+            <li><a href="/services/sales-revenue-generation">Sales & Revenue</a></li>
+            <li><a href="/services/operations-workflow">Operations & Workflow</a></li>
+            <li><a href="/services/marketing-content">Marketing & Content</a></li>
+            <li><a href="/services/industry-specific-premium">Industry-Specific</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-column">
+          <h4>Partner Program</h4>
+          <ul class="footer-links">
+            <li><a href="/partner-program">How It Works</a></li>
+            <li><a href="/partner-portal">Partner Login</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-column">
+          <h4>Legal</h4>
+          <ul class="footer-links">
+            <li><a href="/privacy">Privacy Policy</a></li>
+            <li><a href="/terms">Terms of Service</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p>© 2025 Bogen.ai. All rights reserved.</p>
+        <p>Miami Beach, FL | <a href="mailto:info@bogen.ai">info@bogen.ai</a></p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="/js/common.js"></script>
+  <script>
+    // Tab switching
+    function switchTab(tab) {
+      const tabs = document.querySelectorAll('.tab');
+      const contents = document.querySelectorAll('.tab-content');
+
+      tabs.forEach(t => t.classList.remove('active'));
+      contents.forEach(c => c.classList.remove('active'));
+
+      if (tab === 'client') {
+        tabs[0].classList.add('active');
+        document.getElementById('client-form').classList.add('active');
+      } else {
+        tabs[1].classList.add('active');
+        document.getElementById('partner-form').classList.add('active');
+      }
+    }
+
+    // Handle client inquiry form submission
+    async function handleClientSubmit(event) {
+      event.preventDefault();
+
+      const form = event.target;
+      const formData = new FormData(form);
+
+      // Get selected services
+      const services = Array.from(form.querySelectorAll('input[name="services"]:checked'))
+        .map(cb => cb.value);
+
+      const data = {
+        name: formData.get('name'),
+        email: formData.get('email'),
+        phone: formData.get('phone'),
+        company: formData.get('company'),
+        industry: formData.get('industry'),
+        services_interested: services,
+        monthly_budget: formData.get('monthly_budget'),
+        business_description: formData.get('business_description')
+      };
+
+      try {
+        const result = await window.bogenAI.apiRequest('/clients/inquiry', {
+          method: 'POST',
+          body: JSON.stringify(data)
+        });
+
+        window.bogenAI.showNotification('Thank you! We\'ll send your custom proposal within 24 hours.', 'success');
+        form.reset();
+      } catch (error) {
+        window.bogenAI.showNotification('Failed to submit inquiry. Please try again or email us directly.', 'error');
+      }
+    }
+
+    // Handle partner application form submission
+    async function handlePartnerSubmit(event) {
+      event.preventDefault();
+
+      const form = event.target;
+      const formData = new FormData(form);
+
+      // Get selected industries
+      const industries = Array.from(form.querySelectorAll('input[name="industries"]:checked'))
+        .map(cb => cb.value);
+
+      const data = {
+        name: formData.get('name'),
+        email: formData.get('email'),
+        phone: formData.get('phone'),
+        linkedin_url: formData.get('linkedin_url'),
+        password: formData.get('password'),
+        industries: industries,
+        how_they_know_businesses: formData.get('how_they_know_businesses')
+      };
+
+      try {
+        const result = await window.bogenAI.apiRequest('/auth/partner/register', {
+          method: 'POST',
+          body: JSON.stringify(data)
+        });
+
+        window.bogenAI.showNotification('Application submitted! We\'ll review and contact you within 24 hours.', 'success');
+        form.reset();
+      } catch (error) {
+        window.bogenAI.showNotification(error.message || 'Failed to submit application. Please try again.', 'error');
+      }
+    }
+  </script>
+
+</body>
+</html>
