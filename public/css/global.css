@@ -848,6 +848,15 @@ p {
     order: 0 !important;
   }
 
+  /* Responsive profile photos on about pages */
+  .text-center img[alt="Edmund Bogen"],
+  .text-center img[alt="Eytan Benzeno"] {
+    max-width: 300px !important;
+    width: 100% !important;
+    height: auto !important;
+    aspect-ratio: 1 / 1 !important;
+  }
+
   .nav-menu {
     gap: var(--spacing-md);
     font-size: 0.875rem;
