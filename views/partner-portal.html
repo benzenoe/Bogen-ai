@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Partner Portal - Bogen.ai</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/global.css">
+  <style>
+    .login-container {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: var(--spacing-lg);
+    }
+
+    .login-box {
+      max-width: 450px;
+      width: 100%;
+    }
+
+    .dashboard-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: var(--spacing-lg);
+      margin-bottom: var(--spacing-xl);
+    }
+
+    .metric-card {
+      background: rgba(26, 58, 82, 0.6);
+      border: 1px solid rgba(100, 181, 246, 0.3);
+      border-radius: var(--border-radius);
+      padding: var(--spacing-lg);
+      text-align: center;
+    }
+
+    .metric-value {
+      font-size: 2.5rem;
+      font-weight: 300;
+      color: var(--cyan);
+      margin: var(--spacing-sm) 0;
+    }
+
+    .metric-label {
+      color: rgba(255, 255, 255, 0.7);
+      font-size: 0.875rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .referral-link-box {
+      background: rgba(26, 58, 82, 0.6);
+      border: 2px solid var(--cyan);
+      border-radius: var(--border-radius);
+      padding: var(--spacing-lg);
+      margin-bottom: var(--spacing-xl);
+    }
+
+    .link-display {
+      background: rgba(15, 42, 63, 0.8);
+      padding: var(--spacing-md);
+      border-radius: var(--border-radius);
+      margin: var(--spacing-md) 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--spacing-sm);
+    }
+
+    .link-text {
+      color: var(--cyan);
+      font-family: monospace;
+      font-size: 0.9375rem;
+      word-break: break-all;
+    }
+
+    .copy-btn {
+      background: var(--cyan);
+      color: var(--white);
+      border: none;
+      padding: 8px 16px;
+      border-radius: 4px;
+      cursor: pointer;
+      white-space: nowrap;
+      font-size: 0.875rem;
+      transition: all var(--transition-fast);
+    }
+
+    .copy-btn:hover {
+      background: #4a9fd8;
+    }
+
+    .status-badge {
+      display: inline-block;
+      padding: 4px 12px;
+      border-radius: 12px;
+      font-size: 0.75rem;
+      font-weight: 500;
+      text-transform: uppercase;
+    }
+
+    .status-active { background: rgba(76, 175, 80, 0.2); color: #4CAF50; }
+    .status-lead { background: rgba(255, 193, 7, 0.2); color: #FFC107; }
+    .status-proposal { background: rgba(33, 150, 243, 0.2); color: #2196F3; }
+    .status-churned { background: rgba(244, 67, 54, 0.2); color: #F44336; }
+  </style>
+</head>
+<body>
+
+  <!-- Login View (shown when not authenticated) -->
+  <div id="login-view" class="login-container">
+    <div class="login-box">
+      <div class="text-center mb-xl">
+        <a href="/" class="logo" style="font-size: 2rem;">bogen<span>.ai</span></a>
+        <h2 class="mt-lg">Partner Portal</h2>
+        <p class="text-gray">Login to access your dashboard</p>
+      </div>
+
+      <div class="card">
+        <form id="loginForm" onsubmit="handleLogin(event)">
+          <div class="form-group">
+            <label class="form-label">Email</label>
+            <input type="email" name="email" class="form-input" required>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Password</label>
+            <input type="password" name="password" class="form-input" required>
+          </div>
+
+          <button type="submit" class="btn btn-primary" style="width: 100%;">Login</button>
+        </form>
+
+        <div class="text-center mt-md">
+          <p class="text-gray text-small">
+            Not a partner yet? <a href="/partner-program" style="color: var(--cyan);">Apply here</a>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Dashboard View (shown when authenticated) -->
+  <div id="dashboard-view" class="hidden">
+    <!-- Header -->
+    <header class="header">
+      <div class="container">
+        <nav class="nav">
+          <a href="/" class="logo">bogen<span>.ai</span></a>
+          <ul class="nav-menu">
+            <li><span class="nav-link" id="partner-name">Partner</span></li>
+            <li><a href="#" onclick="logout()" class="btn btn-secondary btn-sm">Logout</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <!-- Main Content -->
+    <main style="margin-top: 90px; padding: var(--spacing-xxl) 0;">
+      <div class="container">
+        <h1 class="mb-lg">Partner Dashboard</h1>
+
+        <!-- Metrics -->
+        <div class="dashboard-grid">
+          <div class="metric-card">
+            <div class="metric-label">Active Referrals</div>
+            <div class="metric-value" id="active-referrals">-</div>
+          </div>
+
+          <div class="metric-card">
+            <div class="metric-label">This Month's Commission</div>
+            <div class="metric-value" id="monthly-commission">$0</div>
+          </div>
+
+          <div class="metric-card">
+            <div class="metric-label">Lifetime Earnings</div>
+            <div class="metric-value" id="lifetime-earnings">$0</div>
+          </div>
+
+          <div class="metric-card">
+            <div class="metric-label">Pending Proposals</div>
+            <div class="metric-value" id="pending-proposals">-</div>
+          </div>
+        </div>
+
+        <!-- Referral Link -->
+        <div class="referral-link-box">
+          <h3 style="margin-bottom: var(--spacing-sm);">Your Referral Link</h3>
+          <p class="text-gray text-small mb-md">Share this link to track your referrals</p>
+          <div class="link-display">
+            <span class="link-text" id="referral-link">Loading...</span>
+            <button class="copy-btn" onclick="copyReferralLink()">Copy</button>
+          </div>
+        </div>
+
+        <!-- Referrals Table -->
+        <h2 class="mb-md">Your Referrals</h2>
+        <div class="card">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Client</th>
+                <th>Company</th>
+                <th>Monthly Value</th>
+                <th>Your Commission</th>
+                <th>Status</th>
+                <th>Start Date</th>
+              </tr>
+            </thead>
+            <tbody id="referrals-table">
+              <tr>
+                <td colspan="6" class="text-center text-gray">Loading...</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Commission History -->
+        <h2 class="mb-md mt-xl">Commission Payment History</h2>
+        <div class="card">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Period</th>
+                <th>Amount</th>
+                <th>Payment Date</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody id="commissions-table">
+              <tr>
+                <td colspan="4" class="text-center text-gray">Loading...</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script src="/js/common.js"></script>
+  <script>
+    // Check if user is logged in on page load
+    document.addEventListener('DOMContentLoaded', () => {
+      const token = localStorage.getItem('partner_token');
+      if (token) {
+        showDashboard();
+        loadDashboardData();
+      } else {
+        showLogin();
+      }
+    });
+
+    function showLogin() {
+      document.getElementById('login-view').classList.remove('hidden');
+      document.getElementById('dashboard-view').classList.add('hidden');
+    }
+
+    function showDashboard() {
+      document.getElementById('login-view').classList.add('hidden');
+      document.getElementById('dashboard-view').classList.remove('hidden');
+    }
+
+    async function handleLogin(event) {
+      event.preventDefault();
+      const form = event.target;
+      const formData = new FormData(form);
+
+      try {
+        const response = await window.bogenAI.apiRequest('/auth/partner/login', {
+          method: 'POST',
+          body: JSON.stringify({
+            email: formData.get('email'),
+            password: formData.get('password')
+          })
+        });
+
+        // Store token
+        localStorage.setItem('partner_token', response.token);
+
+        window.bogenAI.showNotification('Login successful!', 'success');
+        showDashboard();
+        loadDashboardData();
+      } catch (error) {
+        window.bogenAI.showNotification(error.message || 'Login failed', 'error');
+      }
+    }
+
+    function logout() {
+      localStorage.removeItem('partner_token');
+      window.bogenAI.showNotification('Logged out successfully', 'success');
+      showLogin();
+    }
+
+    async function loadDashboardData() {
+      const token = localStorage.getItem('partner_token');
+
+      try {
+        // Load dashboard overview
+        const dashboard = await window.bogenAI.apiRequest('/partners/dashboard', {
+          headers: { 'Authorization': `Bearer ${token}` }
+        });
+
+        // Update partner name
+        document.getElementById('partner-name').textContent = dashboard.partner.name;
+
+        // Update metrics
+        document.getElementById('active-referrals').textContent = dashboard.metrics.active_referrals;
+        document.getElementById('monthly-commission').textContent = window.bogenAI.formatCurrency(dashboard.metrics.this_month_commission);
+        document.getElementById('lifetime-earnings').textContent = window.bogenAI.formatCurrency(dashboard.metrics.lifetime_earnings);
+        document.getElementById('pending-proposals').textContent = dashboard.metrics.pending_proposals;
+
+        // Load referral link
+        const linkData = await window.bogenAI.apiRequest('/partners/referral-link', {
+          headers: { 'Authorization': `Bearer ${token}` }
+        });
+        document.getElementById('referral-link').textContent = linkData.referral_link;
+
+        // Load referrals
+        const referralsData = await window.bogenAI.apiRequest('/partners/referrals', {
+          headers: { 'Authorization': `Bearer ${token}` }
+        });
+
+        const referralsTable = document.getElementById('referrals-table');
+        if (referralsData.referrals.length === 0) {
+          referralsTable.innerHTML = '<tr><td colspan="6" class="text-center text-gray">No referrals yet. Start sharing your link!</td></tr>';
+        } else {
+          referralsTable.innerHTML = referralsData.referrals.map(r => `
+            <tr>
+              <td>${r.client_name}</td>
+              <td>${r.client_company || '-'}</td>
+              <td>${window.bogenAI.formatCurrency(r.monthly_value)}</td>
+              <td>${window.bogenAI.formatCurrency(r.commission)}</td>
+              <td><span class="status-badge status-${r.status}">${r.status}</span></td>
+              <td>${r.start_date ? window.bogenAI.formatDate(r.start_date) : '-'}</td>
+            </tr>
+          `).join('');
+        }
+
+        // Load commission history
+        const commissionsData = await window.bogenAI.apiRequest('/partners/commissions', {
+          headers: { 'Authorization': `Bearer ${token}` }
+        });
+
+        const commissionsTable = document.getElementById('commissions-table');
+        if (commissionsData.payments.length === 0) {
+          commissionsTable.innerHTML = '<tr><td colspan="4" class="text-center text-gray">No payments yet</td></tr>';
+        } else {
+          commissionsTable.innerHTML = commissionsData.payments.map(p => `
+            <tr>
+              <td>${p.period}</td>
+              <td>${window.bogenAI.formatCurrency(p.amount)}</td>
+              <td>${p.payment_date ? window.bogenAI.formatDate(p.payment_date) : '-'}</td>
+              <td><span class="status-badge status-${p.status}">${p.status}</span></td>
+            </tr>
+          `).join('');
+        }
+
+      } catch (error) {
+        console.error('Dashboard load error:', error);
+        if (error.message.includes('Authentication')) {
+          logout();
+        } else {
+          window.bogenAI.showNotification('Failed to load dashboard data', 'error');
+        }
+      }
+    }
+
+    function copyReferralLink() {
+      const link = document.getElementById('referral-link').textContent;
+      window.bogenAI.copyToClipboard(link);
+    }
+  </script>
+
+</body>
+</html>

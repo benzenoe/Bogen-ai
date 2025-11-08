@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard - Bogen.ai</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/global.css">
+  <style>
+    .login-container {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: var(--spacing-lg);
+    }
+
+    .login-box {
+      max-width: 450px;
+      width: 100%;
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: var(--spacing-md);
+      margin-bottom: var(--spacing-xl);
+    }
+
+    .stat-card {
+      background: rgba(26, 58, 82, 0.6);
+      border: 1px solid rgba(100, 181, 246, 0.3);
+      border-radius: var(--border-radius);
+      padding: var(--spacing-md);
+    }
+
+    .stat-value {
+      font-size: 2rem;
+      font-weight: 300;
+      color: var(--cyan);
+      margin: var(--spacing-xs) 0;
+    }
+
+    .stat-label {
+      color: rgba(255, 255, 255, 0.7);
+      font-size: 0.875rem;
+    }
+
+    .action-btn {
+      background: var(--cyan);
+      color: var(--white);
+      border: none;
+      padding: 6px 16px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 0.875rem;
+      transition: all var(--transition-fast);
+    }
+
+    .action-btn:hover {
+      background: #4a9fd8;
+    }
+
+    .action-btn.danger {
+      background: #D32F2F;
+    }
+
+    .action-btn.danger:hover {
+      background: #B71C1C;
+    }
+
+    .tabs-nav {
+      display: flex;
+      gap: var(--spacing-sm);
+      margin-bottom: var(--spacing-lg);
+      border-bottom: 2px solid rgba(100, 181, 246, 0.2);
+    }
+
+    .tab-btn {
+      background: transparent;
+      border: none;
+      padding: var(--spacing-sm) var(--spacing-md);
+      color: rgba(255, 255, 255, 0.6);
+      cursor: pointer;
+      transition: all var(--transition-fast);
+      border-bottom: 2px solid transparent;
+      margin-bottom: -2px;
+    }
+
+    .tab-btn.active {
+      color: var(--cyan);
+      border-bottom-color: var(--cyan);
+    }
+
+    .tab-panel {
+      display: none;
+    }
+
+    .tab-panel.active {
+      display: block;
+    }
+
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.8);
+      z-index: 10000;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .modal.active {
+      display: flex;
+    }
+
+    .modal-content {
+      background: var(--dark-navy);
+      border: 1px solid rgba(100, 181, 246, 0.3);
+      border-radius: var(--border-radius);
+      padding: var(--spacing-xl);
+      max-width: 600px;
+      width: 90%;
+      max-height: 90vh;
+      overflow-y: auto;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Login View -->
+  <div id="login-view" class="login-container">
+    <div class="login-box">
+      <div class="text-center mb-xl">
+        <a href="/" class="logo" style="font-size: 2rem;">bogen<span>.ai</span></a>
+        <h2 class="mt-lg">Admin Dashboard</h2>
+        <p class="text-gray">Administrator Access</p>
+      </div>
+
+      <div class="card">
+        <form id="adminLoginForm" onsubmit="handleAdminLogin(event)">
+          <div class="form-group">
+            <label class="form-label">Email</label>
+            <input type="email" name="email" class="form-input" required>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Password</label>
+            <input type="password" name="password" class="form-input" required>
+          </div>
+
+          <button type="submit" class="btn btn-primary" style="width: 100%;">Login</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Dashboard View -->
+  <div id="dashboard-view" class="hidden">
+    <!-- Header -->
+    <header class="header">
+      <div class="container">
+        <nav class="nav">
+          <a href="/" class="logo">bogen<span>.ai</span> <span style="font-size: 0.75rem; color: var(--cyan);">ADMIN</span></a>
+          <ul class="nav-menu">
+            <li><a href="#" onclick="logout()" class="btn btn-secondary btn-sm">Logout</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <!-- Main Content -->
+    <main style="margin-top: 90px; padding: var(--spacing-xxl) 0;">
+      <div class="container">
+        <h1 class="mb-lg">Admin Dashboard</h1>
+
+        <!-- Stats -->
+        <div class="stats-grid">
+          <div class="stat-card">
+            <div class="stat-label">Pending Partners</div>
+            <div class="stat-value" id="stat-pending-partners">-</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-label">Active Partners</div>
+            <div class="stat-value" id="stat-active-partners">-</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-label">New Leads</div>
+            <div class="stat-value" id="stat-new-leads">-</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-label">Active Referrals</div>
+            <div class="stat-value" id="stat-active-referrals">-</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-label">Total MRR</div>
+            <div class="stat-value" id="stat-total-mrr">$0</div>
+          </div>
+        </div>
+
+        <!-- Tabs -->
+        <div class="tabs-nav">
+          <button class="tab-btn active" onclick="switchAdminTab('partners')">Partners</button>
+          <button class="tab-btn" onclick="switchAdminTab('clients')">Clients</button>
+          <button class="tab-btn" onclick="switchAdminTab('referrals')">Referrals</button>
+        </div>
+
+        <!-- Partners Tab -->
+        <div id="partners-tab" class="tab-panel active">
+          <div class="flex-between mb-md">
+            <h2>Partners</h2>
+            <select id="partner-status-filter" class="form-select" style="width: auto;" onchange="loadPartners()">
+              <option value="">All Status</option>
+              <option value="pending">Pending</option>
+              <option value="active">Active</option>
+              <option value="suspended">Suspended</option>
+            </select>
+          </div>
+
+          <div class="card">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>Email</th>
+                  <th>Referral Code</th>
+                  <th>Status</th>
+                  <th>Referrals</th>
+                  <th>Monthly Comm.</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="partners-table">
+                <tr><td colspan="7" class="text-center text-gray">Loading...</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Clients Tab -->
+        <div id="clients-tab" class="tab-panel">
+          <h2 class="mb-md">Client Inquiries</h2>
+
+          <div class="card">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>Email</th>
+                  <th>Company</th>
+                  <th>Budget</th>
+                  <th>Referred By</th>
+                  <th>Status</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="clients-table">
+                <tr><td colspan="7" class="text-center text-gray">Loading...</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Referrals Tab -->
+        <div id="referrals-tab" class="tab-panel">
+          <h2 class="mb-md">All Referrals</h2>
+
+          <div class="card">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>Client</th>
+                  <th>Partner</th>
+                  <th>Monthly Revenue</th>
+                  <th>Commission</th>
+                  <th>Status</th>
+                  <th>Start Date</th>
+                </tr>
+              </thead>
+              <tbody id="referrals-table">
+                <tr><td colspan="6" class="text-center text-gray">Loading...</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- Activate Client Modal -->
+  <div id="activate-modal" class="modal">
+    <div class="modal-content">
+      <h2 class="mb-lg">Activate Client</h2>
+      <form id="activateClientForm" onsubmit="handleActivateClient(event)">
+        <input type="hidden" id="activate-client-id">
+
+        <div class="form-group">
+          <label class="form-label">Client Name</label>
+          <input type="text" id="activate-client-name" class="form-input" readonly>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Monthly Revenue ($)</label>
+          <input type="number" name="monthly_revenue" class="form-input" step="0.01" min="0" required>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Services Subscribed</label>
+          <div class="checkbox-grid">
+            <div class="form-checkbox">
+              <input type="checkbox" name="services" value="AI Assistant" id="s1">
+              <label for="s1">AI Assistant</label>
+            </div>
+            <div class="form-checkbox">
+              <input type="checkbox" name="services" value="Email Automation" id="s2">
+              <label for="s2">Email Automation</label>
+            </div>
+            <div class="form-checkbox">
+              <input type="checkbox" name="services" value="Lead Qualification" id="s3">
+              <label for="s3">Lead Qualification</label>
+            </div>
+            <div class="form-checkbox">
+              <input type="checkbox" name="services" value="Other" id="s4">
+              <label for="s4">Other</label>
+            </div>
+          </div>
+        </div>
+
+        <div class="flex gap-md">
+          <button type="submit" class="btn btn-primary">Activate Client</button>
+          <button type="button" class="btn btn-secondary" onclick="closeModal('activate-modal')">Cancel</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="/js/common.js"></script>
+  <script>
+    let currentTab = 'partners';
+
+    document.addEventListener('DOMContentLoaded', () => {
+      const token = localStorage.getItem('admin_token');
+      if (token) {
+        showDashboard();
+        loadDashboardData();
+      } else {
+        showLogin();
+      }
+    });
+
+    function showLogin() {
+      document.getElementById('login-view').classList.remove('hidden');
+      document.getElementById('dashboard-view').classList.add('hidden');
+    }
+
+    function showDashboard() {
+      document.getElementById('login-view').classList.add('hidden');
+      document.getElementById('dashboard-view').classList.remove('hidden');
+    }
+
+    async function handleAdminLogin(event) {
+      event.preventDefault();
+      const form = event.target;
+      const formData = new FormData(form);
+
+      try {
+        const response = await window.bogenAI.apiRequest('/auth/admin/login', {
+          method: 'POST',
+          body: JSON.stringify({
+            email: formData.get('email'),
+            password: formData.get('password')
+          })
+        });
+
+        localStorage.setItem('admin_token', response.token);
+        window.bogenAI.showNotification('Login successful!', 'success');
+        showDashboard();
+        loadDashboardData();
+      } catch (error) {
+        window.bogenAI.showNotification(error.message || 'Login failed', 'error');
+      }
+    }
+
+    function logout() {
+      localStorage.removeItem('admin_token');
+      window.bogenAI.showNotification('Logged out successfully', 'success');
+      showLogin();
+    }
+
+    function switchAdminTab(tab) {
+      // Update buttons
+      document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+      event.target.classList.add('active');
+
+      // Update panels
+      document.querySelectorAll('.tab-panel').forEach(panel => panel.classList.remove('active'));
+      document.getElementById(`${tab}-tab`).classList.add('active');
+
+      currentTab = tab;
+    }
+
+    async function loadDashboardData() {
+      const token = localStorage.getItem('admin_token');
+
+      try {
+        // Load stats
+        const stats = await window.bogenAI.apiRequest('/admin/dashboard', {
+          headers: { 'Authorization': `Bearer ${token}` }
+        });
+
+        document.getElementById('stat-pending-partners').textContent = stats.stats.pending_partners;
+        document.getElementById('stat-active-partners').textContent = stats.stats.active_partners;
+        document.getElementById('stat-new-leads').textContent = stats.stats.new_leads;
+        document.getElementById('stat-active-referrals').textContent = stats.stats.active_referrals;
+        document.getElementById('stat-total-mrr').textContent = window.bogenAI.formatCurrency(stats.stats.total_mrr);
+
+        // Load tables
+        await loadPartners();
+        await loadClients();
+        await loadReferrals();
+
+      } catch (error) {
+        console.error('Dashboard error:', error);
+        if (error.message.includes('Authentication')) {
+          logout();
+        }
+      }
+    }
+
+    async function loadPartners() {
+      const token = localStorage.getItem('admin_token');
+      const status = document.getElementById('partner-status-filter').value;
+
+      try {
+        const url = status ? `/admin/partners?status=${status}` : '/admin/partners';
+        const data = await window.bogenAI.apiRequest(url, {
+          headers: { 'Authorization': `Bearer ${token}` }
+        });
+
+        const table = document.getElementById('partners-table');
+        if (data.partners.length === 0) {
+          table.innerHTML = '<tr><td colspan="7" class="text-center text-gray">No partners found</td></tr>';
+        } else {
+          table.innerHTML = data.partners.map(p => `
+            <tr>
+              <td>${p.name}</td>
+              <td>${p.email}</td>
+              <td><code style="color: var(--cyan);">${p.referral_code}</code></td>
+              <td><span class="status-badge status-${p.status}">${p.status}</span></td>
+              <td>${p.referral_count}</td>
+              <td>${window.bogenAI.formatCurrency(p.monthly_commission)}</td>
+              <td>
+                ${p.status === 'pending' ? `<button class="action-btn" onclick="approvePartner(${p.id})">Approve</button>` : ''}
+                ${p.status === 'active' ? `<button class="action-btn danger" onclick="suspendPartner(${p.id})">Suspend</button>` : ''}
+              </td>
+            </tr>
+          `).join('');
+        }
+      } catch (error) {
+        console.error('Load partners error:', error);
+      }
+    }
+
+    async function loadClients() {
+      const token = localStorage.getItem('admin_token');
+
+      try {
+        const data = await window.bogenAI.apiRequest('/admin/clients', {
+          headers: { 'Authorization': `Bearer ${token}` }
+        });
+
+        const table = document.getElementById('clients-table');
+        if (data.clients.length === 0) {
+          table.innerHTML = '<tr><td colspan="7" class="text-center text-gray">No clients found</td></tr>';
+        } else {
+          table.innerHTML = data.clients.map(c => `
+            <tr>
+              <td>${c.name}</td>
+              <td>${c.email}</td>
+              <td>${c.company || '-'}</td>
+              <td>${c.budget || '-'}</td>
+              <td>${c.partner_name || '-'}</td>
+              <td><span class="status-badge status-${c.status}">${c.status}</span></td>
+              <td>
+                ${c.status === 'lead' && c.partner_id ? `<button class="action-btn" onclick="openActivateModal(${c.id}, '${c.name}')">Activate</button>` : ''}
+              </td>
+            </tr>
+          `).join('');
+        }
+      } catch (error) {
+        console.error('Load clients error:', error);
+      }
+    }
+
+    async function loadReferrals() {
+      const token = localStorage.getItem('admin_token');
+
+      try {
+        const data = await window.bogenAI.apiRequest('/admin/referrals', {
+          headers: { 'Authorization': `Bearer ${token}` }
+        });
+
+        const table = document.getElementById('referrals-table');
+        if (data.referrals.length === 0) {
+          table.innerHTML = '<tr><td colspan="6" class="text-center text-gray">No referrals found</td></tr>';
+        } else {
+          table.innerHTML = data.referrals.map(r => `
+            <tr>
+              <td>${r.client_name}</td>
+              <td>${r.partner_name}</td>
+              <td>${window.bogenAI.formatCurrency(r.monthly_revenue)}</td>
+              <td>${window.bogenAI.formatCurrency(r.partner_commission)}</td>
+              <td><span class="status-badge status-${r.status}">${r.status}</span></td>
+              <td>${r.start_date ? window.bogenAI.formatDate(r.start_date) : '-'}</td>
+            </tr>
+          `).join('');
+        }
+      } catch (error) {
+        console.error('Load referrals error:', error);
+      }
+    }
+
+    async function approvePartner(partnerId) {
+      const token = localStorage.getItem('admin_token');
+
+      if (!confirm('Approve this partner application?')) return;
+
+      try {
+        await window.bogenAI.apiRequest(`/admin/partners/${partnerId}/approve`, {
+          method: 'POST',
+          headers: { 'Authorization': `Bearer ${token}` }
+        });
+
+        window.bogenAI.showNotification('Partner approved successfully', 'success');
+        loadPartners();
+        loadDashboardData();
+      } catch (error) {
+        window.bogenAI.showNotification('Failed to approve partner', 'error');
+      }
+    }
+
+    async function suspendPartner(partnerId) {
+      const token = localStorage.getItem('admin_token');
+
+      if (!confirm('Suspend this partner?')) return;
+
+      try {
+        await window.bogenAI.apiRequest(`/admin/partners/${partnerId}/suspend`, {
+          method: 'POST',
+          headers: { 'Authorization': `Bearer ${token}` }
+        });
+
+        window.bogenAI.showNotification('Partner suspended', 'success');
+        loadPartners();
+      } catch (error) {
+        window.bogenAI.showNotification('Failed to suspend partner', 'error');
+      }
+    }
+
+    function openActivateModal(clientId, clientName) {
+      document.getElementById('activate-client-id').value = clientId;
+      document.getElementById('activate-client-name').value = clientName;
+      document.getElementById('activate-modal').classList.add('active');
+    }
+
+    function closeModal(modalId) {
+      document.getElementById(modalId).classList.remove('active');
+    }
+
+    async function handleActivateClient(event) {
+      event.preventDefault();
+      const token = localStorage.getItem('admin_token');
+      const form = event.target;
+      const formData = new FormData(form);
+
+      const services = Array.from(form.querySelectorAll('input[name="services"]:checked'))
+        .map(cb => cb.value);
+
+      try {
+        await window.bogenAI.apiRequest('/admin/referrals', {
+          method: 'POST',
+          headers: { 'Authorization': `Bearer ${token}` },
+          body: JSON.stringify({
+            client_id: parseInt(document.getElementById('activate-client-id').value),
+            monthly_revenue: parseFloat(formData.get('monthly_revenue')),
+            services: services,
+            status: 'active'
+          })
+        });
+
+        window.bogenAI.showNotification('Client activated successfully!', 'success');
+        closeModal('activate-modal');
+        loadClients();
+        loadReferrals();
+        loadDashboardData();
+        form.reset();
+      } catch (error) {
+        window.bogenAI.showNotification('Failed to activate client', 'error');
+      }
+    }
+  </script>
+
+</body>
+</html>
