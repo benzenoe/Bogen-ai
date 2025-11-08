@@ -24,6 +24,20 @@ app.use(cookieParser(process.env.COOKIE_SECRET));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('/assets', express.static(path.join(__dirname, 'public/assets')));
 
+// Referral tracking middleware (MUST be before routes)
+app.use((req, res, next) => {
+  if (req.query.ref) {
+    // Set cookie for referral tracking (90-day attribution)
+    res.cookie('bogen_ref', req.query.ref, {
+      maxAge: 90 * 24 * 60 * 60 * 1000, // 90 days
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production'
+    });
+    console.log('Referral cookie set:', req.query.ref);
+  }
+  next();
+});
+
 // API Routes
 app.use('/api/auth', authRoutes);
 app.use('/api/partners', partnerRoutes);
@@ -85,19 +99,6 @@ serviceCategories.forEach(category => {
   app.get(`/services/${category}`, (req, res) => {
     res.sendFile(path.join(__dirname, 'views', 'services', `${category}.html`));
   });
-});
-
-// Referral tracking (UTM parameter capture)
-app.get('*', (req, res, next) => {
-  if (req.query.ref) {
-    // Set cookie for referral tracking (90-day attribution)
-    res.cookie('bogen_ref', req.query.ref, {
-      maxAge: 90 * 24 * 60 * 60 * 1000, // 90 days
-      httpOnly: true,
-      secure: process.env.NODE_ENV === 'production'
-    });
-  }
-  next();
 });
 
 // 404 handler
