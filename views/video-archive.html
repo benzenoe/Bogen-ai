@@ -263,7 +263,6 @@
       const container = document.getElementById('video-container');
 
       try {
-        // Make direct API call
         const response = await fetch('/api/videos');
         if (!response.ok) throw new Error('Failed to fetch videos');
         const videos = await response.json();
@@ -285,8 +284,8 @@
 
         container.className = 'video-grid';
         container.innerHTML = videos.map(video => `
-          <div class="video-card" data-video-id="${video.youtube_video_id}">
-            <div class="video-thumbnail">
+          <div class="video-card">
+            <div class="video-thumbnail" onclick="playVideo('${video.youtube_video_id}', this.parentElement)">
               <img src="${video.thumbnail_url}" alt="${escapeHtml(video.title || 'Video thumbnail')}">
               <div class="play-button">
                 <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 24 24" fill="white" stroke="white" stroke-width="2">
@@ -300,35 +299,13 @@
               ${video.description ? `
                 <div>
                   <p class="video-description" id="desc-${video.video_id}">${escapeHtml(video.description)}</p>
-                  <button class="read-more-btn" data-desc-id="desc-${video.video_id}">Read more</button>
+                  <button class="read-more-btn" onclick="toggleDescription('desc-${video.video_id}', this)">Read more</button>
                 </div>
               ` : ''}
               <p class="video-date">Added ${new Date(video.created_at).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</p>
             </div>
           </div>
         `).join('');
-
-        // Add event listeners using event delegation
-        container.addEventListener('click', function(e) {
-          // Handle video thumbnail clicks
-          const thumbnail = e.target.closest('.video-thumbnail');
-          if (thumbnail) {
-            const card = thumbnail.closest('.video-card');
-            const videoId = card.dataset.videoId;
-            console.log('Thumbnail clicked, videoId:', videoId);
-            if (videoId) {
-              window.playVideo(videoId, card);
-            }
-            return;
-          }
-
-          // Handle read more/less button clicks
-          const readMoreBtn = e.target.closest('.read-more-btn');
-          if (readMoreBtn) {
-            const descId = readMoreBtn.dataset.descId;
-            window.toggleDescription(descId, readMoreBtn);
-          }
-        });
 
       } catch (error) {
         console.error('Failed to load videos:', error);
@@ -348,42 +325,29 @@
       return div.innerHTML;
     }
 
-    // Make functions globally accessible for inline onclick handlers
-    window.playVideo = function(videoId, cardElement) {
-      console.log('playVideo called with:', videoId, cardElement);
+    function playVideo(videoId, cardElement) {
+      const videoEmbed = document.createElement('div');
+      videoEmbed.className = 'video-embed';
+      videoEmbed.innerHTML = `
+        <iframe
+          src="https://www.youtube.com/embed/${videoId}?autoplay=1"
+          title="Video player"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen
+        ></iframe>
+      `;
 
-      try {
-        const videoEmbed = document.createElement('div');
-        videoEmbed.className = 'video-embed';
-        videoEmbed.innerHTML = `
-          <iframe
-            src="https://www.youtube.com/embed/${videoId}?autoplay=1"
-            title="Video player"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowfullscreen
-          ></iframe>
-        `;
-
-        const thumbnail = cardElement.querySelector('.video-thumbnail');
-        console.log('Found thumbnail:', thumbnail);
-
-        if (thumbnail) {
-          thumbnail.replaceWith(videoEmbed);
-          console.log('Video embed replaced thumbnail');
-        } else {
-          console.error('Thumbnail not found in cardElement');
-        }
-      } catch (error) {
-        console.error('Error in playVideo:', error);
-        alert('Error loading video: ' + error.message);
+      const thumbnail = cardElement.querySelector('.video-thumbnail');
+      if (thumbnail) {
+        thumbnail.replaceWith(videoEmbed);
       }
-    };
+    }
 
-    window.toggleDescription = function(descId, button) {
+    function toggleDescription(descId, button) {
       const desc = document.getElementById(descId);
       desc.classList.toggle('expanded');
       button.textContent = desc.classList.contains('expanded') ? 'Read less' : 'Read more';
-    };
+    }
 
     // Load videos on page load
     document.addEventListener('DOMContentLoaded', loadVideos);

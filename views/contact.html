@@ -69,6 +69,26 @@
       gap: var(--spacing-sm);
     }
 
+    .form-checkbox.highlighted {
+      background: linear-gradient(135deg, rgba(100, 181, 246, 0.15) 0%, rgba(26, 58, 82, 0.3) 100%);
+      border: 2px solid var(--cyan);
+      border-radius: var(--border-radius);
+      padding: var(--spacing-sm);
+      box-shadow: 0 4px 12px rgba(100, 181, 246, 0.2);
+      transition: all var(--transition-smooth);
+    }
+
+    .form-checkbox.highlighted:hover {
+      border-color: #4a9fd8;
+      box-shadow: 0 6px 16px rgba(100, 181, 246, 0.3);
+      transform: translateY(-2px);
+    }
+
+    .form-checkbox.highlighted label {
+      color: var(--white);
+      font-weight: 500;
+    }
+
     @media (max-width: 768px) {
       .checkbox-grid {
         grid-template-columns: 1fr;
@@ -195,7 +215,7 @@
                 <input type="checkbox" name="services" value="Data Entry/Processing" id="s8">
                 <label for="s8">Data Entry/Processing</label>
               </div>
-              <div class="form-checkbox">
+              <div class="form-checkbox highlighted">
                 <input type="checkbox" name="services" value="Mastermind / Coaching" id="s9">
                 <label for="s9">Mastermind / Coaching</label>
               </div>
