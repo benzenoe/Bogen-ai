@@ -53,12 +53,17 @@ app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'views', 'index.html'));
 });
 
+app.get('/about-us', (req, res) => {
+  res.sendFile(path.join(__dirname, 'views', 'about-us.html'));
+});
+
+// Redirect old URLs to new combined page
 app.get('/about-edmund', (req, res) => {
-  res.sendFile(path.join(__dirname, 'views', 'about-edmund.html'));
+  res.redirect(301, '/about-us');
 });
 
 app.get('/about-eytan', (req, res) => {
-  res.sendFile(path.join(__dirname, 'views', 'about-eytan.html'));
+  res.redirect(301, '/about-us');
 });
 
 app.get('/partner-program', (req, res) => {
