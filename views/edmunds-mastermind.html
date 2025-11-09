@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Edmund's Mastermind - Elite Real Estate Transformation Through AI</title>
+  <meta name="description" content="Exclusive coaching community for top-performing real estate professionals. Dominate your market with AI technology and proven strategies.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/global.css">
+  <style>
+    .mastermind-hero {
+      background: linear-gradient(135deg, #1a2332 0%, #0d1620 100%);
+      padding: var(--spacing-xxl) 0 var(--spacing-xl);
+      margin-top: 90px;
+      border-bottom: 2px solid rgba(100, 181, 246, 0.2);
+    }
+
+    .mastermind-hero h1 {
+      font-size: 3rem;
+      margin-bottom: var(--spacing-md);
+      text-align: center;
+    }
+
+    .mastermind-hero .subtitle {
+      font-size: 1.25rem;
+      color: rgba(255, 255, 255, 0.8);
+      text-align: center;
+      max-width: 900px;
+      margin: 0 auto;
+      line-height: 1.6;
+    }
+
+    .content-section {
+      padding: var(--spacing-xxl) 0;
+    }
+
+    .section-title {
+      font-size: 2.5rem;
+      margin-bottom: var(--spacing-lg);
+      text-align: center;
+    }
+
+    .benefits-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: var(--spacing-xl);
+      margin-top: var(--spacing-xl);
+    }
+
+    .benefit-card {
+      background: rgba(26, 58, 82, 0.6);
+      border: 1px solid rgba(100, 181, 246, 0.3);
+      border-radius: var(--border-radius);
+      padding: var(--spacing-xl);
+      transition: all var(--transition-smooth);
+    }
+
+    .benefit-card:hover {
+      border-color: var(--cyan);
+      box-shadow: 0 8px 24px rgba(100, 181, 246, 0.15);
+      transform: translateY(-4px);
+    }
+
+    .benefit-card h3 {
+      font-size: 1.5rem;
+      margin-bottom: var(--spacing-md);
+      color: var(--cyan);
+    }
+
+    .benefit-card p {
+      color: rgba(255, 255, 255, 0.8);
+      line-height: 1.7;
+    }
+
+    .features-list {
+      max-width: 800px;
+      margin: var(--spacing-xl) auto;
+    }
+
+    .feature-item {
+      background: rgba(26, 58, 82, 0.4);
+      border-left: 4px solid var(--cyan);
+      padding: var(--spacing-md);
+      margin-bottom: var(--spacing-md);
+      border-radius: 4px;
+    }
+
+    .feature-item strong {
+      color: var(--cyan);
+      display: block;
+      margin-bottom: var(--spacing-xs);
+      font-size: 1.125rem;
+    }
+
+    .ideal-member {
+      background: rgba(100, 181, 246, 0.1);
+      border: 1px solid rgba(100, 181, 246, 0.3);
+      border-radius: var(--border-radius);
+      padding: var(--spacing-xl);
+      max-width: 900px;
+      margin: var(--spacing-xl) auto;
+    }
+
+    .ideal-member p {
+      font-size: 1.125rem;
+      line-height: 1.8;
+      color: rgba(255, 255, 255, 0.9);
+    }
+
+    .cta-section {
+      background: linear-gradient(135deg, rgba(100, 181, 246, 0.15) 0%, rgba(26, 58, 82, 0.3) 100%);
+      border: 2px solid rgba(100, 181, 246, 0.3);
+      border-radius: var(--border-radius);
+      padding: var(--spacing-xxl);
+      text-align: center;
+      margin: var(--spacing-xxl) auto;
+      max-width: 800px;
+    }
+
+    .cta-section h2 {
+      font-size: 2rem;
+      margin-bottom: var(--spacing-md);
+    }
+
+    .cta-section p {
+      font-size: 1.25rem;
+      color: rgba(255, 255, 255, 0.85);
+      margin-bottom: var(--spacing-lg);
+      line-height: 1.6;
+    }
+
+    .cta-buttons {
+      display: flex;
+      gap: var(--spacing-md);
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    @media (max-width: 768px) {
+      .mastermind-hero h1 {
+        font-size: 2rem;
+      }
+
+      .mastermind-hero .subtitle {
+        font-size: 1rem;
+      }
+
+      .section-title {
+        font-size: 1.75rem;
+      }
+
+      .benefits-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="header">
+    <div class="container">
+      <nav class="nav">
+        <a href="/" class="logo">bogen<span>.ai</span></a>
+        <ul class="nav-menu">
+          <li><a href="/" class="nav-link">Home</a></li>
+          <li><a href="/#services" class="nav-link">Services</a></li>
+          <li><a href="/about-edmund" class="nav-link">About Edmund</a></li>
+          <li><a href="/about-eytan" class="nav-link">About Eytan</a></li>
+          <li><a href="/partner-program" class="nav-link">Partner Program</a></li>
+          <li><a href="/edmunds-mastermind" class="nav-link active">Edmund's Mastermind</a></li>
+          <li><a href="/video-archive" class="nav-link">Video Archive</a></li>
+          <li><a href="/contact" class="btn btn-primary btn-sm">Get Started</a></li>
+        </ul>
+        <div class="nav-toggle" onclick="window.bogenAI.toggleMobileMenu()">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="mastermind-hero">
+    <div class="container">
+      <h1>Edmund's Mastermind</h1>
+      <p class="subtitle">Elite Real Estate Transformation Through AI</p>
+      <p class="subtitle" style="margin-top: var(--spacing-md); font-size: 1.125rem;">An exclusive coaching community for top-performing real estate professionals who want to dominate their markets by leveraging cutting-edge AI technology and proven business strategies.</p>
+    </div>
+  </section>
+
+  <!-- Main Content -->
+  <main>
+    <!-- What You Get Section -->
+    <section class="content-section">
+      <div class="container">
+        <h2 class="section-title">What You Get</h2>
+        <p style="text-align: center; font-size: 1.125rem; color: rgba(255, 255, 255, 0.8); max-width: 700px; margin: 0 auto var(--spacing-xl);">
+          This isn't another generic real estate group. Edmund's Mastermind combines three powerful elements:
+        </p>
+
+        <div class="benefits-grid">
+          <!-- Benefit 1 -->
+          <div class="benefit-card">
+            <h3>AI-Powered Competitive Advantage</h3>
+            <p>You'll learn to implement practical AI tools that your competitors don't know exist. From automated multilingual client communication to AI-driven market analysis, you'll discover how to work smarter while building deeper relationships. Edmund provides step-by-step implementation guides, custom prompts, and hands-on training that turns AI from buzzword to business asset.</p>
+          </div>
+
+          <!-- Benefit 2 -->
+          <div class="benefit-card">
+            <h3>Real-World Luxury Market Expertise</h3>
+            <p>Drawing from his success in South Florida's luxury markets and experience scaling a PR company from solo practice to 30+ employees, Edmund shares battle-tested strategies for high-net-worth client acquisition, country club networking, and estate-level transactions. You get access to the exact systems he uses to close deals in Miami Beach, Boca Raton, and Palm Beach's most exclusive communities.</p>
+          </div>
+
+          <!-- Benefit 3 -->
+          <div class="benefit-card">
+            <h3>Elite Peer Network</h3>
+            <p>Connect with 200+ top-producing agents nationwide who are implementing the same strategies. This isn't networking for networking's sake—it's a community of operators who share what's working, hold each other accountable, and create partnership opportunities across markets.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- How It Works Section -->
+    <section class="content-section" style="background: rgba(26, 58, 82, 0.3);">
+      <div class="container">
+        <h2 class="section-title">How It Works</h2>
+
+        <div class="features-list">
+          <div class="feature-item">
+            <strong>Monthly Mastermind Sessions</strong>
+            Focused on one high-impact topic (AI tools, negotiation tactics, marketing systems)
+          </div>
+
+          <div class="feature-item">
+            <strong>Comprehensive Coursebooks</strong>
+            You can implement immediately—no theory, just actionable playbooks
+          </div>
+
+          <div class="feature-item">
+            <strong>Private Community Access</strong>
+            For real-time problem-solving and deal strategy
+          </div>
+
+          <div class="feature-item">
+            <strong>AI Integration Consulting</strong>
+            To help you customize tools for your specific market
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Who This Is For Section -->
+    <section class="content-section">
+      <div class="container">
+        <h2 class="section-title">Who This Is For</h2>
+
+        <div class="ideal-member">
+          <p>You're already successful, but you know there's another level. You close deals, but you want to close bigger deals faster. You're curious about AI but don't have time for tech tutorials—you need someone to show you exactly what to do. You value being in rooms with other high performers who push you to think bigger.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- The Bottom Line Section -->
+    <section class="content-section" style="background: rgba(26, 58, 82, 0.3);">
+      <div class="container">
+        <div class="cta-section">
+          <h2>The Bottom Line</h2>
+          <p>Edmund's Mastermind gives you the tools, strategies, and network to become the agent who dominates your market through technology and relationships—not just hustle and hope.</p>
+
+          <div class="cta-buttons">
+            <a href="/contact" class="btn btn-primary">Apply to Join</a>
+            <a href="/video-archive" class="btn btn-secondary">Watch Training Videos</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-section">
+          <h3>bogen<span style="color: var(--cyan);">.ai</span></h3>
+          <p>Premium AI automation for businesses that demand excellence.</p>
+        </div>
+        <div class="footer-section">
+          <h4>Quick Links</h4>
+          <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="/about-edmund">About</a></li>
+            <li><a href="/partner-program">Partner Program</a></li>
+            <li><a href="/edmunds-mastermind">Edmund's Mastermind</a></li>
+            <li><a href="/video-archive">Video Archive</a></li>
+          </ul>
+        </div>
+        <div class="footer-section">
+          <h4>Legal</h4>
+          <ul>
+            <li><a href="/privacy">Privacy Policy</a></li>
+            <li><a href="/terms">Terms of Service</a></li>
+          </ul>
+        </div>
+        <div class="footer-section">
+          <h4>Contact</h4>
+          <p><a href="mailto:edmund@bogenhomes.com">edmund@bogenhomes.com</a></p>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2025 Bogen.ai. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="/js/common.js"></script>
+
+</body>
+</html>

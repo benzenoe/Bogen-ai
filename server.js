@@ -93,6 +93,10 @@ app.get('/video-archive', (req, res) => {
   res.sendFile(path.join(__dirname, 'views', 'video-archive.html'));
 });
 
+app.get('/edmunds-mastermind', (req, res) => {
+  res.sendFile(path.join(__dirname, 'views', 'edmunds-mastermind.html'));
+});
+
 // Service category pages
 const serviceCategories = [
   'communication-customer-interaction',
