@@ -3,6 +3,19 @@
 // API base URL
 const API_BASE = window.location.origin + '/api';
 
+// Initialize bogenAI object immediately
+window.bogenAI = window.bogenAI || {};
+
+/**
+ * Toggle mobile menu - defined early for onclick handlers
+ */
+window.bogenAI.toggleMobileMenu = function() {
+  const navMenu = document.querySelector('.nav-menu');
+  if (navMenu) {
+    navMenu.classList.toggle('mobile-active');
+  }
+};
+
 /**
  * Make API request with error handling
  */
@@ -285,19 +298,9 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 /**
- * Toggle mobile menu
- */
-function toggleMobileMenu() {
-  const navMenu = document.querySelector('.nav-menu');
-  if (navMenu) {
-    navMenu.classList.toggle('mobile-active');
-  }
-}
-
-/**
  * Export functions for use in other scripts
  */
-window.bogenAI = {
+Object.assign(window.bogenAI, {
   apiRequest,
   showNotification,
   validateForm,
@@ -307,5 +310,4 @@ window.bogenAI = {
   smoothScrollTo,
   copyToClipboard,
   getReferralCode,
-  toggleMobileMenu,
-};
+});

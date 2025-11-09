@@ -362,10 +362,16 @@ p {
   flex-direction: column;
   gap: 5px;
   cursor: pointer;
-  padding: 8px;
+  padding: 12px;
   background: none;
   border: none;
-  z-index: 1001;
+  z-index: 1002;
+  position: relative;
+  -webkit-tap-highlight-color: transparent;
+  min-width: 44px;
+  min-height: 44px;
+  justify-content: center;
+  align-items: center;
 }
 
 .nav-toggle span {
@@ -374,6 +380,7 @@ p {
   height: 2px;
   background: var(--white);
   transition: all var(--transition-fast);
+  pointer-events: none;
 }
 
 /* Mobile Styles */
