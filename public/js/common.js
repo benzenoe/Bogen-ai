@@ -285,6 +285,16 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 /**
+ * Toggle mobile menu
+ */
+function toggleMobileMenu() {
+  const navMenu = document.querySelector('.nav-menu');
+  if (navMenu) {
+    navMenu.classList.toggle('mobile-active');
+  }
+}
+
+/**
  * Export functions for use in other scripts
  */
 window.bogenAI = {
@@ -297,4 +307,5 @@ window.bogenAI = {
   smoothScrollTo,
   copyToClipboard,
   getReferralCode,
+  toggleMobileMenu,
 };
