@@ -326,7 +326,9 @@
       return div.innerHTML;
     }
 
-    function playVideo(videoId, cardElement) {
+    // Make functions globally accessible for inline onclick handlers
+    window.playVideo = function(videoId, cardElement) {
+      console.log('Playing video:', videoId);
       const videoEmbed = document.createElement('div');
       videoEmbed.className = 'video-embed';
       videoEmbed.innerHTML = `
@@ -339,14 +341,18 @@
       `;
 
       const thumbnail = cardElement.querySelector('.video-thumbnail');
-      thumbnail.replaceWith(videoEmbed);
-    }
+      if (thumbnail) {
+        thumbnail.replaceWith(videoEmbed);
+      } else {
+        console.error('Thumbnail not found');
+      }
+    };
 
-    function toggleDescription(descId, button) {
+    window.toggleDescription = function(descId, button) {
       const desc = document.getElementById(descId);
       desc.classList.toggle('expanded');
       button.textContent = desc.classList.contains('expanded') ? 'Read less' : 'Read more';
-    }
+    };
 
     // Load videos on page load
     document.addEventListener('DOMContentLoaded', loadVideos);
