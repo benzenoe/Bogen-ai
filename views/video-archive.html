@@ -285,8 +285,8 @@
 
         container.className = 'video-grid';
         container.innerHTML = videos.map(video => `
-          <div class="video-card">
-            <div class="video-thumbnail" onclick="playVideo('${video.youtube_video_id}', this.parentElement)">
+          <div class="video-card" data-video-id="${video.youtube_video_id}">
+            <div class="video-thumbnail">
               <img src="${video.thumbnail_url}" alt="${escapeHtml(video.title || 'Video thumbnail')}">
               <div class="play-button">
                 <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 24 24" fill="white" stroke="white" stroke-width="2">
@@ -300,13 +300,35 @@
               ${video.description ? `
                 <div>
                   <p class="video-description" id="desc-${video.video_id}">${escapeHtml(video.description)}</p>
-                  <button class="read-more-btn" onclick="toggleDescription('desc-${video.video_id}', this)">Read more</button>
+                  <button class="read-more-btn" data-desc-id="desc-${video.video_id}">Read more</button>
                 </div>
               ` : ''}
               <p class="video-date">Added ${new Date(video.created_at).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</p>
             </div>
           </div>
         `).join('');
+
+        // Add event listeners using event delegation
+        container.addEventListener('click', function(e) {
+          // Handle video thumbnail clicks
+          const thumbnail = e.target.closest('.video-thumbnail');
+          if (thumbnail) {
+            const card = thumbnail.closest('.video-card');
+            const videoId = card.dataset.videoId;
+            console.log('Thumbnail clicked, videoId:', videoId);
+            if (videoId) {
+              window.playVideo(videoId, card);
+            }
+            return;
+          }
+
+          // Handle read more/less button clicks
+          const readMoreBtn = e.target.closest('.read-more-btn');
+          if (readMoreBtn) {
+            const descId = readMoreBtn.dataset.descId;
+            window.toggleDescription(descId, readMoreBtn);
+          }
+        });
 
       } catch (error) {
         console.error('Failed to load videos:', error);
