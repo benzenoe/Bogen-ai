@@ -40,7 +40,12 @@ router.post(
       } = req.body;
 
       // Check for referral code in cookie
-      const referralCode = req.cookies.bogen_ref;
+      console.log('=== REFERRAL DEBUG START ===');
+      console.log('All cookies:', req.cookies);
+      console.log('Signed cookies:', req.signedCookies);
+      const referralCode = req.cookies.bogen_ref || req.signedCookies.bogen_ref;
+      console.log('Referral code from cookie:', referralCode);
+      console.log('=== REFERRAL DEBUG END ===');
       let referredByPartnerId = null;
       let referralSource = 'direct';
 
