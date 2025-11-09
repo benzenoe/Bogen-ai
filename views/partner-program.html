@@ -13,6 +13,28 @@
 
   <!-- Styles -->
   <link rel="stylesheet" href="/css/global.css">
+  <style>
+    .hero-cta {
+      display: flex;
+      gap: var(--spacing-md);
+      justify-content: center;
+      align-items: center;
+      margin-top: var(--spacing-lg);
+      flex-wrap: wrap;
+    }
+
+    @media (max-width: 768px) {
+      .hero-cta {
+        flex-direction: column;
+        width: 100%;
+      }
+
+      .hero-cta .btn {
+        width: 100%;
+        max-width: 300px;
+      }
+    }
+  </style>
 </head>
 <body>
 
