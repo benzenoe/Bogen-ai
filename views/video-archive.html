@@ -328,23 +328,32 @@
 
     // Make functions globally accessible for inline onclick handlers
     window.playVideo = function(videoId, cardElement) {
-      console.log('Playing video:', videoId);
-      const videoEmbed = document.createElement('div');
-      videoEmbed.className = 'video-embed';
-      videoEmbed.innerHTML = `
-        <iframe
-          src="https://www.youtube.com/embed/${videoId}?autoplay=1"
-          title="Video player"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-          allowfullscreen
-        ></iframe>
-      `;
+      console.log('playVideo called with:', videoId, cardElement);
 
-      const thumbnail = cardElement.querySelector('.video-thumbnail');
-      if (thumbnail) {
-        thumbnail.replaceWith(videoEmbed);
-      } else {
-        console.error('Thumbnail not found');
+      try {
+        const videoEmbed = document.createElement('div');
+        videoEmbed.className = 'video-embed';
+        videoEmbed.innerHTML = `
+          <iframe
+            src="https://www.youtube.com/embed/${videoId}?autoplay=1"
+            title="Video player"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen
+          ></iframe>
+        `;
+
+        const thumbnail = cardElement.querySelector('.video-thumbnail');
+        console.log('Found thumbnail:', thumbnail);
+
+        if (thumbnail) {
+          thumbnail.replaceWith(videoEmbed);
+          console.log('Video embed replaced thumbnail');
+        } else {
+          console.error('Thumbnail not found in cardElement');
+        }
+      } catch (error) {
+        console.error('Error in playVideo:', error);
+        alert('Error loading video: ' + error.message);
       }
     };
 
