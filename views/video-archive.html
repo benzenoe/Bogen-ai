@@ -30,6 +30,41 @@
       transform: translateY(-4px);
     }
 
+    .video-thumbnail {
+      position: relative;
+      padding-bottom: 56.25%; /* 16:9 aspect ratio */
+      overflow: hidden;
+      background: #000;
+      cursor: pointer;
+    }
+
+    .video-thumbnail img {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform var(--transition-smooth);
+    }
+
+    .video-thumbnail:hover img {
+      transform: scale(1.05);
+    }
+
+    .play-button {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      transition: transform var(--transition-smooth);
+      pointer-events: none;
+    }
+
+    .video-thumbnail:hover .play-button {
+      transform: translate(-50%, -50%) scale(1.1);
+    }
+
     .video-embed {
       position: relative;
       padding-bottom: 56.25%; /* 16:9 aspect ratio */
@@ -221,14 +256,14 @@
         container.className = 'video-grid';
         container.innerHTML = videos.map(video => `
           <div class="video-card">
-            <div class="video-embed">
-              <iframe
-                src="https://www.youtube.com/embed/${video.youtube_video_id}"
-                title="${escapeHtml(video.title || 'Video')}"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowfullscreen
-                loading="lazy"
-              ></iframe>
+            <div class="video-thumbnail" onclick="playVideo('${video.youtube_video_id}', this.parentElement)">
+              <img src="${video.thumbnail_url}" alt="${escapeHtml(video.title || 'Video thumbnail')}">
+              <div class="play-button">
+                <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 24 24" fill="white" stroke="white" stroke-width="2">
+                  <circle cx="12" cy="12" r="10" fill="rgba(0,0,0,0.7)" stroke="white"></circle>
+                  <polygon points="10 8 16 12 10 16 10 8" fill="white"></polygon>
+                </svg>
+              </div>
             </div>
             <div class="video-info">
               <h3 class="video-title">${escapeHtml(video.title || 'Untitled Video')}</h3>
@@ -254,6 +289,22 @@
       const div = document.createElement('div');
       div.textContent = text;
       return div.innerHTML;
+    }
+
+    function playVideo(videoId, cardElement) {
+      const videoEmbed = document.createElement('div');
+      videoEmbed.className = 'video-embed';
+      videoEmbed.innerHTML = `
+        <iframe
+          src="https://www.youtube.com/embed/${videoId}?autoplay=1"
+          title="Video player"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen
+        ></iframe>
+      `;
+
+      const thumbnail = cardElement.querySelector('.video-thumbnail');
+      thumbnail.replaceWith(videoEmbed);
     }
 
     // Load videos on page load
