@@ -208,6 +208,7 @@
           <button class="tab-btn active" onclick="switchAdminTab('partners')">Partners</button>
           <button class="tab-btn" onclick="switchAdminTab('clients')">Clients</button>
           <button class="tab-btn" onclick="switchAdminTab('referrals')">Referrals</button>
+          <button class="tab-btn" onclick="switchAdminTab('videos')">Video Archive</button>
         </div>
 
         <!-- Partners Tab -->
@@ -286,6 +287,43 @@
                 <tr><td colspan="6" class="text-center text-gray">Loading...</td></tr>
               </tbody>
             </table>
+          </div>
+        </div>
+
+        <!-- Video Archive Tab -->
+        <div id="videos-tab" class="tab-panel">
+          <div class="flex-between mb-md">
+            <h2>Featured Videos</h2>
+          </div>
+
+          <div class="card mb-lg">
+            <h3 class="mb-md">Add New Video</h3>
+            <form id="addVideoForm" onsubmit="handleAddVideo(event)">
+              <div class="form-group">
+                <label class="form-label">YouTube URL or Video ID</label>
+                <input type="text" name="youtube_url" class="form-input" placeholder="https://www.youtube.com/watch?v=..." required>
+                <small class="text-gray">Paste full YouTube URL or just the video ID</small>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label">Title (optional - leave blank to fetch from YouTube)</label>
+                <input type="text" name="title" class="form-input" placeholder="Video title">
+              </div>
+
+              <div class="form-group">
+                <label class="form-label">Description (optional)</label>
+                <textarea name="description" class="form-input" rows="3" placeholder="Brief description of the video"></textarea>
+              </div>
+
+              <button type="submit" class="btn btn-primary">Add Video</button>
+            </form>
+          </div>
+
+          <div class="card">
+            <h3 class="mb-md">Featured Videos</h3>
+            <div id="videos-list">
+              <p class="text-center text-gray">Loading videos...</p>
+            </div>
           </div>
         </div>
       </div>
@@ -402,6 +440,11 @@
       document.getElementById(`${tab}-tab`).classList.add('active');
 
       currentTab = tab;
+
+      // Load data for specific tabs
+      if (tab === 'videos') {
+        loadVideos();
+      }
     }
 
     async function loadDashboardData() {
@@ -601,6 +644,90 @@
         form.reset();
       } catch (error) {
         window.bogenAI.showNotification('Failed to activate client', 'error');
+      }
+    }
+
+    // Video Archive Functions
+    async function loadVideos() {
+      try {
+        const videos = await window.bogenAI.apiRequest('/videos');
+        displayVideos(videos);
+      } catch (error) {
+        console.error('Failed to load videos:', error);
+        document.getElementById('videos-list').innerHTML = '<p class="text-center text-gray">Failed to load videos</p>';
+      }
+    }
+
+    function displayVideos(videos) {
+      const container = document.getElementById('videos-list');
+
+      if (!videos || videos.length === 0) {
+        container.innerHTML = '<p class="text-center text-gray">No videos added yet. Add your first video above!</p>';
+        return;
+      }
+
+      container.innerHTML = videos.map(video => `
+        <div style="border: 1px solid rgba(100, 181, 246, 0.3); border-radius: 8px; padding: 16px; margin-bottom: 16px; display: flex; gap: 16px;">
+          <img src="${video.thumbnail_url}" alt="${video.title || 'Video thumbnail'}" style="width: 200px; height: 112px; object-fit: cover; border-radius: 4px;">
+          <div style="flex: 1;">
+            <h4 style="margin: 0 0 8px 0;">${video.title || 'Untitled Video'}</h4>
+            <p style="color: rgba(255, 255, 255, 0.7); font-size: 0.875rem; margin: 0 0 8px 0;">${video.description || 'No description'}</p>
+            <div style="font-size: 0.75rem; color: rgba(255, 255, 255, 0.5);">
+              Video ID: ${video.youtube_video_id}<br>
+              Added: ${new Date(video.created_at).toLocaleDateString()}
+            </div>
+          </div>
+          <div style="display: flex; flex-direction: column; gap: 8px; justify-content: center;">
+            <a href="https://www.youtube.com/watch?v=${video.youtube_video_id}" target="_blank" class="action-btn" style="text-decoration: none; text-align: center;">View</a>
+            <button onclick="deleteVideo(${video.video_id}, '${video.title || 'this video'}')" class="action-btn danger">Delete</button>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    async function handleAddVideo(event) {
+      event.preventDefault();
+      const token = localStorage.getItem('admin_token');
+      const form = event.target;
+      const formData = new FormData(form);
+
+      try {
+        await window.bogenAI.apiRequest('/videos', {
+          method: 'POST',
+          headers: { 'Authorization': `Bearer ${token}` },
+          body: JSON.stringify({
+            youtube_url: formData.get('youtube_url'),
+            title: formData.get('title') || null,
+            description: formData.get('description') || null
+          })
+        });
+
+        window.bogenAI.showNotification('Video added successfully!', 'success');
+        form.reset();
+        loadVideos();
+      } catch (error) {
+        const errorMsg = error.message || 'Failed to add video';
+        window.bogenAI.showNotification(errorMsg, 'error');
+      }
+    }
+
+    async function deleteVideo(videoId, videoTitle) {
+      if (!confirm(`Are you sure you want to remove "${videoTitle}" from the video archive?`)) {
+        return;
+      }
+
+      const token = localStorage.getItem('admin_token');
+
+      try {
+        await window.bogenAI.apiRequest(`/videos/${videoId}`, {
+          method: 'DELETE',
+          headers: { 'Authorization': `Bearer ${token}` }
+        });
+
+        window.bogenAI.showNotification('Video removed successfully!', 'success');
+        loadVideos();
+      } catch (error) {
+        window.bogenAI.showNotification('Failed to remove video', 'error');
       }
     }
   </script>

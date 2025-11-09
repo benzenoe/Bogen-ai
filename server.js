@@ -10,6 +10,7 @@ const partnerRoutes = require('./server/routes/partners');
 const clientRoutes = require('./server/routes/clients');
 const adminRoutes = require('./server/routes/admin');
 const xeroRoutes = require('./server/routes/xero');
+const videoRoutes = require('./server/routes/videos');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -45,6 +46,7 @@ app.use('/api/partners', partnerRoutes);
 app.use('/api/clients', clientRoutes);
 app.use('/api/admin', adminRoutes);
 app.use('/api/xero', xeroRoutes);
+app.use('/api/videos', videoRoutes);
 
 // Serve HTML pages
 app.get('/', (req, res) => {
@@ -85,6 +87,10 @@ app.get('/admin', (req, res) => {
 
 app.get('/admin-dashboard', (req, res) => {
   res.sendFile(path.join(__dirname, 'views', 'admin-dashboard.html'));
+});
+
+app.get('/video-archive', (req, res) => {
+  res.sendFile(path.join(__dirname, 'views', 'video-archive.html'));
 });
 
 // Service category pages
