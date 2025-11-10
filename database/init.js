@@ -31,6 +31,7 @@ async function initializeDatabase() {
     console.log('   - referrals');
     console.log('   - commission_payments');
     console.log('   - admin_users');
+    console.log('   - featured_videos');
     console.log('');
     console.log('⚠️  IMPORTANT: Update admin password in production!');
     console.log('   Default admin credentials:');

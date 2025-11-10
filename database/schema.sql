@@ -7,6 +7,7 @@ DROP TABLE IF EXISTS referrals CASCADE;
 DROP TABLE IF EXISTS partners CASCADE;
 DROP TABLE IF EXISTS clients CASCADE;
 DROP TABLE IF EXISTS admin_users CASCADE;
+DROP TABLE IF EXISTS featured_videos CASCADE;
 
 -- Partners Table
 CREATE TABLE partners (
@@ -96,6 +97,18 @@ CREATE TABLE admin_users (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
+-- Featured Videos Table
+CREATE TABLE featured_videos (
+    video_id SERIAL PRIMARY KEY,
+    youtube_video_id VARCHAR(20) UNIQUE NOT NULL,
+    title VARCHAR(255),
+    description TEXT,
+    thumbnail_url VARCHAR(500),
+    display_order INTEGER DEFAULT 0,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
 -- Indexes for performance
 CREATE INDEX idx_partners_email ON partners(email);
 CREATE INDEX idx_partners_referral_code ON partners(unique_referral_code);
@@ -108,6 +121,8 @@ CREATE INDEX idx_referrals_client ON referrals(client_id);
 CREATE INDEX idx_referrals_status ON referrals(status);
 CREATE INDEX idx_commission_payments_partner ON commission_payments(partner_id);
 CREATE INDEX idx_commission_payments_period ON commission_payments(payment_period);
+CREATE INDEX idx_featured_videos_display_order ON featured_videos(display_order);
+CREATE INDEX idx_featured_videos_youtube_id ON featured_videos(youtube_video_id);
 
 -- Update timestamp trigger function
 CREATE OR REPLACE FUNCTION update_updated_at_column()
@@ -123,6 +138,7 @@ CREATE TRIGGER update_partners_updated_at BEFORE UPDATE ON partners FOR EACH ROW
 CREATE TRIGGER update_clients_updated_at BEFORE UPDATE ON clients FOR EACH ROW EXECUTE FUNCTION update_updated_at_column();
 CREATE TRIGGER update_referrals_updated_at BEFORE UPDATE ON referrals FOR EACH ROW EXECUTE FUNCTION update_updated_at_column();
 CREATE TRIGGER update_commission_payments_updated_at BEFORE UPDATE ON commission_payments FOR EACH ROW EXECUTE FUNCTION update_updated_at_column();
+CREATE TRIGGER update_featured_videos_updated_at BEFORE UPDATE ON featured_videos FOR EACH ROW EXECUTE FUNCTION update_updated_at_column();
 
 -- Insert default admin user (password: admin123 - CHANGE THIS!)
 -- Password hash for 'admin123' using bcrypt
