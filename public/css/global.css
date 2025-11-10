@@ -417,7 +417,7 @@ p {
   .nav-menu li {
     width: 100%;
     text-align: center;
-    padding: var(--spacing-sm) 0;
+    padding: 0;
     border-bottom: 1px solid rgba(100, 181, 246, 0.1);
   }
 
@@ -427,13 +427,14 @@ p {
 
   .nav-link {
     display: block;
-    padding: var(--spacing-sm);
-    font-size: 1.125rem;
+    padding: 14px 20px;
+    font-size: 1rem;
   }
 
   .btn-sm {
     display: inline-block;
-    margin: var(--spacing-sm) auto;
+    margin: 8px auto;
+    padding: 10px 24px;
   }
 }
 
