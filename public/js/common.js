@@ -208,72 +208,8 @@ function trackReferral() {
   }
 }
 
-/**
- * Mobile menu toggle
- */
-function initMobileMenu() {
-  const header = document.querySelector('.header');
-  if (!header) return;
-
-  // Create mobile menu toggle button
-  const toggle = document.createElement('button');
-  toggle.className = 'mobile-menu-toggle';
-  toggle.innerHTML = '☰';
-  toggle.style.cssText = `
-    display: none;
-    background: none;
-    border: none;
-    font-size: 1.5rem;
-    color: var(--navy);
-    cursor: pointer;
-    padding: 8px;
-  `;
-
-  const nav = document.querySelector('.nav-menu');
-  if (nav) {
-    const navContainer = nav.parentElement;
-    navContainer.insertBefore(toggle, nav);
-
-    toggle.addEventListener('click', () => {
-      nav.classList.toggle('mobile-open');
-    });
-
-    // Show toggle on mobile
-    const mediaQuery = window.matchMedia('(max-width: 768px)');
-    function handleMobile(e) {
-      if (e.matches) {
-        toggle.style.display = 'block';
-        nav.style.cssText = `
-          position: absolute;
-          top: 100%;
-          left: 0;
-          right: 0;
-          background: white;
-          flex-direction: column;
-          padding: 20px;
-          box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
-          display: none;
-        `;
-        nav.classList.remove('mobile-open');
-      } else {
-        toggle.style.display = 'none';
-        nav.style = '';
-      }
-    }
-
-    mediaQuery.addListener(handleMobile);
-    handleMobile(mediaQuery);
-
-    // Add mobile-open style
-    const mobileStyle = document.createElement('style');
-    mobileStyle.textContent = `
-      .nav-menu.mobile-open {
-        display: flex !important;
-      }
-    `;
-    document.head.appendChild(mobileStyle);
-  }
-}
+// Mobile menu functionality is now handled by static HTML button
+// and toggleMobileMenu() function defined at the top of this file
 
 /**
  * Initialize common functionality
@@ -281,9 +217,6 @@ function initMobileMenu() {
 document.addEventListener('DOMContentLoaded', () => {
   // Track referral if present
   trackReferral();
-
-  // Initialize mobile menu
-  initMobileMenu();
 
   // Smooth scroll for anchor links
   document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
