@@ -8,6 +8,28 @@ DROP TABLE IF EXISTS partners CASCADE;
 DROP TABLE IF EXISTS clients CASCADE;
 DROP TABLE IF EXISTS admin_users CASCADE;
 DROP TABLE IF EXISTS featured_videos CASCADE;
+DROP TABLE IF EXISTS mastermind_registrations CASCADE;
+
+-- Mastermind Event Registrations Table
+CREATE TABLE mastermind_registrations (
+    registration_id SERIAL PRIMARY KEY,
+    first_name VARCHAR(100) NOT NULL,
+    last_name VARCHAR(100) NOT NULL,
+    email VARCHAR(255) NOT NULL,
+    phone VARCHAR(50),
+    company VARCHAR(255),
+    how_heard VARCHAR(255),
+    event_date DATE NOT NULL,
+    registration_status VARCHAR(20) DEFAULT 'registered' CHECK (registration_status IN ('registered', 'attended', 'no_show', 'cancelled')),
+    email_sent BOOLEAN DEFAULT FALSE,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Index for mastermind registrations
+CREATE INDEX idx_mastermind_registrations_email ON mastermind_registrations(email);
+CREATE INDEX idx_mastermind_registrations_event_date ON mastermind_registrations(event_date);
+CREATE INDEX idx_mastermind_registrations_status ON mastermind_registrations(registration_status);
 
 -- Partners Table
 CREATE TABLE partners (
@@ -139,6 +161,7 @@ CREATE TRIGGER update_clients_updated_at BEFORE UPDATE ON clients FOR EACH ROW E
 CREATE TRIGGER update_referrals_updated_at BEFORE UPDATE ON referrals FOR EACH ROW EXECUTE FUNCTION update_updated_at_column();
 CREATE TRIGGER update_commission_payments_updated_at BEFORE UPDATE ON commission_payments FOR EACH ROW EXECUTE FUNCTION update_updated_at_column();
 CREATE TRIGGER update_featured_videos_updated_at BEFORE UPDATE ON featured_videos FOR EACH ROW EXECUTE FUNCTION update_updated_at_column();
+CREATE TRIGGER update_mastermind_registrations_updated_at BEFORE UPDATE ON mastermind_registrations FOR EACH ROW EXECUTE FUNCTION update_updated_at_column();
 
 -- Insert default admin user (password: admin123 - CHANGE THIS!)
 -- Password hash for 'admin123' using bcrypt

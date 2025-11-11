@@ -11,6 +11,7 @@ const clientRoutes = require('./server/routes/clients');
 const adminRoutes = require('./server/routes/admin');
 const xeroRoutes = require('./server/routes/xero');
 const videoRoutes = require('./server/routes/videos');
+const mastermindRoutes = require('./server/routes/mastermind');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -47,6 +48,7 @@ app.use('/api/clients', clientRoutes);
 app.use('/api/admin', adminRoutes);
 app.use('/api/xero', xeroRoutes);
 app.use('/api/videos', videoRoutes);
+app.use('/api/mastermind', mastermindRoutes);
 
 // Serve HTML pages
 app.get('/', (req, res) => {
