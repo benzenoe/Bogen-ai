@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>You're Registered! - Edmund's Mastermind</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="/css/global.css">
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="header">
+    <div class="container">
+      <nav class="nav">
+        <a href="/" class="logo">bogen<span>.ai</span></a>
+        <ul class="nav-menu">
+          <li><a href="/" class="nav-link">Home</a></li>
+          <li><a href="/about-us" class="nav-link">About Us</a></li>
+          <li><a href="#services" class="nav-link">Services</a></li>
+          <li><a href="/partner-program" class="nav-link">Partnership</a></li>
+          <li><a href="/edmunds-mastermind" class="nav-link active">Edmund's Mastermind</a></li>
+          <li><a href="/video-archive" class="nav-link">Video</a></li>
+          <li><a href="/contact" class="btn btn-primary btn-sm">Get Started</a></li>
+        </ul>
+        <button class="nav-toggle" type="button" aria-label="Toggle navigation" onclick="window.bogenAI.toggleMobileMenu()">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Success Section -->
+  <section class="section" style="padding: var(--spacing-xxl) 0; min-height: 70vh; display: flex; align-items: center; background: linear-gradient(135deg, #e8f8f5 0%, #d5f4e6 100%);">
+    <div class="container">
+      <div style="max-width: 900px; margin: 0 auto; text-align: center;">
+
+        <!-- Success Icon -->
+        <div style="font-size: 5rem; margin-bottom: var(--spacing-lg);">🎉</div>
+
+        <!-- Heading -->
+        <h1 style="color: #00875a; margin-bottom: var(--spacing-md); font-size: 2.5rem;">You're Registered!</h1>
+        <p style="color: var(--navy); font-size: 1.25rem; font-weight: 600; margin-bottom: var(--spacing-xl);">Welcome to <strong>EXPANSION: LICENSE TO MULTIPLY MARKETS</strong></p>
+
+        <!-- Event Details Card -->
+        <div style="background: white; padding: var(--spacing-xl); border-radius: var(--border-radius); box-shadow: var(--shadow-lg); margin-bottom: var(--spacing-lg); border-left: 6px solid var(--cyan);">
+          <h2 style="color: var(--navy); margin-bottom: var(--spacing-md); font-size: 1.5rem;">📅 Event Details</h2>
+          <p style="font-size: 1.1rem; margin-bottom: var(--spacing-xs);"><strong>Date:</strong> Wednesday, November 13, 2025</p>
+          <p style="font-size: 1.1rem; margin-bottom: 0;"><strong>Time:</strong> 9:00-10:00 AM Eastern Time</p>
+        </div>
+
+        <!-- Zoom Details Card -->
+        <div style="background: white; padding: var(--spacing-xl); border-radius: var(--border-radius); box-shadow: var(--shadow-lg); margin-bottom: var(--spacing-lg); border-left: 6px solid var(--cyan);">
+          <h2 style="color: var(--navy); margin-bottom: var(--spacing-md); font-size: 1.5rem;">🔗 Join the Zoom Meeting</h2>
+
+          <a href="https://us02web.zoom.us/j/83924796230?pwd=5QfNlq7KIcxGOuXBtoaN1sWVWd8jnj.1" target="_blank" class="btn btn-primary btn-lg" style="margin-bottom: var(--spacing-lg); display: inline-block;">
+            Click Here to Join Zoom
+          </a>
+
+          <div style="background: #f7fafc; padding: var(--spacing-md); border-radius: var(--border-radius); margin-top: var(--spacing-md);">
+            <p style="font-size: 1rem; margin-bottom: var(--spacing-sm); color: var(--gray);">Or enter these details manually:</p>
+            <p style="font-size: 1.1rem; margin-bottom: var(--spacing-xs);"><strong>Meeting ID:</strong> <code style="background: white; padding: 4px 8px; border-radius: 4px; font-size: 1.1rem;">839 2479 6230</code></p>
+            <p style="font-size: 1.1rem; margin-bottom: 0;"><strong>Passcode:</strong> <code style="background: white; padding: 4px 8px; border-radius: 4px; font-size: 1.1rem;">251112</code></p>
+          </div>
+        </div>
+
+        <!-- Workbook Card -->
+        <div style="background: white; padding: var(--spacing-xl); border-radius: var(--border-radius); box-shadow: var(--shadow-lg); margin-bottom: var(--spacing-xl); border-left: 6px solid var(--coral);">
+          <h2 style="color: var(--navy); margin-bottom: var(--spacing-md); font-size: 1.5rem;">📘 Session Workbook</h2>
+          <p style="margin-bottom: var(--spacing-md); font-size: 1.05rem;">Download the workbook now to follow along during the session:</p>
+          <a href="https://acrobat.adobe.com/id/urn:aaid:sc:us:6d9e36ea-0112-42f3-ac13-6957b050cfed" target="_blank" class="btn btn-secondary btn-lg">
+            Download Workbook (PDF)
+          </a>
+        </div>
+
+        <!-- Email Confirmation Note -->
+        <div style="background: rgba(255,255,255,0.7); padding: var(--spacing-md); border-radius: var(--border-radius); margin-bottom: var(--spacing-xl);">
+          <p style="color: var(--gray); font-size: 0.95rem; font-style: italic; margin: 0;">
+            📧 A confirmation email with these details will be sent to you shortly.
+            <br>Be sure to add this event to your calendar!
+          </p>
+        </div>
+
+        <!-- CTA Buttons -->
+        <div style="display: flex; gap: var(--spacing-md); justify-content: center; flex-wrap: wrap;">
+          <a href="/" class="btn btn-outline-navy">Return to Homepage</a>
+          <a href="/edmunds-mastermind" class="btn btn-outline-navy">Learn More About Mastermind</a>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-column">
+          <h4>About</h4>
+          <ul class="footer-links">
+            <li><a href="/about-us">About Us</a></li>
+            <li><a href="/contact">Contact Us</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-column">
+          <h4>Services</h4>
+          <ul class="footer-links">
+            <li><a href="/services/communication-customer-interaction">Communication & Customer</a></li>
+            <li><a href="/services/sales-revenue-generation">Sales & Revenue</a></li>
+            <li><a href="/services/operations-workflow">Operations & Workflow</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-column">
+          <h4>Partner Program</h4>
+          <ul class="footer-links">
+            <li><a href="/partner-program">How It Works</a></li>
+            <li><a href="/partner-portal">Partner Login</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-column">
+          <h4>Legal</h4>
+          <ul class="footer-links">
+            <li><a href="/privacy">Privacy Policy</a></li>
+            <li><a href="/terms">Terms of Service</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p>© 2025 Bogen.ai. All rights reserved.</p>
+        <p>Miami Beach, FL | <a href="mailto:info@bogen.ai">info@bogen.ai</a></p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="/js/common.js"></script>
+
+</body>
+</html>

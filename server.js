@@ -104,6 +104,10 @@ app.get('/edmunds-mastermind', (req, res) => {
   res.sendFile(path.join(__dirname, 'views', 'edmunds-mastermind.html'));
 });
 
+app.get('/mastermind-registered', (req, res) => {
+  res.sendFile(path.join(__dirname, 'views', 'mastermind-registered.html'));
+});
+
 // Service category pages
 const serviceCategories = [
   'communication-customer-interaction',

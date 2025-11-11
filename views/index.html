@@ -318,22 +318,22 @@
       <div class="grid gap-xl" style="grid-template-columns: 1.2fr 1fr; align-items: start;">
         <!-- Left: Session Description -->
         <div>
-          <h2 style="color: var(--navy); margin-bottom: var(--spacing-md);">EXPANSION: LICENSE TO MULTIPLY MARKETS</h2>
+          <h2 style="color: var(--navy); margin-bottom: var(--spacing-md); font-weight: 700;">EXPANSION: LICENSE TO MULTIPLY MARKETS</h2>
           <p class="text-large" style="color: var(--coral); font-weight: 600; margin-bottom: var(--spacing-md);">The Geographic Domination Session</p>
 
-          <p style="margin-bottom: var(--spacing-md);">While you're referring out clients' relocations for 25% fees, watching your best buyers move to Arizona and hire someone else, the top 1% of agents are collecting <strong>100% commissions in MULTIPLE states</strong>.</p>
+          <p style="margin-bottom: var(--spacing-md); color: #2d3748; font-size: 1.05rem; line-height: 1.6;">While you're referring out clients' relocations for 25% fees, watching your best buyers move to Arizona and hire someone else, the top 1% of agents are collecting <strong>100% commissions in MULTIPLE states</strong>.</p>
 
-          <p style="margin-bottom: var(--spacing-md);"><strong>The brutal truth:</strong> 73% of high-net-worth clients own property in 2+ states. If you're only licensed in one, you're leaving 6-figure revenue on the table every single year.</p>
+          <p style="margin-bottom: var(--spacing-md); color: #2d3748; font-size: 1.05rem; line-height: 1.6;"><strong>The brutal truth:</strong> 73% of high-net-worth clients own property in 2+ states. If you're only licensed in one, you're leaving 6-figure revenue on the table every single year.</p>
 
-          <h3 style="margin-top: var(--spacing-lg); margin-bottom: var(--spacing-md);">The 3 Expansion Models We'll Cover:</h3>
-          <ul style="margin-bottom: var(--spacing-lg);">
+          <h3 style="margin-top: var(--spacing-lg); margin-bottom: var(--spacing-md); color: var(--navy); font-weight: 600;">The 3 Expansion Models We'll Cover:</h3>
+          <ul style="margin-bottom: var(--spacing-lg); color: #2d3748; font-size: 1.05rem; line-height: 1.7;">
             <li style="margin-bottom: var(--spacing-sm);"><strong>The Full License Model</strong> - Complete control = maximum profit. Get licensed, control everything, capture 100% commissions.</li>
             <li style="margin-bottom: var(--spacing-sm);"><strong>The Strategic Partnership Model</strong> - Leverage without licensing. Partner with a top agent in your target market, co-brand relocation services, split commissions 50/50.</li>
             <li style="margin-bottom: var(--spacing-sm);"><strong>The Premium Referral Network Model</strong> - Curated relationships = passive income. Negotiate 30-35% referral fees (vs. standard 25%), maintain white-glove client experience.</li>
           </ul>
 
-          <h3 style="margin-bottom: var(--spacing-md);">What You'll Get:</h3>
-          <ul style="margin-bottom: var(--spacing-lg);">
+          <h3 style="margin-bottom: var(--spacing-md); color: var(--navy); font-weight: 600;">What You'll Get:</h3>
+          <ul style="margin-bottom: var(--spacing-lg); color: #2d3748; font-size: 1.05rem; line-height: 1.7;">
             <li style="margin-bottom: var(--spacing-sm);">Real member case studies from agents who've already done this (NY→FL, RI→FL, SC→NC)</li>
             <li style="margin-bottom: var(--spacing-sm);">Live AI system builds for market research, licensing timelines, and dual-territory marketing</li>
             <li style="margin-bottom: var(--spacing-sm);">AI decision framework to analyze YOUR situation and recommend your optimal path</li>
@@ -342,7 +342,7 @@
             <li style="margin-bottom: var(--spacing-sm);">50+ copy-paste AI prompts for market analysis, exam prep, and partnership outreach</li>
           </ul>
 
-          <p class="text-gray" style="font-style: italic; font-size: 0.9rem;">Note: This session is designed for established agents with systems in place who are ready to scale territories, not beginners still building their primary market.</p>
+          <p style="font-style: italic; font-size: 0.95rem; color: #4a5568;">Note: This session is designed for established agents with systems in place who are ready to scale territories, not beginners still building their primary market.</p>
         </div>
 
         <!-- Right: Registration Form -->
@@ -794,45 +794,8 @@
         const data = await response.json();
 
         if (response.ok) {
-          // Hide form
-          document.getElementById('mastermind-registration-form').style.display = 'none';
-
-          // Show success message with Zoom details
-          const successDiv = document.getElementById('registration-success');
-          successDiv.innerHTML = `
-            <div style="padding: var(--spacing-lg); background: linear-gradient(135deg, #e8f8f5 0%, #d5f4e6 100%); border-radius: var(--border-radius); border: 2px solid #00d4aa; margin-top: var(--spacing-md);">
-              <h3 style="color: #00875a; margin-bottom: var(--spacing-md); font-size: 1.5rem;">🎉 You're Registered!</h3>
-              <p style="color: var(--navy); font-weight: 600; margin-bottom: var(--spacing-lg);">Welcome to <strong>EXPANSION: LICENSE TO MULTIPLY MARKETS</strong></p>
-
-              <div style="background: white; padding: var(--spacing-md); border-radius: var(--border-radius); margin-bottom: var(--spacing-md); border-left: 4px solid var(--cyan);">
-                <h4 style="color: var(--navy); margin-bottom: var(--spacing-sm);">📅 Event Details</h4>
-                <p style="margin-bottom: var(--spacing-xs);"><strong>Date:</strong> ${data.event_date}</p>
-                <p style="margin-bottom: 0;"><strong>Time:</strong> ${data.event_time}</p>
-              </div>
-
-              <div style="background: white; padding: var(--spacing-md); border-radius: var(--border-radius); margin-bottom: var(--spacing-md); border-left: 4px solid var(--cyan);">
-                <h4 style="color: var(--navy); margin-bottom: var(--spacing-sm);">🔗 Zoom Meeting Info</h4>
-                <p style="margin-bottom: var(--spacing-sm);"><strong>Meeting Link:</strong></p>
-                <a href="${data.zoom_link}" target="_blank" style="display: inline-block; padding: var(--spacing-sm) var(--spacing-md); background: var(--cyan); color: white; border-radius: var(--border-radius); text-decoration: none; font-weight: 600; margin-bottom: var(--spacing-md);">Join Zoom Meeting</a>
-                <p style="margin-bottom: var(--spacing-xs); font-size: 0.9rem;"><strong>Meeting ID:</strong> ${data.meeting_id}</p>
-                <p style="margin-bottom: 0; font-size: 0.9rem;"><strong>Passcode:</strong> ${data.passcode}</p>
-              </div>
-
-              ${data.workbook_link ? `
-              <div style="background: white; padding: var(--spacing-md); border-radius: var(--border-radius); margin-bottom: var(--spacing-md); border-left: 4px solid var(--coral);">
-                <h4 style="color: var(--navy); margin-bottom: var(--spacing-sm);">📘 Session Workbook</h4>
-                <p style="margin-bottom: var(--spacing-sm);">Download the workbook to follow along:</p>
-                <a href="${data.workbook_link}" target="_blank" style="display: inline-block; padding: var(--spacing-sm) var(--spacing-md); background: var(--coral); color: white; border-radius: var(--border-radius); text-decoration: none; font-weight: 600;">Download Workbook</a>
-              </div>
-              ` : ''}
-
-              <p style="color: var(--gray); font-size: 0.9rem; font-style: italic; margin-top: var(--spacing-md); margin-bottom: 0;">A confirmation email with these details will be sent to <strong>${formData.email}</strong></p>
-            </div>
-          `;
-          successDiv.style.display = 'block';
-
-          // Scroll to success message
-          successDiv.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          // Redirect to dedicated thank you page
+          window.location.href = '/mastermind-registered';
         } else {
           alert(data.error || 'Registration failed. Please try again.');
           submitButton.textContent = originalButtonText;
