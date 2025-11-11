@@ -12,6 +12,7 @@ const adminRoutes = require('./server/routes/admin');
 const xeroRoutes = require('./server/routes/xero');
 const videoRoutes = require('./server/routes/videos');
 const mastermindRoutes = require('./server/routes/mastermind');
+const mastermindConfigRoutes = require('./server/routes/mastermind-config');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -49,6 +50,7 @@ app.use('/api/admin', adminRoutes);
 app.use('/api/xero', xeroRoutes);
 app.use('/api/videos', videoRoutes);
 app.use('/api/mastermind', mastermindRoutes);
+app.use('/api/mastermind', mastermindConfigRoutes);
 
 // Serve HTML pages
 app.get('/', (req, res) => {

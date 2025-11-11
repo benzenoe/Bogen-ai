@@ -1,8 +1,16 @@
 const express = require('express');
 const { body, validationResult } = require('express-validator');
 const { pool } = require('../config/database');
+const fs = require('fs');
+const path = require('path');
 
 const router = express.Router();
+
+// Helper function to load event config
+function getEventConfig() {
+  const configPath = path.join(__dirname, '../../config/mastermind-event.json');
+  return JSON.parse(fs.readFileSync(configPath, 'utf8'));
+}
 
 /**
  * POST /api/mastermind/register
@@ -34,8 +42,9 @@ router.post(
         how_heard
       } = req.body;
 
-      // Event date for this specific session
-      const eventDate = '2025-11-13';
+      // Load event config
+      const eventConfig = getEventConfig();
+      const eventDate = eventConfig.eventDate;
 
       // Check if already registered
       const existingRegistration = await pool.query(
@@ -47,11 +56,12 @@ router.post(
         return res.status(200).json({
           message: 'You are already registered for this event!',
           already_registered: true,
-          zoom_link: 'https://us02web.zoom.us/j/83924796230?pwd=5QfNlq7KIcxGOuXBtoaN1sWVWd8jnj.1',
-          meeting_id: '839 2479 6230',
-          passcode: '251112',
-          event_date: 'Wednesday, November 13, 2025',
-          event_time: '9:00-10:00 AM Eastern Time'
+          zoom_link: eventConfig.zoomLink,
+          meeting_id: eventConfig.meetingId,
+          passcode: eventConfig.passcode,
+          event_date: eventConfig.eventDateDisplay,
+          event_time: eventConfig.eventTime,
+          workbook_link: eventConfig.workbookLink
         });
       }
 
@@ -79,12 +89,12 @@ router.post(
       res.status(201).json({
         message: 'Registration successful! See your Zoom details below.',
         registration_id: registration.registration_id,
-        zoom_link: 'https://us02web.zoom.us/j/83924796230?pwd=5QfNlq7KIcxGOuXBtoaN1sWVWd8jnj.1',
-        meeting_id: '839 2479 6230',
-        passcode: '251112',
-        event_date: 'Wednesday, November 13, 2025',
-        event_time: '9:00-10:00 AM Eastern Time',
-        workbook_link: 'https://acrobat.adobe.com/id/urn:aaid:sc:us:6d9e36ea-0112-42f3-ac13-6957b050cfed'
+        zoom_link: eventConfig.zoomLink,
+        meeting_id: eventConfig.meetingId,
+        passcode: eventConfig.passcode,
+        event_date: eventConfig.eventDateDisplay,
+        event_time: eventConfig.eventTime,
+        workbook_link: eventConfig.workbookLink
       });
     } catch (error) {
       console.error('Mastermind registration error:', error);
