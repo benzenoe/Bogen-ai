@@ -279,6 +279,40 @@
     </div>
   </section>
 
+  <!-- Next Mastermind Countdown Section -->
+  <section class="section" style="background: linear-gradient(135deg, #1a2332 0%, #0d1623 100%); padding: var(--spacing-xl) 0;">
+    <div class="container text-center">
+      <div style="max-width: 800px; margin: 0 auto;">
+        <img src="/images/mastermind-expansion.png" alt="Edmund's Mastermind Expansion" style="width: 100%; max-width: 700px; border-radius: var(--border-radius); box-shadow: var(--shadow-lg); margin-bottom: var(--spacing-lg);">
+
+        <h2 style="color: var(--white); font-size: 2rem; margin-bottom: var(--spacing-md);"><strong>Our next mastermind will be</strong></h2>
+
+        <!-- Countdown Timer -->
+        <div id="mastermind-countdown" style="display: flex; justify-content: center; gap: var(--spacing-md); flex-wrap: wrap; margin: var(--spacing-lg) 0;">
+          <div class="countdown-box" style="background: rgba(255,255,255,0.1); backdrop-filter: blur(10px); padding: var(--spacing-md); border-radius: var(--border-radius); min-width: 100px; border: 2px solid var(--cyan);">
+            <div id="days" style="font-size: 3rem; font-weight: bold; color: var(--cyan); line-height: 1;">0</div>
+            <div style="color: rgba(255,255,255,0.8); font-size: 0.875rem; text-transform: uppercase; letter-spacing: 1px; margin-top: var(--spacing-xs);">Days</div>
+          </div>
+          <div class="countdown-box" style="background: rgba(255,255,255,0.1); backdrop-filter: blur(10px); padding: var(--spacing-md); border-radius: var(--border-radius); min-width: 100px; border: 2px solid var(--cyan);">
+            <div id="hours" style="font-size: 3rem; font-weight: bold; color: var(--cyan); line-height: 1;">0</div>
+            <div style="color: rgba(255,255,255,0.8); font-size: 0.875rem; text-transform: uppercase; letter-spacing: 1px; margin-top: var(--spacing-xs);">Hours</div>
+          </div>
+          <div class="countdown-box" style="background: rgba(255,255,255,0.1); backdrop-filter: blur(10px); padding: var(--spacing-md); border-radius: var(--border-radius); min-width: 100px; border: 2px solid var(--cyan);">
+            <div id="minutes" style="font-size: 3rem; font-weight: bold; color: var(--cyan); line-height: 1;">0</div>
+            <div style="color: rgba(255,255,255,0.8); font-size: 0.875rem; text-transform: uppercase; letter-spacing: 1px; margin-top: var(--spacing-xs);">Minutes</div>
+          </div>
+          <div class="countdown-box" style="background: rgba(255,255,255,0.1); backdrop-filter: blur(10px); padding: var(--spacing-md); border-radius: var(--border-radius); min-width: 100px; border: 2px solid var(--cyan);">
+            <div id="seconds" style="font-size: 3rem; font-weight: bold; color: var(--cyan); line-height: 1;">0</div>
+            <div style="color: rgba(255,255,255,0.8); font-size: 0.875rem; text-transform: uppercase; letter-spacing: 1px; margin-top: var(--spacing-xs);">Seconds</div>
+          </div>
+        </div>
+
+        <p style="color: rgba(255,255,255,0.9); font-size: 1.25rem; margin-top: var(--spacing-lg);">Wednesday, November 12, 2025 • 9:00 AM Eastern Time</p>
+        <a href="/edmunds-mastermind" class="btn btn-primary btn-lg" style="margin-top: var(--spacing-lg);">Learn More About Edmund's Mastermind</a>
+      </div>
+    </div>
+  </section>
+
   <!-- Introduction Section - Edmund -->
   <section class="section">
     <div class="container">
@@ -597,6 +631,47 @@
 
     // Update daily at midnight
     setInterval(updateCalendar, 86400000); // 24 hours in milliseconds
+  </script>
+
+  <!-- Mastermind Countdown Timer -->
+  <script>
+    function updateMastermindCountdown() {
+      // Set the target date: Wednesday, November 12, 2025 at 9:00 AM Eastern Time
+      // Eastern Time is UTC-5 (EST) or UTC-4 (EDT depending on daylight savings)
+      // November 12, 2025 is after DST ends (Nov 2, 2025), so it's EST (UTC-5)
+      const targetDate = new Date('2025-11-12T09:00:00-05:00');
+      const now = new Date();
+
+      // Calculate the difference in milliseconds
+      const difference = targetDate - now;
+
+      // If the countdown has ended
+      if (difference <= 0) {
+        document.getElementById('days').textContent = '0';
+        document.getElementById('hours').textContent = '0';
+        document.getElementById('minutes').textContent = '0';
+        document.getElementById('seconds').textContent = '0';
+        return;
+      }
+
+      // Calculate days, hours, minutes, and seconds
+      const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((difference % (1000 * 60)) / 1000);
+
+      // Update the DOM
+      document.getElementById('days').textContent = days;
+      document.getElementById('hours').textContent = hours.toString().padStart(2, '0');
+      document.getElementById('minutes').textContent = minutes.toString().padStart(2, '0');
+      document.getElementById('seconds').textContent = seconds.toString().padStart(2, '0');
+    }
+
+    // Update countdown immediately on page load
+    updateMastermindCountdown();
+
+    // Update countdown every second
+    setInterval(updateMastermindCountdown, 1000);
   </script>
 
 </body>
