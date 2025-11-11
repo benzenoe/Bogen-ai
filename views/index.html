@@ -347,39 +347,39 @@
 
         <!-- Right: Registration Form -->
         <div>
-          <div class="card" style="padding: var(--spacing-xl); border: 3px solid var(--cyan); box-shadow: 0 8px 24px rgba(0,212,255,0.15);">
-            <h3 style="color: var(--navy); margin-bottom: var(--spacing-sm); text-align: center;">Register for This Session</h3>
-            <p style="text-align: center; color: var(--gray); margin-bottom: var(--spacing-lg); font-size: 0.9rem;">Wednesday, November 13, 2025<br>9:00-10:00 AM Eastern</p>
+          <div class="card" style="padding: var(--spacing-xl); border: 3px solid var(--cyan); box-shadow: 0 8px 24px rgba(0,212,255,0.15); background: linear-gradient(135deg, #1a2332 0%, #0d1623 100%);">
+            <h3 style="color: white; margin-bottom: var(--spacing-sm); text-align: center;">Register for This Session</h3>
+            <p style="text-align: center; color: rgba(255,255,255,0.9); margin-bottom: var(--spacing-lg); font-size: 0.9rem;">Wednesday, November 13, 2025<br>9:00-10:00 AM Eastern</p>
 
             <form id="mastermind-registration-form">
               <div style="margin-bottom: var(--spacing-md);">
-                <label for="first_name" style="display: block; margin-bottom: var(--spacing-xs); font-weight: 600; color: var(--navy);">First Name <span style="color: var(--coral);">*</span></label>
-                <input type="text" id="first_name" name="first_name" required style="width: 100%; padding: var(--spacing-sm); border: 2px solid var(--light-gray); border-radius: var(--border-radius); font-size: 1rem;">
+                <label for="first_name" style="display: block; margin-bottom: var(--spacing-xs); font-weight: 600; color: white;">First Name <span style="color: var(--cyan);">*</span></label>
+                <input type="text" id="first_name" name="first_name" required style="width: 100%; padding: var(--spacing-sm); border: 2px solid var(--cyan); border-radius: var(--border-radius); font-size: 1rem; background: white; color: var(--navy);">
               </div>
 
               <div style="margin-bottom: var(--spacing-md);">
-                <label for="last_name" style="display: block; margin-bottom: var(--spacing-xs); font-weight: 600; color: var(--navy);">Last Name <span style="color: var(--coral);">*</span></label>
-                <input type="text" id="last_name" name="last_name" required style="width: 100%; padding: var(--spacing-sm); border: 2px solid var(--light-gray); border-radius: var(--border-radius); font-size: 1rem;">
+                <label for="last_name" style="display: block; margin-bottom: var(--spacing-xs); font-weight: 600; color: white;">Last Name <span style="color: var(--cyan);">*</span></label>
+                <input type="text" id="last_name" name="last_name" required style="width: 100%; padding: var(--spacing-sm); border: 2px solid var(--cyan); border-radius: var(--border-radius); font-size: 1rem; background: white; color: var(--navy);">
               </div>
 
               <div style="margin-bottom: var(--spacing-md);">
-                <label for="email" style="display: block; margin-bottom: var(--spacing-xs); font-weight: 600; color: var(--navy);">Email Address <span style="color: var(--coral);">*</span></label>
-                <input type="email" id="email" name="email" required style="width: 100%; padding: var(--spacing-sm); border: 2px solid var(--light-gray); border-radius: var(--border-radius); font-size: 1rem;">
+                <label for="email" style="display: block; margin-bottom: var(--spacing-xs); font-weight: 600; color: white;">Email Address <span style="color: var(--cyan);">*</span></label>
+                <input type="email" id="email" name="email" required style="width: 100%; padding: var(--spacing-sm); border: 2px solid var(--cyan); border-radius: var(--border-radius); font-size: 1rem; background: white; color: var(--navy);">
               </div>
 
               <div style="margin-bottom: var(--spacing-md);">
-                <label for="phone" style="display: block; margin-bottom: var(--spacing-xs); font-weight: 600; color: var(--navy);">Phone Number <span style="color: var(--gray); font-weight: 400; font-size: 0.875rem;">(optional)</span></label>
-                <input type="tel" id="phone" name="phone" style="width: 100%; padding: var(--spacing-sm); border: 2px solid var(--light-gray); border-radius: var(--border-radius); font-size: 1rem;">
+                <label for="phone" style="display: block; margin-bottom: var(--spacing-xs); font-weight: 600; color: white;">Phone Number <span style="color: rgba(255,255,255,0.7); font-weight: 400; font-size: 0.875rem;">(optional)</span></label>
+                <input type="tel" id="phone" name="phone" style="width: 100%; padding: var(--spacing-sm); border: 2px solid var(--cyan); border-radius: var(--border-radius); font-size: 1rem; background: white; color: var(--navy);">
               </div>
 
               <div style="margin-bottom: var(--spacing-md);">
-                <label for="company" style="display: block; margin-bottom: var(--spacing-xs); font-weight: 600; color: var(--navy);">Company/Brokerage <span style="color: var(--gray); font-weight: 400; font-size: 0.875rem;">(optional)</span></label>
-                <input type="text" id="company" name="company" style="width: 100%; padding: var(--spacing-sm); border: 2px solid var(--light-gray); border-radius: var(--border-radius); font-size: 1rem;">
+                <label for="company" style="display: block; margin-bottom: var(--spacing-xs); font-weight: 600; color: white;">Company/Brokerage <span style="color: rgba(255,255,255,0.7); font-weight: 400; font-size: 0.875rem;">(optional)</span></label>
+                <input type="text" id="company" name="company" style="width: 100%; padding: var(--spacing-sm); border: 2px solid var(--cyan); border-radius: var(--border-radius); font-size: 1rem; background: white; color: var(--navy);">
               </div>
 
               <div style="margin-bottom: var(--spacing-lg);">
-                <label for="how_heard" style="display: block; margin-bottom: var(--spacing-xs); font-weight: 600; color: var(--navy);">How did you hear about us? <span style="color: var(--gray); font-weight: 400; font-size: 0.875rem;">(optional)</span></label>
-                <select id="how_heard" name="how_heard" style="width: 100%; padding: var(--spacing-sm); border: 2px solid var(--light-gray); border-radius: var(--border-radius); font-size: 1rem;">
+                <label for="how_heard" style="display: block; margin-bottom: var(--spacing-xs); font-weight: 600; color: white;">How did you hear about us? <span style="color: rgba(255,255,255,0.7); font-weight: 400; font-size: 0.875rem;">(optional)</span></label>
+                <select id="how_heard" name="how_heard" style="width: 100%; padding: var(--spacing-sm); border: 2px solid var(--cyan); border-radius: var(--border-radius); font-size: 1rem; background: white; color: var(--navy);">
                   <option value="">Select an option</option>
                   <option value="REIGNation Member">REIGNation Member</option>
                   <option value="LinkedIn">LinkedIn</option>
