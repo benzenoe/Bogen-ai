@@ -443,6 +443,15 @@
       }
     }
 
+    // Check URL parameter on page load
+    window.addEventListener('DOMContentLoaded', function() {
+      const urlParams = new URLSearchParams(window.location.search);
+      const tab = urlParams.get('tab');
+      if (tab === 'partner') {
+        switchTab('partner');
+      }
+    });
+
     // Handle client inquiry form submission
     async function handleClientSubmit(event) {
       event.preventDefault();
