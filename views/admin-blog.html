@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Blog Management - Bogen.ai Admin</title>
+  <link rel="stylesheet" href="/css/global.css">
+  <style>
+    body {
+      background: linear-gradient(135deg, #0a1628 0%, #1a2942 100%);
+      color: white;
+      min-height: 100vh;
+    }
+
+    .admin-container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: var(--spacing-xl);
+    }
+
+    .admin-header {
+      margin-bottom: var(--spacing-xl);
+      padding-bottom: var(--spacing-md);
+      border-bottom: 2px solid rgba(0, 212, 255, 0.3);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .admin-header h1 {
+      color: var(--cyan);
+      margin-bottom: var(--spacing-sm);
+    }
+
+    .back-link {
+      color: var(--cyan);
+      text-decoration: none;
+    }
+
+    .back-link:hover {
+      text-decoration: underline;
+    }
+
+    .btn-primary {
+      background: var(--cyan);
+      color: white;
+      border: none;
+      padding: var(--spacing-sm) var(--spacing-lg);
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 1rem;
+      font-weight: 600;
+      transition: all 0.3s;
+    }
+
+    .btn-primary:hover {
+      background: #0090c8;
+    }
+
+    .btn-secondary {
+      background: transparent;
+      color: white;
+      border: 2px solid white;
+      padding: var(--spacing-sm) var(--spacing-md);
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 0.875rem;
+      transition: all 0.3s;
+    }
+
+    .btn-secondary:hover {
+      background: white;
+      color: var(--navy);
+    }
+
+    .btn-danger {
+      background: #d32f2f;
+      color: white;
+      border: none;
+      padding: var(--spacing-xs) var(--spacing-md);
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 0.875rem;
+    }
+
+    .btn-danger:hover {
+      background: #b71c1c;
+    }
+
+    .posts-list {
+      margin-top: var(--spacing-lg);
+    }
+
+    .post-card {
+      background: rgba(26, 58, 82, 0.6);
+      border: 1px solid rgba(100, 181, 246, 0.3);
+      border-radius: var(--border-radius);
+      padding: var(--spacing-md);
+      margin-bottom: var(--spacing-md);
+      display: flex;
+      justify-content: space-between;
+      align-items: start;
+    }
+
+    .post-info {
+      flex: 1;
+    }
+
+    .post-title {
+      color: var(--cyan);
+      font-size: 1.25rem;
+      margin-bottom: var(--spacing-xs);
+    }
+
+    .post-meta {
+      color: rgba(255, 255, 255, 0.6);
+      font-size: 0.875rem;
+      margin-bottom: var(--spacing-sm);
+    }
+
+    .post-status {
+      display: inline-block;
+      padding: 4px 12px;
+      border-radius: 12px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      margin-left: var(--spacing-sm);
+    }
+
+    .post-status.published {
+      background: rgba(76, 175, 80, 0.2);
+      color: #4caf50;
+    }
+
+    .post-status.draft {
+      background: rgba(255, 152, 0, 0.2);
+      color: #ff9800;
+    }
+
+    .post-actions {
+      display: flex;
+      gap: var(--spacing-sm);
+    }
+
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.8);
+      z-index: 1000;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .modal.active {
+      display: flex;
+    }
+
+    .modal-content {
+      background: #1a2942;
+      border: 1px solid rgba(100, 181, 246, 0.3);
+      border-radius: var(--border-radius);
+      padding: var(--spacing-xl);
+      max-width: 900px;
+      width: 90%;
+      max-height: 90vh;
+      overflow-y: auto;
+    }
+
+    .form-group {
+      margin-bottom: var(--spacing-md);
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: var(--spacing-xs);
+      color: var(--cyan);
+      font-weight: 600;
+    }
+
+    .form-group input,
+    .form-group textarea,
+    .form-group select {
+      width: 100%;
+      padding: var(--spacing-sm);
+      border: 1px solid rgba(100, 181, 246, 0.3);
+      border-radius: 4px;
+      background: rgba(255, 255, 255, 0.1);
+      color: white;
+      font-size: 1rem;
+    }
+
+    .form-group textarea {
+      min-height: 150px;
+      resize: vertical;
+      font-family: monospace;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--spacing-md);
+    }
+
+    .checkbox-group {
+      display: flex;
+      align-items: center;
+      gap: var(--spacing-sm);
+      flex-wrap: wrap;
+    }
+
+    .checkbox-group input[type="checkbox"] {
+      width: auto;
+    }
+
+    .modal-actions {
+      display: flex;
+      gap: var(--spacing-md);
+      margin-top: var(--spacing-lg);
+      padding-top: var(--spacing-md);
+      border-top: 1px solid rgba(100, 181, 246, 0.3);
+    }
+
+    .status-message {
+      padding: var(--spacing-md);
+      border-radius: 4px;
+      margin-bottom: var(--spacing-md);
+    }
+
+    .status-message.success {
+      background: rgba(76, 175, 80, 0.2);
+      border: 1px solid #4caf50;
+      color: #4caf50;
+    }
+
+    .status-message.error {
+      background: rgba(244, 67, 54, 0.2);
+      border: 1px solid #f44336;
+      color: #f44336;
+    }
+  </style>
+</head>
+<body>
+  <div class="admin-container">
+    <div class="admin-header">
+      <div>
+        <a href="/admin-content" class="back-link">← Back to Content Management</a>
+        <h1>Blog Management</h1>
+        <p style="color: rgba(255,255,255,0.7);">Create and manage blog posts</p>
+      </div>
+      <button class="btn-primary" onclick="openNewPostModal()">+ New Blog Post</button>
+    </div>
+
+    <div id="statusMessage"></div>
+
+    <div class="posts-list" id="posts-list">
+      <p style="text-align: center; color: rgba(255,255,255,0.5);">Loading posts...</p>
+    </div>
+  </div>
+
+  <!-- Edit Post Modal -->
+  <div class="modal" id="post-modal">
+    <div class="modal-content">
+      <h2 style="color: var(--cyan); margin-bottom: var(--spacing-md);" id="modal-title">New Blog Post</h2>
+
+      <form id="post-form">
+        <input type="hidden" id="post_id" name="post_id">
+
+        <div class="form-group">
+          <label for="title">Title *</label>
+          <input type="text" id="title" name="title" required>
+        </div>
+
+        <div class="form-group">
+          <label for="slug">Slug (URL) *</label>
+          <input type="text" id="slug" name="slug" required placeholder="my-blog-post-title">
+          <small style="color: rgba(255,255,255,0.5);">URL-friendly version (lowercase, hyphens, no spaces)</small>
+        </div>
+
+        <div class="form-group">
+          <label for="excerpt">Excerpt</label>
+          <textarea id="excerpt" name="excerpt" rows="3" placeholder="Brief summary for blog listing page"></textarea>
+        </div>
+
+        <div class="form-group">
+          <label for="content">Content (HTML) *</label>
+          <textarea id="content" name="content" rows="10" required placeholder="<h2>Your heading</h2><p>Your content...</p>"></textarea>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="author_name">Author</label>
+            <input type="text" id="author_name" name="author_name" value="Edmund Bogen">
+          </div>
+          <div class="form-group">
+            <label for="featured_image_url">Featured Image URL</label>
+            <input type="url" id="featured_image_url" name="featured_image_url">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="meta_description">Meta Description (SEO)</label>
+          <input type="text" id="meta_description" name="meta_description" maxlength="160" placeholder="160 characters max">
+        </div>
+
+        <div class="form-group">
+          <label>Categories</label>
+          <div class="checkbox-group" id="categories-list">
+            <!-- Populated dynamically -->
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="status">Status</label>
+          <select id="status" name="status">
+            <option value="draft">Draft</option>
+            <option value="published">Published</option>
+            <option value="archived">Archived</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <div class="checkbox-group">
+            <input type="checkbox" id="is_featured" name="is_featured">
+            <label for="is_featured" style="margin: 0; font-weight: normal;">Featured post (show on homepage)</label>
+          </div>
+        </div>
+
+        <div class="modal-actions">
+          <button type="submit" class="btn-primary">Save Post</button>
+          <button type="button" class="btn-secondary" onclick="closeModal()">Cancel</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    let categories = [];
+    let posts = [];
+
+    // Load posts and categories on page load
+    async function loadPosts() {
+      try {
+        const response = await fetch('/api/cms/blog/posts');
+        const data = await response.json();
+        posts = data.posts || [];
+        renderPosts();
+      } catch (error) {
+        console.error('Error loading posts:', error);
+        showMessage('Failed to load blog posts', 'error');
+      }
+    }
+
+    async function loadCategories() {
+      try {
+        const response = await fetch('/api/cms/blog/categories');
+        const data = await response.json();
+        categories = data.categories || [];
+      } catch (error) {
+        console.error('Error loading categories:', error);
+      }
+    }
+
+    function renderPosts() {
+      const container = document.getElementById('posts-list');
+
+      if (posts.length === 0) {
+        container.innerHTML = '<p style="text-align: center; color: rgba(255,255,255,0.5);">No blog posts yet. Click "New Blog Post" to create one!</p>';
+        return;
+      }
+
+      container.innerHTML = posts.map(post => `
+        <div class="post-card">
+          <div class="post-info">
+            <div class="post-title">${post.title}</div>
+            <div class="post-meta">
+              <span>${post.author_name || 'Edmund Bogen'}</span>
+              <span class="post-status ${post.status}">${post.status}</span>
+              <br><small>${new Date(post.created_at).toLocaleDateString()}</small>
+            </div>
+            ${post.excerpt ? `<p style="color: rgba(255,255,255,0.7); margin-top: var(--spacing-xs);">${post.excerpt.substring(0, 150)}...</p>` : ''}
+          </div>
+          <div class="post-actions">
+            <button class="btn-secondary" onclick="editPost(${post.post_id})">Edit</button>
+            <button class="btn-secondary" onclick="viewPost('${post.slug}')">View</button>
+            <button class="btn-danger" onclick="deletePost(${post.post_id}, '${post.title.replace(/'/g, "\\'")}')">Delete</button>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function openNewPostModal() {
+      document.getElementById('modal-title').textContent = 'New Blog Post';
+      document.getElementById('post-form').reset();
+      document.getElementById('post_id').value = '';
+      renderCategoriesCheckboxes([]);
+      document.getElementById('post-modal').classList.add('active');
+    }
+
+    async function editPost(postId) {
+      try {
+        const response = await fetch(`/api/cms/blog/posts/${postId}`);
+        const data = await response.json();
+        const post = data.post;
+
+        document.getElementById('modal-title').textContent = 'Edit Blog Post';
+        document.getElementById('post_id').value = post.post_id;
+        document.getElementById('title').value = post.title;
+        document.getElementById('slug').value = post.slug;
+        document.getElementById('excerpt').value = post.excerpt || '';
+        document.getElementById('content').value = post.content || '';
+        document.getElementById('author_name').value = post.author_name || '';
+        document.getElementById('featured_image_url').value = post.featured_image_url || '';
+        document.getElementById('meta_description').value = post.meta_description || '';
+        document.getElementById('status').value = post.status;
+        document.getElementById('is_featured').checked = post.is_featured;
+
+        const categoryIds = post.categories.map(c => c.id);
+        renderCategoriesCheckboxes(categoryIds);
+
+        document.getElementById('post-modal').classList.add('active');
+      } catch (error) {
+        console.error('Error loading post:', error);
+        showMessage('Failed to load post', 'error');
+      }
+    }
+
+    function viewPost(slug) {
+      window.open(`/blog/${slug}`, '_blank');
+    }
+
+    async function deletePost(postId, title) {
+      if (!confirm(`Are you sure you want to delete "${title}"?`)) return;
+
+      try {
+        const response = await fetch(`/api/cms/blog/posts/${postId}`, {
+          method: 'DELETE'
+        });
+
+        if (response.ok) {
+          showMessage('Post deleted successfully', 'success');
+          loadPosts();
+        } else {
+          throw new Error('Failed to delete post');
+        }
+      } catch (error) {
+        console.error('Error deleting post:', error);
+        showMessage('Failed to delete post', 'error');
+      }
+    }
+
+    function closeModal() {
+      document.getElementById('post-modal').classList.remove('active');
+    }
+
+    function renderCategoriesCheckboxes(selectedIds) {
+      const container = document.getElementById('categories-list');
+      container.innerHTML = categories.map(cat => `
+        <label style="display: flex; align-items: center; gap: 4px; margin-right: var(--spacing-md);">
+          <input type="checkbox" name="category" value="${cat.category_id}" ${selectedIds.includes(cat.category_id) ? 'checked' : ''}>
+          <span style="font-weight: normal;">${cat.name}</span>
+        </label>
+      `).join('');
+    }
+
+    function showMessage(message, type) {
+      const msgDiv = document.getElementById('statusMessage');
+      msgDiv.innerHTML = `<div class="status-message ${type}">${message}</div>`;
+      setTimeout(() => msgDiv.innerHTML = '', 5000);
+    }
+
+    // Auto-generate slug from title
+    document.getElementById('title').addEventListener('input', (e) => {
+      if (!document.getElementById('post_id').value) { // Only for new posts
+        const slug = e.target.value
+          .toLowerCase()
+          .replace(/[^a-z0-9]+/g, '-')
+          .replace(/^-|-$/g, '');
+        document.getElementById('slug').value = slug;
+      }
+    });
+
+    // Save post form
+    document.getElementById('post-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const postId = document.getElementById('post_id').value;
+      const selectedCategories = Array.from(document.querySelectorAll('input[name="category"]:checked'))
+        .map(cb => parseInt(cb.value));
+
+      const formData = {
+        title: document.getElementById('title').value,
+        slug: document.getElementById('slug').value,
+        excerpt: document.getElementById('excerpt').value,
+        content: document.getElementById('content').value,
+        author_name: document.getElementById('author_name').value,
+        featured_image_url: document.getElementById('featured_image_url').value,
+        meta_description: document.getElementById('meta_description').value,
+        status: document.getElementById('status').value,
+        is_featured: document.getElementById('is_featured').checked,
+        categories: selectedCategories
+      };
+
+      try {
+        let response;
+        if (postId) {
+          response = await fetch(`/api/cms/blog/posts/${postId}`, {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(formData)
+          });
+        } else {
+          response = await fetch('/api/cms/blog/posts', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(formData)
+          });
+        }
+
+        if (response.ok) {
+          showMessage('Blog post saved successfully!', 'success');
+          closeModal();
+          loadPosts();
+        } else {
+          const data = await response.json();
+          throw new Error(data.error || 'Failed to save post');
+        }
+      } catch (error) {
+        console.error('Error saving post:', error);
+        showMessage(error.message, 'error');
+      }
+    });
+
+    // Close modal on outside click
+    document.getElementById('post-modal').addEventListener('click', (e) => {
+      if (e.target === e.currentTarget) {
+        closeModal();
+      }
+    });
+
+    // Load data on page load
+    loadCategories().then(() => {
+      loadPosts();
+    });
+  </script>
+</body>
+</html>

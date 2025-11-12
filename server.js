@@ -14,6 +14,7 @@ const videoRoutes = require('./server/routes/videos');
 const mastermindRoutes = require('./server/routes/mastermind');
 const mastermindConfigRoutes = require('./server/routes/mastermind-config');
 const cmsRoutes = require('./server/routes/cms');
+const blogRoutes = require('./server/routes/blog');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -53,6 +54,7 @@ app.use('/api/videos', videoRoutes);
 app.use('/api/mastermind', mastermindRoutes);
 app.use('/api/mastermind', mastermindConfigRoutes);
 app.use('/api/cms', cmsRoutes);
+app.use('/api/blog', blogRoutes);
 
 // Serve HTML pages
 app.get('/', (req, res) => {
@@ -102,6 +104,18 @@ app.get('/admin-dashboard', (req, res) => {
 
 app.get('/admin-content', (req, res) => {
   res.sendFile(path.join(__dirname, 'views', 'admin-content.html'));
+});
+
+app.get('/admin-blog', (req, res) => {
+  res.sendFile(path.join(__dirname, 'views', 'admin-blog.html'));
+});
+
+app.get('/blog', (req, res) => {
+  res.sendFile(path.join(__dirname, 'views', 'blog.html'));
+});
+
+app.get('/blog/:slug', (req, res) => {
+  res.sendFile(path.join(__dirname, 'views', 'blog-post.html'));
 });
 
 app.get('/video-archive', (req, res) => {

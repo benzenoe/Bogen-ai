@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title id="page-title">Blog Post - Bogen.ai</title>
+  <meta name="description" id="page-description" content="">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/global.css">
+  <style>
+    .blog-content {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .blog-content h2 {
+      margin-top: var(--spacing-xl);
+      margin-bottom: var(--spacing-md);
+      color: var(--navy);
+    }
+
+    .blog-content h3 {
+      margin-top: var(--spacing-lg);
+      margin-bottom: var(--spacing-sm);
+      color: var(--navy);
+    }
+
+    .blog-content p {
+      margin-bottom: var(--spacing-md);
+      line-height: 1.7;
+    }
+
+    .blog-content ul, .blog-content ol {
+      margin-bottom: var(--spacing-md);
+      padding-left: var(--spacing-xl);
+    }
+
+    .blog-content li {
+      margin-bottom: var(--spacing-sm);
+      line-height: 1.7;
+    }
+
+    .blog-meta {
+      color: var(--gray);
+      margin-bottom: var(--spacing-xl);
+      padding-bottom: var(--spacing-md);
+      border-bottom: 2px solid var(--light-gray);
+    }
+
+    .featured-image {
+      width: 100%;
+      max-height: 500px;
+      object-fit: cover;
+      border-radius: var(--border-radius);
+      margin-bottom: var(--spacing-lg);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="header">
+    <div class="container">
+      <nav class="nav">
+        <a href="/" class="logo">bogen<span>.ai</span></a>
+
+        <ul class="nav-menu">
+          <li><a href="/" class="nav-link">Home</a></li>
+          <li><a href="/about-us" class="nav-link">About Us</a></li>
+          <li><a href="#services" class="nav-link">Services</a></li>
+          <li><a href="/partner-program" class="nav-link">Partnership</a></li>
+          <li><a href="/edmunds-mastermind" class="nav-link">Edmund's Mastermind</a></li>
+          <li><a href="/blog" class="nav-link active">Blog</a></li>
+          <li><a href="/contact" class="btn btn-primary btn-sm">Get Started</a></li>
+        </ul>
+        <button class="nav-toggle" type="button" aria-label="Toggle navigation" onclick="window.bogenAI.toggleMobileMenu()">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Blog Post Content -->
+  <section class="section">
+    <div class="container">
+      <div class="blog-content" id="blog-content">
+        <p style="text-align: center; color: var(--gray);">Loading post...</p>
+      </div>
+
+      <div style="text-align: center; margin-top: var(--spacing-xxl);">
+        <a href="/blog" class="btn btn-secondary">← Back to Blog</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-column">
+          <h4>About</h4>
+          <ul class="footer-links">
+            <li><a href="/about-us">About Us</a></li>
+            <li><a href="/blog">Blog</a></li>
+            <li><a href="/contact">Contact Us</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-column">
+          <h4>Services</h4>
+          <ul class="footer-links">
+            <li><a href="/services/communication-customer-interaction">Communication & Customer</a></li>
+            <li><a href="/services/sales-revenue-generation">Sales & Revenue</a></li>
+            <li><a href="/services/operations-workflow">Operations & Workflow</a></li>
+            <li><a href="/services/marketing-content">Marketing & Content</a></li>
+            <li><a href="/services/industry-specific-premium">Industry-Specific</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-column">
+          <h4>Partner Program</h4>
+          <ul class="footer-links">
+            <li><a href="/partner-program">How It Works</a></li>
+            <li><a href="/partner-portal">Partner Login</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-column">
+          <h4>Legal</h4>
+          <ul class="footer-links">
+            <li><a href="/privacy">Privacy Policy</a></li>
+            <li><a href="/terms">Terms of Service</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p>© 2025 Bogen.ai. All rights reserved.</p>
+        <p>Miami Beach, FL | <a href="mailto:info@bogen.ai">info@bogen.ai</a></p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="/js/common.js"></script>
+  <script>
+    async function loadBlogPost() {
+      // Get slug from URL
+      const pathParts = window.location.pathname.split('/');
+      const slug = pathParts[pathParts.length - 1];
+
+      try {
+        const response = await fetch(`/api/blog/posts/${slug}`);
+
+        if (!response.ok) {
+          throw new Error('Post not found');
+        }
+
+        const data = await response.json();
+        const post = data.post;
+
+        // Update page title and meta
+        document.getElementById('page-title').textContent = `${post.title} - Bogen.ai Blog`;
+        if (post.meta_description) {
+          document.getElementById('page-description').setAttribute('content', post.meta_description);
+        }
+
+        // Render post
+        const container = document.getElementById('blog-content');
+        container.innerHTML = `
+          ${post.featured_image_url ? `<img src="${post.featured_image_url}" alt="${post.title}" class="featured-image">` : ''}
+
+          <h1>${post.title}</h1>
+
+          <div class="blog-meta">
+            <p class="text-small">
+              By ${post.author_name || 'Edmund Bogen'} • ${new Date(post.published_at).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}
+            </p>
+          </div>
+
+          <div>
+            ${post.content}
+          </div>
+        `;
+      } catch (error) {
+        console.error('Error loading blog post:', error);
+        document.getElementById('blog-content').innerHTML = `
+          <h1>Post Not Found</h1>
+          <p>Sorry, this blog post could not be found.</p>
+          <p><a href="/blog" class="btn btn-primary">View All Posts</a></p>
+        `;
+      }
+    }
+
+    // Load post on page load
+    loadBlogPost();
+  </script>
+</body>
+</html>

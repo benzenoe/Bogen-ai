@@ -321,4 +321,235 @@ router.put('/content/bulk', async (req, res) => {
   }
 });
 
+// ============================================
+// BLOG ENDPOINTS
+// ============================================
+
+/**
+ * GET /api/cms/blog/posts
+ * Get all blog posts (admin view)
+ */
+router.get('/blog/posts', async (req, res) => {
+  try {
+    const page = parseInt(req.query.page) || 1;
+    const limit = parseInt(req.query.limit) || 20;
+    const offset = (page - 1) * limit;
+    const status = req.query.status; // filter by status
+
+    let query = `
+      SELECT p.*, COALESCE(json_agg(
+        json_build_object('id', c.category_id, 'name', c.name, 'slug', c.slug)
+      ) FILTER (WHERE c.category_id IS NOT NULL), '[]') as categories
+      FROM blog_posts p
+      LEFT JOIN blog_post_categories pc ON p.post_id = pc.post_id
+      LEFT JOIN blog_categories c ON pc.category_id = c.category_id
+    `;
+
+    const params = [];
+    if (status) {
+      query += ' WHERE p.status = $1';
+      params.push(status);
+    }
+
+    query += ' GROUP BY p.post_id ORDER BY p.created_at DESC LIMIT $' + (params.length + 1) + ' OFFSET $' + (params.length + 2);
+    params.push(limit, offset);
+
+    const result = await pool.query(query, params);
+    const countResult = await pool.query('SELECT COUNT(*) FROM blog_posts' + (status ? ' WHERE status = $1' : ''), status ? [status] : []);
+
+    res.json({
+      posts: result.rows,
+      total: parseInt(countResult.rows[0].count),
+      page,
+      pages: Math.ceil(parseInt(countResult.rows[0].count) / limit)
+    });
+  } catch (error) {
+    console.error('Get blog posts error:', error);
+    res.status(500).json({ error: 'Failed to load blog posts' });
+  }
+});
+
+/**
+ * GET /api/cms/blog/posts/:id
+ * Get single blog post
+ */
+router.get('/blog/posts/:id', async (req, res) => {
+  try {
+    const result = await pool.query(`
+      SELECT p.*, COALESCE(json_agg(
+        json_build_object('id', c.category_id, 'name', c.name, 'slug', c.slug)
+      ) FILTER (WHERE c.category_id IS NOT NULL), '[]') as categories
+      FROM blog_posts p
+      LEFT JOIN blog_post_categories pc ON p.post_id = pc.post_id
+      LEFT JOIN blog_categories c ON pc.category_id = c.category_id
+      WHERE p.post_id = $1
+      GROUP BY p.post_id
+    `, [req.params.id]);
+
+    if (result.rows.length === 0) {
+      return res.status(404).json({ error: 'Post not found' });
+    }
+
+    res.json({ post: result.rows[0] });
+  } catch (error) {
+    console.error('Get blog post error:', error);
+    res.status(500).json({ error: 'Failed to load blog post' });
+  }
+});
+
+/**
+ * POST /api/cms/blog/posts
+ * Create new blog post
+ */
+router.post('/blog/posts', [
+  body('title').trim().notEmpty().withMessage('Title is required'),
+  body('slug').trim().notEmpty().withMessage('Slug is required'),
+  body('content').trim().notEmpty().withMessage('Content is required')
+], async (req, res) => {
+  try {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.array() });
+    }
+
+    const {
+      title, slug, excerpt, content, featured_image_url, author_name,
+      meta_description, meta_keywords, status, is_featured, categories
+    } = req.body;
+
+    const published_at = status === 'published' ? new Date() : null;
+
+    const result = await pool.query(`
+      INSERT INTO blog_posts (
+        title, slug, excerpt, content, featured_image_url, author_name,
+        meta_description, meta_keywords, status, is_featured, published_at
+      ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)
+      RETURNING post_id
+    `, [
+      title, slug, excerpt, content, featured_image_url, author_name || 'Edmund Bogen',
+      meta_description, meta_keywords, status || 'draft', is_featured === true, published_at
+    ]);
+
+    const post_id = result.rows[0].post_id;
+
+    // Add categories if provided
+    if (categories && Array.isArray(categories) && categories.length > 0) {
+      for (const category_id of categories) {
+        await pool.query(
+          'INSERT INTO blog_post_categories (post_id, category_id) VALUES ($1, $2) ON CONFLICT DO NOTHING',
+          [post_id, category_id]
+        );
+      }
+    }
+
+    res.json({ post_id, message: 'Blog post created successfully' });
+  } catch (error) {
+    console.error('Create blog post error:', error);
+    if (error.code === '23505') { // Unique violation
+      return res.status(400).json({ error: 'Slug already exists' });
+    }
+    res.status(500).json({ error: 'Failed to create blog post' });
+  }
+});
+
+/**
+ * PUT /api/cms/blog/posts/:id
+ * Update blog post
+ */
+router.put('/blog/posts/:id', async (req, res) => {
+  try {
+    const {
+      title, slug, excerpt, content, featured_image_url, author_name,
+      meta_description, meta_keywords, status, is_featured, categories
+    } = req.body;
+
+    // If changing to published and no published_at, set it now
+    let published_at_update = '';
+    if (status === 'published') {
+      published_at_update = ', published_at = COALESCE(published_at, CURRENT_TIMESTAMP)';
+    }
+
+    const result = await pool.query(`
+      UPDATE blog_posts SET
+        title = COALESCE($1, title),
+        slug = COALESCE($2, slug),
+        excerpt = $3,
+        content = COALESCE($4, content),
+        featured_image_url = $5,
+        author_name = COALESCE($6, author_name),
+        meta_description = $7,
+        meta_keywords = $8,
+        status = COALESCE($9, status),
+        is_featured = COALESCE($10, is_featured),
+        updated_at = CURRENT_TIMESTAMP
+        ${published_at_update}
+      WHERE post_id = $11
+      RETURNING post_id
+    `, [
+      title, slug, excerpt, content, featured_image_url, author_name,
+      meta_description, meta_keywords, status, is_featured,
+      req.params.id
+    ]);
+
+    if (result.rows.length === 0) {
+      return res.status(404).json({ error: 'Post not found' });
+    }
+
+    // Update categories if provided
+    if (categories && Array.isArray(categories)) {
+      await pool.query('DELETE FROM blog_post_categories WHERE post_id = $1', [req.params.id]);
+      for (const category_id of categories) {
+        await pool.query(
+          'INSERT INTO blog_post_categories (post_id, category_id) VALUES ($1, $2) ON CONFLICT DO NOTHING',
+          [req.params.id, category_id]
+        );
+      }
+    }
+
+    res.json({ message: 'Blog post updated successfully' });
+  } catch (error) {
+    console.error('Update blog post error:', error);
+    if (error.code === '23505') {
+      return res.status(400).json({ error: 'Slug already exists' });
+    }
+    res.status(500).json({ error: 'Failed to update blog post' });
+  }
+});
+
+/**
+ * DELETE /api/cms/blog/posts/:id
+ * Delete blog post
+ */
+router.delete('/blog/posts/:id', async (req, res) => {
+  try {
+    const result = await pool.query(
+      'DELETE FROM blog_posts WHERE post_id = $1 RETURNING post_id',
+      [req.params.id]
+    );
+
+    if (result.rows.length === 0) {
+      return res.status(404).json({ error: 'Post not found' });
+    }
+
+    res.json({ message: 'Blog post deleted successfully' });
+  } catch (error) {
+    console.error('Delete blog post error:', error);
+    res.status(500).json({ error: 'Failed to delete blog post' });
+  }
+});
+
+/**
+ * GET /api/cms/blog/categories
+ * Get all blog categories
+ */
+router.get('/blog/categories', async (req, res) => {
+  try {
+    const result = await pool.query('SELECT * FROM blog_categories ORDER BY display_order, name');
+    res.json({ categories: result.rows });
+  } catch (error) {
+    console.error('Get categories error:', error);
+    res.status(500).json({ error: 'Failed to load categories' });
+  }
+});
+
 module.exports = router;
