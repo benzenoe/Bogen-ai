@@ -105,35 +105,48 @@
     }
 
     .benefits-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: var(--spacing-xl);
+      display: flex;
+      flex-direction: column;
+      gap: var(--spacing-lg);
       margin-top: var(--spacing-xl);
+      max-width: 1000px;
+      margin-left: auto;
+      margin-right: auto;
     }
 
     .benefit-card {
-      background: rgba(26, 58, 82, 0.6);
-      border: 1px solid rgba(100, 181, 246, 0.3);
+      background: linear-gradient(135deg, rgba(26, 58, 82, 0.8) 0%, rgba(26, 58, 82, 0.6) 100%);
+      border: 2px solid rgba(100, 181, 246, 0.3);
       border-radius: var(--border-radius);
       padding: var(--spacing-xl);
       transition: all var(--transition-smooth);
+      display: flex;
+      align-items: flex-start;
+      gap: var(--spacing-lg);
     }
 
     .benefit-card:hover {
       border-color: var(--cyan);
-      box-shadow: 0 8px 24px rgba(100, 181, 246, 0.15);
-      transform: translateY(-4px);
+      box-shadow: 0 8px 24px rgba(100, 181, 246, 0.2);
+      transform: translateX(8px);
     }
 
-    .benefit-card h3 {
+    .benefit-card .icon {
+      font-size: 2.5rem;
+      min-width: 60px;
+      text-align: center;
+    }
+
+    .benefit-card .content h3 {
       font-size: 1.5rem;
-      margin-bottom: var(--spacing-md);
+      margin-bottom: var(--spacing-sm);
       color: var(--cyan);
     }
 
-    .benefit-card p {
-      color: rgba(255, 255, 255, 0.8);
+    .benefit-card .content p {
+      color: rgba(255, 255, 255, 0.85);
       line-height: 1.7;
+      font-size: 1.05rem;
     }
 
     .features-list {
@@ -266,20 +279,29 @@
         <div class="benefits-grid">
           <!-- Benefit 1 -->
           <div class="benefit-card">
-            <h3>AI-Powered Competitive Advantage</h3>
-            <p>You'll learn to implement practical AI tools that your competitors don't know exist. From automated multilingual client communication to AI-driven market analysis, you'll discover how to work smarter while building deeper relationships. Edmund provides step-by-step implementation guides, custom prompts, and hands-on training that turns AI from buzzword to business asset.</p>
+            <div class="icon">🤖</div>
+            <div class="content">
+              <h3>AI-Powered Competitive Advantage</h3>
+              <p>You'll learn to implement practical AI tools that your competitors don't know exist. From automated multilingual client communication to AI-driven market analysis, you'll discover how to work smarter while building deeper relationships. Edmund provides step-by-step implementation guides, custom prompts, and hands-on training that turns AI from buzzword to business asset.</p>
+            </div>
           </div>
 
           <!-- Benefit 2 -->
           <div class="benefit-card">
-            <h3>Real-World Luxury Market Expertise</h3>
-            <p>Drawing from his success in South Florida's luxury markets and experience scaling a PR company from solo practice to 30+ employees, Edmund shares battle-tested strategies for high-net-worth client acquisition, country club networking, and estate-level transactions. You get access to the exact systems he uses to close deals in Miami Beach, Boca Raton, and Palm Beach's most exclusive communities.</p>
+            <div class="icon">🏆</div>
+            <div class="content">
+              <h3>Real-World Luxury Market Expertise</h3>
+              <p>Drawing from his success in South Florida's luxury markets and experience scaling a PR company from solo practice to 30+ employees, Edmund shares battle-tested strategies for high-net-worth client acquisition, country club networking, and estate-level transactions. You get access to the exact systems he uses to close deals in Miami Beach, Boca Raton, and Palm Beach's most exclusive communities.</p>
+            </div>
           </div>
 
           <!-- Benefit 3 -->
           <div class="benefit-card">
-            <h3>Elite Peer Network</h3>
-            <p>Connect with 200+ top-producing agents nationwide who are implementing the same strategies. This isn't networking for networking's sake—it's a community of operators who share what's working, hold each other accountable, and create partnership opportunities across markets.</p>
+            <div class="icon">🤝</div>
+            <div class="content">
+              <h3>Elite Peer Network</h3>
+              <p>Connect with 200+ top-producing agents nationwide who are implementing the same strategies. This isn't networking for networking's sake—it's a community of operators who share what's working, hold each other accountable, and create partnership opportunities across markets.</p>
+            </div>
           </div>
         </div>
       </div>
