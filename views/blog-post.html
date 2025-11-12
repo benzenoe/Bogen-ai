@@ -11,31 +11,44 @@
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/css/global.css">
   <style>
+    /* Blog section with light background for readability */
+    .section.blog-section {
+      background: #ffffff;
+    }
+
     .blog-content {
       max-width: 800px;
       margin: 0 auto;
+      background: #ffffff;
+      padding: var(--spacing-xl);
+      border-radius: var(--border-radius);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
     }
 
     .blog-content h1 {
       color: var(--navy);
+      font-weight: 600;
     }
 
     .blog-content h2 {
       margin-top: var(--spacing-xl);
       margin-bottom: var(--spacing-md);
       color: var(--navy);
+      font-weight: 600;
     }
 
     .blog-content h3 {
       margin-top: var(--spacing-lg);
       margin-bottom: var(--spacing-sm);
       color: var(--navy);
+      font-weight: 600;
     }
 
     .blog-content p {
       margin-bottom: var(--spacing-md);
-      line-height: 1.7;
+      line-height: 1.8;
       color: #2d3748;
+      font-size: 1.0625rem;
     }
 
     .blog-content ul, .blog-content ol {
@@ -46,15 +59,21 @@
 
     .blog-content li {
       margin-bottom: var(--spacing-sm);
-      line-height: 1.7;
+      line-height: 1.8;
       color: #2d3748;
+      font-size: 1.0625rem;
+    }
+
+    .blog-content strong {
+      color: #1a2332;
+      font-weight: 600;
     }
 
     .blog-meta {
-      color: var(--gray);
+      color: #666666;
       margin-bottom: var(--spacing-xl);
       padding-bottom: var(--spacing-md);
-      border-bottom: 2px solid var(--light-gray);
+      border-bottom: 2px solid #E0E0E0;
     }
 
     .featured-image {
@@ -63,6 +82,19 @@
       object-fit: cover;
       border-radius: var(--border-radius);
       margin-bottom: var(--spacing-lg);
+      box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Back button styling for light background */
+    .blog-back-section {
+      background: #ffffff;
+      padding-bottom: var(--spacing-xl);
+    }
+
+    @media (max-width: 768px) {
+      .blog-content {
+        padding: var(--spacing-md);
+      }
     }
   </style>
 </head>
@@ -94,13 +126,18 @@
   </header>
 
   <!-- Blog Post Content -->
-  <section class="section">
+  <section class="section blog-section">
     <div class="container">
       <div class="blog-content" id="blog-content">
-        <p style="text-align: center; color: var(--gray);">Loading post...</p>
+        <p style="text-align: center; color: #666666;">Loading post...</p>
       </div>
+    </div>
+  </section>
 
-      <div style="text-align: center; margin-top: var(--spacing-xxl);">
+  <!-- Back Button Section -->
+  <section class="blog-back-section">
+    <div class="container">
+      <div style="text-align: center;">
         <a href="/blog" class="btn btn-secondary">← Back to Blog</a>
       </div>
     </div>
