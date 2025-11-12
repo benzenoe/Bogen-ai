@@ -1,0 +1,630 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Content Management - Bogen.ai Admin</title>
+  <link rel="stylesheet" href="/css/global.css">
+  <style>
+    body {
+      background: linear-gradient(135deg, #0a1628 0%, #1a2942 100%);
+      color: white;
+      min-height: 100vh;
+    }
+
+    .admin-container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: var(--spacing-xl);
+    }
+
+    .admin-header {
+      margin-bottom: var(--spacing-xl);
+      padding-bottom: var(--spacing-md);
+      border-bottom: 2px solid rgba(0, 212, 255, 0.3);
+    }
+
+    .admin-header h1 {
+      color: var(--cyan);
+      margin-bottom: var(--spacing-sm);
+    }
+
+    .tabs {
+      display: flex;
+      gap: var(--spacing-md);
+      margin-bottom: var(--spacing-xl);
+      border-bottom: 2px solid rgba(0, 212, 255, 0.2);
+    }
+
+    .tab-btn {
+      background: transparent;
+      border: none;
+      padding: var(--spacing-sm) var(--spacing-md);
+      color: rgba(255, 255, 255, 0.6);
+      cursor: pointer;
+      transition: all 0.3s;
+      border-bottom: 3px solid transparent;
+      margin-bottom: -2px;
+      font-size: 1rem;
+      font-weight: 500;
+    }
+
+    .tab-btn.active {
+      color: var(--cyan);
+      border-bottom-color: var(--cyan);
+    }
+
+    .tab-btn:hover {
+      color: var(--white);
+    }
+
+    .tab-panel {
+      display: none;
+    }
+
+    .tab-panel.active {
+      display: block;
+    }
+
+    .card {
+      background: rgba(26, 58, 82, 0.6);
+      border: 1px solid rgba(100, 181, 246, 0.3);
+      border-radius: var(--border-radius);
+      padding: var(--spacing-lg);
+      margin-bottom: var(--spacing-md);
+    }
+
+    .form-group {
+      margin-bottom: var(--spacing-md);
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: var(--spacing-xs);
+      color: var(--cyan);
+      font-weight: 600;
+    }
+
+    .form-group input,
+    .form-group textarea,
+    .form-group select {
+      width: 100%;
+      padding: var(--spacing-sm);
+      border: 1px solid rgba(100, 181, 246, 0.3);
+      border-radius: 4px;
+      background: rgba(255, 255, 255, 0.1);
+      color: white;
+      font-size: 1rem;
+    }
+
+    .form-group textarea {
+      min-height: 100px;
+      resize: vertical;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--spacing-md);
+    }
+
+    .checkbox-group {
+      display: flex;
+      align-items: center;
+      gap: var(--spacing-sm);
+    }
+
+    .checkbox-group input[type="checkbox"] {
+      width: auto;
+    }
+
+    .list-editor {
+      border: 1px solid rgba(100, 181, 246, 0.3);
+      border-radius: 4px;
+      padding: var(--spacing-md);
+      background: rgba(0, 0, 0, 0.2);
+    }
+
+    .list-item {
+      display: flex;
+      gap: var(--spacing-sm);
+      margin-bottom: var(--spacing-sm);
+    }
+
+    .list-item input {
+      flex: 1;
+    }
+
+    .list-item button {
+      background: #d32f2f;
+      color: white;
+      border: none;
+      padding: var(--spacing-xs) var(--spacing-sm);
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 0.875rem;
+    }
+
+    .btn-add {
+      background: var(--cyan);
+      color: white;
+      border: none;
+      padding: var(--spacing-xs) var(--spacing-md);
+      border-radius: 4px;
+      cursor: pointer;
+      margin-top: var(--spacing-sm);
+    }
+
+    .btn-add:hover {
+      background: #0090c8;
+    }
+
+    .actions {
+      display: flex;
+      gap: var(--spacing-md);
+      margin-top: var(--spacing-lg);
+      padding-top: var(--spacing-md);
+      border-top: 1px solid rgba(100, 181, 246, 0.3);
+    }
+
+    .btn-primary {
+      background: var(--cyan);
+      color: white;
+      border: none;
+      padding: var(--spacing-sm) var(--spacing-lg);
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 1rem;
+      font-weight: 600;
+      transition: all 0.3s;
+    }
+
+    .btn-primary:hover {
+      background: #0090c8;
+    }
+
+    .btn-secondary {
+      background: transparent;
+      color: white;
+      border: 2px solid white;
+      padding: var(--spacing-sm) var(--spacing-lg);
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 1rem;
+      font-weight: 600;
+      transition: all 0.3s;
+    }
+
+    .btn-secondary:hover {
+      background: white;
+      color: var(--navy);
+    }
+
+    .status-message {
+      padding: var(--spacing-md);
+      border-radius: 4px;
+      margin-bottom: var(--spacing-md);
+    }
+
+    .status-message.success {
+      background: rgba(76, 175, 80, 0.2);
+      border: 1px solid #4caf50;
+      color: #4caf50;
+    }
+
+    .status-message.error {
+      background: rgba(244, 67, 54, 0.2);
+      border: 1px solid #f44336;
+      color: #f44336;
+    }
+
+    .back-link {
+      color: var(--cyan);
+      text-decoration: none;
+      margin-bottom: var(--spacing-md);
+      display: inline-block;
+    }
+
+    .back-link:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <div class="admin-container">
+    <a href="/admin" class="back-link">← Back to Admin Dashboard</a>
+
+    <div class="admin-header">
+      <h1>Content Management System</h1>
+      <p style="color: rgba(255,255,255,0.7);">Edit website content without touching code</p>
+    </div>
+
+    <div id="statusMessage"></div>
+
+    <!-- Tabs -->
+    <div class="tabs">
+      <button class="tab-btn active" data-tab="mastermind">Mastermind Event</button>
+      <button class="tab-btn" data-tab="homepage">Homepage Content</button>
+    </div>
+
+    <!-- Mastermind Event Tab -->
+    <div class="tab-panel active" id="mastermind-tab">
+      <form id="mastermind-form">
+        <div class="card">
+          <h2 style="color: var(--cyan); margin-bottom: var(--spacing-md);">Edit Mastermind Event</h2>
+
+          <div class="form-group">
+            <label for="event_title">Event Title *</label>
+            <input type="text" id="event_title" name="event_title" required>
+          </div>
+
+          <div class="form-group">
+            <label for="event_subtitle">Event Subtitle</label>
+            <input type="text" id="event_subtitle" name="event_subtitle">
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="event_date">Event Date *</label>
+              <input type="date" id="event_date" name="event_date" required>
+            </div>
+            <div class="form-group">
+              <label for="event_time_start">Start Time *</label>
+              <input type="time" id="event_time_start" name="event_time_start" required>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="event_time_end">End Time</label>
+              <input type="time" id="event_time_end" name="event_time_end">
+            </div>
+            <div class="form-group">
+              <label for="event_timezone">Timezone</label>
+              <select id="event_timezone" name="event_timezone">
+                <option value="America/New_York">Eastern Time</option>
+                <option value="America/Chicago">Central Time</option>
+                <option value="America/Denver">Mountain Time</option>
+                <option value="America/Los_Angeles">Pacific Time</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>Display Options</label>
+            <div class="checkbox-group">
+              <input type="checkbox" id="show_day_only" name="show_day_only">
+              <label for="show_day_only" style="margin: 0; font-weight: normal;">Show day only (e.g., "Wednesday" instead of full date)</label>
+            </div>
+            <div class="checkbox-group">
+              <input type="checkbox" id="show_time_range" name="show_time_range" checked>
+              <label for="show_time_range" style="margin: 0; font-weight: normal;">Show time range (e.g., "9:00-10:00 AM")</label>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="zoom_link">Zoom Link</label>
+            <input type="url" id="zoom_link" name="zoom_link">
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="meeting_id">Meeting ID</label>
+              <input type="text" id="meeting_id" name="meeting_id">
+            </div>
+            <div class="form-group">
+              <label for="passcode">Passcode</label>
+              <input type="text" id="passcode" name="passcode">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="workbook_link">Workbook Link</label>
+            <input type="url" id="workbook_link" name="workbook_link">
+          </div>
+
+          <div class="form-group">
+            <label for="description">Description</label>
+            <textarea id="description" name="description" rows="4"></textarea>
+          </div>
+
+          <div class="form-group">
+            <label>Key Points (3 Models)</label>
+            <div class="list-editor" id="key-points-editor"></div>
+            <button type="button" class="btn-add" onclick="addKeyPoint()">+ Add Key Point</button>
+          </div>
+
+          <div class="form-group">
+            <label>Benefits (What You'll Get)</label>
+            <div class="list-editor" id="benefits-editor"></div>
+            <button type="button" class="btn-add" onclick="addBenefit()">+ Add Benefit</button>
+          </div>
+
+          <div class="form-group">
+            <label for="featured_image_url">Featured Image URL</label>
+            <input type="text" id="featured_image_url" name="featured_image_url">
+          </div>
+
+          <div class="form-group">
+            <div class="checkbox-group">
+              <input type="checkbox" id="is_published" name="is_published" checked>
+              <label for="is_published" style="margin: 0; font-weight: normal;">Publish event (visible on website)</label>
+            </div>
+          </div>
+
+          <div class="actions">
+            <button type="submit" class="btn-primary">Save Changes</button>
+            <button type="button" class="btn-secondary" onclick="previewEvent()">Preview</button>
+          </div>
+        </div>
+      </form>
+    </div>
+
+    <!-- Homepage Content Tab -->
+    <div class="tab-panel" id="homepage-tab">
+      <form id="homepage-form">
+        <div class="card">
+          <h2 style="color: var(--cyan); margin-bottom: var(--spacing-md);">Hero Section</h2>
+          <div class="form-group">
+            <label for="hero_tagline">Main Tagline</label>
+            <input type="text" id="hero_tagline" name="hero_tagline">
+          </div>
+        </div>
+
+        <div class="card">
+          <h2 style="color: var(--cyan); margin-bottom: var(--spacing-md);">Video + Mastermind Boxes</h2>
+
+          <div class="form-group">
+            <label for="left_box_line1">Left Box - Line 1</label>
+            <input type="text" id="left_box_line1" name="left_box_line1">
+          </div>
+
+          <div class="form-group">
+            <label for="left_box_line2">Left Box - Line 2</label>
+            <input type="text" id="left_box_line2" name="left_box_line2">
+          </div>
+
+          <div class="form-group">
+            <label for="right_box_line1">Right Box - Line 1</label>
+            <input type="text" id="right_box_line1" name="right_box_line1">
+          </div>
+
+          <div class="form-group">
+            <label for="right_box_line2">Right Box - Line 2</label>
+            <input type="text" id="right_box_line2" name="right_box_line2">
+          </div>
+
+          <div class="form-group">
+            <label for="video_url">YouTube Video Embed URL</label>
+            <input type="url" id="video_url" name="video_url">
+          </div>
+        </div>
+
+        <div class="actions">
+          <button type="submit" class="btn-primary">Save Homepage Changes</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    // Tab switching
+    document.querySelectorAll('.tab-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+        document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+
+        btn.classList.add('active');
+        document.getElementById(btn.dataset.tab + '-tab').classList.add('active');
+      });
+    });
+
+    let keyPoints = [];
+    let benefits = [];
+
+    // Load current mastermind event
+    async function loadMastermindEvent() {
+      try {
+        const response = await fetch('/api/cms/mastermind/current');
+        const data = await response.json();
+
+        if (data.event) {
+          const event = data.event;
+          document.getElementById('event_title').value = event.event_title || '';
+          document.getElementById('event_subtitle').value = event.event_subtitle || '';
+          document.getElementById('event_date').value = event.event_date || '';
+          document.getElementById('event_time_start').value = event.event_time_start || '';
+          document.getElementById('event_time_end').value = event.event_time_end || '';
+          document.getElementById('event_timezone').value = event.event_timezone || 'America/New_York';
+          document.getElementById('show_day_only').checked = event.show_day_only || false;
+          document.getElementById('show_time_range').checked = event.show_time_range !== false;
+          document.getElementById('zoom_link').value = event.zoom_link || '';
+          document.getElementById('meeting_id').value = event.meeting_id || '';
+          document.getElementById('passcode').value = event.passcode || '';
+          document.getElementById('workbook_link').value = event.workbook_link || '';
+          document.getElementById('description').value = event.description || '';
+          document.getElementById('featured_image_url').value = event.featured_image_url || '';
+          document.getElementById('is_published').checked = event.is_published !== false;
+
+          keyPoints = event.key_points || [];
+          benefits = event.benefits || [];
+
+          renderKeyPoints();
+          renderBenefits();
+        }
+      } catch (error) {
+        console.error('Error loading event:', error);
+        showMessage('Failed to load event data', 'error');
+      }
+    }
+
+    // Load homepage content
+    async function loadHomepageContent() {
+      try {
+        const response = await fetch('/api/cms/content?page=homepage');
+        const data = await response.json();
+
+        if (data.sections) {
+          data.sections.forEach(section => {
+            const input = document.getElementById(section.section_key);
+            if (input) {
+              input.value = section.content || '';
+            }
+          });
+        }
+      } catch (error) {
+        console.error('Error loading content:', error);
+        showMessage('Failed to load homepage content', 'error');
+      }
+    }
+
+    function renderKeyPoints() {
+      const editor = document.getElementById('key-points-editor');
+      editor.innerHTML = keyPoints.map((point, index) => `
+        <div class="list-item">
+          <input type="text" value="${point}" onchange="updateKeyPoint(${index}, this.value)">
+          <button type="button" onclick="removeKeyPoint(${index})">Remove</button>
+        </div>
+      `).join('');
+    }
+
+    function renderBenefits() {
+      const editor = document.getElementById('benefits-editor');
+      editor.innerHTML = benefits.map((benefit, index) => `
+        <div class="list-item">
+          <input type="text" value="${benefit}" onchange="updateBenefit(${index}, this.value)">
+          <button type="button" onclick="removeBenefit(${index})">Remove</button>
+        </div>
+      `).join('');
+    }
+
+    function addKeyPoint() {
+      keyPoints.push('');
+      renderKeyPoints();
+    }
+
+    function removeKeyPoint(index) {
+      keyPoints.splice(index, 1);
+      renderKeyPoints();
+    }
+
+    function updateKeyPoint(index, value) {
+      keyPoints[index] = value;
+    }
+
+    function addBenefit() {
+      benefits.push('');
+      renderBenefits();
+    }
+
+    function removeBenefit(index) {
+      benefits.splice(index, 1);
+      renderBenefits();
+    }
+
+    function updateBenefit(index, value) {
+      benefits[index] = value;
+    }
+
+    function showMessage(message, type) {
+      const msgDiv = document.getElementById('statusMessage');
+      msgDiv.innerHTML = `<div class="status-message ${type}">${message}</div>`;
+      setTimeout(() => msgDiv.innerHTML = '', 5000);
+    }
+
+    function previewEvent() {
+      window.open('/', '_blank');
+    }
+
+    // Save mastermind event
+    document.getElementById('mastermind-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const formData = {
+        event_title: document.getElementById('event_title').value,
+        event_subtitle: document.getElementById('event_subtitle').value,
+        event_date: document.getElementById('event_date').value,
+        event_time_start: document.getElementById('event_time_start').value,
+        event_time_end: document.getElementById('event_time_end').value,
+        event_timezone: document.getElementById('event_timezone').value,
+        show_day_only: document.getElementById('show_day_only').checked,
+        show_time_range: document.getElementById('show_time_range').checked,
+        zoom_link: document.getElementById('zoom_link').value,
+        meeting_id: document.getElementById('meeting_id').value,
+        passcode: document.getElementById('passcode').value,
+        workbook_link: document.getElementById('workbook_link').value,
+        description: document.getElementById('description').value,
+        key_points: keyPoints.filter(p => p.trim()),
+        benefits: benefits.filter(b => b.trim()),
+        featured_image_url: document.getElementById('featured_image_url').value,
+        is_published: document.getElementById('is_published').checked,
+        is_featured: true
+      };
+
+      try {
+        const currentResponse = await fetch('/api/cms/mastermind/current');
+        const currentData = await currentResponse.json();
+
+        let response;
+        if (currentData.event) {
+          response = await fetch(`/api/cms/mastermind/events/${currentData.event.event_id}`, {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(formData)
+          });
+        } else {
+          response = await fetch('/api/cms/mastermind/events', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(formData)
+          });
+        }
+
+        if (response.ok) {
+          showMessage('Event saved successfully! Changes are live on the website.', 'success');
+        } else {
+          throw new Error('Failed to save event');
+        }
+      } catch (error) {
+        console.error('Error saving event:', error);
+        showMessage('Failed to save event. Please try again.', 'error');
+      }
+    });
+
+    // Save homepage content
+    document.getElementById('homepage-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const updates = [
+        { page: 'homepage', section_key: 'hero_tagline', content: document.getElementById('hero_tagline').value },
+        { page: 'homepage', section_key: 'left_box_line1', content: document.getElementById('left_box_line1').value },
+        { page: 'homepage', section_key: 'left_box_line2', content: document.getElementById('left_box_line2').value },
+        { page: 'homepage', section_key: 'right_box_line1', content: document.getElementById('right_box_line1').value },
+        { page: 'homepage', section_key: 'right_box_line2', content: document.getElementById('right_box_line2').value },
+        { page: 'homepage', section_key: 'video_url', content: document.getElementById('video_url').value }
+      ];
+
+      try {
+        const response = await fetch('/api/cms/content/bulk', {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ updates })
+        });
+
+        if (response.ok) {
+          showMessage('Homepage content saved successfully! Changes are live on the website.', 'success');
+        } else {
+          throw new Error('Failed to save content');
+        }
+      } catch (error) {
+        console.error('Error saving content:', error);
+        showMessage('Failed to save content. Please try again.', 'error');
+      }
+    });
+
+    // Load data on page load
+    loadMastermindEvent();
+    loadHomepageContent();
+  </script>
+</body>
+</html>
