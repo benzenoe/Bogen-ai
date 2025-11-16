@@ -16,6 +16,7 @@ const mastermindConfigRoutes = require('./server/routes/mastermind-config');
 const cmsRoutes = require('./server/routes/cms');
 const blogRoutes = require('./server/routes/blog');
 const migrateRoutes = require('./server/routes/migrate');
+const setupAdminRoutes = require('./server/routes/setup-admin');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -57,6 +58,7 @@ app.use('/api/mastermind', mastermindConfigRoutes);
 app.use('/api/cms', cmsRoutes);
 app.use('/api/blog', blogRoutes);
 app.use('/api/migrate', migrateRoutes);
+app.use('/api/setup-admin', setupAdminRoutes);
 
 // Serve HTML pages
 app.get('/', (req, res) => {
