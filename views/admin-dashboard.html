@@ -208,6 +208,7 @@
           <button class="tab-btn active" onclick="switchAdminTab('partners')">Partners</button>
           <button class="tab-btn" onclick="switchAdminTab('clients')">Clients</button>
           <button class="tab-btn" onclick="switchAdminTab('referrals')">Referrals</button>
+          <button class="tab-btn" onclick="switchAdminTab('mastermind')">Mastermind</button>
           <button class="tab-btn" onclick="switchAdminTab('videos')">Video Archive</button>
         </div>
 
@@ -285,6 +286,55 @@
               </thead>
               <tbody id="referrals-table">
                 <tr><td colspan="6" class="text-center text-gray">Loading...</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Mastermind Tab -->
+        <div id="mastermind-tab" class="tab-panel">
+          <div class="flex-between mb-md">
+            <h2>Mastermind Event Registrations</h2>
+            <div style="display: flex; gap: 12px;">
+              <select id="mastermind-event-filter" class="form-select" style="width: auto;" onchange="loadMastermindRegistrations()">
+                <option value="">All Events</option>
+              </select>
+              <select id="mastermind-status-filter" class="form-select" style="width: auto;" onchange="loadMastermindRegistrations()">
+                <option value="">All Status</option>
+                <option value="registered">Registered</option>
+                <option value="attended">Attended</option>
+                <option value="no_show">No Show</option>
+                <option value="cancelled">Cancelled</option>
+              </select>
+              <button class="btn btn-primary btn-sm" onclick="openEventConfigModal()">Update Event Details</button>
+              <button class="btn btn-secondary btn-sm" onclick="exportMastermindRegistrations()">Export CSV</button>
+            </div>
+          </div>
+
+          <!-- Event Stats -->
+          <div class="card mb-lg" id="mastermind-stats-container" style="display: none;">
+            <h3 class="mb-md">Registration Statistics by Event</h3>
+            <div id="mastermind-stats"></div>
+          </div>
+
+          <!-- Registrations Table -->
+          <div class="card">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>Email</th>
+                  <th>Phone</th>
+                  <th>Company</th>
+                  <th>Event Date</th>
+                  <th>How Heard</th>
+                  <th>Status</th>
+                  <th>Registered</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="mastermind-table">
+                <tr><td colspan="9" class="text-center text-gray">Loading...</td></tr>
               </tbody>
             </table>
           </div>
@@ -377,6 +427,79 @@
     </div>
   </div>
 
+  <!-- Event Config Modal -->
+  <div id="event-config-modal" class="modal">
+    <div class="modal-content">
+      <h2 class="mb-lg">Update Mastermind Event Details</h2>
+      <form id="eventConfigForm" onsubmit="handleUpdateEventConfig(event)">
+        <div class="form-group">
+          <label class="form-label">Event Title</label>
+          <input type="text" name="eventTitle" class="form-input" required>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Event Subtitle</label>
+          <input type="text" name="eventSubtitle" class="form-input" required>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Event Date (YYYY-MM-DD)</label>
+          <input type="date" name="eventDate" class="form-input" required>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Event Date Display (e.g., "Wednesday, November 20, 2025")</label>
+          <input type="text" name="eventDateDisplay" class="form-input" required>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Event Time (e.g., "9:00-10:00 AM Eastern Time")</label>
+          <input type="text" name="eventTime" class="form-input" required>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Event Start Time (24-hour format, e.g., "09:00")</label>
+          <input type="text" name="eventTimeStart" class="form-input" placeholder="09:00" required>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Time Zone (IANA format)</label>
+          <input type="text" name="eventTimeZone" class="form-input" value="America/New_York" required>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Zoom Link</label>
+          <input type="url" name="zoomLink" class="form-input" required>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Meeting ID (with spaces, e.g., "123 456 7890")</label>
+          <input type="text" name="meetingId" class="form-input" required>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Passcode</label>
+          <input type="text" name="passcode" class="form-input" required>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Workbook Link (optional)</label>
+          <input type="url" name="workbookLink" class="form-input">
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Description</label>
+          <textarea name="description" class="form-input" rows="3"></textarea>
+        </div>
+
+        <div class="flex gap-md">
+          <button type="submit" class="btn btn-primary">Update Event</button>
+          <button type="button" class="btn btn-secondary" onclick="closeModal('event-config-modal')">Cancel</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
   <script src="/js/common.js"></script>
   <script>
     let currentTab = 'partners';
@@ -444,6 +567,9 @@
       // Load data for specific tabs
       if (tab === 'videos') {
         loadVideos();
+      } else if (tab === 'mastermind') {
+        loadMastermindStats();
+        loadMastermindRegistrations();
       }
     }
 
@@ -728,6 +854,247 @@
         loadVideos();
       } catch (error) {
         window.bogenAI.showNotification('Failed to remove video', 'error');
+      }
+    }
+
+    // Mastermind Functions
+    async function loadMastermindStats() {
+      const token = localStorage.getItem('admin_token');
+
+      try {
+        const data = await window.bogenAI.apiRequest('/admin/mastermind/stats', {
+          headers: { 'Authorization': `Bearer ${token}` }
+        });
+
+        if (data.stats.length === 0) {
+          document.getElementById('mastermind-stats-container').style.display = 'none';
+          return;
+        }
+
+        document.getElementById('mastermind-stats-container').style.display = 'block';
+
+        // Populate event filter dropdown
+        const eventFilter = document.getElementById('mastermind-event-filter');
+        const currentValue = eventFilter.value;
+        eventFilter.innerHTML = '<option value="">All Events</option>' +
+          data.stats.map(s => `<option value="${s.event_date}">${new Date(s.event_date).toLocaleDateString()} (${s.total_registrations})</option>`).join('');
+        eventFilter.value = currentValue;
+
+        // Display stats
+        const statsHtml = data.stats.map(s => `
+          <div style="border: 1px solid rgba(100, 181, 246, 0.3); border-radius: 8px; padding: 16px; margin-bottom: 12px;">
+            <h4 style="margin: 0 0 12px 0; color: var(--cyan);">${new Date(s.event_date).toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}</h4>
+            <div style="display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px;">
+              <div>
+                <div style="font-size: 1.5rem; font-weight: 300; color: var(--cyan);">${s.total_registrations}</div>
+                <div style="font-size: 0.75rem; color: rgba(255, 255, 255, 0.6);">Total</div>
+              </div>
+              <div>
+                <div style="font-size: 1.5rem; font-weight: 300;">${s.registered}</div>
+                <div style="font-size: 0.75rem; color: rgba(255, 255, 255, 0.6);">Registered</div>
+              </div>
+              <div>
+                <div style="font-size: 1.5rem; font-weight: 300; color: #4CAF50;">${s.attended}</div>
+                <div style="font-size: 0.75rem; color: rgba(255, 255, 255, 0.6);">Attended</div>
+              </div>
+              <div>
+                <div style="font-size: 1.5rem; font-weight: 300; color: #FF9800;">${s.no_show}</div>
+                <div style="font-size: 0.75rem; color: rgba(255, 255, 255, 0.6);">No Show</div>
+              </div>
+              <div>
+                <div style="font-size: 1.5rem; font-weight: 300; color: #9E9E9E;">${s.cancelled}</div>
+                <div style="font-size: 0.75rem; color: rgba(255, 255, 255, 0.6);">Cancelled</div>
+              </div>
+            </div>
+          </div>
+        `).join('');
+
+        document.getElementById('mastermind-stats').innerHTML = statsHtml;
+      } catch (error) {
+        console.error('Load mastermind stats error:', error);
+      }
+    }
+
+    async function loadMastermindRegistrations() {
+      const token = localStorage.getItem('admin_token');
+      const eventDate = document.getElementById('mastermind-event-filter').value;
+      const status = document.getElementById('mastermind-status-filter').value;
+
+      try {
+        const params = new URLSearchParams();
+        if (eventDate) params.append('event_date', eventDate);
+        if (status) params.append('status', status);
+
+        const url = `/admin/mastermind/registrations${params.toString() ? '?' + params.toString() : ''}`;
+        const data = await window.bogenAI.apiRequest(url, {
+          headers: { 'Authorization': `Bearer ${token}` }
+        });
+
+        const table = document.getElementById('mastermind-table');
+        if (data.registrations.length === 0) {
+          table.innerHTML = '<tr><td colspan="9" class="text-center text-gray">No registrations found</td></tr>';
+        } else {
+          table.innerHTML = data.registrations.map(r => `
+            <tr>
+              <td>${r.first_name} ${r.last_name}</td>
+              <td>${r.email}</td>
+              <td>${r.phone || '-'}</td>
+              <td>${r.company || '-'}</td>
+              <td>${new Date(r.event_date).toLocaleDateString()}</td>
+              <td>${r.how_heard || '-'}</td>
+              <td><span class="status-badge status-${r.registration_status}">${r.registration_status}</span></td>
+              <td>${new Date(r.created_at).toLocaleDateString()}</td>
+              <td>
+                <select class="form-select" style="width: auto; font-size: 0.875rem; padding: 4px 8px;"
+                        onchange="updateMastermindStatus(${r.registration_id}, this.value)">
+                  <option value="">Update Status...</option>
+                  <option value="registered" ${r.registration_status === 'registered' ? 'selected' : ''}>Registered</option>
+                  <option value="attended" ${r.registration_status === 'attended' ? 'selected' : ''}>Attended</option>
+                  <option value="no_show" ${r.registration_status === 'no_show' ? 'selected' : ''}>No Show</option>
+                  <option value="cancelled" ${r.registration_status === 'cancelled' ? 'selected' : ''}>Cancelled</option>
+                </select>
+              </td>
+            </tr>
+          `).join('');
+        }
+      } catch (error) {
+        console.error('Load mastermind registrations error:', error);
+      }
+    }
+
+    async function updateMastermindStatus(registrationId, newStatus) {
+      if (!newStatus) return;
+
+      const token = localStorage.getItem('admin_token');
+
+      try {
+        await window.bogenAI.apiRequest(`/admin/mastermind/registrations/${registrationId}`, {
+          method: 'PUT',
+          headers: { 'Authorization': `Bearer ${token}` },
+          body: JSON.stringify({ registration_status: newStatus })
+        });
+
+        window.bogenAI.showNotification('Status updated successfully', 'success');
+        loadMastermindStats();
+        loadMastermindRegistrations();
+      } catch (error) {
+        window.bogenAI.showNotification('Failed to update status', 'error');
+      }
+    }
+
+    async function exportMastermindRegistrations() {
+      const token = localStorage.getItem('admin_token');
+      const eventDate = document.getElementById('mastermind-event-filter').value;
+      const status = document.getElementById('mastermind-status-filter').value;
+
+      try {
+        const params = new URLSearchParams();
+        if (eventDate) params.append('event_date', eventDate);
+        if (status) params.append('status', status);
+
+        const url = `/admin/mastermind/registrations${params.toString() ? '?' + params.toString() : ''}`;
+        const data = await window.bogenAI.apiRequest(url, {
+          headers: { 'Authorization': `Bearer ${token}` }
+        });
+
+        if (data.registrations.length === 0) {
+          window.bogenAI.showNotification('No registrations to export', 'error');
+          return;
+        }
+
+        // Convert to CSV
+        const headers = ['First Name', 'Last Name', 'Email', 'Phone', 'Company', 'How Heard', 'Event Date', 'Status', 'Registered Date'];
+        const rows = data.registrations.map(r => [
+          r.first_name,
+          r.last_name,
+          r.email,
+          r.phone || '',
+          r.company || '',
+          r.how_heard || '',
+          new Date(r.event_date).toLocaleDateString(),
+          r.registration_status,
+          new Date(r.created_at).toLocaleString()
+        ]);
+
+        const csvContent = [
+          headers.join(','),
+          ...rows.map(row => row.map(cell => `"${cell}"`).join(','))
+        ].join('\n');
+
+        // Download CSV
+        const blob = new Blob([csvContent], { type: 'text/csv' });
+        const url2 = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url2;
+        a.download = `mastermind-registrations-${new Date().toISOString().split('T')[0]}.csv`;
+        a.click();
+        window.URL.revokeObjectURL(url2);
+
+        window.bogenAI.showNotification('CSV exported successfully!', 'success');
+      } catch (error) {
+        console.error('Export error:', error);
+        window.bogenAI.showNotification('Failed to export registrations', 'error');
+      }
+    }
+
+    async function openEventConfigModal() {
+      const token = localStorage.getItem('admin_token');
+
+      try {
+        const config = await window.bogenAI.apiRequest('/admin/mastermind/event-config', {
+          headers: { 'Authorization': `Bearer ${token}` }
+        });
+
+        // Populate form with current values
+        const form = document.getElementById('eventConfigForm');
+        Object.keys(config).forEach(key => {
+          const input = form.querySelector(`[name="${key}"]`);
+          if (input) {
+            input.value = config[key] || '';
+          }
+        });
+
+        document.getElementById('event-config-modal').classList.add('active');
+      } catch (error) {
+        console.error('Load event config error:', error);
+        window.bogenAI.showNotification('Failed to load event configuration', 'error');
+      }
+    }
+
+    async function handleUpdateEventConfig(event) {
+      event.preventDefault();
+      const token = localStorage.getItem('admin_token');
+      const form = event.target;
+      const formData = new FormData(form);
+
+      const config = {};
+      for (const [key, value] of formData.entries()) {
+        config[key] = value;
+      }
+
+      // Preserve keyPoints and benefits if they exist
+      try {
+        const currentConfig = await window.bogenAI.apiRequest('/admin/mastermind/event-config', {
+          headers: { 'Authorization': `Bearer ${token}` }
+        });
+        if (currentConfig.keyPoints) config.keyPoints = currentConfig.keyPoints;
+        if (currentConfig.benefits) config.benefits = currentConfig.benefits;
+      } catch (e) {
+        // Ignore errors, just won't preserve keyPoints/benefits
+      }
+
+      try {
+        await window.bogenAI.apiRequest('/admin/mastermind/event-config', {
+          method: 'PUT',
+          headers: { 'Authorization': `Bearer ${token}` },
+          body: JSON.stringify(config)
+        });
+
+        window.bogenAI.showNotification('Event details updated successfully!', 'success');
+        closeModal('event-config-modal');
+        loadMastermindStats();
+      } catch (error) {
+        window.bogenAI.showNotification('Failed to update event configuration', 'error');
       }
     }
   </script>

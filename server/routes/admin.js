@@ -308,4 +308,176 @@ router.get('/referrals', async (req, res) => {
   }
 });
 
+/**
+ * GET /api/admin/mastermind/registrations
+ * Get all mastermind registrations with optional filtering
+ */
+router.get('/mastermind/registrations', async (req, res) => {
+  try {
+    const { event_date, status } = req.query;
+
+    let query = `
+      SELECT
+        registration_id,
+        first_name,
+        last_name,
+        email,
+        phone,
+        company,
+        how_heard,
+        event_date,
+        registration_status,
+        email_sent,
+        created_at
+      FROM mastermind_registrations
+    `;
+
+    const conditions = [];
+    const params = [];
+    let paramCount = 0;
+
+    if (event_date) {
+      paramCount++;
+      conditions.push(`event_date = $${paramCount}`);
+      params.push(event_date);
+    }
+
+    if (status) {
+      paramCount++;
+      conditions.push(`registration_status = $${paramCount}`);
+      params.push(status);
+    }
+
+    if (conditions.length > 0) {
+      query += ' WHERE ' + conditions.join(' AND ');
+    }
+
+    query += ' ORDER BY created_at DESC';
+
+    const result = await pool.query(query, params);
+
+    res.json({
+      registrations: result.rows,
+      total: result.rows.length
+    });
+  } catch (error) {
+    console.error('Get mastermind registrations error:', error);
+    res.status(500).json({ error: 'Failed to load registrations' });
+  }
+});
+
+/**
+ * GET /api/admin/mastermind/stats
+ * Get registration statistics grouped by event
+ */
+router.get('/mastermind/stats', async (req, res) => {
+  try {
+    const result = await pool.query(`
+      SELECT
+        event_date,
+        COUNT(*) as total_registrations,
+        COUNT(CASE WHEN registration_status = 'registered' THEN 1 END) as registered,
+        COUNT(CASE WHEN registration_status = 'attended' THEN 1 END) as attended,
+        COUNT(CASE WHEN registration_status = 'no_show' THEN 1 END) as no_show,
+        COUNT(CASE WHEN registration_status = 'cancelled' THEN 1 END) as cancelled
+      FROM mastermind_registrations
+      GROUP BY event_date
+      ORDER BY event_date DESC
+    `);
+
+    res.json({ stats: result.rows });
+  } catch (error) {
+    console.error('Get mastermind stats error:', error);
+    res.status(500).json({ error: 'Failed to load statistics' });
+  }
+});
+
+/**
+ * PUT /api/admin/mastermind/registrations/:id
+ * Update registration status (mark attendance, etc.)
+ */
+router.put('/mastermind/registrations/:id', async (req, res) => {
+  try {
+    const registrationId = req.params.id;
+    const { registration_status } = req.body;
+
+    if (!['registered', 'attended', 'no_show', 'cancelled'].includes(registration_status)) {
+      return res.status(400).json({ error: 'Invalid registration status' });
+    }
+
+    const result = await pool.query(
+      `UPDATE mastermind_registrations
+       SET registration_status = $1
+       WHERE registration_id = $2
+       RETURNING registration_id, first_name, last_name, registration_status`,
+      [registration_status, registrationId]
+    );
+
+    if (result.rows.length === 0) {
+      return res.status(404).json({ error: 'Registration not found' });
+    }
+
+    res.json({
+      message: 'Registration updated successfully',
+      registration: result.rows[0]
+    });
+  } catch (error) {
+    console.error('Update registration error:', error);
+    res.status(500).json({ error: 'Failed to update registration' });
+  }
+});
+
+/**
+ * GET /api/admin/mastermind/event-config
+ * Get current event configuration
+ */
+router.get('/mastermind/event-config', async (req, res) => {
+  try {
+    const fs = require('fs');
+    const path = require('path');
+    const configPath = path.join(__dirname, '../../config/mastermind-event.json');
+    const config = JSON.parse(fs.readFileSync(configPath, 'utf8'));
+    res.json(config);
+  } catch (error) {
+    console.error('Get event config error:', error);
+    res.status(500).json({ error: 'Failed to load event configuration' });
+  }
+});
+
+/**
+ * PUT /api/admin/mastermind/event-config
+ * Update event configuration
+ */
+router.put('/mastermind/event-config', async (req, res) => {
+  try {
+    const fs = require('fs');
+    const path = require('path');
+    const configPath = path.join(__dirname, '../../config/mastermind-event.json');
+
+    // Validate required fields
+    const requiredFields = [
+      'eventTitle', 'eventSubtitle', 'eventDate', 'eventDateDisplay',
+      'eventTime', 'eventTimeStart', 'eventTimeZone', 'zoomLink',
+      'meetingId', 'passcode'
+    ];
+
+    for (const field of requiredFields) {
+      if (!req.body[field]) {
+        return res.status(400).json({ error: `Missing required field: ${field}` });
+      }
+    }
+
+    // Write the new config
+    fs.writeFileSync(configPath, JSON.stringify(req.body, null, 2), 'utf8');
+
+    res.json({
+      message: 'Event configuration updated successfully',
+      config: req.body
+    });
+  } catch (error) {
+    console.error('Update event config error:', error);
+    res.status(500).json({ error: 'Failed to update event configuration' });
+  }
+});
+
 module.exports = router;
