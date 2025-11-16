@@ -18,8 +18,15 @@ async function runMigrations() {
     await pool.query(blog_sql);
     console.log('   ✓ Blog tables created\n');
 
+    // Migration 3: Mastermind registrations
+    console.log('3. Creating mastermind registrations table...');
+    const mastermind_sql = fs.readFileSync(path.join(__dirname, 'database/add_mastermind_registrations.sql'), 'utf8');
+    await pool.query(mastermind_sql);
+    console.log('   ✓ Mastermind registrations table created\n');
+
     console.log('✅ All migrations completed successfully!');
     console.log('\nYou can now access:');
+    console.log('  • Admin Dashboard: http://localhost:3000/admin');
     console.log('  • Admin CMS: http://localhost:3000/admin-content');
     console.log('  • Admin Blog: http://localhost:3000/admin-blog');
     console.log('  • Public Blog: http://localhost:3000/blog');
@@ -32,6 +39,7 @@ async function runMigrations() {
     if (error.message.includes('already exists')) {
       console.log('\n⚠️  Tables already exist. This is fine!');
       console.log('\nYou can access:');
+      console.log('  • Admin Dashboard: http://localhost:3000/admin');
       console.log('  • Admin CMS: http://localhost:3000/admin-content');
       console.log('  • Admin Blog: http://localhost:3000/admin-blog');
       console.log('  • Public Blog: http://localhost:3000/blog');

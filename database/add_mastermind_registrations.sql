@@ -21,7 +21,8 @@ CREATE INDEX IF NOT EXISTS idx_mastermind_registrations_email ON mastermind_regi
 CREATE INDEX IF NOT EXISTS idx_mastermind_registrations_event_date ON mastermind_registrations(event_date);
 CREATE INDEX IF NOT EXISTS idx_mastermind_registrations_status ON mastermind_registrations(registration_status);
 
--- Add update trigger
+-- Add update trigger (drop if exists first)
+DROP TRIGGER IF EXISTS update_mastermind_registrations_updated_at ON mastermind_registrations;
 CREATE TRIGGER update_mastermind_registrations_updated_at
 BEFORE UPDATE ON mastermind_registrations
 FOR EACH ROW
