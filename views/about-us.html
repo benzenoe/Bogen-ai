@@ -29,8 +29,23 @@
         </a>
         <ul class="nav-menu">
           <li><a href="/" class="nav-link">Home</a></li>
-          <li><a href="/about-us" class="nav-link active">About Us</a></li>
-          <li><a href="/#services" class="nav-link">Services</a></li>
+          <li class="nav-dropdown">
+            <a href="/about-us" class="nav-link active">About ▾</a>
+            <ul class="dropdown-menu">
+              <li><a href="/about-us#edmund">About Edmund Bogen</a></li>
+              <li><a href="/about-us#eytan">About Eytan Benzeno</a></li>
+            </ul>
+          </li>
+          <li class="nav-dropdown">
+            <a href="/#services" class="nav-link">Services ▾</a>
+            <ul class="dropdown-menu">
+              <li><a href="/services/communication-customer-interaction">Communication & Customer Interaction</a></li>
+              <li><a href="/services/sales-revenue-generation">Sales & Revenue Generation</a></li>
+              <li><a href="/services/operations-workflow">Operations & Workflow</a></li>
+              <li><a href="/services/marketing-content">Marketing & Content</a></li>
+              <li><a href="/services/industry-specific-premium">Industry-Specific Premium</a></li>
+            </ul>
+          </li>
           <li><a href="/partner-program" class="nav-link">Partnership</a></li>
           <li><a href="/edmunds-mastermind" class="nav-link">Edmund's Mastermind</a></li>
           <li><a href="/blog" class="nav-link">Blog</a></li>
@@ -56,7 +71,7 @@
   </section>
 
   <!-- Edmund Bogen Section -->
-  <section class="section">
+  <section id="edmund" class="section">
     <div class="container" style="max-width: 900px;">
       <div class="text-center mb-xl">
         <img src="/images/edmund-bogen.png" alt="Edmund Bogen - Founder and CEO of Bogen.ai, luxury real estate expert and AI automation strategist in South Florida" style="width: 500px; height: 450px; border-radius: 8px; margin: 0 auto var(--spacing-lg); display: block; object-fit: cover; object-position: center top; box-shadow: var(--shadow-lg);">
@@ -123,7 +138,7 @@
   <div class="team-divider"></div>
 
   <!-- Eytan Benzeno Section -->
-  <section class="section">
+  <section id="eytan" class="section">
     <div class="container" style="max-width: 900px;">
       <div class="text-center mb-xl">
         <img src="/images/eytan-benzeno.png" alt="Eytan Benzeno - AI Engineer and Technical Architect at Bogen.ai, machine learning and automation systems expert" style="width: 500px; height: 450px; border-radius: 8px; margin: 0 auto var(--spacing-lg); display: block; object-fit: cover; object-position: center top; box-shadow: var(--shadow-lg);">
