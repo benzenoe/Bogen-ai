@@ -427,6 +427,17 @@
     </div>
   </div>
 
+  <!-- Registrant Details Modal -->
+  <div id="registrant-details-modal" class="modal">
+    <div class="modal-content">
+      <h2 class="mb-lg">Registrant Details</h2>
+      <div id="registrant-details-content"></div>
+      <div style="margin-top: var(--spacing-lg);">
+        <button type="button" class="btn btn-secondary" onclick="closeModal('registrant-details-modal')">Close</button>
+      </div>
+    </div>
+  </div>
+
   <!-- Event Config Modal -->
   <div id="event-config-modal" class="modal">
     <div class="modal-content">
@@ -935,7 +946,7 @@
           table.innerHTML = '<tr><td colspan="9" class="text-center text-gray">No registrations found</td></tr>';
         } else {
           table.innerHTML = data.registrations.map(r => `
-            <tr>
+            <tr style="cursor: pointer;" onclick="viewRegistrantDetails(${JSON.stringify(r).replace(/"/g, '&quot;')})">
               <td>${r.first_name} ${r.last_name}</td>
               <td>${r.email}</td>
               <td>${r.phone || '-'}</td>
@@ -944,7 +955,7 @@
               <td>${r.how_heard || '-'}</td>
               <td><span class="status-badge status-${r.registration_status}">${r.registration_status}</span></td>
               <td>${new Date(r.created_at).toLocaleDateString()}</td>
-              <td>
+              <td onclick="event.stopPropagation()">
                 <select class="form-select" style="width: auto; font-size: 0.875rem; padding: 4px 8px;"
                         onchange="updateMastermindStatus(${r.registration_id}, this.value)">
                   <option value="">Update Status...</option>
@@ -1059,6 +1070,78 @@
         console.error('Load event config error:', error);
         window.bogenAI.showNotification('Failed to load event configuration', 'error');
       }
+    }
+
+    function viewRegistrantDetails(registrant) {
+      const content = `
+        <div style="display: grid; gap: var(--spacing-md);">
+          <div class="form-group">
+            <label class="form-label">Full Name</label>
+            <div class="form-input" style="background: rgba(26, 58, 82, 0.4); cursor: default;">
+              ${registrant.first_name} ${registrant.last_name}
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Email</label>
+            <div class="form-input" style="background: rgba(26, 58, 82, 0.4); cursor: default;">
+              <a href="mailto:${registrant.email}" style="color: var(--cyan);">${registrant.email}</a>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Phone</label>
+            <div class="form-input" style="background: rgba(26, 58, 82, 0.4); cursor: default;">
+              ${registrant.phone ? `<a href="tel:${registrant.phone}" style="color: var(--cyan);">${registrant.phone}</a>` : 'Not provided'}
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Company</label>
+            <div class="form-input" style="background: rgba(26, 58, 82, 0.4); cursor: default;">
+              ${registrant.company || 'Not provided'}
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">How They Heard About Us</label>
+            <div class="form-input" style="background: rgba(26, 58, 82, 0.4); cursor: default;">
+              ${registrant.how_heard || 'Not provided'}
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Event Date</label>
+            <div class="form-input" style="background: rgba(26, 58, 82, 0.4); cursor: default;">
+              ${new Date(registrant.event_date).toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Registration Status</label>
+            <div class="form-input" style="background: rgba(26, 58, 82, 0.4); cursor: default;">
+              <span class="status-badge status-${registrant.registration_status}">${registrant.registration_status}</span>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Registered At</label>
+            <div class="form-input" style="background: rgba(26, 58, 82, 0.4); cursor: default;">
+              ${new Date(registrant.created_at).toLocaleString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: '2-digit' })}
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Registration ID</label>
+            <div class="form-input" style="background: rgba(26, 58, 82, 0.4); cursor: default; font-family: monospace;">
+              #${registrant.registration_id}
+            </div>
+          </div>
+        </div>
+      `;
+
+      document.getElementById('registrant-details-content').innerHTML = content;
+      document.getElementById('registrant-details-modal').classList.add('active');
     }
 
     async function handleUpdateEventConfig(event) {
