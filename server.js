@@ -92,6 +92,10 @@ app.get('/contact', (req, res) => {
   res.sendFile(path.join(__dirname, 'views', 'contact.html'));
 });
 
+app.get('/tools-weve-built', (req, res) => {
+  res.sendFile(path.join(__dirname, 'views', 'tools-weve-built.html'));
+});
+
 app.get('/privacy', (req, res) => {
   res.sendFile(path.join(__dirname, 'views', 'privacy.html'));
 });
