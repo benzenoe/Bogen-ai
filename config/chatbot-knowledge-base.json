@@ -1,0 +1,192 @@
+{
+  "company": {
+    "name": "Bogen.ai",
+    "valueProposition": "We turn chaos into clarity by giving you AI systems that do the work for you, not with you.",
+    "mission": "Build AI-powered business systems for real estate professionals, service-based businesses, and entrepreneurs",
+    "differentiator": "Built by a luxury real estate professional who actually runs a high-volume business, not just a tech consultant",
+    "coreValues": [
+      "Ethical innovation - transparent, responsible use of AI",
+      "Systematic excellence - systems > heroics",
+      "Relationship-first - tech serves people, not the other way around",
+      "Revenue integrity - focus on work that actually moves dollars",
+      "Simplicity - plain language, no jargon",
+      "Consistency - repeatable, reliable execution"
+    ],
+    "targetCustomers": {
+      "primary": [
+        "Real estate agents, teams, and brokers (especially luxury)",
+        "Service-based professionals (organizers, coaches, consultants, attorneys, CPAs)",
+        "Small business owners and entrepreneurs ($250K-$5M+ revenue)"
+      ],
+      "idealProfile": "Already successful but hitting a time or scaling ceiling, has lead flow but inconsistent follow-up, overwhelmed by tools and AI options",
+      "commonPainPoints": [
+        "Drowning in admin and follow-up",
+        "Know they should use AI but don't know where to start",
+        "Losing deals because can't respond fast enough",
+        "CRM is a mess",
+        "Leads falling through the cracks"
+      ]
+    }
+  },
+  "services": {
+    "communication": [
+      {
+        "name": "Custom AI Concierge (Chatbot + Lead Assistant)",
+        "description": "24/7 website assistant that answers FAQs, qualifies leads, collects contact info, routes hot opportunities",
+        "benefits": ["Immediate responses", "More qualified conversations", "Consistent messaging", "Frees business owner from being on call"],
+        "pricing": {
+          "setup": "$2,500-$7,500",
+          "monthly": "$300-$800"
+        }
+      },
+      {
+        "name": "Multilingual Communication Systems",
+        "description": "AI-supported translation and messaging in 50+ languages for email, text, property descriptions",
+        "benefits": ["Access to large market segments", "3-5x increase in addressable market"],
+        "pricing": {
+          "setup": "$500-$1,500"
+        }
+      },
+      {
+        "name": "Automated Follow-Up Sequences",
+        "description": "Intelligent drip and follow-up sequences that adapt to lead behavior",
+        "benefits": ["25-50% improvement in lead conversion", "No more leads falling through cracks"],
+        "pricing": {
+          "setup": "$1,500-$3,500"
+        }
+      }
+    ],
+    "sales": [
+      {
+        "name": "AI Prospecting Systems",
+        "description": "Generates outbound messages, follow-ups, call scripts, helps identify and prioritize warm leads",
+        "pricing": {
+          "setup": "$297-$1,997"
+        }
+      },
+      {
+        "name": "Lead Qualification & Scoring",
+        "description": "Uses AI to rank/prioritize leads based on responses, behavior, fit criteria",
+        "benefits": ["Focus time on hot leads", "Less time wasted", "Higher closing rates"],
+        "pricing": {
+          "setup": "$2,000-$4,000"
+        }
+      },
+      {
+        "name": "CRM & Pipeline Automation",
+        "description": "Auto-updates CRM based on emails, texts, and forms. Creates tasks and reminders",
+        "benefits": ["10-15 hours/week saved", "No more dropped leads", "Clean pipeline visibility"],
+        "pricing": {
+          "setup": "$3,000-$6,000"
+        }
+      }
+    ],
+    "operations": [
+      {
+        "name": "Business Automation Blueprint",
+        "description": "Maps business processes, documents SOPs, identifies automation opportunities",
+        "benefits": ["10-15 hours/week saved", "Less decision fatigue"],
+        "pricing": {
+          "setup": "$2,500-$15,000"
+        }
+      },
+      {
+        "name": "Document Processing & Data Entry Automation",
+        "description": "Extracts data from contracts/forms/emails, populates CRMs and spreadsheets",
+        "benefits": ["80-95% reduction in manual data entry", "Fewer errors"],
+        "pricing": {
+          "setup": "$1,500-$4,000"
+        }
+      }
+    ],
+    "marketing": [
+      {
+        "name": "Content Machine (AI-Powered)",
+        "description": "From one input generates social posts, email newsletters, blog posts, video scripts",
+        "benefits": ["10-20+ content pieces per week", "15-20 hours/week saved"],
+        "pricing": {
+          "setup": "$2,000-$3,500",
+          "monthly": "$400-$800"
+        }
+      },
+      {
+        "name": "SEO + Hyperlocal Market Content",
+        "description": "Generates SEO-optimized blogs, neighborhood guides, market reports",
+        "benefits": ["Stronger local search presence", "More inbound warm leads"],
+        "pricing": {
+          "setup": "$2,000-$4,000",
+          "monthly": "$300-$700"
+        }
+      }
+    ],
+    "premium": [
+      {
+        "name": "Luxury Real Estate AI Suite",
+        "description": "Full-stack solution: multilingual comms, HNW lead handling, luxury property marketing",
+        "benefits": ["Handle 3-5x more inquiries without more staff", "Better service for HNW clients"],
+        "pricing": {
+          "setup": "$10,000-$25,000+"
+        }
+      },
+      {
+        "name": "High-End Custom AI Systems",
+        "description": "Fully custom AI architectures, multi-agent systems, custom CRMs, deep integrations",
+        "pricing": {
+          "setup": "$10,000-$150,000+"
+        }
+      }
+    ]
+  },
+  "mastermind": {
+    "name": "Edmund's Mastermind",
+    "description": "Weekly, implementation-focused mastermind for real estate professionals and service-based business owners",
+    "format": "Live teaching, hot-seat coaching, AI tools, copy-paste assets",
+    "idealMember": "Doing $250K-$5M+ revenue, overwhelmed by systems/tech but hungry to implement, has leads but leaves money on table",
+    "benefits": [
+      "Weekly 60-90 minute live sessions",
+      "Implementation workbooks and prompt libraries",
+      "Systems & templates for lead follow-up and content",
+      "Peer community and hot-seat coaching"
+    ],
+    "joinProcess": "Visit mastermind page, fill out application, optional strategy call, join and get onboarding"
+  },
+  "partnerProgram": {
+    "tracks": [
+      {
+        "name": "Referral Partners",
+        "description": "Send qualified leads, earn commission on setup fees and recurring revenue"
+      },
+      {
+        "name": "Implementation Partners",
+        "description": "Get trained to deliver systems using Bogen.ai methodology, higher commission tiers"
+      }
+    ],
+    "idealPartners": [
+      "Real estate coaches and trainers",
+      "Brokerage/office owners",
+      "Marketing/tech consultants",
+      "Mastermind and community leaders"
+    ]
+  },
+  "contact": {
+    "email": "edmund@bogenhomes.com",
+    "phone": "561-235-7575",
+    "website": "https://bogen.ai",
+    "calendly": "https://calendly.com/edmund-15/reignation-meeting-ed",
+    "callToAction": "The best next step is a 30-minute strategy call with Edmund. He'll look at your specific business and tell you what makes sense (and what doesn't)."
+  },
+  "aiPrinciples": [
+    "AI amplifies intelligence; it doesn't replace it",
+    "Early adopters gain 18-24 months of advantage",
+    "Systems beat willpower",
+    "Revenue-first automation: lead follow-up > CRM cleanup > content",
+    "Relationships are still the real currency",
+    "60-70% of work can be automated; 30-40% must stay human"
+  ],
+  "timelines": {
+    "discovery": "Week 1: 60-90 min kickoff, map processes",
+    "build": "Weeks 2-3: Build systems, integrate, early testing",
+    "training": "Weeks 3-4: Train team, soft launch, optimization",
+    "impact": "Basic systems: 2-4 weeks, Complex/teams: 6-8+ weeks"
+  }
+}

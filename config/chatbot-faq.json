@@ -1,0 +1,74 @@
+{
+  "faqs": [
+    {
+      "id": 1,
+      "question": "How much does this cost?",
+      "answer": "Most projects fall somewhere between a few thousand dollars for a focused system and tens of thousands for a full, custom build. For example:\n\n• Basic chatbot: around $2.5K-$3.5K setup\n• Lead and follow-up automation: often $4K-$7.5K\n• Full luxury or team solution: $10K-$25K+\n\nThe better question is ROI: most clients are already losing money to slow follow-up and manual systems. Edmund will walk you through whether this makes financial sense for your specific situation on a strategy call.",
+      "tags": ["pricing", "cost", "investment"],
+      "priority": 1
+    },
+    {
+      "id": 2,
+      "question": "I'm not tech-savvy. Is this too complicated?",
+      "answer": "You don't need to be technical. Systems are built so you keep working the way you already work — by text, email, and conversation. The AI quietly does the heavy lifting behind the scenes (logging to CRM, drafting messages, scheduling follow-up).\n\nMost clients are up and running within 2-3 weeks with very little tech learning required.",
+      "tags": ["technical", "difficulty", "learning curve"],
+      "priority": 1
+    },
+    {
+      "id": 3,
+      "question": "How is this different from just using ChatGPT?",
+      "answer": "Using ChatGPT manually is like owning a sports car and pushing it instead of driving it.\n\nChatGPT alone: you have to log in, prompt it, copy/paste, and remember to use it.\n\nBogen.ai systems: run 24/7 in the background, trained on your business, integrated with your tools.\n\nYou wake up to tasks done, not prompts waiting to be written.",
+      "tags": ["comparison", "chatgpt", "difference"],
+      "priority": 1
+    },
+    {
+      "id": 4,
+      "question": "Will AI make my communication robotic or impersonal?",
+      "answer": "We train systems on your language and style.\n\nIn reality, when you're replying to your 40th message of the day, your energy drops. The AI keeps your 'best-day' tone every time. In many cases, clients find the communication more consistent and thoughtful.",
+      "tags": ["personalization", "tone", "robotic"],
+      "priority": 1
+    },
+    {
+      "id": 5,
+      "question": "How long does implementation take?",
+      "answer": "Typical timelines:\n\n• Quick wins (basic automation, chatbot): 2-3 weeks\n• Deeper integration (CRM, content systems): 3-6 weeks\n• Full, complex solutions: 6-12 weeks\n\nYour actual time investment is usually 8-12 hours spread over 4-6 weeks.",
+      "tags": ["timeline", "implementation", "duration"],
+      "priority": 1
+    },
+    {
+      "id": 6,
+      "question": "Is my business too unique for AI?",
+      "answer": "Specialized businesses are where custom AI shines.\n\nEdmund's approach is:\n1. Document your unique process\n2. Identify the 60-70% that's rules-based and repeatable\n3. Keep the 30-40% that requires your judgment and relationships\n\nThat's where the leverage lives.",
+      "tags": ["customization", "unique", "specialized"],
+      "priority": 2
+    },
+    {
+      "id": 7,
+      "question": "I'm already using some tools (Zillow, BoomTown, FUB, etc.). Why add this?",
+      "answer": "Those platforms are powerful — if you have time to drive them.\n\nWe don't replace them; we often integrate with them so AI:\n• Logs notes\n• Creates tasks\n• Sends follow-ups\n• Surfaces hot leads\n\nThe goal is: you stop being the bottleneck.",
+      "tags": ["integration", "existing tools", "crm"],
+      "priority": 2
+    },
+    {
+      "id": 8,
+      "question": "What if the AI makes a mistake?",
+      "answer": "Systems are designed with:\n• Review gates for high-stakes messages\n• Escalation when the AI isn't confident\n• Clear logs of what was said\n\nAfter a short calibration period, AI is usually more consistent than rushed humans. And we always keep humans in the loop for important decisions.",
+      "tags": ["errors", "mistakes", "reliability"],
+      "priority": 2
+    },
+    {
+      "id": 9,
+      "question": "Can I see examples that match my situation?",
+      "answer": "Yes. The best way is a strategy call where Edmund listens to what you do, your volume, and your bottlenecks. He'll share relevant examples (solo agent, team leader, coach, etc.) and what's realistic for you.",
+      "tags": ["examples", "case studies", "proof"],
+      "priority": 2
+    },
+    {
+      "id": 10,
+      "question": "Why choose Bogen.ai instead of a cheap freelancer or off-the-shelf chatbot?",
+      "answer": "You can definitely hire a freelancer to build a chatbot. The difference here is:\n\n• Strategy from someone who runs a real business and does AI daily\n• Systems built for revenue and time savings, not just 'a bot'\n• Ongoing optimization and support\n• Access to Edmund's mastermind and ecosystem\n\nMost clients who come after trying 'cheap' options say they spent more time and money fixing those than if they'd done it right the first time.",
+      "tags": ["comparison", "value", "freelancer"],
+      "priority": 2
+    }
+  ]
+}
