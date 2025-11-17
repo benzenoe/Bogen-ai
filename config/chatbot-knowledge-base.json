@@ -141,6 +141,13 @@
     "name": "Edmund's Mastermind",
     "description": "Weekly, implementation-focused mastermind for real estate professionals and service-based business owners",
     "format": "Live teaching, hot-seat coaching, AI tools, copy-paste assets",
+    "nextSession": {
+      "title": "Stop Wasting 15 Hours Weekly on AI - Master Consistency Systems",
+      "description": "Master AI systems that achieve 90%+ first-draft usability and reclaim 15+ hours weekly. Stop spending 30 minutes wrestling with AI for one usable output. The top 1% have built systems that produce perfect first drafts automatically.",
+      "date": "Wednesday, November 19, 2025",
+      "time": "9:00-10:00 AM Eastern Time",
+      "registrationLink": "https://www.bogen.ai/#mastermind-registration"
+    },
     "idealMember": "Doing $250K-$5M+ revenue, overwhelmed by systems/tech but hungry to implement, has leads but leaves money on table",
     "benefits": [
       "Weekly 60-90 minute live sessions",
