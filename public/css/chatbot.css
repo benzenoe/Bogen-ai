@@ -144,6 +144,34 @@
   opacity: 0.9;
 }
 
+.chatbot-header-info {
+  flex: 1;
+}
+
+.chatbot-reset-button {
+  background: rgba(255, 255, 255, 0.2);
+  border: none;
+  color: white;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+}
+
+.chatbot-reset-button:hover {
+  background: rgba(255, 255, 255, 0.3);
+  transform: rotate(180deg);
+}
+
+.chatbot-reset-button:active {
+  transform: rotate(180deg) scale(0.95);
+}
+
 /* Chatbot Messages Area */
 .chatbot-messages {
   flex: 1;
