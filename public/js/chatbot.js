@@ -270,8 +270,8 @@
       addQuickActions();
     }
 
-    // Scroll to bottom
-    messagesContainer.scrollTop = messagesContainer.scrollHeight;
+    // Scroll to show the new message (smooth scroll to the message itself)
+    messageEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
 
     // Save to state
     state.messages.push({ role, content, time });
