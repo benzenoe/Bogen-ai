@@ -1,3 +1,4 @@
+// Chatbot API Routes - v1.1 (Updated mastermind session info)
 const express = require('express');
 const router = express.Router();
 const { Pool } = require('pg');
