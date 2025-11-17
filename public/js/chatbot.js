@@ -223,7 +223,11 @@
     });
 
     // Convert markdown-style bold (**text**) to HTML
-    const formattedContent = content.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+    let formattedContent = content.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+
+    // Convert URLs to clickable links
+    const urlRegex = /(https?:\/\/[^\s]+)/g;
+    formattedContent = formattedContent.replace(urlRegex, '<a href="$1" target="_blank" rel="noopener noreferrer">$1</a>');
 
     // Convert bullet points to proper list
     const lines = formattedContent.split('\n');

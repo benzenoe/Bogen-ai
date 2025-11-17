@@ -246,6 +246,27 @@
   color: inherit;
 }
 
+.chatbot-message-bubble a {
+  color: var(--cyan);
+  text-decoration: underline;
+  font-weight: 500;
+  transition: color 0.2s ease;
+}
+
+.chatbot-message-bubble a:hover {
+  color: var(--navy);
+  text-decoration: underline;
+}
+
+.chatbot-message.user .chatbot-message-bubble a {
+  color: white;
+  text-decoration: underline;
+}
+
+.chatbot-message.user .chatbot-message-bubble a:hover {
+  opacity: 0.8;
+}
+
 .chatbot-message-time {
   font-size: 11px;
   color: #718096;
