@@ -116,15 +116,147 @@ router.post('/message', async (req, res) => {
       content: msg.content
     }));
 
-    // Call Claude API
-    const response = await anthropic.messages.create({
+    // Define tools available to Claude
+    const tools = [
+      {
+        name: 'register_for_mastermind',
+        description: 'Register a user for Edmund\'s Mastermind event. Use this when the user wants to register for the mastermind session. Collect all required information (first_name, last_name, email) and optional information (phone, company, how_heard) before calling this tool.',
+        input_schema: {
+          type: 'object',
+          properties: {
+            first_name: {
+              type: 'string',
+              description: 'The user\'s first name'
+            },
+            last_name: {
+              type: 'string',
+              description: 'The user\'s last name'
+            },
+            email: {
+              type: 'string',
+              description: 'The user\'s email address'
+            },
+            phone: {
+              type: 'string',
+              description: 'The user\'s phone number (optional)'
+            },
+            company: {
+              type: 'string',
+              description: 'The user\'s company or brokerage name (optional)'
+            },
+            how_heard: {
+              type: 'string',
+              description: 'How the user heard about the mastermind (optional)'
+            }
+          },
+          required: ['first_name', 'last_name', 'email']
+        }
+      }
+    ];
+
+    // Call Claude API with tool support
+    let response = await anthropic.messages.create({
       model: 'claude-3-haiku-20240307',
       max_tokens: 1024,
       system: `${systemPrompt}\n\n${buildKnowledgeContext()}`,
-      messages: messages
+      messages: messages,
+      tools: tools
     });
 
-    const assistantMessage = response.content[0].text;
+    // Handle tool use
+    let assistantMessage = '';
+
+    if (response.stop_reason === 'tool_use') {
+      const toolUse = response.content.find(block => block.type === 'tool_use');
+
+      if (toolUse && toolUse.name === 'register_for_mastermind') {
+        // Call the registration API
+        try {
+          const registrationData = toolUse.input;
+          const axios = require('axios');
+
+          // Call our own registration endpoint
+          const registrationResponse = await axios.post(
+            `${process.env.BASE_URL || 'http://localhost:3000'}/api/mastermind/register`,
+            registrationData
+          );
+
+          // Continue conversation with tool result
+          const toolResultMessages = [
+            ...messages,
+            {
+              role: 'assistant',
+              content: response.content
+            },
+            {
+              role: 'user',
+              content: [
+                {
+                  type: 'tool_result',
+                  tool_use_id: toolUse.id,
+                  content: JSON.stringify({
+                    success: true,
+                    message: registrationResponse.data.message,
+                    zoom_link: registrationResponse.data.zoom_link,
+                    meeting_id: registrationResponse.data.meeting_id,
+                    event_date: registrationResponse.data.event_date,
+                    event_time: registrationResponse.data.event_time
+                  })
+                }
+              ]
+            }
+          ];
+
+          // Get Claude's response with the tool result
+          const finalResponse = await anthropic.messages.create({
+            model: 'claude-3-haiku-20240307',
+            max_tokens: 1024,
+            system: `${systemPrompt}\n\n${buildKnowledgeContext()}`,
+            messages: toolResultMessages,
+            tools: tools
+          });
+
+          assistantMessage = finalResponse.content[0].text;
+
+        } catch (registrationError) {
+          console.error('Registration error:', registrationError);
+
+          // Continue conversation with error
+          const toolResultMessages = [
+            ...messages,
+            {
+              role: 'assistant',
+              content: response.content
+            },
+            {
+              role: 'user',
+              content: [
+                {
+                  type: 'tool_result',
+                  tool_use_id: toolUse.id,
+                  content: JSON.stringify({
+                    success: false,
+                    error: 'Registration failed. Please try again or contact Edmund directly.'
+                  })
+                }
+              ]
+            }
+          ];
+
+          const finalResponse = await anthropic.messages.create({
+            model: 'claude-3-haiku-20240307',
+            max_tokens: 1024,
+            system: `${systemPrompt}\n\n${buildKnowledgeContext()}`,
+            messages: toolResultMessages,
+            tools: tools
+          });
+
+          assistantMessage = finalResponse.content[0].text;
+        }
+      }
+    } else {
+      assistantMessage = response.content[0].text;
+    }
 
     // Save assistant response
     await pool.query(
