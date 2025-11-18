@@ -210,13 +210,21 @@ router.post('/message', async (req, res) => {
           // Get Claude's response with the tool result
           const finalResponse = await anthropic.messages.create({
             model: 'claude-3-haiku-20240307',
-            max_tokens: 1024,
+            max_tokens: 1500,
             system: `${systemPrompt}\n\n${buildKnowledgeContext()}`,
             messages: toolResultMessages,
             tools: tools
           });
 
-          assistantMessage = finalResponse.content[0].text;
+          // Extract text from response
+          const textBlock = finalResponse.content.find(block => block.type === 'text');
+          assistantMessage = textBlock ? textBlock.text : finalResponse.content[0].text;
+
+          console.log('Registration successful, Zoom details provided:', {
+            zoom_link: registrationResponse.data.zoom_link,
+            meeting_id: registrationResponse.data.meeting_id,
+            response_length: assistantMessage.length
+          });
 
         } catch (registrationError) {
           console.error('Registration error:', registrationError);
@@ -245,17 +253,21 @@ router.post('/message', async (req, res) => {
 
           const finalResponse = await anthropic.messages.create({
             model: 'claude-3-haiku-20240307',
-            max_tokens: 1024,
+            max_tokens: 1500,
             system: `${systemPrompt}\n\n${buildKnowledgeContext()}`,
             messages: toolResultMessages,
             tools: tools
           });
 
-          assistantMessage = finalResponse.content[0].text;
+          // Extract text from response
+          const textBlock = finalResponse.content.find(block => block.type === 'text');
+          assistantMessage = textBlock ? textBlock.text : finalResponse.content[0].text;
         }
       }
     } else {
-      assistantMessage = response.content[0].text;
+      // No tool use - get text response directly
+      const textBlock = response.content.find(block => block.type === 'text');
+      assistantMessage = textBlock ? textBlock.text : (response.content[0].text || 'I apologize, but I encountered an error. Please try again.');
     }
 
     // Save assistant response
