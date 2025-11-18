@@ -28,114 +28,85 @@
       ]
     }
   },
-  "services": {
-    "communication": [
-      {
-        "name": "Custom AI Concierge (Chatbot + Lead Assistant)",
-        "description": "24/7 website assistant that answers FAQs, qualifies leads, collects contact info, routes hot opportunities",
-        "benefits": ["Immediate responses", "More qualified conversations", "Consistent messaging", "Frees business owner from being on call"],
-        "pricing": {
-          "setup": "$2,500-$7,500",
-          "monthly": "$300-$800"
-        }
+  "allServices": {
+    "totalCount": 50,
+    "categories": {
+      "communication": {
+        "count": 15,
+        "services": [
+          "24/7 AI Customer Assistant",
+          "Automated Email Response System",
+          "Website Chatbot Integration",
+          "SMS Campaign Automation",
+          "Customer Follow-Up Sequences",
+          "AI Phone Answering Service",
+          "Multi-Channel Inbox Management",
+          "Customer Review Request Automation",
+          "Live Chat to Lead Conversion",
+          "FAQ Knowledge Base Bot",
+          "Appointment Reminder System",
+          "Customer Feedback Collection",
+          "Voicemail Transcription & Response",
+          "Customer Onboarding Automation",
+          "Social Media Message Response"
+        ]
       },
-      {
-        "name": "Multilingual Communication Systems",
-        "description": "AI-supported translation and messaging in 50+ languages for email, text, property descriptions",
-        "benefits": ["Access to large market segments", "3-5x increase in addressable market"],
-        "pricing": {
-          "setup": "$500-$1,500"
-        }
+      "sales": {
+        "count": 13,
+        "services": [
+          "AI Lead Qualification System",
+          "Automated Proposal Generation",
+          "Upsell & Cross-sell Automation",
+          "Abandoned Cart Recovery",
+          "Sales Pipeline Automation",
+          "Dynamic Pricing Optimization",
+          "Appointment Booking System",
+          "Sales Outreach Sequences",
+          "Contract & Quote Management",
+          "Win-Back Campaign Automation",
+          "Product Recommendation Engine",
+          "Lead Magnet Distribution",
+          "Sales Performance Analytics"
+        ]
       },
-      {
-        "name": "Automated Follow-Up Sequences",
-        "description": "Intelligent drip and follow-up sequences that adapt to lead behavior",
-        "benefits": ["25-50% improvement in lead conversion", "No more leads falling through cracks"],
-        "pricing": {
-          "setup": "$1,500-$3,500"
-        }
+      "operations": {
+        "count": 10,
+        "services": [
+          "AI-Powered Appointment Scheduling",
+          "Automated Data Entry & Processing",
+          "Invoice Generation & Payment Tracking",
+          "Inventory Management Automation",
+          "Document Processing & OCR",
+          "Task Assignment & Workflow Routing",
+          "Automated Reporting & Dashboards",
+          "Employee Onboarding Automation",
+          "Quality Assurance & Compliance Checks",
+          "Expense Tracking & Reimbursement"
+        ]
+      },
+      "marketing": {
+        "count": 7,
+        "services": [
+          "Social Media Automation",
+          "Blog Content Generation",
+          "Email Marketing Campaigns",
+          "SEO Optimization & Monitoring",
+          "Video Content Creation",
+          "Paid Ad Campaign Management",
+          "Influencer Outreach Automation"
+        ]
+      },
+      "industrySpecific": {
+        "count": 5,
+        "packages": [
+          "Real Estate AI Suite",
+          "Legal Practice Automation",
+          "Medical Practice AI",
+          "Home Services Business Suite",
+          "E-commerce Growth Package"
+        ]
       }
-    ],
-    "sales": [
-      {
-        "name": "AI Prospecting Systems",
-        "description": "Generates outbound messages, follow-ups, call scripts, helps identify and prioritize warm leads",
-        "pricing": {
-          "setup": "$297-$1,997"
-        }
-      },
-      {
-        "name": "Lead Qualification & Scoring",
-        "description": "Uses AI to rank/prioritize leads based on responses, behavior, fit criteria",
-        "benefits": ["Focus time on hot leads", "Less time wasted", "Higher closing rates"],
-        "pricing": {
-          "setup": "$2,000-$4,000"
-        }
-      },
-      {
-        "name": "CRM & Pipeline Automation",
-        "description": "Auto-updates CRM based on emails, texts, and forms. Creates tasks and reminders",
-        "benefits": ["10-15 hours/week saved", "No more dropped leads", "Clean pipeline visibility"],
-        "pricing": {
-          "setup": "$3,000-$6,000"
-        }
-      }
-    ],
-    "operations": [
-      {
-        "name": "Business Automation Blueprint",
-        "description": "Maps business processes, documents SOPs, identifies automation opportunities",
-        "benefits": ["10-15 hours/week saved", "Less decision fatigue"],
-        "pricing": {
-          "setup": "$2,500-$15,000"
-        }
-      },
-      {
-        "name": "Document Processing & Data Entry Automation",
-        "description": "Extracts data from contracts/forms/emails, populates CRMs and spreadsheets",
-        "benefits": ["80-95% reduction in manual data entry", "Fewer errors"],
-        "pricing": {
-          "setup": "$1,500-$4,000"
-        }
-      }
-    ],
-    "marketing": [
-      {
-        "name": "Content Machine (AI-Powered)",
-        "description": "From one input generates social posts, email newsletters, blog posts, video scripts",
-        "benefits": ["10-20+ content pieces per week", "15-20 hours/week saved"],
-        "pricing": {
-          "setup": "$2,000-$3,500",
-          "monthly": "$400-$800"
-        }
-      },
-      {
-        "name": "SEO + Hyperlocal Market Content",
-        "description": "Generates SEO-optimized blogs, neighborhood guides, market reports",
-        "benefits": ["Stronger local search presence", "More inbound warm leads"],
-        "pricing": {
-          "setup": "$2,000-$4,000",
-          "monthly": "$300-$700"
-        }
-      }
-    ],
-    "premium": [
-      {
-        "name": "Luxury Real Estate AI Suite",
-        "description": "Full-stack solution: multilingual comms, HNW lead handling, luxury property marketing",
-        "benefits": ["Handle 3-5x more inquiries without more staff", "Better service for HNW clients"],
-        "pricing": {
-          "setup": "$10,000-$25,000+"
-        }
-      },
-      {
-        "name": "High-End Custom AI Systems",
-        "description": "Fully custom AI architectures, multi-agent systems, custom CRMs, deep integrations",
-        "pricing": {
-          "setup": "$10,000-$150,000+"
-        }
-      }
-    ]
+    }
   },
   "mastermind": {
     "name": "Edmund's Mastermind",
