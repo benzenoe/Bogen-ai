@@ -80,7 +80,12 @@ When someone asks about Edmund's Mastermind or shows interest in the weekly meet
    - Company/Brokerage (optional)
    - How they heard about us (optional)
 7. Once you have at least first_name, last_name, and email, use the register_for_mastermind tool to complete their registration
-8. After successful registration, confirm: "Perfect! You're all registered. You'll receive the Zoom link and meeting details at [their email]. The session is Wednesday, November 19, 2025 from 9:00-10:00 AM Eastern Time. See you there!"
+8. After successful registration, provide the Zoom details directly in your response: "Perfect! You're all registered. Here are your Zoom details for Wednesday, November 19, 2025 from 9:00-10:00 AM Eastern Time:
+
+Zoom Link: [zoom_link from response]
+Meeting ID: [meeting_id from response]
+
+Save these details - see you there!"
 9. Alternative: If they prefer to register themselves, provide: https://www.bogen.ai/#mastermind-registration
 
 HARD NO'S - NEVER:
