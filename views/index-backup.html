@@ -372,107 +372,14 @@
     </div>
   </section>
 
-  <!-- Combined Mastermind Section: Promo Image & Countdown/Registration Side by Side -->
-  <section class="section" style="padding: var(--spacing-xxl) 0; background: linear-gradient(135deg, #1a2332 0%, #0d1623 100%);">
-    <div class="container">
-      <div class="grid gap-xl" style="grid-template-columns: 1fr 1fr; align-items: start;">
-
-        <!-- LEFT SIDE: Mastermind AI Consistency Promo -->
-        <div style="display: flex; flex-direction: column; justify-content: flex-start;">
-          <div style="text-align: center; margin-bottom: var(--spacing-xl);">
-            <h2 style="font-size: 2rem; margin-bottom: var(--spacing-lg); color: var(--white);">Stop Wasting 15 Hours Weekly on AI<br>Master Consistency Systems</h2>
-            <div>
-              <a href="#mastermind-registration">
-                <img src="/images/mastermind-ai-consistency.png" alt="Edmund Bogen Mastermind - AI Consistency Systems" style="width: 100%; height: auto; border-radius: var(--border-radius); box-shadow: var(--shadow-lg); cursor: pointer; transition: transform 0.3s ease, box-shadow 0.3s ease;" onmouseover="this.style.transform='scale(1.02)'; this.style.boxShadow='0 12px 48px rgba(100, 181, 246, 0.4)';" onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='0 4px 12px rgba(0, 0, 0, 0.3)';">
-              </a>
-            </div>
-          </div>
-        </div>
-
-        <!-- RIGHT SIDE: Countdown + Registration Form -->
-        <div style="display: flex; flex-direction: column; gap: var(--spacing-lg);">
-
-          <!-- Countdown Timer -->
-          <div style="text-align: center;">
-            <h2 style="color: var(--white); font-size: 2rem; margin-bottom: var(--spacing-md);"><strong>Our next mastermind will be</strong></h2>
-
-            <div id="mastermind-countdown" style="display: flex; justify-content: center; gap: var(--spacing-md); flex-wrap: wrap; margin: var(--spacing-lg) 0;">
-              <div class="countdown-box" style="background: rgba(255,255,255,0.1); backdrop-filter: blur(10px); padding: var(--spacing-md); border-radius: var(--border-radius); min-width: 100px; border: 2px solid var(--cyan);">
-                <div id="days" style="font-size: 3rem; font-weight: bold; color: var(--cyan); line-height: 1;">0</div>
-                <div style="color: rgba(255,255,255,0.8); font-size: 0.875rem; text-transform: uppercase; letter-spacing: 1px; margin-top: var(--spacing-xs);">Days</div>
-              </div>
-              <div class="countdown-box" style="background: rgba(255,255,255,0.1); backdrop-filter: blur(10px); padding: var(--spacing-md); border-radius: var(--border-radius); min-width: 100px; border: 2px solid var(--cyan);">
-                <div id="hours" style="font-size: 3rem; font-weight: bold; color: var(--cyan); line-height: 1;">0</div>
-                <div style="color: rgba(255,255,255,0.8); font-size: 0.875rem; text-transform: uppercase; letter-spacing: 1px; margin-top: var(--spacing-xs);">Hours</div>
-              </div>
-              <div class="countdown-box" style="background: rgba(255,255,255,0.1); backdrop-filter: blur(10px); padding: var(--spacing-md); border-radius: var(--border-radius); min-width: 100px; border: 2px solid var(--cyan);">
-                <div id="minutes" style="font-size: 3rem; font-weight: bold; color: var(--cyan); line-height: 1;">0</div>
-                <div style="color: rgba(255,255,255,0.8); font-size: 0.875rem; text-transform: uppercase; letter-spacing: 1px; margin-top: var(--spacing-xs);">Minutes</div>
-              </div>
-              <div class="countdown-box" style="background: rgba(255,255,255,0.1); backdrop-filter: blur(10px); padding: var(--spacing-md); border-radius: var(--border-radius); min-width: 100px; border: 2px solid var(--cyan);">
-                <div id="seconds" style="font-size: 3rem; font-weight: bold; color: var(--cyan); line-height: 1;">0</div>
-                <div style="color: rgba(255,255,255,0.8); font-size: 0.875rem; text-transform: uppercase; letter-spacing: 1px; margin-top: var(--spacing-xs);">Seconds</div>
-              </div>
-            </div>
-
-            <p style="color: rgba(255,255,255,0.9); font-size: 1.25rem; margin-top: var(--spacing-lg);">Wednesday, November 19, 2025 • 9:00-10:00 AM Eastern Time</p>
-          </div>
-
-          <!-- Registration Form -->
-          <div>
-            <div class="card" style="padding: var(--spacing-xl); border: 3px solid var(--cyan); box-shadow: 0 8px 24px rgba(0,212,255,0.15); background: linear-gradient(135deg, #1a2332 0%, #0d1623 100%);">
-              <h3 style="color: white; margin-bottom: var(--spacing-sm); text-align: center;">Register for This Session</h3>
-              <p style="text-align: center; color: rgba(255,255,255,0.9); margin-bottom: var(--spacing-lg); font-size: 0.9rem;">Wednesday, November 19, 2025<br>9:00-10:00 AM Eastern</p>
-
-              <form id="mastermind-registration-form">
-                <div style="margin-bottom: var(--spacing-md);">
-                  <label for="first_name" style="display: block; margin-bottom: var(--spacing-xs); font-weight: 600; color: white;">First Name <span style="color: var(--cyan);">*</span></label>
-                  <input type="text" id="first_name" name="first_name" required style="width: 100%; padding: var(--spacing-sm); border: 2px solid var(--cyan); border-radius: var(--border-radius); font-size: 1rem; background: white; color: var(--navy);">
-                </div>
-
-                <div style="margin-bottom: var(--spacing-md);">
-                  <label for="last_name" style="display: block; margin-bottom: var(--spacing-xs); font-weight: 600; color: white;">Last Name <span style="color: var(--cyan);">*</span></label>
-                  <input type="text" id="last_name" name="last_name" required style="width: 100%; padding: var(--spacing-sm); border: 2px solid var(--cyan); border-radius: var(--border-radius); font-size: 1rem; background: white; color: var(--navy);">
-                </div>
-
-                <div style="margin-bottom: var(--spacing-md);">
-                  <label for="email" style="display: block; margin-bottom: var(--spacing-xs); font-weight: 600; color: white;">Email Address <span style="color: var(--cyan);">*</span></label>
-                  <input type="email" id="email" name="email" required style="width: 100%; padding: var(--spacing-sm); border: 2px solid var(--cyan); border-radius: var(--border-radius); font-size: 1rem; background: white; color: var(--navy);">
-                </div>
-
-                <div style="margin-bottom: var(--spacing-md);">
-                  <label for="phone" style="display: block; margin-bottom: var(--spacing-xs); font-weight: 600; color: white;">Phone Number <span style="color: rgba(255,255,255,0.7); font-weight: 400; font-size: 0.875rem;">(optional)</span></label>
-                  <input type="tel" id="phone" name="phone" style="width: 100%; padding: var(--spacing-sm); border: 2px solid var(--cyan); border-radius: var(--border-radius); font-size: 1rem; background: white; color: var(--navy);">
-                </div>
-
-                <div style="margin-bottom: var(--spacing-md);">
-                  <label for="company" style="display: block; margin-bottom: var(--spacing-xs); font-weight: 600; color: white;">Company/Brokerage <span style="color: rgba(255,255,255,0.7); font-weight: 400; font-size: 0.875rem;">(optional)</span></label>
-                  <input type="text" id="company" name="company" style="width: 100%; padding: var(--spacing-sm); border: 2px solid var(--cyan); border-radius: var(--border-radius); font-size: 1rem; background: white; color: var(--navy);">
-                </div>
-
-                <div style="margin-bottom: var(--spacing-lg);">
-                  <label for="how_heard" style="display: block; margin-bottom: var(--spacing-xs); font-weight: 600; color: white;">How did you hear about us? <span style="color: rgba(255,255,255,0.7); font-weight: 400; font-size: 0.875rem;">(optional)</span></label>
-                  <select id="how_heard" name="how_heard" style="width: 100%; padding: var(--spacing-sm); border: 2px solid var(--cyan); border-radius: var(--border-radius); font-size: 1rem; background: white; color: var(--navy);">
-                    <option value="">Select an option</option>
-                    <option value="REIGNation Member">REIGNation Member</option>
-                    <option value="LinkedIn">LinkedIn</option>
-                    <option value="Facebook">Facebook</option>
-                    <option value="Instagram">Instagram</option>
-                    <option value="YouTube">YouTube</option>
-                    <option value="Friend Referral">Friend Referral</option>
-                    <option value="Google Search">Google Search</option>
-                    <option value="Other">Other</option>
-                  </select>
-                </div>
-
-                <button type="submit" class="btn btn-primary btn-lg" style="width: 100%;">Reserve My Spot</button>
-              </form>
-
-              <div id="registration-success" style="display: none; text-align: center;"></div>
-            </div>
-          </div>
-
-        </div>
+  <!-- Mastermind AI Consistency Section -->
+  <section class="section" style="padding: var(--spacing-xxl) 0; background: var(--dark-navy);">
+    <div class="container" style="text-align: center;">
+      <h2 style="font-size: 2rem; margin-bottom: var(--spacing-lg); color: var(--white);">Stop Wasting 15 Hours Weekly on AI<br>Master Consistency Systems</h2>
+      <div style="max-width: 800px; margin: 0 auto;">
+        <a href="#mastermind-registration">
+          <img src="/images/mastermind-ai-consistency.png" alt="Edmund Bogen Mastermind - AI Consistency Systems" style="width: 100%; height: auto; border-radius: var(--border-radius); box-shadow: var(--shadow-lg); cursor: pointer; transition: transform 0.3s ease, box-shadow 0.3s ease;" onmouseover="this.style.transform='scale(1.02)'; this.style.boxShadow='0 12px 48px rgba(100, 181, 246, 0.4)';" onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='0 4px 12px rgba(0, 0, 0, 0.3)';">
+        </a>
       </div>
     </div>
   </section>
@@ -549,7 +456,38 @@
     </div>
   </section>
 
-  <!-- Mastermind Registration Details Section -->
+  <!-- Next Mastermind Countdown Section -->
+  <section class="section" style="background: linear-gradient(135deg, #1a2332 0%, #0d1623 100%); padding: var(--spacing-xl) 0;">
+    <div class="container text-center">
+      <div style="max-width: 800px; margin: 0 auto;">
+        <h2 style="color: var(--white); font-size: 2rem; margin-bottom: var(--spacing-md);"><strong>Our next mastermind will be</strong></h2>
+
+        <!-- Countdown Timer -->
+        <div id="mastermind-countdown" style="display: flex; justify-content: center; gap: var(--spacing-md); flex-wrap: wrap; margin: var(--spacing-lg) 0;">
+          <div class="countdown-box" style="background: rgba(255,255,255,0.1); backdrop-filter: blur(10px); padding: var(--spacing-md); border-radius: var(--border-radius); min-width: 100px; border: 2px solid var(--cyan);">
+            <div id="days" style="font-size: 3rem; font-weight: bold; color: var(--cyan); line-height: 1;">0</div>
+            <div style="color: rgba(255,255,255,0.8); font-size: 0.875rem; text-transform: uppercase; letter-spacing: 1px; margin-top: var(--spacing-xs);">Days</div>
+          </div>
+          <div class="countdown-box" style="background: rgba(255,255,255,0.1); backdrop-filter: blur(10px); padding: var(--spacing-md); border-radius: var(--border-radius); min-width: 100px; border: 2px solid var(--cyan);">
+            <div id="hours" style="font-size: 3rem; font-weight: bold; color: var(--cyan); line-height: 1;">0</div>
+            <div style="color: rgba(255,255,255,0.8); font-size: 0.875rem; text-transform: uppercase; letter-spacing: 1px; margin-top: var(--spacing-xs);">Hours</div>
+          </div>
+          <div class="countdown-box" style="background: rgba(255,255,255,0.1); backdrop-filter: blur(10px); padding: var(--spacing-md); border-radius: var(--border-radius); min-width: 100px; border: 2px solid var(--cyan);">
+            <div id="minutes" style="font-size: 3rem; font-weight: bold; color: var(--cyan); line-height: 1;">0</div>
+            <div style="color: rgba(255,255,255,0.8); font-size: 0.875rem; text-transform: uppercase; letter-spacing: 1px; margin-top: var(--spacing-xs);">Minutes</div>
+          </div>
+          <div class="countdown-box" style="background: rgba(255,255,255,0.1); backdrop-filter: blur(10px); padding: var(--spacing-md); border-radius: var(--border-radius); min-width: 100px; border: 2px solid var(--cyan);">
+            <div id="seconds" style="font-size: 3rem; font-weight: bold; color: var(--cyan); line-height: 1;">0</div>
+            <div style="color: rgba(255,255,255,0.8); font-size: 0.875rem; text-transform: uppercase; letter-spacing: 1px; margin-top: var(--spacing-xs);">Seconds</div>
+          </div>
+        </div>
+
+        <p style="color: rgba(255,255,255,0.9); font-size: 1.25rem; margin-top: var(--spacing-lg);">Wednesday, November 19, 2025 • 9:00-10:00 AM Eastern Time</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Mastermind Registration Section -->
   <section id="mastermind-registration" class="section" style="background: linear-gradient(135deg, #1a2332 0%, #0d1623 100%); padding: var(--spacing-xxl) 0;">
     <div class="container">
       <div class="grid gap-xl" style="grid-template-columns: 1.2fr 1fr; align-items: start;">
@@ -593,12 +531,57 @@
           <p style="font-style: italic; font-size: 0.95rem; color: rgba(255,255,255,0.7); margin-top: var(--spacing-lg);">Hosted by Edmund Bogen | Edmund's Mastermind</p>
         </div>
 
-        <!-- Right: Quick Link to Form Above -->
-        <div style="display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center;">
-          <div style="background: rgba(0,212,255,0.1); padding: var(--spacing-xl); border-radius: var(--border-radius); border: 2px solid var(--cyan);">
-            <h3 style="color: var(--cyan); margin-bottom: var(--spacing-md);">Ready to Register?</h3>
-            <p style="color: rgba(255,255,255,0.9); margin-bottom: var(--spacing-lg);">Scroll up to the registration form above or click below to jump directly to it.</p>
-            <a href="#" onclick="window.scrollTo({top: 0, behavior: 'smooth'}); return false;" class="btn btn-primary btn-lg">Go to Registration Form</a>
+        <!-- Right: Registration Form -->
+        <div>
+          <div class="card" style="padding: var(--spacing-xl); border: 3px solid var(--cyan); box-shadow: 0 8px 24px rgba(0,212,255,0.15); background: linear-gradient(135deg, #1a2332 0%, #0d1623 100%);">
+            <h3 style="color: white; margin-bottom: var(--spacing-sm); text-align: center;">Register for This Session</h3>
+            <p style="text-align: center; color: rgba(255,255,255,0.9); margin-bottom: var(--spacing-lg); font-size: 0.9rem;">Wednesday, November 19, 2025<br>9:00-10:00 AM Eastern</p>
+
+            <form id="mastermind-registration-form">
+              <div style="margin-bottom: var(--spacing-md);">
+                <label for="first_name" style="display: block; margin-bottom: var(--spacing-xs); font-weight: 600; color: white;">First Name <span style="color: var(--cyan);">*</span></label>
+                <input type="text" id="first_name" name="first_name" required style="width: 100%; padding: var(--spacing-sm); border: 2px solid var(--cyan); border-radius: var(--border-radius); font-size: 1rem; background: white; color: var(--navy);">
+              </div>
+
+              <div style="margin-bottom: var(--spacing-md);">
+                <label for="last_name" style="display: block; margin-bottom: var(--spacing-xs); font-weight: 600; color: white;">Last Name <span style="color: var(--cyan);">*</span></label>
+                <input type="text" id="last_name" name="last_name" required style="width: 100%; padding: var(--spacing-sm); border: 2px solid var(--cyan); border-radius: var(--border-radius); font-size: 1rem; background: white; color: var(--navy);">
+              </div>
+
+              <div style="margin-bottom: var(--spacing-md);">
+                <label for="email" style="display: block; margin-bottom: var(--spacing-xs); font-weight: 600; color: white;">Email Address <span style="color: var(--cyan);">*</span></label>
+                <input type="email" id="email" name="email" required style="width: 100%; padding: var(--spacing-sm); border: 2px solid var(--cyan); border-radius: var(--border-radius); font-size: 1rem; background: white; color: var(--navy);">
+              </div>
+
+              <div style="margin-bottom: var(--spacing-md);">
+                <label for="phone" style="display: block; margin-bottom: var(--spacing-xs); font-weight: 600; color: white;">Phone Number <span style="color: rgba(255,255,255,0.7); font-weight: 400; font-size: 0.875rem;">(optional)</span></label>
+                <input type="tel" id="phone" name="phone" style="width: 100%; padding: var(--spacing-sm); border: 2px solid var(--cyan); border-radius: var(--border-radius); font-size: 1rem; background: white; color: var(--navy);">
+              </div>
+
+              <div style="margin-bottom: var(--spacing-md);">
+                <label for="company" style="display: block; margin-bottom: var(--spacing-xs); font-weight: 600; color: white;">Company/Brokerage <span style="color: rgba(255,255,255,0.7); font-weight: 400; font-size: 0.875rem;">(optional)</span></label>
+                <input type="text" id="company" name="company" style="width: 100%; padding: var(--spacing-sm); border: 2px solid var(--cyan); border-radius: var(--border-radius); font-size: 1rem; background: white; color: var(--navy);">
+              </div>
+
+              <div style="margin-bottom: var(--spacing-lg);">
+                <label for="how_heard" style="display: block; margin-bottom: var(--spacing-xs); font-weight: 600; color: white;">How did you hear about us? <span style="color: rgba(255,255,255,0.7); font-weight: 400; font-size: 0.875rem;">(optional)</span></label>
+                <select id="how_heard" name="how_heard" style="width: 100%; padding: var(--spacing-sm); border: 2px solid var(--cyan); border-radius: var(--border-radius); font-size: 1rem; background: white; color: var(--navy);">
+                  <option value="">Select an option</option>
+                  <option value="REIGNation Member">REIGNation Member</option>
+                  <option value="LinkedIn">LinkedIn</option>
+                  <option value="Facebook">Facebook</option>
+                  <option value="Instagram">Instagram</option>
+                  <option value="YouTube">YouTube</option>
+                  <option value="Friend Referral">Friend Referral</option>
+                  <option value="Google Search">Google Search</option>
+                  <option value="Other">Other</option>
+                </select>
+              </div>
+
+              <button type="submit" class="btn btn-primary btn-lg" style="width: 100%;">Reserve My Spot</button>
+            </form>
+
+            <div id="registration-success" style="display: none; text-align: center;"></div>
           </div>
         </div>
       </div>
