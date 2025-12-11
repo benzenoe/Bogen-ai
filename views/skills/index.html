@@ -14,34 +14,27 @@
   <style>
     .skills-hero {
       background: linear-gradient(135deg, var(--navy) 0%, #1a3a52 100%);
-      padding: 120px 0 80px;
+      padding: 120px 0 60px;
       text-align: center;
     }
 
     .skills-hero h1 {
       color: var(--white);
-      font-size: 3rem;
+      font-size: 2.5rem;
       margin-bottom: 16px;
     }
 
     .skills-hero p {
       color: rgba(255, 255, 255, 0.85);
-      font-size: 1.25rem;
+      font-size: 1.1rem;
       max-width: 600px;
-      margin: 0 auto 32px;
-    }
-
-    .hero-buttons {
-      display: flex;
-      gap: 16px;
-      justify-content: center;
-      flex-wrap: wrap;
+      margin: 0 auto 24px;
     }
 
     .btn-submit {
       background: linear-gradient(135deg, #4CAF50, #45a049);
       color: white;
-      padding: 14px 28px;
+      padding: 12px 24px;
       border-radius: 8px;
       font-weight: 600;
       text-decoration: none;
@@ -53,158 +46,118 @@
       box-shadow: 0 4px 12px rgba(76, 175, 80, 0.4);
     }
 
-    .btn-browse {
-      background: transparent;
-      border: 2px solid var(--cyan);
-      color: var(--cyan);
-      padding: 12px 28px;
-      border-radius: 8px;
-      font-weight: 600;
-      text-decoration: none;
-      display: inline-block;
-    }
-
-    .btn-browse:hover {
-      background: var(--cyan);
-      color: var(--navy);
-    }
-
     /* Info Section */
     .info-section {
-      background: #f8f9fa;
-      padding: 60px 0;
+      background: var(--white);
+      padding: 40px 0;
+      border-bottom: 1px solid #eee;
     }
 
     .info-box {
-      background: white;
-      border-radius: 16px;
-      padding: 40px;
       max-width: 800px;
       margin: 0 auto;
-      box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+      text-align: center;
     }
 
     .info-box h2 {
       color: var(--navy);
-      margin-bottom: 16px;
+      margin-bottom: 12px;
+      font-size: 1.5rem;
     }
 
     .info-box p {
       color: #555;
       line-height: 1.7;
-      margin-bottom: 16px;
     }
 
-    .code-block {
-      background: var(--navy);
-      color: var(--cyan);
-      padding: 16px 20px;
-      border-radius: 8px;
-      font-family: 'Courier New', monospace;
-      font-size: 0.9rem;
-      margin-top: 20px;
-    }
-
-    /* Skills Section */
-    .skills-section {
-      padding: 80px 0;
-      background: linear-gradient(180deg, var(--navy) 0%, #1a3a52 100%);
+    /* Table Section */
+    .table-section {
+      padding: 60px 0;
+      background: #f8f9fa;
     }
 
     .section-header {
-      text-align: center;
-      margin-bottom: 48px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 24px;
     }
 
     .section-header h2 {
-      color: var(--white);
-      font-size: 2.25rem;
-      margin-bottom: 12px;
+      color: var(--navy);
+      font-size: 1.75rem;
+      margin: 0;
     }
 
-    .section-header p {
-      color: rgba(255, 255, 255, 0.75);
-      font-size: 1.1rem;
-    }
-
-    /* New Card Design */
-    .skills-list {
-      max-width: 900px;
-      margin: 0 auto;
-    }
-
-    .skill-item {
+    .skills-table {
+      width: 100%;
       background: white;
       border-radius: 12px;
-      padding: 24px 28px;
-      margin-bottom: 20px;
-      display: flex;
-      align-items: flex-start;
-      gap: 20px;
-      text-decoration: none;
-      color: inherit;
-      transition: transform 0.2s, box-shadow 0.2s;
+      overflow: hidden;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+      border-collapse: collapse;
     }
 
-    .skill-item:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+    .skills-table thead {
+      background: var(--navy);
+      color: white;
     }
 
-    .skill-emoji {
-      font-size: 2.5rem;
-      line-height: 1;
-      flex-shrink: 0;
-    }
-
-    .skill-content {
-      flex: 1;
-    }
-
-    .skill-title {
-      color: var(--navy);
-      font-size: 1.35rem;
+    .skills-table th {
+      padding: 16px 20px;
+      text-align: left;
       font-weight: 600;
-      margin: 0 0 8px 0;
-    }
-
-    .skill-badges {
-      display: flex;
-      gap: 8px;
-      margin-bottom: 12px;
-    }
-
-    .badge {
-      padding: 4px 12px;
-      border-radius: 20px;
-      font-size: 0.75rem;
-      font-weight: 600;
+      font-size: 0.9rem;
       text-transform: uppercase;
+      letter-spacing: 0.5px;
     }
 
-    .badge-featured {
-      background: linear-gradient(135deg, var(--cyan), #4fc3f7);
+    .skills-table td {
+      padding: 20px;
+      border-bottom: 1px solid #eee;
+      vertical-align: top;
+    }
+
+    .skills-table tbody tr:hover {
+      background: #f8f9fa;
+    }
+
+    .skills-table tbody tr:last-child td {
+      border-bottom: none;
+    }
+
+    .skill-name-cell {
+      min-width: 200px;
+    }
+
+    .skill-name {
       color: var(--navy);
+      font-weight: 600;
+      font-size: 1.1rem;
+      text-decoration: none;
+      display: block;
+      margin-bottom: 4px;
     }
 
-    .badge-free {
-      background: #d4edda;
-      color: #155724;
+    .skill-name:hover {
+      color: var(--cyan);
+    }
+
+    .skill-category {
+      color: #888;
+      font-size: 0.85rem;
     }
 
     .skill-desc {
       color: #555;
       font-size: 0.95rem;
-      line-height: 1.6;
-      margin: 0 0 12px 0;
+      line-height: 1.5;
+      max-width: 400px;
     }
 
-    .skill-footer {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      font-size: 0.85rem;
-      color: #888;
+    .skill-author {
+      color: #666;
+      font-size: 0.9rem;
     }
 
     .skill-author a {
@@ -216,61 +169,85 @@
       text-decoration: underline;
     }
 
-    /* Empty State */
+    .badge {
+      display: inline-block;
+      padding: 4px 10px;
+      border-radius: 20px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+    }
+
+    .badge-free {
+      background: #d4edda;
+      color: #155724;
+    }
+
+    .badge-featured {
+      background: linear-gradient(135deg, var(--cyan), #4fc3f7);
+      color: var(--navy);
+      margin-right: 6px;
+    }
+
     .empty-state {
       text-align: center;
       padding: 60px 20px;
-      color: rgba(255, 255, 255, 0.7);
+      background: white;
+      border-radius: 12px;
     }
 
     .empty-state h3 {
-      color: var(--white);
-      margin-bottom: 12px;
+      color: var(--navy);
+      margin-bottom: 8px;
+    }
+
+    .empty-state p {
+      color: #666;
     }
 
     /* CTA Section */
     .cta-section {
-      background: #f8f9fa;
+      background: var(--navy);
       padding: 60px 0;
       text-align: center;
     }
 
-    .cta-box {
-      background: linear-gradient(135deg, var(--navy), #2d5a7b);
-      border-radius: 16px;
-      padding: 48px;
-      max-width: 700px;
-      margin: 0 auto;
-    }
-
-    .cta-box h2 {
+    .cta-section h2 {
       color: var(--white);
       margin-bottom: 12px;
     }
 
-    .cta-box p {
+    .cta-section p {
       color: rgba(255, 255, 255, 0.8);
       margin-bottom: 24px;
+      max-width: 500px;
+      margin-left: auto;
+      margin-right: auto;
     }
 
     @media (max-width: 768px) {
       .skills-hero h1 {
-        font-size: 2rem;
+        font-size: 1.75rem;
       }
 
-      .skill-item {
+      .section-header {
         flex-direction: column;
+        gap: 16px;
         text-align: center;
       }
 
-      .skill-footer {
-        flex-direction: column;
-        gap: 8px;
+      .skills-table {
+        display: block;
+        overflow-x: auto;
       }
 
-      .hero-buttons {
-        flex-direction: column;
-        align-items: center;
+      .skills-table th,
+      .skills-table td {
+        padding: 12px;
+      }
+
+      .skill-desc {
+        max-width: 200px;
       }
     }
   </style>
@@ -340,44 +317,32 @@
   <section class="skills-hero">
     <div class="container">
       <h1>AI Skills Marketplace</h1>
-      <p>Free Claude Code skills to supercharge your workflow. Download, install, and start automating.</p>
-      <div class="hero-buttons">
-        <a href="/skills/submit" class="btn-submit">+ Submit Your Skill</a>
-        <a href="#skills" class="btn-browse">Browse Skills</a>
-      </div>
+      <p>Free Claude Code skills to automate your workflow. Download, install, and start using immediately.</p>
+      <a href="/skills/submit" class="btn-submit">+ Submit Your Skill</a>
     </div>
   </section>
 
-  <!-- What Are Skills -->
+  <!-- Info -->
   <section class="info-section">
     <div class="container">
       <div class="info-box">
         <h2>What Are Claude Skills?</h2>
         <p>
-          Claude Skills are pre-built instruction sets that extend Claude's capabilities for specific tasks.
-          Think of them as "apps" for Claude Code - install a skill and Claude instantly knows how to handle
-          specialized workflows like processing leads, writing content, or generating reports.
+          Skills are instruction files that extend Claude's capabilities. Install a skill and Claude instantly knows how to handle specialized tasks like processing leads, writing content, or generating reports.
         </p>
-        <p>
-          Skills are stored as markdown files in your Claude Code configuration. Each skill contains detailed
-          instructions, templates, and best practices for its specific domain.
-        </p>
-        <div class="code-block">
-          # Add a skill to ~/.claude/skills/skill-name/SKILL.md
-        </div>
       </div>
     </div>
   </section>
 
-  <!-- Skills List -->
-  <section class="skills-section" id="skills">
+  <!-- Skills Table -->
+  <section class="table-section">
     <div class="container">
       <div class="section-header">
         <h2>Available Skills</h2>
-        <p>Free skills ready to download and use</p>
+        <a href="/skills/submit" class="btn btn-primary btn-sm">Submit a Skill</a>
       </div>
 
-      <div class="skills-list" id="skillsList">
+      <div id="skillsContainer">
         <div class="empty-state">
           <p>Loading skills...</p>
         </div>
@@ -388,11 +353,9 @@
   <!-- CTA -->
   <section class="cta-section">
     <div class="container">
-      <div class="cta-box">
-        <h2>Share Your Skills</h2>
-        <p>Built a useful Claude skill? Share it with the community and help others automate their workflows.</p>
-        <a href="/skills/submit" class="btn btn-primary btn-lg">Submit a Skill</a>
-      </div>
+      <h2>Share Your Skills</h2>
+      <p>Built a useful Claude skill? Share it with the community.</p>
+      <a href="/skills/submit" class="btn btn-primary btn-lg">Submit a Skill</a>
     </div>
   </section>
 
@@ -440,70 +403,66 @@
 
   <script src="/js/common.js"></script>
   <script>
-    const CATEGORY_EMOJIS = {
-      'real-estate': '🏠',
-      'marketing': '📣',
-      'sales': '💼',
-      'social-media': '📱',
-      'productivity': '📋',
-      'development': '💻',
-      'default': '⚡'
-    };
-
     async function loadSkills() {
-      const container = document.getElementById('skillsList');
+      var container = document.getElementById('skillsContainer');
 
       try {
-        const response = await fetch('/api/skills?limit=20&_=' + Date.now());
-        const data = await response.json();
+        var response = await fetch('/api/skills?limit=50&_=' + Date.now());
+        var data = await response.json();
 
-        // Safety check
-        if (!data || !data.skills || !Array.isArray(data.skills)) {
-          container.innerHTML = '<div class="empty-state"><h3>No skills available</h3><p>Check back soon or submit your own!</p></div>';
+        if (!data || !data.skills || data.skills.length === 0) {
+          container.innerHTML = '<div class="empty-state"><h3>No skills yet</h3><p>Be the first to <a href="/skills/submit">submit a skill</a>!</p></div>';
           return;
         }
 
-        // Filter valid skills
-        const skills = data.skills.filter(s => s && s.name && s.slug);
+        var skills = data.skills.filter(function(s) { return s && s.name && s.slug; });
 
         if (skills.length === 0) {
-          container.innerHTML = '<div class="empty-state"><h3>No skills yet</h3><p>Be the first to <a href="/skills/submit" style="color: var(--cyan);">submit a skill</a>!</p></div>';
+          container.innerHTML = '<div class="empty-state"><h3>No skills yet</h3><p>Be the first to <a href="/skills/submit">submit a skill</a>!</p></div>';
           return;
         }
 
-        // Build HTML
-        let html = '';
-        for (const skill of skills) {
-          const emoji = CATEGORY_EMOJIS[skill.category] || CATEGORY_EMOJIS['default'];
-          const desc = skill.description || 'No description provided.';
-          const author = skill.author_name || 'Anonymous';
-          const authorLink = skill.author_website
+        var html = '<table class="skills-table">';
+        html += '<thead><tr>';
+        html += '<th>Skill</th>';
+        html += '<th>Description</th>';
+        html += '<th>Author</th>';
+        html += '<th>Price</th>';
+        html += '</tr></thead>';
+        html += '<tbody>';
+
+        for (var i = 0; i < skills.length; i++) {
+          var skill = skills[i];
+          var desc = skill.description || 'No description';
+          if (desc.length > 150) desc = desc.substring(0, 150) + '...';
+          var author = skill.author_name || 'Anonymous';
+          var authorHtml = skill.author_website
             ? '<a href="' + skill.author_website + '" target="_blank">' + author + '</a>'
             : author;
+          var category = skill.category || 'general';
+          var link = '/skills/' + category + '/' + skill.slug;
 
-          html += '<a href="/skills/' + (skill.category || 'general') + '/' + skill.slug + '" class="skill-item">';
-          html += '  <div class="skill-emoji">' + emoji + '</div>';
-          html += '  <div class="skill-content">';
-          html += '    <h3 class="skill-title">' + skill.name + '</h3>';
-          html += '    <div class="skill-badges">';
+          html += '<tr>';
+          html += '<td class="skill-name-cell">';
+          html += '<a href="' + link + '" class="skill-name">' + skill.name + '</a>';
+          html += '<span class="skill-category">' + category.replace(/-/g, ' ') + '</span>';
+          html += '</td>';
+          html += '<td class="skill-desc">' + desc + '</td>';
+          html += '<td class="skill-author">' + authorHtml + '</td>';
+          html += '<td>';
           if (skill.is_featured) {
-            html += '      <span class="badge badge-featured">Featured</span>';
+            html += '<span class="badge badge-featured">Featured</span>';
           }
-          html += '      <span class="badge badge-free">' + (skill.is_free ? 'Free' : '$' + (skill.price_cents / 100)) + '</span>';
-          html += '    </div>';
-          html += '    <p class="skill-desc">' + desc + '</p>';
-          html += '    <div class="skill-footer">';
-          html += '      <span class="skill-author">by ' + authorLink + '</span>';
-          html += '      <span>' + (skill.install_count || 0) + ' downloads</span>';
-          html += '    </div>';
-          html += '  </div>';
-          html += '</a>';
+          html += '<span class="badge badge-free">' + (skill.is_free ? 'Free' : '$' + (skill.price_cents / 100)) + '</span>';
+          html += '</td>';
+          html += '</tr>';
         }
 
+        html += '</tbody></table>';
         container.innerHTML = html;
 
       } catch (error) {
-        console.error('Error loading skills:', error);
+        console.error('Error:', error);
         container.innerHTML = '<div class="empty-state"><h3>Error loading skills</h3><p>Please refresh the page.</p></div>';
       }
     }
