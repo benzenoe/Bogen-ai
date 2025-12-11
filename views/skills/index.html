@@ -445,22 +445,6 @@
 
   <script src="/js/common.js"></script>
   <script>
-    const categoryIcons = {
-      'real-estate': '🏠',
-      'marketing': '📢',
-      'sales': '💰',
-      'operations': '⚙️',
-      'development': '💻'
-    };
-
-    const categoryNames = {
-      'real-estate': 'Real Estate',
-      'marketing': 'Marketing',
-      'sales': 'Sales',
-      'operations': 'Operations',
-      'development': 'Development'
-    };
-
     async function loadCategories() {
       try {
         const response = await fetch('/api/skills/categories');
@@ -469,10 +453,10 @@
         const grid = document.getElementById('categoryGrid');
         grid.innerHTML = data.categories.map(cat => `
           <a href="/skills/${cat.slug}" class="category-card">
-            <div class="category-icon">${categoryIcons[cat.slug] || '📦'}</div>
+            <div class="category-icon">${cat.icon || '📦'}</div>
             <h3>${cat.name}</h3>
-            <p>${cat.description}</p>
-            <span class="category-count">${cat.count} skill${cat.count !== 1 ? 's' : ''}</span>
+            <p>${cat.description || ''}</p>
+            <span class="category-count">${cat.skill_count || 0} skill${cat.skill_count !== 1 ? 's' : ''}</span>
           </a>
         `).join('');
       } catch (error) {

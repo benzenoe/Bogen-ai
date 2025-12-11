@@ -88,32 +88,86 @@ router.get('/', async (req, res) => {
 // GET /api/skills/categories - Get category stats
 router.get('/categories', async (req, res) => {
     try {
-        const result = await pool.query(`
-            SELECT category, COUNT(*) as count
-            FROM skills
-            WHERE is_published = true
-            GROUP BY category
-            ORDER BY count DESC
+        const { parent } = req.query;
+
+        // Check if skill_categories table exists
+        const tableCheck = await pool.query(`
+            SELECT EXISTS (
+                SELECT FROM information_schema.tables
+                WHERE table_name = 'skill_categories'
+            );
         `);
 
-        const categories = [
-            { slug: 'real-estate', name: 'Real Estate', description: 'Skills for real estate professionals', icon: 'home' },
-            { slug: 'marketing', name: 'Marketing', description: 'Content creation and marketing automation', icon: 'megaphone' },
-            { slug: 'sales', name: 'Sales', description: 'Sales automation and lead management', icon: 'chart-line' },
-            { slug: 'operations', name: 'Operations', description: 'Business operations and workflow automation', icon: 'cogs' },
-            { slug: 'development', name: 'Development', description: 'Developer tools and code generation', icon: 'code' }
-        ];
+        if (tableCheck.rows[0].exists) {
+            // Use new categories table
+            let query;
+            let params = [];
 
-        // Merge counts with category info
-        const categoriesWithCounts = categories.map(cat => {
-            const found = result.rows.find(r => r.category === cat.slug);
-            return {
-                ...cat,
-                count: found ? parseInt(found.count) : 0
-            };
-        });
+            if (parent) {
+                // Get subcategories for a parent
+                query = `
+                    SELECT sc.slug, sc.name, sc.description, sc.icon, sc.display_order,
+                           COALESCE(skill_counts.count, 0) as skill_count
+                    FROM skill_categories sc
+                    LEFT JOIN (
+                        SELECT category, COUNT(*) as count
+                        FROM skills
+                        WHERE is_published = true
+                        GROUP BY category
+                    ) skill_counts ON skill_counts.category = sc.slug
+                    WHERE sc.parent_slug = $1 AND sc.is_active = true
+                    ORDER BY sc.display_order, sc.name
+                `;
+                params = [parent];
+            } else {
+                // Get parent categories (top-level)
+                query = `
+                    SELECT sc.slug, sc.name, sc.description, sc.icon, sc.display_order,
+                           COALESCE(SUM(child_counts.skill_count), 0) as skill_count
+                    FROM skill_categories sc
+                    LEFT JOIN (
+                        SELECT sc2.parent_slug, COALESCE(COUNT(s.id), 0) as skill_count
+                        FROM skill_categories sc2
+                        LEFT JOIN skills s ON s.category = sc2.slug AND s.is_published = true
+                        WHERE sc2.parent_slug IS NOT NULL
+                        GROUP BY sc2.parent_slug
+                    ) child_counts ON child_counts.parent_slug = sc.slug
+                    WHERE sc.parent_slug IS NULL AND sc.is_active = true
+                    GROUP BY sc.slug, sc.name, sc.description, sc.icon, sc.display_order
+                    ORDER BY sc.display_order, sc.name
+                `;
+            }
 
-        res.json({ categories: categoriesWithCounts });
+            const result = await pool.query(query, params);
+            res.json({ categories: result.rows });
+        } else {
+            // Fallback to old hardcoded categories
+            const result = await pool.query(`
+                SELECT category, COUNT(*) as count
+                FROM skills
+                WHERE is_published = true
+                GROUP BY category
+                ORDER BY count DESC
+            `);
+
+            const categories = [
+                { slug: 'real-estate', name: 'Real Estate', description: 'Skills for real estate professionals', icon: '🏠' },
+                { slug: 'marketing', name: 'Marketing', description: 'Content creation and marketing automation', icon: '📢' },
+                { slug: 'sales', name: 'Sales', description: 'Sales automation and lead management', icon: '💰' },
+                { slug: 'operations', name: 'Operations', description: 'Business operations and workflow automation', icon: '⚙️' },
+                { slug: 'development', name: 'Development', description: 'Developer tools and code generation', icon: '💻' }
+            ];
+
+            const categoriesWithCounts = categories.map(cat => {
+                const found = result.rows.find(r => r.category === cat.slug);
+                return {
+                    ...cat,
+                    skill_count: found ? parseInt(found.count) : 0
+                };
+            });
+
+            res.json({ categories: categoriesWithCounts });
+        }
     } catch (error) {
         console.error('Error fetching categories:', error);
         res.status(500).json({ error: 'Failed to fetch categories' });

@@ -155,9 +155,43 @@ app.get('/skills/admin', (req, res) => {
   res.sendFile(path.join(__dirname, 'views', 'skills', 'admin.html'));
 });
 
-// Skills category pages
-const skillCategories = ['real-estate', 'marketing', 'sales', 'operations', 'development'];
+// Skills category pages - dynamic routing for all categories
+// Parent categories
+const parentCategories = [
+  'business-professional', 'marketing-sales', 'technology', 'creative',
+  'operations-admin', 'personal-lifestyle', 'education-training', 'industry-specific'
+];
 
+// All subcategories
+const skillCategories = [
+  // Business & Professional
+  'real-estate', 'accounting-finance', 'legal', 'consulting', 'human-resources', 'insurance', 'banking',
+  // Marketing & Sales
+  'marketing', 'sales', 'social-media', 'advertising', 'email-marketing', 'seo-content', 'public-relations',
+  // Technology
+  'development', 'web-development', 'mobile-development', 'data-analytics', 'ai-automation',
+  'cybersecurity', 'it-support', 'devops',
+  // Creative
+  'writing-content', 'design', 'video-production', 'photography', 'music-audio',
+  // Operations & Admin
+  'operations', 'project-management', 'customer-service', 'administrative', 'supply-chain', 'quality-assurance',
+  // Personal & Lifestyle
+  'travel', 'health-wellness', 'personal-finance', 'productivity', 'relationships', 'career',
+  // Education & Training
+  'education', 'training', 'e-learning', 'research', 'tutoring',
+  // Industry-Specific
+  'healthcare', 'hospitality', 'retail', 'restaurants', 'manufacturing', 'non-profit',
+  'construction', 'automotive', 'agriculture'
+];
+
+// Route for parent categories (shows subcategories)
+parentCategories.forEach(category => {
+  app.get(`/skills/${category}`, (req, res) => {
+    res.sendFile(path.join(__dirname, 'views', 'skills', 'parent-category.html'));
+  });
+});
+
+// Route for subcategories (shows skills list)
 skillCategories.forEach(category => {
   app.get(`/skills/${category}`, (req, res) => {
     res.sendFile(path.join(__dirname, 'views', 'skills', 'category.html'));
