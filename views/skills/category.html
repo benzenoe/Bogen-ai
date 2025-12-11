@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Skills | Bogen.ai</title>
+  <meta name="description" content="Browse Claude AI Skills for automation and productivity.">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="/css/global.css">
+  <style>
+    .page-header {
+      background: linear-gradient(135deg, var(--navy), #2d5a7b);
+      padding: var(--spacing-xl) 0;
+      color: var(--white);
+    }
+
+    .page-header h1 {
+      color: var(--white);
+      margin-bottom: var(--spacing-sm);
+    }
+
+    .breadcrumb {
+      display: flex;
+      gap: var(--spacing-xs);
+      font-size: 0.9rem;
+      margin-bottom: var(--spacing-md);
+    }
+
+    .breadcrumb a {
+      color: var(--cyan);
+      text-decoration: none;
+    }
+
+    .breadcrumb a:hover {
+      text-decoration: underline;
+    }
+
+    .breadcrumb span {
+      color: rgba(255,255,255,0.6);
+    }
+
+    .filter-bar {
+      display: flex;
+      gap: var(--spacing-md);
+      align-items: center;
+      flex-wrap: wrap;
+      margin-bottom: var(--spacing-lg);
+      padding: var(--spacing-md);
+      background: var(--white);
+      border-radius: 12px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .filter-bar input {
+      flex: 1;
+      min-width: 200px;
+      padding: var(--spacing-sm) var(--spacing-md);
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      font-size: 1rem;
+    }
+
+    .filter-bar input:focus {
+      outline: none;
+      border-color: var(--cyan);
+    }
+
+    .filter-bar select {
+      padding: var(--spacing-sm) var(--spacing-md);
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      font-size: 1rem;
+      background: var(--white);
+      cursor: pointer;
+    }
+
+    .results-count {
+      color: var(--dark-gray);
+      font-size: 0.9rem;
+    }
+
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+      gap: var(--spacing-md);
+    }
+
+    .skill-card {
+      background: var(--white);
+      border-radius: 12px;
+      padding: var(--spacing-lg);
+      transition: var(--transition-normal);
+      border: 1px solid #eee;
+      text-decoration: none;
+      display: block;
+    }
+
+    .skill-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-lg);
+      border-color: var(--cyan);
+    }
+
+    .skill-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: var(--spacing-sm);
+    }
+
+    .skill-name {
+      color: var(--navy);
+      font-size: 1.25rem;
+      font-weight: 600;
+      margin: 0;
+    }
+
+    .skill-badges {
+      display: flex;
+      gap: var(--spacing-xs);
+    }
+
+    .skill-badge {
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+    }
+
+    .skill-badge.free {
+      background: #d4edda;
+      color: #155724;
+    }
+
+    .skill-badge.paid {
+      background: #fff3cd;
+      color: #856404;
+    }
+
+    .skill-badge.featured {
+      background: linear-gradient(135deg, var(--cyan), #4fc3f7);
+      color: var(--navy);
+    }
+
+    .skill-description {
+      color: var(--dark-gray);
+      font-size: 0.95rem;
+      margin-bottom: var(--spacing-md);
+      line-height: 1.6;
+    }
+
+    .skill-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: var(--spacing-sm);
+      border-top: 1px solid #eee;
+    }
+
+    .skill-author {
+      font-size: 0.85rem;
+      color: #666;
+    }
+
+    .skill-author a {
+      color: var(--cyan);
+      text-decoration: none;
+    }
+
+    .skill-stats {
+      display: flex;
+      gap: var(--spacing-md);
+      font-size: 0.85rem;
+      color: #666;
+    }
+
+    .empty-state {
+      text-align: center;
+      padding: var(--spacing-xxl);
+      color: var(--dark-gray);
+    }
+
+    .empty-state h3 {
+      color: var(--navy);
+      margin-bottom: var(--spacing-sm);
+    }
+
+    .category-tabs {
+      display: flex;
+      gap: var(--spacing-sm);
+      margin-bottom: var(--spacing-lg);
+      flex-wrap: wrap;
+    }
+
+    .category-tab {
+      padding: var(--spacing-sm) var(--spacing-md);
+      background: var(--white);
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      text-decoration: none;
+      color: var(--dark-gray);
+      font-size: 0.9rem;
+      transition: var(--transition-fast);
+    }
+
+    .category-tab:hover {
+      border-color: var(--cyan);
+      color: var(--navy);
+    }
+
+    .category-tab.active {
+      background: var(--navy);
+      color: var(--white);
+      border-color: var(--navy);
+    }
+
+    @media (max-width: 768px) {
+      .skills-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .filter-bar {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .filter-bar input {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="header">
+    <div class="container">
+      <nav class="nav">
+        <a href="/" class="logo" style="display: flex; align-items: center;">
+          <img src="/images/eb-logo.png" alt="Bogen.ai Logo" style="height: 100px; width: auto;">
+        </a>
+
+        <ul class="nav-menu">
+          <li><a href="/" class="nav-link">Home</a></li>
+          <li class="nav-dropdown">
+            <a href="/about-us" class="nav-link">About</a>
+            <ul class="dropdown-menu">
+              <li><a href="/about-us#edmund">About Edmund Bogen</a></li>
+              <li><a href="/about-us#eytan">About Eytan Benzeno</a></li>
+            </ul>
+          </li>
+          <li class="nav-dropdown">
+            <a href="/#services" class="nav-link">Services</a>
+            <ul class="dropdown-menu">
+              <li><a href="/tools-weve-built">Tools that we've built</a></li>
+              <li><a href="/services/communication-customer-interaction">Communication & Customer Interaction</a></li>
+              <li><a href="/services/sales-revenue-generation">Sales & Revenue Generation</a></li>
+              <li><a href="/services/operations-workflow">Operations & Workflow</a></li>
+              <li><a href="/services/marketing-content">Marketing & Content</a></li>
+              <li><a href="/services/industry-specific-premium">Industry-Specific Premium</a></li>
+            </ul>
+          </li>
+          <li><a href="/skills" class="nav-link active">Skills</a></li>
+          <li class="nav-dropdown">
+            <a href="/partner-program" class="nav-link">Partner</a>
+            <ul class="dropdown-menu">
+              <li><a href="/contact?tab=partner">Apply to Become a Partner</a></li>
+              <li><a href="/partner-portal">Partner Log In</a></li>
+            </ul>
+          </li>
+          <li><a href="/edmunds-mastermind" class="nav-link">Edmund's Mastermind</a></li>
+          <li><a href="/blog" class="nav-link">Blog</a></li>
+          <li><a href="/contact" class="btn btn-primary btn-sm">Get Started</a></li>
+        </ul>
+        <button class="nav-toggle" type="button" aria-label="Toggle navigation" onclick="window.bogenAI.toggleMobileMenu()">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Page Header -->
+  <section class="page-header">
+    <div class="container">
+      <div class="breadcrumb">
+        <a href="/">Home</a>
+        <span>/</span>
+        <a href="/skills">Skills</a>
+        <span>/</span>
+        <span id="categoryBreadcrumb">Category</span>
+      </div>
+      <h1 id="categoryTitle">Skills</h1>
+      <p id="categoryDescription" style="color: rgba(255,255,255,0.8); max-width: 600px;"></p>
+    </div>
+  </section>
+
+  <!-- Main Content -->
+  <section class="section">
+    <div class="container">
+      <!-- Category Tabs -->
+      <div class="category-tabs" id="categoryTabs">
+        <a href="/skills/real-estate" class="category-tab" data-category="real-estate">Real Estate</a>
+        <a href="/skills/marketing" class="category-tab" data-category="marketing">Marketing</a>
+        <a href="/skills/sales" class="category-tab" data-category="sales">Sales</a>
+        <a href="/skills/operations" class="category-tab" data-category="operations">Operations</a>
+        <a href="/skills/development" class="category-tab" data-category="development">Development</a>
+      </div>
+
+      <!-- Filter Bar -->
+      <div class="filter-bar">
+        <input type="text" id="searchInput" placeholder="Search skills in this category..." onkeyup="handleSearch(event)">
+        <select id="priceFilter" onchange="filterSkills()">
+          <option value="all">All Prices</option>
+          <option value="free">Free Only</option>
+          <option value="paid">Paid Only</option>
+        </select>
+        <span class="results-count" id="resultsCount"></span>
+      </div>
+
+      <!-- Skills Grid -->
+      <div class="skills-grid" id="skillsGrid">
+        <!-- Skills loaded dynamically -->
+      </div>
+
+      <!-- Empty State -->
+      <div class="empty-state" id="emptyState" style="display: none;">
+        <h3>No skills found</h3>
+        <p>Be the first to contribute a skill in this category!</p>
+        <a href="/skills/submit" class="btn btn-primary" style="margin-top: var(--spacing-md);">Submit a Skill</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <img src="/images/eb-logo.png" alt="Bogen.ai" style="height: 80px; margin-bottom: var(--spacing-md); filter: brightness(0) invert(1);">
+          <p>Enterprise AI automation for businesses ready to scale.</p>
+        </div>
+        <div class="footer-links">
+          <h4>Company</h4>
+          <ul>
+            <li><a href="/about-us">About Us</a></li>
+            <li><a href="/partner-program">Partnership</a></li>
+            <li><a href="/contact">Contact</a></li>
+          </ul>
+        </div>
+        <div class="footer-links">
+          <h4>Skills</h4>
+          <ul>
+            <li><a href="/skills/real-estate">Real Estate</a></li>
+            <li><a href="/skills/marketing">Marketing</a></li>
+            <li><a href="/skills/sales">Sales</a></li>
+            <li><a href="/skills/submit">Submit a Skill</a></li>
+          </ul>
+        </div>
+        <div class="footer-links">
+          <h4>Legal</h4>
+          <ul>
+            <li><a href="/privacy">Privacy Policy</a></li>
+            <li><a href="/terms">Terms of Service</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2025 Bogen.ai. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="/js/common.js"></script>
+  <script>
+    const categoryInfo = {
+      'real-estate': {
+        name: 'Real Estate',
+        description: 'Skills designed for real estate professionals - from lead processing to listing descriptions and market analysis.'
+      },
+      'marketing': {
+        name: 'Marketing',
+        description: 'Content creation, social media automation, email sequences, and marketing campaign tools.'
+      },
+      'sales': {
+        name: 'Sales',
+        description: 'Lead management, sales automation, proposal generation, and CRM integration skills.'
+      },
+      'operations': {
+        name: 'Operations',
+        description: 'Business workflow automation, document processing, and operational efficiency tools.'
+      },
+      'development': {
+        name: 'Development',
+        description: 'Developer tools, code generation, documentation, and technical automation skills.'
+      }
+    };
+
+    let currentCategory = '';
+    let allSkills = [];
+
+    function getCurrentCategory() {
+      const path = window.location.pathname;
+      const match = path.match(/\/skills\/([^/]+)/);
+      return match ? match[1] : 'real-estate';
+    }
+
+    function updatePageContent() {
+      currentCategory = getCurrentCategory();
+      const info = categoryInfo[currentCategory] || { name: 'Skills', description: '' };
+
+      document.title = `${info.name} Skills | Bogen.ai`;
+      document.getElementById('categoryTitle').textContent = `${info.name} Skills`;
+      document.getElementById('categoryDescription').textContent = info.description;
+      document.getElementById('categoryBreadcrumb').textContent = info.name;
+
+      // Update meta description
+      const metaDesc = document.querySelector('meta[name="description"]');
+      if (metaDesc) {
+        metaDesc.content = info.description;
+      }
+
+      // Update active tab
+      document.querySelectorAll('.category-tab').forEach(tab => {
+        tab.classList.toggle('active', tab.dataset.category === currentCategory);
+      });
+    }
+
+    async function loadSkills() {
+      try {
+        const urlParams = new URLSearchParams(window.location.search);
+        const search = urlParams.get('search') || '';
+
+        if (search) {
+          document.getElementById('searchInput').value = search;
+        }
+
+        const response = await fetch(`/api/skills/category/${currentCategory}`);
+        const data = await response.json();
+
+        allSkills = data.skills;
+        renderSkills(allSkills);
+      } catch (error) {
+        console.error('Error loading skills:', error);
+        document.getElementById('skillsGrid').innerHTML = '<p class="text-center text-gray">Error loading skills. Please try again.</p>';
+      }
+    }
+
+    function renderSkills(skills) {
+      const grid = document.getElementById('skillsGrid');
+      const emptyState = document.getElementById('emptyState');
+      const resultsCount = document.getElementById('resultsCount');
+
+      if (skills.length === 0) {
+        grid.style.display = 'none';
+        emptyState.style.display = 'block';
+        resultsCount.textContent = '';
+        return;
+      }
+
+      grid.style.display = 'grid';
+      emptyState.style.display = 'none';
+      resultsCount.textContent = `${skills.length} skill${skills.length !== 1 ? 's' : ''} found`;
+
+      grid.innerHTML = skills.map(skill => `
+        <a href="/skills/${skill.category}/${skill.slug}" class="skill-card">
+          <div class="skill-header">
+            <h3 class="skill-name">${skill.name}</h3>
+            <div class="skill-badges">
+              ${skill.is_featured ? '<span class="skill-badge featured">Featured</span>' : ''}
+              <span class="skill-badge ${skill.is_free ? 'free' : 'paid'}">
+                ${skill.is_free ? 'Free' : '$' + (skill.price_cents / 100).toFixed(0)}
+              </span>
+            </div>
+          </div>
+          <p class="skill-description">${skill.description || 'No description available.'}</p>
+          <div class="skill-footer">
+            <span class="skill-author">
+              by ${skill.author_website
+                ? `<a href="${skill.author_website}" target="_blank" onclick="event.stopPropagation()">${skill.author_name}</a>`
+                : skill.author_name || 'Anonymous'}
+            </span>
+            <div class="skill-stats">
+              <span>📥 ${skill.install_count || 0} installs</span>
+            </div>
+          </div>
+        </a>
+      `).join('');
+    }
+
+    function handleSearch(event) {
+      if (event.key === 'Enter') {
+        filterSkills();
+      }
+      // Real-time filtering as user types
+      filterSkills();
+    }
+
+    function filterSkills() {
+      const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+      const priceFilter = document.getElementById('priceFilter').value;
+
+      let filtered = allSkills;
+
+      if (searchTerm) {
+        filtered = filtered.filter(skill =>
+          skill.name.toLowerCase().includes(searchTerm) ||
+          (skill.description && skill.description.toLowerCase().includes(searchTerm))
+        );
+      }
+
+      if (priceFilter === 'free') {
+        filtered = filtered.filter(skill => skill.is_free);
+      } else if (priceFilter === 'paid') {
+        filtered = filtered.filter(skill => !skill.is_free);
+      }
+
+      renderSkills(filtered);
+    }
+
+    // Initialize
+    document.addEventListener('DOMContentLoaded', () => {
+      updatePageContent();
+      loadSkills();
+    });
+  </script>
+</body>
+</html>

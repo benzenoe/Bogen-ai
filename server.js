@@ -18,6 +18,7 @@ const blogRoutes = require('./server/routes/blog');
 const migrateRoutes = require('./server/routes/migrate');
 const setupAdminRoutes = require('./server/routes/setup-admin');
 const chatRoutes = require('./server/routes/chat');
+const skillsRoutes = require('./server/routes/skills');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -61,6 +62,7 @@ app.use('/api/blog', blogRoutes);
 app.use('/api/migrate', migrateRoutes);
 app.use('/api/setup-admin', setupAdminRoutes);
 app.use('/api/chat', chatRoutes);
+app.use('/api/skills', skillsRoutes);
 
 // Serve HTML pages
 app.get('/', (req, res) => {
@@ -138,6 +140,33 @@ app.get('/edmunds-mastermind', (req, res) => {
 
 app.get('/mastermind-registered', (req, res) => {
   res.sendFile(path.join(__dirname, 'views', 'mastermind-registered.html'));
+});
+
+// Skills marketplace pages
+app.get('/skills', (req, res) => {
+  res.sendFile(path.join(__dirname, 'views', 'skills', 'index.html'));
+});
+
+app.get('/skills/submit', (req, res) => {
+  res.sendFile(path.join(__dirname, 'views', 'skills', 'submit.html'));
+});
+
+app.get('/skills/admin', (req, res) => {
+  res.sendFile(path.join(__dirname, 'views', 'skills', 'admin.html'));
+});
+
+// Skills category pages
+const skillCategories = ['real-estate', 'marketing', 'sales', 'operations', 'development'];
+
+skillCategories.forEach(category => {
+  app.get(`/skills/${category}`, (req, res) => {
+    res.sendFile(path.join(__dirname, 'views', 'skills', 'category.html'));
+  });
+});
+
+// Individual skill pages
+app.get('/skills/:category/:slug', (req, res) => {
+  res.sendFile(path.join(__dirname, 'views', 'skills', 'skill.html'));
 });
 
 // Service category pages

@@ -1,0 +1,988 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Skills Admin - Bogen.ai</title>
+  <meta name="robots" content="noindex, nofollow">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="/css/global.css">
+  <style>
+    .admin-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: var(--spacing-xl);
+    }
+
+    .login-box {
+      max-width: 400px;
+      margin: 100px auto;
+      padding: var(--spacing-xl);
+      background: var(--white);
+      border-radius: 12px;
+      box-shadow: var(--shadow-lg);
+    }
+
+    .login-box h2 {
+      color: var(--navy);
+      margin-bottom: var(--spacing-md);
+      text-align: center;
+    }
+
+    .login-box input {
+      width: 100%;
+      padding: var(--spacing-sm) var(--spacing-md);
+      border: 2px solid #ddd;
+      border-radius: 8px;
+      font-size: 1rem;
+      margin-bottom: var(--spacing-md);
+    }
+
+    .login-box input:focus {
+      outline: none;
+      border-color: var(--cyan);
+    }
+
+    .login-box button {
+      width: 100%;
+      padding: var(--spacing-sm) var(--spacing-md);
+      background: var(--navy);
+      color: var(--white);
+      border: none;
+      border-radius: 8px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: var(--transition-fast);
+    }
+
+    .login-box button:hover {
+      background: #2d5a7b;
+    }
+
+    .login-error {
+      color: #dc3545;
+      font-size: 0.9rem;
+      margin-bottom: var(--spacing-sm);
+      display: none;
+    }
+
+    .admin-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: var(--spacing-xl);
+      padding-bottom: var(--spacing-md);
+      border-bottom: 2px solid #eee;
+    }
+
+    .admin-header h1 {
+      color: var(--navy);
+      margin: 0;
+    }
+
+    .admin-tabs {
+      display: flex;
+      gap: var(--spacing-sm);
+      margin-bottom: var(--spacing-lg);
+    }
+
+    .admin-tab {
+      padding: var(--spacing-sm) var(--spacing-md);
+      background: #f5f5f5;
+      border: none;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: var(--transition-fast);
+    }
+
+    .admin-tab.active {
+      background: var(--navy);
+      color: var(--white);
+    }
+
+    .admin-tab:hover:not(.active) {
+      background: #e0e0e0;
+    }
+
+    .tab-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 20px;
+      height: 20px;
+      padding: 0 6px;
+      background: var(--cyan);
+      color: var(--navy);
+      border-radius: 10px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      margin-left: 6px;
+    }
+
+    .submission-card {
+      background: var(--white);
+      border-radius: 12px;
+      padding: var(--spacing-lg);
+      margin-bottom: var(--spacing-md);
+      box-shadow: var(--shadow-sm);
+      border: 1px solid #eee;
+    }
+
+    .submission-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: var(--spacing-md);
+    }
+
+    .submission-title {
+      color: var(--navy);
+      font-size: 1.25rem;
+      font-weight: 600;
+      margin: 0;
+    }
+
+    .submission-status {
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+    }
+
+    .submission-status.pending {
+      background: #fff3cd;
+      color: #856404;
+    }
+
+    .submission-status.approved {
+      background: #d4edda;
+      color: #155724;
+    }
+
+    .submission-status.rejected {
+      background: #f8d7da;
+      color: #721c24;
+    }
+
+    .submission-meta {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: var(--spacing-sm);
+      margin-bottom: var(--spacing-md);
+      padding: var(--spacing-md);
+      background: #f8f9fa;
+      border-radius: 8px;
+      font-size: 0.9rem;
+    }
+
+    .submission-meta-item {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .submission-meta-label {
+      color: #666;
+      font-size: 0.8rem;
+      margin-bottom: 2px;
+    }
+
+    .submission-meta-value {
+      color: var(--navy);
+      font-weight: 500;
+    }
+
+    .submission-content {
+      margin-bottom: var(--spacing-md);
+    }
+
+    .submission-content h4 {
+      color: var(--navy);
+      font-size: 0.9rem;
+      margin-bottom: var(--spacing-xs);
+    }
+
+    .submission-content-preview {
+      background: var(--navy);
+      color: var(--cyan);
+      padding: var(--spacing-md);
+      border-radius: 8px;
+      font-family: 'Courier New', monospace;
+      font-size: 0.85rem;
+      max-height: 200px;
+      overflow-y: auto;
+      white-space: pre-wrap;
+    }
+
+    .submission-actions {
+      display: flex;
+      gap: var(--spacing-sm);
+      padding-top: var(--spacing-md);
+      border-top: 1px solid #eee;
+    }
+
+    .btn-approve {
+      background: #28a745;
+      color: white;
+      border: none;
+      padding: var(--spacing-xs) var(--spacing-md);
+      border-radius: 6px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: var(--transition-fast);
+    }
+
+    .btn-approve:hover {
+      background: #218838;
+    }
+
+    .btn-reject {
+      background: #dc3545;
+      color: white;
+      border: none;
+      padding: var(--spacing-xs) var(--spacing-md);
+      border-radius: 6px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: var(--transition-fast);
+    }
+
+    .btn-reject:hover {
+      background: #c82333;
+    }
+
+    .btn-edit {
+      background: var(--navy);
+      color: white;
+      border: none;
+      padding: var(--spacing-xs) var(--spacing-md);
+      border-radius: 6px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: var(--transition-fast);
+    }
+
+    .btn-edit:hover {
+      background: #2d5a7b;
+    }
+
+    .btn-view {
+      background: transparent;
+      color: var(--navy);
+      border: 2px solid var(--navy);
+      padding: var(--spacing-xs) var(--spacing-md);
+      border-radius: 6px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: var(--transition-fast);
+    }
+
+    .btn-view:hover {
+      background: var(--navy);
+      color: white;
+    }
+
+    .empty-state {
+      text-align: center;
+      padding: var(--spacing-xl);
+      color: #666;
+    }
+
+    .empty-state h3 {
+      color: var(--navy);
+      margin-bottom: var(--spacing-sm);
+    }
+
+    /* Edit Modal */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.6);
+      z-index: 1000;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .modal-overlay.active {
+      display: flex;
+    }
+
+    .modal {
+      background: var(--white);
+      border-radius: 12px;
+      width: 90%;
+      max-width: 800px;
+      max-height: 90vh;
+      overflow-y: auto;
+      padding: var(--spacing-xl);
+    }
+
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: var(--spacing-lg);
+      padding-bottom: var(--spacing-md);
+      border-bottom: 2px solid #eee;
+    }
+
+    .modal-header h2 {
+      color: var(--navy);
+      margin: 0;
+    }
+
+    .modal-close {
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      cursor: pointer;
+      color: #666;
+    }
+
+    .modal-close:hover {
+      color: var(--navy);
+    }
+
+    .form-group {
+      margin-bottom: var(--spacing-md);
+    }
+
+    .form-group label {
+      display: block;
+      color: var(--navy);
+      font-weight: 500;
+      margin-bottom: var(--spacing-xs);
+    }
+
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      width: 100%;
+      padding: var(--spacing-sm);
+      border: 2px solid #ddd;
+      border-radius: 8px;
+      font-size: 1rem;
+      font-family: inherit;
+    }
+
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      outline: none;
+      border-color: var(--cyan);
+    }
+
+    .form-group textarea {
+      min-height: 150px;
+      resize: vertical;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--spacing-md);
+    }
+
+    .form-actions {
+      display: flex;
+      gap: var(--spacing-sm);
+      justify-content: flex-end;
+      margin-top: var(--spacing-lg);
+      padding-top: var(--spacing-md);
+      border-top: 1px solid #eee;
+    }
+
+    .btn-cancel {
+      background: #f5f5f5;
+      color: var(--navy);
+      border: none;
+      padding: var(--spacing-sm) var(--spacing-md);
+      border-radius: 8px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .btn-save {
+      background: var(--navy);
+      color: white;
+      border: none;
+      padding: var(--spacing-sm) var(--spacing-md);
+      border-radius: 8px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .logout-btn {
+      background: transparent;
+      color: #666;
+      border: 1px solid #ddd;
+      padding: var(--spacing-xs) var(--spacing-md);
+      border-radius: 6px;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: var(--transition-fast);
+    }
+
+    .logout-btn:hover {
+      background: #f5f5f5;
+      color: var(--navy);
+    }
+
+    .stats-row {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: var(--spacing-md);
+      margin-bottom: var(--spacing-xl);
+    }
+
+    .stat-card {
+      background: var(--white);
+      border-radius: 12px;
+      padding: var(--spacing-md);
+      text-align: center;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .stat-number {
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--navy);
+    }
+
+    .stat-label {
+      color: #666;
+      font-size: 0.9rem;
+    }
+
+    @media (max-width: 768px) {
+      .admin-header {
+        flex-direction: column;
+        gap: var(--spacing-md);
+      }
+
+      .admin-tabs {
+        flex-wrap: wrap;
+      }
+
+      .form-row {
+        grid-template-columns: 1fr;
+      }
+
+      .submission-actions {
+        flex-wrap: wrap;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Login Screen -->
+  <div id="loginScreen">
+    <div class="login-box">
+      <h2>Skills Admin</h2>
+      <p class="login-error" id="loginError">Invalid password</p>
+      <input type="password" id="adminPassword" placeholder="Enter admin password" onkeyup="handlePasswordEnter(event)">
+      <button onclick="login()">Login</button>
+    </div>
+  </div>
+
+  <!-- Admin Dashboard -->
+  <div id="adminDashboard" style="display: none;">
+    <!-- Header -->
+    <header class="header">
+      <div class="container">
+        <nav class="nav">
+          <a href="/" class="logo" style="display: flex; align-items: center;">
+            <img src="/images/eb-logo.png" alt="Bogen.ai Logo" style="height: 100px; width: auto;">
+          </a>
+          <ul class="nav-menu">
+            <li><a href="/skills" class="nav-link">Back to Skills</a></li>
+            <li><button class="logout-btn" onclick="logout()">Logout</button></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <div class="admin-container">
+      <div class="admin-header">
+        <h1>Skills Admin Dashboard</h1>
+      </div>
+
+      <!-- Stats -->
+      <div class="stats-row">
+        <div class="stat-card">
+          <div class="stat-number" id="statPending">0</div>
+          <div class="stat-label">Pending Review</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number" id="statPublished">0</div>
+          <div class="stat-label">Published</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number" id="statRejected">0</div>
+          <div class="stat-label">Rejected</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number" id="statInstalls">0</div>
+          <div class="stat-label">Total Installs</div>
+        </div>
+      </div>
+
+      <!-- Tabs -->
+      <div class="admin-tabs">
+        <button class="admin-tab active" data-tab="pending" onclick="switchTab('pending')">
+          Pending<span class="tab-badge" id="pendingCount">0</span>
+        </button>
+        <button class="admin-tab" data-tab="published" onclick="switchTab('published')">
+          Published
+        </button>
+        <button class="admin-tab" data-tab="rejected" onclick="switchTab('rejected')">
+          Rejected
+        </button>
+      </div>
+
+      <!-- Content -->
+      <div id="submissionsContainer">
+        <!-- Submissions loaded dynamically -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Edit Modal -->
+  <div class="modal-overlay" id="editModal">
+    <div class="modal">
+      <div class="modal-header">
+        <h2>Edit Skill</h2>
+        <button class="modal-close" onclick="closeModal()">&times;</button>
+      </div>
+      <form id="editForm" onsubmit="saveEdit(event)">
+        <input type="hidden" id="editId">
+
+        <div class="form-row">
+          <div class="form-group">
+            <label>Skill Name</label>
+            <input type="text" id="editName" required>
+          </div>
+          <div class="form-group">
+            <label>Slug</label>
+            <input type="text" id="editSlug" required>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label>Category</label>
+            <select id="editCategory" required>
+              <option value="real-estate">Real Estate</option>
+              <option value="marketing">Marketing</option>
+              <option value="sales">Sales</option>
+              <option value="operations">Operations</option>
+              <option value="development">Development</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Author Name</label>
+            <input type="text" id="editAuthor">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Description</label>
+          <textarea id="editDescription" rows="3"></textarea>
+        </div>
+
+        <div class="form-group">
+          <label>Skill Content (Markdown)</label>
+          <textarea id="editContent" rows="10" required style="font-family: 'Courier New', monospace;"></textarea>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label>Author Website</label>
+            <input type="url" id="editWebsite">
+          </div>
+          <div class="form-group">
+            <label>Author Email</label>
+            <input type="email" id="editEmail">
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label>
+              <input type="checkbox" id="editIsFree" checked onchange="togglePricing()">
+              Free Skill
+            </label>
+          </div>
+          <div class="form-group" id="pricingGroup" style="display: none;">
+            <label>Price (USD)</label>
+            <input type="number" id="editPrice" min="1" step="1">
+          </div>
+        </div>
+
+        <div class="form-group" id="gumroadGroup" style="display: none;">
+          <label>Gumroad URL</label>
+          <input type="url" id="editGumroad" placeholder="https://your-store.gumroad.com/l/skill-id">
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label>
+              <input type="checkbox" id="editIsFeatured">
+              Featured Skill
+            </label>
+          </div>
+          <div class="form-group">
+            <label>
+              <input type="checkbox" id="editIsPublished">
+              Published
+            </label>
+          </div>
+        </div>
+
+        <div class="form-actions">
+          <button type="button" class="btn-cancel" onclick="closeModal()">Cancel</button>
+          <button type="submit" class="btn-save">Save Changes</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    // Simple password protection (replace with proper auth in production)
+    const ADMIN_PASSWORD = 'bogenai2025';
+    let currentTab = 'pending';
+    let submissions = [];
+
+    function handlePasswordEnter(event) {
+      if (event.key === 'Enter') {
+        login();
+      }
+    }
+
+    function login() {
+      const password = document.getElementById('adminPassword').value;
+      if (password === ADMIN_PASSWORD) {
+        sessionStorage.setItem('skillsAdminAuth', 'true');
+        showDashboard();
+      } else {
+        document.getElementById('loginError').style.display = 'block';
+      }
+    }
+
+    function logout() {
+      sessionStorage.removeItem('skillsAdminAuth');
+      document.getElementById('loginScreen').style.display = 'block';
+      document.getElementById('adminDashboard').style.display = 'none';
+      document.getElementById('adminPassword').value = '';
+    }
+
+    function showDashboard() {
+      document.getElementById('loginScreen').style.display = 'none';
+      document.getElementById('adminDashboard').style.display = 'block';
+      loadSubmissions();
+      loadStats();
+    }
+
+    // Check if already logged in
+    if (sessionStorage.getItem('skillsAdminAuth') === 'true') {
+      showDashboard();
+    }
+
+    async function loadStats() {
+      try {
+        const response = await fetch('/api/skills/admin/stats', {
+          headers: { 'Authorization': 'Bearer ' + ADMIN_PASSWORD }
+        });
+        const data = await response.json();
+
+        document.getElementById('statPending').textContent = data.pending || 0;
+        document.getElementById('statPublished').textContent = data.published || 0;
+        document.getElementById('statRejected').textContent = data.rejected || 0;
+        document.getElementById('statInstalls').textContent = data.totalInstalls || 0;
+        document.getElementById('pendingCount').textContent = data.pending || 0;
+      } catch (error) {
+        console.error('Error loading stats:', error);
+      }
+    }
+
+    async function loadSubmissions() {
+      try {
+        const response = await fetch(`/api/skills/admin/submissions?status=${currentTab}`, {
+          headers: { 'Authorization': 'Bearer ' + ADMIN_PASSWORD }
+        });
+        const data = await response.json();
+        submissions = data.submissions || [];
+        renderSubmissions();
+      } catch (error) {
+        console.error('Error loading submissions:', error);
+        document.getElementById('submissionsContainer').innerHTML =
+          '<div class="empty-state"><h3>Error loading submissions</h3><p>Please try again later.</p></div>';
+      }
+    }
+
+    function renderSubmissions() {
+      const container = document.getElementById('submissionsContainer');
+
+      if (submissions.length === 0) {
+        container.innerHTML = `
+          <div class="empty-state">
+            <h3>No ${currentTab} submissions</h3>
+            <p>${currentTab === 'pending' ? 'New skill submissions will appear here for review.' :
+               currentTab === 'published' ? 'Approved skills will appear here.' :
+               'Rejected submissions will appear here.'}</p>
+          </div>
+        `;
+        return;
+      }
+
+      container.innerHTML = submissions.map(sub => `
+        <div class="submission-card">
+          <div class="submission-header">
+            <h3 class="submission-title">${escapeHtml(sub.name)}</h3>
+            <span class="submission-status ${sub.status}">${sub.status}</span>
+          </div>
+
+          <div class="submission-meta">
+            <div class="submission-meta-item">
+              <span class="submission-meta-label">Category</span>
+              <span class="submission-meta-value">${formatCategory(sub.category)}</span>
+            </div>
+            <div class="submission-meta-item">
+              <span class="submission-meta-label">Author</span>
+              <span class="submission-meta-value">${escapeHtml(sub.author_name || 'Anonymous')}</span>
+            </div>
+            <div class="submission-meta-item">
+              <span class="submission-meta-label">Email</span>
+              <span class="submission-meta-value">${escapeHtml(sub.author_email || 'N/A')}</span>
+            </div>
+            <div class="submission-meta-item">
+              <span class="submission-meta-label">Pricing</span>
+              <span class="submission-meta-value">${sub.is_free ? 'Free' : '$' + (sub.price_cents / 100).toFixed(0)}</span>
+            </div>
+            <div class="submission-meta-item">
+              <span class="submission-meta-label">Submitted</span>
+              <span class="submission-meta-value">${formatDate(sub.created_at)}</span>
+            </div>
+            ${sub.install_count ? `
+            <div class="submission-meta-item">
+              <span class="submission-meta-label">Installs</span>
+              <span class="submission-meta-value">${sub.install_count}</span>
+            </div>
+            ` : ''}
+          </div>
+
+          ${sub.description ? `
+          <div class="submission-content">
+            <h4>Description</h4>
+            <p>${escapeHtml(sub.description)}</p>
+          </div>
+          ` : ''}
+
+          <div class="submission-content">
+            <h4>Skill Content</h4>
+            <div class="submission-content-preview">${escapeHtml(sub.skill_content?.substring(0, 500) || '')}${sub.skill_content?.length > 500 ? '...' : ''}</div>
+          </div>
+
+          <div class="submission-actions">
+            ${sub.status === 'pending' ? `
+              <button class="btn-approve" onclick="approveSubmission(${sub.id})">Approve & Publish</button>
+              <button class="btn-reject" onclick="rejectSubmission(${sub.id})">Reject</button>
+            ` : ''}
+            <button class="btn-edit" onclick="openEditModal(${sub.id})">Edit</button>
+            ${sub.status === 'approved' || sub.is_published ? `
+              <button class="btn-view" onclick="window.open('/skills/${sub.category}/${sub.slug}', '_blank')">View Live</button>
+            ` : ''}
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function switchTab(tab) {
+      currentTab = tab;
+      document.querySelectorAll('.admin-tab').forEach(t => t.classList.remove('active'));
+      document.querySelector(`[data-tab="${tab}"]`).classList.add('active');
+      loadSubmissions();
+    }
+
+    async function approveSubmission(id) {
+      if (!confirm('Approve and publish this skill?')) return;
+
+      try {
+        const response = await fetch(`/api/skills/admin/submissions/${id}/approve`, {
+          method: 'POST',
+          headers: { 'Authorization': 'Bearer ' + ADMIN_PASSWORD }
+        });
+
+        if (response.ok) {
+          loadSubmissions();
+          loadStats();
+        } else {
+          alert('Error approving submission');
+        }
+      } catch (error) {
+        console.error('Error:', error);
+        alert('Error approving submission');
+      }
+    }
+
+    async function rejectSubmission(id) {
+      const reason = prompt('Reason for rejection (optional):');
+      if (reason === null) return; // Cancelled
+
+      try {
+        const response = await fetch(`/api/skills/admin/submissions/${id}/reject`, {
+          method: 'POST',
+          headers: {
+            'Authorization': 'Bearer ' + ADMIN_PASSWORD,
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ reason })
+        });
+
+        if (response.ok) {
+          loadSubmissions();
+          loadStats();
+        } else {
+          alert('Error rejecting submission');
+        }
+      } catch (error) {
+        console.error('Error:', error);
+        alert('Error rejecting submission');
+      }
+    }
+
+    function openEditModal(id) {
+      const sub = submissions.find(s => s.id === id);
+      if (!sub) return;
+
+      document.getElementById('editId').value = sub.id;
+      document.getElementById('editName').value = sub.name || '';
+      document.getElementById('editSlug').value = sub.slug || '';
+      document.getElementById('editCategory').value = sub.category || 'real-estate';
+      document.getElementById('editAuthor').value = sub.author_name || '';
+      document.getElementById('editDescription').value = sub.description || '';
+      document.getElementById('editContent').value = sub.skill_content || '';
+      document.getElementById('editWebsite').value = sub.author_website || '';
+      document.getElementById('editEmail').value = sub.author_email || '';
+      document.getElementById('editIsFree').checked = sub.is_free !== false;
+      document.getElementById('editPrice').value = sub.price_cents ? (sub.price_cents / 100) : '';
+      document.getElementById('editGumroad').value = sub.gumroad_url || '';
+      document.getElementById('editIsFeatured').checked = sub.is_featured === true;
+      document.getElementById('editIsPublished').checked = sub.is_published === true;
+
+      togglePricing();
+      document.getElementById('editModal').classList.add('active');
+    }
+
+    function closeModal() {
+      document.getElementById('editModal').classList.remove('active');
+    }
+
+    function togglePricing() {
+      const isFree = document.getElementById('editIsFree').checked;
+      document.getElementById('pricingGroup').style.display = isFree ? 'none' : 'block';
+      document.getElementById('gumroadGroup').style.display = isFree ? 'none' : 'block';
+    }
+
+    async function saveEdit(event) {
+      event.preventDefault();
+
+      const id = document.getElementById('editId').value;
+      const isFree = document.getElementById('editIsFree').checked;
+
+      const data = {
+        name: document.getElementById('editName').value,
+        slug: document.getElementById('editSlug').value,
+        category: document.getElementById('editCategory').value,
+        author_name: document.getElementById('editAuthor').value,
+        description: document.getElementById('editDescription').value,
+        skill_content: document.getElementById('editContent').value,
+        author_website: document.getElementById('editWebsite').value,
+        author_email: document.getElementById('editEmail').value,
+        is_free: isFree,
+        price_cents: isFree ? null : Math.round(parseFloat(document.getElementById('editPrice').value) * 100),
+        gumroad_url: isFree ? null : document.getElementById('editGumroad').value,
+        is_featured: document.getElementById('editIsFeatured').checked,
+        is_published: document.getElementById('editIsPublished').checked
+      };
+
+      try {
+        const response = await fetch(`/api/skills/admin/submissions/${id}`, {
+          method: 'PUT',
+          headers: {
+            'Authorization': 'Bearer ' + ADMIN_PASSWORD,
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(data)
+        });
+
+        if (response.ok) {
+          closeModal();
+          loadSubmissions();
+          loadStats();
+        } else {
+          const error = await response.json();
+          alert('Error saving: ' + (error.error || 'Unknown error'));
+        }
+      } catch (error) {
+        console.error('Error:', error);
+        alert('Error saving changes');
+      }
+    }
+
+    function escapeHtml(text) {
+      if (!text) return '';
+      const div = document.createElement('div');
+      div.textContent = text;
+      return div.innerHTML;
+    }
+
+    function formatCategory(cat) {
+      const names = {
+        'real-estate': 'Real Estate',
+        'marketing': 'Marketing',
+        'sales': 'Sales',
+        'operations': 'Operations',
+        'development': 'Development'
+      };
+      return names[cat] || cat;
+    }
+
+    function formatDate(dateStr) {
+      if (!dateStr) return 'N/A';
+      const date = new Date(dateStr);
+      return date.toLocaleDateString('en-US', {
+        month: 'short',
+        day: 'numeric',
+        year: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit'
+      });
+    }
+
+    // Close modal on escape key
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closeModal();
+    });
+
+    // Close modal on overlay click
+    document.getElementById('editModal').addEventListener('click', (e) => {
+      if (e.target.id === 'editModal') closeModal();
+    });
+  </script>
+</body>
+</html>

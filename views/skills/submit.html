@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Submit a Skill | Bogen.ai</title>
+  <meta name="description" content="Share your Claude AI skills with the community. Submit your skill to the Bogen.ai marketplace.">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="/css/global.css">
+  <style>
+    .page-header {
+      background: linear-gradient(135deg, var(--navy), #2d5a7b);
+      padding: var(--spacing-xl) 0;
+      color: var(--white);
+      text-align: center;
+    }
+
+    .page-header h1 {
+      color: var(--white);
+      margin-bottom: var(--spacing-sm);
+    }
+
+    .form-container {
+      max-width: 800px;
+      margin: 0 auto;
+      background: var(--white);
+      border-radius: 16px;
+      padding: var(--spacing-xl);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .form-section {
+      margin-bottom: var(--spacing-xl);
+      padding-bottom: var(--spacing-lg);
+      border-bottom: 1px solid #eee;
+    }
+
+    .form-section:last-of-type {
+      border-bottom: none;
+      margin-bottom: 0;
+    }
+
+    .form-section h2 {
+      color: var(--navy);
+      font-size: 1.25rem;
+      margin-bottom: var(--spacing-md);
+    }
+
+    .form-group {
+      margin-bottom: var(--spacing-md);
+    }
+
+    .form-group label {
+      display: block;
+      color: var(--navy);
+      font-weight: 500;
+      margin-bottom: var(--spacing-xs);
+    }
+
+    .form-group .hint {
+      color: #666;
+      font-size: 0.85rem;
+      margin-top: 4px;
+    }
+
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      width: 100%;
+      padding: var(--spacing-sm) var(--spacing-md);
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      font-size: 1rem;
+      font-family: inherit;
+      transition: var(--transition-fast);
+    }
+
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      outline: none;
+      border-color: var(--cyan);
+      box-shadow: 0 0 0 3px rgba(100, 181, 246, 0.2);
+    }
+
+    .form-group textarea {
+      min-height: 150px;
+      resize: vertical;
+    }
+
+    .form-group textarea.code {
+      font-family: 'Fira Code', 'Courier New', monospace;
+      font-size: 0.9rem;
+      min-height: 300px;
+      background: #f8f8f8;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--spacing-md);
+    }
+
+    .price-toggle {
+      display: flex;
+      gap: var(--spacing-md);
+      margin-bottom: var(--spacing-md);
+    }
+
+    .price-option {
+      flex: 1;
+      padding: var(--spacing-md);
+      border: 2px solid #ddd;
+      border-radius: 8px;
+      cursor: pointer;
+      text-align: center;
+      transition: var(--transition-fast);
+    }
+
+    .price-option:hover {
+      border-color: var(--cyan);
+    }
+
+    .price-option.active {
+      border-color: var(--navy);
+      background: rgba(26, 58, 82, 0.05);
+    }
+
+    .price-option input {
+      display: none;
+    }
+
+    .price-option h4 {
+      color: var(--navy);
+      margin-bottom: 4px;
+    }
+
+    .price-option p {
+      color: #666;
+      font-size: 0.85rem;
+      margin: 0;
+    }
+
+    .paid-fields {
+      display: none;
+      margin-top: var(--spacing-md);
+      padding: var(--spacing-md);
+      background: #f8f8f8;
+      border-radius: 8px;
+    }
+
+    .paid-fields.visible {
+      display: block;
+    }
+
+    .submit-btn {
+      width: 100%;
+      padding: var(--spacing-md);
+      background: var(--cyan);
+      color: var(--navy);
+      border: none;
+      border-radius: 8px;
+      font-size: 1.1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: var(--transition-fast);
+    }
+
+    .submit-btn:hover {
+      background: var(--navy);
+      color: var(--white);
+    }
+
+    .submit-btn:disabled {
+      background: #ccc;
+      cursor: not-allowed;
+    }
+
+    .success-message {
+      display: none;
+      text-align: center;
+      padding: var(--spacing-xl);
+    }
+
+    .success-message.visible {
+      display: block;
+    }
+
+    .success-message h2 {
+      color: var(--navy);
+      margin-bottom: var(--spacing-md);
+    }
+
+    .success-message p {
+      color: var(--dark-gray);
+      margin-bottom: var(--spacing-lg);
+    }
+
+    .error-message {
+      background: #f8d7da;
+      color: #721c24;
+      padding: var(--spacing-md);
+      border-radius: 8px;
+      margin-bottom: var(--spacing-md);
+      display: none;
+    }
+
+    .error-message.visible {
+      display: block;
+    }
+
+    .guidelines {
+      background: rgba(100, 181, 246, 0.1);
+      border-radius: 12px;
+      padding: var(--spacing-lg);
+      margin-bottom: var(--spacing-xl);
+    }
+
+    .guidelines h3 {
+      color: var(--navy);
+      margin-bottom: var(--spacing-sm);
+    }
+
+    .guidelines ul {
+      padding-left: var(--spacing-md);
+      color: var(--dark-gray);
+    }
+
+    .guidelines li {
+      margin-bottom: var(--spacing-xs);
+    }
+
+    @media (max-width: 768px) {
+      .form-row {
+        grid-template-columns: 1fr;
+      }
+
+      .price-toggle {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="header">
+    <div class="container">
+      <nav class="nav">
+        <a href="/" class="logo" style="display: flex; align-items: center;">
+          <img src="/images/eb-logo.png" alt="Bogen.ai Logo" style="height: 100px; width: auto;">
+        </a>
+
+        <ul class="nav-menu">
+          <li><a href="/" class="nav-link">Home</a></li>
+          <li class="nav-dropdown">
+            <a href="/about-us" class="nav-link">About</a>
+            <ul class="dropdown-menu">
+              <li><a href="/about-us#edmund">About Edmund Bogen</a></li>
+              <li><a href="/about-us#eytan">About Eytan Benzeno</a></li>
+            </ul>
+          </li>
+          <li class="nav-dropdown">
+            <a href="/#services" class="nav-link">Services</a>
+            <ul class="dropdown-menu">
+              <li><a href="/tools-weve-built">Tools that we've built</a></li>
+              <li><a href="/services/communication-customer-interaction">Communication & Customer Interaction</a></li>
+              <li><a href="/services/sales-revenue-generation">Sales & Revenue Generation</a></li>
+              <li><a href="/services/operations-workflow">Operations & Workflow</a></li>
+              <li><a href="/services/marketing-content">Marketing & Content</a></li>
+              <li><a href="/services/industry-specific-premium">Industry-Specific Premium</a></li>
+            </ul>
+          </li>
+          <li><a href="/skills" class="nav-link active">Skills</a></li>
+          <li class="nav-dropdown">
+            <a href="/partner-program" class="nav-link">Partner</a>
+            <ul class="dropdown-menu">
+              <li><a href="/contact?tab=partner">Apply to Become a Partner</a></li>
+              <li><a href="/partner-portal">Partner Log In</a></li>
+            </ul>
+          </li>
+          <li><a href="/edmunds-mastermind" class="nav-link">Edmund's Mastermind</a></li>
+          <li><a href="/blog" class="nav-link">Blog</a></li>
+          <li><a href="/contact" class="btn btn-primary btn-sm">Get Started</a></li>
+        </ul>
+        <button class="nav-toggle" type="button" aria-label="Toggle navigation" onclick="window.bogenAI.toggleMobileMenu()">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Page Header -->
+  <section class="page-header">
+    <div class="container">
+      <h1>Submit a Skill</h1>
+      <p style="color: rgba(255,255,255,0.8); max-width: 600px; margin: 0 auto;">
+        Share your Claude skills with the community. All submissions are reviewed before publishing.
+      </p>
+    </div>
+  </section>
+
+  <!-- Main Content -->
+  <section class="section">
+    <div class="container">
+      <div class="form-container">
+        <!-- Guidelines -->
+        <div class="guidelines">
+          <h3>Submission Guidelines</h3>
+          <ul>
+            <li>Skills should be well-documented with clear instructions</li>
+            <li>Include specific use cases and examples where possible</li>
+            <li>Test your skill thoroughly before submitting</li>
+            <li>Avoid including sensitive or proprietary information</li>
+            <li>Free skills are encouraged, but paid skills are also welcome</li>
+          </ul>
+        </div>
+
+        <!-- Error Message -->
+        <div class="error-message" id="errorMessage"></div>
+
+        <!-- Success Message -->
+        <div class="success-message" id="successMessage">
+          <h2>Skill Submitted Successfully!</h2>
+          <p>Thank you for your contribution. Your skill is now being reviewed and will be published soon. We'll notify you by email once it's live.</p>
+          <a href="/skills" class="btn btn-primary">Browse Skills</a>
+        </div>
+
+        <!-- Form -->
+        <form id="skillForm">
+          <div class="form-section">
+            <h2>Skill Information</h2>
+
+            <div class="form-group">
+              <label for="name">Skill Name *</label>
+              <input type="text" id="name" name="name" required placeholder="e.g., Facebook Lead Processor">
+              <p class="hint">A clear, descriptive name for your skill</p>
+            </div>
+
+            <div class="form-group">
+              <label for="category">Category *</label>
+              <select id="category" name="category" required>
+                <option value="">Select a category</option>
+                <option value="real-estate">Real Estate</option>
+                <option value="marketing">Marketing</option>
+                <option value="sales">Sales</option>
+                <option value="operations">Operations</option>
+                <option value="development">Development</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="description">Description *</label>
+              <textarea id="description" name="description" required placeholder="Describe what your skill does, who it's for, and how it helps..."></textarea>
+              <p class="hint">A clear description helps users understand if the skill is right for them</p>
+            </div>
+          </div>
+
+          <div class="form-section">
+            <h2>Skill Content</h2>
+
+            <div class="form-group">
+              <label for="skill_content">SKILL.md Content *</label>
+              <textarea id="skill_content" name="skill_content" class="code" required placeholder="# Skill Name
+
+## Description
+What this skill does...
+
+## Instructions
+How Claude should use this skill...
+
+## Examples
+Example prompts and outputs..."></textarea>
+              <p class="hint">The full markdown content of your skill file</p>
+            </div>
+          </div>
+
+          <div class="form-section">
+            <h2>Author Information</h2>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label for="author_name">Your Name *</label>
+                <input type="text" id="author_name" name="author_name" required placeholder="John Doe">
+              </div>
+
+              <div class="form-group">
+                <label for="author_email">Email *</label>
+                <input type="email" id="author_email" name="author_email" required placeholder="john@example.com">
+                <p class="hint">We'll notify you when your skill is published</p>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="author_website">Website (optional)</label>
+              <input type="url" id="author_website" name="author_website" placeholder="https://yourwebsite.com">
+              <p class="hint">Link to your portfolio or company website</p>
+            </div>
+          </div>
+
+          <div class="form-section">
+            <h2>Pricing</h2>
+
+            <div class="price-toggle">
+              <label class="price-option active" id="freeOption">
+                <input type="radio" name="is_free" value="true" checked onchange="togglePricing()">
+                <h4>Free</h4>
+                <p>Share with the community</p>
+              </label>
+              <label class="price-option" id="paidOption">
+                <input type="radio" name="is_free" value="false" onchange="togglePricing()">
+                <h4>Paid</h4>
+                <p>Sell through Gumroad</p>
+              </label>
+            </div>
+
+            <div class="paid-fields" id="paidFields">
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="price">Price (USD) *</label>
+                  <input type="number" id="price" name="price" min="1" step="1" placeholder="29">
+                </div>
+
+                <div class="form-group">
+                  <label for="gumroad_url">Gumroad Product URL *</label>
+                  <input type="url" id="gumroad_url" name="gumroad_url" placeholder="https://gumroad.com/l/your-product">
+                  <p class="hint">Create a product on Gumroad first, then paste the link here</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <button type="submit" class="submit-btn" id="submitBtn">Submit Skill for Review</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <img src="/images/eb-logo.png" alt="Bogen.ai" style="height: 80px; margin-bottom: var(--spacing-md); filter: brightness(0) invert(1);">
+          <p>Enterprise AI automation for businesses ready to scale.</p>
+        </div>
+        <div class="footer-links">
+          <h4>Company</h4>
+          <ul>
+            <li><a href="/about-us">About Us</a></li>
+            <li><a href="/partner-program">Partnership</a></li>
+            <li><a href="/contact">Contact</a></li>
+          </ul>
+        </div>
+        <div class="footer-links">
+          <h4>Skills</h4>
+          <ul>
+            <li><a href="/skills/real-estate">Real Estate</a></li>
+            <li><a href="/skills/marketing">Marketing</a></li>
+            <li><a href="/skills/sales">Sales</a></li>
+            <li><a href="/skills/submit">Submit a Skill</a></li>
+          </ul>
+        </div>
+        <div class="footer-links">
+          <h4>Legal</h4>
+          <ul>
+            <li><a href="/privacy">Privacy Policy</a></li>
+            <li><a href="/terms">Terms of Service</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2025 Bogen.ai. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="/js/common.js"></script>
+  <script>
+    function togglePricing() {
+      const isFree = document.querySelector('input[name="is_free"]:checked').value === 'true';
+      const paidFields = document.getElementById('paidFields');
+      const freeOption = document.getElementById('freeOption');
+      const paidOption = document.getElementById('paidOption');
+
+      if (isFree) {
+        paidFields.classList.remove('visible');
+        freeOption.classList.add('active');
+        paidOption.classList.remove('active');
+        document.getElementById('price').removeAttribute('required');
+        document.getElementById('gumroad_url').removeAttribute('required');
+      } else {
+        paidFields.classList.add('visible');
+        freeOption.classList.remove('active');
+        paidOption.classList.add('active');
+        document.getElementById('price').setAttribute('required', 'required');
+        document.getElementById('gumroad_url').setAttribute('required', 'required');
+      }
+    }
+
+    document.getElementById('skillForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const form = e.target;
+      const submitBtn = document.getElementById('submitBtn');
+      const errorMessage = document.getElementById('errorMessage');
+      const successMessage = document.getElementById('successMessage');
+
+      // Reset messages
+      errorMessage.classList.remove('visible');
+      errorMessage.textContent = '';
+
+      // Disable submit button
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Submitting...';
+
+      try {
+        const isFree = document.querySelector('input[name="is_free"]:checked').value === 'true';
+        const priceValue = document.getElementById('price').value;
+
+        const data = {
+          name: document.getElementById('name').value,
+          category: document.getElementById('category').value,
+          description: document.getElementById('description').value,
+          skill_content: document.getElementById('skill_content').value,
+          author_name: document.getElementById('author_name').value,
+          author_email: document.getElementById('author_email').value,
+          author_website: document.getElementById('author_website').value || null,
+          is_free: isFree,
+          price_cents: isFree ? null : parseInt(priceValue) * 100,
+          gumroad_url: isFree ? null : document.getElementById('gumroad_url').value
+        };
+
+        const response = await fetch('/api/skills/submit', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(data)
+        });
+
+        const result = await response.json();
+
+        if (!response.ok) {
+          throw new Error(result.error || result.errors?.[0]?.msg || 'Submission failed');
+        }
+
+        // Show success
+        form.style.display = 'none';
+        document.querySelector('.guidelines').style.display = 'none';
+        successMessage.classList.add('visible');
+
+      } catch (error) {
+        console.error('Submission error:', error);
+        errorMessage.textContent = error.message;
+        errorMessage.classList.add('visible');
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Submit Skill for Review';
+      }
+    });
+  </script>
+</body>
+</html>
