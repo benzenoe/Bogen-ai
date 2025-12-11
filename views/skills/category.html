@@ -458,10 +458,12 @@
           document.getElementById('searchInput').value = search;
         }
 
-        const response = await fetch(`/api/skills/category/${currentCategory}`);
+        // Add cache-busting timestamp
+        const response = await fetch(`/api/skills/category/${currentCategory}?_t=` + Date.now());
         const data = await response.json();
 
-        allSkills = data.skills;
+        // Filter out any malformed skills
+        allSkills = (data.skills || []).filter(skill => skill && skill.name && skill.slug);
         renderSkills(allSkills);
       } catch (error) {
         console.error('Error loading skills:', error);

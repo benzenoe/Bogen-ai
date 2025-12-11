@@ -489,15 +489,21 @@
 
     async function loadFeaturedSkills() {
       try {
-        const response = await fetch('/api/skills?featured=true&limit=6');
+        // Add cache-busting timestamp
+        const response = await fetch('/api/skills?featured=true&limit=6&_t=' + Date.now());
         const data = await response.json();
 
         const grid = document.getElementById('featuredSkills');
 
-        if (data.skills.length === 0) {
-          grid.innerHTML = '<p class="text-center text-gray">No featured skills yet. Check back soon!</p>';
+        // Clear existing content first
+        grid.innerHTML = '';
+
+        if (!data.skills || data.skills.length === 0) {
+          grid.innerHTML = '<p class="text-center" style="color: rgba(255,255,255,0.7);">No featured skills yet. Check back soon!</p>';
           return;
         }
+
+        console.log('Loading', data.skills.length, 'skills');
 
         const categoryIcons = {
           'real-estate': '🏠',
@@ -518,13 +524,16 @@
           'default': '⚡'
         };
 
-        grid.innerHTML = data.skills.map(skill => {
+        // Filter out any malformed skills and render
+        const validSkills = data.skills.filter(skill => skill && skill.name && skill.slug);
+
+        grid.innerHTML = validSkills.map(skill => {
           const icon = categoryIcons[skill.category] || categoryIcons['default'];
           const desc = skill.description || 'No description available';
-          const truncatedDesc = desc.length > 100 ? desc.substring(0, 100) + '...' : desc;
+          const truncatedDesc = desc.length > 150 ? desc.substring(0, 150) + '...' : desc;
 
           return `
-            <a href="/skills/${skill.category}/${skill.slug}" class="skill-card" style="text-decoration: none;">
+            <a href="/skills/${skill.category || 'general'}/${skill.slug}" class="skill-card" style="text-decoration: none;">
               <div class="skill-icon">${icon}</div>
               <div class="skill-header">
                 <h3 class="skill-name">${skill.name}</h3>
@@ -532,7 +541,7 @@
               <div style="margin-bottom: var(--spacing-xs);">
                 ${skill.is_featured ? '<span class="skill-badge featured">Featured</span> ' : ''}
                 <span class="skill-badge ${skill.is_free ? 'free' : 'paid'}">
-                  ${skill.is_free ? 'Free' : '$' + (skill.price_cents / 100).toFixed(0)}
+                  ${skill.is_free ? 'Free' : '$' + ((skill.price_cents || 0) / 100).toFixed(0)}
                 </span>
               </div>
               <p class="skill-description">${truncatedDesc}</p>
