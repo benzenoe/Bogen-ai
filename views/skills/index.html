@@ -130,11 +130,27 @@
       padding: var(--spacing-md);
       transition: var(--transition-normal);
       border: 1px solid #eee;
+      display: flex;
+      flex-direction: column;
+      min-height: 200px;
     }
 
     .skill-card:hover {
       transform: translateY(-2px);
       box-shadow: var(--shadow-md);
+    }
+
+    .skill-icon {
+      width: 50px;
+      height: 50px;
+      background: linear-gradient(135deg, var(--navy), #2d5a7b);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      margin-bottom: var(--spacing-sm);
+      flex-shrink: 0;
     }
 
     .skill-header {
@@ -336,6 +352,12 @@
         <input type="text" id="skillSearch" placeholder="Search skills..." onkeyup="handleSearch(event)">
         <button onclick="searchSkills()">Search</button>
       </div>
+      <div style="margin-top: var(--spacing-lg);">
+        <a href="/skills/submit" class="btn btn-primary btn-lg" style="background: linear-gradient(135deg, #4CAF50, #45a049); border: none; font-size: 1.1rem; padding: 16px 32px;">
+          + Submit Your Skill
+        </a>
+        <p style="color: rgba(255,255,255,0.7); margin-top: var(--spacing-sm); font-size: 0.9rem;">Share your Claude skills with the community</p>
+      </div>
     </div>
   </section>
 
@@ -477,24 +499,47 @@
           return;
         }
 
-        grid.innerHTML = data.skills.map(skill => `
-          <a href="/skills/${skill.category}/${skill.slug}" class="skill-card" style="text-decoration: none;">
-            <div class="skill-header">
-              <h3 class="skill-name">${skill.name}</h3>
-              <div>
-                ${skill.is_featured ? '<span class="skill-badge featured">Featured</span>' : ''}
+        const categoryIcons = {
+          'real-estate': '🏠',
+          'marketing': '📣',
+          'sales': '💼',
+          'social-media': '📱',
+          'accounting-finance': '📊',
+          'legal': '⚖️',
+          'travel': '✈️',
+          'education-training': '📚',
+          'development': '💻',
+          'web-development': '🌐',
+          'ai-automation': '🤖',
+          'healthcare': '🏥',
+          'default': '⚡'
+        };
+
+        grid.innerHTML = data.skills.map(skill => {
+          const icon = categoryIcons[skill.category] || categoryIcons['default'];
+          const desc = skill.description || 'No description available';
+          const truncatedDesc = desc.length > 100 ? desc.substring(0, 100) + '...' : desc;
+
+          return `
+            <a href="/skills/${skill.category}/${skill.slug}" class="skill-card" style="text-decoration: none;">
+              <div class="skill-icon">${icon}</div>
+              <div class="skill-header">
+                <h3 class="skill-name">${skill.name}</h3>
+              </div>
+              <div style="margin-bottom: var(--spacing-xs);">
+                ${skill.is_featured ? '<span class="skill-badge featured">Featured</span> ' : ''}
                 <span class="skill-badge ${skill.is_free ? 'free' : 'paid'}">
                   ${skill.is_free ? 'Free' : '$' + (skill.price_cents / 100).toFixed(0)}
                 </span>
               </div>
-            </div>
-            <p class="skill-description">${skill.description ? skill.description.substring(0, 120) + '...' : ''}</p>
-            <div class="skill-meta">
-              <span class="skill-author">by ${skill.author_name || 'Anonymous'}</span>
-              <span class="skill-installs">📥 ${skill.install_count || 0}</span>
-            </div>
-          </a>
-        `).join('');
+              <p class="skill-description">${truncatedDesc}</p>
+              <div class="skill-meta" style="margin-top: auto;">
+                <span class="skill-author">by ${skill.author_name || 'Anonymous'}</span>
+                <span class="skill-installs">📥 ${skill.install_count || 0}</span>
+              </div>
+            </a>
+          `;
+        }).join('');
       } catch (error) {
         console.error('Error loading featured skills:', error);
       }
