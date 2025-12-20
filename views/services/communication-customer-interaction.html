@@ -4,19 +4,425 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Communication & Customer Interaction AI Services | Bogen.ai</title>
-  <meta name="description" content="15 AI services for 24/7 customer communication, automated email responses, chatbots, and more. From $297-897/month.">
+  <meta name="description" content="15 AI services for 24/7 customer communication, automated email responses, chatbots, and more. Never miss a customer again.">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/css/global.css">
+  <style>
+    :root {
+      --eb-navy: #1a3e5c;
+      --eb-cyan: #00a8e1;
+      --eb-white: #ffffff;
+      --eb-text: #333333;
+      --eb-light-bg: #f8f9fa;
+    }
+
+    /* Hero Section */
+    .service-hero {
+      background: linear-gradient(135deg, var(--eb-navy) 0%, #0d1623 100%);
+      padding: 160px 0 100px 0;
+      margin-top: 80px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .service-hero::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 50%;
+      height: 100%;
+      background: url('/images/services/communication-hero.jpg') center/cover;
+      opacity: 0.15;
+    }
+
+    .service-hero-content {
+      max-width: 700px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .service-hero h1 {
+      color: var(--eb-white);
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      font-size: 3rem;
+      line-height: 1.2;
+      margin-bottom: 24px;
+    }
+
+    .service-hero h1 span {
+      color: var(--eb-cyan);
+    }
+
+    .service-hero p {
+      color: rgba(255, 255, 255, 0.9);
+      font-size: 1.25rem;
+      line-height: 1.7;
+      margin-bottom: 32px;
+    }
+
+    /* Stats Bar */
+    .stats-bar {
+      background: var(--eb-white);
+      padding: 48px 0;
+      border-bottom: 1px solid #e8e8e8;
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 32px;
+      text-align: center;
+    }
+
+    .stat-item {
+      padding: 0 16px;
+    }
+
+    .stat-number {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 3rem;
+      font-weight: 700;
+      color: var(--eb-navy);
+      line-height: 1;
+      margin-bottom: 8px;
+    }
+
+    .stat-number span {
+      color: var(--eb-cyan);
+    }
+
+    .stat-label {
+      font-size: 0.95rem;
+      color: #666;
+      font-weight: 500;
+    }
+
+    /* Service Categories */
+    .service-category {
+      padding: 80px 0;
+    }
+
+    .service-category:nth-child(even) {
+      background: var(--eb-light-bg);
+    }
+
+    .category-header {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
+      margin-bottom: 48px;
+    }
+
+    .category-header.reverse {
+      direction: rtl;
+    }
+
+    .category-header.reverse > * {
+      direction: ltr;
+    }
+
+    .category-content h2 {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 2.25rem;
+      font-weight: 700;
+      color: var(--eb-navy);
+      margin-bottom: 16px;
+      position: relative;
+      padding-left: 20px;
+    }
+
+    .category-content h2::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 4px;
+      height: 100%;
+      background: var(--eb-cyan);
+      border-radius: 2px;
+    }
+
+    .category-content p {
+      color: var(--eb-text);
+      font-size: 1.1rem;
+      line-height: 1.7;
+    }
+
+    .category-image {
+      background: linear-gradient(135deg, var(--eb-navy) 0%, #0d1623 100%);
+      border-radius: 8px;
+      height: 300px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: rgba(255, 255, 255, 0.5);
+      font-size: 0.9rem;
+      overflow: hidden;
+    }
+
+    .category-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    /* Service Cards Grid */
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+
+    .service-card {
+      background: var(--eb-white);
+      border: 1px solid #e8e8e8;
+      border-radius: 8px;
+      padding: 28px;
+      transition: all 0.3s ease;
+    }
+
+    .service-card:hover {
+      border-color: var(--eb-cyan);
+      box-shadow: 0 8px 32px rgba(0, 168, 225, 0.15);
+      transform: translateY(-4px);
+    }
+
+    .service-card h3 {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 1.125rem;
+      font-weight: 600;
+      color: var(--eb-navy);
+      margin-bottom: 12px;
+    }
+
+    .service-card p {
+      color: #666;
+      font-size: 0.95rem;
+      line-height: 1.6;
+      margin-bottom: 16px;
+    }
+
+    .service-card .best-for {
+      display: inline-block;
+      background: rgba(0, 168, 225, 0.1);
+      color: var(--eb-cyan);
+      font-size: 0.8rem;
+      font-weight: 600;
+      padding: 6px 12px;
+      border-radius: 4px;
+    }
+
+    /* Customer Raves Section */
+    .raves-section {
+      background: linear-gradient(135deg, var(--eb-navy) 0%, #0d1623 100%);
+      padding: 80px 0;
+    }
+
+    .raves-section h2 {
+      color: var(--eb-white);
+      font-family: 'Montserrat', sans-serif;
+      font-size: 2.25rem;
+      font-weight: 700;
+      text-align: center;
+      margin-bottom: 48px;
+    }
+
+    .raves-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+
+    .rave-card {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 8px;
+      padding: 32px;
+    }
+
+    .rave-stars {
+      color: #fbbf24;
+      font-size: 1.25rem;
+      margin-bottom: 16px;
+    }
+
+    .rave-quote {
+      color: rgba(255, 255, 255, 0.9);
+      font-size: 1rem;
+      line-height: 1.7;
+      font-style: italic;
+      margin-bottom: 20px;
+    }
+
+    .rave-author {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .rave-avatar {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: var(--eb-cyan);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: 600;
+      font-size: 1.1rem;
+    }
+
+    .rave-info {
+      color: rgba(255, 255, 255, 0.9);
+    }
+
+    .rave-name {
+      font-weight: 600;
+      margin-bottom: 2px;
+    }
+
+    .rave-title {
+      font-size: 0.85rem;
+      color: rgba(255, 255, 255, 0.6);
+    }
+
+    /* CTA Section */
+    .cta-section {
+      background: var(--eb-white);
+      padding: 80px 0;
+      text-align: center;
+    }
+
+    .cta-section h2 {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 2.25rem;
+      font-weight: 700;
+      color: var(--eb-navy);
+      margin-bottom: 16px;
+    }
+
+    .cta-section p {
+      font-size: 1.1rem;
+      color: #666;
+      margin-bottom: 32px;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .cta-buttons {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+    }
+
+    .btn-primary {
+      background: var(--eb-cyan);
+      color: white;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 600;
+      padding: 16px 40px;
+      border-radius: 4px;
+      text-decoration: none;
+      transition: all 0.3s ease;
+    }
+
+    .btn-primary:hover {
+      background: #008ec4;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(0, 168, 225, 0.3);
+    }
+
+    .btn-secondary {
+      background: transparent;
+      color: var(--eb-navy);
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 600;
+      padding: 16px 40px;
+      border: 2px solid var(--eb-navy);
+      border-radius: 4px;
+      text-decoration: none;
+      transition: all 0.3s ease;
+    }
+
+    .btn-secondary:hover {
+      background: var(--eb-navy);
+      color: white;
+    }
+
+    /* Responsive */
+    @media (max-width: 1024px) {
+      .services-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .raves-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 768px) {
+      .service-hero {
+        padding: 120px 24px 60px 24px;
+      }
+
+      .service-hero h1 {
+        font-size: 2rem;
+      }
+
+      .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 24px;
+      }
+
+      .stat-number {
+        font-size: 2rem;
+      }
+
+      .category-header {
+        grid-template-columns: 1fr;
+        gap: 32px;
+      }
+
+      .category-header.reverse {
+        direction: ltr;
+      }
+
+      .category-image {
+        height: 200px;
+      }
+
+      .services-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .raves-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .cta-buttons {
+        flex-direction: column;
+        align-items: center;
+      }
+    }
+  </style>
 </head>
 <body>
 
+  <!-- Header -->
   <header class="header">
     <div class="container">
       <nav class="nav">
-        <a href="/" class="logo">bogen<span>.ai</span></a>
+        <a href="/" class="logo" style="display: flex; align-items: center;">
+          <img src="/images/eb-logo.png" alt="Bogen.ai Logo" style="height: 100px; width: auto;">
+        </a>
         <ul class="nav-menu">
           <li><a href="/" class="nav-link">Home</a></li>
           <li class="nav-dropdown">
@@ -57,7 +463,7 @@
           <li class="nav-dropdown">
             <a href="/edmunds-mastermind" class="nav-link">Edmund's Mastermind ▾</a>
             <ul class="dropdown-menu">
-              <li><a href="/#mastermind-registration">Register Now for This Week's Meeting</a></li>
+              <li><a href="/edmunds-mastermind">Learn About Edmund's Mastermind</a></li>
               <li><a href="/contact?tab=client">Join Our Mastermind Community</a></li>
             </ul>
           </li>
@@ -65,129 +471,259 @@
           <li><a href="/video-archive" class="nav-link">Video</a></li>
           <li><a href="/contact" class="btn btn-primary btn-sm">Get Started</a></li>
         </ul>
+        <button class="nav-toggle" type="button" aria-label="Toggle navigation" onclick="window.bogenAI.toggleMobileMenu()">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
       </nav>
     </div>
   </header>
 
-  <section class="hero">
-    <div class="hero-bg"></div>
-    <div class="hero-content">
-      <h1>Communication & Customer Interaction</h1>
-      <p>15 AI services that keep your customers engaged 24/7 while you focus on growth.</p>
+  <!-- Hero Section -->
+  <section class="service-hero">
+    <div class="container">
+      <div class="service-hero-content">
+        <h1>Never Miss a <span>Customer</span> Again</h1>
+        <p>From 24/7 AI assistants to automated email campaigns, these services ensure every customer interaction is handled professionally, promptly, and personally.</p>
+        <a href="/contact" class="btn-primary">Get a Custom Proposal</a>
+      </div>
     </div>
   </section>
 
-  <section class="section">
-    <div class="container" style="max-width: 900px;">
-      <h2 class="text-center mb-lg">Never Miss a Customer Again</h2>
-      <p class="text-large text-center text-gray mb-xl">From 24/7 AI assistants to automated email campaigns, these services ensure every customer interaction is handled professionally, promptly, and personally.</p>
+  <!-- Stats Bar -->
+  <section class="stats-bar">
+    <div class="container">
+      <div class="stats-grid">
+        <div class="stat-item">
+          <div class="stat-number">24<span>/7</span></div>
+          <div class="stat-label">Customer Availability</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number">60<span>%</span></div>
+          <div class="stat-label">Reduction in Support Tickets</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number">&lt;3<span>s</span></div>
+          <div class="stat-label">Average Response Time</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number">15</div>
+          <div class="stat-label">AI-Powered Services</div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-      <div class="grid grid-1 gap-lg">
-        <div class="card">
+  <!-- Category 1: Instant Response -->
+  <section class="service-category">
+    <div class="container">
+      <div class="category-header">
+        <div class="category-content">
+          <h2>Instant Response Services</h2>
+          <p>Your customers expect immediate answers. These AI-powered services ensure every inquiry—whether by chat, email, phone, or text—gets a professional response in seconds, not hours.</p>
+        </div>
+        <div class="category-image">
+          <!-- Placeholder for image -->
+          <span>Image: AI assistant responding instantly</span>
+        </div>
+      </div>
+
+      <div class="services-grid">
+        <div class="service-card">
           <h3>24/7 AI Customer Assistant</h3>
           <p>AI-powered chat and email assistant that handles customer inquiries round-the-clock, provides instant responses, and escalates complex issues to your team.</p>
-          <p class="text-small text-gray"><strong>Best for:</strong> E-commerce, Real Estate, Professional Services</p>
+          <span class="best-for">E-commerce • Real Estate • Professional Services</span>
         </div>
 
-        <div class="card">
-          <h3>Automated Email Response System</h3>
-          <p>Intelligent email automation that categorizes incoming messages, sends appropriate responses, and ensures no inquiry goes unanswered.</p>
-          <p class="text-small text-gray"><strong>Best for:</strong> All industries with high email volume</p>
-        </div>
-
-        <div class="card">
+        <div class="service-card">
           <h3>Website Chatbot Integration</h3>
           <p>Custom-trained chatbot for your website that answers common questions, qualifies leads, and books appointments automatically.</p>
-          <p class="text-small text-gray"><strong>Best for:</strong> Service businesses, Consultants, Medical practices</p>
+          <span class="best-for">Service Businesses • Consultants • Medical</span>
         </div>
 
-        <div class="card">
-          <h3>SMS Campaign Automation</h3>
-          <p>Automated text messaging for appointment reminders, follow-ups, promotions, and customer engagement.</p>
-          <p class="text-small text-gray"><strong>Best for:</strong> Salons, Medical, Home Services, Real Estate</p>
-        </div>
-
-        <div class="card">
-          <h3>Customer Follow-Up Sequences</h3>
-          <p>Automated multi-channel follow-up campaigns that nurture leads and keep customers engaged post-purchase.</p>
-          <p class="text-small text-gray"><strong>Best for:</strong> All industries</p>
-        </div>
-
-        <div class="card">
+        <div class="service-card">
           <h3>AI Phone Answering Service</h3>
           <p>Natural voice AI that answers calls, schedules appointments, takes messages, and transfers to your team when needed.</p>
-          <p class="text-small text-gray"><strong>Best for:</strong> Medical, Legal, Home Services, Real Estate</p>
+          <span class="best-for">Medical • Legal • Home Services • Real Estate</span>
         </div>
 
-        <div class="card">
-          <h3>Multi-Channel Inbox Management</h3>
-          <p>Centralize and automate responses across email, social media DMs, website forms, and SMS in one unified system.</p>
-          <p class="text-small text-gray"><strong>Best for:</strong> E-commerce, Social Media Businesses</p>
-        </div>
-
-        <div class="card">
-          <h3>Customer Review Request Automation</h3>
-          <p>Automatically request reviews from satisfied customers via email and SMS, increasing your online ratings and reputation.</p>
-          <p class="text-small text-gray"><strong>Best for:</strong> Service businesses, E-commerce, Restaurants</p>
-        </div>
-
-        <div class="card">
-          <h3>Live Chat to Lead Conversion</h3>
-          <p>AI chat that qualifies website visitors, captures contact info, and routes hot leads to your sales team in real-time.</p>
-          <p class="text-small text-gray"><strong>Best for:</strong> B2B Services, SaaS, Consultants</p>
-        </div>
-
-        <div class="card">
+        <div class="service-card">
           <h3>FAQ Knowledge Base Bot</h3>
           <p>Trained on your business documentation to answer common questions instantly, reducing support tickets by 60%.</p>
-          <p class="text-small text-gray"><strong>Best for:</strong> SaaS, E-commerce, Tech Companies</p>
+          <span class="best-for">SaaS • E-commerce • Tech Companies</span>
         </div>
 
-        <div class="card">
-          <h3>Appointment Reminder System</h3>
-          <p>Automated SMS and email reminders that reduce no-shows, with two-way confirmation and rescheduling options.</p>
-          <p class="text-small text-gray"><strong>Best for:</strong> Medical, Salons, Professional Services</p>
+        <div class="service-card">
+          <h3>Live Chat to Lead Conversion</h3>
+          <p>AI chat that qualifies website visitors, captures contact info, and routes hot leads to your sales team in real-time.</p>
+          <span class="best-for">B2B Services • SaaS • Consultants</span>
         </div>
 
-        <div class="card">
-          <h3>Customer Feedback Collection</h3>
-          <p>Post-interaction surveys sent automatically, analyzing sentiment and alerting you to unhappy customers immediately.</p>
-          <p class="text-small text-gray"><strong>Best for:</strong> All service-based businesses</p>
-        </div>
-
-        <div class="card">
+        <div class="service-card">
           <h3>Voicemail Transcription & Response</h3>
           <p>AI transcribes voicemails, categorizes urgency, and sends automated text responses while notifying your team.</p>
-          <p class="text-small text-gray"><strong>Best for:</strong> Busy professionals, Real Estate, Contractors</p>
+          <span class="best-for">Busy Professionals • Real Estate • Contractors</span>
         </div>
-
-        <div class="card">
-          <h3>Customer Onboarding Automation</h3>
-          <p>Guided welcome sequences via email and SMS that educate new customers, reducing support calls and increasing satisfaction.</p>
-          <p class="text-small text-gray"><strong>Best for:</strong> SaaS, Membership sites, E-commerce</p>
-        </div>
-
-        <div class="card">
-          <h3>Social Media Message Response</h3>
-          <p>AI monitors and responds to Instagram, Facebook, and LinkedIn messages with brand-appropriate replies.</p>
-          <p class="text-small text-gray"><strong>Best for:</strong> E-commerce, Influencers, Local Businesses</p>
-        </div>
-      </div>
-
-      <div class="text-center mt-xl">
-        <a href="/contact" class="btn btn-primary btn-lg">Request Custom Proposal</a>
       </div>
     </div>
   </section>
 
+  <!-- Category 2: Automated Follow-Up -->
+  <section class="service-category">
+    <div class="container">
+      <div class="category-header reverse">
+        <div class="category-content">
+          <h2>Automated Follow-Up & Engagement</h2>
+          <p>The fortune is in the follow-up. These services automate your outreach across email, SMS, and social media—nurturing leads and keeping customers engaged without lifting a finger.</p>
+        </div>
+        <div class="category-image">
+          <!-- Placeholder for image -->
+          <span>Image: Automated email sequences flowing</span>
+        </div>
+      </div>
+
+      <div class="services-grid">
+        <div class="service-card">
+          <h3>Automated Email Response System</h3>
+          <p>Intelligent email automation that categorizes incoming messages, sends appropriate responses, and ensures no inquiry goes unanswered.</p>
+          <span class="best-for">All Industries with High Email Volume</span>
+        </div>
+
+        <div class="service-card">
+          <h3>SMS Campaign Automation</h3>
+          <p>Automated text messaging for appointment reminders, follow-ups, promotions, and customer engagement.</p>
+          <span class="best-for">Salons • Medical • Home Services • Real Estate</span>
+        </div>
+
+        <div class="service-card">
+          <h3>Customer Follow-Up Sequences</h3>
+          <p>Automated multi-channel follow-up campaigns that nurture leads and keep customers engaged post-purchase.</p>
+          <span class="best-for">All Industries</span>
+        </div>
+
+        <div class="service-card">
+          <h3>Appointment Reminder System</h3>
+          <p>Automated SMS and email reminders that reduce no-shows, with two-way confirmation and rescheduling options.</p>
+          <span class="best-for">Medical • Salons • Professional Services</span>
+        </div>
+
+        <div class="service-card">
+          <h3>Customer Onboarding Automation</h3>
+          <p>Guided welcome sequences via email and SMS that educate new customers, reducing support calls and increasing satisfaction.</p>
+          <span class="best-for">SaaS • Membership Sites • E-commerce</span>
+        </div>
+
+        <div class="service-card">
+          <h3>Social Media Message Response</h3>
+          <p>AI monitors and responds to Instagram, Facebook, and LinkedIn messages with brand-appropriate replies.</p>
+          <span class="best-for">E-commerce • Influencers • Local Businesses</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Category 3: Reputation & Feedback -->
+  <section class="service-category">
+    <div class="container">
+      <div class="category-header">
+        <div class="category-content">
+          <h2>Reputation & Feedback Management</h2>
+          <p>Your online reputation drives revenue. These services automatically collect reviews, gather feedback, and alert you to issues before they become problems.</p>
+        </div>
+        <div class="category-image">
+          <!-- Placeholder for image -->
+          <span>Image: 5-star reviews visualization</span>
+        </div>
+      </div>
+
+      <div class="services-grid">
+        <div class="service-card">
+          <h3>Customer Review Request Automation</h3>
+          <p>Automatically request reviews from satisfied customers via email and SMS, increasing your online ratings and reputation.</p>
+          <span class="best-for">Service Businesses • E-commerce • Restaurants</span>
+        </div>
+
+        <div class="service-card">
+          <h3>Customer Feedback Collection</h3>
+          <p>Post-interaction surveys sent automatically, analyzing sentiment and alerting you to unhappy customers immediately.</p>
+          <span class="best-for">All Service-Based Businesses</span>
+        </div>
+
+        <div class="service-card">
+          <h3>Multi-Channel Inbox Management</h3>
+          <p>Centralize and automate responses across email, social media DMs, website forms, and SMS in one unified system.</p>
+          <span class="best-for">E-commerce • Social Media Businesses</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Customer Raves -->
+  <section class="raves-section">
+    <div class="container">
+      <h2>What Our Clients Say</h2>
+      <div class="raves-grid">
+        <div class="rave-card">
+          <div class="rave-stars">★★★★★</div>
+          <p class="rave-quote">"The 24/7 AI assistant paid for itself in the first week. We're capturing leads at 2am that we would have lost before."</p>
+          <div class="rave-author">
+            <div class="rave-avatar">JM</div>
+            <div class="rave-info">
+              <div class="rave-name">Jennifer Martinez</div>
+              <div class="rave-title">Real Estate Broker, Miami</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="rave-card">
+          <div class="rave-stars">★★★★★</div>
+          <p class="rave-quote">"Our no-show rate dropped from 25% to 4% after implementing the appointment reminder system. Game changer."</p>
+          <div class="rave-author">
+            <div class="rave-avatar">DR</div>
+            <div class="rave-info">
+              <div class="rave-name">Dr. Robert Chen</div>
+              <div class="rave-title">Medical Practice Owner</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="rave-card">
+          <div class="rave-stars">★★★★★</div>
+          <p class="rave-quote">"The automated follow-up sequences increased our close rate by 40%. The AI sounds so natural, clients think they're talking to my team."</p>
+          <div class="rave-author">
+            <div class="rave-avatar">SK</div>
+            <div class="rave-info">
+              <div class="rave-name">Sarah Kim</div>
+              <div class="rave-title">E-commerce Founder</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="cta-section">
+    <div class="container">
+      <h2>Ready to Transform Your Customer Communication?</h2>
+      <p>Get a custom proposal tailored to your business needs. We'll identify the highest-impact services for your industry and budget.</p>
+      <div class="cta-buttons">
+        <a href="/contact" class="btn-primary">Request Custom Proposal</a>
+        <a href="/edmunds-mastermind" class="btn-secondary">Join Edmund's Mastermind</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
   <footer class="footer">
     <div class="container">
       <div class="footer-grid">
         <div class="footer-column">
           <h4>About</h4>
           <ul class="footer-links">
-            <li><a href="/about-edmund">About Edmund</a></li>
-            <li><a href="/about-eytan">About Eytan</a></li>
+            <li><a href="/about-us">About Us</a></li>
+            <li><a href="/blog">Blog</a></li>
             <li><a href="/contact">Contact Us</a></li>
           </ul>
         </div>
@@ -217,7 +753,7 @@
         </div>
       </div>
       <div class="footer-bottom">
-        <p>© 2025 Bogen.ai. All rights reserved.</p>
+        <p>&copy; 2025 Bogen.ai. All rights reserved.</p>
         <p>Miami Beach, FL | <a href="mailto:info@bogen.ai">info@bogen.ai</a></p>
       </div>
     </div>
