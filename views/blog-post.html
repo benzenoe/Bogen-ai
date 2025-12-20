@@ -684,55 +684,39 @@
 
         // Check if content is a full HTML document
         if (contentHtml.includes('<!DOCTYPE') || contentHtml.includes('<html')) {
-          // Create a temporary element to parse the HTML
-          const tempDiv = document.createElement('div');
-          tempDiv.innerHTML = contentHtml;
+          // Extract body content first
+          const bodyMatch = contentHtml.match(/<body[^>]*>([\s\S]*)<\/body>/i);
+          if (bodyMatch) {
+            const bodyDiv = document.createElement('div');
+            bodyDiv.innerHTML = bodyMatch[1];
 
-          // Extract any style tags from the head to preserve content-specific CSS
-          const styleMatch = contentHtml.match(/<style[^>]*>([\s\S]*?)<\/style>/gi);
-          if (styleMatch) {
-            extractedStyles = styleMatch.join('\n');
-          }
+            // Aggressively remove ALL header-like elements:
+            // - <header> tags
+            // - .header class (common in blog posts)
+            // - .hero, .hero-section, .page-header classes
+            // - .meta-info (author/date info that we're showing in our hero)
+            // - Any element with inline background gradient (hero sections)
+            const headersToRemove = bodyDiv.querySelectorAll(
+              'header, .header, .hero, .hero-section, .page-header, .meta-info, .subtitle, nav, footer'
+            );
+            headersToRemove.forEach(el => el.remove());
 
-          // Try to find the main content - look for article, main, or body content
-          const article = tempDiv.querySelector('article') ||
-                          tempDiv.querySelector('main') ||
-                          tempDiv.querySelector('.content') ||
-                          tempDiv.querySelector('section:not(header):not(footer)');
-
-          if (article) {
-            // Remove any headers/hero sections from the extracted content
-            const headers = article.querySelectorAll('header, .hero, .page-header, h1:first-child');
-            headers.forEach(h => h.remove());
-            contentHtml = article.innerHTML;
-          } else {
-            // Fallback: extract body content and remove header elements
-            const bodyMatch = contentHtml.match(/<body[^>]*>([\s\S]*)<\/body>/i);
-            if (bodyMatch) {
-              const bodyDiv = document.createElement('div');
-              bodyDiv.innerHTML = bodyMatch[1];
-              // Remove header, hero sections, and the first h1
-              const toRemove = bodyDiv.querySelectorAll('header, .hero, .page-header, nav, footer');
-              toRemove.forEach(el => el.remove());
-              // Remove standalone first h1 if it matches the title
-              const firstH1 = bodyDiv.querySelector('h1');
-              if (firstH1 && firstH1.textContent.trim() === post.title.trim()) {
-                firstH1.remove();
-              }
-              contentHtml = bodyDiv.innerHTML;
+            // Remove any standalone h1 at the start (title is shown in our hero)
+            const firstH1 = bodyDiv.querySelector('h1');
+            if (firstH1) {
+              firstH1.remove();
             }
-          }
 
-          // Inject extracted styles into the page (scoped to blog-content)
-          if (extractedStyles) {
-            // Scope the styles to .blog-content to avoid conflicts
-            const scopedStyles = extractedStyles
-              .replace(/<style[^>]*>/gi, '<style>')
-              .replace(/body\s*\{/g, '.blog-content {')
-              .replace(/html\s*\{/g, '.blog-content-wrapper {');
-            const styleEl = document.createElement('div');
-            styleEl.innerHTML = scopedStyles;
-            document.head.appendChild(styleEl.firstChild);
+            // Also check for elements with gradient backgrounds (hero sections)
+            const allElements = bodyDiv.querySelectorAll('*');
+            allElements.forEach(el => {
+              const style = el.getAttribute('style') || '';
+              if (style.includes('linear-gradient') && style.includes('#1e3a8a')) {
+                el.remove();
+              }
+            });
+
+            contentHtml = bodyDiv.innerHTML;
           }
         }
 
