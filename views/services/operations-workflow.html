@@ -4,16 +4,518 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Operations & Workflow AI Services | Bogen.ai</title>
+  <meta name="description" content="15 AI-powered operations and workflow automation services that save hours daily on repetitive tasks, from scheduling to data entry to compliance.">
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/css/global.css">
+
+  <style>
+    * {
+      font-family: 'Montserrat', sans-serif;
+    }
+
+    body {
+      background: #ffffff;
+    }
+
+    /* Hero Section */
+    .hero-section {
+      background: linear-gradient(135deg, #1a3e5c 0%, #0d1f2d 100%);
+      padding: 160px 0 100px 0;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-section::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%2300a8e1' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+      opacity: 0.5;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    .hero-badge {
+      display: inline-block;
+      background: rgba(0, 168, 225, 0.2);
+      color: #00a8e1;
+      padding: 8px 20px;
+      border-radius: 30px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      margin-bottom: 24px;
+    }
+
+    .hero-title {
+      font-size: 3.5rem;
+      font-weight: 700;
+      color: #ffffff;
+      margin-bottom: 24px;
+      line-height: 1.1;
+    }
+
+    .hero-subtitle {
+      font-size: 1.25rem;
+      color: rgba(255, 255, 255, 0.85);
+      max-width: 700px;
+      margin: 0 auto 40px;
+      line-height: 1.7;
+    }
+
+    .hero-cta {
+      display: inline-block;
+      background: #00a8e1;
+      color: #ffffff;
+      padding: 16px 40px;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 1rem;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .hero-cta:hover {
+      background: #0090c5;
+      transform: translateY(-2px);
+      box-shadow: 0 10px 30px rgba(0, 168, 225, 0.3);
+    }
+
+    /* Stats Bar */
+    .stats-bar {
+      background: #ffffff;
+      padding: 0;
+      margin-top: -50px;
+      position: relative;
+      z-index: 10;
+    }
+
+    .stats-container {
+      max-width: 1000px;
+      margin: 0 auto;
+      background: #ffffff;
+      border-radius: 16px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      overflow: hidden;
+    }
+
+    .stat-item {
+      padding: 40px 30px;
+      text-align: center;
+      border-right: 1px solid #e8e8e8;
+    }
+
+    .stat-item:last-child {
+      border-right: none;
+    }
+
+    .stat-number {
+      font-size: 3rem;
+      font-weight: 700;
+      color: #00a8e1;
+      line-height: 1;
+      margin-bottom: 8px;
+    }
+
+    .stat-label {
+      font-size: 0.95rem;
+      color: #666666;
+      font-weight: 500;
+    }
+
+    /* Section Styles */
+    .service-category {
+      padding: 100px 0;
+    }
+
+    .service-category:nth-child(even) {
+      background: #f8f9fa;
+    }
+
+    .category-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    .category-header {
+      text-align: center;
+      margin-bottom: 60px;
+    }
+
+    .category-number {
+      display: inline-block;
+      width: 50px;
+      height: 50px;
+      background: rgba(0, 168, 225, 0.1);
+      color: #00a8e1;
+      border-radius: 50%;
+      font-size: 1.25rem;
+      font-weight: 700;
+      line-height: 50px;
+      margin-bottom: 20px;
+    }
+
+    .category-title {
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: #1a3e5c;
+      margin-bottom: 16px;
+    }
+
+    .category-description {
+      font-size: 1.1rem;
+      color: #666666;
+      max-width: 600px;
+      margin: 0 auto;
+      line-height: 1.7;
+    }
+
+    /* Image and Content Layout */
+    .category-content {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
+    }
+
+    .category-content.reverse {
+      direction: rtl;
+    }
+
+    .category-content.reverse > * {
+      direction: ltr;
+    }
+
+    .category-image {
+      position: relative;
+    }
+
+    .category-image img {
+      width: 100%;
+      height: 450px;
+      object-fit: cover;
+      border-radius: 16px;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.1);
+    }
+
+    .image-placeholder {
+      width: 100%;
+      height: 450px;
+      background: linear-gradient(135deg, #1a3e5c 0%, #2a5580 100%);
+      border-radius: 16px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      color: #ffffff;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.1);
+    }
+
+    .image-placeholder-icon {
+      font-size: 4rem;
+      margin-bottom: 16px;
+      opacity: 0.8;
+    }
+
+    .image-placeholder-text {
+      font-size: 1rem;
+      opacity: 0.7;
+      font-weight: 500;
+    }
+
+    .category-services {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    .service-card {
+      background: #ffffff;
+      padding: 28px 32px;
+      border-radius: 12px;
+      border-left: 4px solid #00a8e1;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+      transition: all 0.3s ease;
+    }
+
+    .service-card:hover {
+      transform: translateX(8px);
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+    }
+
+    .service-card h4 {
+      font-size: 1.15rem;
+      font-weight: 600;
+      color: #1a3e5c;
+      margin-bottom: 10px;
+    }
+
+    .service-card p {
+      font-size: 0.95rem;
+      color: #666666;
+      line-height: 1.6;
+      margin-bottom: 12px;
+    }
+
+    .service-card .best-for {
+      font-size: 0.85rem;
+      color: #00a8e1;
+      font-weight: 500;
+    }
+
+    /* Customer Raves Section */
+    .raves-section {
+      background: linear-gradient(135deg, #1a3e5c 0%, #0d1f2d 100%);
+      padding: 100px 0;
+    }
+
+    .raves-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    .raves-header {
+      text-align: center;
+      margin-bottom: 60px;
+    }
+
+    .raves-title {
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: #ffffff;
+      margin-bottom: 16px;
+    }
+
+    .raves-subtitle {
+      font-size: 1.1rem;
+      color: rgba(255, 255, 255, 0.7);
+    }
+
+    .raves-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 30px;
+    }
+
+    .rave-card {
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 16px;
+      padding: 32px;
+      transition: all 0.3s ease;
+    }
+
+    .rave-card:hover {
+      background: rgba(255, 255, 255, 0.1);
+      transform: translateY(-5px);
+    }
+
+    .rave-stars {
+      color: #00a8e1;
+      font-size: 1.25rem;
+      margin-bottom: 16px;
+      letter-spacing: 2px;
+    }
+
+    .rave-text {
+      font-size: 1rem;
+      color: rgba(255, 255, 255, 0.9);
+      line-height: 1.7;
+      margin-bottom: 20px;
+      font-style: italic;
+    }
+
+    .rave-author {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .rave-avatar {
+      width: 48px;
+      height: 48px;
+      background: linear-gradient(135deg, #00a8e1 0%, #0090c5 100%);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #ffffff;
+      font-weight: 600;
+      font-size: 1.1rem;
+    }
+
+    .rave-info h5 {
+      font-size: 1rem;
+      font-weight: 600;
+      color: #ffffff;
+      margin-bottom: 4px;
+    }
+
+    .rave-info span {
+      font-size: 0.85rem;
+      color: rgba(255, 255, 255, 0.6);
+    }
+
+    /* CTA Section */
+    .cta-section {
+      background: #ffffff;
+      padding: 100px 0;
+      text-align: center;
+    }
+
+    .cta-container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    .cta-title {
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: #1a3e5c;
+      margin-bottom: 20px;
+    }
+
+    .cta-text {
+      font-size: 1.15rem;
+      color: #666666;
+      margin-bottom: 40px;
+      line-height: 1.7;
+    }
+
+    .cta-buttons {
+      display: flex;
+      gap: 20px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .cta-primary {
+      display: inline-block;
+      background: #00a8e1;
+      color: #ffffff;
+      padding: 16px 40px;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 1rem;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .cta-primary:hover {
+      background: #0090c5;
+      transform: translateY(-2px);
+      box-shadow: 0 10px 30px rgba(0, 168, 225, 0.3);
+    }
+
+    .cta-secondary {
+      display: inline-block;
+      background: transparent;
+      color: #1a3e5c;
+      padding: 16px 40px;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 1rem;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      border: 2px solid #1a3e5c;
+    }
+
+    .cta-secondary:hover {
+      background: #1a3e5c;
+      color: #ffffff;
+    }
+
+    /* Responsive */
+    @media (max-width: 968px) {
+      .hero-title {
+        font-size: 2.5rem;
+      }
+
+      .stats-container {
+        grid-template-columns: 1fr;
+        margin: -30px 20px 0;
+      }
+
+      .stat-item {
+        border-right: none;
+        border-bottom: 1px solid #e8e8e8;
+        padding: 30px;
+      }
+
+      .stat-item:last-child {
+        border-bottom: none;
+      }
+
+      .category-content {
+        grid-template-columns: 1fr;
+        gap: 40px;
+      }
+
+      .category-content.reverse {
+        direction: ltr;
+      }
+
+      .category-title {
+        font-size: 2rem;
+      }
+
+      .raves-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .cta-buttons {
+        flex-direction: column;
+        align-items: center;
+      }
+    }
+
+    /* Header Override */
+    .header .logo {
+      display: flex;
+      align-items: center;
+    }
+
+    .header .logo img {
+      height: 100px;
+      width: auto;
+    }
+  </style>
 </head>
 <body>
+  <!-- Header -->
   <header class="header">
     <div class="container">
       <nav class="nav">
-        <a href="/" class="logo">bogen<span>.ai</span></a>
+        <a href="/" class="logo" style="display: flex; align-items: center;">
+          <img src="/images/eb-logo.png" alt="Bogen.ai Logo" style="height: 100px; width: auto;">
+        </a>
+
         <ul class="nav-menu">
           <li><a href="/" class="nav-link">Home</a></li>
           <li class="nav-dropdown">
@@ -54,7 +556,7 @@
           <li class="nav-dropdown">
             <a href="/edmunds-mastermind" class="nav-link">Edmund's Mastermind ▾</a>
             <ul class="dropdown-menu">
-              <li><a href="/#mastermind-registration">Register Now for This Week's Meeting</a></li>
+              <li><a href="/edmunds-mastermind">Learn About Edmund's Mastermind</a></li>
               <li><a href="/contact?tab=client">Join Our Mastermind Community</a></li>
             </ul>
           </li>
@@ -62,132 +564,294 @@
           <li><a href="/video-archive" class="nav-link">Video</a></li>
           <li><a href="/contact" class="btn btn-primary btn-sm">Get Started</a></li>
         </ul>
+        <button class="nav-toggle" type="button" aria-label="Toggle navigation" onclick="window.bogenAI.toggleMobileMenu()">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
       </nav>
     </div>
   </header>
 
-  <section class="hero">
-    <div class="hero-bg"></div>
+  <!-- Hero Section -->
+  <section class="hero-section">
     <div class="hero-content">
-      <h1>Operations & Workflow Automation</h1>
-      <p>10 AI services that eliminate repetitive tasks and streamline your business operations.</p>
+      <span class="hero-badge">Operations & Workflow</span>
+      <h1 class="hero-title">Save Hours Daily on Operations</h1>
+      <p class="hero-subtitle">From appointment scheduling to data entry, AI automation handles the repetitive work so your team can focus on what matters.</p>
+      <a href="/contact" class="hero-cta">Request Custom Proposal</a>
     </div>
   </section>
 
-  <section class="section">
-    <div class="container" style="max-width: 900px;">
-      <h2 class="text-center mb-lg">Save Hours Daily on Operations</h2>
-      <p class="text-large text-center text-gray mb-xl">From appointment scheduling to data entry, AI automation handles the repetitive work so your team can focus on what matters.</p>
-
-      <div class="grid grid-1 gap-lg">
-        <div class="card">
-          <h3>AI-Powered Appointment Scheduling</h3>
-          <p>Automated calendar management that books, reschedules, and confirms appointments without human intervention.</p>
-          <p class="text-small text-gray"><strong>Best for:</strong> Medical, Legal, Professional Services, Salons</p>
-        </div>
-
-        <div class="card">
-          <h3>Automated Data Entry & Processing</h3>
-          <p>AI extracts, categorizes, and enters data from emails, forms, and documents into your systems automatically.</p>
-          <p class="text-small text-gray"><strong>Best for:</strong> All industries with high data volume</p>
-        </div>
-
-        <div class="card">
-          <h3>Invoice Generation & Payment Tracking</h3>
-          <p>Automated invoicing, payment reminders, and accounting system integration to keep cash flow healthy.</p>
-          <p class="text-small text-gray"><strong>Best for:</strong> Service businesses, Consultants, Contractors</p>
-        </div>
-
-        <div class="card">
-          <h3>Inventory Management Automation</h3>
-          <p>Real-time inventory tracking, automatic reordering, and stock level alerts powered by AI predictions.</p>
-          <p class="text-small text-gray"><strong>Best for:</strong> E-commerce, Retail, Wholesale</p>
-        </div>
-
-        <div class="card">
-          <h3>Document Processing & OCR</h3>
-          <p>AI reads and extracts data from PDFs, receipts, contracts, and forms, eliminating manual data entry.</p>
-          <p class="text-small text-gray"><strong>Best for:</strong> Accounting, Legal, Real Estate, Insurance</p>
-        </div>
-
-        <div class="card">
-          <h3>Task Assignment & Workflow Routing</h3>
-          <p>Intelligently assign tasks to team members based on workload, skills, and availability. Track completion automatically.</p>
-          <p class="text-small text-gray"><strong>Best for:</strong> Agencies, Consulting, Professional Services</p>
-        </div>
-
-        <div class="card">
-          <h3>Automated Reporting & Dashboards</h3>
-          <p>Generate custom reports from multiple data sources automatically. Get insights delivered to your inbox daily/weekly.</p>
-          <p class="text-small text-gray"><strong>Best for:</strong> All businesses tracking KPIs</p>
-        </div>
-
-        <div class="card">
-          <h3>Employee Onboarding Automation</h3>
-          <p>Automated new hire workflows including paperwork, training assignments, account setup, and welcome sequences.</p>
-          <p class="text-small text-gray"><strong>Best for:</strong> Growing companies, Franchises</p>
-        </div>
-
-        <div class="card">
-          <h3>Quality Assurance & Compliance Checks</h3>
-          <p>AI reviews work products, documents, and processes for errors and compliance issues before they reach clients.</p>
-          <p class="text-small text-gray"><strong>Best for:</strong> Legal, Medical, Financial Services</p>
-        </div>
-
-        <div class="card">
-          <h3>Expense Tracking & Reimbursement</h3>
-          <p>Automatically capture receipts, categorize expenses, enforce policies, and process reimbursements.</p>
-          <p class="text-small text-gray"><strong>Best for:</strong> Companies with field teams</p>
-        </div>
-
-        <div class="card">
-          <h3>CRM Data Synchronization</h3>
-          <p>Keep customer data synchronized across all your tools - CRM, email, calendar, and project management.</p>
-          <p class="text-small text-gray"><strong>Best for:</strong> Sales teams, Service businesses</p>
-        </div>
-
-        <div class="card">
-          <h3>Time Tracking & Billable Hours</h3>
-          <p>Automatically track time spent on projects, generate timesheets, and calculate billable hours for invoicing.</p>
-          <p class="text-small text-gray"><strong>Best for:</strong> Agencies, Consultants, Legal</p>
-        </div>
-
-        <div class="card">
-          <h3>Vendor & Supplier Management</h3>
-          <p>Automate purchase orders, track deliveries, manage contracts, and evaluate vendor performance.</p>
-          <p class="text-small text-gray"><strong>Best for:</strong> Retail, Manufacturing, Restaurants</p>
-        </div>
-
-        <div class="card">
-          <h3>Email to Task/Ticket Conversion</h3>
-          <p>AI reads incoming emails and automatically creates tasks, support tickets, or projects in your management system.</p>
-          <p class="text-small text-gray"><strong>Best for:</strong> Service teams, IT, Support</p>
-        </div>
-
-        <div class="card">
-          <h3>Backup & Data Security Automation</h3>
-          <p>Automated backups, data encryption, access monitoring, and compliance reporting for peace of mind.</p>
-          <p class="text-small text-gray"><strong>Best for:</strong> All businesses handling sensitive data</p>
-        </div>
+  <!-- Stats Bar -->
+  <section class="stats-bar">
+    <div class="stats-container">
+      <div class="stat-item">
+        <div class="stat-number">70%</div>
+        <div class="stat-label">Reduction in Manual Tasks</div>
       </div>
-
-      <div class="text-center mt-xl">
-        <a href="/contact" class="btn btn-primary btn-lg">Request Custom Proposal</a>
+      <div class="stat-item">
+        <div class="stat-number">15+</div>
+        <div class="stat-label">Hours Saved Per Week</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-number">99.9%</div>
+        <div class="stat-label">Data Accuracy Rate</div>
       </div>
     </div>
   </section>
 
+  <!-- Category 1: Scheduling & Time Management -->
+  <section class="service-category">
+    <div class="category-container">
+      <div class="category-header">
+        <div class="category-number">1</div>
+        <h2 class="category-title">Scheduling & Time Management</h2>
+        <p class="category-description">Automate appointment booking, time tracking, and task routing to maximize your team's productivity.</p>
+      </div>
+
+      <div class="category-content">
+        <div class="category-image">
+          <div class="image-placeholder">
+            <div class="image-placeholder-icon">📅</div>
+            <div class="image-placeholder-text">Scheduling Automation Photo</div>
+          </div>
+        </div>
+
+        <div class="category-services">
+          <div class="service-card">
+            <h4>AI-Powered Appointment Scheduling</h4>
+            <p>Automated calendar management that books, reschedules, and confirms appointments without human intervention.</p>
+            <span class="best-for">Best for: Medical, Legal, Professional Services, Salons</span>
+          </div>
+
+          <div class="service-card">
+            <h4>Time Tracking & Billable Hours</h4>
+            <p>Automatically track time spent on projects, generate timesheets, and calculate billable hours for invoicing.</p>
+            <span class="best-for">Best for: Agencies, Consultants, Legal</span>
+          </div>
+
+          <div class="service-card">
+            <h4>Task Assignment & Workflow Routing</h4>
+            <p>Intelligently assign tasks to team members based on workload, skills, and availability. Track completion automatically.</p>
+            <span class="best-for">Best for: Agencies, Consulting, Professional Services</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Category 2: Data & Document Processing -->
+  <section class="service-category">
+    <div class="category-container">
+      <div class="category-header">
+        <div class="category-number">2</div>
+        <h2 class="category-title">Data & Document Processing</h2>
+        <p class="category-description">Eliminate manual data entry with AI that reads, extracts, and syncs information across all your systems.</p>
+      </div>
+
+      <div class="category-content reverse">
+        <div class="category-image">
+          <div class="image-placeholder">
+            <div class="image-placeholder-icon">📄</div>
+            <div class="image-placeholder-text">Document Processing Photo</div>
+          </div>
+        </div>
+
+        <div class="category-services">
+          <div class="service-card">
+            <h4>Automated Data Entry & Processing</h4>
+            <p>AI extracts, categorizes, and enters data from emails, forms, and documents into your systems automatically.</p>
+            <span class="best-for">Best for: All industries with high data volume</span>
+          </div>
+
+          <div class="service-card">
+            <h4>Document Processing & OCR</h4>
+            <p>AI reads and extracts data from PDFs, receipts, contracts, and forms, eliminating manual data entry.</p>
+            <span class="best-for">Best for: Accounting, Legal, Real Estate, Insurance</span>
+          </div>
+
+          <div class="service-card">
+            <h4>Email to Task/Ticket Conversion</h4>
+            <p>AI reads incoming emails and automatically creates tasks, support tickets, or projects in your management system.</p>
+            <span class="best-for">Best for: Service teams, IT, Support</span>
+          </div>
+
+          <div class="service-card">
+            <h4>CRM Data Synchronization</h4>
+            <p>Keep customer data synchronized across all your tools - CRM, email, calendar, and project management.</p>
+            <span class="best-for">Best for: Sales teams, Service businesses</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Category 3: Financial Operations -->
+  <section class="service-category">
+    <div class="category-container">
+      <div class="category-header">
+        <div class="category-number">3</div>
+        <h2 class="category-title">Financial Operations</h2>
+        <p class="category-description">Streamline invoicing, expense tracking, inventory, and vendor management with intelligent automation.</p>
+      </div>
+
+      <div class="category-content">
+        <div class="category-image">
+          <div class="image-placeholder">
+            <div class="image-placeholder-icon">💰</div>
+            <div class="image-placeholder-text">Financial Operations Photo</div>
+          </div>
+        </div>
+
+        <div class="category-services">
+          <div class="service-card">
+            <h4>Invoice Generation & Payment Tracking</h4>
+            <p>Automated invoicing, payment reminders, and accounting system integration to keep cash flow healthy.</p>
+            <span class="best-for">Best for: Service businesses, Consultants, Contractors</span>
+          </div>
+
+          <div class="service-card">
+            <h4>Expense Tracking & Reimbursement</h4>
+            <p>Automatically capture receipts, categorize expenses, enforce policies, and process reimbursements.</p>
+            <span class="best-for">Best for: Companies with field teams</span>
+          </div>
+
+          <div class="service-card">
+            <h4>Inventory Management Automation</h4>
+            <p>Real-time inventory tracking, automatic reordering, and stock level alerts powered by AI predictions.</p>
+            <span class="best-for">Best for: E-commerce, Retail, Wholesale</span>
+          </div>
+
+          <div class="service-card">
+            <h4>Vendor & Supplier Management</h4>
+            <p>Automate purchase orders, track deliveries, manage contracts, and evaluate vendor performance.</p>
+            <span class="best-for">Best for: Retail, Manufacturing, Restaurants</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Category 4: Team & Compliance -->
+  <section class="service-category">
+    <div class="category-container">
+      <div class="category-header">
+        <div class="category-number">4</div>
+        <h2 class="category-title">Team & Compliance</h2>
+        <p class="category-description">Automate onboarding, quality assurance, reporting, and data security to ensure smooth, compliant operations.</p>
+      </div>
+
+      <div class="category-content reverse">
+        <div class="category-image">
+          <div class="image-placeholder">
+            <div class="image-placeholder-icon">✅</div>
+            <div class="image-placeholder-text">Team Compliance Photo</div>
+          </div>
+        </div>
+
+        <div class="category-services">
+          <div class="service-card">
+            <h4>Employee Onboarding Automation</h4>
+            <p>Automated new hire workflows including paperwork, training assignments, account setup, and welcome sequences.</p>
+            <span class="best-for">Best for: Growing companies, Franchises</span>
+          </div>
+
+          <div class="service-card">
+            <h4>Quality Assurance & Compliance Checks</h4>
+            <p>AI reviews work products, documents, and processes for errors and compliance issues before they reach clients.</p>
+            <span class="best-for">Best for: Legal, Medical, Financial Services</span>
+          </div>
+
+          <div class="service-card">
+            <h4>Automated Reporting & Dashboards</h4>
+            <p>Generate custom reports from multiple data sources automatically. Get insights delivered to your inbox daily/weekly.</p>
+            <span class="best-for">Best for: All businesses tracking KPIs</span>
+          </div>
+
+          <div class="service-card">
+            <h4>Backup & Data Security Automation</h4>
+            <p>Automated backups, data encryption, access monitoring, and compliance reporting for peace of mind.</p>
+            <span class="best-for">Best for: All businesses handling sensitive data</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Customer Raves Section -->
+  <section class="raves-section">
+    <div class="raves-container">
+      <div class="raves-header">
+        <h2 class="raves-title">What Our Clients Say</h2>
+        <p class="raves-subtitle">Real results from businesses using our operations automation</p>
+      </div>
+
+      <div class="raves-grid">
+        <div class="rave-card">
+          <div class="rave-stars">★★★★★</div>
+          <p class="rave-text">"We cut our data entry time by 80%. The AI document processing is incredibly accurate - it handles contracts, invoices, everything."</p>
+          <div class="rave-author">
+            <div class="rave-avatar">MR</div>
+            <div class="rave-info">
+              <h5>Michael R.</h5>
+              <span>Operations Director, Legal Firm</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="rave-card">
+          <div class="rave-stars">★★★★★</div>
+          <p class="rave-text">"The automated scheduling system handles all our client appointments. No more double-bookings, no more phone tag. Just smooth operations."</p>
+          <div class="rave-author">
+            <div class="rave-avatar">JT</div>
+            <div class="rave-info">
+              <h5>Jennifer T.</h5>
+              <span>Owner, Medical Practice</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="rave-card">
+          <div class="rave-stars">★★★★★</div>
+          <p class="rave-text">"Our team saves 15+ hours weekly on reporting alone. The dashboards update automatically and insights come right to our inbox."</p>
+          <div class="rave-author">
+            <div class="rave-avatar">DK</div>
+            <div class="rave-info">
+              <h5>David K.</h5>
+              <span>CEO, E-commerce Brand</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="cta-section">
+    <div class="cta-container">
+      <h2 class="cta-title">Ready to Streamline Your Operations?</h2>
+      <p class="cta-text">Let's discuss which workflow automations will have the biggest impact on your business. Our team will create a custom proposal tailored to your specific needs.</p>
+      <div class="cta-buttons">
+        <a href="/contact" class="cta-primary">Request Custom Proposal</a>
+        <a href="/tools-weve-built" class="cta-secondary">See Tools We've Built</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
   <footer class="footer">
     <div class="container">
       <div class="footer-grid">
         <div class="footer-column">
           <h4>About</h4>
           <ul class="footer-links">
-            <li><a href="/about-edmund">About Edmund</a></li>
-            <li><a href="/about-eytan">About Eytan</a></li>
+            <li><a href="/about-us">About Us</a></li>
+            <li><a href="/blog">Blog</a></li>
             <li><a href="/contact">Contact Us</a></li>
           </ul>
         </div>
+
         <div class="footer-column">
           <h4>Services</h4>
           <ul class="footer-links">
@@ -198,13 +862,15 @@
             <li><a href="/services/industry-specific-premium">Industry-Specific</a></li>
           </ul>
         </div>
+
         <div class="footer-column">
-          <h4>Partnership</h4>
+          <h4>Partner Program</h4>
           <ul class="footer-links">
             <li><a href="/partner-program">How It Works</a></li>
             <li><a href="/partner-portal">Partner Login</a></li>
           </ul>
         </div>
+
         <div class="footer-column">
           <h4>Legal</h4>
           <ul class="footer-links">
@@ -213,6 +879,7 @@
           </ul>
         </div>
       </div>
+
       <div class="footer-bottom">
         <p>© 2025 Bogen.ai. All rights reserved.</p>
         <p>Miami Beach, FL | <a href="mailto:info@bogen.ai">info@bogen.ai</a></p>

@@ -4,16 +4,518 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Marketing & Content AI Services | Bogen.ai</title>
+  <meta name="description" content="15 AI-powered marketing and content creation services that keep your brand visible 24/7 with automated social media, blogs, email campaigns, and more.">
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/css/global.css">
+
+  <style>
+    * {
+      font-family: 'Montserrat', sans-serif;
+    }
+
+    body {
+      background: #ffffff;
+    }
+
+    /* Hero Section */
+    .hero-section {
+      background: linear-gradient(135deg, #1a3e5c 0%, #0d1f2d 100%);
+      padding: 160px 0 100px 0;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-section::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%2300a8e1' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+      opacity: 0.5;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    .hero-badge {
+      display: inline-block;
+      background: rgba(0, 168, 225, 0.2);
+      color: #00a8e1;
+      padding: 8px 20px;
+      border-radius: 30px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      margin-bottom: 24px;
+    }
+
+    .hero-title {
+      font-size: 3.5rem;
+      font-weight: 700;
+      color: #ffffff;
+      margin-bottom: 24px;
+      line-height: 1.1;
+    }
+
+    .hero-subtitle {
+      font-size: 1.25rem;
+      color: rgba(255, 255, 255, 0.85);
+      max-width: 700px;
+      margin: 0 auto 40px;
+      line-height: 1.7;
+    }
+
+    .hero-cta {
+      display: inline-block;
+      background: #00a8e1;
+      color: #ffffff;
+      padding: 16px 40px;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 1rem;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .hero-cta:hover {
+      background: #0090c5;
+      transform: translateY(-2px);
+      box-shadow: 0 10px 30px rgba(0, 168, 225, 0.3);
+    }
+
+    /* Stats Bar */
+    .stats-bar {
+      background: #ffffff;
+      padding: 0;
+      margin-top: -50px;
+      position: relative;
+      z-index: 10;
+    }
+
+    .stats-container {
+      max-width: 1000px;
+      margin: 0 auto;
+      background: #ffffff;
+      border-radius: 16px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      overflow: hidden;
+    }
+
+    .stat-item {
+      padding: 40px 30px;
+      text-align: center;
+      border-right: 1px solid #e8e8e8;
+    }
+
+    .stat-item:last-child {
+      border-right: none;
+    }
+
+    .stat-number {
+      font-size: 3rem;
+      font-weight: 700;
+      color: #00a8e1;
+      line-height: 1;
+      margin-bottom: 8px;
+    }
+
+    .stat-label {
+      font-size: 0.95rem;
+      color: #666666;
+      font-weight: 500;
+    }
+
+    /* Section Styles */
+    .service-category {
+      padding: 100px 0;
+    }
+
+    .service-category:nth-child(even) {
+      background: #f8f9fa;
+    }
+
+    .category-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    .category-header {
+      text-align: center;
+      margin-bottom: 60px;
+    }
+
+    .category-number {
+      display: inline-block;
+      width: 50px;
+      height: 50px;
+      background: rgba(0, 168, 225, 0.1);
+      color: #00a8e1;
+      border-radius: 50%;
+      font-size: 1.25rem;
+      font-weight: 700;
+      line-height: 50px;
+      margin-bottom: 20px;
+    }
+
+    .category-title {
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: #1a3e5c;
+      margin-bottom: 16px;
+    }
+
+    .category-description {
+      font-size: 1.1rem;
+      color: #666666;
+      max-width: 600px;
+      margin: 0 auto;
+      line-height: 1.7;
+    }
+
+    /* Image and Content Layout */
+    .category-content {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
+    }
+
+    .category-content.reverse {
+      direction: rtl;
+    }
+
+    .category-content.reverse > * {
+      direction: ltr;
+    }
+
+    .category-image {
+      position: relative;
+    }
+
+    .category-image img {
+      width: 100%;
+      height: 450px;
+      object-fit: cover;
+      border-radius: 16px;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.1);
+    }
+
+    .image-placeholder {
+      width: 100%;
+      height: 450px;
+      background: linear-gradient(135deg, #1a3e5c 0%, #2a5580 100%);
+      border-radius: 16px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      color: #ffffff;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.1);
+    }
+
+    .image-placeholder-icon {
+      font-size: 4rem;
+      margin-bottom: 16px;
+      opacity: 0.8;
+    }
+
+    .image-placeholder-text {
+      font-size: 1rem;
+      opacity: 0.7;
+      font-weight: 500;
+    }
+
+    .category-services {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    .service-card {
+      background: #ffffff;
+      padding: 28px 32px;
+      border-radius: 12px;
+      border-left: 4px solid #00a8e1;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+      transition: all 0.3s ease;
+    }
+
+    .service-card:hover {
+      transform: translateX(8px);
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+    }
+
+    .service-card h4 {
+      font-size: 1.15rem;
+      font-weight: 600;
+      color: #1a3e5c;
+      margin-bottom: 10px;
+    }
+
+    .service-card p {
+      font-size: 0.95rem;
+      color: #666666;
+      line-height: 1.6;
+      margin-bottom: 12px;
+    }
+
+    .service-card .best-for {
+      font-size: 0.85rem;
+      color: #00a8e1;
+      font-weight: 500;
+    }
+
+    /* Customer Raves Section */
+    .raves-section {
+      background: linear-gradient(135deg, #1a3e5c 0%, #0d1f2d 100%);
+      padding: 100px 0;
+    }
+
+    .raves-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    .raves-header {
+      text-align: center;
+      margin-bottom: 60px;
+    }
+
+    .raves-title {
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: #ffffff;
+      margin-bottom: 16px;
+    }
+
+    .raves-subtitle {
+      font-size: 1.1rem;
+      color: rgba(255, 255, 255, 0.7);
+    }
+
+    .raves-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 30px;
+    }
+
+    .rave-card {
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 16px;
+      padding: 32px;
+      transition: all 0.3s ease;
+    }
+
+    .rave-card:hover {
+      background: rgba(255, 255, 255, 0.1);
+      transform: translateY(-5px);
+    }
+
+    .rave-stars {
+      color: #00a8e1;
+      font-size: 1.25rem;
+      margin-bottom: 16px;
+      letter-spacing: 2px;
+    }
+
+    .rave-text {
+      font-size: 1rem;
+      color: rgba(255, 255, 255, 0.9);
+      line-height: 1.7;
+      margin-bottom: 20px;
+      font-style: italic;
+    }
+
+    .rave-author {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .rave-avatar {
+      width: 48px;
+      height: 48px;
+      background: linear-gradient(135deg, #00a8e1 0%, #0090c5 100%);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #ffffff;
+      font-weight: 600;
+      font-size: 1.1rem;
+    }
+
+    .rave-info h5 {
+      font-size: 1rem;
+      font-weight: 600;
+      color: #ffffff;
+      margin-bottom: 4px;
+    }
+
+    .rave-info span {
+      font-size: 0.85rem;
+      color: rgba(255, 255, 255, 0.6);
+    }
+
+    /* CTA Section */
+    .cta-section {
+      background: #ffffff;
+      padding: 100px 0;
+      text-align: center;
+    }
+
+    .cta-container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    .cta-title {
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: #1a3e5c;
+      margin-bottom: 20px;
+    }
+
+    .cta-text {
+      font-size: 1.15rem;
+      color: #666666;
+      margin-bottom: 40px;
+      line-height: 1.7;
+    }
+
+    .cta-buttons {
+      display: flex;
+      gap: 20px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .cta-primary {
+      display: inline-block;
+      background: #00a8e1;
+      color: #ffffff;
+      padding: 16px 40px;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 1rem;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .cta-primary:hover {
+      background: #0090c5;
+      transform: translateY(-2px);
+      box-shadow: 0 10px 30px rgba(0, 168, 225, 0.3);
+    }
+
+    .cta-secondary {
+      display: inline-block;
+      background: transparent;
+      color: #1a3e5c;
+      padding: 16px 40px;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 1rem;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      border: 2px solid #1a3e5c;
+    }
+
+    .cta-secondary:hover {
+      background: #1a3e5c;
+      color: #ffffff;
+    }
+
+    /* Responsive */
+    @media (max-width: 968px) {
+      .hero-title {
+        font-size: 2.5rem;
+      }
+
+      .stats-container {
+        grid-template-columns: 1fr;
+        margin: -30px 20px 0;
+      }
+
+      .stat-item {
+        border-right: none;
+        border-bottom: 1px solid #e8e8e8;
+        padding: 30px;
+      }
+
+      .stat-item:last-child {
+        border-bottom: none;
+      }
+
+      .category-content {
+        grid-template-columns: 1fr;
+        gap: 40px;
+      }
+
+      .category-content.reverse {
+        direction: ltr;
+      }
+
+      .category-title {
+        font-size: 2rem;
+      }
+
+      .raves-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .cta-buttons {
+        flex-direction: column;
+        align-items: center;
+      }
+    }
+
+    /* Header Override */
+    .header .logo {
+      display: flex;
+      align-items: center;
+    }
+
+    .header .logo img {
+      height: 100px;
+      width: auto;
+    }
+  </style>
 </head>
 <body>
+  <!-- Header -->
   <header class="header">
     <div class="container">
       <nav class="nav">
-        <a href="/" class="logo">bogen<span>.ai</span></a>
+        <a href="/" class="logo" style="display: flex; align-items: center;">
+          <img src="/images/eb-logo.png" alt="Bogen.ai Logo" style="height: 100px; width: auto;">
+        </a>
+
         <ul class="nav-menu">
           <li><a href="/" class="nav-link">Home</a></li>
           <li class="nav-dropdown">
@@ -54,7 +556,7 @@
           <li class="nav-dropdown">
             <a href="/edmunds-mastermind" class="nav-link">Edmund's Mastermind ▾</a>
             <ul class="dropdown-menu">
-              <li><a href="/#mastermind-registration">Register Now for This Week's Meeting</a></li>
+              <li><a href="/edmunds-mastermind">Learn About Edmund's Mastermind</a></li>
               <li><a href="/contact?tab=client">Join Our Mastermind Community</a></li>
             </ul>
           </li>
@@ -62,132 +564,294 @@
           <li><a href="/video-archive" class="nav-link">Video</a></li>
           <li><a href="/contact" class="btn btn-primary btn-sm">Get Started</a></li>
         </ul>
+        <button class="nav-toggle" type="button" aria-label="Toggle navigation" onclick="window.bogenAI.toggleMobileMenu()">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
       </nav>
     </div>
   </header>
 
-  <section class="hero">
-    <div class="hero-bg"></div>
+  <!-- Hero Section -->
+  <section class="hero-section">
     <div class="hero-content">
-      <h1>Marketing & Content Creation</h1>
-      <p>7 AI services that build your brand and generate leads on autopilot.</p>
+      <span class="hero-badge">Marketing & Content</span>
+      <h1 class="hero-title">Marketing That Never Sleeps</h1>
+      <p class="hero-subtitle">AI-powered content creation and marketing automation that keeps your brand visible and engaging across all channels.</p>
+      <a href="/contact" class="hero-cta">Request Custom Proposal</a>
     </div>
   </section>
 
-  <section class="section">
-    <div class="container" style="max-width: 900px;">
-      <h2 class="text-center mb-lg">Marketing That Never Sleeps</h2>
-      <p class="text-large text-center text-gray mb-xl">AI-powered content creation and marketing automation that keeps your brand visible and engaging across all channels.</p>
-
-      <div class="grid grid-1 gap-lg">
-        <div class="card">
-          <h3>Social Media Automation</h3>
-          <p>AI generates, schedules, and posts content across all social platforms. Maintains consistent presence without daily effort.</p>
-          <p class="text-small text-gray"><strong>Best for:</strong> All businesses building brand awareness</p>
-        </div>
-
-        <div class="card">
-          <h3>Blog Content Generation</h3>
-          <p>AI writes SEO-optimized blog posts based on your industry, keywords, and brand voice. Published on schedule.</p>
-          <p class="text-small text-gray"><strong>Best for:</strong> Service businesses, B2B companies, Thought leaders</p>
-        </div>
-
-        <div class="card">
-          <h3>Email Marketing Campaigns</h3>
-          <p>AI-created email sequences for nurturing, promotions, and engagement. Personalized for each subscriber.</p>
-          <p class="text-small text-gray"><strong>Best for:</strong> E-commerce, Services, Coaches, Consultants</p>
-        </div>
-
-        <div class="card">
-          <h3>SEO Optimization & Monitoring</h3>
-          <p>AI analyzes your site, identifies opportunities, and implements SEO improvements to boost organic traffic.</p>
-          <p class="text-small text-gray"><strong>Best for:</strong> All online businesses</p>
-        </div>
-
-        <div class="card">
-          <h3>Video Content Creation</h3>
-          <p>AI-powered video generation for social media, ads, and marketing. Includes script writing, voiceover, and editing.</p>
-          <p class="text-small text-gray"><strong>Best for:</strong> E-commerce, Coaches, Real Estate</p>
-        </div>
-
-        <div class="card">
-          <h3>Paid Ad Campaign Management</h3>
-          <p>AI optimizes Google, Facebook, and Instagram ads for best ROI. Continuous A/B testing and budget allocation.</p>
-          <p class="text-small text-gray"><strong>Best for:</strong> E-commerce, Lead generation businesses</p>
-        </div>
-
-        <div class="card">
-          <h3>Influencer Outreach Automation</h3>
-          <p>AI identifies relevant influencers, crafts personalized pitches, and manages relationships for brand partnerships.</p>
-          <p class="text-small text-gray"><strong>Best for:</strong> Consumer brands, E-commerce, Apps</p>
-        </div>
-
-        <div class="card">
-          <h3>Landing Page Optimization</h3>
-          <p>AI tests headlines, copy, images, and CTAs to maximize conversion rates on your landing pages.</p>
-          <p class="text-small text-gray"><strong>Best for:</strong> Lead generation, E-commerce, SaaS</p>
-        </div>
-
-        <div class="card">
-          <h3>Brand Monitoring & Reputation</h3>
-          <p>AI tracks brand mentions across social media, news, and review sites. Alerts you to respond to issues quickly.</p>
-          <p class="text-small text-gray"><strong>Best for:</strong> All consumer-facing businesses</p>
-        </div>
-
-        <div class="card">
-          <h3>Newsletter Automation</h3>
-          <p>AI curates relevant content, writes engaging newsletters, and sends them on schedule to keep subscribers engaged.</p>
-          <p class="text-small text-gray"><strong>Best for:</strong> Publishers, Coaches, B2B services</p>
-        </div>
-
-        <div class="card">
-          <h3>Podcast Production & Distribution</h3>
-          <p>AI assists with episode planning, show notes, transcriptions, and distribution across all podcast platforms.</p>
-          <p class="text-small text-gray"><strong>Best for:</strong> Thought leaders, Coaches, B2B brands</p>
-        </div>
-
-        <div class="card">
-          <h3>Graphic Design Automation</h3>
-          <p>AI generates branded graphics for social posts, ads, and marketing materials using your brand guidelines.</p>
-          <p class="text-small text-gray"><strong>Best for:</strong> All businesses needing visual content</p>
-        </div>
-
-        <div class="card">
-          <h3>Press Release Distribution</h3>
-          <p>AI writes newsworthy press releases and distributes them to relevant media outlets and journalists.</p>
-          <p class="text-small text-gray"><strong>Best for:</strong> Growing companies, Product launches</p>
-        </div>
-
-        <div class="card">
-          <h3>Webinar & Event Promotion</h3>
-          <p>Automated email sequences, social posts, and reminders that fill your webinars and events.</p>
-          <p class="text-small text-gray"><strong>Best for:</strong> B2B, Coaches, Education</p>
-        </div>
-
-        <div class="card">
-          <h3>Competitor Analysis & Intelligence</h3>
-          <p>AI monitors competitor pricing, content, ads, and strategies. Delivers insights to stay ahead.</p>
-          <p class="text-small text-gray"><strong>Best for:</strong> E-commerce, SaaS, Agencies</p>
-        </div>
+  <!-- Stats Bar -->
+  <section class="stats-bar">
+    <div class="stats-container">
+      <div class="stat-item">
+        <div class="stat-number">24/7</div>
+        <div class="stat-label">Content Publishing</div>
       </div>
-
-      <div class="text-center mt-xl">
-        <a href="/contact" class="btn btn-primary btn-lg">Request Custom Proposal</a>
+      <div class="stat-item">
+        <div class="stat-number">10x</div>
+        <div class="stat-label">Content Output</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-number">3x</div>
+        <div class="stat-label">ROI on Ad Spend</div>
       </div>
     </div>
   </section>
 
+  <!-- Category 1: Content Creation -->
+  <section class="service-category">
+    <div class="category-container">
+      <div class="category-header">
+        <div class="category-number">1</div>
+        <h2 class="category-title">Content Creation</h2>
+        <p class="category-description">AI generates engaging content across all formats - social posts, blogs, videos, and graphics - all on brand and on schedule.</p>
+      </div>
+
+      <div class="category-content">
+        <div class="category-image">
+          <div class="image-placeholder">
+            <div class="image-placeholder-icon">🎨</div>
+            <div class="image-placeholder-text">Content Creation Photo</div>
+          </div>
+        </div>
+
+        <div class="category-services">
+          <div class="service-card">
+            <h4>Social Media Automation</h4>
+            <p>AI generates, schedules, and posts content across all social platforms. Maintains consistent presence without daily effort.</p>
+            <span class="best-for">Best for: All businesses building brand awareness</span>
+          </div>
+
+          <div class="service-card">
+            <h4>Blog Content Generation</h4>
+            <p>AI writes SEO-optimized blog posts based on your industry, keywords, and brand voice. Published on schedule.</p>
+            <span class="best-for">Best for: Service businesses, B2B companies, Thought leaders</span>
+          </div>
+
+          <div class="service-card">
+            <h4>Video Content Creation</h4>
+            <p>AI-powered video generation for social media, ads, and marketing. Includes script writing, voiceover, and editing.</p>
+            <span class="best-for">Best for: E-commerce, Coaches, Real Estate</span>
+          </div>
+
+          <div class="service-card">
+            <h4>Graphic Design Automation</h4>
+            <p>AI generates branded graphics for social posts, ads, and marketing materials using your brand guidelines.</p>
+            <span class="best-for">Best for: All businesses needing visual content</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Category 2: Email & Outreach -->
+  <section class="service-category">
+    <div class="category-container">
+      <div class="category-header">
+        <div class="category-number">2</div>
+        <h2 class="category-title">Email & Outreach</h2>
+        <p class="category-description">Automated email campaigns, newsletters, and influencer outreach that nurture leads and build partnerships.</p>
+      </div>
+
+      <div class="category-content reverse">
+        <div class="category-image">
+          <div class="image-placeholder">
+            <div class="image-placeholder-icon">📧</div>
+            <div class="image-placeholder-text">Email Marketing Photo</div>
+          </div>
+        </div>
+
+        <div class="category-services">
+          <div class="service-card">
+            <h4>Email Marketing Campaigns</h4>
+            <p>AI-created email sequences for nurturing, promotions, and engagement. Personalized for each subscriber.</p>
+            <span class="best-for">Best for: E-commerce, Services, Coaches, Consultants</span>
+          </div>
+
+          <div class="service-card">
+            <h4>Newsletter Automation</h4>
+            <p>AI curates relevant content, writes engaging newsletters, and sends them on schedule to keep subscribers engaged.</p>
+            <span class="best-for">Best for: Publishers, Coaches, B2B services</span>
+          </div>
+
+          <div class="service-card">
+            <h4>Influencer Outreach Automation</h4>
+            <p>AI identifies relevant influencers, crafts personalized pitches, and manages relationships for brand partnerships.</p>
+            <span class="best-for">Best for: Consumer brands, E-commerce, Apps</span>
+          </div>
+
+          <div class="service-card">
+            <h4>Press Release Distribution</h4>
+            <p>AI writes newsworthy press releases and distributes them to relevant media outlets and journalists.</p>
+            <span class="best-for">Best for: Growing companies, Product launches</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Category 3: Advertising & SEO -->
+  <section class="service-category">
+    <div class="category-container">
+      <div class="category-header">
+        <div class="category-number">3</div>
+        <h2 class="category-title">Advertising & SEO</h2>
+        <p class="category-description">AI-optimized paid campaigns and organic search strategies that maximize your marketing ROI.</p>
+      </div>
+
+      <div class="category-content">
+        <div class="category-image">
+          <div class="image-placeholder">
+            <div class="image-placeholder-icon">📈</div>
+            <div class="image-placeholder-text">Advertising Analytics Photo</div>
+          </div>
+        </div>
+
+        <div class="category-services">
+          <div class="service-card">
+            <h4>SEO Optimization & Monitoring</h4>
+            <p>AI analyzes your site, identifies opportunities, and implements SEO improvements to boost organic traffic.</p>
+            <span class="best-for">Best for: All online businesses</span>
+          </div>
+
+          <div class="service-card">
+            <h4>Paid Ad Campaign Management</h4>
+            <p>AI optimizes Google, Facebook, and Instagram ads for best ROI. Continuous A/B testing and budget allocation.</p>
+            <span class="best-for">Best for: E-commerce, Lead generation businesses</span>
+          </div>
+
+          <div class="service-card">
+            <h4>Landing Page Optimization</h4>
+            <p>AI tests headlines, copy, images, and CTAs to maximize conversion rates on your landing pages.</p>
+            <span class="best-for">Best for: Lead generation, E-commerce, SaaS</span>
+          </div>
+
+          <div class="service-card">
+            <h4>Webinar & Event Promotion</h4>
+            <p>Automated email sequences, social posts, and reminders that fill your webinars and events.</p>
+            <span class="best-for">Best for: B2B, Coaches, Education</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Category 4: Analytics & Monitoring -->
+  <section class="service-category">
+    <div class="category-container">
+      <div class="category-header">
+        <div class="category-number">4</div>
+        <h2 class="category-title">Analytics & Monitoring</h2>
+        <p class="category-description">Stay ahead of trends and competitors with AI-powered brand monitoring and competitive intelligence.</p>
+      </div>
+
+      <div class="category-content reverse">
+        <div class="category-image">
+          <div class="image-placeholder">
+            <div class="image-placeholder-icon">🔍</div>
+            <div class="image-placeholder-text">Analytics Dashboard Photo</div>
+          </div>
+        </div>
+
+        <div class="category-services">
+          <div class="service-card">
+            <h4>Brand Monitoring & Reputation</h4>
+            <p>AI tracks brand mentions across social media, news, and review sites. Alerts you to respond to issues quickly.</p>
+            <span class="best-for">Best for: All consumer-facing businesses</span>
+          </div>
+
+          <div class="service-card">
+            <h4>Competitor Analysis & Intelligence</h4>
+            <p>AI monitors competitor pricing, content, ads, and strategies. Delivers insights to stay ahead.</p>
+            <span class="best-for">Best for: E-commerce, SaaS, Agencies</span>
+          </div>
+
+          <div class="service-card">
+            <h4>Podcast Production & Distribution</h4>
+            <p>AI assists with episode planning, show notes, transcriptions, and distribution across all podcast platforms.</p>
+            <span class="best-for">Best for: Thought leaders, Coaches, B2B brands</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Customer Raves Section -->
+  <section class="raves-section">
+    <div class="raves-container">
+      <div class="raves-header">
+        <h2 class="raves-title">What Our Clients Say</h2>
+        <p class="raves-subtitle">Real results from businesses using our marketing automation</p>
+      </div>
+
+      <div class="raves-grid">
+        <div class="rave-card">
+          <div class="rave-stars">★★★★★</div>
+          <p class="rave-text">"Our social media went from sporadic to consistent overnight. AI posts daily, engagement is up 300%, and I haven't touched it in months."</p>
+          <div class="rave-author">
+            <div class="rave-avatar">SL</div>
+            <div class="rave-info">
+              <h5>Sarah L.</h5>
+              <span>Founder, Lifestyle Brand</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="rave-card">
+          <div class="rave-stars">★★★★★</div>
+          <p class="rave-text">"The email sequences convert like crazy. Open rates doubled and we're seeing consistent sales from our automated nurture campaigns."</p>
+          <div class="rave-author">
+            <div class="rave-avatar">RT</div>
+            <div class="rave-info">
+              <h5>Robert T.</h5>
+              <span>E-commerce Director</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="rave-card">
+          <div class="rave-stars">★★★★★</div>
+          <p class="rave-text">"Our ad spend ROI tripled. The AI continuously optimizes our campaigns and we're getting more leads at half the cost."</p>
+          <div class="rave-author">
+            <div class="rave-avatar">KM</div>
+            <div class="rave-info">
+              <h5>Karen M.</h5>
+              <span>Marketing Director, SaaS</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="cta-section">
+    <div class="cta-container">
+      <h2 class="cta-title">Ready to Automate Your Marketing?</h2>
+      <p class="cta-text">Let's discuss which marketing automations will drive the most growth for your business. Our team will create a custom strategy tailored to your goals.</p>
+      <div class="cta-buttons">
+        <a href="/contact" class="cta-primary">Request Custom Proposal</a>
+        <a href="/tools-weve-built" class="cta-secondary">See Tools We've Built</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
   <footer class="footer">
     <div class="container">
       <div class="footer-grid">
         <div class="footer-column">
           <h4>About</h4>
           <ul class="footer-links">
-            <li><a href="/about-edmund">About Edmund</a></li>
-            <li><a href="/about-eytan">About Eytan</a></li>
+            <li><a href="/about-us">About Us</a></li>
+            <li><a href="/blog">Blog</a></li>
             <li><a href="/contact">Contact Us</a></li>
           </ul>
         </div>
+
         <div class="footer-column">
           <h4>Services</h4>
           <ul class="footer-links">
@@ -198,13 +862,15 @@
             <li><a href="/services/industry-specific-premium">Industry-Specific</a></li>
           </ul>
         </div>
+
         <div class="footer-column">
-          <h4>Partnership</h4>
+          <h4>Partner Program</h4>
           <ul class="footer-links">
             <li><a href="/partner-program">How It Works</a></li>
             <li><a href="/partner-portal">Partner Login</a></li>
           </ul>
         </div>
+
         <div class="footer-column">
           <h4>Legal</h4>
           <ul class="footer-links">
@@ -213,6 +879,7 @@
           </ul>
         </div>
       </div>
+
       <div class="footer-bottom">
         <p>© 2025 Bogen.ai. All rights reserved.</p>
         <p>Miami Beach, FL | <a href="mailto:info@bogen.ai">info@bogen.ai</a></p>
