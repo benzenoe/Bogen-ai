@@ -4,16 +4,518 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Industry-Specific Premium AI Services | Bogen.ai</title>
+  <meta name="description" content="15 pre-configured AI automation packages built for specific industries including real estate, legal, medical, e-commerce, and more.">
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/css/global.css">
+
+  <style>
+    * {
+      font-family: 'Montserrat', sans-serif;
+    }
+
+    body {
+      background: #ffffff;
+    }
+
+    /* Hero Section */
+    .hero-section {
+      background: linear-gradient(135deg, #1a3e5c 0%, #0d1f2d 100%);
+      padding: 160px 0 100px 0;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-section::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%2300a8e1' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+      opacity: 0.5;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    .hero-badge {
+      display: inline-block;
+      background: rgba(0, 168, 225, 0.2);
+      color: #00a8e1;
+      padding: 8px 20px;
+      border-radius: 30px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      margin-bottom: 24px;
+    }
+
+    .hero-title {
+      font-size: 3.5rem;
+      font-weight: 700;
+      color: #ffffff;
+      margin-bottom: 24px;
+      line-height: 1.1;
+    }
+
+    .hero-subtitle {
+      font-size: 1.25rem;
+      color: rgba(255, 255, 255, 0.85);
+      max-width: 700px;
+      margin: 0 auto 40px;
+      line-height: 1.7;
+    }
+
+    .hero-cta {
+      display: inline-block;
+      background: #00a8e1;
+      color: #ffffff;
+      padding: 16px 40px;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 1rem;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .hero-cta:hover {
+      background: #0090c5;
+      transform: translateY(-2px);
+      box-shadow: 0 10px 30px rgba(0, 168, 225, 0.3);
+    }
+
+    /* Stats Bar */
+    .stats-bar {
+      background: #ffffff;
+      padding: 0;
+      margin-top: -50px;
+      position: relative;
+      z-index: 10;
+    }
+
+    .stats-container {
+      max-width: 1000px;
+      margin: 0 auto;
+      background: #ffffff;
+      border-radius: 16px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      overflow: hidden;
+    }
+
+    .stat-item {
+      padding: 40px 30px;
+      text-align: center;
+      border-right: 1px solid #e8e8e8;
+    }
+
+    .stat-item:last-child {
+      border-right: none;
+    }
+
+    .stat-number {
+      font-size: 3rem;
+      font-weight: 700;
+      color: #00a8e1;
+      line-height: 1;
+      margin-bottom: 8px;
+    }
+
+    .stat-label {
+      font-size: 0.95rem;
+      color: #666666;
+      font-weight: 500;
+    }
+
+    /* Section Styles */
+    .service-category {
+      padding: 100px 0;
+    }
+
+    .service-category:nth-child(even) {
+      background: #f8f9fa;
+    }
+
+    .category-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    .category-header {
+      text-align: center;
+      margin-bottom: 60px;
+    }
+
+    .category-number {
+      display: inline-block;
+      width: 50px;
+      height: 50px;
+      background: rgba(0, 168, 225, 0.1);
+      color: #00a8e1;
+      border-radius: 50%;
+      font-size: 1.25rem;
+      font-weight: 700;
+      line-height: 50px;
+      margin-bottom: 20px;
+    }
+
+    .category-title {
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: #1a3e5c;
+      margin-bottom: 16px;
+    }
+
+    .category-description {
+      font-size: 1.1rem;
+      color: #666666;
+      max-width: 600px;
+      margin: 0 auto;
+      line-height: 1.7;
+    }
+
+    /* Image and Content Layout */
+    .category-content {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
+    }
+
+    .category-content.reverse {
+      direction: rtl;
+    }
+
+    .category-content.reverse > * {
+      direction: ltr;
+    }
+
+    .category-image {
+      position: relative;
+    }
+
+    .category-image img {
+      width: 100%;
+      height: 500px;
+      object-fit: cover;
+      border-radius: 16px;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.1);
+    }
+
+    .image-placeholder {
+      width: 100%;
+      height: 500px;
+      background: linear-gradient(135deg, #1a3e5c 0%, #2a5580 100%);
+      border-radius: 16px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      color: #ffffff;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.1);
+    }
+
+    .image-placeholder-icon {
+      font-size: 4rem;
+      margin-bottom: 16px;
+      opacity: 0.8;
+    }
+
+    .image-placeholder-text {
+      font-size: 1rem;
+      opacity: 0.7;
+      font-weight: 500;
+    }
+
+    .category-services {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .service-card {
+      background: #ffffff;
+      padding: 24px 28px;
+      border-radius: 12px;
+      border-left: 4px solid #00a8e1;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+      transition: all 0.3s ease;
+    }
+
+    .service-card:hover {
+      transform: translateX(8px);
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+    }
+
+    .service-card h4 {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: #1a3e5c;
+      margin-bottom: 8px;
+    }
+
+    .service-card p {
+      font-size: 0.9rem;
+      color: #666666;
+      line-height: 1.6;
+      margin-bottom: 10px;
+    }
+
+    .service-card .includes {
+      font-size: 0.8rem;
+      color: #00a8e1;
+      font-weight: 500;
+    }
+
+    /* Customer Raves Section */
+    .raves-section {
+      background: linear-gradient(135deg, #1a3e5c 0%, #0d1f2d 100%);
+      padding: 100px 0;
+    }
+
+    .raves-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    .raves-header {
+      text-align: center;
+      margin-bottom: 60px;
+    }
+
+    .raves-title {
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: #ffffff;
+      margin-bottom: 16px;
+    }
+
+    .raves-subtitle {
+      font-size: 1.1rem;
+      color: rgba(255, 255, 255, 0.7);
+    }
+
+    .raves-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 30px;
+    }
+
+    .rave-card {
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 16px;
+      padding: 32px;
+      transition: all 0.3s ease;
+    }
+
+    .rave-card:hover {
+      background: rgba(255, 255, 255, 0.1);
+      transform: translateY(-5px);
+    }
+
+    .rave-stars {
+      color: #00a8e1;
+      font-size: 1.25rem;
+      margin-bottom: 16px;
+      letter-spacing: 2px;
+    }
+
+    .rave-text {
+      font-size: 1rem;
+      color: rgba(255, 255, 255, 0.9);
+      line-height: 1.7;
+      margin-bottom: 20px;
+      font-style: italic;
+    }
+
+    .rave-author {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .rave-avatar {
+      width: 48px;
+      height: 48px;
+      background: linear-gradient(135deg, #00a8e1 0%, #0090c5 100%);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #ffffff;
+      font-weight: 600;
+      font-size: 1.1rem;
+    }
+
+    .rave-info h5 {
+      font-size: 1rem;
+      font-weight: 600;
+      color: #ffffff;
+      margin-bottom: 4px;
+    }
+
+    .rave-info span {
+      font-size: 0.85rem;
+      color: rgba(255, 255, 255, 0.6);
+    }
+
+    /* CTA Section */
+    .cta-section {
+      background: #ffffff;
+      padding: 100px 0;
+      text-align: center;
+    }
+
+    .cta-container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    .cta-title {
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: #1a3e5c;
+      margin-bottom: 20px;
+    }
+
+    .cta-text {
+      font-size: 1.15rem;
+      color: #666666;
+      margin-bottom: 40px;
+      line-height: 1.7;
+    }
+
+    .cta-buttons {
+      display: flex;
+      gap: 20px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .cta-primary {
+      display: inline-block;
+      background: #00a8e1;
+      color: #ffffff;
+      padding: 16px 40px;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 1rem;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .cta-primary:hover {
+      background: #0090c5;
+      transform: translateY(-2px);
+      box-shadow: 0 10px 30px rgba(0, 168, 225, 0.3);
+    }
+
+    .cta-secondary {
+      display: inline-block;
+      background: transparent;
+      color: #1a3e5c;
+      padding: 16px 40px;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 1rem;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      border: 2px solid #1a3e5c;
+    }
+
+    .cta-secondary:hover {
+      background: #1a3e5c;
+      color: #ffffff;
+    }
+
+    /* Responsive */
+    @media (max-width: 968px) {
+      .hero-title {
+        font-size: 2.5rem;
+      }
+
+      .stats-container {
+        grid-template-columns: 1fr;
+        margin: -30px 20px 0;
+      }
+
+      .stat-item {
+        border-right: none;
+        border-bottom: 1px solid #e8e8e8;
+        padding: 30px;
+      }
+
+      .stat-item:last-child {
+        border-bottom: none;
+      }
+
+      .category-content {
+        grid-template-columns: 1fr;
+        gap: 40px;
+      }
+
+      .category-content.reverse {
+        direction: ltr;
+      }
+
+      .category-title {
+        font-size: 2rem;
+      }
+
+      .raves-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .cta-buttons {
+        flex-direction: column;
+        align-items: center;
+      }
+    }
+
+    /* Header Override */
+    .header .logo {
+      display: flex;
+      align-items: center;
+    }
+
+    .header .logo img {
+      height: 100px;
+      width: auto;
+    }
+  </style>
 </head>
 <body>
+  <!-- Header -->
   <header class="header">
     <div class="container">
       <nav class="nav">
-        <a href="/" class="logo">bogen<span>.ai</span></a>
+        <a href="/" class="logo" style="display: flex; align-items: center;">
+          <img src="/images/eb-logo.png" alt="Bogen.ai Logo" style="height: 100px; width: auto;">
+        </a>
+
         <ul class="nav-menu">
           <li><a href="/" class="nav-link">Home</a></li>
           <li class="nav-dropdown">
@@ -54,7 +556,7 @@
           <li class="nav-dropdown">
             <a href="/edmunds-mastermind" class="nav-link">Edmund's Mastermind ▾</a>
             <ul class="dropdown-menu">
-              <li><a href="/#mastermind-registration">Register Now for This Week's Meeting</a></li>
+              <li><a href="/edmunds-mastermind">Learn About Edmund's Mastermind</a></li>
               <li><a href="/contact?tab=client">Join Our Mastermind Community</a></li>
             </ul>
           </li>
@@ -62,133 +564,294 @@
           <li><a href="/video-archive" class="nav-link">Video</a></li>
           <li><a href="/contact" class="btn btn-primary btn-sm">Get Started</a></li>
         </ul>
+        <button class="nav-toggle" type="button" aria-label="Toggle navigation" onclick="window.bogenAI.toggleMobileMenu()">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
       </nav>
     </div>
   </header>
 
-  <section class="hero">
-    <div class="hero-bg"></div>
+  <!-- Hero Section -->
+  <section class="hero-section">
     <div class="hero-content">
-      <h1>Industry-Specific Premium Solutions</h1>
-      <p>5 tailored AI packages designed for specific industries with unique workflows.</p>
+      <span class="hero-badge">Industry-Specific Premium</span>
+      <h1 class="hero-title">Built for Your Industry</h1>
+      <p class="hero-subtitle">Pre-configured AI automation packages with industry-specific workflows, terminology, and integrations.</p>
+      <a href="/contact" class="hero-cta">Request Custom Proposal</a>
     </div>
   </section>
 
-  <section class="section">
-    <div class="container" style="max-width: 900px;">
-      <h2 class="text-center mb-lg">Built for Your Industry</h2>
-      <p class="text-large text-center text-gray mb-xl">Pre-configured AI automation packages with industry-specific workflows, terminology, and integrations.</p>
-
-      <div class="grid grid-1 gap-lg">
-        <div class="card">
-          <h3>Real Estate AI Suite</h3>
-          <p>Complete automation for agents and teams: lead qualification, property marketing, client follow-up, transaction coordination, and market analysis.</p>
-          <p class="text-small text-gray"><strong>Includes:</strong> MLS integration, CRM automation, listing marketing, buyer/seller workflows</p>
-        </div>
-
-        <div class="card">
-          <h3>Legal Practice Automation</h3>
-          <p>AI for law firms: client intake, document review, case research, billing automation, and client communication.</p>
-          <p class="text-small text-gray"><strong>Includes:</strong> Matter management, time tracking, secure client portal, compliance monitoring</p>
-        </div>
-
-        <div class="card">
-          <h3>Medical Practice AI</h3>
-          <p>Healthcare automation: appointment scheduling, patient reminders, insurance verification, billing, and HIPAA-compliant communication.</p>
-          <p class="text-small text-gray"><strong>Includes:</strong> EHR integration, patient portal, automated follow-ups, billing optimization</p>
-        </div>
-
-        <div class="card">
-          <h3>Home Services Business Suite</h3>
-          <p>Complete automation for contractors, landscapers, cleaners: booking, dispatch, invoicing, customer communication, review management.</p>
-          <p class="text-small text-gray"><strong>Includes:</strong> Job scheduling, team dispatch, payment processing, review automation</p>
-        </div>
-
-        <div class="card">
-          <h3>E-commerce Growth Package</h3>
-          <p>AI for online stores: product recommendations, abandoned cart recovery, customer support, inventory management, email marketing.</p>
-          <p class="text-small text-gray"><strong>Includes:</strong> Shopify/WooCommerce integration, marketing automation, analytics</p>
-        </div>
-
-        <div class="card">
-          <h3>Restaurant & Hospitality AI</h3>
-          <p>Complete system for restaurants and hotels: reservation management, customer feedback, loyalty programs, inventory tracking, and marketing.</p>
-          <p class="text-small text-gray"><strong>Includes:</strong> OpenTable integration, review management, email campaigns, social media</p>
-        </div>
-
-        <div class="card">
-          <h3>Salon & Spa Automation</h3>
-          <p>All-in-one for beauty businesses: online booking, client reminders, product upsells, loyalty tracking, and marketing automation.</p>
-          <p class="text-small text-gray"><strong>Includes:</strong> Appointment software integration, client database, automated promotions</p>
-        </div>
-
-        <div class="card">
-          <h3>Financial Services Compliance Suite</h3>
-          <p>AI for financial advisors and firms: client onboarding, compliance documentation, portfolio reporting, meeting scheduling, secure communication.</p>
-          <p class="text-small text-gray"><strong>Includes:</strong> SEC/FINRA compliance, encrypted client portal, automated reporting</p>
-        </div>
-
-        <div class="card">
-          <h3>Coaching & Consulting Package</h3>
-          <p>For coaches and consultants: lead nurturing, session booking, course delivery, client progress tracking, and automated follow-ups.</p>
-          <p class="text-small text-gray"><strong>Includes:</strong> Payment processing, course platforms, email sequences, calendar management</p>
-        </div>
-
-        <div class="card">
-          <h3>Dental Practice AI</h3>
-          <p>Dental-specific automation: appointment reminders, insurance verification, treatment plan follow-ups, recall campaigns, and patient education.</p>
-          <p class="text-small text-gray"><strong>Includes:</strong> Practice management software integration, automated recalls, billing</p>
-        </div>
-
-        <div class="card">
-          <h3>Gym & Fitness Studio Automation</h3>
-          <p>Complete system for fitness businesses: member management, class bookings, billing, workout tracking, and retention campaigns.</p>
-          <p class="text-small text-gray"><strong>Includes:</strong> Membership software integration, automated billing, marketing campaigns</p>
-        </div>
-
-        <div class="card">
-          <h3>Property Management Suite</h3>
-          <p>For landlords and managers: tenant screening, rent collection, maintenance requests, lease renewals, and tenant communication.</p>
-          <p class="text-small text-gray"><strong>Includes:</strong> Payment processing, maintenance tracking, automated notices, tenant portal</p>
-        </div>
-
-        <div class="card">
-          <h3>Auto Repair Shop AI</h3>
-          <p>Automotive service automation: appointment booking, service reminders, estimate generation, parts ordering, and customer follow-up.</p>
-          <p class="text-small text-gray"><strong>Includes:</strong> Shop management integration, automated recalls, review requests</p>
-        </div>
-
-        <div class="card">
-          <h3>Insurance Agency Automation</h3>
-          <p>AI for insurance agents: lead qualification, quote generation, policy renewals, claims follow-up, and client retention campaigns.</p>
-          <p class="text-small text-gray"><strong>Includes:</strong> CRM integration, quote software, automated renewal notices, compliance</p>
-        </div>
-
-        <div class="card">
-          <h3>Event Planning & Venue Management</h3>
-          <p>Complete automation for event professionals: inquiries, proposals, contracts, vendor coordination, client communication, and follow-ups.</p>
-          <p class="text-small text-gray"><strong>Includes:</strong> Calendar management, contract automation, payment tracking, vendor database</p>
-        </div>
+  <!-- Stats Bar -->
+  <section class="stats-bar">
+    <div class="stats-container">
+      <div class="stat-item">
+        <div class="stat-number">15+</div>
+        <div class="stat-label">Industry Packages</div>
       </div>
-
-      <div class="text-center mt-xl">
-        <p class="text-gray mb-md">Don't see your industry? We build custom solutions.</p>
-        <a href="/contact" class="btn btn-primary btn-lg">Request Custom Proposal</a>
+      <div class="stat-item">
+        <div class="stat-number">50+</div>
+        <div class="stat-label">Pre-built Integrations</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-number">2 Weeks</div>
+        <div class="stat-label">Average Setup Time</div>
       </div>
     </div>
   </section>
 
+  <!-- Category 1: Professional Services -->
+  <section class="service-category">
+    <div class="category-container">
+      <div class="category-header">
+        <div class="category-number">1</div>
+        <h2 class="category-title">Professional Services</h2>
+        <p class="category-description">Tailored AI solutions for real estate, legal, financial, and insurance professionals with compliance-ready features.</p>
+      </div>
+
+      <div class="category-content">
+        <div class="category-image">
+          <div class="image-placeholder">
+            <div class="image-placeholder-icon">🏢</div>
+            <div class="image-placeholder-text">Professional Services Photo</div>
+          </div>
+        </div>
+
+        <div class="category-services">
+          <div class="service-card">
+            <h4>Real Estate AI Suite</h4>
+            <p>Complete automation for agents and teams: lead qualification, property marketing, client follow-up, transaction coordination, and market analysis.</p>
+            <span class="includes">Includes: MLS integration, CRM automation, listing marketing, buyer/seller workflows</span>
+          </div>
+
+          <div class="service-card">
+            <h4>Legal Practice Automation</h4>
+            <p>AI for law firms: client intake, document review, case research, billing automation, and client communication.</p>
+            <span class="includes">Includes: Matter management, time tracking, secure client portal, compliance monitoring</span>
+          </div>
+
+          <div class="service-card">
+            <h4>Financial Services Compliance Suite</h4>
+            <p>AI for financial advisors and firms: client onboarding, compliance documentation, portfolio reporting, meeting scheduling, secure communication.</p>
+            <span class="includes">Includes: SEC/FINRA compliance, encrypted client portal, automated reporting</span>
+          </div>
+
+          <div class="service-card">
+            <h4>Insurance Agency Automation</h4>
+            <p>AI for insurance agents: lead qualification, quote generation, policy renewals, claims follow-up, and client retention campaigns.</p>
+            <span class="includes">Includes: CRM integration, quote software, automated renewal notices, compliance</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Category 2: Healthcare & Wellness -->
+  <section class="service-category">
+    <div class="category-container">
+      <div class="category-header">
+        <div class="category-number">2</div>
+        <h2 class="category-title">Healthcare & Wellness</h2>
+        <p class="category-description">HIPAA-compliant AI automation for medical practices, dental offices, spas, and fitness businesses.</p>
+      </div>
+
+      <div class="category-content reverse">
+        <div class="category-image">
+          <div class="image-placeholder">
+            <div class="image-placeholder-icon">🏥</div>
+            <div class="image-placeholder-text">Healthcare & Wellness Photo</div>
+          </div>
+        </div>
+
+        <div class="category-services">
+          <div class="service-card">
+            <h4>Medical Practice AI</h4>
+            <p>Healthcare automation: appointment scheduling, patient reminders, insurance verification, billing, and HIPAA-compliant communication.</p>
+            <span class="includes">Includes: EHR integration, patient portal, automated follow-ups, billing optimization</span>
+          </div>
+
+          <div class="service-card">
+            <h4>Dental Practice AI</h4>
+            <p>Dental-specific automation: appointment reminders, insurance verification, treatment plan follow-ups, recall campaigns, and patient education.</p>
+            <span class="includes">Includes: Practice management software integration, automated recalls, billing</span>
+          </div>
+
+          <div class="service-card">
+            <h4>Salon & Spa Automation</h4>
+            <p>All-in-one for beauty businesses: online booking, client reminders, product upsells, loyalty tracking, and marketing automation.</p>
+            <span class="includes">Includes: Appointment software integration, client database, automated promotions</span>
+          </div>
+
+          <div class="service-card">
+            <h4>Gym & Fitness Studio Automation</h4>
+            <p>Complete system for fitness businesses: member management, class bookings, billing, workout tracking, and retention campaigns.</p>
+            <span class="includes">Includes: Membership software integration, automated billing, marketing campaigns</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Category 3: Retail & Services -->
+  <section class="service-category">
+    <div class="category-container">
+      <div class="category-header">
+        <div class="category-number">3</div>
+        <h2 class="category-title">Retail & Services</h2>
+        <p class="category-description">AI solutions for e-commerce, restaurants, auto repair, and home service businesses with industry-specific integrations.</p>
+      </div>
+
+      <div class="category-content">
+        <div class="category-image">
+          <div class="image-placeholder">
+            <div class="image-placeholder-icon">🛒</div>
+            <div class="image-placeholder-text">Retail & Services Photo</div>
+          </div>
+        </div>
+
+        <div class="category-services">
+          <div class="service-card">
+            <h4>E-commerce Growth Package</h4>
+            <p>AI for online stores: product recommendations, abandoned cart recovery, customer support, inventory management, email marketing.</p>
+            <span class="includes">Includes: Shopify/WooCommerce integration, marketing automation, analytics</span>
+          </div>
+
+          <div class="service-card">
+            <h4>Restaurant & Hospitality AI</h4>
+            <p>Complete system for restaurants and hotels: reservation management, customer feedback, loyalty programs, inventory tracking, and marketing.</p>
+            <span class="includes">Includes: OpenTable integration, review management, email campaigns, social media</span>
+          </div>
+
+          <div class="service-card">
+            <h4>Home Services Business Suite</h4>
+            <p>Complete automation for contractors, landscapers, cleaners: booking, dispatch, invoicing, customer communication, review management.</p>
+            <span class="includes">Includes: Job scheduling, team dispatch, payment processing, review automation</span>
+          </div>
+
+          <div class="service-card">
+            <h4>Auto Repair Shop AI</h4>
+            <p>Automotive service automation: appointment booking, service reminders, estimate generation, parts ordering, and customer follow-up.</p>
+            <span class="includes">Includes: Shop management integration, automated recalls, review requests</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Category 4: Property & Events -->
+  <section class="service-category">
+    <div class="category-container">
+      <div class="category-header">
+        <div class="category-number">4</div>
+        <h2 class="category-title">Property & Events</h2>
+        <p class="category-description">Specialized automation for property managers, event planners, coaches, and consultants.</p>
+      </div>
+
+      <div class="category-content reverse">
+        <div class="category-image">
+          <div class="image-placeholder">
+            <div class="image-placeholder-icon">🏠</div>
+            <div class="image-placeholder-text">Property & Events Photo</div>
+          </div>
+        </div>
+
+        <div class="category-services">
+          <div class="service-card">
+            <h4>Property Management Suite</h4>
+            <p>For landlords and managers: tenant screening, rent collection, maintenance requests, lease renewals, and tenant communication.</p>
+            <span class="includes">Includes: Payment processing, maintenance tracking, automated notices, tenant portal</span>
+          </div>
+
+          <div class="service-card">
+            <h4>Event Planning & Venue Management</h4>
+            <p>Complete automation for event professionals: inquiries, proposals, contracts, vendor coordination, client communication, and follow-ups.</p>
+            <span class="includes">Includes: Calendar management, contract automation, payment tracking, vendor database</span>
+          </div>
+
+          <div class="service-card">
+            <h4>Coaching & Consulting Package</h4>
+            <p>For coaches and consultants: lead nurturing, session booking, course delivery, client progress tracking, and automated follow-ups.</p>
+            <span class="includes">Includes: Payment processing, course platforms, email sequences, calendar management</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Customer Raves Section -->
+  <section class="raves-section">
+    <div class="raves-container">
+      <div class="raves-header">
+        <h2 class="raves-title">What Our Clients Say</h2>
+        <p class="raves-subtitle">Real results from businesses using our industry-specific solutions</p>
+      </div>
+
+      <div class="raves-grid">
+        <div class="rave-card">
+          <div class="rave-stars">★★★★★</div>
+          <p class="rave-text">"The Real Estate Suite transformed our team. Leads get instant follow-up, listings market themselves, and I closed 30% more deals this year."</p>
+          <div class="rave-author">
+            <div class="rave-avatar">JM</div>
+            <div class="rave-info">
+              <h5>James M.</h5>
+              <span>Real Estate Team Leader</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="rave-card">
+          <div class="rave-stars">★★★★★</div>
+          <p class="rave-text">"Patient no-shows dropped 60% with automated reminders. The HIPAA-compliant communication gives us peace of mind."</p>
+          <div class="rave-author">
+            <div class="rave-avatar">DA</div>
+            <div class="rave-info">
+              <h5>Dr. Amanda K.</h5>
+              <span>Dental Practice Owner</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="rave-card">
+          <div class="rave-stars">★★★★★</div>
+          <p class="rave-text">"Our restaurant went from chaotic reservations to smooth operations. Review scores are up and we're filling tables we used to miss."</p>
+          <div class="rave-author">
+            <div class="rave-avatar">MC</div>
+            <div class="rave-info">
+              <h5>Marcus C.</h5>
+              <span>Restaurant Owner</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="cta-section">
+    <div class="cta-container">
+      <h2 class="cta-title">Don't See Your Industry?</h2>
+      <p class="cta-text">We build custom AI automation solutions for any industry. Let's discuss your specific needs and create a package tailored to your business workflows.</p>
+      <div class="cta-buttons">
+        <a href="/contact" class="cta-primary">Request Custom Proposal</a>
+        <a href="/tools-weve-built" class="cta-secondary">See Tools We've Built</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
   <footer class="footer">
     <div class="container">
       <div class="footer-grid">
         <div class="footer-column">
           <h4>About</h4>
           <ul class="footer-links">
-            <li><a href="/about-edmund">About Edmund</a></li>
-            <li><a href="/about-eytan">About Eytan</a></li>
+            <li><a href="/about-us">About Us</a></li>
+            <li><a href="/blog">Blog</a></li>
             <li><a href="/contact">Contact Us</a></li>
           </ul>
         </div>
+
         <div class="footer-column">
           <h4>Services</h4>
           <ul class="footer-links">
@@ -199,13 +862,15 @@
             <li><a href="/services/industry-specific-premium">Industry-Specific</a></li>
           </ul>
         </div>
+
         <div class="footer-column">
-          <h4>Partnership</h4>
+          <h4>Partner Program</h4>
           <ul class="footer-links">
             <li><a href="/partner-program">How It Works</a></li>
             <li><a href="/partner-portal">Partner Login</a></li>
           </ul>
         </div>
+
         <div class="footer-column">
           <h4>Legal</h4>
           <ul class="footer-links">
@@ -214,6 +879,7 @@
           </ul>
         </div>
       </div>
+
       <div class="footer-bottom">
         <p>© 2025 Bogen.ai. All rights reserved.</p>
         <p>Miami Beach, FL | <a href="mailto:info@bogen.ai">info@bogen.ai</a></p>
