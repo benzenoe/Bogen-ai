@@ -4,16 +4,434 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Sales & Revenue Generation AI Services | Bogen.ai</title>
+  <meta name="description" content="15 AI services for lead qualification, automated proposals, sales pipeline automation, and revenue optimization. Turn leads into revenue automatically.">
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/css/global.css">
+  <style>
+    :root {
+      --eb-navy: #1a3e5c;
+      --eb-cyan: #00a8e1;
+      --eb-white: #ffffff;
+      --eb-text: #333333;
+      --eb-light-bg: #f8f9fa;
+    }
+
+    /* Hero Section */
+    .service-hero {
+      background: linear-gradient(135deg, var(--eb-navy) 0%, #0d1623 100%);
+      padding: 160px 0 100px 0;
+      margin-top: 80px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .service-hero::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 50%;
+      height: 100%;
+      background: url('/images/services/sales-hero.jpg') center/cover;
+      opacity: 0.15;
+    }
+
+    .service-hero-content {
+      max-width: 700px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .service-hero h1 {
+      color: var(--eb-white);
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      font-size: 3rem;
+      line-height: 1.2;
+      margin-bottom: 24px;
+    }
+
+    .service-hero h1 span {
+      color: var(--eb-cyan);
+    }
+
+    .service-hero p {
+      color: rgba(255, 255, 255, 0.9);
+      font-size: 1.25rem;
+      line-height: 1.7;
+      margin-bottom: 32px;
+    }
+
+    /* Stats Bar */
+    .stats-bar {
+      background: var(--eb-white);
+      padding: 48px 0;
+      border-bottom: 1px solid #e8e8e8;
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 32px;
+      text-align: center;
+    }
+
+    .stat-item {
+      padding: 0 16px;
+    }
+
+    .stat-number {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 3rem;
+      font-weight: 700;
+      color: var(--eb-navy);
+      line-height: 1;
+      margin-bottom: 8px;
+    }
+
+    .stat-number span {
+      color: var(--eb-cyan);
+    }
+
+    .stat-label {
+      font-size: 0.95rem;
+      color: #666;
+      font-weight: 500;
+    }
+
+    /* Service Categories */
+    .service-category {
+      padding: 80px 0;
+    }
+
+    .service-category:nth-child(even) {
+      background: var(--eb-light-bg);
+    }
+
+    .category-header {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
+      margin-bottom: 48px;
+    }
+
+    .category-header.reverse {
+      direction: rtl;
+    }
+
+    .category-header.reverse > * {
+      direction: ltr;
+    }
+
+    .category-content h2 {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 2.25rem;
+      font-weight: 700;
+      color: var(--eb-navy);
+      margin-bottom: 16px;
+      position: relative;
+      padding-left: 20px;
+    }
+
+    .category-content h2::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 4px;
+      height: 100%;
+      background: var(--eb-cyan);
+      border-radius: 2px;
+    }
+
+    .category-content p {
+      color: var(--eb-text);
+      font-size: 1.1rem;
+      line-height: 1.7;
+    }
+
+    .category-image {
+      background: linear-gradient(135deg, var(--eb-navy) 0%, #0d1623 100%);
+      border-radius: 8px;
+      height: 300px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: rgba(255, 255, 255, 0.5);
+      font-size: 0.9rem;
+      overflow: hidden;
+    }
+
+    .category-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    /* Service Cards Grid */
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+
+    .services-grid.four-col {
+      grid-template-columns: repeat(4, 1fr);
+    }
+
+    .service-card {
+      background: var(--eb-white);
+      border: 1px solid #e8e8e8;
+      border-radius: 8px;
+      padding: 28px;
+      transition: all 0.3s ease;
+    }
+
+    .service-card:hover {
+      border-color: var(--eb-cyan);
+      box-shadow: 0 8px 32px rgba(0, 168, 225, 0.15);
+      transform: translateY(-4px);
+    }
+
+    .service-card h3 {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 1.125rem;
+      font-weight: 600;
+      color: var(--eb-navy);
+      margin-bottom: 12px;
+    }
+
+    .service-card p {
+      color: #666;
+      font-size: 0.95rem;
+      line-height: 1.6;
+      margin-bottom: 16px;
+    }
+
+    .service-card .best-for {
+      display: inline-block;
+      background: rgba(0, 168, 225, 0.1);
+      color: var(--eb-cyan);
+      font-size: 0.8rem;
+      font-weight: 600;
+      padding: 6px 12px;
+      border-radius: 4px;
+    }
+
+    /* Customer Raves Section */
+    .raves-section {
+      background: linear-gradient(135deg, var(--eb-navy) 0%, #0d1623 100%);
+      padding: 80px 0;
+    }
+
+    .raves-section h2 {
+      color: var(--eb-white);
+      font-family: 'Montserrat', sans-serif;
+      font-size: 2.25rem;
+      font-weight: 700;
+      text-align: center;
+      margin-bottom: 48px;
+    }
+
+    .raves-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+
+    .rave-card {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 8px;
+      padding: 32px;
+    }
+
+    .rave-stars {
+      color: #fbbf24;
+      font-size: 1.25rem;
+      margin-bottom: 16px;
+    }
+
+    .rave-quote {
+      color: rgba(255, 255, 255, 0.9);
+      font-size: 1rem;
+      line-height: 1.7;
+      font-style: italic;
+      margin-bottom: 20px;
+    }
+
+    .rave-author {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .rave-avatar {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: var(--eb-cyan);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: 600;
+      font-size: 1.1rem;
+    }
+
+    .rave-info {
+      color: rgba(255, 255, 255, 0.9);
+    }
+
+    .rave-name {
+      font-weight: 600;
+      margin-bottom: 2px;
+    }
+
+    .rave-title {
+      font-size: 0.85rem;
+      color: rgba(255, 255, 255, 0.6);
+    }
+
+    /* CTA Section */
+    .cta-section {
+      background: var(--eb-white);
+      padding: 80px 0;
+      text-align: center;
+    }
+
+    .cta-section h2 {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 2.25rem;
+      font-weight: 700;
+      color: var(--eb-navy);
+      margin-bottom: 16px;
+    }
+
+    .cta-section p {
+      font-size: 1.1rem;
+      color: #666;
+      margin-bottom: 32px;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .cta-buttons {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+    }
+
+    .btn-primary {
+      background: var(--eb-cyan);
+      color: white;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 600;
+      padding: 16px 40px;
+      border-radius: 4px;
+      text-decoration: none;
+      transition: all 0.3s ease;
+    }
+
+    .btn-primary:hover {
+      background: #008ec4;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(0, 168, 225, 0.3);
+    }
+
+    .btn-secondary {
+      background: transparent;
+      color: var(--eb-navy);
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 600;
+      padding: 16px 40px;
+      border: 2px solid var(--eb-navy);
+      border-radius: 4px;
+      text-decoration: none;
+      transition: all 0.3s ease;
+    }
+
+    .btn-secondary:hover {
+      background: var(--eb-navy);
+      color: white;
+    }
+
+    /* Responsive */
+    @media (max-width: 1024px) {
+      .services-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .services-grid.four-col {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .raves-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 768px) {
+      .service-hero {
+        padding: 120px 24px 60px 24px;
+      }
+
+      .service-hero h1 {
+        font-size: 2rem;
+      }
+
+      .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 24px;
+      }
+
+      .stat-number {
+        font-size: 2rem;
+      }
+
+      .category-header {
+        grid-template-columns: 1fr;
+        gap: 32px;
+      }
+
+      .category-header.reverse {
+        direction: ltr;
+      }
+
+      .category-image {
+        height: 200px;
+      }
+
+      .services-grid,
+      .services-grid.four-col {
+        grid-template-columns: 1fr;
+      }
+
+      .raves-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .cta-buttons {
+        flex-direction: column;
+        align-items: center;
+      }
+    }
+  </style>
 </head>
 <body>
+
+  <!-- Header -->
   <header class="header">
     <div class="container">
       <nav class="nav">
-        <a href="/" class="logo">bogen<span>.ai</span></a>
+        <a href="/" class="logo" style="display: flex; align-items: center;">
+          <img src="/images/eb-logo.png" alt="Bogen.ai Logo" style="height: 100px; width: auto;">
+        </a>
         <ul class="nav-menu">
           <li><a href="/" class="nav-link">Home</a></li>
           <li class="nav-dropdown">
@@ -54,7 +472,7 @@
           <li class="nav-dropdown">
             <a href="/edmunds-mastermind" class="nav-link">Edmund's Mastermind ▾</a>
             <ul class="dropdown-menu">
-              <li><a href="/#mastermind-registration">Register Now for This Week's Meeting</a></li>
+              <li><a href="/edmunds-mastermind">Learn About Edmund's Mastermind</a></li>
               <li><a href="/contact?tab=client">Join Our Mastermind Community</a></li>
             </ul>
           </li>
@@ -62,129 +480,277 @@
           <li><a href="/video-archive" class="nav-link">Video</a></li>
           <li><a href="/contact" class="btn btn-primary btn-sm">Get Started</a></li>
         </ul>
+        <button class="nav-toggle" type="button" aria-label="Toggle navigation" onclick="window.bogenAI.toggleMobileMenu()">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
       </nav>
     </div>
   </header>
 
-  <section class="hero">
-    <div class="hero-bg"></div>
-    <div class="hero-content">
-      <h1>Sales & Revenue Generation</h1>
-      <p>13 AI services that convert leads into customers and maximize revenue per transaction.</p>
+  <!-- Hero Section -->
+  <section class="service-hero">
+    <div class="container">
+      <div class="service-hero-content">
+        <h1>Turn Leads Into <span>Revenue</span> Automatically</h1>
+        <p>AI-powered sales automation that qualifies leads, generates proposals, and drives conversions while you sleep.</p>
+        <a href="/contact" class="btn-primary">Get a Custom Proposal</a>
+      </div>
     </div>
   </section>
 
-  <section class="section">
-    <div class="container" style="max-width: 900px;">
-      <h2 class="text-center mb-lg">Turn Leads Into Revenue Automatically</h2>
-      <p class="text-large text-center text-gray mb-xl">AI-powered sales automation that qualifies leads, generates proposals, and drives conversions while you sleep.</p>
+  <!-- Stats Bar -->
+  <section class="stats-bar">
+    <div class="container">
+      <div class="stats-grid">
+        <div class="stat-item">
+          <div class="stat-number">30<span>%</span></div>
+          <div class="stat-label">Increase in Order Value</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number">40<span>%</span></div>
+          <div class="stat-label">Higher Close Rates</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number">85<span>%</span></div>
+          <div class="stat-label">Cart Recovery Rate</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number">15</div>
+          <div class="stat-label">AI-Powered Services</div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-      <div class="grid grid-1 gap-lg">
-        <div class="card">
+  <!-- Category 1: Lead Qualification & Pipeline -->
+  <section class="service-category">
+    <div class="container">
+      <div class="category-header">
+        <div class="category-content">
+          <h2>Lead Qualification & Pipeline</h2>
+          <p>Stop wasting time on unqualified leads. These AI systems automatically score, qualify, and move prospects through your sales funnel—so your team only talks to buyers who are ready.</p>
+        </div>
+        <div class="category-image">
+          <!-- Placeholder for image -->
+          <span>Image: Sales pipeline dashboard</span>
+        </div>
+      </div>
+
+      <div class="services-grid four-col">
+        <div class="service-card">
           <h3>AI Lead Qualification System</h3>
           <p>Automatically score and qualify leads based on behavior, demographics, and engagement. Only your best prospects reach your sales team.</p>
-          <p class="text-small text-gray"><strong>Best for:</strong> Real Estate, B2B Services, High-ticket sales</p>
+          <span class="best-for">Real Estate • B2B • High-ticket Sales</span>
         </div>
 
-        <div class="card">
-          <h3>Automated Proposal Generation</h3>
-          <p>AI creates custom proposals based on client needs, past projects, and pricing models. Professional documents in minutes, not hours.</p>
-          <p class="text-small text-gray"><strong>Best for:</strong> Consultants, Agencies, Professional Services</p>
-        </div>
-
-        <div class="card">
-          <h3>Upsell & Cross-sell Automation</h3>
-          <p>Intelligent recommendations for additional products or upgraded services based on customer behavior and purchase history.</p>
-          <p class="text-small text-gray"><strong>Best for:</strong> E-commerce, SaaS, Membership businesses</p>
-        </div>
-
-        <div class="card">
-          <h3>Abandoned Cart Recovery</h3>
-          <p>Automated email and SMS sequences that recover lost sales with personalized messaging and special offers.</p>
-          <p class="text-small text-gray"><strong>Best for:</strong> E-commerce, Online courses, SaaS</p>
-        </div>
-
-        <div class="card">
+        <div class="service-card">
           <h3>Sales Pipeline Automation</h3>
           <p>Automatically move leads through your sales funnel, trigger follow-ups, and alert your team when a deal needs attention.</p>
-          <p class="text-small text-gray"><strong>Best for:</strong> B2B, Real Estate, Professional Services</p>
+          <span class="best-for">B2B • Real Estate • Professional Services</span>
         </div>
 
-        <div class="card">
-          <h3>Dynamic Pricing Optimization</h3>
-          <p>AI adjusts pricing based on demand, competitor pricing, inventory levels, and customer segment to maximize revenue.</p>
-          <p class="text-small text-gray"><strong>Best for:</strong> E-commerce, Hotels, Event tickets</p>
-        </div>
-
-        <div class="card">
-          <h3>Appointment Booking System</h3>
-          <p>AI-powered calendar that handles scheduling, sends confirmations, manages cancellations, and optimizes your availability.</p>
-          <p class="text-small text-gray"><strong>Best for:</strong> Consultants, Medical, Service providers</p>
-        </div>
-
-        <div class="card">
-          <h3>Sales Outreach Sequences</h3>
-          <p>Personalized multi-touch campaigns via email and LinkedIn that nurture cold leads into warm opportunities.</p>
-          <p class="text-small text-gray"><strong>Best for:</strong> B2B Sales, Agencies, Recruiters</p>
-        </div>
-
-        <div class="card">
-          <h3>Contract & Quote Management</h3>
-          <p>Generate, send, and track contracts and quotes automatically. Get e-signatures and payment without manual follow-up.</p>
-          <p class="text-small text-gray"><strong>Best for:</strong> Contractors, Agencies, B2B Services</p>
-        </div>
-
-        <div class="card">
-          <h3>Win-Back Campaign Automation</h3>
-          <p>Automatically identify inactive customers and launch personalized re-engagement campaigns with special incentives.</p>
-          <p class="text-small text-gray"><strong>Best for:</strong> E-commerce, SaaS, Subscription services</p>
-        </div>
-
-        <div class="card">
-          <h3>Product Recommendation Engine</h3>
-          <p>AI analyzes customer behavior to suggest perfect products at the right time, increasing average order value by 30%.</p>
-          <p class="text-small text-gray"><strong>Best for:</strong> E-commerce, Retail, Online marketplaces</p>
-        </div>
-
-        <div class="card">
+        <div class="service-card">
           <h3>Lead Magnet Distribution</h3>
           <p>Automatically deliver ebooks, checklists, and resources while capturing leads and adding them to nurture sequences.</p>
-          <p class="text-small text-gray"><strong>Best for:</strong> Coaches, Consultants, B2B Services</p>
+          <span class="best-for">Coaches • Consultants • B2B Services</span>
         </div>
 
-        <div class="card">
+        <div class="service-card">
           <h3>Sales Performance Analytics</h3>
           <p>Track conversion rates, pipeline velocity, and revenue forecasts with AI-powered insights and recommendations.</p>
-          <p class="text-small text-gray"><strong>Best for:</strong> Sales teams, Agencies, SaaS companies</p>
+          <span class="best-for">Sales Teams • Agencies • SaaS</span>
         </div>
-
-        <div class="card">
-          <h3>Referral Program Automation</h3>
-          <p>Manage customer referrals automatically - track referrals, send rewards, and turn customers into advocates.</p>
-          <p class="text-small text-gray"><strong>Best for:</strong> All businesses with loyal customers</p>
-        </div>
-
-        <div class="card">
-          <h3>Payment Processing & Invoicing</h3>
-          <p>Automated invoice generation, payment reminders, and reconciliation. Get paid faster with less manual work.</p>
-          <p class="text-small text-gray"><strong>Best for:</strong> Freelancers, Agencies, Service businesses</p>
-        </div>
-      </div>
-
-      <div class="text-center mt-xl">
-        <a href="/contact" class="btn btn-primary btn-lg">Request Custom Proposal</a>
       </div>
     </div>
   </section>
 
+  <!-- Category 2: Proposals & Closing -->
+  <section class="service-category">
+    <div class="container">
+      <div class="category-header reverse">
+        <div class="category-content">
+          <h2>Proposals & Closing</h2>
+          <p>From first meeting to signed contract, these tools automate the entire closing process. Generate proposals in minutes, schedule appointments effortlessly, and get signatures without the follow-up chase.</p>
+        </div>
+        <div class="category-image">
+          <!-- Placeholder for image -->
+          <span>Image: Digital proposal being signed</span>
+        </div>
+      </div>
+
+      <div class="services-grid four-col">
+        <div class="service-card">
+          <h3>Automated Proposal Generation</h3>
+          <p>AI creates custom proposals based on client needs, past projects, and pricing models. Professional documents in minutes, not hours.</p>
+          <span class="best-for">Consultants • Agencies • Professional Services</span>
+        </div>
+
+        <div class="service-card">
+          <h3>Contract & Quote Management</h3>
+          <p>Generate, send, and track contracts and quotes automatically. Get e-signatures and payment without manual follow-up.</p>
+          <span class="best-for">Contractors • Agencies • B2B Services</span>
+        </div>
+
+        <div class="service-card">
+          <h3>Appointment Booking System</h3>
+          <p>AI-powered calendar that handles scheduling, sends confirmations, manages cancellations, and optimizes your availability.</p>
+          <span class="best-for">Consultants • Medical • Service Providers</span>
+        </div>
+
+        <div class="service-card">
+          <h3>Sales Outreach Sequences</h3>
+          <p>Personalized multi-touch campaigns via email and LinkedIn that nurture cold leads into warm opportunities.</p>
+          <span class="best-for">B2B Sales • Agencies • Recruiters</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Category 3: Revenue Optimization -->
+  <section class="service-category">
+    <div class="container">
+      <div class="category-header">
+        <div class="category-content">
+          <h2>Revenue Optimization</h2>
+          <p>Maximize every transaction. These AI systems increase average order value, recover abandoned carts, and optimize pricing in real-time—turning browsers into buyers and one-time customers into repeat purchasers.</p>
+        </div>
+        <div class="category-image">
+          <!-- Placeholder for image -->
+          <span>Image: Revenue growth chart</span>
+        </div>
+      </div>
+
+      <div class="services-grid four-col">
+        <div class="service-card">
+          <h3>Upsell & Cross-sell Automation</h3>
+          <p>Intelligent recommendations for additional products or upgraded services based on customer behavior and purchase history.</p>
+          <span class="best-for">E-commerce • SaaS • Membership</span>
+        </div>
+
+        <div class="service-card">
+          <h3>Dynamic Pricing Optimization</h3>
+          <p>AI adjusts pricing based on demand, competitor pricing, inventory levels, and customer segment to maximize revenue.</p>
+          <span class="best-for">E-commerce • Hotels • Events</span>
+        </div>
+
+        <div class="service-card">
+          <h3>Product Recommendation Engine</h3>
+          <p>AI analyzes customer behavior to suggest perfect products at the right time, increasing average order value by 30%.</p>
+          <span class="best-for">E-commerce • Retail • Marketplaces</span>
+        </div>
+
+        <div class="service-card">
+          <h3>Abandoned Cart Recovery</h3>
+          <p>Automated email and SMS sequences that recover lost sales with personalized messaging and special offers.</p>
+          <span class="best-for">E-commerce • Online Courses • SaaS</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Category 4: Retention & Payments -->
+  <section class="service-category">
+    <div class="container">
+      <div class="category-header reverse">
+        <div class="category-content">
+          <h2>Retention & Payments</h2>
+          <p>Keep customers coming back and get paid on time. These systems automatically re-engage inactive customers, reward referrals, and streamline your entire invoicing process.</p>
+        </div>
+        <div class="category-image">
+          <!-- Placeholder for image -->
+          <span>Image: Customer retention dashboard</span>
+        </div>
+      </div>
+
+      <div class="services-grid">
+        <div class="service-card">
+          <h3>Win-Back Campaign Automation</h3>
+          <p>Automatically identify inactive customers and launch personalized re-engagement campaigns with special incentives.</p>
+          <span class="best-for">E-commerce • SaaS • Subscriptions</span>
+        </div>
+
+        <div class="service-card">
+          <h3>Referral Program Automation</h3>
+          <p>Manage customer referrals automatically—track referrals, send rewards, and turn customers into advocates.</p>
+          <span class="best-for">All Businesses with Loyal Customers</span>
+        </div>
+
+        <div class="service-card">
+          <h3>Payment Processing & Invoicing</h3>
+          <p>Automated invoice generation, payment reminders, and reconciliation. Get paid faster with less manual work.</p>
+          <span class="best-for">Freelancers • Agencies • Service Businesses</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Customer Raves -->
+  <section class="raves-section">
+    <div class="container">
+      <h2>What Our Clients Say</h2>
+      <div class="raves-grid">
+        <div class="rave-card">
+          <div class="rave-stars">★★★★★</div>
+          <p class="rave-quote">"The lead qualification system saved my team 20 hours a week. We only talk to buyers now, not tire-kickers."</p>
+          <div class="rave-author">
+            <div class="rave-avatar">MR</div>
+            <div class="rave-info">
+              <div class="rave-name">Marcus Rodriguez</div>
+              <div class="rave-title">Sales Director, Tech Startup</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="rave-card">
+          <div class="rave-stars">★★★★★</div>
+          <p class="rave-quote">"Our abandoned cart recovery brought back $47,000 in lost revenue last month alone. The ROI is insane."</p>
+          <div class="rave-author">
+            <div class="rave-avatar">AP</div>
+            <div class="rave-info">
+              <div class="rave-name">Amanda Peters</div>
+              <div class="rave-title">E-commerce Owner</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="rave-card">
+          <div class="rave-stars">★★★★★</div>
+          <p class="rave-quote">"Automated proposals went from taking 2 hours to 5 minutes. I closed 3 deals in the time it used to take to write one proposal."</p>
+          <div class="rave-author">
+            <div class="rave-avatar">DL</div>
+            <div class="rave-info">
+              <div class="rave-name">David Liu</div>
+              <div class="rave-title">Consulting Firm Partner</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="cta-section">
+    <div class="container">
+      <h2>Ready to Automate Your Sales Process?</h2>
+      <p>Get a custom proposal tailored to your revenue goals. We'll identify the highest-impact services for your sales cycle and budget.</p>
+      <div class="cta-buttons">
+        <a href="/contact" class="btn-primary">Request Custom Proposal</a>
+        <a href="/edmunds-mastermind" class="btn-secondary">Join Edmund's Mastermind</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
   <footer class="footer">
     <div class="container">
       <div class="footer-grid">
         <div class="footer-column">
           <h4>About</h4>
           <ul class="footer-links">
-            <li><a href="/about-edmund">About Edmund</a></li>
-            <li><a href="/about-eytan">About Eytan</a></li>
+            <li><a href="/about-us">About Us</a></li>
+            <li><a href="/blog">Blog</a></li>
             <li><a href="/contact">Contact Us</a></li>
           </ul>
         </div>
@@ -214,7 +780,7 @@
         </div>
       </div>
       <div class="footer-bottom">
-        <p>© 2025 Bogen.ai. All rights reserved.</p>
+        <p>&copy; 2025 Bogen.ai. All rights reserved.</p>
         <p>Miami Beach, FL | <a href="mailto:info@bogen.ai">info@bogen.ai</a></p>
       </div>
     </div>
