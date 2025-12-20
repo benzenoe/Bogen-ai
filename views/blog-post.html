@@ -527,11 +527,50 @@
           imageSection.style.display = 'block';
         }
 
+        // Extract just the article content if the post contains a full HTML document
+        let contentHtml = post.content;
+
+        // Check if content is a full HTML document
+        if (contentHtml.includes('<!DOCTYPE') || contentHtml.includes('<html')) {
+          // Create a temporary element to parse the HTML
+          const tempDiv = document.createElement('div');
+          tempDiv.innerHTML = contentHtml;
+
+          // Try to find the main content - look for article, main, or body content
+          const article = tempDiv.querySelector('article') ||
+                          tempDiv.querySelector('main') ||
+                          tempDiv.querySelector('.content') ||
+                          tempDiv.querySelector('section:not(header):not(footer)');
+
+          if (article) {
+            // Remove any headers/hero sections from the extracted content
+            const headers = article.querySelectorAll('header, .hero, .page-header, h1:first-child');
+            headers.forEach(h => h.remove());
+            contentHtml = article.innerHTML;
+          } else {
+            // Fallback: extract body content and remove header elements
+            const bodyMatch = contentHtml.match(/<body[^>]*>([\s\S]*)<\/body>/i);
+            if (bodyMatch) {
+              const bodyDiv = document.createElement('div');
+              bodyDiv.innerHTML = bodyMatch[1];
+              // Remove header, hero sections, and the first h1
+              const toRemove = bodyDiv.querySelectorAll('header, .hero, .page-header, nav');
+              toRemove.forEach(el => el.remove());
+              // Remove standalone first h1 if it matches the title
+              const firstH1 = bodyDiv.querySelector('h1');
+              if (firstH1 && firstH1.textContent.trim() === post.title.trim()) {
+                firstH1.remove();
+              }
+              contentHtml = bodyDiv.innerHTML;
+            }
+          }
+        }
+
         // Render post content with CTA
         const container = document.getElementById('blog-content');
         container.innerHTML = `
           <div class="post-body">
-            ${post.content}
+            ${contentHtml}
           </div>
 
           <div class="blog-cta">
