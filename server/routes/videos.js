@@ -12,7 +12,7 @@ const router = express.Router();
 router.get('/', async (req, res) => {
   try {
     const result = await pool.query(
-      'SELECT * FROM featured_videos ORDER BY display_order ASC, created_at DESC'
+      'SELECT * FROM featured_videos ORDER BY created_at DESC'
     );
     res.json(result.rows);
   } catch (error) {
