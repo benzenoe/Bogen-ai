@@ -8,93 +8,322 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/css/global.css">
   <style>
-    /* Blog section with light background for readability */
-    .section.blog-section {
-      background: #ffffff;
+    /* Edmund Bogen Brand Colors */
+    :root {
+      --eb-navy: #1a3e5c;
+      --eb-cyan: #00a8e1;
+      --eb-white: #ffffff;
+      --eb-text: #333333;
+      --eb-text-light: #666666;
     }
 
-    .blog-content {
-      max-width: 800px;
+    /* Blog Hero Section - Navy background with title */
+    .blog-hero {
+      background: linear-gradient(135deg, var(--eb-navy) 0%, #0d1623 100%);
+      padding: 120px 0 80px 0;
+      margin-top: 80px;
+    }
+
+    .blog-hero-content {
+      max-width: 900px;
       margin: 0 auto;
-      background: #ffffff;
-      padding: var(--spacing-xl);
-      border-radius: var(--border-radius);
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+      text-align: center;
     }
 
-    .blog-content h1 {
-      color: var(--navy);
+    .blog-hero h1 {
+      color: var(--eb-white);
+      font-family: 'Montserrat', sans-serif;
       font-weight: 600;
+      font-size: 2.75rem;
+      line-height: 1.2;
+      margin-bottom: 24px;
+      letter-spacing: -0.02em;
     }
 
-    .blog-content h2 {
-      margin-top: var(--spacing-xl);
-      margin-bottom: var(--spacing-md);
-      color: var(--navy);
+    .blog-hero .blog-meta {
+      color: rgba(255, 255, 255, 0.8);
+      font-family: 'Montserrat', sans-serif;
+      font-size: 1rem;
+      font-weight: 400;
+    }
+
+    .blog-hero .blog-meta span {
+      color: var(--eb-cyan);
+    }
+
+    /* Category Badge */
+    .category-badge {
+      display: inline-block;
+      background: var(--eb-cyan);
+      color: var(--eb-white);
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.75rem;
       font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      padding: 6px 16px;
+      border-radius: 2px;
+      margin-bottom: 24px;
     }
 
-    .blog-content h3 {
-      margin-top: var(--spacing-lg);
-      margin-bottom: var(--spacing-sm);
-      color: var(--navy);
-      font-weight: 600;
+    /* Featured Image Section */
+    .featured-image-section {
+      background: var(--eb-white);
+      padding: 0;
+      margin-top: -40px;
+      position: relative;
+      z-index: 10;
     }
 
-    .blog-content p {
-      margin-bottom: var(--spacing-md);
-      line-height: 1.8;
-      color: #2d3748;
-      font-size: 1.0625rem;
-    }
-
-    .blog-content ul, .blog-content ol {
-      margin-bottom: var(--spacing-md);
-      padding-left: var(--spacing-xl);
-      color: #2d3748;
-    }
-
-    .blog-content li {
-      margin-bottom: var(--spacing-sm);
-      line-height: 1.8;
-      color: #2d3748;
-      font-size: 1.0625rem;
-    }
-
-    .blog-content strong {
-      color: #1a2332;
-      font-weight: 600;
-    }
-
-    .blog-meta {
-      color: #666666;
-      margin-bottom: var(--spacing-xl);
-      padding-bottom: var(--spacing-md);
-      border-bottom: 2px solid #E0E0E0;
+    .featured-image-container {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 0 24px;
     }
 
     .featured-image {
       width: 100%;
       max-height: 500px;
       object-fit: cover;
-      border-radius: var(--border-radius);
-      margin-bottom: var(--spacing-lg);
-      box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
+      border-radius: 4px;
+      box-shadow: 0 8px 40px rgba(0, 0, 0, 0.15);
     }
 
-    /* Back button styling for light background */
+    /* Blog Content Section */
+    .blog-section {
+      background: var(--eb-white);
+      padding: 60px 0 80px 0;
+    }
+
+    .blog-content {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 0 24px;
+      position: relative;
+    }
+
+    /* Vertical Accent Bar - Edmund Bogen Brand Element */
+    .blog-content::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 4px;
+      height: 100px;
+      background: var(--eb-cyan);
+      border-radius: 2px;
+    }
+
+    /* Typography - Following Brand Guidelines */
+    .blog-content h2 {
+      font-family: 'Montserrat', sans-serif;
+      color: var(--eb-navy);
+      font-weight: 600;
+      font-size: 1.75rem;
+      margin-top: 48px;
+      margin-bottom: 20px;
+      line-height: 1.3;
+      letter-spacing: -0.01em;
+    }
+
+    .blog-content h3 {
+      font-family: 'Montserrat', sans-serif;
+      color: var(--eb-navy);
+      font-weight: 600;
+      font-size: 1.375rem;
+      margin-top: 36px;
+      margin-bottom: 16px;
+      line-height: 1.4;
+    }
+
+    .blog-content h4 {
+      font-family: 'Montserrat', sans-serif;
+      color: var(--eb-navy);
+      font-weight: 600;
+      font-size: 1.125rem;
+      margin-top: 28px;
+      margin-bottom: 12px;
+      line-height: 1.4;
+    }
+
+    .blog-content p {
+      font-family: 'Inter', sans-serif;
+      color: var(--eb-text);
+      font-size: 1.0625rem;
+      line-height: 1.8;
+      margin-bottom: 24px;
+    }
+
+    .blog-content ul, .blog-content ol {
+      margin-bottom: 24px;
+      padding-left: 28px;
+    }
+
+    .blog-content li {
+      font-family: 'Inter', sans-serif;
+      color: var(--eb-text);
+      font-size: 1.0625rem;
+      line-height: 1.8;
+      margin-bottom: 12px;
+    }
+
+    .blog-content strong {
+      color: var(--eb-navy);
+      font-weight: 600;
+    }
+
+    .blog-content a {
+      color: var(--eb-cyan);
+      text-decoration: none;
+      border-bottom: 1px solid transparent;
+      transition: border-color 0.2s ease;
+    }
+
+    .blog-content a:hover {
+      border-bottom-color: var(--eb-cyan);
+    }
+
+    /* Blockquote - Brand Styled */
+    .blog-content blockquote {
+      border-left: 4px solid var(--eb-cyan);
+      background: rgba(0, 168, 225, 0.05);
+      padding: 24px 28px;
+      margin: 32px 0;
+      border-radius: 0 4px 4px 0;
+    }
+
+    .blog-content blockquote p {
+      font-style: italic;
+      color: var(--eb-navy);
+      margin-bottom: 0;
+      font-size: 1.125rem;
+    }
+
+    /* Code blocks */
+    .blog-content pre, .blog-content code {
+      font-family: 'Monaco', 'Consolas', monospace;
+      background: #f8f9fa;
+      border-radius: 4px;
+    }
+
+    .blog-content code {
+      padding: 2px 6px;
+      font-size: 0.9em;
+      color: var(--eb-navy);
+    }
+
+    .blog-content pre {
+      padding: 20px;
+      overflow-x: auto;
+      margin: 24px 0;
+    }
+
+    .blog-content pre code {
+      padding: 0;
+      background: none;
+    }
+
+    /* Back Button Section */
     .blog-back-section {
-      background: #ffffff;
-      padding-bottom: var(--spacing-xl);
+      background: var(--eb-white);
+      padding: 0 0 80px 0;
     }
 
+    .blog-back-section .btn-secondary {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      font-size: 0.875rem;
+      border: 2px solid var(--eb-cyan);
+      color: var(--eb-cyan);
+      padding: 12px 32px;
+      transition: all 0.3s ease;
+    }
+
+    .blog-back-section .btn-secondary:hover {
+      background: var(--eb-cyan);
+      color: var(--eb-white);
+    }
+
+    /* CTA Section at bottom of post */
+    .blog-cta {
+      background: linear-gradient(135deg, var(--eb-navy) 0%, #0d1623 100%);
+      padding: 48px;
+      border-radius: 4px;
+      margin-top: 48px;
+      text-align: center;
+    }
+
+    .blog-cta h3 {
+      color: var(--eb-white);
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 600;
+      font-size: 1.5rem;
+      margin-bottom: 16px;
+      margin-top: 0;
+    }
+
+    .blog-cta p {
+      color: rgba(255, 255, 255, 0.9);
+      margin-bottom: 24px;
+      font-size: 1rem;
+    }
+
+    .blog-cta .btn-primary {
+      background: var(--eb-cyan);
+      color: var(--eb-white);
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      padding: 14px 36px;
+      border: none;
+      border-radius: 2px;
+      transition: all 0.3s ease;
+    }
+
+    .blog-cta .btn-primary:hover {
+      background: #008ec4;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 20px rgba(0, 168, 225, 0.3);
+    }
+
+    /* Responsive */
     @media (max-width: 768px) {
-      .blog-content {
-        padding: var(--spacing-md);
+      .blog-hero {
+        padding: 100px 24px 60px 24px;
       }
+
+      .blog-hero h1 {
+        font-size: 2rem;
+      }
+
+      .blog-content {
+        padding: 0 20px;
+      }
+
+      .blog-content::before {
+        display: none;
+      }
+
+      .blog-content h2 {
+        font-size: 1.5rem;
+      }
+
+      .blog-cta {
+        padding: 32px 24px;
+      }
+    }
+
+    /* Loading State */
+    .loading-state {
+      text-align: center;
+      padding: 80px 24px;
+      color: var(--eb-text-light);
     }
   </style>
 </head>
@@ -104,8 +333,9 @@
   <header class="header">
     <div class="container">
       <nav class="nav">
-        <a href="/" class="logo">bogen<span>.ai</span></a>
-
+        <a href="/" class="logo" style="display: flex; align-items: center;">
+          <img src="/images/eb-logo.png" alt="Bogen.ai Logo" style="height: 100px; width: auto;">
+        </a>
         <ul class="nav-menu">
           <li><a href="/" class="nav-link">Home</a></li>
           <li class="nav-dropdown">
@@ -146,7 +376,7 @@
           <li class="nav-dropdown">
             <a href="/edmunds-mastermind" class="nav-link">Edmund's Mastermind ▾</a>
             <ul class="dropdown-menu">
-              <li><a href="/#mastermind-registration">Register Now for This Week's Meeting</a></li>
+              <li><a href="/edmunds-mastermind">Learn About Edmund's Mastermind</a></li>
               <li><a href="/contact?tab=client">Join Our Mastermind Community</a></li>
             </ul>
           </li>
@@ -163,11 +393,29 @@
     </div>
   </header>
 
+  <!-- Blog Hero - Navy Background -->
+  <section class="blog-hero" id="blog-hero">
+    <div class="container">
+      <div class="blog-hero-content">
+        <div class="category-badge" id="category-badge" style="display: none;">Category</div>
+        <h1 id="hero-title">Loading...</h1>
+        <p class="blog-meta" id="hero-meta"></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Featured Image -->
+  <section class="featured-image-section" id="featured-image-section" style="display: none;">
+    <div class="featured-image-container">
+      <img id="featured-image" src="" alt="" class="featured-image">
+    </div>
+  </section>
+
   <!-- Blog Post Content -->
   <section class="section blog-section">
     <div class="container">
       <div class="blog-content" id="blog-content">
-        <p style="text-align: center; color: #666666;">Loading post...</p>
+        <div class="loading-state">Loading article...</div>
       </div>
     </div>
   </section>
@@ -223,7 +471,7 @@
       </div>
 
       <div class="footer-bottom">
-        <p>© 2025 Bogen.ai. All rights reserved.</p>
+        <p>&copy; 2025 Bogen.ai. All rights reserved.</p>
         <p>Miami Beach, FL | <a href="mailto:info@bogen.ai">info@bogen.ai</a></p>
       </div>
     </div>
@@ -252,27 +500,52 @@
           document.getElementById('page-description').setAttribute('content', post.meta_description);
         }
 
-        // Render post
+        // Update hero section
+        document.getElementById('hero-title').textContent = post.title;
+
+        const authorName = post.author_name || 'Edmund Bogen';
+        const publishDate = new Date(post.published_at).toLocaleDateString('en-US', {
+          month: 'long',
+          day: 'numeric',
+          year: 'numeric'
+        });
+        document.getElementById('hero-meta').innerHTML = `By <span>${authorName}</span> &bull; ${publishDate}`;
+
+        // Show category if available
+        if (post.category_name) {
+          const categoryBadge = document.getElementById('category-badge');
+          categoryBadge.textContent = post.category_name;
+          categoryBadge.style.display = 'inline-block';
+        }
+
+        // Show featured image if available
+        if (post.featured_image_url) {
+          const imageSection = document.getElementById('featured-image-section');
+          const featuredImage = document.getElementById('featured-image');
+          featuredImage.src = post.featured_image_url;
+          featuredImage.alt = post.title;
+          imageSection.style.display = 'block';
+        }
+
+        // Render post content with CTA
         const container = document.getElementById('blog-content');
         container.innerHTML = `
-          ${post.featured_image_url ? `<img src="${post.featured_image_url}" alt="${post.title}" class="featured-image">` : ''}
-
-          <h1>${post.title}</h1>
-
-          <div class="blog-meta">
-            <p class="text-small">
-              By ${post.author_name || 'Edmund Bogen'} • ${new Date(post.published_at).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}
-            </p>
-          </div>
-
-          <div>
+          <div class="post-body">
             ${post.content}
           </div>
+
+          <div class="blog-cta">
+            <h3>Ready to Transform Your Business with AI?</h3>
+            <p>Join Edmund's Mastermind and learn how to leverage AI for real results.</p>
+            <a href="/contact" class="btn btn-primary">Get Started Today</a>
+          </div>
         `;
+
       } catch (error) {
         console.error('Error loading blog post:', error);
+        document.getElementById('hero-title').textContent = 'Post Not Found';
+        document.getElementById('hero-meta').textContent = '';
         document.getElementById('blog-content').innerHTML = `
-          <h1>Post Not Found</h1>
           <p>Sorry, this blog post could not be found.</p>
           <p><a href="/blog" class="btn btn-primary">View All Posts</a></p>
         `;
