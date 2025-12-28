@@ -5,13 +5,374 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Tools We've Built | Bogen.ai</title>
   <meta name="description" content="Free productivity tools and applications built by Bogen.ai to help you work smarter and more efficiently.">
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/css/global.css">
-  <link rel="stylesheet" href="/css/chatbot.css">
+  <style>
+    :root {
+      --eb-navy: #1a3e5c;
+      --eb-cyan: #00a8e1;
+      --eb-white: #ffffff;
+      --eb-text: #333333;
+      --eb-light-bg: #f8f9fa;
+    }
+
+    /* Hero Section */
+    .tools-hero {
+      background: linear-gradient(135deg, var(--eb-navy) 0%, #0d1623 100%);
+      padding: 160px 0 100px 0;
+      margin-top: 80px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .tools-hero-content {
+      max-width: 800px;
+      text-align: center;
+      margin: 0 auto;
+      position: relative;
+      z-index: 2;
+    }
+
+    .tools-hero h1 {
+      color: var(--eb-white);
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      font-size: 3rem;
+      line-height: 1.2;
+      margin-bottom: 24px;
+    }
+
+    .tools-hero h1 span {
+      color: var(--eb-cyan);
+    }
+
+    .tools-hero p {
+      color: rgba(255, 255, 255, 0.9);
+      font-size: 1.25rem;
+      line-height: 1.7;
+    }
+
+    /* Stats Bar */
+    .stats-bar {
+      background: var(--eb-white);
+      padding: 48px 0;
+      border-bottom: 1px solid #e8e8e8;
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 32px;
+      text-align: center;
+    }
+
+    .stat-item {
+      padding: 0 16px;
+    }
+
+    .stat-number {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 3rem;
+      font-weight: 700;
+      color: var(--eb-navy);
+      line-height: 1;
+      margin-bottom: 8px;
+    }
+
+    .stat-number span {
+      color: var(--eb-cyan);
+    }
+
+    .stat-label {
+      font-size: 0.95rem;
+      color: #666;
+      font-weight: 500;
+    }
+
+    /* Tools Section */
+    .tools-section {
+      padding: 80px 0;
+      background: var(--eb-white);
+    }
+
+    .section-header {
+      text-align: center;
+      margin-bottom: 60px;
+    }
+
+    .section-header h2 {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: var(--eb-navy);
+      margin-bottom: 16px;
+    }
+
+    .section-header p {
+      font-size: 1.1rem;
+      color: #666;
+      max-width: 700px;
+      margin: 0 auto;
+      line-height: 1.7;
+    }
+
+    /* Featured Tool Card */
+    .featured-tool {
+      background: linear-gradient(135deg, var(--eb-navy) 0%, #0d1623 100%);
+      border-radius: 12px;
+      padding: 48px;
+      margin-bottom: 48px;
+      display: grid;
+      grid-template-columns: 1fr 1.5fr;
+      gap: 48px;
+      align-items: center;
+    }
+
+    .featured-tool-icon {
+      font-size: 6rem;
+      text-align: center;
+    }
+
+    .featured-tool-content h3 {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 1.75rem;
+      font-weight: 700;
+      color: var(--eb-white);
+      margin-bottom: 16px;
+    }
+
+    .featured-tool-content p {
+      color: rgba(255, 255, 255, 0.9);
+      font-size: 1.05rem;
+      line-height: 1.7;
+      margin-bottom: 20px;
+    }
+
+    .featured-tool-content ul {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 24px 0;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+    }
+
+    .featured-tool-content li {
+      color: rgba(255, 255, 255, 0.85);
+      font-size: 0.95rem;
+      padding-left: 24px;
+      position: relative;
+    }
+
+    .featured-tool-content li::before {
+      content: '✓';
+      position: absolute;
+      left: 0;
+      color: var(--eb-cyan);
+      font-weight: 700;
+    }
+
+    .featured-tool-buttons {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    /* Tools Grid */
+    .tools-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+
+    .tool-card {
+      background: var(--eb-white);
+      border: 1px solid #e8e8e8;
+      border-radius: 8px;
+      padding: 32px;
+      transition: all 0.3s ease;
+    }
+
+    .tool-card:hover {
+      border-color: var(--eb-cyan);
+      box-shadow: 0 8px 32px rgba(0, 168, 225, 0.15);
+      transform: translateY(-4px);
+    }
+
+    .tool-card-icon {
+      font-size: 3rem;
+      margin-bottom: 20px;
+    }
+
+    .tool-card h3 {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: var(--eb-navy);
+      margin-bottom: 12px;
+    }
+
+    .tool-card p {
+      color: #666;
+      font-size: 0.95rem;
+      line-height: 1.6;
+      margin-bottom: 20px;
+    }
+
+    .tool-card ul {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 24px 0;
+    }
+
+    .tool-card li {
+      color: #666;
+      font-size: 0.9rem;
+      padding: 6px 0;
+      padding-left: 20px;
+      position: relative;
+    }
+
+    .tool-card li::before {
+      content: '•';
+      position: absolute;
+      left: 0;
+      color: var(--eb-cyan);
+      font-weight: 700;
+    }
+
+    .tool-card .btn-primary {
+      display: inline-block;
+      background: var(--eb-cyan);
+      color: white;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 600;
+      font-size: 0.9rem;
+      padding: 12px 24px;
+      border-radius: 4px;
+      text-decoration: none;
+      transition: all 0.3s ease;
+    }
+
+    .tool-card .btn-primary:hover {
+      background: #008ec4;
+      transform: translateY(-2px);
+    }
+
+    /* CTA Section */
+    .cta-section {
+      background: linear-gradient(135deg, var(--eb-navy) 0%, #0d1623 100%);
+      padding: 80px 0;
+      text-align: center;
+    }
+
+    .cta-section h2 {
+      color: var(--eb-white);
+      font-family: 'Montserrat', sans-serif;
+      font-size: 2.25rem;
+      font-weight: 700;
+      margin-bottom: 16px;
+    }
+
+    .cta-section p {
+      color: rgba(255, 255, 255, 0.9);
+      font-size: 1.1rem;
+      margin-bottom: 32px;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .btn-primary-large {
+      display: inline-block;
+      background: var(--eb-cyan);
+      color: white;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 600;
+      padding: 16px 40px;
+      border-radius: 4px;
+      text-decoration: none;
+      transition: all 0.3s ease;
+    }
+
+    .btn-primary-large:hover {
+      background: #008ec4;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(0, 168, 225, 0.3);
+    }
+
+    .btn-secondary-hero {
+      display: inline-block;
+      background: transparent;
+      color: white;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 600;
+      padding: 14px 38px;
+      border: 2px solid white;
+      border-radius: 4px;
+      text-decoration: none;
+      transition: all 0.3s ease;
+    }
+
+    .btn-secondary-hero:hover {
+      background: white;
+      color: var(--eb-navy);
+    }
+
+    /* Responsive */
+    @media (max-width: 1024px) {
+      .tools-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .featured-tool-content ul {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .tools-hero {
+        padding: 120px 24px 60px 24px;
+      }
+
+      .tools-hero h1 {
+        font-size: 2rem;
+      }
+
+      .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 24px;
+      }
+
+      .stat-number {
+        font-size: 2rem;
+      }
+
+      .featured-tool {
+        grid-template-columns: 1fr;
+        text-align: center;
+        padding: 32px;
+      }
+
+      .featured-tool-icon {
+        font-size: 4rem;
+      }
+
+      .tools-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .featured-tool-buttons {
+        justify-content: center;
+      }
+    }
+  </style>
 </head>
 <body>
+
   <!-- Header -->
   <header class="header">
     <div class="container">
@@ -19,7 +380,6 @@
         <a href="/" class="logo" style="display: flex; align-items: center;">
           <img src="/images/eb-logo.png" alt="Bogen.ai Logo" style="height: 100px; width: auto;">
         </a>
-
         <ul class="nav-menu">
           <li><a href="/" class="nav-link">Home</a></li>
           <li class="nav-dropdown">
@@ -60,16 +420,12 @@
           <li class="nav-dropdown">
             <a href="/edmunds-mastermind" class="nav-link">Edmund's Mastermind ▾</a>
             <ul class="dropdown-menu">
-              <li><a href="/#mastermind-registration">Register Now for This Week's Meeting</a></li>
+              <li><a href="/edmunds-mastermind">Learn About Edmund's Mastermind</a></li>
               <li><a href="/contact?tab=client">Join Our Mastermind Community</a></li>
             </ul>
           </li>
           <li><a href="/blog" class="nav-link">Blog</a></li>
           <li><a href="/video-archive" class="nav-link">Video</a></li>
-          <li style="display: flex; flex-direction: column; align-items: center;">
-            <a href="tel:+14245870840" class="nav-link" style="color: var(--cyan); margin-bottom: 4px;">📞 Call Us</a>
-            <span style="font-size: 0.75rem; color: var(--cyan); opacity: 0.8;">424-587-0840</span>
-          </li>
           <li><a href="/contact" class="btn btn-primary btn-sm">Get Started</a></li>
         </ul>
         <button class="nav-toggle" type="button" aria-label="Toggle navigation" onclick="window.bogenAI.toggleMobileMenu()">
@@ -82,201 +438,179 @@
   </header>
 
   <!-- Hero Section -->
-  <section class="hero">
-    <div class="hero-bg"></div>
-    <div class="hero-content">
-      <h1>Tools We've Built</h1>
-      <p>Free productivity tools and applications designed to help you work smarter.</p>
+  <section class="tools-hero">
+    <div class="container">
+      <div class="tools-hero-content">
+        <h1>Productivity <span>Tools</span> for Everyone</h1>
+        <p>At Bogen.ai, we believe in giving back to the community. Here are some free tools we've built to help professionals like you stay focused, organized, and productive.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Stats Bar -->
+  <section class="stats-bar">
+    <div class="container">
+      <div class="stats-grid">
+        <div class="stat-item">
+          <div class="stat-number">8<span>+</span></div>
+          <div class="stat-label">Free Tools Available</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number">100<span>%</span></div>
+          <div class="stat-label">Free to Use</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number">$1B<span>+</span></div>
+          <div class="stat-label">Inventory Tracked</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number">21</div>
+          <div class="stat-label">Luxury Communities</div>
+        </div>
+      </div>
     </div>
   </section>
 
   <!-- Tools Section -->
-  <section class="section">
-    <div class="container" style="max-width: 900px;">
-      <h2 class="text-center mb-lg">Productivity Tools for Everyone</h2>
-      <p class="text-large text-center text-gray mb-xl">At Bogen.ai, we believe in giving back to the community. Here are some free tools we've built to help professionals like you stay focused, organized, and productive.</p>
+  <section class="tools-section">
+    <div class="container">
+      <div class="section-header">
+        <h2>Our Free Tools</h2>
+        <p>From productivity timers to luxury real estate analytics, these tools are designed to help you work smarter and make better decisions.</p>
+      </div>
 
-      <div class="grid grid-1 gap-lg">
-
-        <!-- Bogen.ai Main Website -->
-        <div class="card" style="border: 2px solid var(--cyan); box-shadow: 0 4px 12px rgba(0, 212, 255, 0.15);">
-          <div style="display: flex; align-items: flex-start; gap: var(--spacing-lg);">
-            <div style="font-size: 3rem; flex-shrink: 0;">🌐</div>
-            <div style="flex-grow: 1;">
-              <h3 style="margin-top: 0;">Bogen.ai - AI Automation Platform</h3>
-              <p>Our flagship platform for transforming businesses with AI automation. Features include:</p>
-              <ul style="margin: var(--spacing-md) 0; color: var(--text-gray);">
-                <li>AI-powered chatbot for instant customer engagement</li>
-                <li>Communication & customer interaction automation</li>
-                <li>Sales & revenue generation tools</li>
-                <li>Operations & workflow optimization</li>
-                <li>Marketing & content automation</li>
-                <li>Industry-specific AI solutions</li>
-                <li>Edmund's Mastermind community access</li>
-              </ul>
-              <div style="margin-top: var(--spacing-lg); display: flex; gap: var(--spacing-md); flex-wrap: wrap;">
-                <a href="https://www.bogen.ai" target="_blank" class="btn btn-primary">
-                  Visit Bogen.ai
-                </a>
-                <a href="https://www.bogen.ai/contact" target="_blank" class="btn btn-secondary">
-                  Get Started
-                </a>
-              </div>
-            </div>
+      <!-- Featured Tool: Bogen.ai Platform -->
+      <div class="featured-tool">
+        <div class="featured-tool-icon">🌐</div>
+        <div class="featured-tool-content">
+          <h3>Bogen.ai - AI Automation Platform</h3>
+          <p>Our flagship platform for transforming businesses with AI automation. Connect with us and discover how AI can revolutionize your workflow.</p>
+          <ul>
+            <li>AI-powered chatbot for instant engagement</li>
+            <li>Communication & customer automation</li>
+            <li>Sales & revenue generation tools</li>
+            <li>Operations & workflow optimization</li>
+            <li>Marketing & content automation</li>
+            <li>Industry-specific AI solutions</li>
+          </ul>
+          <div class="featured-tool-buttons">
+            <a href="https://www.bogen.ai" target="_blank" class="btn-primary-large">Visit Bogen.ai</a>
+            <a href="/contact" class="btn-secondary-hero">Get Started</a>
           </div>
         </div>
+      </div>
 
-        <!-- Bogen.ai Chatbot App -->
-        <div class="card" style="border: 2px solid var(--cyan); box-shadow: 0 4px 12px rgba(0, 212, 255, 0.15);">
-          <div style="display: flex; align-items: flex-start; gap: var(--spacing-lg);">
-            <div style="font-size: 3rem; flex-shrink: 0;">💬</div>
-            <div style="flex-grow: 1;">
-              <h3 style="margin-top: 0;">Bogen.ai Chatbot</h3>
-              <p>Standalone AI assistant for learning about our services and scheduling strategy calls. Features include:</p>
-              <ul style="margin: var(--spacing-md) 0; color: var(--text-gray);">
-                <li>Real-time AI conversations with Edmund's assistant</li>
-                <li>Instant answers about AI automation services</li>
-                <li>Quick actions for common questions</li>
-                <li>Direct scheduling for strategy calls</li>
-                <li>Conversation history with reset option</li>
-                <li>Beautiful gradient UI with smooth animations</li>
-              </ul>
-              <div style="margin-top: var(--spacing-lg); display: flex; gap: var(--spacing-md); flex-wrap: wrap;">
-                <a href="https://edmundbogen.github.io/bogen-ai-chatbot/" target="_blank" class="btn btn-primary">
-                  Launch Chatbot
-                </a>
-              </div>
-            </div>
-          </div>
+      <!-- Tools Grid -->
+      <div class="tools-grid">
+
+        <!-- Bogen.ai Chatbot -->
+        <div class="tool-card">
+          <div class="tool-card-icon">💬</div>
+          <h3>Bogen.ai Chatbot</h3>
+          <p>Standalone AI assistant for learning about our services and scheduling strategy calls.</p>
+          <ul>
+            <li>Real-time AI conversations</li>
+            <li>Instant answers about services</li>
+            <li>Quick actions for common questions</li>
+            <li>Direct scheduling for calls</li>
+          </ul>
+          <a href="https://edmundbogen.github.io/bogen-ai-chatbot/" target="_blank" class="btn-primary">Launch Chatbot</a>
         </div>
 
-        <!-- Focus Timer Tool -->
-        <div class="card" style="border: 2px solid var(--cyan); box-shadow: 0 4px 12px rgba(0, 212, 255, 0.15);">
-          <div style="display: flex; align-items: flex-start; gap: var(--spacing-lg);">
-            <div style="font-size: 3rem; flex-shrink: 0;">⏱️</div>
-            <div style="flex-grow: 1;">
-              <h3 style="margin-top: 0;">Edmund Bogen Focus Timer</h3>
-              <p>A powerful focus timer designed to help you maintain deep work sessions and track your productivity. Features include:</p>
-              <ul style="margin: var(--spacing-md) 0; color: var(--text-gray);">
-                <li>Customizable focus sessions with task management</li>
-                <li>Session tracking and productivity analytics</li>
-                <li>Focus score rating (1-10) to monitor your concentration</li>
-                <li>Accomplishments log to celebrate your wins</li>
-                <li>Local storage - your data stays private on your device</li>
-                <li>Streak tracking to build consistent work habits</li>
-              </ul>
-              <div style="margin-top: var(--spacing-lg); display: flex; gap: var(--spacing-md); flex-wrap: wrap;">
-                <a href="https://edmundbogen.github.io/edmund-bogen-focus-timer/" target="_blank" class="btn btn-primary">
-                  Launch Focus Timer
-                </a>
-                <a href="https://edmundbogen.github.io/edmund-bogen-focus-timer/" target="_blank" class="btn btn-secondary">
-                  Learn More
-                </a>
-              </div>
-            </div>
-          </div>
+        <!-- Focus Timer -->
+        <div class="tool-card">
+          <div class="tool-card-icon">⏱️</div>
+          <h3>Edmund Bogen Focus Timer</h3>
+          <p>A powerful focus timer to maintain deep work sessions and track productivity.</p>
+          <ul>
+            <li>Customizable focus sessions</li>
+            <li>Session tracking & analytics</li>
+            <li>Focus score rating (1-10)</li>
+            <li>Streak tracking for habits</li>
+          </ul>
+          <a href="https://edmundbogen.github.io/edmund-bogen-focus-timer/" target="_blank" class="btn-primary">Launch Timer</a>
         </div>
 
-        <!-- FOS Detector Tool -->
-        <div class="card" style="border: 2px solid var(--cyan); box-shadow: 0 4px 12px rgba(0, 212, 255, 0.15);">
-          <div style="display: flex; align-items: flex-start; gap: var(--spacing-lg);">
-            <div style="font-size: 3rem; flex-shrink: 0;">🔍</div>
-            <div style="flex-grow: 1;">
-              <h3 style="margin-top: 0;">Edmund's FOS Detector</h3>
-              <p>Professional Analysis Suite for detecting questionable claims and "Full of Sh*t" statements. Features include:</p>
-              <ul style="margin: var(--spacing-md) 0; color: var(--text-gray);">
-                <li>Advanced deception pattern detection</li>
-                <li>Real-time analysis of text and statements</li>
-                <li>Professional dark-themed interface</li>
-                <li>Confidence scoring system</li>
-                <li>Save and export analysis results</li>
-              </ul>
-              <div style="margin-top: var(--spacing-lg); display: flex; gap: var(--spacing-md); flex-wrap: wrap;">
-                <a href="https://edmundbogen.github.io/fos-detector/" target="_blank" class="btn btn-primary">
-                  Launch FOS Detector
-                </a>
-              </div>
-            </div>
-          </div>
+        <!-- FOS Detector -->
+        <div class="tool-card">
+          <div class="tool-card-icon">🔍</div>
+          <h3>Edmund's FOS Detector</h3>
+          <p>Professional analysis suite for detecting questionable claims and statements.</p>
+          <ul>
+            <li>Deception pattern detection</li>
+            <li>Real-time text analysis</li>
+            <li>Confidence scoring system</li>
+            <li>Export analysis results</li>
+          </ul>
+          <a href="https://edmundbogen.github.io/fos-detector/" target="_blank" class="btn-primary">Launch Detector</a>
         </div>
 
         <!-- Luxury Mortgage Calculator -->
-        <div class="card" style="border: 2px solid var(--cyan); box-shadow: 0 4px 12px rgba(0, 212, 255, 0.15);">
-          <div style="display: flex; align-items: flex-start; gap: var(--spacing-lg);">
-            <div style="font-size: 3rem; flex-shrink: 0;">💰</div>
-            <div style="flex-grow: 1;">
-              <h3 style="margin-top: 0;">Luxury Mortgage Calculator</h3>
-              <p>Interactive mortgage calculator designed for luxury real estate investments. Features include:</p>
-              <ul style="margin: var(--spacing-md) 0; color: var(--text-gray);">
-                <li>Accurate payment calculations for high-value properties</li>
-                <li>Customizable down payment and interest rates</li>
-                <li>Professional interface matching luxury brand standards</li>
-                <li>Direct connection to mortgage partner Cliff Bernstein</li>
-                <li>Real-time amortization breakdown</li>
-              </ul>
-              <div style="margin-top: var(--spacing-lg); display: flex; gap: var(--spacing-md); flex-wrap: wrap;">
-                <a href="https://edmundbogen.github.io/luxury-mortgage-calculator/" target="_blank" class="btn btn-primary">
-                  Launch Calculator
-                </a>
-              </div>
-            </div>
-          </div>
+        <div class="tool-card">
+          <div class="tool-card-icon">💰</div>
+          <h3>Luxury Mortgage Calculator</h3>
+          <p>Interactive mortgage calculator designed for luxury real estate investments.</p>
+          <ul>
+            <li>High-value property calculations</li>
+            <li>Customizable rates & down payment</li>
+            <li>Real-time amortization</li>
+            <li>Direct mortgage partner contact</li>
+          </ul>
+          <a href="https://edmundbogen.github.io/luxury-mortgage-calculator/" target="_blank" class="btn-primary">Launch Calculator</a>
         </div>
 
         <!-- Luxury Community Dashboard -->
-        <div class="card" style="border: 2px solid var(--cyan); box-shadow: 0 4px 12px rgba(0, 212, 255, 0.15);">
-          <div style="display: flex; align-items: flex-start; gap: var(--spacing-lg);">
-            <div style="font-size: 3rem; flex-shrink: 0;">📊</div>
-            <div style="flex-grow: 1;">
-              <h3 style="margin-top: 0;">Luxury Communities Market Dashboard</h3>
-              <p>Real-time market intelligence for Palm Beach County luxury communities. Features include:</p>
-              <ul style="margin: var(--spacing-md) 0; color: var(--text-gray);">
-                <li>Live market data and analytics</li>
-                <li>Interactive charts and visualizations</li>
-                <li>Community-specific inventory tracking</li>
-                <li>Price trends and market insights</li>
-                <li>Direct contact to Edmund Bogen</li>
-              </ul>
-              <div style="margin-top: var(--spacing-lg); display: flex; gap: var(--spacing-md); flex-wrap: wrap;">
-                <a href="https://edmundbogen.github.io/luxury-community-dashboard/" target="_blank" class="btn btn-primary">
-                  View Dashboard
-                </a>
-              </div>
-            </div>
-          </div>
+        <div class="tool-card">
+          <div class="tool-card-icon">📊</div>
+          <h3>Luxury Communities Dashboard</h3>
+          <p>Real-time market intelligence for Palm Beach County luxury communities.</p>
+          <ul>
+            <li>Live market data & analytics</li>
+            <li>Interactive charts</li>
+            <li>Community inventory tracking</li>
+            <li>Price trends & insights</li>
+          </ul>
+          <a href="https://edmundbogen.github.io/luxury-community-dashboard/" target="_blank" class="btn-primary">View Dashboard</a>
         </div>
 
         <!-- Luxury Market Report -->
-        <div class="card" style="border: 2px solid var(--cyan); box-shadow: 0 4px 12px rgba(0, 212, 255, 0.15);">
-          <div style="display: flex; align-items: flex-start; gap: var(--spacing-lg);">
-            <div style="font-size: 3rem; flex-shrink: 0;">📈</div>
-            <div style="flex-grow: 1;">
-              <h3 style="margin-top: 0;">Luxury Market Interactive Report</h3>
-              <p>Real-time analysis of luxury communities in Boca Raton and Delray Beach. Features include:</p>
-              <ul style="margin: var(--spacing-md) 0; color: var(--text-gray);">
-                <li>Over $1B in combined inventory tracking</li>
-                <li>21 luxury communities analyzed</li>
-                <li>Interactive market data visualization</li>
-                <li>Fall 2024-2025 season insights</li>
-                <li>Professional real estate intelligence</li>
-              </ul>
-              <div style="margin-top: var(--spacing-lg); display: flex; gap: var(--spacing-md); flex-wrap: wrap;">
-                <a href="https://edmundbogen.github.io/edmund-bogen-real-estate-report/" target="_blank" class="btn btn-primary">
-                  View Market Report
-                </a>
-              </div>
-            </div>
-          </div>
+        <div class="tool-card">
+          <div class="tool-card-icon">📈</div>
+          <h3>Luxury Market Report</h3>
+          <p>Real-time analysis of luxury communities in Boca Raton and Delray Beach.</p>
+          <ul>
+            <li>Over $1B inventory tracked</li>
+            <li>21 communities analyzed</li>
+            <li>Interactive visualization</li>
+            <li>Season insights & forecasts</li>
+          </ul>
+          <a href="https://edmundbogen.github.io/edmund-bogen-real-estate-report/" target="_blank" class="btn-primary">View Report</a>
+        </div>
+
+        <!-- Investment Property Analyzer -->
+        <div class="tool-card">
+          <div class="tool-card-icon">🏠</div>
+          <h3>Investment Property Analyzer</h3>
+          <p>Comprehensive investment analysis tool for evaluating rental property opportunities.</p>
+          <ul>
+            <li>Cap Rate & Cash-on-Cash calculations</li>
+            <li>DSCR & GRM analysis</li>
+            <li>1%, 2%, 50%, 70% rule checks</li>
+            <li>Instant PDF report download</li>
+          </ul>
+          <a href="https://investment-analyzer-three.vercel.app/" target="_blank" class="btn-primary">Launch Analyzer</a>
         </div>
 
       </div>
+    </div>
+  </section>
 
-      <!-- Call to Action -->
-      <div class="text-center mt-xl" style="background: linear-gradient(135deg, var(--navy) 0%, #0d1623 100%); padding: var(--spacing-xxl); border-radius: var(--border-radius); box-shadow: var(--shadow-lg);">
-        <h3 style="color: var(--white); margin-bottom: var(--spacing-md);">Need Custom AI Tools for Your Business?</h3>
-        <p style="color: rgba(255, 255, 255, 0.9); margin-bottom: var(--spacing-lg); max-width: 600px; margin-left: auto; margin-right: auto;">These free tools are just the beginning. We build custom AI automation solutions tailored to your specific business needs.</p>
-        <a href="/contact" class="btn btn-primary btn-lg">Request Custom Proposal</a>
-      </div>
+  <!-- CTA Section -->
+  <section class="cta-section">
+    <div class="container">
+      <h2>Need Custom AI Tools for Your Business?</h2>
+      <p>These free tools are just the beginning. We build custom AI automation solutions tailored to your specific business needs.</p>
+      <a href="/contact" class="btn-primary-large">Request Custom Proposal</a>
     </div>
   </section>
 
@@ -287,12 +621,11 @@
         <div class="footer-column">
           <h4>About</h4>
           <ul class="footer-links">
-            <li><a href="/about-edmund">About Edmund</a></li>
-            <li><a href="/about-eytan">About Eytan</a></li>
+            <li><a href="/about-us">About Us</a></li>
+            <li><a href="/blog">Blog</a></li>
             <li><a href="/contact">Contact Us</a></li>
           </ul>
         </div>
-
         <div class="footer-column">
           <h4>Services</h4>
           <ul class="footer-links">
@@ -303,15 +636,13 @@
             <li><a href="/services/industry-specific-premium">Industry-Specific</a></li>
           </ul>
         </div>
-
         <div class="footer-column">
-          <h4>Partner Program</h4>
+          <h4>Partnership</h4>
           <ul class="footer-links">
             <li><a href="/partner-program">How It Works</a></li>
             <li><a href="/partner-portal">Partner Login</a></li>
           </ul>
         </div>
-
         <div class="footer-column">
           <h4>Legal</h4>
           <ul class="footer-links">
@@ -320,16 +651,13 @@
           </ul>
         </div>
       </div>
-
       <div class="footer-bottom">
-        <p>© 2025 Bogen.ai. All rights reserved.</p>
+        <p>&copy; 2025 Bogen.ai. All rights reserved.</p>
         <p>Miami Beach, FL | <a href="mailto:info@bogen.ai">info@bogen.ai</a></p>
       </div>
     </div>
   </footer>
 
-  <!-- Scripts -->
   <script src="/js/common.js"></script>
-  <script src="/js/chatbot.js"></script>
 </body>
 </html>
