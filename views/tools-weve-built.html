@@ -119,55 +119,122 @@
       line-height: 1.7;
     }
 
-    /* Featured Tool Card */
-    .featured-tool {
-      background: linear-gradient(135deg, var(--eb-navy) 0%, #0d1623 100%);
-      border-radius: 12px;
-      padding: 48px;
-      margin-bottom: 48px;
-      display: grid;
-      grid-template-columns: 1fr 1.5fr;
-      gap: 48px;
+    /* Tools List */
+    .tools-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .tool-item {
+      display: block;
+      text-decoration: none;
+      background: var(--eb-white);
+      border: 1px solid #e8e8e8;
+      border-radius: 8px;
+      padding: 20px 32px;
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      cursor: pointer;
+      overflow: hidden;
+    }
+
+    .tool-item:hover {
+      border-color: var(--eb-cyan);
+      box-shadow: 0 12px 40px rgba(0, 168, 225, 0.2);
+      transform: scale(1.02);
+      background: linear-gradient(135deg, var(--eb-white) 0%, #f0faff 100%);
+    }
+
+    .tool-item-header {
+      display: flex;
       align-items: center;
+      gap: 20px;
     }
 
-    .featured-tool-icon {
-      font-size: 6rem;
-      text-align: center;
+    .tool-item-icon {
+      font-size: 2.5rem;
+      flex-shrink: 0;
+      transition: transform 0.4s ease;
     }
 
-    .featured-tool-content h3 {
+    .tool-item:hover .tool-item-icon {
+      transform: scale(1.2);
+    }
+
+    .tool-item-title {
+      flex: 1;
+    }
+
+    .tool-item-title h3 {
       font-family: 'Montserrat', sans-serif;
-      font-size: 1.75rem;
-      font-weight: 700;
-      color: var(--eb-white);
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: var(--eb-navy);
+      margin: 0 0 4px 0;
+      transition: color 0.3s ease;
+    }
+
+    .tool-item:hover .tool-item-title h3 {
+      color: var(--eb-cyan);
+    }
+
+    .tool-item-title .tool-tagline {
+      color: #888;
+      font-size: 0.9rem;
+      margin: 0;
+    }
+
+    .tool-item-arrow {
+      font-size: 1.5rem;
+      color: #ccc;
+      transition: all 0.3s ease;
+    }
+
+    .tool-item:hover .tool-item-arrow {
+      color: var(--eb-cyan);
+      transform: translateX(5px);
+    }
+
+    .tool-item-details {
+      max-height: 0;
+      opacity: 0;
+      overflow: hidden;
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      padding-left: 76px;
+    }
+
+    .tool-item:hover .tool-item-details {
+      max-height: 300px;
+      opacity: 1;
+      padding-top: 20px;
+    }
+
+    .tool-item-details p {
+      color: #555;
+      font-size: 0.95rem;
+      line-height: 1.6;
       margin-bottom: 16px;
     }
 
-    .featured-tool-content p {
-      color: rgba(255, 255, 255, 0.9);
-      font-size: 1.05rem;
-      line-height: 1.7;
-      margin-bottom: 20px;
-    }
-
-    .featured-tool-content ul {
+    .tool-item-details ul {
       list-style: none;
       padding: 0;
-      margin: 0 0 24px 0;
+      margin: 0 0 20px 0;
       display: grid;
       grid-template-columns: repeat(2, 1fr);
-      gap: 12px;
+      gap: 8px;
     }
 
-    .featured-tool-content li {
-      color: rgba(255, 255, 255, 0.85);
-      font-size: 0.95rem;
-      padding-left: 24px;
+    .tool-item-details li {
+      color: #666;
+      font-size: 0.85rem;
+      padding-left: 18px;
       position: relative;
     }
 
-    .featured-tool-content li::before {
+    .tool-item-details li::before {
       content: '✓';
       position: absolute;
       left: 0;
@@ -175,91 +242,21 @@
       font-weight: 700;
     }
 
-    .featured-tool-buttons {
-      display: flex;
-      gap: 16px;
-      flex-wrap: wrap;
-    }
-
-    /* Tools Grid */
-    .tools-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 24px;
-    }
-
-    .tool-card {
-      background: var(--eb-white);
-      border: 1px solid #e8e8e8;
-      border-radius: 8px;
-      padding: 32px;
-      transition: all 0.3s ease;
-    }
-
-    .tool-card:hover {
-      border-color: var(--eb-cyan);
-      box-shadow: 0 8px 32px rgba(0, 168, 225, 0.15);
-      transform: translateY(-4px);
-    }
-
-    .tool-card-icon {
-      font-size: 3rem;
-      margin-bottom: 20px;
-    }
-
-    .tool-card h3 {
-      font-family: 'Montserrat', sans-serif;
-      font-size: 1.25rem;
-      font-weight: 600;
-      color: var(--eb-navy);
-      margin-bottom: 12px;
-    }
-
-    .tool-card p {
-      color: #666;
-      font-size: 0.95rem;
-      line-height: 1.6;
-      margin-bottom: 20px;
-    }
-
-    .tool-card ul {
-      list-style: none;
-      padding: 0;
-      margin: 0 0 24px 0;
-    }
-
-    .tool-card li {
-      color: #666;
-      font-size: 0.9rem;
-      padding: 6px 0;
-      padding-left: 20px;
-      position: relative;
-    }
-
-    .tool-card li::before {
-      content: '•';
-      position: absolute;
-      left: 0;
-      color: var(--eb-cyan);
-      font-weight: 700;
-    }
-
-    .tool-card .btn-primary {
+    .tool-item-details .btn-primary {
       display: inline-block;
       background: var(--eb-cyan);
       color: white;
       font-family: 'Montserrat', sans-serif;
       font-weight: 600;
-      font-size: 0.9rem;
-      padding: 12px 24px;
+      font-size: 0.85rem;
+      padding: 10px 24px;
       border-radius: 4px;
       text-decoration: none;
       transition: all 0.3s ease;
     }
 
-    .tool-card .btn-primary:hover {
+    .tool-item-details .btn-primary:hover {
       background: #008ec4;
-      transform: translateY(-2px);
     }
 
     /* CTA Section */
@@ -323,16 +320,6 @@
     }
 
     /* Responsive */
-    @media (max-width: 1024px) {
-      .tools-grid {
-        grid-template-columns: repeat(2, 1fr);
-      }
-
-      .featured-tool-content ul {
-        grid-template-columns: 1fr;
-      }
-    }
-
     @media (max-width: 768px) {
       .tools-hero {
         padding: 120px 24px 60px 24px;
@@ -351,22 +338,28 @@
         font-size: 2rem;
       }
 
-      .featured-tool {
+      .tool-item {
+        padding: 16px 20px;
+      }
+
+      .tool-item-header {
+        gap: 12px;
+      }
+
+      .tool-item-icon {
+        font-size: 2rem;
+      }
+
+      .tool-item-title h3 {
+        font-size: 1.1rem;
+      }
+
+      .tool-item-details {
+        padding-left: 0;
+      }
+
+      .tool-item-details ul {
         grid-template-columns: 1fr;
-        text-align: center;
-        padding: 32px;
-      }
-
-      .featured-tool-icon {
-        font-size: 4rem;
-      }
-
-      .tools-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .featured-tool-buttons {
-        justify-content: center;
       }
     }
   </style>
@@ -480,127 +473,184 @@
         <p>From productivity timers to luxury real estate analytics, these tools are designed to help you work smarter and make better decisions.</p>
       </div>
 
-      <!-- Featured Tool: Bogen.ai Platform -->
-      <div class="featured-tool">
-        <div class="featured-tool-icon">🌐</div>
-        <div class="featured-tool-content">
-          <h3>Bogen.ai - AI Automation Platform</h3>
-          <p>Our flagship platform for transforming businesses with AI automation. Connect with us and discover how AI can revolutionize your workflow.</p>
-          <ul>
-            <li>AI-powered chatbot for instant engagement</li>
-            <li>Communication & customer automation</li>
-            <li>Sales & revenue generation tools</li>
-            <li>Operations & workflow optimization</li>
-            <li>Marketing & content automation</li>
-            <li>Industry-specific AI solutions</li>
-          </ul>
-          <div class="featured-tool-buttons">
-            <a href="https://www.bogen.ai" target="_blank" class="btn-primary-large">Visit Bogen.ai</a>
-            <a href="/contact" class="btn-secondary-hero">Get Started</a>
-          </div>
-        </div>
-      </div>
-
-      <!-- Tools Grid -->
-      <div class="tools-grid">
-
-        <!-- Bogen.ai Chatbot -->
-        <div class="tool-card">
-          <div class="tool-card-icon">💬</div>
-          <h3>Bogen.ai Chatbot</h3>
-          <p>Standalone AI assistant for learning about our services and scheduling strategy calls.</p>
-          <ul>
-            <li>Real-time AI conversations</li>
-            <li>Instant answers about services</li>
-            <li>Quick actions for common questions</li>
-            <li>Direct scheduling for calls</li>
-          </ul>
-          <a href="https://edmundbogen.github.io/bogen-ai-chatbot/" target="_blank" class="btn-primary">Launch Chatbot</a>
-        </div>
-
-        <!-- Focus Timer -->
-        <div class="tool-card">
-          <div class="tool-card-icon">⏱️</div>
-          <h3>Edmund Bogen Focus Timer</h3>
-          <p>A powerful focus timer to maintain deep work sessions and track productivity.</p>
-          <ul>
-            <li>Customizable focus sessions</li>
-            <li>Session tracking & analytics</li>
-            <li>Focus score rating (1-10)</li>
-            <li>Streak tracking for habits</li>
-          </ul>
-          <a href="https://edmundbogen.github.io/edmund-bogen-focus-timer/" target="_blank" class="btn-primary">Launch Timer</a>
-        </div>
-
-        <!-- FOS Detector -->
-        <div class="tool-card">
-          <div class="tool-card-icon">🔍</div>
-          <h3>Edmund's FOS Detector</h3>
-          <p>Professional analysis suite for detecting questionable claims and statements.</p>
-          <ul>
-            <li>Deception pattern detection</li>
-            <li>Real-time text analysis</li>
-            <li>Confidence scoring system</li>
-            <li>Export analysis results</li>
-          </ul>
-          <a href="https://edmundbogen.github.io/fos-detector/" target="_blank" class="btn-primary">Launch Detector</a>
-        </div>
-
-        <!-- Luxury Mortgage Calculator -->
-        <div class="tool-card">
-          <div class="tool-card-icon">💰</div>
-          <h3>Luxury Mortgage Calculator</h3>
-          <p>Interactive mortgage calculator designed for luxury real estate investments.</p>
-          <ul>
-            <li>High-value property calculations</li>
-            <li>Customizable rates & down payment</li>
-            <li>Real-time amortization</li>
-            <li>Direct mortgage partner contact</li>
-          </ul>
-          <a href="https://edmundbogen.github.io/luxury-mortgage-calculator/" target="_blank" class="btn-primary">Launch Calculator</a>
-        </div>
-
-        <!-- Luxury Community Dashboard -->
-        <div class="tool-card">
-          <div class="tool-card-icon">📊</div>
-          <h3>Luxury Communities Dashboard</h3>
-          <p>Real-time market intelligence for Palm Beach County luxury communities.</p>
-          <ul>
-            <li>Live market data & analytics</li>
-            <li>Interactive charts</li>
-            <li>Community inventory tracking</li>
-            <li>Price trends & insights</li>
-          </ul>
-          <a href="https://edmundbogen.github.io/luxury-community-dashboard/" target="_blank" class="btn-primary">View Dashboard</a>
-        </div>
-
-        <!-- Luxury Market Report -->
-        <div class="tool-card">
-          <div class="tool-card-icon">📈</div>
-          <h3>Luxury Market Report</h3>
-          <p>Real-time analysis of luxury communities in Boca Raton and Delray Beach.</p>
-          <ul>
-            <li>Over $1B inventory tracked</li>
-            <li>21 communities analyzed</li>
-            <li>Interactive visualization</li>
-            <li>Season insights & forecasts</li>
-          </ul>
-          <a href="https://edmundbogen.github.io/edmund-bogen-real-estate-report/" target="_blank" class="btn-primary">View Report</a>
-        </div>
+      <!-- Tools List -->
+      <div class="tools-list">
 
         <!-- Investment Property Analyzer -->
-        <div class="tool-card">
-          <div class="tool-card-icon">🏠</div>
-          <h3>Investment Property Analyzer</h3>
-          <p>Comprehensive investment analysis tool for evaluating rental property opportunities.</p>
-          <ul>
-            <li>Cap Rate & Cash-on-Cash calculations</li>
-            <li>DSCR & GRM analysis</li>
-            <li>1%, 2%, 50%, 70% rule checks</li>
-            <li>Instant PDF report download</li>
-          </ul>
-          <a href="https://investment-analyzer-three.vercel.app/" target="_blank" class="btn-primary">Launch Analyzer</a>
-        </div>
+        <a href="https://investment-analyzer-three.vercel.app/" target="_blank" class="tool-item">
+          <div class="tool-item-header">
+            <div class="tool-item-icon">🏠</div>
+            <div class="tool-item-title">
+              <h3>Investment Property Analyzer</h3>
+              <p class="tool-tagline">Evaluate rental property opportunities</p>
+            </div>
+            <div class="tool-item-arrow">→</div>
+          </div>
+          <div class="tool-item-details">
+            <p>Comprehensive investment analysis tool with instant PDF reports branded for your use.</p>
+            <ul>
+              <li>Cap Rate & Cash-on-Cash calculations</li>
+              <li>DSCR & GRM analysis</li>
+              <li>1%, 2%, 50%, 70% rule checks</li>
+              <li>Instant PDF report download</li>
+            </ul>
+            <span class="btn-primary">Launch Analyzer</span>
+          </div>
+        </a>
+
+        <!-- Luxury Mortgage Calculator -->
+        <a href="https://edmundbogen.github.io/luxury-mortgage-calculator/" target="_blank" class="tool-item">
+          <div class="tool-item-header">
+            <div class="tool-item-icon">💰</div>
+            <div class="tool-item-title">
+              <h3>Luxury Mortgage Calculator</h3>
+              <p class="tool-tagline">Calculate payments for high-value properties</p>
+            </div>
+            <div class="tool-item-arrow">→</div>
+          </div>
+          <div class="tool-item-details">
+            <p>Interactive mortgage calculator designed for luxury real estate investments.</p>
+            <ul>
+              <li>High-value property calculations</li>
+              <li>Customizable rates & down payment</li>
+              <li>Real-time amortization</li>
+              <li>Direct mortgage partner contact</li>
+            </ul>
+            <span class="btn-primary">Launch Calculator</span>
+          </div>
+        </a>
+
+        <!-- Luxury Communities Dashboard -->
+        <a href="https://edmundbogen.github.io/luxury-community-dashboard/" target="_blank" class="tool-item">
+          <div class="tool-item-header">
+            <div class="tool-item-icon">📊</div>
+            <div class="tool-item-title">
+              <h3>Luxury Communities Dashboard</h3>
+              <p class="tool-tagline">Palm Beach County market intelligence</p>
+            </div>
+            <div class="tool-item-arrow">→</div>
+          </div>
+          <div class="tool-item-details">
+            <p>Real-time market intelligence for Palm Beach County luxury communities.</p>
+            <ul>
+              <li>Live market data & analytics</li>
+              <li>Interactive charts</li>
+              <li>Community inventory tracking</li>
+              <li>Price trends & insights</li>
+            </ul>
+            <span class="btn-primary">View Dashboard</span>
+          </div>
+        </a>
+
+        <!-- Luxury Market Report -->
+        <a href="https://edmundbogen.github.io/edmund-bogen-real-estate-report/" target="_blank" class="tool-item">
+          <div class="tool-item-header">
+            <div class="tool-item-icon">📈</div>
+            <div class="tool-item-title">
+              <h3>Luxury Market Report</h3>
+              <p class="tool-tagline">Boca Raton & Delray Beach analysis</p>
+            </div>
+            <div class="tool-item-arrow">→</div>
+          </div>
+          <div class="tool-item-details">
+            <p>Real-time analysis of luxury communities in Boca Raton and Delray Beach.</p>
+            <ul>
+              <li>Over $1B inventory tracked</li>
+              <li>21 communities analyzed</li>
+              <li>Interactive visualization</li>
+              <li>Season insights & forecasts</li>
+            </ul>
+            <span class="btn-primary">View Report</span>
+          </div>
+        </a>
+
+        <!-- Focus Timer -->
+        <a href="https://edmundbogen.github.io/edmund-bogen-focus-timer/" target="_blank" class="tool-item">
+          <div class="tool-item-header">
+            <div class="tool-item-icon">⏱️</div>
+            <div class="tool-item-title">
+              <h3>Focus Timer</h3>
+              <p class="tool-tagline">Maintain deep work sessions</p>
+            </div>
+            <div class="tool-item-arrow">→</div>
+          </div>
+          <div class="tool-item-details">
+            <p>A powerful focus timer to maintain deep work sessions and track productivity.</p>
+            <ul>
+              <li>Customizable focus sessions</li>
+              <li>Session tracking & analytics</li>
+              <li>Focus score rating (1-10)</li>
+              <li>Streak tracking for habits</li>
+            </ul>
+            <span class="btn-primary">Launch Timer</span>
+          </div>
+        </a>
+
+        <!-- FOS Detector -->
+        <a href="https://edmundbogen.github.io/fos-detector/" target="_blank" class="tool-item">
+          <div class="tool-item-header">
+            <div class="tool-item-icon">🔍</div>
+            <div class="tool-item-title">
+              <h3>FOS Detector</h3>
+              <p class="tool-tagline">Analyze questionable claims</p>
+            </div>
+            <div class="tool-item-arrow">→</div>
+          </div>
+          <div class="tool-item-details">
+            <p>Professional analysis suite for detecting questionable claims and statements.</p>
+            <ul>
+              <li>Deception pattern detection</li>
+              <li>Real-time text analysis</li>
+              <li>Confidence scoring system</li>
+              <li>Export analysis results</li>
+            </ul>
+            <span class="btn-primary">Launch Detector</span>
+          </div>
+        </a>
+
+        <!-- Bogen.ai Chatbot -->
+        <a href="https://edmundbogen.github.io/bogen-ai-chatbot/" target="_blank" class="tool-item">
+          <div class="tool-item-header">
+            <div class="tool-item-icon">💬</div>
+            <div class="tool-item-title">
+              <h3>Bogen.ai Chatbot</h3>
+              <p class="tool-tagline">AI assistant for our services</p>
+            </div>
+            <div class="tool-item-arrow">→</div>
+          </div>
+          <div class="tool-item-details">
+            <p>Standalone AI assistant for learning about our services and scheduling strategy calls.</p>
+            <ul>
+              <li>Real-time AI conversations</li>
+              <li>Instant answers about services</li>
+              <li>Quick actions for common questions</li>
+              <li>Direct scheduling for calls</li>
+            </ul>
+            <span class="btn-primary">Launch Chatbot</span>
+          </div>
+        </a>
+
+        <!-- Bogen.ai Website -->
+        <a href="https://www.bogen.ai" target="_blank" class="tool-item">
+          <div class="tool-item-header">
+            <div class="tool-item-icon">🌐</div>
+            <div class="tool-item-title">
+              <h3>Bogen.ai Platform</h3>
+              <p class="tool-tagline">AI automation for your business</p>
+            </div>
+            <div class="tool-item-arrow">→</div>
+          </div>
+          <div class="tool-item-details">
+            <p>Our flagship platform for transforming businesses with AI automation.</p>
+            <ul>
+              <li>AI-powered chatbot engagement</li>
+              <li>Communication automation</li>
+              <li>Sales & revenue tools</li>
+              <li>Industry-specific solutions</li>
+            </ul>
+            <span class="btn-primary">Visit Bogen.ai</span>
+          </div>
+        </a>
 
       </div>
     </div>
