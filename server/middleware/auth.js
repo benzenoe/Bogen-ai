@@ -85,6 +85,37 @@ function authenticateAdmin(req, res, next) {
 }
 
 /**
+ * Middleware to authenticate client portal requests
+ */
+function authenticateClient(req, res, next) {
+  try {
+    const token = req.headers.authorization?.split(' ')[1] || req.cookies.client_token;
+
+    if (!token) {
+      return res.status(401).json({ error: 'Client authentication required' });
+    }
+
+    const decoded = verifyToken(token);
+
+    if (!decoded || decoded.type !== 'client') {
+      return res.status(401).json({ error: 'Invalid or expired client token' });
+    }
+
+    req.client = {
+      id: decoded.id,
+      email: decoded.email,
+      firstName: decoded.firstName,
+      lastName: decoded.lastName
+    };
+
+    next();
+  } catch (error) {
+    console.error('Client auth error:', error);
+    return res.status(401).json({ error: 'Client authentication failed' });
+  }
+}
+
+/**
  * Optional authentication - doesn't fail if no token, just adds user if present
  */
 function optionalAuth(req, res, next) {
@@ -108,10 +139,66 @@ function optionalAuth(req, res, next) {
   next();
 }
 
+/**
+ * Optional authentication for any user type - useful for pages accessible to multiple roles
+ */
+function optionalAuthAny(req, res, next) {
+  try {
+    // Check for client token
+    const clientToken = req.headers.authorization?.split(' ')[1] || req.cookies.client_token;
+    if (clientToken) {
+      const decoded = verifyToken(clientToken);
+      if (decoded && decoded.type === 'client') {
+        req.client = {
+          id: decoded.id,
+          email: decoded.email,
+          firstName: decoded.firstName,
+          lastName: decoded.lastName
+        };
+        req.userType = 'client';
+      }
+    }
+
+    // Check for partner token
+    const partnerToken = req.cookies.partner_token;
+    if (partnerToken) {
+      const decoded = verifyToken(partnerToken);
+      if (decoded && decoded.type === 'partner') {
+        req.partner = {
+          id: decoded.id,
+          email: decoded.email,
+          name: decoded.name
+        };
+        req.userType = 'partner';
+      }
+    }
+
+    // Check for admin token
+    const adminToken = req.cookies.admin_token;
+    if (adminToken) {
+      const decoded = verifyToken(adminToken);
+      if (decoded && decoded.type === 'admin') {
+        req.admin = {
+          id: decoded.id,
+          email: decoded.email,
+          name: decoded.name
+        };
+        req.userType = 'admin';
+      }
+    }
+  } catch (error) {
+    // Silently fail, user just won't be authenticated
+  }
+
+  next();
+}
+
 module.exports = {
   generateToken,
   verifyToken,
   authenticatePartner,
   authenticateAdmin,
-  optionalAuth
+  authenticateClient,
+  optionalAuth,
+  optionalAuthAny
 };

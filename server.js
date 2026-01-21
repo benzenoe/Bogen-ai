@@ -13,12 +13,15 @@ const xeroRoutes = require('./server/routes/xero');
 const videoRoutes = require('./server/routes/videos');
 const mastermindRoutes = require('./server/routes/mastermind');
 const mastermindConfigRoutes = require('./server/routes/mastermind-config');
+const claudeCodeMastermindRoutes = require('./server/routes/claude-code-mastermind');
 const cmsRoutes = require('./server/routes/cms');
 const blogRoutes = require('./server/routes/blog');
 const migrateRoutes = require('./server/routes/migrate');
 const setupAdminRoutes = require('./server/routes/setup-admin');
 const chatRoutes = require('./server/routes/chat');
 const skillsRoutes = require('./server/routes/skills');
+const clientAuthRoutes = require('./server/routes/client-auth');
+const clientPortalRoutes = require('./server/routes/client-portal');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -57,12 +60,15 @@ app.use('/api/xero', xeroRoutes);
 app.use('/api/videos', videoRoutes);
 app.use('/api/mastermind', mastermindRoutes);
 app.use('/api/mastermind', mastermindConfigRoutes);
+app.use('/api/claude-code-mastermind', claudeCodeMastermindRoutes);
 app.use('/api/cms', cmsRoutes);
 app.use('/api/blog', blogRoutes);
 app.use('/api/migrate', migrateRoutes);
 app.use('/api/setup-admin', setupAdminRoutes);
 app.use('/api/chat', chatRoutes);
 app.use('/api/skills', skillsRoutes);
+app.use('/api/auth', clientAuthRoutes);
+app.use('/api/client-portal', clientPortalRoutes);
 
 // Serve HTML pages
 app.get('/', (req, res) => {
@@ -88,6 +94,43 @@ app.get('/partner-program', (req, res) => {
 
 app.get('/partner-portal', (req, res) => {
   res.sendFile(path.join(__dirname, 'views', 'partner-portal.html'));
+});
+
+// Client Portal pages
+app.get('/client-portal', (req, res) => {
+  res.sendFile(path.join(__dirname, 'views', 'client-portal.html'));
+});
+
+app.get('/client-dashboard', (req, res) => {
+  res.sendFile(path.join(__dirname, 'views', 'client-dashboard.html'));
+});
+
+app.get('/client-transactions', (req, res) => {
+  res.sendFile(path.join(__dirname, 'views', 'client-dashboard.html')); // Uses dashboard with transactions filter
+});
+
+app.get('/client-transaction/:id', (req, res) => {
+  res.sendFile(path.join(__dirname, 'views', 'client-transaction.html'));
+});
+
+app.get('/client-resources', (req, res) => {
+  res.sendFile(path.join(__dirname, 'views', 'client-resources.html'));
+});
+
+app.get('/client-messages', (req, res) => {
+  res.sendFile(path.join(__dirname, 'views', 'client-messages.html'));
+});
+
+app.get('/client-documents', (req, res) => {
+  res.sendFile(path.join(__dirname, 'views', 'client-messages.html')); // Reuses messages page for now
+});
+
+app.get('/client-appointments', (req, res) => {
+  res.sendFile(path.join(__dirname, 'views', 'client-dashboard.html')); // Uses dashboard with appointments
+});
+
+app.get('/client-profile', (req, res) => {
+  res.sendFile(path.join(__dirname, 'views', 'client-profile.html'));
 });
 
 app.get('/contact', (req, res) => {
@@ -140,6 +183,14 @@ app.get('/edmunds-mastermind', (req, res) => {
 
 app.get('/mastermind-registered', (req, res) => {
   res.sendFile(path.join(__dirname, 'views', 'mastermind-registered.html'));
+});
+
+app.get('/claude-code-mastermind', (req, res) => {
+  res.sendFile(path.join(__dirname, 'views', 'claude-code-mastermind.html'));
+});
+
+app.get('/claude-code-mastermind-registered', (req, res) => {
+  res.sendFile(path.join(__dirname, 'views', 'claude-code-mastermind-registered.html'));
 });
 
 // Skills marketplace pages

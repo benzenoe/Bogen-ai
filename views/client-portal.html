@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Client Portal - Bogen.ai</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/global.css">
+  <style>
+    .login-container {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: var(--spacing-lg);
+    }
+
+    .login-box {
+      max-width: 480px;
+      width: 100%;
+    }
+
+    .tabs {
+      display: flex;
+      margin-bottom: var(--spacing-lg);
+      border-bottom: 1px solid rgba(100, 181, 246, 0.3);
+    }
+
+    .tab {
+      flex: 1;
+      text-align: center;
+      padding: var(--spacing-md);
+      cursor: pointer;
+      color: rgba(255, 255, 255, 0.6);
+      border-bottom: 2px solid transparent;
+      transition: all var(--transition-fast);
+    }
+
+    .tab:hover {
+      color: rgba(255, 255, 255, 0.9);
+    }
+
+    .tab.active {
+      color: var(--cyan);
+      border-bottom-color: var(--cyan);
+    }
+
+    .tab-content {
+      display: none;
+    }
+
+    .tab-content.active {
+      display: block;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--spacing-md);
+    }
+
+    @media (max-width: 480px) {
+      .form-row {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .forgot-link {
+      display: block;
+      text-align: right;
+      font-size: 0.875rem;
+      color: var(--cyan);
+      margin-top: var(--spacing-sm);
+    }
+
+    .forgot-link:hover {
+      text-decoration: underline;
+    }
+
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      color: rgba(255, 255, 255, 0.7);
+      font-size: 0.875rem;
+      margin-bottom: var(--spacing-md);
+      cursor: pointer;
+    }
+
+    .back-link:hover {
+      color: var(--cyan);
+    }
+
+    .success-message {
+      background: rgba(76, 175, 80, 0.1);
+      border: 1px solid rgba(76, 175, 80, 0.3);
+      border-radius: var(--border-radius);
+      padding: var(--spacing-md);
+      margin-bottom: var(--spacing-md);
+      color: #4CAF50;
+      text-align: center;
+    }
+
+    .portal-features {
+      margin-top: var(--spacing-xl);
+      text-align: center;
+    }
+
+    .portal-features h3 {
+      margin-bottom: var(--spacing-md);
+      color: rgba(255, 255, 255, 0.9);
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: var(--spacing-md);
+    }
+
+    .feature-item {
+      display: flex;
+      align-items: center;
+      gap: var(--spacing-sm);
+      color: rgba(255, 255, 255, 0.7);
+      font-size: 0.875rem;
+    }
+
+    .feature-icon {
+      color: var(--cyan);
+      font-size: 1.25rem;
+    }
+
+    @media (max-width: 400px) {
+      .features-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Main Login/Register View -->
+  <div id="auth-view" class="login-container">
+    <div class="login-box">
+      <div class="text-center mb-lg">
+        <a href="/" class="logo" style="font-size: 2rem;">bogen<span>.ai</span></a>
+        <h2 class="mt-lg">Client Portal</h2>
+        <p class="text-gray">Access your dashboard, track transactions, and connect with our team</p>
+      </div>
+
+      <div class="card">
+        <!-- Tabs -->
+        <div class="tabs">
+          <div class="tab active" onclick="switchTab('login')">Login</div>
+          <div class="tab" onclick="switchTab('register')">Create Account</div>
+        </div>
+
+        <!-- Login Form -->
+        <div id="login-tab" class="tab-content active">
+          <form id="loginForm" onsubmit="handleLogin(event)">
+            <div class="form-group">
+              <label class="form-label">Email</label>
+              <input type="email" name="email" class="form-input" required placeholder="your@email.com">
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Password</label>
+              <input type="password" name="password" class="form-input" required placeholder="Enter your password">
+              <a href="#" class="forgot-link" onclick="showForgotPassword(event)">Forgot password?</a>
+            </div>
+
+            <button type="submit" class="btn btn-primary" style="width: 100%;">Sign In</button>
+          </form>
+        </div>
+
+        <!-- Register Form -->
+        <div id="register-tab" class="tab-content">
+          <form id="registerForm" onsubmit="handleRegister(event)">
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label">First Name</label>
+                <input type="text" name="firstName" class="form-input" required placeholder="John">
+              </div>
+              <div class="form-group">
+                <label class="form-label">Last Name</label>
+                <input type="text" name="lastName" class="form-input" required placeholder="Doe">
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Email</label>
+              <input type="email" name="email" class="form-input" required placeholder="your@email.com">
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Phone (optional)</label>
+              <input type="tel" name="phone" class="form-input" placeholder="(555) 123-4567">
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Company (optional)</label>
+              <input type="text" name="company" class="form-input" placeholder="Your company name">
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Password</label>
+              <input type="password" name="password" class="form-input" required minlength="8" placeholder="Minimum 8 characters">
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Confirm Password</label>
+              <input type="password" name="confirmPassword" class="form-input" required minlength="8" placeholder="Confirm your password">
+            </div>
+
+            <button type="submit" class="btn btn-primary" style="width: 100%;">Create Account</button>
+          </form>
+        </div>
+      </div>
+
+      <!-- Portal Features -->
+      <div class="portal-features">
+        <h3>What you can do in the portal:</h3>
+        <div class="features-grid">
+          <div class="feature-item">
+            <span class="feature-icon">&#10003;</span>
+            <span>Track transaction status</span>
+          </div>
+          <div class="feature-item">
+            <span class="feature-icon">&#10003;</span>
+            <span>View progress timeline</span>
+          </div>
+          <div class="feature-item">
+            <span class="feature-icon">&#10003;</span>
+            <span>Access resources & guides</span>
+          </div>
+          <div class="feature-item">
+            <span class="feature-icon">&#10003;</span>
+            <span>Message your team</span>
+          </div>
+          <div class="feature-item">
+            <span class="feature-icon">&#10003;</span>
+            <span>Share documents</span>
+          </div>
+          <div class="feature-item">
+            <span class="feature-icon">&#10003;</span>
+            <span>Schedule appointments</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Forgot Password View -->
+  <div id="forgot-view" class="login-container hidden">
+    <div class="login-box">
+      <div class="text-center mb-lg">
+        <a href="/" class="logo" style="font-size: 2rem;">bogen<span>.ai</span></a>
+        <h2 class="mt-lg">Reset Password</h2>
+        <p class="text-gray">Enter your email and we'll send you a reset link</p>
+      </div>
+
+      <div class="card">
+        <div class="back-link" onclick="showAuthView()">
+          <span>&larr;</span> Back to login
+        </div>
+
+        <div id="forgot-success" class="success-message hidden">
+          If an account exists with this email, you'll receive a password reset link shortly.
+        </div>
+
+        <form id="forgotForm" onsubmit="handleForgotPassword(event)">
+          <div class="form-group">
+            <label class="form-label">Email</label>
+            <input type="email" name="email" class="form-input" required placeholder="your@email.com">
+          </div>
+
+          <button type="submit" class="btn btn-primary" style="width: 100%;">Send Reset Link</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Reset Password View (accessed via email link) -->
+  <div id="reset-view" class="login-container hidden">
+    <div class="login-box">
+      <div class="text-center mb-lg">
+        <a href="/" class="logo" style="font-size: 2rem;">bogen<span>.ai</span></a>
+        <h2 class="mt-lg">Set New Password</h2>
+        <p class="text-gray">Enter your new password below</p>
+      </div>
+
+      <div class="card">
+        <div id="reset-success" class="success-message hidden">
+          Password reset successful! Redirecting to login...
+        </div>
+
+        <form id="resetForm" onsubmit="handleResetPassword(event)">
+          <input type="hidden" name="token" id="reset-token">
+
+          <div class="form-group">
+            <label class="form-label">New Password</label>
+            <input type="password" name="password" class="form-input" required minlength="8" placeholder="Minimum 8 characters">
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Confirm New Password</label>
+            <input type="password" name="confirmPassword" class="form-input" required minlength="8" placeholder="Confirm your password">
+          </div>
+
+          <button type="submit" class="btn btn-primary" style="width: 100%;">Reset Password</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <script src="/js/common.js"></script>
+  <script>
+    // Check if user is already logged in or handle reset token
+    document.addEventListener('DOMContentLoaded', () => {
+      const token = localStorage.getItem('client_token');
+      if (token) {
+        // Already logged in, redirect to dashboard
+        window.location.href = '/client-dashboard';
+        return;
+      }
+
+      // Check for reset token in URL
+      const urlParams = new URLSearchParams(window.location.search);
+      const resetToken = urlParams.get('reset');
+      if (resetToken) {
+        document.getElementById('reset-token').value = resetToken;
+        showResetView();
+      }
+    });
+
+    function switchTab(tab) {
+      // Update tab buttons
+      document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+      document.querySelector(`.tab:${tab === 'login' ? 'first-child' : 'last-child'}`).classList.add('active');
+
+      // Update tab content
+      document.getElementById('login-tab').classList.toggle('active', tab === 'login');
+      document.getElementById('register-tab').classList.toggle('active', tab === 'register');
+    }
+
+    function showAuthView() {
+      document.getElementById('auth-view').classList.remove('hidden');
+      document.getElementById('forgot-view').classList.add('hidden');
+      document.getElementById('reset-view').classList.add('hidden');
+    }
+
+    function showForgotPassword(event) {
+      event.preventDefault();
+      document.getElementById('auth-view').classList.add('hidden');
+      document.getElementById('forgot-view').classList.remove('hidden');
+      document.getElementById('forgot-success').classList.add('hidden');
+    }
+
+    function showResetView() {
+      document.getElementById('auth-view').classList.add('hidden');
+      document.getElementById('forgot-view').classList.add('hidden');
+      document.getElementById('reset-view').classList.remove('hidden');
+    }
+
+    async function handleLogin(event) {
+      event.preventDefault();
+      const form = event.target;
+      const formData = new FormData(form);
+
+      try {
+        const response = await window.bogenAI.apiRequest('/auth/client/login', {
+          method: 'POST',
+          body: JSON.stringify({
+            email: formData.get('email'),
+            password: formData.get('password')
+          })
+        });
+
+        // Store token
+        localStorage.setItem('client_token', response.token);
+
+        window.bogenAI.showNotification('Welcome back!', 'success');
+
+        // Redirect to dashboard
+        setTimeout(() => {
+          window.location.href = '/client-dashboard';
+        }, 500);
+      } catch (error) {
+        window.bogenAI.showNotification(error.message || 'Login failed', 'error');
+      }
+    }
+
+    async function handleRegister(event) {
+      event.preventDefault();
+      const form = event.target;
+      const formData = new FormData(form);
+
+      // Validate passwords match
+      if (formData.get('password') !== formData.get('confirmPassword')) {
+        window.bogenAI.showNotification('Passwords do not match', 'error');
+        return;
+      }
+
+      try {
+        const response = await window.bogenAI.apiRequest('/auth/client/register', {
+          method: 'POST',
+          body: JSON.stringify({
+            firstName: formData.get('firstName'),
+            lastName: formData.get('lastName'),
+            email: formData.get('email'),
+            phone: formData.get('phone'),
+            company: formData.get('company'),
+            password: formData.get('password')
+          })
+        });
+
+        // Store token
+        localStorage.setItem('client_token', response.token);
+
+        window.bogenAI.showNotification('Account created successfully!', 'success');
+
+        // Redirect to dashboard
+        setTimeout(() => {
+          window.location.href = '/client-dashboard';
+        }, 500);
+      } catch (error) {
+        window.bogenAI.showNotification(error.message || 'Registration failed', 'error');
+      }
+    }
+
+    async function handleForgotPassword(event) {
+      event.preventDefault();
+      const form = event.target;
+      const formData = new FormData(form);
+
+      try {
+        await window.bogenAI.apiRequest('/auth/client/forgot-password', {
+          method: 'POST',
+          body: JSON.stringify({
+            email: formData.get('email')
+          })
+        });
+
+        // Show success message
+        document.getElementById('forgot-success').classList.remove('hidden');
+        form.classList.add('hidden');
+      } catch (error) {
+        // Still show success to prevent email enumeration
+        document.getElementById('forgot-success').classList.remove('hidden');
+        form.classList.add('hidden');
+      }
+    }
+
+    async function handleResetPassword(event) {
+      event.preventDefault();
+      const form = event.target;
+      const formData = new FormData(form);
+
+      // Validate passwords match
+      if (formData.get('password') !== formData.get('confirmPassword')) {
+        window.bogenAI.showNotification('Passwords do not match', 'error');
+        return;
+      }
+
+      try {
+        await window.bogenAI.apiRequest('/auth/client/reset-password', {
+          method: 'POST',
+          body: JSON.stringify({
+            token: formData.get('token'),
+            password: formData.get('password')
+          })
+        });
+
+        // Show success and redirect
+        document.getElementById('reset-success').classList.remove('hidden');
+        form.classList.add('hidden');
+
+        setTimeout(() => {
+          window.location.href = '/client-portal';
+        }, 2000);
+      } catch (error) {
+        window.bogenAI.showNotification(error.message || 'Password reset failed', 'error');
+      }
+    }
+  </script>
+
+</body>
+</html>

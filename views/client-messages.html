@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Messages - Client Portal - Bogen.ai</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/global.css">
+  <style>
+    :root { --sidebar-width: 260px; }
+    body { display: flex; min-height: 100vh; }
+    .sidebar { position: fixed; left: 0; top: 0; bottom: 0; width: var(--sidebar-width); background: rgba(15, 42, 63, 0.95); border-right: 1px solid rgba(100, 181, 246, 0.2); display: flex; flex-direction: column; z-index: 100; }
+    .sidebar-header { padding: var(--spacing-lg); border-bottom: 1px solid rgba(100, 181, 246, 0.2); }
+    .sidebar-nav { flex: 1; padding: var(--spacing-md) 0; }
+    .sidebar-nav a { display: flex; align-items: center; gap: var(--spacing-sm); padding: var(--spacing-md) var(--spacing-lg); color: rgba(255, 255, 255, 0.7); transition: all var(--transition-fast); }
+    .sidebar-nav a:hover { background: rgba(100, 181, 246, 0.1); color: var(--white); }
+    .sidebar-nav a.active { background: rgba(100, 181, 246, 0.15); color: var(--cyan); border-left: 3px solid var(--cyan); }
+    .sidebar-nav svg { width: 20px; height: 20px; }
+    .sidebar-footer { padding: var(--spacing-lg); border-top: 1px solid rgba(100, 181, 246, 0.2); }
+    .main-content { flex: 1; margin-left: var(--sidebar-width); padding: var(--spacing-xl); background: var(--dark-gradient); }
+    @media (max-width: 768px) { .sidebar { transform: translateX(-100%); } .main-content { margin-left: 0; } }
+
+    .page-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--spacing-xl); }
+    .page-title { font-size: 1.75rem; }
+
+    .messages-container { display: flex; gap: var(--spacing-lg); height: calc(100vh - 200px); }
+    .messages-list { width: 350px; background: rgba(26, 58, 82, 0.6); border: 1px solid rgba(100, 181, 246, 0.2); border-radius: var(--border-radius); overflow: hidden; flex-shrink: 0; }
+    .messages-list-header { padding: var(--spacing-md); border-bottom: 1px solid rgba(100, 181, 246, 0.2); font-weight: 500; }
+    .messages-scroll { height: calc(100% - 50px); overflow-y: auto; }
+
+    .message-preview { padding: var(--spacing-md); border-bottom: 1px solid rgba(100, 181, 246, 0.1); cursor: pointer; transition: all var(--transition-fast); }
+    .message-preview:hover { background: rgba(100, 181, 246, 0.05); }
+    .message-preview.active { background: rgba(100, 181, 246, 0.1); border-left: 3px solid var(--cyan); }
+    .message-preview.unread { background: rgba(100, 181, 246, 0.05); }
+    .message-preview.unread .message-sender { font-weight: 600; }
+    .message-sender { margin-bottom: 2px; }
+    .message-subject { font-size: 0.875rem; color: rgba(255, 255, 255, 0.7); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .message-date { font-size: 0.75rem; color: rgba(255, 255, 255, 0.5); margin-top: 4px; }
+
+    .message-view { flex: 1; background: rgba(26, 58, 82, 0.6); border: 1px solid rgba(100, 181, 246, 0.2); border-radius: var(--border-radius); display: flex; flex-direction: column; }
+    .message-view-header { padding: var(--spacing-lg); border-bottom: 1px solid rgba(100, 181, 246, 0.2); }
+    .message-view-sender { font-size: 1.125rem; font-weight: 500; }
+    .message-view-subject { color: rgba(255, 255, 255, 0.7); }
+    .message-view-body { flex: 1; padding: var(--spacing-lg); overflow-y: auto; line-height: 1.6; }
+
+    .compose-form { background: rgba(26, 58, 82, 0.6); border: 1px solid rgba(100, 181, 246, 0.2); border-radius: var(--border-radius); padding: var(--spacing-lg); margin-bottom: var(--spacing-lg); }
+    .compose-form.hidden { display: none; }
+
+    .empty-state { display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; color: rgba(255, 255, 255, 0.5); }
+    .empty-state svg { width: 64px; height: 64px; margin-bottom: var(--spacing-md); opacity: 0.3; }
+
+    @media (max-width: 900px) {
+      .messages-container { flex-direction: column; height: auto; }
+      .messages-list { width: 100%; }
+      .messages-scroll { max-height: 300px; }
+    }
+  </style>
+</head>
+<body>
+  <aside class="sidebar">
+    <div class="sidebar-header"><a href="/" class="logo">bogen<span>.ai</span></a></div>
+    <nav class="sidebar-nav">
+      <a href="/client-dashboard"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>Dashboard</a>
+      <a href="/client-transactions"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"/></svg>Transactions</a>
+      <a href="/client-resources"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>Resources</a>
+      <a href="/client-messages" class="active"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"/></svg>Messages</a>
+      <a href="/client-profile"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>Profile</a>
+    </nav>
+    <div class="sidebar-footer"><button onclick="logout()" class="btn btn-secondary btn-sm" style="width: 100%;">Logout</button></div>
+  </aside>
+
+  <main class="main-content">
+    <div class="page-header">
+      <h1 class="page-title">Messages</h1>
+      <button class="btn btn-primary" onclick="toggleCompose()">New Message</button>
+    </div>
+
+    <!-- Compose Form -->
+    <div class="compose-form hidden" id="compose-form">
+      <h3 style="margin-bottom: var(--spacing-md);">New Message</h3>
+      <form onsubmit="sendMessage(event)">
+        <div class="form-group">
+          <label class="form-label">Subject (optional)</label>
+          <input type="text" name="subject" class="form-input" placeholder="What is this about?">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Message</label>
+          <textarea name="message" class="form-input" rows="4" required placeholder="Type your message..."></textarea>
+        </div>
+        <div style="display: flex; gap: var(--spacing-sm);">
+          <button type="submit" class="btn btn-primary">Send Message</button>
+          <button type="button" class="btn btn-secondary" onclick="toggleCompose()">Cancel</button>
+        </div>
+      </form>
+    </div>
+
+    <div class="messages-container">
+      <div class="messages-list">
+        <div class="messages-list-header">Inbox</div>
+        <div class="messages-scroll" id="messages-scroll">
+          <div class="empty-state" style="padding: var(--spacing-xl);">Loading...</div>
+        </div>
+      </div>
+
+      <div class="message-view" id="message-view">
+        <div class="empty-state">
+          <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"/>
+          </svg>
+          <p>Select a message to view</p>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script src="/js/common.js"></script>
+  <script>
+    let messages = [];
+    let selectedMessageId = null;
+
+    document.addEventListener('DOMContentLoaded', () => {
+      const token = localStorage.getItem('client_token');
+      if (!token) { window.location.href = '/client-portal'; return; }
+      loadMessages();
+    });
+
+    function toggleCompose() {
+      document.getElementById('compose-form').classList.toggle('hidden');
+    }
+
+    async function loadMessages() {
+      const token = localStorage.getItem('client_token');
+      try {
+        const data = await window.bogenAI.apiRequest('/client-portal/messages', {
+          headers: { 'Authorization': `Bearer ${token}` }
+        });
+        messages = data.messages;
+        renderMessageList();
+      } catch (error) {
+        console.error('Load error:', error);
+        if (error.message.includes('401')) logout();
+      }
+    }
+
+    function renderMessageList() {
+      const container = document.getElementById('messages-scroll');
+      if (!messages || messages.length === 0) {
+        container.innerHTML = '<div class="empty-state" style="padding: var(--spacing-xl);"><p>No messages yet</p></div>';
+        return;
+      }
+
+      container.innerHTML = messages.map(m => `
+        <div class="message-preview ${!m.is_read ? 'unread' : ''} ${m.message_id === selectedMessageId ? 'active' : ''}"
+             onclick="viewMessage(${m.message_id})">
+          <div class="message-sender">${escapeHtml(m.sender_name || 'Edmund Bogen Team')}</div>
+          <div class="message-subject">${escapeHtml(m.subject || m.message.substring(0, 50))}</div>
+          <div class="message-date">${formatDate(m.created_at)}</div>
+        </div>
+      `).join('');
+    }
+
+    async function viewMessage(id) {
+      selectedMessageId = id;
+      const message = messages.find(m => m.message_id === id);
+      if (!message) return;
+
+      renderMessageList();
+
+      document.getElementById('message-view').innerHTML = `
+        <div class="message-view-header">
+          <div class="message-view-sender">${escapeHtml(message.sender_name || 'Edmund Bogen Team')}</div>
+          <div class="message-view-subject">${escapeHtml(message.subject || 'No subject')}</div>
+          <div style="font-size: 0.75rem; color: rgba(255,255,255,0.5); margin-top: 4px;">${formatDate(message.created_at)}</div>
+        </div>
+        <div class="message-view-body">${escapeHtml(message.message).replace(/\n/g, '<br>')}</div>
+      `;
+
+      // Mark as read
+      if (!message.is_read) {
+        const token = localStorage.getItem('client_token');
+        try {
+          await window.bogenAI.apiRequest(`/client-portal/messages/${id}/read`, {
+            method: 'PUT',
+            headers: { 'Authorization': `Bearer ${token}` }
+          });
+          message.is_read = true;
+          renderMessageList();
+        } catch (e) { console.error(e); }
+      }
+    }
+
+    async function sendMessage(event) {
+      event.preventDefault();
+      const form = event.target;
+      const formData = new FormData(form);
+      const token = localStorage.getItem('client_token');
+
+      try {
+        await window.bogenAI.apiRequest('/client-portal/messages', {
+          method: 'POST',
+          headers: { 'Authorization': `Bearer ${token}` },
+          body: JSON.stringify({
+            subject: formData.get('subject'),
+            message: formData.get('message')
+          })
+        });
+        window.bogenAI.showNotification('Message sent!', 'success');
+        form.reset();
+        toggleCompose();
+        loadMessages();
+      } catch (error) {
+        window.bogenAI.showNotification(error.message || 'Failed to send', 'error');
+      }
+    }
+
+    function formatDate(dateStr) {
+      const date = new Date(dateStr);
+      const now = new Date();
+      const diff = now - date;
+      if (diff < 86400000) return date.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' });
+      if (diff < 604800000) return date.toLocaleDateString('en-US', { weekday: 'short' });
+      return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+    }
+
+    function escapeHtml(text) { if (!text) return ''; const div = document.createElement('div'); div.textContent = text; return div.innerHTML; }
+    function logout() { localStorage.removeItem('client_token'); window.location.href = '/client-portal'; }
+  </script>
+</body>
+</html>

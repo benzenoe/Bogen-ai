@@ -1,0 +1,778 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard - Client Portal - Bogen.ai</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/global.css">
+  <style>
+    :root {
+      --sidebar-width: 260px;
+    }
+
+    body {
+      display: flex;
+      min-height: 100vh;
+    }
+
+    /* Sidebar */
+    .sidebar {
+      position: fixed;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: var(--sidebar-width);
+      background: rgba(15, 42, 63, 0.95);
+      border-right: 1px solid rgba(100, 181, 246, 0.2);
+      display: flex;
+      flex-direction: column;
+      z-index: 100;
+    }
+
+    .sidebar-header {
+      padding: var(--spacing-lg);
+      border-bottom: 1px solid rgba(100, 181, 246, 0.2);
+    }
+
+    .sidebar-nav {
+      flex: 1;
+      padding: var(--spacing-md) 0;
+      overflow-y: auto;
+    }
+
+    .sidebar-nav a {
+      display: flex;
+      align-items: center;
+      gap: var(--spacing-sm);
+      padding: var(--spacing-md) var(--spacing-lg);
+      color: rgba(255, 255, 255, 0.7);
+      transition: all var(--transition-fast);
+    }
+
+    .sidebar-nav a:hover {
+      background: rgba(100, 181, 246, 0.1);
+      color: var(--white);
+    }
+
+    .sidebar-nav a.active {
+      background: rgba(100, 181, 246, 0.15);
+      color: var(--cyan);
+      border-left: 3px solid var(--cyan);
+    }
+
+    .sidebar-nav svg {
+      width: 20px;
+      height: 20px;
+      flex-shrink: 0;
+    }
+
+    .nav-badge {
+      margin-left: auto;
+      background: var(--cyan);
+      color: var(--navy);
+      font-size: 0.75rem;
+      padding: 2px 8px;
+      border-radius: 10px;
+      font-weight: 600;
+    }
+
+    .sidebar-footer {
+      padding: var(--spacing-lg);
+      border-top: 1px solid rgba(100, 181, 246, 0.2);
+    }
+
+    .user-info {
+      display: flex;
+      align-items: center;
+      gap: var(--spacing-sm);
+      margin-bottom: var(--spacing-sm);
+    }
+
+    .user-avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: rgba(100, 181, 246, 0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--cyan);
+      font-weight: 600;
+    }
+
+    .user-name {
+      font-weight: 500;
+    }
+
+    .user-email {
+      font-size: 0.75rem;
+      color: rgba(255, 255, 255, 0.5);
+    }
+
+    /* Main content */
+    .main-content {
+      flex: 1;
+      margin-left: var(--sidebar-width);
+      padding: var(--spacing-xl);
+      background: var(--dark-gradient);
+    }
+
+    .page-header {
+      margin-bottom: var(--spacing-xl);
+    }
+
+    .page-title {
+      font-size: 1.75rem;
+      margin-bottom: var(--spacing-xs);
+    }
+
+    .page-subtitle {
+      color: rgba(255, 255, 255, 0.6);
+    }
+
+    /* Dashboard grid */
+    .dashboard-grid {
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap: var(--spacing-lg);
+    }
+
+    .card-full { grid-column: span 12; }
+    .card-half { grid-column: span 6; }
+    .card-third { grid-column: span 4; }
+
+    @media (max-width: 1200px) {
+      .card-half { grid-column: span 12; }
+      .card-third { grid-column: span 6; }
+    }
+
+    @media (max-width: 768px) {
+      .sidebar {
+        transform: translateX(-100%);
+        transition: transform var(--transition-normal);
+      }
+      .sidebar.open {
+        transform: translateX(0);
+      }
+      .main-content {
+        margin-left: 0;
+      }
+      .card-third { grid-column: span 12; }
+      .mobile-menu-btn {
+        display: flex !important;
+      }
+    }
+
+    /* Cards */
+    .dashboard-card {
+      background: rgba(26, 58, 82, 0.6);
+      border: 1px solid rgba(100, 181, 246, 0.2);
+      border-radius: var(--border-radius);
+      padding: var(--spacing-lg);
+    }
+
+    .card-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: var(--spacing-md);
+    }
+
+    .card-title {
+      font-size: 1rem;
+      font-weight: 600;
+    }
+
+    .card-link {
+      font-size: 0.875rem;
+      color: var(--cyan);
+    }
+
+    /* Transaction cards */
+    .transaction-item {
+      display: flex;
+      align-items: center;
+      gap: var(--spacing-md);
+      padding: var(--spacing-md);
+      background: rgba(15, 42, 63, 0.5);
+      border-radius: var(--border-radius);
+      margin-bottom: var(--spacing-sm);
+      cursor: pointer;
+      transition: all var(--transition-fast);
+    }
+
+    .transaction-item:hover {
+      background: rgba(15, 42, 63, 0.8);
+      border-left: 3px solid var(--cyan);
+    }
+
+    .transaction-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 8px;
+      background: rgba(100, 181, 246, 0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--cyan);
+    }
+
+    .transaction-info {
+      flex: 1;
+    }
+
+    .transaction-title {
+      font-weight: 500;
+      margin-bottom: 2px;
+    }
+
+    .transaction-meta {
+      font-size: 0.8125rem;
+      color: rgba(255, 255, 255, 0.6);
+    }
+
+    .transaction-progress {
+      text-align: right;
+    }
+
+    .progress-bar {
+      width: 80px;
+      height: 6px;
+      background: rgba(100, 181, 246, 0.2);
+      border-radius: 3px;
+      overflow: hidden;
+      margin-bottom: 4px;
+    }
+
+    .progress-fill {
+      height: 100%;
+      background: var(--cyan);
+      border-radius: 3px;
+      transition: width 0.3s ease;
+    }
+
+    .progress-text {
+      font-size: 0.75rem;
+      color: rgba(255, 255, 255, 0.6);
+    }
+
+    /* Status badges */
+    .status-badge {
+      display: inline-block;
+      padding: 4px 10px;
+      border-radius: 12px;
+      font-size: 0.75rem;
+      font-weight: 500;
+      text-transform: capitalize;
+    }
+
+    .status-initiated { background: rgba(158, 158, 158, 0.2); color: #9E9E9E; }
+    .status-in_progress { background: rgba(33, 150, 243, 0.2); color: #2196F3; }
+    .status-under_review { background: rgba(255, 193, 7, 0.2); color: #FFC107; }
+    .status-pending_closing { background: rgba(156, 39, 176, 0.2); color: #CE93D8; }
+    .status-completed { background: rgba(76, 175, 80, 0.2); color: #4CAF50; }
+
+    /* Appointment items */
+    .appointment-item {
+      display: flex;
+      gap: var(--spacing-md);
+      padding: var(--spacing-md);
+      background: rgba(15, 42, 63, 0.5);
+      border-radius: var(--border-radius);
+      margin-bottom: var(--spacing-sm);
+    }
+
+    .appointment-date {
+      text-align: center;
+      min-width: 50px;
+    }
+
+    .appointment-day {
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: var(--cyan);
+    }
+
+    .appointment-month {
+      font-size: 0.75rem;
+      color: rgba(255, 255, 255, 0.6);
+      text-transform: uppercase;
+    }
+
+    .appointment-info {
+      flex: 1;
+    }
+
+    .appointment-title {
+      font-weight: 500;
+      margin-bottom: 2px;
+    }
+
+    .appointment-time {
+      font-size: 0.8125rem;
+      color: rgba(255, 255, 255, 0.6);
+    }
+
+    /* Message items */
+    .message-item {
+      display: flex;
+      gap: var(--spacing-md);
+      padding: var(--spacing-md);
+      background: rgba(15, 42, 63, 0.5);
+      border-radius: var(--border-radius);
+      margin-bottom: var(--spacing-sm);
+      cursor: pointer;
+      transition: all var(--transition-fast);
+    }
+
+    .message-item:hover {
+      background: rgba(15, 42, 63, 0.8);
+    }
+
+    .message-item.unread {
+      border-left: 3px solid var(--cyan);
+    }
+
+    .message-avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: rgba(100, 181, 246, 0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--cyan);
+      font-weight: 600;
+      font-size: 0.875rem;
+    }
+
+    .message-content {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .message-sender {
+      font-weight: 500;
+      margin-bottom: 2px;
+    }
+
+    .message-preview {
+      font-size: 0.8125rem;
+      color: rgba(255, 255, 255, 0.6);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .message-time {
+      font-size: 0.75rem;
+      color: rgba(255, 255, 255, 0.5);
+    }
+
+    /* Resource cards */
+    .resource-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: var(--spacing-sm);
+    }
+
+    .resource-item {
+      display: flex;
+      align-items: center;
+      gap: var(--spacing-sm);
+      padding: var(--spacing-md);
+      background: rgba(15, 42, 63, 0.5);
+      border-radius: var(--border-radius);
+      cursor: pointer;
+      transition: all var(--transition-fast);
+    }
+
+    .resource-item:hover {
+      background: rgba(15, 42, 63, 0.8);
+    }
+
+    .resource-icon {
+      color: var(--cyan);
+    }
+
+    .resource-name {
+      font-size: 0.875rem;
+    }
+
+    /* Empty state */
+    .empty-state {
+      text-align: center;
+      padding: var(--spacing-xl);
+      color: rgba(255, 255, 255, 0.5);
+    }
+
+    .empty-state svg {
+      width: 48px;
+      height: 48px;
+      margin-bottom: var(--spacing-sm);
+      opacity: 0.5;
+    }
+
+    /* Mobile menu button */
+    .mobile-menu-btn {
+      display: none;
+      position: fixed;
+      top: var(--spacing-md);
+      left: var(--spacing-md);
+      z-index: 150;
+      background: rgba(15, 42, 63, 0.95);
+      border: 1px solid rgba(100, 181, 246, 0.3);
+      border-radius: 8px;
+      padding: var(--spacing-sm);
+      cursor: pointer;
+    }
+
+    .mobile-menu-btn svg {
+      width: 24px;
+      height: 24px;
+      color: var(--cyan);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Mobile Menu Button -->
+  <button class="mobile-menu-btn" onclick="toggleSidebar()">
+    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+    </svg>
+  </button>
+
+  <!-- Sidebar -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <a href="/" class="logo">bogen<span>.ai</span></a>
+    </div>
+
+    <nav class="sidebar-nav">
+      <a href="/client-dashboard" class="active">
+        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/>
+        </svg>
+        Dashboard
+      </a>
+      <a href="/client-transactions">
+        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"/>
+        </svg>
+        Transactions
+      </a>
+      <a href="/client-resources">
+        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/>
+        </svg>
+        Resources
+      </a>
+      <a href="/client-messages">
+        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"/>
+        </svg>
+        Messages
+        <span class="nav-badge" id="unread-badge" style="display: none;">0</span>
+      </a>
+      <a href="/client-documents">
+        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"/>
+        </svg>
+        Documents
+      </a>
+      <a href="/client-appointments">
+        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+        </svg>
+        Appointments
+      </a>
+    </nav>
+
+    <div class="sidebar-footer">
+      <div class="user-info">
+        <div class="user-avatar" id="user-initials">--</div>
+        <div>
+          <div class="user-name" id="user-name">Loading...</div>
+          <div class="user-email" id="user-email">Loading...</div>
+        </div>
+      </div>
+      <a href="/client-profile" class="btn btn-secondary btn-sm" style="width: 100%; margin-bottom: var(--spacing-xs);">Profile</a>
+      <button onclick="logout()" class="btn btn-secondary btn-sm" style="width: 100%; background: transparent;">Logout</button>
+    </div>
+  </aside>
+
+  <!-- Main Content -->
+  <main class="main-content">
+    <div class="page-header">
+      <h1 class="page-title">Welcome back, <span id="welcome-name">Client</span></h1>
+      <p class="page-subtitle">Here's what's happening with your transactions</p>
+    </div>
+
+    <div class="dashboard-grid">
+      <!-- Active Transactions -->
+      <div class="dashboard-card card-half">
+        <div class="card-header">
+          <h3 class="card-title">Active Transactions</h3>
+          <a href="/client-transactions" class="card-link">View all</a>
+        </div>
+        <div id="transactions-list">
+          <div class="empty-state">
+            <p>Loading transactions...</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Upcoming Appointments -->
+      <div class="dashboard-card card-half">
+        <div class="card-header">
+          <h3 class="card-title">Upcoming Appointments</h3>
+          <a href="/client-appointments" class="card-link">View all</a>
+        </div>
+        <div id="appointments-list">
+          <div class="empty-state">
+            <p>Loading appointments...</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Recent Messages -->
+      <div class="dashboard-card card-half">
+        <div class="card-header">
+          <h3 class="card-title">Recent Messages</h3>
+          <a href="/client-messages" class="card-link">View all</a>
+        </div>
+        <div id="messages-list">
+          <div class="empty-state">
+            <p>Loading messages...</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Quick Resources -->
+      <div class="dashboard-card card-half">
+        <div class="card-header">
+          <h3 class="card-title">Quick Resources</h3>
+          <a href="/client-resources" class="card-link">Browse all</a>
+        </div>
+        <div class="resource-grid">
+          <a href="/client-resources?category=market_report" class="resource-item">
+            <svg class="resource-icon" width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
+            </svg>
+            <span class="resource-name">Market Reports</span>
+          </a>
+          <a href="/client-resources?category=buying_guide" class="resource-item">
+            <svg class="resource-icon" width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/>
+            </svg>
+            <span class="resource-name">Buying Guides</span>
+          </a>
+          <a href="/client-resources?category=selling_guide" class="resource-item">
+            <svg class="resource-icon" width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z"/>
+            </svg>
+            <span class="resource-name">Selling Guides</span>
+          </a>
+          <a href="/client-resources?category=neighborhood_info" class="resource-item">
+            <svg class="resource-icon" width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+            </svg>
+            <span class="resource-name">Neighborhoods</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script src="/js/common.js"></script>
+  <script>
+    // Check authentication on page load
+    document.addEventListener('DOMContentLoaded', () => {
+      const token = localStorage.getItem('client_token');
+      if (!token) {
+        window.location.href = '/client-portal';
+        return;
+      }
+      loadUserInfo();
+      loadDashboardData();
+    });
+
+    function toggleSidebar() {
+      document.getElementById('sidebar').classList.toggle('open');
+    }
+
+    async function loadUserInfo() {
+      const token = localStorage.getItem('client_token');
+      try {
+        const response = await window.bogenAI.apiRequest('/auth/client/me', {
+          headers: { 'Authorization': `Bearer ${token}` }
+        });
+
+        const client = response.client;
+        document.getElementById('user-name').textContent = `${client.firstName} ${client.lastName}`;
+        document.getElementById('user-email').textContent = client.email;
+        document.getElementById('user-initials').textContent = `${client.firstName[0]}${client.lastName[0]}`;
+        document.getElementById('welcome-name').textContent = client.firstName;
+      } catch (error) {
+        console.error('Failed to load user info:', error);
+        if (error.message.includes('Authentication') || error.message.includes('401')) {
+          logout();
+        }
+      }
+    }
+
+    async function loadDashboardData() {
+      const token = localStorage.getItem('client_token');
+
+      try {
+        const data = await window.bogenAI.apiRequest('/client-portal/dashboard', {
+          headers: { 'Authorization': `Bearer ${token}` }
+        });
+
+        renderTransactions(data.activeTransactions);
+        renderAppointments(data.upcomingAppointments);
+        renderMessages(data.unreadMessages);
+
+        // Update unread badge
+        if (data.unreadMessages > 0) {
+          const badge = document.getElementById('unread-badge');
+          badge.textContent = data.unreadMessages;
+          badge.style.display = 'block';
+        }
+
+      } catch (error) {
+        console.error('Dashboard load error:', error);
+        if (error.message.includes('Authentication') || error.message.includes('401')) {
+          logout();
+        }
+      }
+    }
+
+    function renderTransactions(transactions) {
+      const container = document.getElementById('transactions-list');
+
+      if (!transactions || transactions.length === 0) {
+        container.innerHTML = `
+          <div class="empty-state">
+            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/>
+            </svg>
+            <p>No active transactions</p>
+          </div>
+        `;
+        return;
+      }
+
+      container.innerHTML = transactions.map(t => {
+        const progress = t.total_steps > 0 ? Math.round((t.completed_steps / t.total_steps) * 100) : 0;
+        const statusClass = t.status.replace(/_/g, '_');
+
+        return `
+          <div class="transaction-item" onclick="window.location.href='/client-transaction/${t.transaction_id}'">
+            <div class="transaction-icon">
+              <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/>
+              </svg>
+            </div>
+            <div class="transaction-info">
+              <div class="transaction-title">${escapeHtml(t.title)}</div>
+              <div class="transaction-meta">
+                ${t.property_address ? escapeHtml(t.property_address) : t.service_type || 'Transaction'}
+                ${t.assigned_to ? ' &bull; ' + escapeHtml(t.assigned_to) : ''}
+              </div>
+            </div>
+            <div class="transaction-progress">
+              <div class="progress-bar">
+                <div class="progress-fill" style="width: ${progress}%"></div>
+              </div>
+              <div class="progress-text">${progress}% complete</div>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function renderAppointments(appointments) {
+      const container = document.getElementById('appointments-list');
+
+      if (!appointments || appointments.length === 0) {
+        container.innerHTML = `
+          <div class="empty-state">
+            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+            </svg>
+            <p>No upcoming appointments</p>
+          </div>
+        `;
+        return;
+      }
+
+      container.innerHTML = appointments.map(a => {
+        const date = new Date(a.scheduled_at);
+        const day = date.getDate();
+        const month = date.toLocaleDateString('en-US', { month: 'short' });
+        const time = date.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' });
+
+        return `
+          <div class="appointment-item">
+            <div class="appointment-date">
+              <div class="appointment-day">${day}</div>
+              <div class="appointment-month">${month}</div>
+            </div>
+            <div class="appointment-info">
+              <div class="appointment-title">${escapeHtml(a.title)}</div>
+              <div class="appointment-time">${time} &bull; ${a.appointment_type || 'Meeting'}</div>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function renderMessages(unreadCount) {
+      const container = document.getElementById('messages-list');
+
+      // For now, show a simple message count
+      // In production, we'd fetch recent messages
+      if (unreadCount === 0) {
+        container.innerHTML = `
+          <div class="empty-state">
+            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"/>
+            </svg>
+            <p>No new messages</p>
+          </div>
+        `;
+      } else {
+        container.innerHTML = `
+          <div class="message-item unread" onclick="window.location.href='/client-messages'">
+            <div class="message-avatar">EB</div>
+            <div class="message-content">
+              <div class="message-sender">Edmund Bogen Team</div>
+              <div class="message-preview">You have ${unreadCount} unread message${unreadCount > 1 ? 's' : ''}</div>
+            </div>
+            <div class="message-time">Click to view</div>
+          </div>
+        `;
+      }
+    }
+
+    function escapeHtml(text) {
+      if (!text) return '';
+      const div = document.createElement('div');
+      div.textContent = text;
+      return div.innerHTML;
+    }
+
+    function logout() {
+      localStorage.removeItem('client_token');
+      window.location.href = '/client-portal';
+    }
+  </script>
+
+</body>
+</html>

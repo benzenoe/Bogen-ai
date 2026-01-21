@@ -181,9 +181,142 @@ async function sendPartnerApplicationNotification(partner) {
   });
 }
 
+/**
+ * Send welcome email to new client portal user
+ */
+async function sendClientWelcomeEmail(client) {
+  const subject = 'Welcome to Your Client Portal - Bogen.ai';
+  const html = `
+    <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
+      <h1 style="color: #1a3a52;">Welcome, ${client.firstName}!</h1>
+      <p>Your client portal account has been created. You can now track your transactions, access resources, and communicate with our team all in one place.</p>
+
+      <div style="background: #f4f8fb; padding: 20px; margin: 20px 0; border-radius: 8px; border-left: 4px solid #64b5f6;">
+        <h3 style="color: #1a3a52; margin-top: 0;">What you can do in your portal:</h3>
+        <ul style="color: #444; line-height: 1.8;">
+          <li>Track your transaction progress in real-time</li>
+          <li>Access market reports and helpful guides</li>
+          <li>Send messages directly to your team</li>
+          <li>View and share documents securely</li>
+          <li>Schedule appointments</li>
+        </ul>
+      </div>
+
+      <p><a href="${process.env.BASE_URL}/client-portal" style="display: inline-block; background: #64b5f6; color: #fff; padding: 14px 32px; text-decoration: none; border-radius: 6px; font-weight: bold;">Access Your Portal</a></p>
+
+      <hr style="border: none; border-top: 1px solid #e0e0e0; margin: 30px 0;">
+      <p style="color: #666; font-size: 14px;">Questions? Reply to this email or contact us at info@bogen.ai</p>
+      <p style="color: #888; font-size: 12px;">Edmund Bogen Team | South Florida Luxury Real Estate</p>
+    </div>
+  `;
+
+  return sendEmail({
+    to: client.email,
+    subject,
+    html,
+    text: `Welcome to your Bogen.ai Client Portal! Access your portal at ${process.env.BASE_URL}/client-portal`
+  });
+}
+
+/**
+ * Send password reset email to client
+ */
+async function sendClientPasswordResetEmail(client) {
+  const resetUrl = `${process.env.BASE_URL}/client-portal?reset=${client.resetToken}`;
+  const subject = 'Reset Your Password - Bogen.ai Client Portal';
+  const html = `
+    <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
+      <h1 style="color: #1a3a52;">Password Reset Request</h1>
+      <p>Hi ${client.firstName},</p>
+      <p>We received a request to reset your password. Click the button below to create a new password:</p>
+
+      <p style="margin: 30px 0;"><a href="${resetUrl}" style="display: inline-block; background: #64b5f6; color: #fff; padding: 14px 32px; text-decoration: none; border-radius: 6px; font-weight: bold;">Reset Password</a></p>
+
+      <p style="color: #666;">This link will expire in 1 hour for security reasons.</p>
+      <p style="color: #666;">If you didn't request this password reset, you can safely ignore this email.</p>
+
+      <hr style="border: none; border-top: 1px solid #e0e0e0; margin: 30px 0;">
+      <p style="color: #888; font-size: 12px;">Edmund Bogen Team | Bogen.ai</p>
+    </div>
+  `;
+
+  return sendEmail({
+    to: client.email,
+    subject,
+    html,
+    text: `Reset your password at: ${resetUrl}`
+  });
+}
+
+/**
+ * Send notification when client transaction is updated
+ */
+async function sendClientTransactionUpdateEmail(client, transaction, update) {
+  const subject = `Update on Your Transaction - ${transaction.title}`;
+  const html = `
+    <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
+      <h1 style="color: #1a3a52;">Transaction Update</h1>
+      <p>Hi ${client.firstName},</p>
+      <p>There's been an update on your transaction:</p>
+
+      <div style="background: #f4f8fb; padding: 20px; margin: 20px 0; border-radius: 8px; border-left: 4px solid #64b5f6;">
+        <h3 style="color: #1a3a52; margin-top: 0;">${transaction.title}</h3>
+        <p style="margin-bottom: 0;"><strong>Update:</strong> ${update}</p>
+      </div>
+
+      <p><a href="${process.env.BASE_URL}/client-transaction/${transaction.transaction_id}" style="display: inline-block; background: #64b5f6; color: #fff; padding: 14px 32px; text-decoration: none; border-radius: 6px; font-weight: bold;">View Transaction</a></p>
+
+      <hr style="border: none; border-top: 1px solid #e0e0e0; margin: 30px 0;">
+      <p style="color: #888; font-size: 12px;">Edmund Bogen Team | Bogen.ai</p>
+    </div>
+  `;
+
+  return sendEmail({
+    to: client.email,
+    subject,
+    html,
+    text: `Update on ${transaction.title}: ${update}`
+  });
+}
+
+/**
+ * Send notification when admin sends a message to client
+ */
+async function sendClientNewMessageEmail(client, message) {
+  const subject = message.subject ? `New Message: ${message.subject}` : 'New Message from Edmund Bogen Team';
+  const html = `
+    <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
+      <h1 style="color: #1a3a52;">You Have a New Message</h1>
+      <p>Hi ${client.firstName},</p>
+      <p>You've received a new message from the Edmund Bogen Team:</p>
+
+      <div style="background: #f4f8fb; padding: 20px; margin: 20px 0; border-radius: 8px;">
+        ${message.subject ? `<p style="margin-top: 0;"><strong>Subject:</strong> ${message.subject}</p>` : ''}
+        <p style="white-space: pre-line;">${message.message.substring(0, 500)}${message.message.length > 500 ? '...' : ''}</p>
+      </div>
+
+      <p><a href="${process.env.BASE_URL}/client-messages" style="display: inline-block; background: #64b5f6; color: #fff; padding: 14px 32px; text-decoration: none; border-radius: 6px; font-weight: bold;">View Full Message</a></p>
+
+      <hr style="border: none; border-top: 1px solid #e0e0e0; margin: 30px 0;">
+      <p style="color: #888; font-size: 12px;">Edmund Bogen Team | Bogen.ai</p>
+    </div>
+  `;
+
+  return sendEmail({
+    to: client.email,
+    subject,
+    html,
+    text: `New message: ${message.message.substring(0, 200)}`
+  });
+}
+
 module.exports = {
   sendEmail,
   sendPartnerApprovalEmail,
   sendClientInquiryNotification,
-  sendPartnerApplicationNotification
+  sendPartnerApplicationNotification,
+  sendClientWelcomeEmail,
+  sendClientPasswordResetEmail,
+  sendClientTransactionUpdateEmail,
+  sendClientNewMessageEmail
 };
