@@ -1,0 +1,1056 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Claude Code Mastermind - Build Your Own AI-Powered Real Estate Tools</title>
+  <meta name="description" content="5-week live training series teaching realtors how to use Claude Code to build personalized business tools. No coding experience required.">
+
+  <!-- SEO Meta Tags -->
+  <meta name="keywords" content="Claude Code training, AI for realtors, real estate automation, build apps no code, Edmund Bogen coaching, realtor technology, AI tools real estate">
+  <meta name="author" content="Edmund Bogen">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://bogen.ai/claude-code-mastermind">
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="product">
+  <meta property="og:url" content="https://bogen.ai/claude-code-mastermind">
+  <meta property="og:title" content="Claude Code Mastermind - Build AI Tools for Your Real Estate Business">
+  <meta property="og:description" content="In 5 weeks, go from zero coding experience to deploying your own personalized web apps. Live Zoom training + video repository + private coaching.">
+  <meta property="og:image" content="https://bogen.ai/images/claude-code-mastermind-og.jpg">
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Claude Code Mastermind - Build AI Tools for Real Estate">
+  <meta name="twitter:description" content="5-week live training: Build your own mortgage calculators, lead capture pages, and content generators using Claude Code.">
+  <meta name="twitter:image" content="https://bogen.ai/images/claude-code-mastermind-twitter.jpg">
+
+  <!-- Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Course",
+    "name": "Claude Code Mastermind",
+    "description": "5-week live training series teaching real estate professionals to build personalized AI-powered business tools using Claude Code, with no prior coding experience required.",
+    "provider": {
+      "@type": "Organization",
+      "name": "Bogen.ai",
+      "sameAs": "https://bogen.ai"
+    },
+    "instructor": {
+      "@type": "Person",
+      "name": "Edmund Bogen",
+      "description": "Luxury real estate expert and AI strategist helping agents leverage technology for competitive advantage.",
+      "jobTitle": "Founder & Lead Coach",
+      "url": "https://bogen.ai/about-us"
+    },
+    "offers": {
+      "@type": "Offer",
+      "price": "1100",
+      "priceCurrency": "USD",
+      "availability": "https://schema.org/InStock"
+    },
+    "hasCourseInstance": {
+      "@type": "CourseInstance",
+      "courseMode": "online",
+      "courseWorkload": "PT5H",
+      "duration": "P5W"
+    },
+    "educationalLevel": "Beginner",
+    "audience": {
+      "@type": "EducationalAudience",
+      "educationalRole": "Real Estate Professional"
+    }
+  }
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/global.css">
+  <style>
+    .claude-hero {
+      background: linear-gradient(135deg, rgba(26, 35, 50, 0.7) 0%, rgba(13, 22, 32, 0.75) 100%),
+                  url('/images/edmund-behind-screen.png');
+      background-size: cover;
+      background-position: center top;
+      padding: var(--spacing-xl) 0;
+      margin-top: 90px;
+      border-bottom: 2px solid rgba(100, 181, 246, 0.2);
+      min-height: 500px;
+      display: flex;
+      align-items: center;
+    }
+
+    .claude-hero h1 {
+      font-size: 3rem;
+      margin-bottom: var(--spacing-md);
+      text-align: center;
+    }
+
+    .claude-hero .subtitle {
+      font-size: 1.25rem;
+      color: rgba(255, 255, 255, 0.8);
+      text-align: center;
+      max-width: 900px;
+      margin: 0 auto;
+      line-height: 1.6;
+    }
+
+    .hero-badge {
+      display: inline-block;
+      background: rgba(100, 181, 246, 0.2);
+      border: 1px solid var(--cyan);
+      color: var(--cyan);
+      padding: 8px 20px;
+      border-radius: 4px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      margin-bottom: var(--spacing-md);
+    }
+
+    .content-section {
+      padding: var(--spacing-xl) 0;
+    }
+
+    .section-title {
+      font-size: 2.5rem;
+      margin-bottom: var(--spacing-lg);
+      text-align: center;
+    }
+
+    .session-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: var(--spacing-md);
+      margin-top: var(--spacing-lg);
+      max-width: 1200px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .session-card {
+      background: linear-gradient(135deg, rgba(26, 58, 82, 0.8) 0%, rgba(26, 58, 82, 0.6) 100%);
+      border: 2px solid rgba(100, 181, 246, 0.3);
+      border-radius: var(--border-radius);
+      padding: var(--spacing-lg);
+      transition: all var(--transition-smooth);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .session-card:hover {
+      border-color: var(--cyan);
+      box-shadow: 0 8px 24px rgba(100, 181, 246, 0.2);
+      transform: translateY(-4px);
+    }
+
+    .session-number {
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      background: var(--cyan);
+      color: var(--navy);
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 1rem;
+    }
+
+    .session-card h3 {
+      font-size: 1.25rem;
+      margin-bottom: var(--spacing-sm);
+      color: var(--cyan);
+      padding-right: 40px;
+    }
+
+    .session-card .focus {
+      font-size: 0.85rem;
+      color: rgba(255, 255, 255, 0.6);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: var(--spacing-sm);
+    }
+
+    .session-card p {
+      color: rgba(255, 255, 255, 0.85);
+      line-height: 1.6;
+      font-size: 0.95rem;
+    }
+
+    .session-card .build-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: var(--spacing-sm);
+      padding: 8px 12px;
+      background: rgba(100, 181, 246, 0.1);
+      border-radius: 4px;
+      font-size: 0.9rem;
+    }
+
+    .benefits-grid {
+      display: flex;
+      flex-direction: column;
+      gap: var(--spacing-md);
+      margin-top: var(--spacing-lg);
+      max-width: 1000px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .benefit-card {
+      background: linear-gradient(135deg, rgba(26, 58, 82, 0.8) 0%, rgba(26, 58, 82, 0.6) 100%);
+      border: 2px solid rgba(100, 181, 246, 0.3);
+      border-radius: var(--border-radius);
+      padding: var(--spacing-lg);
+      transition: all var(--transition-smooth);
+      display: flex;
+      align-items: flex-start;
+      gap: var(--spacing-md);
+    }
+
+    .benefit-card:hover {
+      border-color: var(--cyan);
+      box-shadow: 0 8px 24px rgba(100, 181, 246, 0.2);
+      transform: translateX(8px);
+    }
+
+    .benefit-card .icon {
+      font-size: 2.5rem;
+      min-width: 60px;
+      text-align: center;
+    }
+
+    .benefit-card .content h3 {
+      font-size: 1.5rem;
+      margin-bottom: var(--spacing-sm);
+      color: var(--cyan);
+    }
+
+    .benefit-card .content p {
+      color: rgba(255, 255, 255, 0.85);
+      line-height: 1.7;
+      font-size: 1.05rem;
+    }
+
+    .pricing-section {
+      background: rgba(26, 58, 82, 0.3);
+      padding: var(--spacing-xxl) 0;
+    }
+
+    .pricing-card {
+      background: linear-gradient(135deg, rgba(100, 181, 246, 0.15) 0%, rgba(26, 58, 82, 0.3) 100%);
+      border: 2px solid rgba(100, 181, 246, 0.4);
+      border-radius: var(--border-radius);
+      padding: var(--spacing-xxl);
+      max-width: 600px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .pricing-card .price {
+      font-size: 4rem;
+      font-weight: 300;
+      color: white;
+      margin-bottom: var(--spacing-sm);
+    }
+
+    .pricing-card .price-note {
+      color: rgba(255, 255, 255, 0.7);
+      font-size: 1rem;
+      margin-bottom: var(--spacing-lg);
+    }
+
+    .pricing-includes {
+      text-align: left;
+      margin: var(--spacing-lg) 0;
+      padding: var(--spacing-lg);
+      background: rgba(0, 0, 0, 0.2);
+      border-radius: var(--border-radius);
+    }
+
+    .pricing-includes h4 {
+      color: var(--cyan);
+      margin-bottom: var(--spacing-md);
+      font-size: 1.125rem;
+    }
+
+    .pricing-includes ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .pricing-includes li {
+      padding: 10px 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .pricing-includes li:last-child {
+      border-bottom: none;
+    }
+
+    .pricing-includes .check {
+      color: var(--cyan);
+      font-size: 1.25rem;
+    }
+
+    .discount-field {
+      margin-top: var(--spacing-lg);
+      padding-top: var(--spacing-lg);
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .discount-field label {
+      display: block;
+      color: rgba(255, 255, 255, 0.8);
+      margin-bottom: var(--spacing-sm);
+      font-size: 0.95rem;
+    }
+
+    .discount-input-group {
+      display: flex;
+      gap: var(--spacing-sm);
+    }
+
+    .discount-input-group input {
+      flex: 1;
+      padding: 12px 16px;
+      border: 1px solid rgba(100, 181, 246, 0.3);
+      border-radius: 4px;
+      background: rgba(0, 0, 0, 0.2);
+      color: white;
+      font-size: 1rem;
+    }
+
+    .discount-input-group input::placeholder {
+      color: rgba(255, 255, 255, 0.4);
+    }
+
+    .discount-input-group button {
+      padding: 12px 24px;
+      background: transparent;
+      border: 1px solid var(--cyan);
+      color: var(--cyan);
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 0.9rem;
+      transition: all var(--transition-smooth);
+    }
+
+    .discount-input-group button:hover {
+      background: var(--cyan);
+      color: var(--navy);
+    }
+
+    .discount-message {
+      margin-top: var(--spacing-sm);
+      font-size: 0.9rem;
+      min-height: 24px;
+    }
+
+    .discount-message.success {
+      color: #4ade80;
+    }
+
+    .discount-message.error {
+      color: #f87171;
+    }
+
+    .registration-form {
+      max-width: 600px;
+      margin: var(--spacing-xl) auto 0;
+      padding: var(--spacing-xl);
+      background: rgba(26, 58, 82, 0.4);
+      border: 1px solid rgba(100, 181, 246, 0.2);
+      border-radius: var(--border-radius);
+    }
+
+    .registration-form h3 {
+      text-align: center;
+      margin-bottom: var(--spacing-lg);
+      color: var(--cyan);
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--spacing-md);
+      margin-bottom: var(--spacing-md);
+    }
+
+    .form-group {
+      margin-bottom: var(--spacing-md);
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 8px;
+      color: rgba(255, 255, 255, 0.9);
+      font-size: 0.95rem;
+    }
+
+    .form-group input,
+    .form-group select {
+      width: 100%;
+      padding: 14px 16px;
+      border: 1px solid rgba(100, 181, 246, 0.3);
+      border-radius: 4px;
+      background: rgba(0, 0, 0, 0.2);
+      color: white;
+      font-size: 1rem;
+      transition: border-color var(--transition-smooth);
+    }
+
+    .form-group input:focus,
+    .form-group select:focus {
+      outline: none;
+      border-color: var(--cyan);
+    }
+
+    .form-group input::placeholder {
+      color: rgba(255, 255, 255, 0.4);
+    }
+
+    .form-total {
+      padding: var(--spacing-md);
+      background: rgba(100, 181, 246, 0.1);
+      border-radius: 4px;
+      margin-bottom: var(--spacing-lg);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .form-total .label {
+      font-size: 1.125rem;
+    }
+
+    .form-total .amount {
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: var(--cyan);
+    }
+
+    .form-total .original-price {
+      text-decoration: line-through;
+      color: rgba(255, 255, 255, 0.5);
+      font-size: 1rem;
+      margin-right: 12px;
+    }
+
+    .ideal-for {
+      background: rgba(100, 181, 246, 0.1);
+      border: 1px solid rgba(100, 181, 246, 0.3);
+      border-radius: var(--border-radius);
+      padding: var(--spacing-xl);
+      max-width: 900px;
+      margin: var(--spacing-xl) auto;
+    }
+
+    .ideal-for h3 {
+      color: var(--cyan);
+      margin-bottom: var(--spacing-md);
+      text-align: center;
+    }
+
+    .ideal-for ul {
+      list-style: none;
+      padding: 0;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--spacing-sm);
+    }
+
+    .ideal-for li {
+      padding: 8px 0;
+      padding-left: 28px;
+      position: relative;
+      color: rgba(255, 255, 255, 0.9);
+    }
+
+    .ideal-for li::before {
+      content: "✓";
+      position: absolute;
+      left: 0;
+      color: var(--cyan);
+      font-weight: bold;
+    }
+
+    .faq-section {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .faq-item {
+      border-bottom: 1px solid rgba(100, 181, 246, 0.2);
+      padding: var(--spacing-md) 0;
+    }
+
+    .faq-item:last-child {
+      border-bottom: none;
+    }
+
+    .faq-question {
+      font-size: 1.125rem;
+      font-weight: 600;
+      color: var(--cyan);
+      margin-bottom: var(--spacing-sm);
+    }
+
+    .faq-answer {
+      color: rgba(255, 255, 255, 0.85);
+      line-height: 1.7;
+    }
+
+    @media (max-width: 768px) {
+      .claude-hero h1 {
+        font-size: 2rem;
+      }
+
+      .claude-hero .subtitle {
+        font-size: 1rem;
+      }
+
+      .section-title {
+        font-size: 1.75rem;
+      }
+
+      .session-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .pricing-card .price {
+        font-size: 3rem;
+      }
+
+      .form-row {
+        grid-template-columns: 1fr;
+      }
+
+      .ideal-for ul {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="header">
+    <div class="container">
+      <nav class="nav">
+        <a href="/" class="logo" style="display: flex; align-items: center; margin-left: -12px;">
+          <img src="/images/eb-logo.png" alt="Bogen.ai Logo" style="height: 100px; width: auto;">
+        </a>
+        <ul class="nav-menu">
+          <li><a href="/" class="nav-link">Home</a></li>
+          <li class="nav-dropdown">
+            <a href="/about-us" class="nav-link">About</a>
+            <ul class="dropdown-menu">
+              <li><a href="/about-us#edmund">About Edmund Bogen</a></li>
+              <li><a href="/about-us#eytan">About Eytan Benzeno</a></li>
+            </ul>
+          </li>
+          <li class="nav-dropdown">
+            <a href="/#services" class="nav-link">Services</a>
+            <ul class="dropdown-menu">
+              <li><a href="/tools-weve-built">Tools that we've built</a></li>
+              <li><a href="/services/communication-customer-interaction">Communication & Customer Interaction</a></li>
+              <li><a href="/services/sales-revenue-generation">Sales & Revenue Generation</a></li>
+              <li><a href="/services/operations-workflow">Operations & Workflow</a></li>
+              <li><a href="/services/marketing-content">Marketing & Content</a></li>
+              <li><a href="/services/industry-specific-premium">Industry-Specific Premium</a></li>
+            </ul>
+          </li>
+          <li class="nav-dropdown">
+            <a href="/skills" class="nav-link" style="color: var(--cyan);">Skills</a>
+            <ul class="dropdown-menu">
+              <li><a href="/skills">Browse All Skills</a></li>
+              <li><a href="/skills/business-professional">Business &amp; Professional</a></li>
+              <li><a href="/skills/technology">Technology</a></li>
+              <li><a href="/skills/marketing-sales">Marketing &amp; Sales</a></li>
+              <li><a href="/skills/submit">Submit Your Skill</a></li>
+            </ul>
+          </li>
+          <li class="nav-dropdown">
+            <a href="/partner-program" class="nav-link">Partner</a>
+            <ul class="dropdown-menu">
+              <li><a href="/contact?tab=partner">Apply to Become a Partner</a></li>
+              <li><a href="/partner-portal">Partner Log In</a></li>
+            </ul>
+          </li>
+          <li class="nav-dropdown">
+            <a href="/edmunds-mastermind" class="nav-link">Mastermind</a>
+            <ul class="dropdown-menu">
+              <li><a href="/#mastermind-registration">Register Now for This Week's Meeting</a></li>
+              <li><a href="/contact?tab=client">Join Our Mastermind Community</a></li>
+              <li><a href="/claude-code-mastermind" class="active">Claude Code Training</a></li>
+            </ul>
+          </li>
+          <li><a href="/blog" class="nav-link">Blog</a></li>
+          <li><a href="/video-archive" class="nav-link">Video</a></li>
+          <li><a href="/contact" class="btn btn-primary btn-sm">Get Started</a></li>
+        </ul>
+        <button class="nav-toggle" type="button" aria-label="Toggle navigation" onclick="window.bogenAI.toggleMobileMenu()">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="claude-hero">
+    <div class="container">
+      <div style="text-align: center;">
+        <span class="hero-badge">5-Week Live Training</span>
+      </div>
+      <h1>Claude Code Mastermind</h1>
+      <p class="subtitle">Build Your Own AI-Powered Real Estate Tools</p>
+      <p class="subtitle" style="margin-top: var(--spacing-md); font-size: 1.125rem;">In 5 weeks, go from zero coding experience to deploying your own personalized web apps that automate your real estate business - even if you've never opened a terminal in your life.</p>
+      <div style="text-align: center; margin-top: var(--spacing-xl);">
+        <a href="#register" class="btn btn-primary btn-lg">Enroll Now - $1,100</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Main Content -->
+  <main>
+    <!-- What You'll Build Section -->
+    <section class="content-section">
+      <div class="container">
+        <h2 class="section-title">What You'll Build</h2>
+        <p style="text-align: center; font-size: 1.125rem; color: rgba(255, 255, 255, 0.8); max-width: 700px; margin: 0 auto var(--spacing-lg);">
+          By the end of this series, you'll have a complete portfolio of working tools you built yourself:
+        </p>
+
+        <div class="session-grid">
+          <!-- Session 1 -->
+          <div class="session-card">
+            <span class="session-number">1</span>
+            <div class="focus">Week 1</div>
+            <h3>Discover Your Unfair Advantage</h3>
+            <p>Understand why Claude Code is the realtor's secret weapon and see live demos of what you'll build.</p>
+            <div class="build-item">
+              <span>🎯</span> ROI Calculator + Vision Board
+            </div>
+          </div>
+
+          <!-- Session 2 -->
+          <div class="session-card">
+            <span class="session-number">2</span>
+            <div class="focus">Week 2</div>
+            <h3>Your First 60 Minutes</h3>
+            <p>Install Claude Code and create your first project - a personalized "About Me" realtor page.</p>
+            <div class="build-item">
+              <span>💻</span> Professional About Page
+            </div>
+          </div>
+
+          <!-- Session 3 -->
+          <div class="session-card">
+            <span class="session-number">3</span>
+            <div class="focus">Week 3</div>
+            <h3>The Project Blueprint</h3>
+            <p>Master the repeatable workflow for starting any project. Build a mortgage calculator from scratch.</p>
+            <div class="build-item">
+              <span>🧮</span> Branded Mortgage Calculator
+            </div>
+          </div>
+
+          <!-- Session 4 -->
+          <div class="session-card">
+            <span class="session-number">4</span>
+            <div class="focus">Week 4</div>
+            <h3>Never Lose Your Work</h3>
+            <p>Set up GitHub backup so you never lose a single line of work - even if your computer crashes.</p>
+            <div class="build-item">
+              <span>☁️</span> Professional Backup System
+            </div>
+          </div>
+
+          <!-- Session 5 -->
+          <div class="session-card">
+            <span class="session-number">5</span>
+            <div class="focus">Week 5</div>
+            <h3>Build Your Business Tools</h3>
+            <p>Capstone session: Build lead capture pages, content generators, and learn deployment.</p>
+            <div class="build-item">
+              <span>🚀</span> Lead Capture + Content Generator
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- What's Included Section -->
+    <section class="content-section" style="background: rgba(26, 58, 82, 0.3);">
+      <div class="container">
+        <h2 class="section-title">What's Included</h2>
+
+        <div class="benefits-grid">
+          <!-- Benefit 1 -->
+          <div class="benefit-card">
+            <div class="icon">📺</div>
+            <div class="content">
+              <h3>5 Live Zoom Sessions</h3>
+              <p>Join Edmund live every week for hands-on training. Follow along in real-time, ask questions, and get immediate help when you're stuck. Each session is 60 minutes of focused, practical instruction designed for complete beginners.</p>
+            </div>
+          </div>
+
+          <!-- Benefit 2 -->
+          <div class="benefit-card">
+            <div class="icon">🎬</div>
+            <div class="content">
+              <h3>Lifetime Video Repository Access</h3>
+              <p>Can't make a live session? No problem. All sessions are recorded and uploaded within 24 hours. Access them anytime, forever. Rewatch as many times as you need to master each concept.</p>
+            </div>
+          </div>
+
+          <!-- Benefit 3 -->
+          <div class="benefit-card">
+            <div class="icon">🎯</div>
+            <div class="content">
+              <h3>Private Coaching Call with Edmund</h3>
+              <p>Get a dedicated 30-minute one-on-one session with Edmund to work through your specific challenges, customize tools for your business, or accelerate your implementation. Schedule anytime within 60 days of completing the program.</p>
+            </div>
+          </div>
+
+          <!-- Benefit 4 -->
+          <div class="benefit-card">
+            <div class="icon">📚</div>
+            <div class="content">
+              <h3>5 Implementation Workbooks</h3>
+              <p>Each session comes with a comprehensive 15-20 page workbook packed with copy-paste prompts, step-by-step instructions, and exercises. These aren't just notes - they're complete implementation guides you'll reference long after the training ends.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Who This Is For -->
+    <section class="content-section">
+      <div class="container">
+        <h2 class="section-title">Is This For You?</h2>
+
+        <div class="ideal-for">
+          <h3>This Training Is Perfect If You:</h3>
+          <ul>
+            <li>Have never used a terminal or written code before</li>
+            <li>Pay for software tools that don't quite fit your workflow</li>
+            <li>Want to build custom tools but think you need to hire a developer</li>
+            <li>Are curious about AI but don't have time for generic tech tutorials</li>
+            <li>Want a competitive edge that most agents won't discover for years</li>
+            <li>Prefer step-by-step guidance over figuring things out alone</li>
+            <li>Value having tools that match your brand perfectly</li>
+            <li>Want to impress clients with professional, custom applications</li>
+          </ul>
+        </div>
+
+        <p style="text-align: center; max-width: 700px; margin: var(--spacing-lg) auto 0; font-size: 1.125rem; color: rgba(255, 255, 255, 0.85);">
+          <strong style="color: var(--cyan);">No technical experience required.</strong> If you can send an email and browse the web, you can do this. Edmund will walk you through every single step.
+        </p>
+      </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section id="register" class="pricing-section">
+      <div class="container">
+        <h2 class="section-title">Investment</h2>
+
+        <div class="pricing-card">
+          <div class="price">$1,100</div>
+          <div class="price-note">One-time payment - Lifetime access</div>
+
+          <div class="pricing-includes">
+            <h4>Your Complete Package:</h4>
+            <ul>
+              <li><span class="check">✓</span> 5 Live 60-Minute Zoom Sessions</li>
+              <li><span class="check">✓</span> Lifetime Video Repository Access</li>
+              <li><span class="check">✓</span> 1 Private Coaching Call (30 min)</li>
+              <li><span class="check">✓</span> 5 Implementation Workbooks (15-20 pages each)</li>
+              <li><span class="check">✓</span> Copy-Paste Prompt Libraries</li>
+              <li><span class="check">✓</span> Certificate of Completion</li>
+            </ul>
+          </div>
+
+          <div class="discount-field">
+            <label>Already a client or mastermind member? Enter your discount code:</label>
+            <div class="discount-input-group">
+              <input type="text" id="discount-code" placeholder="Enter code">
+              <button type="button" onclick="applyDiscount()">Apply</button>
+            </div>
+            <div id="discount-message" class="discount-message"></div>
+          </div>
+        </div>
+
+        <!-- Registration Form -->
+        <form id="claude-code-registration-form" class="registration-form">
+          <h3>Register Now</h3>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="first_name">First Name *</label>
+              <input type="text" id="first_name" name="first_name" required placeholder="John">
+            </div>
+            <div class="form-group">
+              <label for="last_name">Last Name *</label>
+              <input type="text" id="last_name" name="last_name" required placeholder="Smith">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="email">Email *</label>
+            <input type="email" id="email" name="email" required placeholder="john@example.com">
+          </div>
+
+          <div class="form-group">
+            <label for="phone">Phone *</label>
+            <input type="tel" id="phone" name="phone" required placeholder="(555) 123-4567">
+          </div>
+
+          <div class="form-group">
+            <label for="company">Brokerage / Company</label>
+            <input type="text" id="company" name="company" placeholder="Your brokerage name">
+          </div>
+
+          <div class="form-group">
+            <label for="experience">Technical Experience Level</label>
+            <select id="experience" name="experience">
+              <option value="none">Complete beginner - Never used terminal</option>
+              <option value="basic">Basic - Comfortable with apps/software</option>
+              <option value="some">Some experience - Tried coding before</option>
+            </select>
+          </div>
+
+          <input type="hidden" id="discount_code_applied" name="discount_code_applied" value="">
+          <input type="hidden" id="final_price" name="final_price" value="1100">
+
+          <div class="form-total">
+            <span class="label">Total:</span>
+            <span>
+              <span id="original-price-display" class="original-price" style="display: none;">$1,100</span>
+              <span id="total-display" class="amount">$1,100</span>
+            </span>
+          </div>
+
+          <button type="submit" class="btn btn-primary btn-lg" style="width: 100%;">
+            Complete Registration
+          </button>
+
+          <p style="text-align: center; margin-top: var(--spacing-md); font-size: 0.9rem; color: rgba(255, 255, 255, 0.6);">
+            You'll receive confirmation and session details via email within 24 hours.
+          </p>
+        </form>
+      </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="content-section">
+      <div class="container">
+        <h2 class="section-title">Frequently Asked Questions</h2>
+
+        <div class="faq-section">
+          <div class="faq-item">
+            <div class="faq-question">Do I need any coding experience?</div>
+            <div class="faq-answer">Absolutely not. This training is specifically designed for complete beginners who have never opened a terminal or written a line of code. Edmund walks you through every single step.</div>
+          </div>
+
+          <div class="faq-item">
+            <div class="faq-question">What equipment do I need?</div>
+            <div class="faq-answer">A Mac or Windows computer with a stable internet connection. That's it. We'll cover how to install everything you need in Session 2.</div>
+          </div>
+
+          <div class="faq-item">
+            <div class="faq-question">What if I miss a live session?</div>
+            <div class="faq-answer">All sessions are recorded and uploaded to your video repository within 24 hours. You have lifetime access, so you can catch up anytime.</div>
+          </div>
+
+          <div class="faq-item">
+            <div class="faq-question">How long do I have to use my coaching call?</div>
+            <div class="faq-answer">You have 60 days from the final session to schedule and complete your private coaching call with Edmund.</div>
+          </div>
+
+          <div class="faq-item">
+            <div class="faq-question">Will I actually be able to build real apps?</div>
+            <div class="faq-answer">Yes. By the end of the 5 weeks, you'll have built a mortgage calculator, lead capture page, and social media content generator - all customized with your branding.</div>
+          </div>
+
+          <div class="faq-item">
+            <div class="faq-question">Is there a refund policy?</div>
+            <div class="faq-answer">If you attend the first session and feel this isn't right for you, contact us within 48 hours for a full refund. We're confident you'll see the value immediately.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Final CTA -->
+    <section class="content-section" style="background: rgba(26, 58, 82, 0.3);">
+      <div class="container">
+        <div style="max-width: 700px; margin: 0 auto; text-align: center;">
+          <h2 style="font-size: 2rem; margin-bottom: var(--spacing-md);">The Agents Learning This Now Will Dominate in 18 Months</h2>
+          <p style="font-size: 1.125rem; color: rgba(255, 255, 255, 0.85); margin-bottom: var(--spacing-lg); line-height: 1.7;">
+            While your competitors debate whether AI will replace them, you'll be using it to replace their market share. These tools don't make you lazy - they make you unstoppable.
+          </p>
+          <a href="#register" class="btn btn-primary btn-lg">Join the Claude Code Mastermind</a>
+          <p style="margin-top: var(--spacing-md); font-size: 1rem; color: var(--cyan); font-weight: 600;">
+            Because Falling Behind is NOT an Option!
+          </p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-section">
+          <h3>bogen<span style="color: var(--cyan);">.ai</span></h3>
+          <p>Premium AI automation for businesses that demand excellence.</p>
+        </div>
+        <div class="footer-section">
+          <h4>Quick Links</h4>
+          <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="/about-edmund">About</a></li>
+            <li><a href="/partner-program">Partnership</a></li>
+            <li><a href="/edmunds-mastermind">Mastermind</a></li>
+            <li><a href="/claude-code-mastermind">Claude Code Training</a></li>
+            <li><a href="/video-archive">Video</a></li>
+          </ul>
+        </div>
+        <div class="footer-section">
+          <h4>Legal</h4>
+          <ul>
+            <li><a href="/privacy">Privacy Policy</a></li>
+            <li><a href="/terms">Terms of Service</a></li>
+          </ul>
+        </div>
+        <div class="footer-section">
+          <h4>Contact</h4>
+          <p><a href="mailto:edmund@bogenhomes.com">edmund@bogenhomes.com</a></p>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2025 Bogen.ai. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="/js/common.js"></script>
+
+  <script>
+    // Discount codes and their values
+    const discountCodes = {
+      'MASTERMIND20': { percent: 20, description: 'Mastermind Member Discount' },
+      'CLIENT15': { percent: 15, description: 'Existing Client Discount' },
+      'PARTNER25': { percent: 25, description: 'Partner Discount' },
+      'EARLYBIRD': { percent: 10, description: 'Early Bird Discount' }
+    };
+
+    const basePrice = 1100;
+    let currentDiscount = 0;
+
+    function applyDiscount() {
+      const codeInput = document.getElementById('discount-code');
+      const messageEl = document.getElementById('discount-message');
+      const code = codeInput.value.trim().toUpperCase();
+
+      if (!code) {
+        messageEl.textContent = 'Please enter a discount code';
+        messageEl.className = 'discount-message error';
+        return;
+      }
+
+      if (discountCodes[code]) {
+        const discount = discountCodes[code];
+        currentDiscount = discount.percent;
+        const discountedPrice = basePrice * (1 - discount.percent / 100);
+
+        // Update display
+        document.getElementById('original-price-display').style.display = 'inline';
+        document.getElementById('total-display').textContent = '$' + discountedPrice.toFixed(0);
+        document.getElementById('discount_code_applied').value = code;
+        document.getElementById('final_price').value = discountedPrice.toFixed(0);
+
+        messageEl.textContent = `${discount.description} applied! You save $${(basePrice - discountedPrice).toFixed(0)}`;
+        messageEl.className = 'discount-message success';
+      } else {
+        messageEl.textContent = 'Invalid discount code';
+        messageEl.className = 'discount-message error';
+        currentDiscount = 0;
+      }
+    }
+
+    // Allow Enter key to apply discount
+    document.getElementById('discount-code').addEventListener('keypress', function(e) {
+      if (e.key === 'Enter') {
+        e.preventDefault();
+        applyDiscount();
+      }
+    });
+
+    // Registration Form Handler
+    document.getElementById('claude-code-registration-form').addEventListener('submit', async function(e) {
+      e.preventDefault();
+
+      const submitButton = this.querySelector('button[type="submit"]');
+      const originalButtonText = submitButton.textContent;
+      submitButton.textContent = 'Processing...';
+      submitButton.disabled = true;
+
+      const formData = {
+        first_name: document.getElementById('first_name').value,
+        last_name: document.getElementById('last_name').value,
+        email: document.getElementById('email').value,
+        phone: document.getElementById('phone').value,
+        company: document.getElementById('company').value,
+        experience: document.getElementById('experience').value,
+        discount_code: document.getElementById('discount_code_applied').value,
+        final_price: document.getElementById('final_price').value,
+        program: 'claude-code-mastermind'
+      };
+
+      try {
+        const response = await fetch('/api/claude-code-mastermind/register', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(formData)
+        });
+
+        const data = await response.json();
+
+        if (response.ok) {
+          // Redirect to thank you page or show success
+          window.location.href = '/claude-code-mastermind-registered';
+        } else {
+          alert(data.error || 'Registration failed. Please try again.');
+          submitButton.textContent = originalButtonText;
+          submitButton.disabled = false;
+        }
+      } catch (error) {
+        console.error('Registration error:', error);
+        alert('Registration failed. Please try again.');
+        submitButton.textContent = originalButtonText;
+        submitButton.disabled = false;
+      }
+    });
+  </script>
+
+</body>
+</html>
