@@ -245,6 +245,38 @@ router.post(
 );
 
 /**
+ * GET /api/auth/admin/me
+ * Get current admin user info
+ */
+router.get('/admin/me', async (req, res) => {
+  try {
+    const token = req.headers.authorization?.split(' ')[1] || req.cookies.admin_token;
+
+    if (!token) {
+      return res.status(401).json({ error: 'No token provided' });
+    }
+
+    const { verifyToken } = require('../middleware/auth');
+    const decoded = verifyToken(token);
+
+    if (!decoded || decoded.type !== 'admin') {
+      return res.status(401).json({ error: 'Invalid token' });
+    }
+
+    res.json({
+      admin: {
+        id: decoded.id,
+        name: decoded.name,
+        email: decoded.email
+      }
+    });
+  } catch (error) {
+    console.error('Admin me error:', error);
+    res.status(401).json({ error: 'Invalid token' });
+  }
+});
+
+/**
  * POST /api/auth/logout
  * Logout (clear cookies)
  */
