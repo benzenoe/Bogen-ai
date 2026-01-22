@@ -337,6 +337,41 @@
       gap: 6px;
       margin-bottom: var(--spacing-md);
     }
+
+    .toast {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      padding: 16px 24px;
+      border-radius: 8px;
+      color: white;
+      font-weight: 500;
+      z-index: 10001;
+      transform: translateY(100px);
+      opacity: 0;
+      transition: all 0.3s ease;
+    }
+
+    .toast.show {
+      transform: translateY(0);
+      opacity: 1;
+    }
+
+    .toast.success {
+      background: #388E3C;
+    }
+
+    .toast.error {
+      background: #D32F2F;
+    }
+
+    .toast.info {
+      background: #1976D2;
+    }
+
+    .hidden {
+      display: none !important;
+    }
   </style>
 </head>
 <body>
