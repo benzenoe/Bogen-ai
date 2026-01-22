@@ -1,0 +1,1537 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Client Portal Admin - Bogen.ai</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/global.css">
+  <style>
+    .login-container {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: var(--spacing-lg);
+    }
+
+    .login-box {
+      max-width: 450px;
+      width: 100%;
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: var(--spacing-md);
+      margin-bottom: var(--spacing-xl);
+    }
+
+    .stat-card {
+      background: rgba(26, 58, 82, 0.6);
+      border: 1px solid rgba(100, 181, 246, 0.3);
+      border-radius: var(--border-radius);
+      padding: var(--spacing-md);
+      cursor: pointer;
+      transition: all var(--transition-fast);
+    }
+
+    .stat-card:hover {
+      border-color: var(--cyan);
+      transform: translateY(-2px);
+    }
+
+    .stat-value {
+      font-size: 2rem;
+      font-weight: 300;
+      color: var(--cyan);
+      margin: var(--spacing-xs) 0;
+    }
+
+    .stat-label {
+      color: rgba(255, 255, 255, 0.7);
+      font-size: 0.875rem;
+    }
+
+    .action-btn {
+      background: var(--cyan);
+      color: var(--white);
+      border: none;
+      padding: 6px 16px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 0.875rem;
+      transition: all var(--transition-fast);
+    }
+
+    .action-btn:hover {
+      background: #4a9fd8;
+    }
+
+    .action-btn.secondary {
+      background: transparent;
+      border: 1px solid var(--cyan);
+      color: var(--cyan);
+    }
+
+    .action-btn.secondary:hover {
+      background: rgba(100, 181, 246, 0.1);
+    }
+
+    .action-btn.danger {
+      background: #D32F2F;
+    }
+
+    .action-btn.danger:hover {
+      background: #B71C1C;
+    }
+
+    .action-btn.success {
+      background: #388E3C;
+    }
+
+    .tabs-nav {
+      display: flex;
+      gap: var(--spacing-sm);
+      margin-bottom: var(--spacing-lg);
+      border-bottom: 2px solid rgba(100, 181, 246, 0.2);
+      flex-wrap: wrap;
+    }
+
+    .tab-btn {
+      background: transparent;
+      border: none;
+      padding: var(--spacing-sm) var(--spacing-md);
+      color: rgba(255, 255, 255, 0.6);
+      cursor: pointer;
+      transition: all var(--transition-fast);
+      border-bottom: 2px solid transparent;
+      margin-bottom: -2px;
+      font-size: 0.95rem;
+    }
+
+    .tab-btn.active {
+      color: var(--cyan);
+      border-bottom-color: var(--cyan);
+    }
+
+    .tab-panel {
+      display: none;
+    }
+
+    .tab-panel.active {
+      display: block;
+    }
+
+    .table-container {
+      overflow-x: auto;
+    }
+
+    .data-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    .data-table th,
+    .data-table td {
+      padding: 12px;
+      text-align: left;
+      border-bottom: 1px solid rgba(100, 181, 246, 0.2);
+    }
+
+    .data-table th {
+      color: var(--cyan);
+      font-weight: 500;
+      font-size: 0.875rem;
+    }
+
+    .data-table tr:hover {
+      background: rgba(100, 181, 246, 0.05);
+    }
+
+    .status-badge {
+      display: inline-block;
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 0.75rem;
+      font-weight: 500;
+    }
+
+    .status-active, .status-completed { background: rgba(56, 142, 60, 0.3); color: #81C784; }
+    .status-pending, .status-initiated { background: rgba(255, 193, 7, 0.3); color: #FFD54F; }
+    .status-in_progress { background: rgba(100, 181, 246, 0.3); color: #64b5f6; }
+    .status-inactive, .status-cancelled, .status-suspended { background: rgba(211, 47, 47, 0.3); color: #E57373; }
+
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.85);
+      z-index: 10000;
+      align-items: center;
+      justify-content: center;
+      padding: var(--spacing-md);
+    }
+
+    .modal.active {
+      display: flex;
+    }
+
+    .modal-content {
+      background: var(--dark-navy);
+      border: 1px solid rgba(100, 181, 246, 0.3);
+      border-radius: var(--border-radius);
+      padding: var(--spacing-xl);
+      max-width: 700px;
+      width: 100%;
+      max-height: 90vh;
+      overflow-y: auto;
+    }
+
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: var(--spacing-lg);
+    }
+
+    .modal-close {
+      background: none;
+      border: none;
+      color: rgba(255, 255, 255, 0.6);
+      font-size: 1.5rem;
+      cursor: pointer;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--spacing-md);
+    }
+
+    @media (max-width: 600px) {
+      .form-row {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .header-actions {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: var(--spacing-lg);
+      flex-wrap: wrap;
+      gap: var(--spacing-md);
+    }
+
+    .timeline-editor {
+      border: 1px solid rgba(100, 181, 246, 0.2);
+      border-radius: var(--border-radius);
+      padding: var(--spacing-md);
+      margin-top: var(--spacing-md);
+    }
+
+    .timeline-step {
+      display: flex;
+      align-items: center;
+      gap: var(--spacing-md);
+      padding: var(--spacing-sm);
+      border-bottom: 1px solid rgba(100, 181, 246, 0.1);
+    }
+
+    .timeline-step:last-child {
+      border-bottom: none;
+    }
+
+    .step-number {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: rgba(100, 181, 246, 0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.875rem;
+      color: var(--cyan);
+      flex-shrink: 0;
+    }
+
+    .step-number.completed {
+      background: #388E3C;
+      color: white;
+    }
+
+    .step-number.in_progress {
+      background: var(--cyan);
+      color: white;
+    }
+
+    .step-content {
+      flex: 1;
+    }
+
+    .step-name {
+      font-weight: 500;
+    }
+
+    .step-desc {
+      font-size: 0.875rem;
+      color: rgba(255, 255, 255, 0.6);
+    }
+
+    .message-item {
+      padding: var(--spacing-md);
+      border-bottom: 1px solid rgba(100, 181, 246, 0.1);
+      cursor: pointer;
+      transition: background var(--transition-fast);
+    }
+
+    .message-item:hover {
+      background: rgba(100, 181, 246, 0.05);
+    }
+
+    .message-item.unread {
+      background: rgba(100, 181, 246, 0.1);
+      border-left: 3px solid var(--cyan);
+    }
+
+    .message-header {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: var(--spacing-xs);
+    }
+
+    .message-sender {
+      font-weight: 500;
+    }
+
+    .message-time {
+      font-size: 0.75rem;
+      color: rgba(255, 255, 255, 0.5);
+    }
+
+    .message-preview {
+      font-size: 0.875rem;
+      color: rgba(255, 255, 255, 0.7);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .empty-state {
+      text-align: center;
+      padding: var(--spacing-xxl);
+      color: rgba(255, 255, 255, 0.5);
+    }
+
+    .back-link {
+      color: var(--cyan);
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      margin-bottom: var(--spacing-md);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Login View -->
+  <div id="login-view" class="login-container">
+    <div class="login-box">
+      <div class="text-center mb-xl">
+        <a href="/" class="logo" style="font-size: 2rem;">bogen<span>.ai</span></a>
+        <h2 class="mt-lg">Client Portal Admin</h2>
+        <p class="text-gray">Manage Client Accounts & Transactions</p>
+      </div>
+
+      <div class="card">
+        <form id="adminLoginForm" onsubmit="handleAdminLogin(event)">
+          <div class="form-group">
+            <label class="form-label">Email</label>
+            <input type="email" name="email" class="form-input" required>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Password</label>
+            <input type="password" name="password" class="form-input" required>
+          </div>
+
+          <button type="submit" class="btn btn-primary" style="width: 100%;">Login</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Dashboard View -->
+  <div id="dashboard-view" class="hidden">
+    <!-- Header -->
+    <header class="header">
+      <div class="container">
+        <nav class="nav">
+          <a href="/" class="logo">bogen<span>.ai</span> <span style="font-size: 0.75rem; color: var(--cyan);">PORTAL ADMIN</span></a>
+          <ul class="nav-menu">
+            <li><a href="/admin-dashboard" class="nav-link">Main Admin</a></li>
+            <li><a href="#" onclick="logout()" class="btn btn-secondary btn-sm">Logout</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <!-- Main Content -->
+    <main style="margin-top: 90px; padding: var(--spacing-xxl) 0;">
+      <div class="container">
+        <h1 class="mb-lg">Client Portal Management</h1>
+
+        <!-- Stats -->
+        <div class="stats-grid">
+          <div class="stat-card" onclick="switchTab('clients')">
+            <div class="stat-label">Active Clients</div>
+            <div class="stat-value" id="stat-clients">-</div>
+          </div>
+          <div class="stat-card" onclick="switchTab('transactions')">
+            <div class="stat-label">Active Transactions</div>
+            <div class="stat-value" id="stat-transactions">-</div>
+          </div>
+          <div class="stat-card" onclick="switchTab('messages')">
+            <div class="stat-label">Unread Messages</div>
+            <div class="stat-value" id="stat-messages">-</div>
+          </div>
+          <div class="stat-card" onclick="switchTab('appointments')">
+            <div class="stat-label">Upcoming Appointments</div>
+            <div class="stat-value" id="stat-appointments">-</div>
+          </div>
+        </div>
+
+        <!-- Tabs -->
+        <div class="tabs-nav">
+          <button class="tab-btn active" data-tab="clients">Clients</button>
+          <button class="tab-btn" data-tab="transactions">Transactions</button>
+          <button class="tab-btn" data-tab="resources">Resources</button>
+          <button class="tab-btn" data-tab="messages">Messages</button>
+          <button class="tab-btn" data-tab="appointments">Appointments</button>
+        </div>
+
+        <!-- Clients Tab -->
+        <div id="clients-tab" class="tab-panel active">
+          <div class="header-actions">
+            <h3>Portal Clients</h3>
+            <button class="action-btn" onclick="openCreateClientModal()">+ Add Client</button>
+          </div>
+          <div class="table-container">
+            <table class="data-table" id="clients-table">
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>Email</th>
+                  <th>Phone</th>
+                  <th>Transactions</th>
+                  <th>Status</th>
+                  <th>Last Login</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody></tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Transactions Tab -->
+        <div id="transactions-tab" class="tab-panel">
+          <div class="header-actions">
+            <h3>Transactions</h3>
+            <button class="action-btn" onclick="openCreateTransactionModal()">+ New Transaction</button>
+          </div>
+          <div class="table-container">
+            <table class="data-table" id="transactions-table">
+              <thead>
+                <tr>
+                  <th>Title</th>
+                  <th>Client</th>
+                  <th>Property</th>
+                  <th>Progress</th>
+                  <th>Status</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody></tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Resources Tab -->
+        <div id="resources-tab" class="tab-panel">
+          <div class="header-actions">
+            <h3>Resources Library</h3>
+            <button class="action-btn" onclick="openCreateResourceModal()">+ Add Resource</button>
+          </div>
+          <div class="table-container">
+            <table class="data-table" id="resources-table">
+              <thead>
+                <tr>
+                  <th>Title</th>
+                  <th>Category</th>
+                  <th>Type</th>
+                  <th>Public</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody></tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Messages Tab -->
+        <div id="messages-tab" class="tab-panel">
+          <div class="header-actions">
+            <h3>Client Messages</h3>
+            <button class="action-btn secondary" onclick="loadMessages()">Refresh</button>
+          </div>
+          <div id="messages-list" class="card">
+            <div class="empty-state">Loading messages...</div>
+          </div>
+        </div>
+
+        <!-- Appointments Tab -->
+        <div id="appointments-tab" class="tab-panel">
+          <div class="header-actions">
+            <h3>Appointments</h3>
+            <button class="action-btn" onclick="openCreateAppointmentModal()">+ Schedule Appointment</button>
+          </div>
+          <div class="table-container">
+            <table class="data-table" id="appointments-table">
+              <thead>
+                <tr>
+                  <th>Date/Time</th>
+                  <th>Client</th>
+                  <th>Title</th>
+                  <th>Location</th>
+                  <th>Status</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody></tbody>
+            </table>
+          </div>
+        </div>
+
+      </div>
+    </main>
+  </div>
+
+  <!-- Create Client Modal -->
+  <div id="client-modal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 id="client-modal-title">Add New Client</h3>
+        <button class="modal-close" onclick="closeModal('client-modal')">&times;</button>
+      </div>
+      <form id="client-form" onsubmit="handleClientSubmit(event)">
+        <input type="hidden" name="client_id">
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">First Name *</label>
+            <input type="text" name="first_name" class="form-input" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Last Name *</label>
+            <input type="text" name="last_name" class="form-input" required>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Email *</label>
+          <input type="email" name="email" class="form-input" required>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Phone</label>
+            <input type="tel" name="phone" class="form-input">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Company</label>
+            <input type="text" name="company" class="form-input">
+          </div>
+        </div>
+        <div class="form-group" id="password-group">
+          <label class="form-label">Temporary Password *</label>
+          <input type="text" name="password" class="form-input" minlength="8">
+          <small class="text-gray">Min 8 characters. Client can change after first login.</small>
+        </div>
+        <div class="form-group" id="status-group" style="display: none;">
+          <label class="form-label">Status</label>
+          <select name="status" class="form-input">
+            <option value="active">Active</option>
+            <option value="inactive">Inactive</option>
+            <option value="suspended">Suspended</option>
+          </select>
+        </div>
+        <button type="submit" class="btn btn-primary" style="width: 100%;">Save Client</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Create Transaction Modal -->
+  <div id="transaction-modal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 id="transaction-modal-title">New Transaction</h3>
+        <button class="modal-close" onclick="closeModal('transaction-modal')">&times;</button>
+      </div>
+      <form id="transaction-form" onsubmit="handleTransactionSubmit(event)">
+        <input type="hidden" name="transaction_id">
+        <div class="form-group">
+          <label class="form-label">Client *</label>
+          <select name="portal_client_id" class="form-input" required id="transaction-client-select">
+            <option value="">Select a client...</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Transaction Title *</label>
+          <input type="text" name="title" class="form-input" placeholder="e.g., Purchase of 123 Main St" required>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Description</label>
+          <textarea name="description" class="form-input" rows="2"></textarea>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Service Type</label>
+            <select name="service_type" class="form-input">
+              <option value="buyer">Buyer Representation</option>
+              <option value="seller">Seller Representation</option>
+              <option value="general">General</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Assigned To</label>
+            <input type="text" name="assigned_to" class="form-input" placeholder="Team member name">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Property Address</label>
+          <input type="text" name="property_address" class="form-input" placeholder="Full property address">
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Property Value</label>
+            <input type="number" name="property_value" class="form-input" placeholder="0.00">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Est. Completion</label>
+            <input type="date" name="estimated_completion" class="form-input">
+          </div>
+        </div>
+        <p class="text-gray mb-md"><small>A default timeline will be created based on service type. You can customize it after creation.</small></p>
+        <button type="submit" class="btn btn-primary" style="width: 100%;">Create Transaction</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Transaction Detail Modal -->
+  <div id="transaction-detail-modal" class="modal">
+    <div class="modal-content" style="max-width: 800px;">
+      <div class="modal-header">
+        <h3 id="transaction-detail-title">Transaction Details</h3>
+        <button class="modal-close" onclick="closeModal('transaction-detail-modal')">&times;</button>
+      </div>
+      <div id="transaction-detail-content">
+        <!-- Populated dynamically -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Create Resource Modal -->
+  <div id="resource-modal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 id="resource-modal-title">Add Resource</h3>
+        <button class="modal-close" onclick="closeModal('resource-modal')">&times;</button>
+      </div>
+      <form id="resource-form" onsubmit="handleResourceSubmit(event)">
+        <input type="hidden" name="resource_id">
+        <div class="form-group">
+          <label class="form-label">Title *</label>
+          <input type="text" name="title" class="form-input" required>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Description</label>
+          <textarea name="description" class="form-input" rows="2"></textarea>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Category *</label>
+            <select name="category" class="form-input" required>
+              <option value="market_report">Market Report</option>
+              <option value="buying_guide">Buying Guide</option>
+              <option value="selling_guide">Selling Guide</option>
+              <option value="neighborhood_info">Neighborhood Info</option>
+              <option value="template">Template</option>
+              <option value="video">Video</option>
+              <option value="general">General</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Sort Order</label>
+            <input type="number" name="sort_order" class="form-input" value="0">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">File URL</label>
+          <input type="url" name="file_url" class="form-input" placeholder="https://...">
+        </div>
+        <div class="form-group">
+          <label class="form-label">External Link</label>
+          <input type="url" name="external_link" class="form-input" placeholder="https://...">
+        </div>
+        <div class="form-group">
+          <label class="form-label">
+            <input type="checkbox" name="is_public" checked> Visible to all clients
+          </label>
+        </div>
+        <button type="submit" class="btn btn-primary" style="width: 100%;">Save Resource</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Message Detail Modal -->
+  <div id="message-modal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3>Message</h3>
+        <button class="modal-close" onclick="closeModal('message-modal')">&times;</button>
+      </div>
+      <div id="message-detail-content">
+        <!-- Populated dynamically -->
+      </div>
+      <hr style="border-color: rgba(100, 181, 246, 0.2); margin: var(--spacing-lg) 0;">
+      <form id="reply-form" onsubmit="handleReplySubmit(event)">
+        <input type="hidden" name="client_id">
+        <input type="hidden" name="transaction_id">
+        <div class="form-group">
+          <label class="form-label">Reply</label>
+          <textarea name="message" class="form-input" rows="4" required placeholder="Type your reply..."></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">Send Reply</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Create Appointment Modal -->
+  <div id="appointment-modal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 id="appointment-modal-title">Schedule Appointment</h3>
+        <button class="modal-close" onclick="closeModal('appointment-modal')">&times;</button>
+      </div>
+      <form id="appointment-form" onsubmit="handleAppointmentSubmit(event)">
+        <input type="hidden" name="appointment_id">
+        <div class="form-group">
+          <label class="form-label">Client *</label>
+          <select name="portal_client_id" class="form-input" required id="appointment-client-select">
+            <option value="">Select a client...</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Title *</label>
+          <input type="text" name="title" class="form-input" required placeholder="e.g., Property Showing">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Description</label>
+          <textarea name="description" class="form-input" rows="2"></textarea>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Date & Time *</label>
+            <input type="datetime-local" name="scheduled_at" class="form-input" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Duration (minutes)</label>
+            <input type="number" name="duration_minutes" class="form-input" value="30">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Location</label>
+          <input type="text" name="location" class="form-input" placeholder="Address or 'Virtual'">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Meeting Link</label>
+          <input type="url" name="meeting_link" class="form-input" placeholder="Zoom/Google Meet link">
+        </div>
+        <button type="submit" class="btn btn-primary" style="width: 100%;">Schedule Appointment</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Toast Notification -->
+  <div id="toast" class="toast"></div>
+
+  <script>
+    let clients = [];
+    let transactions = [];
+    let resources = [];
+    let messages = [];
+    let appointments = [];
+
+    // Check authentication
+    async function checkAuth() {
+      const token = getCookie('admin_token');
+      if (!token) {
+        document.getElementById('login-view').classList.remove('hidden');
+        document.getElementById('dashboard-view').classList.add('hidden');
+        return;
+      }
+
+      try {
+        const res = await fetch('/api/auth/admin/me', {
+          headers: { 'Authorization': `Bearer ${token}` }
+        });
+
+        if (res.ok) {
+          document.getElementById('login-view').classList.add('hidden');
+          document.getElementById('dashboard-view').classList.remove('hidden');
+          loadDashboard();
+        } else {
+          document.getElementById('login-view').classList.remove('hidden');
+          document.getElementById('dashboard-view').classList.add('hidden');
+        }
+      } catch (err) {
+        console.error('Auth check failed:', err);
+      }
+    }
+
+    // Admin login
+    async function handleAdminLogin(e) {
+      e.preventDefault();
+      const form = e.target;
+      const email = form.email.value;
+      const password = form.password.value;
+
+      try {
+        const res = await fetch('/api/auth/admin/login', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email, password })
+        });
+
+        const data = await res.json();
+
+        if (res.ok) {
+          showToast('Login successful', 'success');
+          checkAuth();
+        } else {
+          showToast(data.error || 'Login failed', 'error');
+        }
+      } catch (err) {
+        showToast('Login failed', 'error');
+      }
+    }
+
+    // Load dashboard data
+    async function loadDashboard() {
+      try {
+        const res = await fetch('/api/admin/portal/dashboard', {
+          headers: { 'Authorization': `Bearer ${getCookie('admin_token')}` }
+        });
+
+        if (res.ok) {
+          const data = await res.json();
+          document.getElementById('stat-clients').textContent = data.stats.active_clients || 0;
+          document.getElementById('stat-transactions').textContent = data.stats.active_transactions || 0;
+          document.getElementById('stat-messages').textContent = data.stats.unread_messages || 0;
+          document.getElementById('stat-appointments').textContent = data.stats.upcoming_appointments || 0;
+        }
+      } catch (err) {
+        console.error('Failed to load dashboard:', err);
+      }
+
+      loadClients();
+      loadTransactions();
+      loadResources();
+      loadMessages();
+      loadAppointments();
+    }
+
+    // Load clients
+    async function loadClients() {
+      try {
+        const res = await fetch('/api/admin/portal/clients', {
+          headers: { 'Authorization': `Bearer ${getCookie('admin_token')}` }
+        });
+
+        if (res.ok) {
+          const data = await res.json();
+          clients = data.clients;
+          renderClients();
+          populateClientSelects();
+        }
+      } catch (err) {
+        console.error('Failed to load clients:', err);
+      }
+    }
+
+    function renderClients() {
+      const tbody = document.querySelector('#clients-table tbody');
+      if (clients.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="7" class="text-center text-gray">No clients yet. Click "Add Client" to create one.</td></tr>';
+        return;
+      }
+
+      tbody.innerHTML = clients.map(c => `
+        <tr>
+          <td><strong>${c.first_name} ${c.last_name}</strong></td>
+          <td>${c.email}</td>
+          <td>${c.phone || '-'}</td>
+          <td>${c.transaction_count || 0}</td>
+          <td><span class="status-badge status-${c.status}">${c.status}</span></td>
+          <td>${c.last_login ? formatDate(c.last_login) : 'Never'}</td>
+          <td>
+            <button class="action-btn secondary" onclick="editClient(${c.portal_client_id})">Edit</button>
+          </td>
+        </tr>
+      `).join('');
+    }
+
+    function populateClientSelects() {
+      const options = clients.filter(c => c.status === 'active').map(c =>
+        `<option value="${c.portal_client_id}">${c.first_name} ${c.last_name} (${c.email})</option>`
+      ).join('');
+
+      document.getElementById('transaction-client-select').innerHTML = '<option value="">Select a client...</option>' + options;
+      document.getElementById('appointment-client-select').innerHTML = '<option value="">Select a client...</option>' + options;
+    }
+
+    // Load transactions
+    async function loadTransactions() {
+      try {
+        const res = await fetch('/api/admin/portal/transactions', {
+          headers: { 'Authorization': `Bearer ${getCookie('admin_token')}` }
+        });
+
+        if (res.ok) {
+          const data = await res.json();
+          transactions = data.transactions;
+          renderTransactions();
+        }
+      } catch (err) {
+        console.error('Failed to load transactions:', err);
+      }
+    }
+
+    function renderTransactions() {
+      const tbody = document.querySelector('#transactions-table tbody');
+      if (transactions.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="6" class="text-center text-gray">No transactions yet. Click "New Transaction" to create one.</td></tr>';
+        return;
+      }
+
+      tbody.innerHTML = transactions.map(t => `
+        <tr>
+          <td><strong>${t.title}</strong></td>
+          <td>${t.client_name}</td>
+          <td>${t.property_address || '-'}</td>
+          <td>${t.completed_steps || 0}/${t.total_steps || 0} steps</td>
+          <td><span class="status-badge status-${t.status}">${formatStatus(t.status)}</span></td>
+          <td>
+            <button class="action-btn secondary" onclick="viewTransaction(${t.transaction_id})">View</button>
+          </td>
+        </tr>
+      `).join('');
+    }
+
+    // Load resources
+    async function loadResources() {
+      try {
+        const res = await fetch('/api/admin/portal/resources', {
+          headers: { 'Authorization': `Bearer ${getCookie('admin_token')}` }
+        });
+
+        if (res.ok) {
+          const data = await res.json();
+          resources = data.resources;
+          renderResources();
+        }
+      } catch (err) {
+        console.error('Failed to load resources:', err);
+      }
+    }
+
+    function renderResources() {
+      const tbody = document.querySelector('#resources-table tbody');
+      if (resources.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="5" class="text-center text-gray">No resources yet. Click "Add Resource" to create one.</td></tr>';
+        return;
+      }
+
+      tbody.innerHTML = resources.map(r => `
+        <tr>
+          <td><strong>${r.title}</strong></td>
+          <td>${formatCategory(r.category)}</td>
+          <td>${r.file_url ? 'File' : r.external_link ? 'Link' : 'Info'}</td>
+          <td>${r.is_public ? 'Yes' : 'No'}</td>
+          <td>
+            <button class="action-btn secondary" onclick="editResource(${r.resource_id})">Edit</button>
+            <button class="action-btn danger" onclick="deleteResource(${r.resource_id})">Delete</button>
+          </td>
+        </tr>
+      `).join('');
+    }
+
+    // Load messages
+    async function loadMessages() {
+      try {
+        const res = await fetch('/api/admin/portal/messages', {
+          headers: { 'Authorization': `Bearer ${getCookie('admin_token')}` }
+        });
+
+        if (res.ok) {
+          const data = await res.json();
+          messages = data.messages;
+          renderMessages();
+        }
+      } catch (err) {
+        console.error('Failed to load messages:', err);
+      }
+    }
+
+    function renderMessages() {
+      const container = document.getElementById('messages-list');
+      if (messages.length === 0) {
+        container.innerHTML = '<div class="empty-state">No messages yet.</div>';
+        return;
+      }
+
+      container.innerHTML = messages.map(m => `
+        <div class="message-item ${m.sender_type === 'client' && !m.is_read ? 'unread' : ''}" onclick="viewMessage(${m.message_id})">
+          <div class="message-header">
+            <span class="message-sender">${m.sender_type === 'client' ? m.client_name : 'You'}</span>
+            <span class="message-time">${formatDate(m.created_at)}</span>
+          </div>
+          <div class="message-preview">${m.subject ? m.subject + ': ' : ''}${m.message.substring(0, 100)}...</div>
+        </div>
+      `).join('');
+    }
+
+    // Load appointments
+    async function loadAppointments() {
+      try {
+        const res = await fetch('/api/admin/portal/appointments', {
+          headers: { 'Authorization': `Bearer ${getCookie('admin_token')}` }
+        });
+
+        if (res.ok) {
+          const data = await res.json();
+          appointments = data.appointments;
+          renderAppointments();
+        }
+      } catch (err) {
+        console.error('Failed to load appointments:', err);
+      }
+    }
+
+    function renderAppointments() {
+      const tbody = document.querySelector('#appointments-table tbody');
+      if (appointments.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="6" class="text-center text-gray">No appointments scheduled.</td></tr>';
+        return;
+      }
+
+      tbody.innerHTML = appointments.map(a => `
+        <tr>
+          <td>${formatDateTime(a.scheduled_at)}</td>
+          <td>${a.client_name}</td>
+          <td><strong>${a.title}</strong></td>
+          <td>${a.location || a.meeting_link ? 'Virtual' : '-'}</td>
+          <td><span class="status-badge status-${a.status === 'scheduled' ? 'pending' : a.status}">${a.status}</span></td>
+          <td>
+            <button class="action-btn secondary" onclick="editAppointment(${a.appointment_id})">Edit</button>
+          </td>
+        </tr>
+      `).join('');
+    }
+
+    // Modal handlers
+    function openCreateClientModal() {
+      document.getElementById('client-modal-title').textContent = 'Add New Client';
+      document.getElementById('client-form').reset();
+      document.getElementById('client-form').client_id.value = '';
+      document.getElementById('password-group').style.display = 'block';
+      document.getElementById('status-group').style.display = 'none';
+      document.getElementById('client-modal').classList.add('active');
+    }
+
+    function editClient(id) {
+      const client = clients.find(c => c.portal_client_id === id);
+      if (!client) return;
+
+      document.getElementById('client-modal-title').textContent = 'Edit Client';
+      const form = document.getElementById('client-form');
+      form.client_id.value = id;
+      form.first_name.value = client.first_name;
+      form.last_name.value = client.last_name;
+      form.email.value = client.email;
+      form.phone.value = client.phone || '';
+      form.company.value = client.company || '';
+      form.status.value = client.status;
+      document.getElementById('password-group').style.display = 'none';
+      document.getElementById('status-group').style.display = 'block';
+      document.getElementById('client-modal').classList.add('active');
+    }
+
+    function openCreateTransactionModal() {
+      document.getElementById('transaction-modal-title').textContent = 'New Transaction';
+      document.getElementById('transaction-form').reset();
+      document.getElementById('transaction-form').transaction_id.value = '';
+      document.getElementById('transaction-modal').classList.add('active');
+    }
+
+    function openCreateResourceModal() {
+      document.getElementById('resource-modal-title').textContent = 'Add Resource';
+      document.getElementById('resource-form').reset();
+      document.getElementById('resource-form').resource_id.value = '';
+      document.getElementById('resource-modal').classList.add('active');
+    }
+
+    function editResource(id) {
+      const resource = resources.find(r => r.resource_id === id);
+      if (!resource) return;
+
+      document.getElementById('resource-modal-title').textContent = 'Edit Resource';
+      const form = document.getElementById('resource-form');
+      form.resource_id.value = id;
+      form.title.value = resource.title;
+      form.description.value = resource.description || '';
+      form.category.value = resource.category;
+      form.file_url.value = resource.file_url || '';
+      form.external_link.value = resource.external_link || '';
+      form.sort_order.value = resource.sort_order || 0;
+      form.is_public.checked = resource.is_public;
+      document.getElementById('resource-modal').classList.add('active');
+    }
+
+    function openCreateAppointmentModal() {
+      document.getElementById('appointment-modal-title').textContent = 'Schedule Appointment';
+      document.getElementById('appointment-form').reset();
+      document.getElementById('appointment-form').appointment_id.value = '';
+      document.getElementById('appointment-modal').classList.add('active');
+    }
+
+    function closeModal(id) {
+      document.getElementById(id).classList.remove('active');
+    }
+
+    // View transaction details
+    async function viewTransaction(id) {
+      try {
+        const res = await fetch(`/api/admin/portal/transactions/${id}`, {
+          headers: { 'Authorization': `Bearer ${getCookie('admin_token')}` }
+        });
+
+        if (res.ok) {
+          const data = await res.json();
+          renderTransactionDetail(data);
+          document.getElementById('transaction-detail-modal').classList.add('active');
+        }
+      } catch (err) {
+        showToast('Failed to load transaction', 'error');
+      }
+    }
+
+    function renderTransactionDetail(data) {
+      const t = data.transaction;
+      const timeline = data.timeline;
+
+      document.getElementById('transaction-detail-title').textContent = t.title;
+      document.getElementById('transaction-detail-content').innerHTML = `
+        <div style="margin-bottom: var(--spacing-lg);">
+          <p><strong>Client:</strong> ${t.client_name} (${t.client_email})</p>
+          <p><strong>Property:</strong> ${t.property_address || 'Not specified'}</p>
+          <p><strong>Status:</strong> <span class="status-badge status-${t.status}">${formatStatus(t.status)}</span></p>
+          ${t.property_value ? `<p><strong>Value:</strong> $${parseFloat(t.property_value).toLocaleString()}</p>` : ''}
+        </div>
+
+        <h4 style="margin-bottom: var(--spacing-md);">Timeline</h4>
+        <div class="timeline-editor">
+          ${timeline.map((step, i) => `
+            <div class="timeline-step">
+              <div class="step-number ${step.status}">${step.status === 'completed' ? '&#10003;' : i + 1}</div>
+              <div class="step-content">
+                <div class="step-name">${step.step_name}</div>
+                <div class="step-desc">${step.step_description || ''}</div>
+              </div>
+              <select class="form-input" style="width: auto;" onchange="updateTimelineStep(${step.timeline_id}, this.value)">
+                <option value="pending" ${step.status === 'pending' ? 'selected' : ''}>Pending</option>
+                <option value="in_progress" ${step.status === 'in_progress' ? 'selected' : ''}>In Progress</option>
+                <option value="completed" ${step.status === 'completed' ? 'selected' : ''}>Completed</option>
+                <option value="skipped" ${step.status === 'skipped' ? 'selected' : ''}>Skipped</option>
+              </select>
+            </div>
+          `).join('')}
+        </div>
+
+        <div style="margin-top: var(--spacing-lg);">
+          <h4 style="margin-bottom: var(--spacing-md);">Update Transaction Status</h4>
+          <select class="form-input" style="width: auto;" onchange="updateTransactionStatus(${t.transaction_id}, this.value)">
+            <option value="initiated" ${t.status === 'initiated' ? 'selected' : ''}>Initiated</option>
+            <option value="in_progress" ${t.status === 'in_progress' ? 'selected' : ''}>In Progress</option>
+            <option value="under_review" ${t.status === 'under_review' ? 'selected' : ''}>Under Review</option>
+            <option value="pending_closing" ${t.status === 'pending_closing' ? 'selected' : ''}>Pending Closing</option>
+            <option value="completed" ${t.status === 'completed' ? 'selected' : ''}>Completed</option>
+            <option value="on_hold" ${t.status === 'on_hold' ? 'selected' : ''}>On Hold</option>
+            <option value="cancelled" ${t.status === 'cancelled' ? 'selected' : ''}>Cancelled</option>
+          </select>
+        </div>
+      `;
+    }
+
+    async function updateTimelineStep(timelineId, status) {
+      try {
+        const res = await fetch(`/api/admin/portal/timeline/${timelineId}`, {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${getCookie('admin_token')}`
+          },
+          body: JSON.stringify({ status })
+        });
+
+        if (res.ok) {
+          showToast('Step updated', 'success');
+          loadTransactions();
+        }
+      } catch (err) {
+        showToast('Failed to update step', 'error');
+      }
+    }
+
+    async function updateTransactionStatus(transactionId, status) {
+      try {
+        const res = await fetch(`/api/admin/portal/transactions/${transactionId}`, {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${getCookie('admin_token')}`
+          },
+          body: JSON.stringify({ status })
+        });
+
+        if (res.ok) {
+          showToast('Transaction updated', 'success');
+          loadTransactions();
+          loadDashboard();
+        }
+      } catch (err) {
+        showToast('Failed to update transaction', 'error');
+      }
+    }
+
+    // View message
+    function viewMessage(id) {
+      const msg = messages.find(m => m.message_id === id);
+      if (!msg) return;
+
+      document.getElementById('message-detail-content').innerHTML = `
+        <div style="margin-bottom: var(--spacing-md);">
+          <p><strong>From:</strong> ${msg.sender_type === 'client' ? msg.client_name : 'You'}</p>
+          <p><strong>To:</strong> ${msg.sender_type === 'client' ? 'You' : msg.client_name}</p>
+          <p><strong>Date:</strong> ${formatDateTime(msg.created_at)}</p>
+          ${msg.subject ? `<p><strong>Subject:</strong> ${msg.subject}</p>` : ''}
+        </div>
+        <div class="card" style="background: rgba(0,0,0,0.2);">
+          <p>${msg.message}</p>
+        </div>
+      `;
+
+      document.getElementById('reply-form').client_id.value = msg.portal_client_id;
+      document.getElementById('reply-form').transaction_id.value = msg.transaction_id || '';
+
+      document.getElementById('message-modal').classList.add('active');
+
+      // Mark as read
+      if (msg.sender_type === 'client' && !msg.is_read) {
+        fetch(`/api/admin/portal/messages/${id}/read`, {
+          method: 'PUT',
+          headers: { 'Authorization': `Bearer ${getCookie('admin_token')}` }
+        }).then(() => {
+          loadMessages();
+          loadDashboard();
+        });
+      }
+    }
+
+    // Form handlers
+    async function handleClientSubmit(e) {
+      e.preventDefault();
+      const form = e.target;
+      const isEdit = !!form.client_id.value;
+
+      const data = {
+        first_name: form.first_name.value,
+        last_name: form.last_name.value,
+        email: form.email.value,
+        phone: form.phone.value || null,
+        company: form.company.value || null
+      };
+
+      if (isEdit) {
+        data.status = form.status.value;
+      } else {
+        data.password = form.password.value;
+      }
+
+      try {
+        const url = isEdit
+          ? `/api/admin/portal/clients/${form.client_id.value}`
+          : '/api/admin/portal/clients';
+
+        const res = await fetch(url, {
+          method: isEdit ? 'PUT' : 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${getCookie('admin_token')}`
+          },
+          body: JSON.stringify(data)
+        });
+
+        const result = await res.json();
+
+        if (res.ok) {
+          showToast(isEdit ? 'Client updated' : 'Client created', 'success');
+          closeModal('client-modal');
+          loadClients();
+          loadDashboard();
+        } else {
+          showToast(result.error || 'Failed to save client', 'error');
+        }
+      } catch (err) {
+        showToast('Failed to save client', 'error');
+      }
+    }
+
+    async function handleTransactionSubmit(e) {
+      e.preventDefault();
+      const form = e.target;
+
+      const data = {
+        portal_client_id: form.portal_client_id.value,
+        title: form.title.value,
+        description: form.description.value || null,
+        service_type: form.service_type.value,
+        assigned_to: form.assigned_to.value || null,
+        property_address: form.property_address.value || null,
+        property_value: form.property_value.value || null,
+        estimated_completion: form.estimated_completion.value || null
+      };
+
+      try {
+        const res = await fetch('/api/admin/portal/transactions', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${getCookie('admin_token')}`
+          },
+          body: JSON.stringify(data)
+        });
+
+        const result = await res.json();
+
+        if (res.ok) {
+          showToast('Transaction created with timeline', 'success');
+          closeModal('transaction-modal');
+          loadTransactions();
+          loadDashboard();
+        } else {
+          showToast(result.error || 'Failed to create transaction', 'error');
+        }
+      } catch (err) {
+        showToast('Failed to create transaction', 'error');
+      }
+    }
+
+    async function handleResourceSubmit(e) {
+      e.preventDefault();
+      const form = e.target;
+      const isEdit = !!form.resource_id.value;
+
+      const data = {
+        title: form.title.value,
+        description: form.description.value || null,
+        category: form.category.value,
+        file_url: form.file_url.value || null,
+        external_link: form.external_link.value || null,
+        sort_order: parseInt(form.sort_order.value) || 0,
+        is_public: form.is_public.checked
+      };
+
+      try {
+        const url = isEdit
+          ? `/api/admin/portal/resources/${form.resource_id.value}`
+          : '/api/admin/portal/resources';
+
+        const res = await fetch(url, {
+          method: isEdit ? 'PUT' : 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${getCookie('admin_token')}`
+          },
+          body: JSON.stringify(data)
+        });
+
+        if (res.ok) {
+          showToast(isEdit ? 'Resource updated' : 'Resource created', 'success');
+          closeModal('resource-modal');
+          loadResources();
+        } else {
+          const result = await res.json();
+          showToast(result.error || 'Failed to save resource', 'error');
+        }
+      } catch (err) {
+        showToast('Failed to save resource', 'error');
+      }
+    }
+
+    async function deleteResource(id) {
+      if (!confirm('Are you sure you want to delete this resource?')) return;
+
+      try {
+        const res = await fetch(`/api/admin/portal/resources/${id}`, {
+          method: 'DELETE',
+          headers: { 'Authorization': `Bearer ${getCookie('admin_token')}` }
+        });
+
+        if (res.ok) {
+          showToast('Resource deleted', 'success');
+          loadResources();
+        }
+      } catch (err) {
+        showToast('Failed to delete resource', 'error');
+      }
+    }
+
+    async function handleReplySubmit(e) {
+      e.preventDefault();
+      const form = e.target;
+
+      try {
+        const res = await fetch(`/api/admin/portal/messages/${form.client_id.value}`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${getCookie('admin_token')}`
+          },
+          body: JSON.stringify({
+            message: form.message.value,
+            transaction_id: form.transaction_id.value || null
+          })
+        });
+
+        if (res.ok) {
+          showToast('Reply sent', 'success');
+          closeModal('message-modal');
+          form.reset();
+          loadMessages();
+        }
+      } catch (err) {
+        showToast('Failed to send reply', 'error');
+      }
+    }
+
+    async function handleAppointmentSubmit(e) {
+      e.preventDefault();
+      const form = e.target;
+
+      const data = {
+        portal_client_id: form.portal_client_id.value,
+        title: form.title.value,
+        description: form.description.value || null,
+        scheduled_at: form.scheduled_at.value,
+        duration_minutes: parseInt(form.duration_minutes.value) || 30,
+        location: form.location.value || null,
+        meeting_link: form.meeting_link.value || null
+      };
+
+      try {
+        const res = await fetch('/api/admin/portal/appointments', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${getCookie('admin_token')}`
+          },
+          body: JSON.stringify(data)
+        });
+
+        if (res.ok) {
+          showToast('Appointment scheduled', 'success');
+          closeModal('appointment-modal');
+          loadAppointments();
+          loadDashboard();
+        } else {
+          const result = await res.json();
+          showToast(result.error || 'Failed to schedule appointment', 'error');
+        }
+      } catch (err) {
+        showToast('Failed to schedule appointment', 'error');
+      }
+    }
+
+    // Tab switching
+    function switchTab(tabName) {
+      document.querySelectorAll('.tab-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.tab === tabName);
+      });
+      document.querySelectorAll('.tab-panel').forEach(panel => {
+        panel.classList.toggle('active', panel.id === `${tabName}-tab`);
+      });
+    }
+
+    document.querySelectorAll('.tab-btn').forEach(btn => {
+      btn.addEventListener('click', () => switchTab(btn.dataset.tab));
+    });
+
+    // Utilities
+    function getCookie(name) {
+      const value = `; ${document.cookie}`;
+      const parts = value.split(`; ${name}=`);
+      if (parts.length === 2) return parts.pop().split(';').shift();
+    }
+
+    function logout() {
+      document.cookie = 'admin_token=; Max-Age=0; path=/';
+      window.location.reload();
+    }
+
+    function formatDate(dateStr) {
+      return new Date(dateStr).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+    }
+
+    function formatDateTime(dateStr) {
+      return new Date(dateStr).toLocaleString('en-US', {
+        month: 'short', day: 'numeric', year: 'numeric',
+        hour: 'numeric', minute: '2-digit'
+      });
+    }
+
+    function formatStatus(status) {
+      return status.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
+    }
+
+    function formatCategory(cat) {
+      return cat.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
+    }
+
+    function showToast(message, type = 'info') {
+      const toast = document.getElementById('toast');
+      toast.textContent = message;
+      toast.className = `toast ${type} show`;
+      setTimeout(() => toast.classList.remove('show'), 3000);
+    }
+
+    // Initialize
+    checkAuth();
+  </script>
+</body>
+</html>
