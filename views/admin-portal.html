@@ -441,6 +441,10 @@
             <div class="stat-label">Upcoming Appointments</div>
             <div class="stat-value" id="stat-appointments">-</div>
           </div>
+          <div class="stat-card" onclick="switchTab('reports')">
+            <div class="stat-label">Client Reports</div>
+            <div class="stat-value" id="stat-reports">-</div>
+          </div>
         </div>
 
         <!-- Tabs -->
@@ -450,6 +454,7 @@
           <button class="tab-btn" data-tab="resources">Resources</button>
           <button class="tab-btn" data-tab="messages">Messages</button>
           <button class="tab-btn" data-tab="appointments">Appointments</button>
+          <button class="tab-btn" data-tab="reports">Reports</button>
         </div>
 
         <!-- Clients Tab -->
@@ -547,6 +552,29 @@
                   <th>Title</th>
                   <th>Location</th>
                   <th>Status</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody></tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Reports Tab -->
+        <div id="reports-tab" class="tab-panel">
+          <div class="header-actions">
+            <h3>Client Reports</h3>
+            <button class="action-btn" onclick="openCreateReportModal()">+ New Report</button>
+          </div>
+          <div class="table-container">
+            <table class="data-table" id="reports-table">
+              <thead>
+                <tr>
+                  <th>Title</th>
+                  <th>Client</th>
+                  <th>Type</th>
+                  <th>Published</th>
+                  <th>Created</th>
                   <th>Actions</th>
                 </tr>
               </thead>
@@ -802,6 +830,58 @@
     </div>
   </div>
 
+  <!-- Create/Edit Report Modal -->
+  <div id="report-modal" class="modal">
+    <div class="modal-content" style="max-width: 800px;">
+      <div class="modal-header">
+        <h3 id="report-modal-title">New Report</h3>
+        <button class="modal-close" onclick="closeModal('report-modal')">&times;</button>
+      </div>
+      <form id="report-form" onsubmit="handleReportSubmit(event)">
+        <input type="hidden" name="report_id">
+        <div class="form-group">
+          <label class="form-label">Client *</label>
+          <select name="portal_client_id" class="form-input" required id="report-client-select">
+            <option value="">Select a client...</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Report Title *</label>
+          <input type="text" name="title" class="form-input" placeholder="e.g., Q1 2026 Market Analysis" required>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Report Type</label>
+            <select name="report_type" class="form-input">
+              <option value="market_analysis">Market Analysis</option>
+              <option value="property_report">Property Report</option>
+              <option value="investment_summary">Investment Summary</option>
+              <option value="neighborhood_report">Neighborhood Report</option>
+              <option value="comparative_market_analysis">Comparative Market Analysis</option>
+              <option value="annual_review">Annual Review</option>
+              <option value="general">General</option>
+            </select>
+          </div>
+          <div class="form-group" style="display: flex; align-items: end;">
+            <label class="form-label" style="display: flex; align-items: center; gap: 8px; cursor: pointer;">
+              <input type="checkbox" name="is_published"> Publish immediately
+            </label>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Description</label>
+          <textarea name="description" class="form-input" rows="2" placeholder="Brief description of the report"></textarea>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Report HTML Content *</label>
+          <textarea name="report_html" class="form-input" rows="12" required placeholder="Paste the full HTML from your Claude artifact here..." style="font-family: monospace; font-size: 0.8125rem;"></textarea>
+          <small class="text-gray">Paste the complete HTML output from your Claude artifact. The report will render in a secure sandboxed iframe for the client.</small>
+        </div>
+        <button type="submit" class="btn btn-primary" style="width: 100%;">Save Report</button>
+      </form>
+    </div>
+  </div>
+
   <!-- Toast Notification -->
   <div id="toast" class="toast"></div>
 
@@ -811,6 +891,7 @@
     let resources = [];
     let messages = [];
     let appointments = [];
+    let reports = [];
 
     let authToken = null;
 
@@ -887,11 +968,23 @@
         console.error('Failed to load dashboard:', err);
       }
 
+      // Load reports count separately
+      try {
+        const reportsRes = await fetch('/api/admin/portal/reports', { credentials: 'include' });
+        if (reportsRes.ok) {
+          const reportsData = await reportsRes.json();
+          document.getElementById('stat-reports').textContent = reportsData.reports.length;
+        }
+      } catch (err) {
+        console.error('Failed to load reports count:', err);
+      }
+
       loadClients();
       loadTransactions();
       loadResources();
       loadMessages();
       loadAppointments();
+      loadReports();
     }
 
     // Load clients
@@ -941,6 +1034,7 @@
 
       document.getElementById('transaction-client-select').innerHTML = '<option value="">Select a client...</option>' + options;
       document.getElementById('appointment-client-select').innerHTML = '<option value="">Select a client...</option>' + options;
+      document.getElementById('report-client-select').innerHTML = '<option value="">Select a client...</option>' + options;
     }
 
     // Load transactions
@@ -1499,6 +1593,154 @@
         }
       } catch (err) {
         showToast('Failed to schedule appointment', 'error');
+      }
+    }
+
+    // Load reports
+    async function loadReports() {
+      try {
+        const res = await fetch('/api/admin/portal/reports', {
+          credentials: 'include'
+        });
+
+        if (res.ok) {
+          const data = await res.json();
+          reports = data.reports;
+          renderReports();
+        }
+      } catch (err) {
+        console.error('Failed to load reports:', err);
+      }
+    }
+
+    function renderReports() {
+      const tbody = document.querySelector('#reports-table tbody');
+      if (reports.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="6" class="text-center text-gray">No reports yet. Click "+ New Report" to create one.</td></tr>';
+        return;
+      }
+
+      tbody.innerHTML = reports.map(r => `
+        <tr>
+          <td><strong>${r.title}</strong>${r.description ? '<br><small class="text-gray">' + r.description.substring(0, 60) + '</small>' : ''}</td>
+          <td>${r.client_name}</td>
+          <td>${formatCategory(r.report_type)}</td>
+          <td>
+            <span class="status-badge ${r.is_published ? 'status-active' : 'status-inactive'}" style="cursor: pointer;" onclick="toggleReportPublish(${r.report_id}, ${!r.is_published})">
+              ${r.is_published ? 'Published' : 'Draft'}
+            </span>
+          </td>
+          <td>${formatDate(r.created_at)}</td>
+          <td>
+            <button class="action-btn secondary" onclick="editReport(${r.report_id})">Edit</button>
+            <button class="action-btn danger" onclick="deleteReport(${r.report_id})">Delete</button>
+          </td>
+        </tr>
+      `).join('');
+    }
+
+    function openCreateReportModal() {
+      document.getElementById('report-modal-title').textContent = 'New Report';
+      document.getElementById('report-form').reset();
+      document.getElementById('report-form').report_id.value = '';
+      document.getElementById('report-modal').classList.add('active');
+    }
+
+    async function editReport(id) {
+      try {
+        const res = await fetch(`/api/admin/portal/reports/${id}`, { credentials: 'include' });
+        if (!res.ok) return showToast('Failed to load report', 'error');
+
+        const data = await res.json();
+        const r = data.report;
+
+        document.getElementById('report-modal-title').textContent = 'Edit Report';
+        const form = document.getElementById('report-form');
+        form.report_id.value = id;
+        form.portal_client_id.value = r.portal_client_id;
+        form.title.value = r.title;
+        form.description.value = r.description || '';
+        form.report_type.value = r.report_type;
+        form.is_published.checked = r.is_published;
+        form.report_html.value = r.report_html;
+        document.getElementById('report-modal').classList.add('active');
+      } catch (err) {
+        showToast('Failed to load report', 'error');
+      }
+    }
+
+    async function handleReportSubmit(e) {
+      e.preventDefault();
+      const form = e.target;
+      const isEdit = !!form.report_id.value;
+
+      const data = {
+        portal_client_id: form.portal_client_id.value,
+        title: form.title.value,
+        description: form.description.value || null,
+        report_html: form.report_html.value,
+        report_type: form.report_type.value,
+        is_published: form.is_published.checked
+      };
+
+      try {
+        const url = isEdit
+          ? `/api/admin/portal/reports/${form.report_id.value}`
+          : '/api/admin/portal/reports';
+
+        const res = await fetch(url, {
+          method: isEdit ? 'PUT' : 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          credentials: 'include',
+          body: JSON.stringify(data)
+        });
+
+        if (res.ok) {
+          showToast(isEdit ? 'Report updated' : 'Report created', 'success');
+          closeModal('report-modal');
+          loadReports();
+        } else {
+          const result = await res.json();
+          showToast(result.error || 'Failed to save report', 'error');
+        }
+      } catch (err) {
+        showToast('Failed to save report', 'error');
+      }
+    }
+
+    async function toggleReportPublish(id, publish) {
+      try {
+        const res = await fetch(`/api/admin/portal/reports/${id}`, {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          credentials: 'include',
+          body: JSON.stringify({ is_published: publish })
+        });
+
+        if (res.ok) {
+          showToast(publish ? 'Report published' : 'Report unpublished', 'success');
+          loadReports();
+        }
+      } catch (err) {
+        showToast('Failed to update report', 'error');
+      }
+    }
+
+    async function deleteReport(id) {
+      if (!confirm('Are you sure you want to delete this report?')) return;
+
+      try {
+        const res = await fetch(`/api/admin/portal/reports/${id}`, {
+          method: 'DELETE',
+          credentials: 'include'
+        });
+
+        if (res.ok) {
+          showToast('Report deleted', 'success');
+          loadReports();
+        }
+      } catch (err) {
+        showToast('Failed to delete report', 'error');
       }
     }
 

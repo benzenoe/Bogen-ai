@@ -28,7 +28,7 @@ const PORT = process.env.PORT || 3000;
 
 // Middleware
 app.use(cors());
-app.use(express.json());
+app.use(express.json({ limit: '5mb' }));
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser(process.env.COOKIE_SECRET));
 
@@ -127,6 +127,14 @@ app.get('/client-documents', (req, res) => {
 
 app.get('/client-appointments', (req, res) => {
   res.sendFile(path.join(__dirname, 'views', 'client-dashboard.html')); // Uses dashboard with appointments
+});
+
+app.get('/client-reports', (req, res) => {
+  res.sendFile(path.join(__dirname, 'views', 'client-reports.html'));
+});
+
+app.get('/client-report/:id', (req, res) => {
+  res.sendFile(path.join(__dirname, 'views', 'client-report-viewer.html'));
 });
 
 app.get('/client-profile', (req, res) => {

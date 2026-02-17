@@ -59,11 +59,20 @@ router.get('/dashboard', async (req, res) => {
       [clientId]
     );
 
+    // Get published reports count
+    const reportsResult = await pool.query(
+      `SELECT COUNT(*) as report_count
+       FROM client_reports
+       WHERE portal_client_id = $1 AND is_published = TRUE`,
+      [clientId]
+    );
+
     res.json({
       activeTransactions: transactionsResult.rows,
       unreadMessages: parseInt(messagesResult.rows[0].unread_count),
       upcomingAppointments: appointmentsResult.rows,
-      recentDocuments: documentsResult.rows
+      recentDocuments: documentsResult.rows,
+      reportCount: parseInt(reportsResult.rows[0].report_count)
     });
   } catch (error) {
     console.error('Dashboard error:', error);
@@ -544,6 +553,69 @@ router.post(
     }
   }
 );
+
+// ============================================
+// REPORTS
+// ============================================
+
+/**
+ * GET /api/client-portal/reports
+ * Get client's published reports (metadata only, no HTML)
+ */
+router.get('/reports', async (req, res) => {
+  try {
+    const clientId = req.client.id;
+    const { report_type } = req.query;
+
+    let query = `
+      SELECT report_id, title, description, report_type, created_by, created_at
+      FROM client_reports
+      WHERE portal_client_id = $1 AND is_published = TRUE
+    `;
+    const params = [clientId];
+
+    if (report_type) {
+      params.push(report_type);
+      query += ` AND report_type = $${params.length}`;
+    }
+
+    query += ` ORDER BY created_at DESC`;
+
+    const result = await pool.query(query, params);
+
+    res.json({ reports: result.rows });
+  } catch (error) {
+    console.error('Get reports error:', error);
+    res.status(500).json({ error: 'Failed to get reports' });
+  }
+});
+
+/**
+ * GET /api/client-portal/reports/:id
+ * Get single report with full HTML (only if belongs to client and is published)
+ */
+router.get('/reports/:id', async (req, res) => {
+  try {
+    const clientId = req.client.id;
+    const { id } = req.params;
+
+    const result = await pool.query(
+      `SELECT report_id, title, description, report_html, report_type, created_by, created_at
+       FROM client_reports
+       WHERE report_id = $1 AND portal_client_id = $2 AND is_published = TRUE`,
+      [id, clientId]
+    );
+
+    if (result.rows.length === 0) {
+      return res.status(404).json({ error: 'Report not found' });
+    }
+
+    res.json({ report: result.rows[0] });
+  } catch (error) {
+    console.error('Get report error:', error);
+    res.status(500).json({ error: 'Failed to get report' });
+  }
+});
 
 // ============================================
 // PROFILE

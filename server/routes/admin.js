@@ -1332,4 +1332,162 @@ router.put('/portal/appointments/:id', async (req, res) => {
   }
 });
 
+// ============================================
+// CLIENT REPORTS MANAGEMENT
+// ============================================
+
+/**
+ * GET /api/admin/portal/reports
+ * Get all client reports with client info
+ */
+router.get('/portal/reports', async (req, res) => {
+  try {
+    const { client_id, report_type } = req.query;
+
+    let query = `
+      SELECT cr.report_id, cr.title, cr.description, cr.report_type,
+             cr.is_published, cr.created_by, cr.created_at, cr.updated_at,
+             pc.first_name || ' ' || pc.last_name as client_name, pc.email as client_email,
+             pc.portal_client_id
+      FROM client_reports cr
+      JOIN portal_clients pc ON cr.portal_client_id = pc.portal_client_id
+    `;
+
+    const conditions = [];
+    const params = [];
+
+    if (client_id) {
+      params.push(client_id);
+      conditions.push(`cr.portal_client_id = $${params.length}`);
+    }
+
+    if (report_type) {
+      params.push(report_type);
+      conditions.push(`cr.report_type = $${params.length}`);
+    }
+
+    if (conditions.length > 0) {
+      query += ' WHERE ' + conditions.join(' AND ');
+    }
+
+    query += ' ORDER BY cr.created_at DESC';
+
+    const result = await pool.query(query, params);
+
+    res.json({ reports: result.rows });
+  } catch (error) {
+    console.error('Get reports error:', error);
+    res.status(500).json({ error: 'Failed to load reports' });
+  }
+});
+
+/**
+ * GET /api/admin/portal/reports/:id
+ * Get single report with full HTML
+ */
+router.get('/portal/reports/:id', async (req, res) => {
+  try {
+    const reportId = req.params.id;
+
+    const result = await pool.query(
+      `SELECT cr.*, pc.first_name || ' ' || pc.last_name as client_name, pc.email as client_email
+       FROM client_reports cr
+       JOIN portal_clients pc ON cr.portal_client_id = pc.portal_client_id
+       WHERE cr.report_id = $1`,
+      [reportId]
+    );
+
+    if (result.rows.length === 0) {
+      return res.status(404).json({ error: 'Report not found' });
+    }
+
+    res.json({ report: result.rows[0] });
+  } catch (error) {
+    console.error('Get report error:', error);
+    res.status(500).json({ error: 'Failed to load report' });
+  }
+});
+
+/**
+ * POST /api/admin/portal/reports
+ * Create a new report for a client
+ */
+router.post('/portal/reports', async (req, res) => {
+  try {
+    const { portal_client_id, title, description, report_html, report_type, is_published } = req.body;
+
+    if (!portal_client_id || !title || !report_html) {
+      return res.status(400).json({ error: 'Client, title, and report HTML are required' });
+    }
+
+    const result = await pool.query(
+      `INSERT INTO client_reports (portal_client_id, title, description, report_html, report_type, is_published, created_by)
+       VALUES ($1, $2, $3, $4, $5, $6, $7)
+       RETURNING report_id, title, report_type, is_published, created_at`,
+      [portal_client_id, title, description || null, report_html, report_type || 'general', is_published || false, 'Edmund Bogen']
+    );
+
+    res.json({
+      message: 'Report created successfully',
+      report: result.rows[0]
+    });
+  } catch (error) {
+    console.error('Create report error:', error);
+    res.status(500).json({ error: 'Failed to create report' });
+  }
+});
+
+/**
+ * PUT /api/admin/portal/reports/:id
+ * Update a report
+ */
+router.put('/portal/reports/:id', async (req, res) => {
+  try {
+    const reportId = req.params.id;
+    const { title, description, report_html, report_type, is_published } = req.body;
+
+    const result = await pool.query(
+      `UPDATE client_reports
+       SET title = COALESCE($1, title),
+           description = COALESCE($2, description),
+           report_html = COALESCE($3, report_html),
+           report_type = COALESCE($4, report_type),
+           is_published = COALESCE($5, is_published),
+           updated_at = CURRENT_TIMESTAMP
+       WHERE report_id = $6
+       RETURNING report_id, title, report_type, is_published, updated_at`,
+      [title, description, report_html, report_type, is_published, reportId]
+    );
+
+    if (result.rows.length === 0) {
+      return res.status(404).json({ error: 'Report not found' });
+    }
+
+    res.json({
+      message: 'Report updated successfully',
+      report: result.rows[0]
+    });
+  } catch (error) {
+    console.error('Update report error:', error);
+    res.status(500).json({ error: 'Failed to update report' });
+  }
+});
+
+/**
+ * DELETE /api/admin/portal/reports/:id
+ * Delete a report
+ */
+router.delete('/portal/reports/:id', async (req, res) => {
+  try {
+    const reportId = req.params.id;
+
+    await pool.query('DELETE FROM client_reports WHERE report_id = $1', [reportId]);
+
+    res.json({ message: 'Report deleted' });
+  } catch (error) {
+    console.error('Delete report error:', error);
+    res.status(500).json({ error: 'Failed to delete report' });
+  }
+});
+
 module.exports = router;

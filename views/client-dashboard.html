@@ -478,6 +478,12 @@
         Messages
         <span class="nav-badge" id="unread-badge" style="display: none;">0</span>
       </a>
+      <a href="/client-reports">
+        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+        </svg>
+        Reports
+      </a>
       <a href="/client-documents">
         <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"/>
@@ -548,6 +554,19 @@
         <div id="messages-list">
           <div class="empty-state">
             <p>Loading messages...</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Reports -->
+      <div class="dashboard-card card-half">
+        <div class="card-header">
+          <h3 class="card-title">Your Reports</h3>
+          <a href="/client-reports" class="card-link">View all</a>
+        </div>
+        <div id="reports-summary">
+          <div class="empty-state">
+            <p>Loading reports...</p>
           </div>
         </div>
       </div>
@@ -637,6 +656,7 @@
         renderTransactions(data.activeTransactions);
         renderAppointments(data.upcomingAppointments);
         renderMessages(data.unreadMessages);
+        renderReportsSummary(data.reportCount);
 
         // Update unread badge
         if (data.unreadMessages > 0) {
@@ -759,6 +779,36 @@
           </div>
         `;
       }
+    }
+
+    function renderReportsSummary(count) {
+      const container = document.getElementById('reports-summary');
+
+      if (!count || count === 0) {
+        container.innerHTML = `
+          <div class="empty-state">
+            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+            </svg>
+            <p>No reports available yet</p>
+          </div>
+        `;
+        return;
+      }
+
+      container.innerHTML = `
+        <div class="transaction-item" onclick="window.location.href='/client-reports'" style="justify-content: center;">
+          <div class="transaction-icon">
+            <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+            </svg>
+          </div>
+          <div class="transaction-info">
+            <div class="transaction-title">You have ${count} report${count > 1 ? 's' : ''} available</div>
+            <div class="transaction-meta">Click to view your personalized reports</div>
+          </div>
+        </div>
+      `;
     }
 
     function escapeHtml(text) {
