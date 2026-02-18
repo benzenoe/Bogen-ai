@@ -53,9 +53,19 @@
       transform: translateY(-3px);
     }
 
-    /* Icon banner — colorful gradient instead of dark box */
+    /* Thumbnail banner — shows PDF cover image */
+    .resource-thumbnail {
+      height: 220px;
+      background-size: cover;
+      background-position: top center;
+      background-repeat: no-repeat;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Fallback gradient banner when no thumbnail */
     .resource-icon-banner {
-      height: 120px;
+      height: 160px;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -256,12 +266,17 @@
         const link = r.file_url || r.external_link || '#';
         const btnLabel = r.file_url ? 'Download PDF' : 'View Resource';
 
-        return `
-          <div class="resource-card">
-            <div class="resource-icon-banner ${bannerClass}">
+        // Use thumbnail image if available, otherwise fall back to icon banner
+        const bannerHtml = r.thumbnail_url
+          ? `<div class="resource-thumbnail" style="background-image: url('${escapeHtml(r.thumbnail_url)}')"></div>`
+          : `<div class="resource-icon-banner ${bannerClass}">
               ${getIcon(type)}
               <span class="resource-icon-label">${getIconLabel(type)}</span>
-            </div>
+            </div>`;
+
+        return `
+          <div class="resource-card">
+            ${bannerHtml}
             <div class="resource-body">
               <div class="resource-category">${formatCategory(r.category)}</div>
               <h3 class="resource-title">${escapeHtml(r.title)}</h3>
