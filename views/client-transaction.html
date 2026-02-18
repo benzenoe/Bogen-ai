@@ -518,7 +518,7 @@
       statusBadge.className = `status-badge status-${tx.status}`;
 
       document.getElementById('tx-start').textContent = tx.start_date ? formatDate(tx.start_date) : 'Not started';
-      document.getElementById('tx-completion').textContent = tx.estimated_completion ? formatDate(tx.estimated_completion) : 'TBD';
+      document.getElementById('tx-completion').textContent = tx.estimated_completion ? formatDate(tx.estimated_completion) : 'Ongoing';
       document.getElementById('tx-description').textContent = tx.description || '';
 
       // Update contact if assigned
