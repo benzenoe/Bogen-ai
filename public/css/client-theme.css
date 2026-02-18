@@ -1,0 +1,456 @@
+/* ============================================================
+   Client Portal — Warm Theme Override
+   Replaces dark navy/blue with warm, inviting tones
+   Background wallpaper: coaching-wallpaper.png
+   ============================================================ */
+
+:root {
+  /* Warm palette */
+  --warm-bg: #faf8f5;
+  --warm-card: #ffffff;
+  --warm-card-hover: #fffefa;
+  --warm-sidebar: #2c2420;
+  --warm-sidebar-border: rgba(201, 168, 76, 0.25);
+  --warm-text: #3a3530;
+  --warm-text-muted: #7a7067;
+  --warm-text-light: #a89e94;
+  --warm-gold: #c9a84c;
+  --warm-gold-light: rgba(201, 168, 76, 0.15);
+  --warm-gold-hover: #b8963d;
+  --warm-sage: #e8ede5;
+  --warm-border: rgba(201, 168, 76, 0.2);
+  --warm-border-strong: rgba(201, 168, 76, 0.4);
+}
+
+/* ===== Body & Background Wallpaper ===== */
+body {
+  background: var(--warm-bg) !important;
+  color: var(--warm-text) !important;
+  position: relative;
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: url('/assets/clients/coaching-wallpaper.png') center center / cover no-repeat fixed;
+  opacity: 0.06;
+  z-index: -1;
+  pointer-events: none;
+}
+
+/* ===== Typography ===== */
+h1, h2, h3, h4, h5, h6 {
+  color: var(--warm-text) !important;
+}
+
+.page-title {
+  font-family: 'Playfair Display', Georgia, serif !important;
+  color: var(--warm-text) !important;
+}
+
+.page-subtitle {
+  color: var(--warm-text-muted) !important;
+}
+
+/* ===== Sidebar ===== */
+.sidebar {
+  background: var(--warm-sidebar) !important;
+  border-right: 1px solid var(--warm-sidebar-border) !important;
+}
+
+.sidebar-header {
+  border-bottom: 1px solid var(--warm-sidebar-border) !important;
+}
+
+.sidebar-header .logo {
+  color: #fff !important;
+}
+
+.sidebar-header .logo span {
+  color: var(--warm-gold) !important;
+}
+
+.sidebar-nav a {
+  color: rgba(255, 255, 255, 0.7) !important;
+  text-decoration: none;
+}
+
+.sidebar-nav a:hover {
+  background: rgba(201, 168, 76, 0.12) !important;
+  color: #fff !important;
+}
+
+.sidebar-nav a.active {
+  background: rgba(201, 168, 76, 0.18) !important;
+  color: var(--warm-gold) !important;
+  border-left: 3px solid var(--warm-gold) !important;
+}
+
+.sidebar-footer {
+  border-top: 1px solid var(--warm-sidebar-border) !important;
+}
+
+.sidebar-footer .user-avatar {
+  background: rgba(201, 168, 76, 0.2) !important;
+  color: var(--warm-gold) !important;
+}
+
+.sidebar-footer .user-email {
+  color: rgba(255, 255, 255, 0.5) !important;
+}
+
+.sidebar-footer .btn {
+  color: var(--warm-gold) !important;
+  border-color: var(--warm-gold) !important;
+}
+
+.sidebar-footer .btn:hover {
+  background: var(--warm-gold) !important;
+  color: #fff !important;
+}
+
+.nav-badge {
+  background: var(--warm-gold) !important;
+  color: #fff !important;
+}
+
+/* ===== Main Content ===== */
+.main-content {
+  background: transparent !important;
+}
+
+/* ===== Dashboard Cards ===== */
+.dashboard-card,
+.report-card,
+.transaction-item,
+.appointment-item,
+.message-item,
+.resource-item {
+  background: var(--warm-card) !important;
+  border: 1px solid var(--warm-border) !important;
+  box-shadow: 0 2px 12px rgba(58, 53, 48, 0.06) !important;
+  color: var(--warm-text) !important;
+}
+
+.dashboard-card:hover,
+.report-card:hover {
+  border-color: var(--warm-gold) !important;
+  box-shadow: 0 4px 20px rgba(201, 168, 76, 0.12) !important;
+}
+
+.card-title,
+.transaction-title,
+.appointment-title,
+.message-sender,
+.report-title {
+  color: var(--warm-text) !important;
+}
+
+.card-link {
+  color: var(--warm-gold) !important;
+}
+
+.card-link:hover {
+  color: var(--warm-gold-hover) !important;
+}
+
+/* Transaction items inside dashboard cards */
+.dashboard-card .transaction-item,
+.dashboard-card .appointment-item,
+.dashboard-card .message-item {
+  background: var(--warm-sage) !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+.dashboard-card .transaction-item:hover,
+.dashboard-card .message-item:hover {
+  background: #dfe6db !important;
+  border-left: 3px solid var(--warm-gold) !important;
+}
+
+.transaction-icon {
+  background: var(--warm-gold-light) !important;
+  color: var(--warm-gold) !important;
+}
+
+.transaction-meta,
+.appointment-time,
+.message-preview,
+.message-time,
+.report-description {
+  color: var(--warm-text-muted) !important;
+}
+
+.appointment-day {
+  color: var(--warm-gold) !important;
+}
+
+.appointment-month {
+  color: var(--warm-text-muted) !important;
+}
+
+/* Progress bar */
+.progress-bar {
+  background: var(--warm-sage) !important;
+}
+
+.progress-fill {
+  background: var(--warm-gold) !important;
+}
+
+.progress-text {
+  color: var(--warm-text-muted) !important;
+}
+
+/* ===== Status Badges ===== */
+.status-initiated { background: rgba(158, 158, 158, 0.15) !important; color: #777 !important; }
+.status-in_progress { background: rgba(201, 168, 76, 0.15) !important; color: var(--warm-gold) !important; }
+.status-under_review { background: rgba(255, 152, 0, 0.15) !important; color: #e68a00 !important; }
+.status-pending_closing { background: rgba(156, 39, 176, 0.12) !important; color: #9C27B0 !important; }
+.status-completed { background: rgba(76, 175, 80, 0.12) !important; color: #388E3C !important; }
+
+/* Report type badges */
+.report-type-badge {
+  background: var(--warm-gold-light) !important;
+  color: var(--warm-gold) !important;
+}
+
+.report-meta {
+  color: var(--warm-text-light) !important;
+}
+
+/* ===== Filter Bar ===== */
+.filter-btn {
+  background: transparent !important;
+  border: 1px solid var(--warm-border-strong) !important;
+  color: var(--warm-text-muted) !important;
+}
+
+.filter-btn.active,
+.filter-btn:hover {
+  background: var(--warm-gold-light) !important;
+  border-color: var(--warm-gold) !important;
+  color: var(--warm-gold) !important;
+}
+
+/* ===== Resources Grid ===== */
+.resource-grid .resource-item {
+  background: var(--warm-sage) !important;
+  border: none !important;
+}
+
+.resource-grid .resource-item:hover {
+  background: #dfe6db !important;
+}
+
+.resource-icon {
+  color: var(--warm-gold) !important;
+}
+
+.resource-name {
+  color: var(--warm-text) !important;
+}
+
+/* ===== Message Avatar ===== */
+.message-avatar,
+.chat-header-avatar {
+  background: linear-gradient(135deg, var(--warm-sidebar), var(--warm-gold)) !important;
+  color: #fff !important;
+}
+
+.message-item.unread {
+  border-left: 3px solid var(--warm-gold) !important;
+}
+
+/* ===== Empty State ===== */
+.empty-state {
+  color: var(--warm-text-light) !important;
+}
+
+.empty-state svg {
+  color: var(--warm-text-light) !important;
+}
+
+/* ===== Chat / Messages Page Overrides ===== */
+.chat-header {
+  background: var(--warm-card) !important;
+  border-bottom: 1px solid var(--warm-border) !important;
+}
+
+.chat-header-info h2 {
+  color: var(--warm-text) !important;
+}
+
+.chat-header-info p,
+.chat-header-info .status-text {
+  color: var(--warm-text-muted) !important;
+}
+
+.chat-body {
+  background: var(--warm-bg) !important;
+}
+
+.chat-bubble.outgoing {
+  background: var(--warm-gold) !important;
+  color: #fff !important;
+}
+
+.chat-bubble.incoming {
+  background: var(--warm-card) !important;
+  color: var(--warm-text) !important;
+  border: 1px solid var(--warm-border) !important;
+}
+
+.chat-compose {
+  background: var(--warm-card) !important;
+  border-top: 1px solid var(--warm-border) !important;
+}
+
+.chat-compose textarea,
+.chat-compose input {
+  background: var(--warm-sage) !important;
+  color: var(--warm-text) !important;
+  border: 1px solid var(--warm-border) !important;
+}
+
+.chat-compose textarea::placeholder,
+.chat-compose input::placeholder {
+  color: var(--warm-text-light) !important;
+}
+
+.chat-send-btn,
+.send-btn {
+  background: var(--warm-gold) !important;
+  color: #fff !important;
+  border: none !important;
+}
+
+.chat-send-btn:hover,
+.send-btn:hover {
+  background: var(--warm-gold-hover) !important;
+}
+
+.date-separator span {
+  background: var(--warm-sage) !important;
+  color: var(--warm-text-muted) !important;
+}
+
+.date-separator::before {
+  background: var(--warm-border) !important;
+}
+
+/* ===== Buttons (global override for client pages) ===== */
+.btn-primary {
+  background: var(--warm-gold) !important;
+  color: #fff !important;
+}
+
+.btn-primary:hover {
+  background: var(--warm-gold-hover) !important;
+}
+
+.btn-secondary {
+  color: var(--warm-gold) !important;
+  border-color: var(--warm-gold) !important;
+}
+
+.btn-secondary:hover {
+  background: var(--warm-gold) !important;
+  color: #fff !important;
+}
+
+/* ===== Forms ===== */
+.form-input,
+.form-select,
+.form-textarea {
+  background: var(--warm-card) !important;
+  color: var(--warm-text) !important;
+  border: 1px solid var(--warm-border-strong) !important;
+}
+
+.form-input:focus,
+.form-select:focus,
+.form-textarea:focus {
+  border-color: var(--warm-gold) !important;
+  box-shadow: 0 0 0 3px rgba(201, 168, 76, 0.15) !important;
+}
+
+.form-label {
+  color: var(--warm-text) !important;
+}
+
+/* ===== Login Page ===== */
+.login-container {
+  position: relative;
+  z-index: 1;
+}
+
+.login-box {
+  background: var(--warm-card);
+  border-radius: 16px;
+  padding: 48px 40px;
+  box-shadow: 0 8px 40px rgba(58, 53, 48, 0.12);
+  border: 1px solid var(--warm-border);
+}
+
+.login-box .logo {
+  color: var(--warm-text) !important;
+}
+
+.login-box .logo span {
+  color: var(--warm-gold) !important;
+}
+
+.tabs {
+  border-bottom-color: var(--warm-border) !important;
+}
+
+.tab {
+  color: var(--warm-text-muted) !important;
+}
+
+.tab:hover {
+  color: var(--warm-text) !important;
+}
+
+.tab.active {
+  color: var(--warm-gold) !important;
+  border-bottom-color: var(--warm-gold) !important;
+}
+
+.forgot-link {
+  color: var(--warm-gold) !important;
+}
+
+/* ===== Mobile Menu Button ===== */
+.mobile-menu-btn {
+  background: var(--warm-sidebar) !important;
+  border: 1px solid var(--warm-sidebar-border) !important;
+}
+
+.mobile-menu-btn svg {
+  color: var(--warm-gold) !important;
+}
+
+/* ===== Scrollbar ===== */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--warm-sage);
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(201, 168, 76, 0.3);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(201, 168, 76, 0.5);
+}
