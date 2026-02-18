@@ -15,9 +15,9 @@
   --cp-blue-hover: #0090c4;
   --cp-blue-light: rgba(0, 168, 225, 0.10);
   --cp-blue-border: rgba(0, 168, 225, 0.25);
-  --cp-text: #1a2a3a;
-  --cp-text-muted: #5a6d7e;
-  --cp-text-light: #8899a8;
+  --cp-text: #0f1d2a;
+  --cp-text-muted: #3d5264;
+  --cp-text-light: #6b7f90;
   --cp-border: rgba(26, 62, 92, 0.12);
   --cp-shadow: 0 2px 12px rgba(26, 62, 92, 0.08);
   --cp-shadow-hover: 0 6px 24px rgba(0, 168, 225, 0.14);
@@ -38,25 +38,49 @@ body::before {
   right: 0;
   bottom: 0;
   background:
-    linear-gradient(135deg, rgba(247, 249, 251, 0.82) 0%, rgba(234, 244, 251, 0.78) 100%),
+    linear-gradient(135deg, rgba(247, 249, 251, 0.88) 0%, rgba(234, 244, 251, 0.85) 100%),
     url('/assets/clients/coaching-wallpaper.png') center center / cover no-repeat;
   z-index: -1;
   pointer-events: none;
 }
 
-/* ===== Typography ===== */
+/* ===== Typography — Bolder ===== */
 h1, h2, h3, h4, h5, h6 {
   color: var(--cp-navy) !important;
+  font-weight: 600 !important;
 }
 
 .page-title {
   color: var(--cp-navy) !important;
-  font-weight: 600 !important;
+  font-weight: 700 !important;
   letter-spacing: 0.01em !important;
 }
 
 .page-subtitle {
   color: var(--cp-text-muted) !important;
+  font-weight: 500 !important;
+}
+
+/* Thicker body text globally */
+body {
+  font-weight: 450 !important;
+}
+
+.card-title,
+.section-title,
+.sidebar-card-title {
+  font-weight: 700 !important;
+}
+
+.transaction-title,
+.appointment-title,
+.message-sender,
+.report-title,
+.contact-name,
+.resource-name,
+.document-name,
+.timeline-step-name {
+  font-weight: 600 !important;
 }
 
 /* ===== Sidebar — Brand Navy ===== */
