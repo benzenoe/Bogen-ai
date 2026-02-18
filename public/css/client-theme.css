@@ -134,6 +134,29 @@ h1, h2, h3, h4, h5, h6 {
   background: transparent !important;
 }
 
+/* ===== Global Card Override ===== */
+.card {
+  background: var(--cp-white) !important;
+  border: 1px solid var(--cp-border) !important;
+  border-radius: 12px !important;
+  box-shadow: var(--cp-shadow) !important;
+  color: var(--cp-text) !important;
+}
+
+.card:hover {
+  border-color: var(--cp-blue) !important;
+  box-shadow: var(--cp-shadow-hover) !important;
+}
+
+/* Text utility overrides */
+.text-gray {
+  color: var(--cp-text-muted) !important;
+}
+
+.text-navy, .text-cyan {
+  color: var(--cp-blue) !important;
+}
+
 /* ===== Cards — Clean White with Color ===== */
 .dashboard-card,
 .report-card {
