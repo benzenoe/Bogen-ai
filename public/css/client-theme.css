@@ -38,7 +38,7 @@ body::before {
   right: 0;
   bottom: 0;
   background:
-    linear-gradient(135deg, rgba(247, 249, 251, 0.55) 0%, rgba(234, 244, 251, 0.45) 100%),
+    linear-gradient(135deg, rgba(247, 249, 251, 0.82) 0%, rgba(234, 244, 251, 0.78) 100%),
     url('/assets/clients/coaching-wallpaper.png') center center / cover no-repeat;
   z-index: -1;
   pointer-events: none;
@@ -470,6 +470,141 @@ h1, h2, h3, h4, h5, h6 {
 
 .mobile-menu-btn svg {
   color: var(--cp-blue) !important;
+}
+
+/* ===== Transaction Detail Page ===== */
+.transaction-header {
+  background: var(--cp-white) !important;
+  border: 1px solid var(--cp-border) !important;
+  border-radius: 12px !important;
+  box-shadow: var(--cp-shadow) !important;
+}
+
+.transaction-header .transaction-title {
+  color: var(--cp-navy) !important;
+}
+
+.transaction-header .transaction-meta {
+  color: var(--cp-text-muted) !important;
+}
+
+.transaction-header .meta-item {
+  color: var(--cp-text-muted) !important;
+}
+
+.back-link {
+  color: var(--cp-text-muted) !important;
+}
+
+.back-link:hover {
+  color: var(--cp-blue) !important;
+}
+
+/* Timeline section — no outer box */
+.timeline-section {
+  background: transparent !important;
+  border: none !important;
+  padding: 0 !important;
+  box-shadow: none !important;
+}
+
+.section-title {
+  color: var(--cp-navy) !important;
+}
+
+/* Timeline line + markers */
+.timeline::before {
+  background: var(--cp-blue-border) !important;
+}
+
+.timeline-marker {
+  background: var(--cp-white) !important;
+  border: 2px solid rgba(26, 62, 92, 0.25) !important;
+}
+
+.timeline-marker.completed {
+  background: var(--cp-blue) !important;
+  border-color: var(--cp-blue) !important;
+}
+
+.timeline-marker.in_progress {
+  background: var(--cp-white) !important;
+  border-color: var(--cp-blue) !important;
+}
+
+.timeline-content {
+  background: var(--cp-white) !important;
+  border: 1px solid var(--cp-border) !important;
+  border-radius: 10px !important;
+  box-shadow: 0 1px 4px rgba(26, 62, 92, 0.06) !important;
+}
+
+.timeline-content.current {
+  border-left: 3px solid var(--cp-blue) !important;
+}
+
+.timeline-step-name {
+  color: var(--cp-navy) !important;
+}
+
+.timeline-step-desc {
+  color: var(--cp-text-muted) !important;
+}
+
+.timeline-step-date {
+  color: var(--cp-blue) !important;
+}
+
+/* Sidebar cards — no separate boxes */
+.sidebar-card {
+  background: var(--cp-white) !important;
+  border: 1px solid var(--cp-border) !important;
+  border-radius: 12px !important;
+  box-shadow: var(--cp-shadow) !important;
+}
+
+.sidebar-card-title {
+  color: var(--cp-navy) !important;
+}
+
+.contact-avatar {
+  background: linear-gradient(135deg, var(--cp-navy), var(--cp-blue)) !important;
+  color: #fff !important;
+}
+
+.contact-name {
+  color: var(--cp-navy) !important;
+}
+
+.contact-role {
+  color: var(--cp-text-muted) !important;
+}
+
+.document-item {
+  background: var(--cp-light-blue) !important;
+  color: var(--cp-text) !important;
+  border-radius: 8px !important;
+}
+
+.document-item:hover {
+  background: #dcedf8 !important;
+}
+
+.document-icon {
+  color: var(--cp-blue) !important;
+}
+
+.document-name {
+  color: var(--cp-navy) !important;
+}
+
+/* Transaction detail text that uses rgba white */
+#tx-description {
+  color: var(--cp-text-muted) !important;
+}
+
+.sidebar-card strong {
+  color: var(--cp-navy) !important;
 }
 
 /* ===== Scrollbar ===== */
