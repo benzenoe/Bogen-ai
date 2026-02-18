@@ -10,51 +10,382 @@
   <link rel="stylesheet" href="/css/global.css">
   <style>
     :root { --sidebar-width: 260px; }
-    body { display: flex; min-height: 100vh; }
+    body { display: flex; min-height: 100vh; margin: 0; background: #0d2137; }
     .sidebar { position: fixed; left: 0; top: 0; bottom: 0; width: var(--sidebar-width); background: rgba(15, 42, 63, 0.95); border-right: 1px solid rgba(100, 181, 246, 0.2); display: flex; flex-direction: column; z-index: 100; }
     .sidebar-header { padding: var(--spacing-lg); border-bottom: 1px solid rgba(100, 181, 246, 0.2); }
     .sidebar-nav { flex: 1; padding: var(--spacing-md) 0; }
-    .sidebar-nav a { display: flex; align-items: center; gap: var(--spacing-sm); padding: var(--spacing-md) var(--spacing-lg); color: rgba(255, 255, 255, 0.7); transition: all var(--transition-fast); }
+    .sidebar-nav a { display: flex; align-items: center; gap: var(--spacing-sm); padding: var(--spacing-md) var(--spacing-lg); color: rgba(255, 255, 255, 0.7); transition: all var(--transition-fast); text-decoration: none; }
     .sidebar-nav a:hover { background: rgba(100, 181, 246, 0.1); color: var(--white); }
     .sidebar-nav a.active { background: rgba(100, 181, 246, 0.15); color: var(--cyan); border-left: 3px solid var(--cyan); }
     .sidebar-nav svg { width: 20px; height: 20px; }
     .sidebar-footer { padding: var(--spacing-lg); border-top: 1px solid rgba(100, 181, 246, 0.2); }
-    .main-content { flex: 1; margin-left: var(--sidebar-width); padding: var(--spacing-xl); background: var(--dark-gradient); }
-    @media (max-width: 768px) { .sidebar { transform: translateX(-100%); } .main-content { margin-left: 0; } }
+    .main-content { flex: 1; margin-left: var(--sidebar-width); display: flex; flex-direction: column; height: 100vh; background: #0d2137; }
 
-    .page-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--spacing-xl); }
-    .page-title { font-size: 1.75rem; }
+    /* Chat Header */
+    .chat-header {
+      padding: 20px 28px;
+      border-bottom: 1px solid rgba(100, 181, 246, 0.15);
+      background: rgba(15, 42, 63, 0.8);
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      flex-shrink: 0;
+    }
+    .chat-header-avatar {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #1a3e5c, #00a8e1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 600;
+      font-size: 1rem;
+      color: white;
+      flex-shrink: 0;
+    }
+    .chat-header-info h2 {
+      font-size: 1.125rem;
+      font-weight: 600;
+      color: #fff;
+      margin: 0;
+      font-family: var(--font-sans);
+    }
+    .chat-header-info p {
+      font-size: 0.8125rem;
+      color: rgba(255, 255, 255, 0.5);
+      margin: 2px 0 0 0;
+    }
+    .chat-header-status {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .chat-header-status .dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #4CAF50;
+    }
 
-    .messages-container { display: flex; gap: var(--spacing-lg); height: calc(100vh - 200px); }
-    .messages-list { width: 350px; background: rgba(26, 58, 82, 0.6); border: 1px solid rgba(100, 181, 246, 0.2); border-radius: var(--border-radius); overflow: hidden; flex-shrink: 0; }
-    .messages-list-header { padding: var(--spacing-md); border-bottom: 1px solid rgba(100, 181, 246, 0.2); font-weight: 500; }
-    .messages-scroll { height: calc(100% - 50px); overflow-y: auto; }
+    /* Chat Messages Area */
+    .chat-messages {
+      flex: 1;
+      overflow-y: auto;
+      padding: 24px 28px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      scroll-behavior: smooth;
+    }
+    .chat-messages::-webkit-scrollbar { width: 6px; }
+    .chat-messages::-webkit-scrollbar-track { background: transparent; }
+    .chat-messages::-webkit-scrollbar-thumb { background: rgba(100, 181, 246, 0.2); border-radius: 3px; }
+    .chat-messages::-webkit-scrollbar-thumb:hover { background: rgba(100, 181, 246, 0.4); }
 
-    .message-preview { padding: var(--spacing-md); border-bottom: 1px solid rgba(100, 181, 246, 0.1); cursor: pointer; transition: all var(--transition-fast); }
-    .message-preview:hover { background: rgba(100, 181, 246, 0.05); }
-    .message-preview.active { background: rgba(100, 181, 246, 0.1); border-left: 3px solid var(--cyan); }
-    .message-preview.unread { background: rgba(100, 181, 246, 0.05); }
-    .message-preview.unread .message-sender { font-weight: 600; }
-    .message-sender { margin-bottom: 2px; }
-    .message-subject { font-size: 0.875rem; color: rgba(255, 255, 255, 0.7); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-    .message-date { font-size: 0.75rem; color: rgba(255, 255, 255, 0.5); margin-top: 4px; }
+    /* Date Separator */
+    .chat-date-separator {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin: 16px 0;
+    }
+    .chat-date-separator::before,
+    .chat-date-separator::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: rgba(100, 181, 246, 0.12);
+    }
+    .chat-date-separator span {
+      font-size: 0.75rem;
+      color: rgba(255, 255, 255, 0.4);
+      white-space: nowrap;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
 
-    .message-view { flex: 1; background: rgba(26, 58, 82, 0.6); border: 1px solid rgba(100, 181, 246, 0.2); border-radius: var(--border-radius); display: flex; flex-direction: column; }
-    .message-view-header { padding: var(--spacing-lg); border-bottom: 1px solid rgba(100, 181, 246, 0.2); }
-    .message-view-sender { font-size: 1.125rem; font-weight: 500; }
-    .message-view-subject { color: rgba(255, 255, 255, 0.7); }
-    .message-view-body { flex: 1; padding: var(--spacing-lg); overflow-y: auto; line-height: 1.6; }
+    /* Message Bubbles */
+    .chat-msg {
+      display: flex;
+      flex-direction: column;
+      max-width: 75%;
+      animation: fadeInMsg 0.2s ease;
+    }
+    @keyframes fadeInMsg {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .chat-msg.admin {
+      align-self: flex-start;
+    }
+    .chat-msg.client {
+      align-self: flex-end;
+    }
+    .chat-msg-bubble {
+      padding: 12px 16px;
+      border-radius: 18px;
+      font-size: 0.9375rem;
+      line-height: 1.5;
+      word-wrap: break-word;
+      white-space: pre-wrap;
+    }
+    .chat-msg.admin .chat-msg-bubble {
+      background: rgba(26, 62, 92, 0.7);
+      border: 1px solid rgba(100, 181, 246, 0.15);
+      border-bottom-left-radius: 6px;
+      color: rgba(255, 255, 255, 0.92);
+    }
+    .chat-msg.client .chat-msg-bubble {
+      background: linear-gradient(135deg, #00a8e1, #0088bb);
+      border-bottom-right-radius: 6px;
+      color: #fff;
+    }
+    .chat-msg-meta {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-top: 4px;
+      padding: 0 4px;
+    }
+    .chat-msg.admin .chat-msg-meta {
+      justify-content: flex-start;
+    }
+    .chat-msg.client .chat-msg-meta {
+      justify-content: flex-end;
+    }
+    .chat-msg-time {
+      font-size: 0.6875rem;
+      color: rgba(255, 255, 255, 0.35);
+    }
+    .chat-msg-sender {
+      font-size: 0.6875rem;
+      color: rgba(100, 181, 246, 0.6);
+      font-weight: 500;
+    }
+    .chat-msg-read {
+      font-size: 0.6875rem;
+      color: rgba(100, 181, 246, 0.5);
+    }
+    .chat-msg-read.read {
+      color: #00a8e1;
+    }
 
-    .compose-form { background: rgba(26, 58, 82, 0.6); border: 1px solid rgba(100, 181, 246, 0.2); border-radius: var(--border-radius); padding: var(--spacing-lg); margin-bottom: var(--spacing-lg); }
-    .compose-form.hidden { display: none; }
+    /* Subject tag on messages */
+    .chat-msg-subject {
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: rgba(100, 181, 246, 0.7);
+      margin-bottom: 4px;
+      text-transform: uppercase;
+      letter-spacing: 0.3px;
+    }
+    .chat-msg.client .chat-msg-subject {
+      color: rgba(255, 255, 255, 0.7);
+    }
 
-    .empty-state { display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; color: rgba(255, 255, 255, 0.5); }
-    .empty-state svg { width: 64px; height: 64px; margin-bottom: var(--spacing-md); opacity: 0.3; }
+    /* Compose Bar */
+    .chat-compose {
+      padding: 16px 28px 20px;
+      border-top: 1px solid rgba(100, 181, 246, 0.12);
+      background: rgba(15, 42, 63, 0.6);
+      flex-shrink: 0;
+    }
+    .compose-subject-toggle {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 8px;
+    }
+    .compose-subject-toggle button {
+      background: none;
+      border: none;
+      color: rgba(100, 181, 246, 0.5);
+      font-size: 0.8125rem;
+      cursor: pointer;
+      padding: 4px 0;
+      transition: color 0.15s;
+    }
+    .compose-subject-toggle button:hover {
+      color: var(--cyan);
+    }
+    .compose-subject-input {
+      width: 100%;
+      background: rgba(13, 33, 55, 0.6);
+      border: 1px solid rgba(100, 181, 246, 0.15);
+      border-radius: 8px;
+      padding: 8px 14px;
+      color: #fff;
+      font-size: 0.875rem;
+      font-family: var(--font-sans);
+      margin-bottom: 8px;
+      outline: none;
+      transition: border-color 0.15s;
+      display: none;
+    }
+    .compose-subject-input.visible {
+      display: block;
+    }
+    .compose-subject-input:focus {
+      border-color: rgba(100, 181, 246, 0.4);
+    }
+    .compose-input-row {
+      display: flex;
+      align-items: flex-end;
+      gap: 10px;
+    }
+    .compose-textarea {
+      flex: 1;
+      background: rgba(13, 33, 55, 0.6);
+      border: 1px solid rgba(100, 181, 246, 0.15);
+      border-radius: 20px;
+      padding: 12px 18px;
+      color: #fff;
+      font-size: 0.9375rem;
+      font-family: var(--font-sans);
+      line-height: 1.4;
+      resize: none;
+      outline: none;
+      max-height: 120px;
+      min-height: 44px;
+      transition: border-color 0.15s;
+    }
+    .compose-textarea::placeholder {
+      color: rgba(255, 255, 255, 0.3);
+    }
+    .compose-textarea:focus {
+      border-color: rgba(100, 181, 246, 0.4);
+    }
+    .compose-send {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #00a8e1, #0088bb);
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.15s;
+      flex-shrink: 0;
+    }
+    .compose-send:hover {
+      transform: scale(1.05);
+      box-shadow: 0 4px 12px rgba(0, 168, 225, 0.3);
+    }
+    .compose-send:active {
+      transform: scale(0.95);
+    }
+    .compose-send:disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+      transform: none;
+      box-shadow: none;
+    }
+    .compose-send svg {
+      width: 20px;
+      height: 20px;
+      color: #fff;
+      margin-left: 2px;
+    }
 
-    @media (max-width: 900px) {
-      .messages-container { flex-direction: column; height: auto; }
-      .messages-list { width: 100%; }
-      .messages-scroll { max-height: 300px; }
+    /* Empty state */
+    .chat-empty {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      color: rgba(255, 255, 255, 0.35);
+      gap: 12px;
+    }
+    .chat-empty svg {
+      width: 56px;
+      height: 56px;
+      opacity: 0.3;
+    }
+    .chat-empty p {
+      font-size: 0.9375rem;
+    }
+    .chat-empty .subtext {
+      font-size: 0.8125rem;
+      color: rgba(255, 255, 255, 0.25);
+    }
+
+    /* Loading spinner */
+    .chat-loading {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 40px;
+      color: rgba(255, 255, 255, 0.4);
+      gap: 8px;
+    }
+    .chat-loading .spinner {
+      width: 20px;
+      height: 20px;
+      border: 2px solid rgba(100, 181, 246, 0.2);
+      border-top-color: var(--cyan);
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+    }
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    /* New message indicator */
+    .new-msg-indicator {
+      position: sticky;
+      bottom: 8px;
+      align-self: center;
+      background: linear-gradient(135deg, #00a8e1, #0088bb);
+      color: #fff;
+      padding: 8px 18px;
+      border-radius: 20px;
+      font-size: 0.8125rem;
+      font-weight: 500;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(0, 168, 225, 0.3);
+      display: none;
+      transition: all 0.2s;
+    }
+    .new-msg-indicator:hover {
+      transform: translateY(-2px);
+    }
+
+    /* Typing indicator (cosmetic) */
+    .typing-indicator {
+      display: none;
+      align-self: flex-start;
+      padding: 12px 16px;
+      background: rgba(26, 62, 92, 0.5);
+      border: 1px solid rgba(100, 181, 246, 0.1);
+      border-radius: 18px;
+      border-bottom-left-radius: 6px;
+    }
+    .typing-indicator span {
+      display: inline-block;
+      width: 7px;
+      height: 7px;
+      background: rgba(100, 181, 246, 0.4);
+      border-radius: 50%;
+      margin: 0 1px;
+      animation: typingBounce 1.2s infinite;
+    }
+    .typing-indicator span:nth-child(2) { animation-delay: 0.2s; }
+    .typing-indicator span:nth-child(3) { animation-delay: 0.4s; }
+    @keyframes typingBounce {
+      0%, 60%, 100% { transform: translateY(0); }
+      30% { transform: translateY(-4px); }
+    }
+
+    @media (max-width: 768px) {
+      .sidebar { transform: translateX(-100%); }
+      .main-content { margin-left: 0; }
+      .chat-msg { max-width: 88%; }
+      .chat-messages { padding: 16px; }
+      .chat-compose { padding: 12px 16px 16px; }
+      .chat-header { padding: 16px; }
     }
   </style>
 </head>
@@ -72,45 +403,34 @@
   </aside>
 
   <main class="main-content">
-    <div class="page-header">
-      <h1 class="page-title">Messages</h1>
-      <button class="btn btn-primary" onclick="toggleCompose()">New Message</button>
-    </div>
-
-    <!-- Compose Form -->
-    <div class="compose-form hidden" id="compose-form">
-      <h3 style="margin-bottom: var(--spacing-md);">New Message</h3>
-      <form onsubmit="sendMessage(event)">
-        <div class="form-group">
-          <label class="form-label">Subject (optional)</label>
-          <input type="text" name="subject" class="form-input" placeholder="What is this about?">
-        </div>
-        <div class="form-group">
-          <label class="form-label">Message</label>
-          <textarea name="message" class="form-input" rows="4" required placeholder="Type your message..."></textarea>
-        </div>
-        <div style="display: flex; gap: var(--spacing-sm);">
-          <button type="submit" class="btn btn-primary">Send Message</button>
-          <button type="button" class="btn btn-secondary" onclick="toggleCompose()">Cancel</button>
-        </div>
-      </form>
-    </div>
-
-    <div class="messages-container">
-      <div class="messages-list">
-        <div class="messages-list-header">Inbox</div>
-        <div class="messages-scroll" id="messages-scroll">
-          <div class="empty-state" style="padding: var(--spacing-xl);">Loading...</div>
-        </div>
+    <!-- Chat Header -->
+    <div class="chat-header">
+      <div class="chat-header-avatar">EB</div>
+      <div class="chat-header-info">
+        <h2>The Edmund Bogen Team</h2>
+        <p class="chat-header-status"><span class="dot"></span> Your dedicated coaching team</p>
       </div>
+    </div>
 
-      <div class="message-view" id="message-view">
-        <div class="empty-state">
-          <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"/>
-          </svg>
-          <p>Select a message to view</p>
-        </div>
+    <!-- Chat Messages -->
+    <div class="chat-messages" id="chat-messages">
+      <div class="chat-loading" id="chat-loading">
+        <div class="spinner"></div>
+        <span>Loading conversation...</span>
+      </div>
+    </div>
+
+    <!-- Compose Bar -->
+    <div class="chat-compose">
+      <div class="compose-subject-toggle">
+        <button onclick="toggleSubject()" id="subject-toggle-btn">+ Add subject</button>
+      </div>
+      <input type="text" class="compose-subject-input" id="compose-subject" placeholder="Subject (optional)">
+      <div class="compose-input-row">
+        <textarea class="compose-textarea" id="compose-message" placeholder="Type a message..." rows="1"></textarea>
+        <button class="compose-send" id="send-btn" onclick="sendMessage()" disabled>
+          <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"/></svg>
+        </button>
       </div>
     </div>
   </main>
@@ -118,114 +438,267 @@
   <script src="/js/common.js"></script>
   <script>
     let messages = [];
-    let selectedMessageId = null;
+    let pollInterval = null;
+    let lastMessageCount = 0;
+    let isAtBottom = true;
 
     document.addEventListener('DOMContentLoaded', () => {
       const token = localStorage.getItem('client_token');
       if (!token) { window.location.href = '/client-portal'; return; }
-      loadMessages();
+
+      setupTextarea();
+      loadMessages(true);
+
+      // Poll for new messages every 10 seconds
+      pollInterval = setInterval(() => loadMessages(false), 10000);
     });
 
-    function toggleCompose() {
-      document.getElementById('compose-form').classList.toggle('hidden');
+    // Auto-resize textarea
+    function setupTextarea() {
+      const textarea = document.getElementById('compose-message');
+      textarea.addEventListener('input', () => {
+        textarea.style.height = 'auto';
+        textarea.style.height = Math.min(textarea.scrollHeight, 120) + 'px';
+        document.getElementById('send-btn').disabled = !textarea.value.trim();
+      });
+      textarea.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' && !e.shiftKey) {
+          e.preventDefault();
+          if (textarea.value.trim()) sendMessage();
+        }
+      });
     }
 
-    async function loadMessages() {
+    function toggleSubject() {
+      const input = document.getElementById('compose-subject');
+      const btn = document.getElementById('subject-toggle-btn');
+      if (input.classList.contains('visible')) {
+        input.classList.remove('visible');
+        input.value = '';
+        btn.textContent = '+ Add subject';
+      } else {
+        input.classList.add('visible');
+        input.focus();
+        btn.textContent = '- Remove subject';
+      }
+    }
+
+    // Track scroll position
+    document.getElementById('chat-messages').addEventListener('scroll', function() {
+      const el = this;
+      isAtBottom = (el.scrollHeight - el.scrollTop - el.clientHeight) < 60;
+    });
+
+    async function loadMessages(isInitial) {
       const token = localStorage.getItem('client_token');
       try {
         const data = await window.bogenAI.apiRequest('/client-portal/messages', {
           headers: { 'Authorization': `Bearer ${token}` }
         });
-        messages = data.messages;
-        renderMessageList();
+
+        const newMessages = data.messages || [];
+
+        // Reverse to chronological order (API returns DESC)
+        newMessages.reverse();
+
+        const hasNew = newMessages.length !== lastMessageCount;
+        lastMessageCount = newMessages.length;
+        messages = newMessages;
+
+        if (isInitial || hasNew) {
+          renderChat();
+          if (isInitial || isAtBottom) {
+            scrollToBottom(isInitial ? false : true);
+          }
+        }
+
+        // Mark unread admin messages as read
+        markAdminMessagesRead();
+
       } catch (error) {
         console.error('Load error:', error);
-        if (error.message.includes('401')) logout();
+        if (error.message && error.message.includes('401')) {
+          clearInterval(pollInterval);
+          logout();
+        }
       }
     }
 
-    function renderMessageList() {
-      const container = document.getElementById('messages-scroll');
+    function renderChat() {
+      const container = document.getElementById('chat-messages');
+      const loading = document.getElementById('chat-loading');
+      if (loading) loading.remove();
+
       if (!messages || messages.length === 0) {
-        container.innerHTML = '<div class="empty-state" style="padding: var(--spacing-xl);"><p>No messages yet</p></div>';
+        container.innerHTML = `
+          <div class="chat-empty">
+            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"/>
+            </svg>
+            <p>No messages yet</p>
+            <span class="subtext">Send a message to start the conversation with your team</span>
+          </div>
+        `;
         return;
       }
 
-      container.innerHTML = messages.map(m => `
-        <div class="message-preview ${!m.is_read ? 'unread' : ''} ${m.message_id === selectedMessageId ? 'active' : ''}"
-             onclick="viewMessage(${m.message_id})">
-          <div class="message-sender">${escapeHtml(m.sender_name || 'Edmund Bogen Team')}</div>
-          <div class="message-subject">${escapeHtml(m.subject || m.message.substring(0, 50))}</div>
-          <div class="message-date">${formatDate(m.created_at)}</div>
-        </div>
-      `).join('');
+      let html = '';
+      let lastDate = '';
+
+      messages.forEach((msg, i) => {
+        const msgDate = new Date(msg.created_at);
+        const dateKey = msgDate.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+
+        // Date separator
+        if (dateKey !== lastDate) {
+          const today = new Date();
+          const yesterday = new Date(today);
+          yesterday.setDate(yesterday.getDate() - 1);
+          let displayDate = dateKey;
+          if (msgDate.toDateString() === today.toDateString()) displayDate = 'Today';
+          else if (msgDate.toDateString() === yesterday.toDateString()) displayDate = 'Yesterday';
+
+          html += `<div class="chat-date-separator"><span>${displayDate}</span></div>`;
+          lastDate = dateKey;
+        }
+
+        const isAdmin = msg.sender_type === 'admin';
+        const side = isAdmin ? 'admin' : 'client';
+        const time = msgDate.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' });
+        const senderName = isAdmin ? (msg.sender_name || 'Edmund Bogen Team') : 'You';
+
+        // Check if previous msg was same sender (for grouping)
+        const prevMsg = i > 0 ? messages[i - 1] : null;
+        const sameSenderAsPrev = prevMsg && prevMsg.sender_type === msg.sender_type;
+        const timeDiff = prevMsg ? (msgDate - new Date(prevMsg.created_at)) / 60000 : Infinity;
+        const isGrouped = sameSenderAsPrev && timeDiff < 5;
+
+        // Read receipt for client messages
+        let readReceipt = '';
+        if (!isAdmin) {
+          if (msg.is_read) {
+            readReceipt = `<span class="chat-msg-read read" title="Read ${msg.read_at ? formatReadTime(msg.read_at) : ''}">&#10003;&#10003;</span>`;
+          } else {
+            readReceipt = `<span class="chat-msg-read" title="Delivered">&#10003;</span>`;
+          }
+        }
+
+        html += `
+          <div class="chat-msg ${side}" ${!isGrouped ? 'style="margin-top: 8px;"' : ''}>
+            <div class="chat-msg-bubble">
+              ${msg.subject ? `<div class="chat-msg-subject">${escapeHtml(msg.subject)}</div>` : ''}
+              ${escapeHtml(msg.message)}
+            </div>
+            <div class="chat-msg-meta">
+              ${isAdmin && !isGrouped ? `<span class="chat-msg-sender">${escapeHtml(senderName)}</span>` : ''}
+              <span class="chat-msg-time">${time}</span>
+              ${readReceipt}
+            </div>
+          </div>
+        `;
+      });
+
+      container.innerHTML = html;
     }
 
-    async function viewMessage(id) {
-      selectedMessageId = id;
-      const message = messages.find(m => m.message_id === id);
-      if (!message) return;
-
-      renderMessageList();
-
-      document.getElementById('message-view').innerHTML = `
-        <div class="message-view-header">
-          <div class="message-view-sender">${escapeHtml(message.sender_name || 'Edmund Bogen Team')}</div>
-          <div class="message-view-subject">${escapeHtml(message.subject || 'No subject')}</div>
-          <div style="font-size: 0.75rem; color: rgba(255,255,255,0.5); margin-top: 4px;">${formatDate(message.created_at)}</div>
-        </div>
-        <div class="message-view-body">${escapeHtml(message.message).replace(/\n/g, '<br>')}</div>
-      `;
-
-      // Mark as read
-      if (!message.is_read) {
-        const token = localStorage.getItem('client_token');
-        try {
-          await window.bogenAI.apiRequest(`/client-portal/messages/${id}/read`, {
-            method: 'PUT',
-            headers: { 'Authorization': `Bearer ${token}` }
-          });
-          message.is_read = true;
-          renderMessageList();
-        } catch (e) { console.error(e); }
+    function scrollToBottom(smooth) {
+      const container = document.getElementById('chat-messages');
+      if (smooth) {
+        container.scrollTo({ top: container.scrollHeight, behavior: 'smooth' });
+      } else {
+        container.scrollTop = container.scrollHeight;
       }
     }
 
-    async function sendMessage(event) {
-      event.preventDefault();
-      const form = event.target;
-      const formData = new FormData(form);
-      const token = localStorage.getItem('client_token');
+    async function sendMessage() {
+      const messageInput = document.getElementById('compose-message');
+      const subjectInput = document.getElementById('compose-subject');
+      const sendBtn = document.getElementById('send-btn');
+      const messageText = messageInput.value.trim();
+      if (!messageText) return;
 
+      const subject = subjectInput.value.trim();
+
+      // Disable and show sending state
+      sendBtn.disabled = true;
+      messageInput.value = '';
+      messageInput.style.height = 'auto';
+
+      // Optimistic: add message locally
+      const tempMsg = {
+        message_id: Date.now(),
+        sender_type: 'client',
+        sender_name: 'You',
+        subject: subject || null,
+        message: messageText,
+        is_read: false,
+        created_at: new Date().toISOString(),
+        _temp: true
+      };
+      messages.push(tempMsg);
+      renderChat();
+      scrollToBottom(true);
+
+      // Clear subject
+      if (subjectInput.classList.contains('visible')) {
+        subjectInput.value = '';
+        subjectInput.classList.remove('visible');
+        document.getElementById('subject-toggle-btn').textContent = '+ Add subject';
+      }
+
+      const token = localStorage.getItem('client_token');
       try {
         await window.bogenAI.apiRequest('/client-portal/messages', {
           method: 'POST',
           headers: { 'Authorization': `Bearer ${token}` },
           body: JSON.stringify({
-            subject: formData.get('subject'),
-            message: formData.get('message')
+            subject: subject || null,
+            message: messageText
           })
         });
-        window.bogenAI.showNotification('Message sent!', 'success');
-        form.reset();
-        toggleCompose();
-        loadMessages();
+        // Reload to get server-assigned ID
+        loadMessages(false);
       } catch (error) {
-        window.bogenAI.showNotification(error.message || 'Failed to send', 'error');
+        // Remove temp message on failure
+        messages = messages.filter(m => !m._temp);
+        renderChat();
+        scrollToBottom(false);
+        window.bogenAI.showNotification(error.message || 'Failed to send message', 'error');
       }
     }
 
-    function formatDate(dateStr) {
-      const date = new Date(dateStr);
-      const now = new Date();
-      const diff = now - date;
-      if (diff < 86400000) return date.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' });
-      if (diff < 604800000) return date.toLocaleDateString('en-US', { weekday: 'short' });
-      return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+    async function markAdminMessagesRead() {
+      const token = localStorage.getItem('client_token');
+      const unread = messages.filter(m => m.sender_type === 'admin' && !m.is_read);
+      for (const msg of unread) {
+        try {
+          await window.bogenAI.apiRequest(`/client-portal/messages/${msg.message_id}/read`, {
+            method: 'PUT',
+            headers: { 'Authorization': `Bearer ${token}` }
+          });
+          msg.is_read = true;
+        } catch (e) { /* silent */ }
+      }
     }
 
-    function escapeHtml(text) { if (!text) return ''; const div = document.createElement('div'); div.textContent = text; return div.innerHTML; }
-    function logout() { localStorage.removeItem('client_token'); window.location.href = '/client-portal'; }
+    function formatReadTime(dateStr) {
+      if (!dateStr) return '';
+      const d = new Date(dateStr);
+      return d.toLocaleString('en-US', { month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit' });
+    }
+
+    function escapeHtml(text) {
+      if (!text) return '';
+      const div = document.createElement('div');
+      div.textContent = text;
+      return div.innerHTML;
+    }
+
+    function logout() {
+      clearInterval(pollInterval);
+      localStorage.removeItem('client_token');
+      window.location.href = '/client-portal';
+    }
   </script>
 </body>
 </html>
