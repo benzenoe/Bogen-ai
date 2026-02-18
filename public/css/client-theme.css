@@ -1,31 +1,32 @@
 /* ============================================================
-   Client Portal — Warm Theme Override
-   Replaces dark navy/blue with warm, inviting tones
-   Background wallpaper: coaching-wallpaper.png
+   Client Portal — Light Brand Theme
+   Edmund Bogen brand colors on a bright, airy canvas
+   Navy #1a3e5c sidebar  |  Bright blue #00a8e1 accents
+   White-dominant layout with coaching wallpaper
    ============================================================ */
 
 :root {
-  /* Warm palette */
-  --warm-bg: #faf8f5;
-  --warm-card: #ffffff;
-  --warm-card-hover: #fffefa;
-  --warm-sidebar: #2c2420;
-  --warm-sidebar-border: rgba(201, 168, 76, 0.25);
-  --warm-text: #3a3530;
-  --warm-text-muted: #7a7067;
-  --warm-text-light: #a89e94;
-  --warm-gold: #c9a84c;
-  --warm-gold-light: rgba(201, 168, 76, 0.15);
-  --warm-gold-hover: #b8963d;
-  --warm-sage: #e8ede5;
-  --warm-border: rgba(201, 168, 76, 0.2);
-  --warm-border-strong: rgba(201, 168, 76, 0.4);
+  --cp-white: #ffffff;
+  --cp-off-white: #f7f9fb;
+  --cp-light-blue: #eaf4fb;
+  --cp-navy: #1a3e5c;
+  --cp-navy-soft: #24506e;
+  --cp-blue: #00a8e1;
+  --cp-blue-hover: #0090c4;
+  --cp-blue-light: rgba(0, 168, 225, 0.10);
+  --cp-blue-border: rgba(0, 168, 225, 0.25);
+  --cp-text: #1a2a3a;
+  --cp-text-muted: #5a6d7e;
+  --cp-text-light: #8899a8;
+  --cp-border: rgba(26, 62, 92, 0.12);
+  --cp-shadow: 0 2px 12px rgba(26, 62, 92, 0.08);
+  --cp-shadow-hover: 0 6px 24px rgba(0, 168, 225, 0.14);
 }
 
-/* ===== Body & Background Wallpaper ===== */
+/* ===== Body — Light Canvas + Wallpaper ===== */
 body {
-  background: var(--warm-bg) !important;
-  color: var(--warm-text) !important;
+  background: var(--cp-off-white) !important;
+  color: var(--cp-text) !important;
   position: relative;
 }
 
@@ -36,34 +37,37 @@ body::before {
   left: 0;
   right: 0;
   bottom: 0;
-  background: url('/assets/clients/coaching-wallpaper.png') center center / cover no-repeat fixed;
-  opacity: 0.06;
+  background:
+    linear-gradient(135deg, rgba(247, 249, 251, 0.55) 0%, rgba(234, 244, 251, 0.45) 100%),
+    url('/assets/clients/coaching-wallpaper.png') center center / cover no-repeat;
   z-index: -1;
   pointer-events: none;
 }
 
 /* ===== Typography ===== */
 h1, h2, h3, h4, h5, h6 {
-  color: var(--warm-text) !important;
+  color: var(--cp-navy) !important;
 }
 
 .page-title {
-  font-family: 'Playfair Display', Georgia, serif !important;
-  color: var(--warm-text) !important;
+  color: var(--cp-navy) !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.01em !important;
 }
 
 .page-subtitle {
-  color: var(--warm-text-muted) !important;
+  color: var(--cp-text-muted) !important;
 }
 
-/* ===== Sidebar ===== */
+/* ===== Sidebar — Brand Navy ===== */
 .sidebar {
-  background: var(--warm-sidebar) !important;
-  border-right: 1px solid var(--warm-sidebar-border) !important;
+  background: linear-gradient(180deg, var(--cp-navy) 0%, #142f45 100%) !important;
+  border-right: none !important;
+  box-shadow: 2px 0 20px rgba(26, 62, 92, 0.2) !important;
 }
 
 .sidebar-header {
-  border-bottom: 1px solid var(--warm-sidebar-border) !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
 }
 
 .sidebar-header .logo {
@@ -71,32 +75,38 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .sidebar-header .logo span {
-  color: var(--warm-gold) !important;
+  color: var(--cp-blue) !important;
 }
 
 .sidebar-nav a {
-  color: rgba(255, 255, 255, 0.7) !important;
+  color: rgba(255, 255, 255, 0.75) !important;
   text-decoration: none;
+  border-left: 3px solid transparent !important;
+  transition: all 0.2s ease !important;
 }
 
 .sidebar-nav a:hover {
-  background: rgba(201, 168, 76, 0.12) !important;
+  background: rgba(0, 168, 225, 0.1) !important;
   color: #fff !important;
 }
 
 .sidebar-nav a.active {
-  background: rgba(201, 168, 76, 0.18) !important;
-  color: var(--warm-gold) !important;
-  border-left: 3px solid var(--warm-gold) !important;
+  background: rgba(0, 168, 225, 0.15) !important;
+  color: var(--cp-blue) !important;
+  border-left: 3px solid var(--cp-blue) !important;
 }
 
 .sidebar-footer {
-  border-top: 1px solid var(--warm-sidebar-border) !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.1) !important;
 }
 
 .sidebar-footer .user-avatar {
-  background: rgba(201, 168, 76, 0.2) !important;
-  color: var(--warm-gold) !important;
+  background: rgba(0, 168, 225, 0.2) !important;
+  color: var(--cp-blue) !important;
+}
+
+.sidebar-footer .user-name {
+  color: #fff !important;
 }
 
 .sidebar-footer .user-email {
@@ -104,17 +114,18 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .sidebar-footer .btn {
-  color: var(--warm-gold) !important;
-  border-color: var(--warm-gold) !important;
+  color: var(--cp-blue) !important;
+  border-color: rgba(0, 168, 225, 0.4) !important;
+  background: transparent !important;
 }
 
 .sidebar-footer .btn:hover {
-  background: var(--warm-gold) !important;
+  background: var(--cp-blue) !important;
   color: #fff !important;
 }
 
 .nav-badge {
-  background: var(--warm-gold) !important;
+  background: var(--cp-blue) !important;
   color: #fff !important;
 }
 
@@ -123,244 +134,267 @@ h1, h2, h3, h4, h5, h6 {
   background: transparent !important;
 }
 
-/* ===== Dashboard Cards ===== */
+/* ===== Cards — Clean White with Color ===== */
 .dashboard-card,
-.report-card,
-.transaction-item,
-.appointment-item,
-.message-item,
-.resource-item {
-  background: var(--warm-card) !important;
-  border: 1px solid var(--warm-border) !important;
-  box-shadow: 0 2px 12px rgba(58, 53, 48, 0.06) !important;
-  color: var(--warm-text) !important;
+.report-card {
+  background: var(--cp-white) !important;
+  border: 1px solid var(--cp-border) !important;
+  border-radius: 12px !important;
+  box-shadow: var(--cp-shadow) !important;
+  color: var(--cp-text) !important;
 }
 
 .dashboard-card:hover,
 .report-card:hover {
-  border-color: var(--warm-gold) !important;
-  box-shadow: 0 4px 20px rgba(201, 168, 76, 0.12) !important;
+  border-color: var(--cp-blue) !important;
+  box-shadow: var(--cp-shadow-hover) !important;
+  transform: translateY(-2px);
 }
 
-.card-title,
-.transaction-title,
-.appointment-title,
-.message-sender,
-.report-title {
-  color: var(--warm-text) !important;
+.card-title {
+  color: var(--cp-navy) !important;
+  font-weight: 600 !important;
 }
 
 .card-link {
-  color: var(--warm-gold) !important;
+  color: var(--cp-blue) !important;
+  font-weight: 500 !important;
 }
 
 .card-link:hover {
-  color: var(--warm-gold-hover) !important;
+  color: var(--cp-blue-hover) !important;
 }
 
-/* Transaction items inside dashboard cards */
-.dashboard-card .transaction-item,
-.dashboard-card .appointment-item,
-.dashboard-card .message-item {
-  background: var(--warm-sage) !important;
+/* ===== Transaction / Appointment / Message Items ===== */
+.transaction-item,
+.appointment-item,
+.message-item {
+  background: var(--cp-light-blue) !important;
   border: none !important;
+  border-radius: 10px !important;
   box-shadow: none !important;
+  color: var(--cp-text) !important;
 }
 
-.dashboard-card .transaction-item:hover,
-.dashboard-card .message-item:hover {
-  background: #dfe6db !important;
-  border-left: 3px solid var(--warm-gold) !important;
+.transaction-item:hover,
+.message-item:hover {
+  background: #dcedf8 !important;
+  border-left: 3px solid var(--cp-blue) !important;
 }
 
 .transaction-icon {
-  background: var(--warm-gold-light) !important;
-  color: var(--warm-gold) !important;
+  background: var(--cp-blue-light) !important;
+  color: var(--cp-blue) !important;
+}
+
+.transaction-title,
+.appointment-title,
+.message-sender {
+  color: var(--cp-navy) !important;
+  font-weight: 500 !important;
 }
 
 .transaction-meta,
 .appointment-time,
 .message-preview,
-.message-time,
-.report-description {
-  color: var(--warm-text-muted) !important;
+.message-time {
+  color: var(--cp-text-muted) !important;
 }
 
 .appointment-day {
-  color: var(--warm-gold) !important;
+  color: var(--cp-blue) !important;
 }
 
 .appointment-month {
-  color: var(--warm-text-muted) !important;
+  color: var(--cp-text-muted) !important;
 }
 
-/* Progress bar */
+/* ===== Progress Bar ===== */
 .progress-bar {
-  background: var(--warm-sage) !important;
+  background: var(--cp-light-blue) !important;
 }
 
 .progress-fill {
-  background: var(--warm-gold) !important;
+  background: linear-gradient(90deg, var(--cp-blue), #3dc0f0) !important;
+  border-radius: 3px !important;
 }
 
 .progress-text {
-  color: var(--warm-text-muted) !important;
+  color: var(--cp-text-muted) !important;
 }
 
 /* ===== Status Badges ===== */
-.status-initiated { background: rgba(158, 158, 158, 0.15) !important; color: #777 !important; }
-.status-in_progress { background: rgba(201, 168, 76, 0.15) !important; color: var(--warm-gold) !important; }
-.status-under_review { background: rgba(255, 152, 0, 0.15) !important; color: #e68a00 !important; }
-.status-pending_closing { background: rgba(156, 39, 176, 0.12) !important; color: #9C27B0 !important; }
-.status-completed { background: rgba(76, 175, 80, 0.12) !important; color: #388E3C !important; }
+.status-initiated { background: rgba(138, 150, 165, 0.12) !important; color: #6b7a8a !important; }
+.status-in_progress { background: rgba(0, 168, 225, 0.12) !important; color: var(--cp-blue) !important; }
+.status-under_review { background: rgba(255, 152, 0, 0.12) !important; color: #e68a00 !important; }
+.status-pending_closing { background: rgba(156, 39, 176, 0.10) !important; color: #9C27B0 !important; }
+.status-completed { background: rgba(76, 175, 80, 0.12) !important; color: #2e7d32 !important; }
 
-/* Report type badges */
+/* ===== Report Cards ===== */
 .report-type-badge {
-  background: var(--warm-gold-light) !important;
-  color: var(--warm-gold) !important;
+  background: var(--cp-blue-light) !important;
+  color: var(--cp-blue) !important;
+  font-weight: 500 !important;
+}
+
+.report-title {
+  color: var(--cp-navy) !important;
+}
+
+.report-description {
+  color: var(--cp-text-muted) !important;
 }
 
 .report-meta {
-  color: var(--warm-text-light) !important;
+  color: var(--cp-text-light) !important;
 }
 
 /* ===== Filter Bar ===== */
 .filter-btn {
-  background: transparent !important;
-  border: 1px solid var(--warm-border-strong) !important;
-  color: var(--warm-text-muted) !important;
+  background: var(--cp-white) !important;
+  border: 1px solid var(--cp-blue-border) !important;
+  color: var(--cp-text-muted) !important;
+  font-weight: 500 !important;
 }
 
 .filter-btn.active,
 .filter-btn:hover {
-  background: var(--warm-gold-light) !important;
-  border-color: var(--warm-gold) !important;
-  color: var(--warm-gold) !important;
+  background: var(--cp-blue) !important;
+  border-color: var(--cp-blue) !important;
+  color: #fff !important;
 }
 
-/* ===== Resources Grid ===== */
-.resource-grid .resource-item {
-  background: var(--warm-sage) !important;
+/* ===== Resources ===== */
+.resource-item {
+  background: var(--cp-light-blue) !important;
   border: none !important;
+  border-radius: 10px !important;
 }
 
-.resource-grid .resource-item:hover {
-  background: #dfe6db !important;
+.resource-item:hover {
+  background: #dcedf8 !important;
 }
 
 .resource-icon {
-  color: var(--warm-gold) !important;
+  color: var(--cp-blue) !important;
 }
 
 .resource-name {
-  color: var(--warm-text) !important;
+  color: var(--cp-navy) !important;
 }
 
-/* ===== Message Avatar ===== */
+/* ===== Avatars ===== */
 .message-avatar,
 .chat-header-avatar {
-  background: linear-gradient(135deg, var(--warm-sidebar), var(--warm-gold)) !important;
+  background: linear-gradient(135deg, var(--cp-navy), var(--cp-blue)) !important;
   color: #fff !important;
 }
 
 .message-item.unread {
-  border-left: 3px solid var(--warm-gold) !important;
+  border-left: 3px solid var(--cp-blue) !important;
 }
 
 /* ===== Empty State ===== */
 .empty-state {
-  color: var(--warm-text-light) !important;
+  color: var(--cp-text-light) !important;
 }
 
 .empty-state svg {
-  color: var(--warm-text-light) !important;
+  color: var(--cp-text-light) !important;
 }
 
-/* ===== Chat / Messages Page Overrides ===== */
+/* ===== Chat / Messages ===== */
 .chat-header {
-  background: var(--warm-card) !important;
-  border-bottom: 1px solid var(--warm-border) !important;
+  background: var(--cp-white) !important;
+  border-bottom: 1px solid var(--cp-border) !important;
 }
 
 .chat-header-info h2 {
-  color: var(--warm-text) !important;
+  color: var(--cp-navy) !important;
 }
 
 .chat-header-info p,
 .chat-header-info .status-text {
-  color: var(--warm-text-muted) !important;
+  color: var(--cp-text-muted) !important;
 }
 
 .chat-body {
-  background: var(--warm-bg) !important;
+  background: var(--cp-off-white) !important;
 }
 
 .chat-bubble.outgoing {
-  background: var(--warm-gold) !important;
+  background: var(--cp-blue) !important;
   color: #fff !important;
 }
 
 .chat-bubble.incoming {
-  background: var(--warm-card) !important;
-  color: var(--warm-text) !important;
-  border: 1px solid var(--warm-border) !important;
+  background: var(--cp-white) !important;
+  color: var(--cp-text) !important;
+  border: 1px solid var(--cp-border) !important;
 }
 
 .chat-compose {
-  background: var(--warm-card) !important;
-  border-top: 1px solid var(--warm-border) !important;
+  background: var(--cp-white) !important;
+  border-top: 1px solid var(--cp-border) !important;
 }
 
 .chat-compose textarea,
 .chat-compose input {
-  background: var(--warm-sage) !important;
-  color: var(--warm-text) !important;
-  border: 1px solid var(--warm-border) !important;
+  background: var(--cp-off-white) !important;
+  color: var(--cp-text) !important;
+  border: 1px solid var(--cp-border) !important;
+}
+
+.chat-compose textarea:focus,
+.chat-compose input:focus {
+  border-color: var(--cp-blue) !important;
+  box-shadow: 0 0 0 3px rgba(0, 168, 225, 0.12) !important;
 }
 
 .chat-compose textarea::placeholder,
 .chat-compose input::placeholder {
-  color: var(--warm-text-light) !important;
+  color: var(--cp-text-light) !important;
 }
 
 .chat-send-btn,
 .send-btn {
-  background: var(--warm-gold) !important;
+  background: var(--cp-blue) !important;
   color: #fff !important;
   border: none !important;
 }
 
 .chat-send-btn:hover,
 .send-btn:hover {
-  background: var(--warm-gold-hover) !important;
+  background: var(--cp-blue-hover) !important;
 }
 
 .date-separator span {
-  background: var(--warm-sage) !important;
-  color: var(--warm-text-muted) !important;
+  background: var(--cp-light-blue) !important;
+  color: var(--cp-text-muted) !important;
 }
 
 .date-separator::before {
-  background: var(--warm-border) !important;
+  background: var(--cp-border) !important;
 }
 
-/* ===== Buttons (global override for client pages) ===== */
+/* ===== Buttons ===== */
 .btn-primary {
-  background: var(--warm-gold) !important;
+  background: var(--cp-blue) !important;
   color: #fff !important;
+  border: none !important;
 }
 
 .btn-primary:hover {
-  background: var(--warm-gold-hover) !important;
+  background: var(--cp-blue-hover) !important;
 }
 
 .btn-secondary {
-  color: var(--warm-gold) !important;
-  border-color: var(--warm-gold) !important;
+  color: var(--cp-blue) !important;
+  border-color: var(--cp-blue) !important;
 }
 
 .btn-secondary:hover {
-  background: var(--warm-gold) !important;
+  background: var(--cp-blue) !important;
   color: #fff !important;
 }
 
@@ -368,20 +402,20 @@ h1, h2, h3, h4, h5, h6 {
 .form-input,
 .form-select,
 .form-textarea {
-  background: var(--warm-card) !important;
-  color: var(--warm-text) !important;
-  border: 1px solid var(--warm-border-strong) !important;
+  background: var(--cp-white) !important;
+  color: var(--cp-text) !important;
+  border: 1px solid rgba(26, 62, 92, 0.2) !important;
 }
 
 .form-input:focus,
 .form-select:focus,
 .form-textarea:focus {
-  border-color: var(--warm-gold) !important;
-  box-shadow: 0 0 0 3px rgba(201, 168, 76, 0.15) !important;
+  border-color: var(--cp-blue) !important;
+  box-shadow: 0 0 0 3px rgba(0, 168, 225, 0.12) !important;
 }
 
 .form-label {
-  color: var(--warm-text) !important;
+  color: var(--cp-text) !important;
 }
 
 /* ===== Login Page ===== */
@@ -391,50 +425,51 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .login-box {
-  background: var(--warm-card);
-  border-radius: 16px;
-  padding: 48px 40px;
-  box-shadow: 0 8px 40px rgba(58, 53, 48, 0.12);
-  border: 1px solid var(--warm-border);
+  background: rgba(255, 255, 255, 0.92) !important;
+  backdrop-filter: blur(20px) !important;
+  border-radius: 16px !important;
+  padding: 48px 40px !important;
+  box-shadow: 0 8px 40px rgba(26, 62, 92, 0.12) !important;
+  border: 1px solid var(--cp-border) !important;
 }
 
 .login-box .logo {
-  color: var(--warm-text) !important;
+  color: var(--cp-navy) !important;
 }
 
 .login-box .logo span {
-  color: var(--warm-gold) !important;
+  color: var(--cp-blue) !important;
 }
 
 .tabs {
-  border-bottom-color: var(--warm-border) !important;
+  border-bottom-color: var(--cp-border) !important;
 }
 
 .tab {
-  color: var(--warm-text-muted) !important;
+  color: var(--cp-text-muted) !important;
 }
 
 .tab:hover {
-  color: var(--warm-text) !important;
+  color: var(--cp-navy) !important;
 }
 
 .tab.active {
-  color: var(--warm-gold) !important;
-  border-bottom-color: var(--warm-gold) !important;
+  color: var(--cp-blue) !important;
+  border-bottom-color: var(--cp-blue) !important;
 }
 
 .forgot-link {
-  color: var(--warm-gold) !important;
+  color: var(--cp-blue) !important;
 }
 
 /* ===== Mobile Menu Button ===== */
 .mobile-menu-btn {
-  background: var(--warm-sidebar) !important;
-  border: 1px solid var(--warm-sidebar-border) !important;
+  background: var(--cp-navy) !important;
+  border: 1px solid rgba(0, 168, 225, 0.3) !important;
 }
 
 .mobile-menu-btn svg {
-  color: var(--warm-gold) !important;
+  color: var(--cp-blue) !important;
 }
 
 /* ===== Scrollbar ===== */
@@ -443,14 +478,14 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 ::-webkit-scrollbar-track {
-  background: var(--warm-sage);
+  background: var(--cp-off-white);
 }
 
 ::-webkit-scrollbar-thumb {
-  background: rgba(201, 168, 76, 0.3);
+  background: rgba(26, 62, 92, 0.2);
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(201, 168, 76, 0.5);
+  background: rgba(0, 168, 225, 0.4);
 }
