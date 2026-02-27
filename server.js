@@ -122,11 +122,11 @@ app.get('/client-messages', (req, res) => {
 });
 
 app.get('/client-documents', (req, res) => {
-  res.sendFile(path.join(__dirname, 'views', 'client-messages.html')); // Reuses messages page for now
+  res.sendFile(path.join(__dirname, 'views', 'client-documents.html'));
 });
 
 app.get('/client-appointments', (req, res) => {
-  res.sendFile(path.join(__dirname, 'views', 'client-dashboard.html')); // Uses dashboard with appointments
+  res.sendFile(path.join(__dirname, 'views', 'client-appointments.html'));
 });
 
 app.get('/client-reports', (req, res) => {

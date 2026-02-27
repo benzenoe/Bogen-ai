@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Appointments - Client Portal - Bogen.ai</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/global.css">
+  <link rel="stylesheet" href="/css/client-theme.css">
+  <style>
+    :root { --sidebar-width: 260px; }
+    body { display: flex; min-height: 100vh; }
+
+    .sidebar { position: fixed; left: 0; top: 0; bottom: 0; width: var(--sidebar-width); display: flex; flex-direction: column; z-index: 100; }
+    .sidebar-header { padding: var(--spacing-lg); }
+    .sidebar-nav { flex: 1; padding: var(--spacing-md) 0; }
+    .sidebar-nav a { display: flex; align-items: center; gap: var(--spacing-sm); padding: var(--spacing-md) var(--spacing-lg); text-decoration: none; transition: all 0.15s ease; }
+    .sidebar-nav svg { width: 20px; height: 20px; }
+    .sidebar-footer { padding: var(--spacing-lg); }
+
+    .main-content { flex: 1; margin-left: var(--sidebar-width); padding: 48px; }
+
+    @media (max-width: 768px) {
+      .sidebar { transform: translateX(-100%); }
+      .main-content { margin-left: 0; padding: 24px; }
+    }
+
+    .page-header { margin-bottom: 32px; display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 16px; }
+    .page-title { font-size: 1.75rem; color: #1a3e5c; margin-bottom: 6px; }
+    .page-subtitle { color: #3d5264; font-size: 1rem; font-weight: 500; }
+
+    /* Request button */
+    .request-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 22px;
+      border-radius: 10px;
+      font-size: 0.875rem;
+      font-weight: 700;
+      color: #fff;
+      background: #00a8e1;
+      border: none;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+
+    .request-btn:hover { background: #0090c4; }
+    .request-btn svg { width: 18px; height: 18px; }
+
+    /* Filter tabs */
+    .filter-bar {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 28px;
+    }
+
+    .filter-btn {
+      padding: 8px 18px;
+      border-radius: 8px;
+      font-size: 0.875rem;
+      cursor: pointer;
+      border: 1px solid rgba(0, 168, 225, 0.25);
+      background: #fff;
+      color: #3d5264;
+      transition: all 0.15s ease;
+    }
+
+    .filter-btn.active,
+    .filter-btn:hover {
+      background: #00a8e1;
+      border-color: #00a8e1;
+      color: #fff;
+    }
+
+    /* Appointment cards */
+    .appointments-list {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .appt-card {
+      background: #fff;
+      border: 1px solid rgba(26, 62, 92, 0.12);
+      border-radius: 12px;
+      padding: 24px;
+      box-shadow: 0 2px 12px rgba(26, 62, 92, 0.06);
+      display: flex;
+      gap: 20px;
+      align-items: flex-start;
+      transition: all 0.2s ease;
+    }
+
+    .appt-card:hover {
+      border-color: #00a8e1;
+      box-shadow: 0 6px 24px rgba(0, 168, 225, 0.14);
+    }
+
+    /* Date block */
+    .appt-date-block {
+      width: 68px;
+      min-width: 68px;
+      text-align: center;
+      background: #eaf4fb;
+      border-radius: 10px;
+      padding: 12px 8px;
+    }
+
+    .appt-date-month {
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: #00a8e1;
+      margin-bottom: 2px;
+    }
+
+    .appt-date-day {
+      font-size: 1.75rem;
+      font-weight: 800;
+      color: #1a3e5c;
+      line-height: 1;
+    }
+
+    .appt-date-dow {
+      font-size: 0.7rem;
+      font-weight: 600;
+      color: #6b7f90;
+      margin-top: 2px;
+    }
+
+    /* Appointment body */
+    .appt-body { flex: 1; min-width: 0; }
+
+    .appt-title {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: #0f1d2a;
+      margin-bottom: 6px;
+    }
+
+    .appt-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      margin-bottom: 8px;
+    }
+
+    .appt-meta-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.8125rem;
+      color: #3d5264;
+    }
+
+    .appt-meta-item svg { width: 14px; height: 14px; color: #6b7f90; }
+
+    .appt-type-badge {
+      display: inline-block;
+      padding: 3px 10px;
+      border-radius: 6px;
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    .appt-type-badge.consultation { background: rgba(0, 168, 225, 0.1); color: #00a8e1; }
+    .appt-type-badge.showing { background: rgba(46, 204, 113, 0.1); color: #27ae60; }
+    .appt-type-badge.closing { background: rgba(156, 39, 176, 0.1); color: #9C27B0; }
+    .appt-type-badge.review { background: rgba(255, 152, 0, 0.1); color: #e68a00; }
+    .appt-type-badge.general { background: rgba(26, 62, 92, 0.08); color: #1a3e5c; }
+
+    .appt-desc {
+      font-size: 0.875rem;
+      color: #3d5264;
+      line-height: 1.5;
+      margin-top: 8px;
+    }
+
+    .appt-transaction {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 0.75rem;
+      color: #00a8e1;
+      font-weight: 600;
+      margin-top: 8px;
+    }
+
+    /* Status */
+    .appt-status {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 8px;
+      flex-shrink: 0;
+    }
+
+    .status-dot {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      padding: 4px 12px;
+      border-radius: 20px;
+    }
+
+    .status-dot.scheduled { background: rgba(0, 168, 225, 0.1); color: #00a8e1; }
+    .status-dot.confirmed { background: rgba(76, 175, 80, 0.1); color: #2e7d32; }
+    .status-dot.completed { background: rgba(26, 62, 92, 0.08); color: #6b7f90; }
+    .status-dot.cancelled { background: rgba(244, 67, 54, 0.1); color: #d32f2f; }
+    .status-dot.rescheduled { background: rgba(255, 152, 0, 0.1); color: #e68a00; }
+
+    .status-dot::before {
+      content: '';
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: currentColor;
+    }
+
+    .appt-meeting-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.8125rem;
+      font-weight: 600;
+      color: #00a8e1;
+      text-decoration: none;
+    }
+
+    .appt-meeting-link:hover { text-decoration: underline; }
+    .appt-meeting-link svg { width: 14px; height: 14px; }
+
+    @media (max-width: 640px) {
+      .appt-card { flex-direction: column; }
+      .appt-date-block { width: 100%; display: flex; align-items: center; gap: 10px; padding: 10px 16px; }
+      .appt-date-day { font-size: 1.25rem; }
+      .appt-status { flex-direction: row; align-items: center; }
+    }
+
+    /* Empty state */
+    .empty-state {
+      text-align: center;
+      padding: 80px 20px;
+      color: #6b7f90;
+    }
+
+    .empty-state svg { width: 56px; height: 56px; color: #8899a8; margin-bottom: 16px; }
+    .empty-state p { font-size: 1rem; margin-bottom: 6px; }
+    .empty-state .subtext { font-size: 0.875rem; color: #8899a8; }
+
+    /* Request modal */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 29, 42, 0.6);
+      z-index: 1000;
+      justify-content: center;
+      align-items: center;
+      padding: 24px;
+    }
+
+    .modal-overlay.visible { display: flex; }
+
+    .modal {
+      background: #fff;
+      border-radius: 16px;
+      width: 100%;
+      max-width: 520px;
+      box-shadow: 0 20px 60px rgba(26, 62, 92, 0.2);
+      overflow: hidden;
+    }
+
+    .modal-header {
+      padding: 24px 28px;
+      border-bottom: 1px solid rgba(26, 62, 92, 0.1);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .modal-header h2 {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: #1a3e5c;
+      margin: 0;
+    }
+
+    .modal-close {
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 4px;
+      color: #6b7f90;
+    }
+
+    .modal-close:hover { color: #0f1d2a; }
+    .modal-close svg { width: 20px; height: 20px; }
+
+    .modal-body { padding: 28px; }
+
+    .form-group { margin-bottom: 20px; }
+
+    .form-group label {
+      display: block;
+      font-size: 0.8125rem;
+      font-weight: 700;
+      color: #1a3e5c;
+      margin-bottom: 6px;
+    }
+
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      width: 100%;
+      padding: 10px 14px;
+      border: 1px solid rgba(26, 62, 92, 0.2);
+      border-radius: 8px;
+      font-size: 0.9rem;
+      font-family: var(--font-sans);
+      color: #0f1d2a;
+      background: #fff;
+      transition: border-color 0.15s;
+      box-sizing: border-box;
+    }
+
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      outline: none;
+      border-color: #00a8e1;
+      box-shadow: 0 0 0 3px rgba(0, 168, 225, 0.12);
+    }
+
+    .form-group textarea { resize: vertical; min-height: 80px; }
+
+    .modal-footer {
+      padding: 20px 28px;
+      border-top: 1px solid rgba(26, 62, 92, 0.1);
+      display: flex;
+      justify-content: flex-end;
+      gap: 10px;
+    }
+
+    .modal-footer .btn-cancel {
+      padding: 10px 20px;
+      border-radius: 8px;
+      font-size: 0.875rem;
+      font-weight: 600;
+      cursor: pointer;
+      border: 1px solid rgba(26, 62, 92, 0.2);
+      background: #fff;
+      color: #3d5264;
+    }
+
+    .modal-footer .btn-cancel:hover { background: #f7f9fb; }
+
+    .modal-footer .btn-submit {
+      padding: 10px 24px;
+      border-radius: 8px;
+      font-size: 0.875rem;
+      font-weight: 700;
+      cursor: pointer;
+      border: none;
+      background: #00a8e1;
+      color: #fff;
+    }
+
+    .modal-footer .btn-submit:hover { background: #0090c4; }
+    .modal-footer .btn-submit:disabled { opacity: 0.5; cursor: not-allowed; }
+  </style>
+</head>
+<body>
+  <aside class="sidebar">
+    <div class="sidebar-header"><a href="/" class="logo">bogen<span>.ai</span></a></div>
+    <nav class="sidebar-nav">
+      <a href="/client-dashboard"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>Dashboard</a>
+      <a href="/client-transactions"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"/></svg>Transactions</a>
+      <a href="/client-resources"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>Resources</a>
+      <a href="/client-messages"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"/></svg>Messages</a>
+      <a href="/client-reports"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>Reports</a>
+      <a href="/client-documents"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"/></svg>Documents</a>
+      <a href="/client-appointments" class="active"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>Appointments</a>
+    </nav>
+    <div class="sidebar-footer">
+      <a href="/client-profile" class="btn btn-secondary btn-sm" style="width: 100%; margin-bottom: var(--spacing-xs);">Profile</a>
+      <button onclick="logout()" class="btn btn-secondary btn-sm" style="width: 100%; background: transparent;">Logout</button>
+    </div>
+  </aside>
+
+  <main class="main-content">
+    <div class="page-header">
+      <div>
+        <h1 class="page-title">Appointments</h1>
+        <p class="page-subtitle">Scheduled meetings and consultations</p>
+      </div>
+      <button class="request-btn" onclick="openRequestModal()">
+        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
+        Request Appointment
+      </button>
+    </div>
+
+    <div class="filter-bar">
+      <button class="filter-btn active" data-filter="upcoming" onclick="setFilter('upcoming', this)">Upcoming</button>
+      <button class="filter-btn" data-filter="all" onclick="setFilter('all', this)">All</button>
+      <button class="filter-btn" data-filter="completed" onclick="setFilter('completed', this)">Past</button>
+    </div>
+
+    <div class="appointments-list" id="appointments-list">
+      <div class="empty-state" id="loading-state">
+        <p>Loading appointments...</p>
+      </div>
+    </div>
+
+    <div class="empty-state" id="empty-state" style="display: none;">
+      <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+      </svg>
+      <p>No appointments found</p>
+      <span class="subtext">Request a new appointment to get started</span>
+    </div>
+  </main>
+
+  <!-- Request Appointment Modal -->
+  <div class="modal-overlay" id="request-modal">
+    <div class="modal">
+      <div class="modal-header">
+        <h2>Request an Appointment</h2>
+        <button class="modal-close" onclick="closeRequestModal()">
+          <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label for="appt-title">Title</label>
+          <input type="text" id="appt-title" placeholder="e.g., Property Viewing, Strategy Call">
+        </div>
+        <div class="form-group">
+          <label for="appt-type">Appointment Type</label>
+          <select id="appt-type">
+            <option value="">Select type...</option>
+            <option value="consultation">Consultation</option>
+            <option value="showing">Property Showing</option>
+            <option value="review">Document Review</option>
+            <option value="closing">Closing Meeting</option>
+            <option value="general">General Meeting</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="appt-date">Preferred Date & Time</label>
+          <input type="datetime-local" id="appt-date">
+        </div>
+        <div class="form-group">
+          <label for="appt-description">Notes (optional)</label>
+          <textarea id="appt-description" placeholder="Any details or preferences for this appointment..."></textarea>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn-cancel" onclick="closeRequestModal()">Cancel</button>
+        <button class="btn-submit" id="submit-btn" onclick="submitRequest()">Submit Request</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="/js/common.js"></script>
+  <script>
+    let allAppointments = [];
+    let currentFilter = 'upcoming';
+
+    document.addEventListener('DOMContentLoaded', () => {
+      const token = localStorage.getItem('client_token');
+      if (!token) { window.location.href = '/client-portal'; return; }
+      loadAppointments();
+    });
+
+    async function loadAppointments() {
+      const token = localStorage.getItem('client_token');
+      try {
+        const data = await window.bogenAI.apiRequest('/client-portal/appointments', {
+          headers: { 'Authorization': `Bearer ${token}` }
+        });
+        allAppointments = data.appointments || [];
+        applyFilter();
+      } catch (error) {
+        console.error('Load error:', error);
+        if (error.message && error.message.includes('401')) logout();
+      }
+    }
+
+    function setFilter(filter, btn) {
+      currentFilter = filter;
+      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      applyFilter();
+    }
+
+    function applyFilter() {
+      const now = new Date();
+      let filtered;
+      if (currentFilter === 'upcoming') {
+        filtered = allAppointments.filter(a =>
+          new Date(a.scheduled_at) > now && ['scheduled', 'confirmed'].includes(a.status)
+        );
+      } else if (currentFilter === 'completed') {
+        filtered = allAppointments.filter(a =>
+          a.status === 'completed' || new Date(a.scheduled_at) < now
+        );
+      } else {
+        filtered = allAppointments;
+      }
+      renderAppointments(filtered);
+    }
+
+    function renderAppointments(appointments) {
+      const container = document.getElementById('appointments-list');
+      const empty = document.getElementById('empty-state');
+
+      if (!appointments || appointments.length === 0) {
+        container.innerHTML = '';
+        empty.style.display = 'block';
+        return;
+      }
+
+      empty.style.display = 'none';
+
+      container.innerHTML = appointments.map(appt => {
+        const date = new Date(appt.scheduled_at);
+        const month = date.toLocaleDateString('en-US', { month: 'short' });
+        const day = date.getDate();
+        const dow = date.toLocaleDateString('en-US', { weekday: 'short' });
+        const time = date.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' });
+        const typeClass = getTypeClass(appt.appointment_type);
+
+        return `
+          <div class="appt-card">
+            <div class="appt-date-block">
+              <div class="appt-date-month">${month}</div>
+              <div class="appt-date-day">${day}</div>
+              <div class="appt-date-dow">${dow}</div>
+            </div>
+            <div class="appt-body">
+              <div class="appt-title">${escapeHtml(appt.title)}</div>
+              <div class="appt-meta">
+                <span class="appt-meta-item">
+                  <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                  ${time}${appt.duration_minutes ? ` (${appt.duration_minutes} min)` : ''}
+                </span>
+                ${appt.location ? `
+                  <span class="appt-meta-item">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/></svg>
+                    ${escapeHtml(appt.location)}
+                  </span>
+                ` : ''}
+                <span class="appt-type-badge ${typeClass}">${formatType(appt.appointment_type)}</span>
+              </div>
+              ${appt.description ? `<div class="appt-desc">${escapeHtml(appt.description)}</div>` : ''}
+              ${appt.transaction_title ? `
+                <div class="appt-transaction">
+                  <svg width="12" height="12" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"/></svg>
+                  ${escapeHtml(appt.transaction_title)}
+                </div>
+              ` : ''}
+            </div>
+            <div class="appt-status">
+              <span class="status-dot ${appt.status}">${formatStatus(appt.status)}</span>
+              ${appt.meeting_link ? `
+                <a href="${escapeHtml(appt.meeting_link)}" target="_blank" class="appt-meeting-link">
+                  <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
+                  Join Meeting
+                </a>
+              ` : ''}
+            </div>
+          </div>`;
+      }).join('');
+    }
+
+    function getTypeClass(type) {
+      if (!type) return 'general';
+      const t = type.toLowerCase();
+      if (t.includes('consult')) return 'consultation';
+      if (t.includes('show')) return 'showing';
+      if (t.includes('clos')) return 'closing';
+      if (t.includes('review')) return 'review';
+      return 'general';
+    }
+
+    function formatType(type) {
+      if (!type) return 'General';
+      return type.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
+    }
+
+    function formatStatus(status) {
+      if (!status) return 'Scheduled';
+      return status.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
+    }
+
+    // Modal
+    function openRequestModal() {
+      document.getElementById('request-modal').classList.add('visible');
+    }
+
+    function closeRequestModal() {
+      document.getElementById('request-modal').classList.remove('visible');
+      document.getElementById('appt-title').value = '';
+      document.getElementById('appt-type').value = '';
+      document.getElementById('appt-date').value = '';
+      document.getElementById('appt-description').value = '';
+    }
+
+    async function submitRequest() {
+      const title = document.getElementById('appt-title').value.trim();
+      const appointmentType = document.getElementById('appt-type').value;
+      const preferredDate = document.getElementById('appt-date').value;
+      const description = document.getElementById('appt-description').value.trim();
+
+      if (!title || !appointmentType || !preferredDate) {
+        window.bogenAI.showNotification('Please fill in title, type, and preferred date.', 'error');
+        return;
+      }
+
+      const submitBtn = document.getElementById('submit-btn');
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Submitting...';
+
+      const token = localStorage.getItem('client_token');
+      try {
+        await window.bogenAI.apiRequest('/client-portal/appointments', {
+          method: 'POST',
+          headers: { 'Authorization': `Bearer ${token}` },
+          body: JSON.stringify({ title, appointmentType, preferredDate, description })
+        });
+
+        window.bogenAI.showNotification('Appointment request submitted!', 'success');
+        closeRequestModal();
+        loadAppointments();
+      } catch (error) {
+        window.bogenAI.showNotification(error.message || 'Failed to submit request', 'error');
+      } finally {
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Submit Request';
+      }
+    }
+
+    // Close modal on overlay click
+    document.getElementById('request-modal').addEventListener('click', (e) => {
+      if (e.target === e.currentTarget) closeRequestModal();
+    });
+
+    function escapeHtml(text) {
+      if (!text) return '';
+      const div = document.createElement('div');
+      div.textContent = text;
+      return div.innerHTML;
+    }
+
+    function logout() {
+      localStorage.removeItem('client_token');
+      window.location.href = '/client-portal';
+    }
+  </script>
+</body>
+</html>

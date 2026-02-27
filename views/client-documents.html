@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Documents - Client Portal - Bogen.ai</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/global.css">
+  <link rel="stylesheet" href="/css/client-theme.css">
+  <style>
+    :root { --sidebar-width: 260px; }
+    body { display: flex; min-height: 100vh; }
+
+    .sidebar { position: fixed; left: 0; top: 0; bottom: 0; width: var(--sidebar-width); display: flex; flex-direction: column; z-index: 100; }
+    .sidebar-header { padding: var(--spacing-lg); }
+    .sidebar-nav { flex: 1; padding: var(--spacing-md) 0; }
+    .sidebar-nav a { display: flex; align-items: center; gap: var(--spacing-sm); padding: var(--spacing-md) var(--spacing-lg); text-decoration: none; transition: all 0.15s ease; }
+    .sidebar-nav svg { width: 20px; height: 20px; }
+    .sidebar-footer { padding: var(--spacing-lg); }
+
+    .main-content { flex: 1; margin-left: var(--sidebar-width); padding: 48px; }
+
+    @media (max-width: 768px) {
+      .sidebar { transform: translateX(-100%); }
+      .main-content { margin-left: 0; padding: 24px; }
+    }
+
+    .page-header { margin-bottom: 32px; display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 16px; }
+    .page-title { font-size: 1.75rem; color: #1a3e5c; margin-bottom: 6px; }
+    .page-subtitle { color: #3d5264; font-size: 1rem; font-weight: 500; }
+
+    /* Filter bar */
+    .filter-bar {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 28px;
+      flex-wrap: wrap;
+    }
+
+    .filter-btn {
+      padding: 8px 18px;
+      border-radius: 8px;
+      font-size: 0.875rem;
+      cursor: pointer;
+      border: 1px solid rgba(0, 168, 225, 0.25);
+      background: #fff;
+      color: #3d5264;
+      transition: all 0.15s ease;
+    }
+
+    .filter-btn.active,
+    .filter-btn:hover {
+      background: #00a8e1;
+      border-color: #00a8e1;
+      color: #fff;
+    }
+
+    /* Documents table */
+    .documents-table {
+      width: 100%;
+      background: #fff;
+      border-radius: 12px;
+      border: 1px solid rgba(26, 62, 92, 0.12);
+      box-shadow: 0 2px 12px rgba(26, 62, 92, 0.06);
+      overflow: hidden;
+    }
+
+    .documents-table table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    .documents-table thead th {
+      padding: 14px 20px;
+      text-align: left;
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: #6b7f90;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      background: #f7f9fb;
+      border-bottom: 1px solid rgba(26, 62, 92, 0.1);
+    }
+
+    .documents-table tbody tr {
+      border-bottom: 1px solid rgba(26, 62, 92, 0.06);
+      transition: background 0.15s ease;
+    }
+
+    .documents-table tbody tr:last-child {
+      border-bottom: none;
+    }
+
+    .documents-table tbody tr:hover {
+      background: #eaf4fb;
+    }
+
+    .documents-table td {
+      padding: 14px 20px;
+      font-size: 0.9rem;
+      color: #0f1d2a;
+      vertical-align: middle;
+    }
+
+    .doc-name-cell {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .doc-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .doc-icon.pdf { background: rgba(231, 76, 60, 0.12); color: #e74c3c; }
+    .doc-icon.doc { background: rgba(0, 168, 225, 0.12); color: #00a8e1; }
+    .doc-icon.img { background: rgba(46, 204, 113, 0.12); color: #27ae60; }
+    .doc-icon.default { background: rgba(26, 62, 92, 0.1); color: #1a3e5c; }
+
+    .doc-icon svg { width: 20px; height: 20px; }
+
+    .doc-info { min-width: 0; }
+    .doc-title { font-weight: 700; color: #0f1d2a; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .doc-desc { font-size: 0.8125rem; color: #6b7f90; margin-top: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 300px; }
+
+    .doc-transaction-badge {
+      display: inline-block;
+      padding: 4px 10px;
+      border-radius: 6px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      background: rgba(0, 168, 225, 0.1);
+      color: #00a8e1;
+      white-space: nowrap;
+    }
+
+    .doc-uploader {
+      font-size: 0.8125rem;
+      color: #3d5264;
+    }
+
+    .doc-date {
+      font-size: 0.8125rem;
+      color: #6b7f90;
+      white-space: nowrap;
+    }
+
+    .doc-download-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 16px;
+      border-radius: 8px;
+      font-size: 0.8125rem;
+      font-weight: 600;
+      color: #00a8e1;
+      border: 1px solid rgba(0, 168, 225, 0.3);
+      background: transparent;
+      text-decoration: none;
+      transition: all 0.15s ease;
+      white-space: nowrap;
+    }
+
+    .doc-download-btn:hover {
+      background: #00a8e1;
+      color: #fff;
+      border-color: #00a8e1;
+    }
+
+    .doc-download-btn svg { width: 14px; height: 14px; }
+
+    /* Mobile cards */
+    .documents-cards { display: none; }
+
+    @media (max-width: 900px) {
+      .documents-table { display: none; }
+      .documents-cards { display: grid; grid-template-columns: 1fr; gap: 14px; }
+
+      .doc-card {
+        background: #fff;
+        border: 1px solid rgba(26, 62, 92, 0.12);
+        border-radius: 12px;
+        padding: 20px;
+        box-shadow: 0 2px 12px rgba(26, 62, 92, 0.06);
+      }
+
+      .doc-card-header {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin-bottom: 12px;
+      }
+
+      .doc-card-meta {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-bottom: 14px;
+        font-size: 0.8125rem;
+        color: #6b7f90;
+      }
+
+      .doc-card-meta span {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+      }
+    }
+
+    /* Empty state */
+    .empty-state {
+      text-align: center;
+      padding: 80px 20px;
+      color: #6b7f90;
+    }
+
+    .empty-state svg {
+      width: 56px;
+      height: 56px;
+      color: #8899a8;
+      margin-bottom: 16px;
+    }
+
+    .empty-state p { font-size: 1rem; margin-bottom: 6px; }
+    .empty-state .subtext { font-size: 0.875rem; color: #8899a8; }
+  </style>
+</head>
+<body>
+  <aside class="sidebar">
+    <div class="sidebar-header"><a href="/" class="logo">bogen<span>.ai</span></a></div>
+    <nav class="sidebar-nav">
+      <a href="/client-dashboard"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>Dashboard</a>
+      <a href="/client-transactions"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"/></svg>Transactions</a>
+      <a href="/client-resources"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>Resources</a>
+      <a href="/client-messages"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"/></svg>Messages</a>
+      <a href="/client-reports"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>Reports</a>
+      <a href="/client-documents" class="active"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"/></svg>Documents</a>
+      <a href="/client-appointments"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>Appointments</a>
+    </nav>
+    <div class="sidebar-footer">
+      <a href="/client-profile" class="btn btn-secondary btn-sm" style="width: 100%; margin-bottom: var(--spacing-xs);">Profile</a>
+      <button onclick="logout()" class="btn btn-secondary btn-sm" style="width: 100%; background: transparent;">Logout</button>
+    </div>
+  </aside>
+
+  <main class="main-content">
+    <div class="page-header">
+      <div>
+        <h1 class="page-title">Documents</h1>
+        <p class="page-subtitle">Files shared between you and The Edmund Bogen Team</p>
+      </div>
+    </div>
+
+    <div class="filter-bar" id="filter-bar" style="display: none;">
+      <button class="filter-btn active" data-filter="all">All</button>
+    </div>
+
+    <!-- Desktop table -->
+    <div class="documents-table" id="documents-table">
+      <table>
+        <thead>
+          <tr>
+            <th>Document</th>
+            <th>Transaction</th>
+            <th>Shared By</th>
+            <th>Date</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody id="docs-tbody">
+          <tr><td colspan="5" style="text-align: center; padding: 40px; color: #6b7f90;">Loading documents...</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Mobile cards -->
+    <div class="documents-cards" id="documents-cards"></div>
+
+    <!-- Empty state (hidden by default) -->
+    <div class="empty-state" id="empty-state" style="display: none;">
+      <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"/>
+      </svg>
+      <p>No documents yet</p>
+      <span class="subtext">Documents shared with you will appear here</span>
+    </div>
+  </main>
+
+  <script src="/js/common.js"></script>
+  <script>
+    let allDocuments = [];
+    let activeFilter = 'all';
+
+    document.addEventListener('DOMContentLoaded', () => {
+      const token = localStorage.getItem('client_token');
+      if (!token) { window.location.href = '/client-portal'; return; }
+      loadDocuments();
+    });
+
+    async function loadDocuments() {
+      const token = localStorage.getItem('client_token');
+      try {
+        const data = await window.bogenAI.apiRequest('/client-portal/documents', {
+          headers: { 'Authorization': `Bearer ${token}` }
+        });
+        allDocuments = data.documents || [];
+        buildFilters();
+        renderDocuments(allDocuments);
+      } catch (error) {
+        console.error('Load error:', error);
+        if (error.message && error.message.includes('401')) logout();
+      }
+    }
+
+    function buildFilters() {
+      const transactions = [...new Set(allDocuments.filter(d => d.transaction_title).map(d => d.transaction_title))];
+      if (transactions.length === 0) return;
+
+      const bar = document.getElementById('filter-bar');
+      bar.style.display = 'flex';
+      transactions.forEach(tx => {
+        const btn = document.createElement('button');
+        btn.className = 'filter-btn';
+        btn.dataset.filter = tx;
+        btn.textContent = tx;
+        bar.appendChild(btn);
+      });
+
+      bar.addEventListener('click', (e) => {
+        if (!e.target.classList.contains('filter-btn')) return;
+        bar.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+        e.target.classList.add('active');
+        activeFilter = e.target.dataset.filter;
+        const filtered = activeFilter === 'all'
+          ? allDocuments
+          : allDocuments.filter(d => d.transaction_title === activeFilter);
+        renderDocuments(filtered);
+      });
+    }
+
+    function renderDocuments(docs) {
+      const tbody = document.getElementById('docs-tbody');
+      const cards = document.getElementById('documents-cards');
+      const empty = document.getElementById('empty-state');
+      const table = document.getElementById('documents-table');
+
+      if (!docs || docs.length === 0) {
+        table.style.display = 'none';
+        cards.style.display = 'none';
+        empty.style.display = 'block';
+        return;
+      }
+
+      empty.style.display = 'none';
+      table.style.display = '';
+
+      // Desktop table
+      tbody.innerHTML = docs.map(doc => {
+        const type = getFileType(doc.file_type || doc.file_url);
+        const date = formatDate(doc.created_at);
+        return `
+          <tr>
+            <td>
+              <div class="doc-name-cell">
+                <div class="doc-icon ${type}">${getFileIcon(type)}</div>
+                <div class="doc-info">
+                  <div class="doc-title">${escapeHtml(doc.title)}</div>
+                  ${doc.description ? `<div class="doc-desc">${escapeHtml(doc.description)}</div>` : ''}
+                </div>
+              </div>
+            </td>
+            <td>${doc.transaction_title ? `<span class="doc-transaction-badge">${escapeHtml(doc.transaction_title)}</span>` : '<span style="color: #8899a8;">General</span>'}</td>
+            <td><span class="doc-uploader">${escapeHtml(doc.uploader_name || 'Edmund Bogen Team')}</span></td>
+            <td><span class="doc-date">${date}</span></td>
+            <td>
+              <a href="${escapeHtml(doc.file_url)}" target="_blank" class="doc-download-btn">
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
+                View
+              </a>
+            </td>
+          </tr>`;
+      }).join('');
+
+      // Mobile cards
+      cards.innerHTML = docs.map(doc => {
+        const type = getFileType(doc.file_type || doc.file_url);
+        const date = formatDate(doc.created_at);
+        return `
+          <div class="doc-card">
+            <div class="doc-card-header">
+              <div class="doc-icon ${type}">${getFileIcon(type)}</div>
+              <div class="doc-info">
+                <div class="doc-title">${escapeHtml(doc.title)}</div>
+                ${doc.description ? `<div class="doc-desc">${escapeHtml(doc.description)}</div>` : ''}
+              </div>
+            </div>
+            <div class="doc-card-meta">
+              ${doc.transaction_title ? `<span class="doc-transaction-badge">${escapeHtml(doc.transaction_title)}</span>` : ''}
+              <span>${escapeHtml(doc.uploader_name || 'Edmund Bogen Team')}</span>
+              <span>${date}</span>
+            </div>
+            <a href="${escapeHtml(doc.file_url)}" target="_blank" class="doc-download-btn" style="width: 100%; justify-content: center;">
+              <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
+              View Document
+            </a>
+          </div>`;
+      }).join('');
+    }
+
+    function getFileType(typeOrUrl) {
+      if (!typeOrUrl) return 'default';
+      const str = typeOrUrl.toLowerCase();
+      if (str.includes('pdf')) return 'pdf';
+      if (str.includes('doc') || str.includes('word')) return 'doc';
+      if (str.includes('image') || str.includes('png') || str.includes('jpg') || str.includes('jpeg')) return 'img';
+      return 'default';
+    }
+
+    function getFileIcon(type) {
+      switch (type) {
+        case 'pdf':
+          return '<svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"/></svg>';
+        case 'doc':
+          return '<svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>';
+        case 'img':
+          return '<svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>';
+        default:
+          return '<svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>';
+      }
+    }
+
+    function formatDate(dateStr) {
+      if (!dateStr) return '';
+      return new Date(dateStr).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+    }
+
+    function escapeHtml(text) {
+      if (!text) return '';
+      const div = document.createElement('div');
+      div.textContent = text;
+      return div.innerHTML;
+    }
+
+    function logout() {
+      localStorage.removeItem('client_token');
+      window.location.href = '/client-portal';
+    }
+  </script>
+</body>
+</html>
