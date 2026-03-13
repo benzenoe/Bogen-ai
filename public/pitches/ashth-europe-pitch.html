@@ -1,0 +1,1928 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ashth × Bogen.ai — European Market Entry Strategy</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.2.0/dist/chartjs-plugin-datalabels.min.js"></script>
+<style>
+  :root {
+    --navy: #0d1620;
+    --navy2: #1a2332;
+    --navy3: #1a3e5c;
+    --blue: #00a8e1;
+    --gold: #ffd93d;
+    --red: #ff6b6b;
+    --green: #6bcb77;
+    --white: #ffffff;
+    --gray: #8899aa;
+    --card-bg: rgba(26,35,50,0.85);
+    --border: rgba(0,168,225,0.2);
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--navy);
+    color: var(--white);
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top:0; left:0; right:0; z-index:1000;
+    background: rgba(13,22,32,0.97);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 2rem; height: 64px;
+  }
+  .nav-logo { display:flex; align-items:center; gap:0.75rem; }
+  .nav-logo .logo-pill {
+    background: linear-gradient(135deg, var(--blue), var(--navy3));
+    padding: 0.3rem 0.85rem; border-radius: 20px;
+    font-weight:700; font-size:1rem; letter-spacing:0.05em;
+  }
+  .nav-logo .x { color: var(--gray); font-size:1.1rem; }
+  .nav-logo .ashth-pill {
+    background: linear-gradient(135deg, #2d1a4a, #5a2d82);
+    padding: 0.3rem 0.85rem; border-radius: 20px;
+    font-weight:700; font-size:1rem; letter-spacing:0.08em;
+  }
+  .nav-links { display:flex; gap:0.25rem; }
+  .nav-links a {
+    color: var(--gray); text-decoration:none; padding: 0.4rem 0.75rem;
+    border-radius: 8px; font-size:0.82rem; font-weight:500;
+    transition: all 0.2s;
+  }
+  .nav-links a:hover { color:var(--white); background: var(--border); }
+  .nav-cta {
+    background: var(--blue); color:var(--white); border:none;
+    padding: 0.5rem 1.2rem; border-radius: 8px; font-weight:600;
+    cursor:pointer; font-size:0.85rem; transition: all 0.2s;
+  }
+  .nav-cta:hover { background: #0090c4; }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    background: radial-gradient(ellipse at 20% 50%, rgba(0,168,225,0.15) 0%, transparent 60%),
+                radial-gradient(ellipse at 80% 20%, rgba(90,45,130,0.2) 0%, transparent 50%),
+                linear-gradient(180deg, #0d1620 0%, #1a2332 100%);
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    text-align:center; padding: 8rem 2rem 4rem;
+    position:relative; overflow:hidden;
+  }
+  .hero::before {
+    content:''; position:absolute; inset:0;
+    background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%2300a8e1' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    opacity:0.5;
+  }
+  .hero-badge {
+    display:inline-flex; align-items:center; gap:0.5rem;
+    background: rgba(0,168,225,0.1); border:1px solid rgba(0,168,225,0.3);
+    border-radius:20px; padding:0.4rem 1rem; font-size:0.8rem;
+    color: var(--blue); font-weight:600; letter-spacing:0.1em;
+    text-transform:uppercase; margin-bottom:1.5rem;
+  }
+  .hero-badge .dot { width:6px; height:6px; background:var(--blue); border-radius:50%; animation: pulse 2s infinite; }
+  @keyframes pulse { 0%,100%{opacity:1;} 50%{opacity:0.4;} }
+  .hero h1 {
+    font-size: clamp(2.5rem, 6vw, 5rem);
+    font-weight:800; line-height:1.1;
+    margin-bottom: 1rem;
+    background: linear-gradient(135deg, var(--white) 0%, var(--blue) 60%, var(--gold) 100%);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .hero-sub { font-size:1.25rem; color:var(--gray); max-width:680px; margin-bottom:2.5rem; line-height:1.6; }
+  .hero-stats {
+    display:flex; gap:3rem; justify-content:center; flex-wrap:wrap;
+    margin-bottom:3rem;
+  }
+  .stat { text-align:center; }
+  .stat-num { font-size:2.2rem; font-weight:800; color:var(--blue); }
+  .stat-label { font-size:0.8rem; color:var(--gray); text-transform:uppercase; letter-spacing:0.1em; }
+  .hero-ctas { display:flex; gap:1rem; flex-wrap:wrap; justify-content:center; }
+  .btn-primary {
+    background: linear-gradient(135deg, var(--blue), #0090c4);
+    color:var(--white); border:none; padding:0.85rem 2rem;
+    border-radius:10px; font-weight:700; font-size:1rem;
+    cursor:pointer; transition:all 0.2s; text-decoration:none;
+    box-shadow: 0 4px 20px rgba(0,168,225,0.4);
+  }
+  .btn-primary:hover { transform:translateY(-2px); box-shadow:0 8px 30px rgba(0,168,225,0.5); }
+  .btn-outline {
+    background: transparent; color:var(--white);
+    border:1px solid rgba(255,255,255,0.2); padding:0.85rem 2rem;
+    border-radius:10px; font-weight:600; font-size:1rem;
+    cursor:pointer; transition:all 0.2s; text-decoration:none;
+  }
+  .btn-outline:hover { border-color:var(--blue); color:var(--blue); }
+
+  /* ── SECTIONS ── */
+  section { padding: 5rem 2rem; max-width:1200px; margin:0 auto; }
+  .section-label {
+    font-size:0.75rem; font-weight:700; text-transform:uppercase;
+    letter-spacing:0.15em; color:var(--blue); margin-bottom:0.75rem;
+  }
+  h2 {
+    font-size: clamp(1.8rem, 4vw, 2.8rem);
+    font-weight:800; margin-bottom:1rem; line-height:1.2;
+  }
+  .section-desc { color:var(--gray); max-width:620px; line-height:1.7; margin-bottom:3rem; }
+  .divider {
+    height:1px; background: linear-gradient(90deg, transparent, var(--border), transparent);
+    margin: 0 2rem;
+  }
+
+  /* ── CARDS ── */
+  .cards { display:grid; gap:1.5rem; }
+  .cards-2 { grid-template-columns: repeat(auto-fit, minmax(300px,1fr)); }
+  .cards-3 { grid-template-columns: repeat(auto-fit, minmax(260px,1fr)); }
+  .cards-4 { grid-template-columns: repeat(auto-fit, minmax(220px,1fr)); }
+  .card {
+    background: var(--card-bg);
+    border:1px solid var(--border);
+    border-radius:16px; padding:1.75rem;
+    transition: all 0.3s;
+  }
+  .card:hover { border-color: var(--blue); transform:translateY(-3px); box-shadow:0 8px 30px rgba(0,168,225,0.15); }
+  .card-icon { font-size:2rem; margin-bottom:1rem; }
+  .card h3 { font-size:1.1rem; font-weight:700; margin-bottom:0.5rem; }
+  .card p { color:var(--gray); font-size:0.9rem; line-height:1.6; }
+  .tag {
+    display:inline-block; padding:0.25rem 0.65rem;
+    border-radius:20px; font-size:0.72rem; font-weight:700;
+    text-transform:uppercase; letter-spacing:0.05em;
+    margin-bottom:0.75rem;
+  }
+  .tag-blue { background:rgba(0,168,225,0.15); color:var(--blue); border:1px solid rgba(0,168,225,0.3); }
+  .tag-gold { background:rgba(255,217,61,0.15); color:var(--gold); border:1px solid rgba(255,217,61,0.3); }
+  .tag-red { background:rgba(255,107,107,0.15); color:var(--red); border:1px solid rgba(255,107,107,0.3); }
+  .tag-green { background:rgba(107,203,119,0.15); color:var(--green); border:1px solid rgba(107,203,119,0.3); }
+  .tag-purple { background:rgba(160,100,255,0.15); color:#a064ff; border:1px solid rgba(160,100,255,0.3); }
+
+  /* ── CHART CONTAINERS ── */
+  .chart-wrap {
+    background: var(--card-bg);
+    border:1px solid var(--border);
+    border-radius:16px; padding:1.75rem;
+  }
+  .chart-title { font-size:1rem; font-weight:700; margin-bottom:0.25rem; }
+  .chart-sub { font-size:0.8rem; color:var(--gray); margin-bottom:1.5rem; }
+  .chart-grid-2 { display:grid; grid-template-columns:repeat(auto-fit,minmax(340px,1fr)); gap:1.5rem; }
+  .chart-grid-3 { display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:1.5rem; }
+
+  /* ── METRIC ROW ── */
+  .metric-row { display:flex; gap:1rem; flex-wrap:wrap; }
+  .metric {
+    flex:1; min-width:140px;
+    background: var(--card-bg); border:1px solid var(--border);
+    border-radius:12px; padding:1.25rem;
+    text-align:center;
+  }
+  .metric-val { font-size:1.8rem; font-weight:800; color:var(--blue); }
+  .metric-val.gold { color:var(--gold); }
+  .metric-val.green { color:var(--green); }
+  .metric-val.red { color:var(--red); }
+  .metric-lbl { font-size:0.75rem; color:var(--gray); text-transform:uppercase; letter-spacing:0.08em; margin-top:0.25rem; }
+
+  /* ── TABLE ── */
+  .table-wrap { overflow-x:auto; }
+  table { width:100%; border-collapse:collapse; }
+  th { background: rgba(0,168,225,0.1); padding:0.85rem 1rem; text-align:left; font-size:0.82rem; font-weight:700; text-transform:uppercase; letter-spacing:0.08em; color:var(--blue); }
+  td { padding:0.85rem 1rem; border-bottom:1px solid var(--border); font-size:0.9rem; vertical-align:middle; }
+  tr:last-child td { border-bottom:none; }
+  tr:hover td { background: rgba(0,168,225,0.04); }
+
+  /* ── PROGRESS BAR ── */
+  .progress-wrap { margin-bottom:1rem; }
+  .progress-label { display:flex; justify-content:space-between; margin-bottom:0.4rem; font-size:0.85rem; }
+  .progress-bar { height:8px; background:rgba(255,255,255,0.08); border-radius:4px; overflow:hidden; }
+  .progress-fill { height:100%; border-radius:4px; transition: width 1s ease; }
+  .fill-blue { background: linear-gradient(90deg, var(--blue), #60d0ff); }
+  .fill-gold { background: linear-gradient(90deg, var(--gold), #ffe97a); }
+  .fill-green { background: linear-gradient(90deg, var(--green), #a0f0a9); }
+  .fill-red { background: linear-gradient(90deg, var(--red), #ffaaaa); }
+  .fill-purple { background: linear-gradient(90deg, #a064ff, #d0aaff); }
+
+  /* ── TIMELINE ── */
+  .timeline { position:relative; padding-left:2rem; }
+  .timeline::before { content:''; position:absolute; left:0.5rem; top:0; bottom:0; width:2px; background:linear-gradient(180deg, var(--blue), var(--navy3)); }
+  .timeline-item { position:relative; margin-bottom:2rem; }
+  .timeline-dot {
+    position:absolute; left:-1.65rem; top:0.3rem;
+    width:12px; height:12px; border-radius:50%;
+    background:var(--blue); border:2px solid var(--navy);
+    box-shadow:0 0 0 3px rgba(0,168,225,0.2);
+  }
+  .timeline-item h4 { font-size:0.95rem; font-weight:700; margin-bottom:0.25rem; }
+  .timeline-item p { color:var(--gray); font-size:0.85rem; line-height:1.5; }
+  .timeline-month { font-size:0.72rem; color:var(--blue); font-weight:700; text-transform:uppercase; letter-spacing:0.1em; margin-bottom:0.25rem; }
+
+  /* ── INFLUENCER CARD ── */
+  .influencer-card {
+    background: var(--card-bg); border:1px solid var(--border);
+    border-radius:16px; padding:1.5rem; text-align:center;
+    transition:all 0.3s;
+  }
+  .influencer-card:hover { border-color:var(--blue); transform:translateY(-3px); }
+  .avatar {
+    width:64px; height:64px; border-radius:50%;
+    background: linear-gradient(135deg, var(--blue), var(--navy3));
+    display:flex; align-items:center; justify-content:center;
+    font-size:1.5rem; margin:0 auto 0.75rem;
+    border:2px solid rgba(0,168,225,0.3);
+  }
+  .influencer-card h4 { font-size:0.9rem; font-weight:700; margin-bottom:0.25rem; }
+  .influencer-card .platform { font-size:0.75rem; color:var(--gray); margin-bottom:0.5rem; }
+  .influencer-card .reach { font-size:1.1rem; font-weight:800; color:var(--gold); }
+
+  /* ── AMAZON ── */
+  .amazon-section { background: rgba(255,153,0,0.05); border:1px solid rgba(255,153,0,0.2); border-radius:16px; padding:2rem; }
+  .amazon-logo { font-size:2rem; font-weight:900; letter-spacing:-0.02em; }
+  .amazon-logo span { color:#FF9900; }
+
+  /* ── BUDGET TABLE ── */
+  .budget-row { display:flex; align-items:center; gap:1rem; margin-bottom:0.75rem; }
+  .budget-label { width:200px; font-size:0.9rem; flex-shrink:0; }
+  .budget-bar { flex:1; height:32px; background:rgba(255,255,255,0.05); border-radius:6px; overflow:hidden; }
+  .budget-fill { height:100%; border-radius:6px; display:flex; align-items:center; padding-left:0.75rem; font-size:0.8rem; font-weight:700; }
+  .budget-pct { width:50px; text-align:right; font-weight:700; color:var(--gray); font-size:0.85rem; }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--navy2); border-top:1px solid var(--border);
+    padding:3rem 2rem; text-align:center;
+  }
+  footer .footer-logo { font-size:1.5rem; font-weight:800; color:var(--blue); margin-bottom:0.5rem; }
+  footer p { color:var(--gray); font-size:0.85rem; }
+  footer .footer-links { display:flex; justify-content:center; gap:2rem; margin:1.5rem 0; flex-wrap:wrap; }
+  footer .footer-links a { color:var(--gray); text-decoration:none; font-size:0.85rem; }
+  footer .footer-links a:hover { color:var(--blue); }
+
+  /* ── TABS ── */
+  .tabs { display:flex; gap:0.5rem; margin-bottom:2rem; flex-wrap:wrap; }
+  .tab-btn {
+    padding:0.6rem 1.2rem; border-radius:8px; font-size:0.85rem; font-weight:600;
+    cursor:pointer; border:1px solid var(--border); background:transparent;
+    color:var(--gray); transition:all 0.2s;
+  }
+  .tab-btn.active { background:var(--blue); color:var(--white); border-color:var(--blue); }
+  .tab-btn:hover:not(.active) { border-color:var(--blue); color:var(--blue); }
+  .tab-content { display:none; }
+  .tab-content.active { display:block; }
+
+  /* ── SCORE CIRCLE ── */
+  .score-grid { display:flex; gap:1.5rem; flex-wrap:wrap; }
+  .score-item { text-align:center; flex:1; min-width:120px; }
+  .score-circle {
+    width:90px; height:90px; border-radius:50%;
+    border:4px solid var(--border);
+    display:flex; align-items:center; justify-content:center;
+    font-size:1.5rem; font-weight:800;
+    margin:0 auto 0.5rem;
+    background: conic-gradient(var(--blue) var(--pct, 0%), rgba(255,255,255,0.05) 0%);
+  }
+  .score-label { font-size:0.75rem; color:var(--gray); text-transform:uppercase; letter-spacing:0.08em; }
+
+  /* ── HIGHLIGHT BOX ── */
+  .highlight {
+    background: linear-gradient(135deg, rgba(0,168,225,0.1), rgba(0,168,225,0.05));
+    border:1px solid rgba(0,168,225,0.25); border-radius:12px;
+    padding:1.5rem; margin:1.5rem 0;
+  }
+  .highlight h4 { color:var(--blue); font-size:0.9rem; text-transform:uppercase; letter-spacing:0.1em; margin-bottom:0.5rem; }
+
+  /* ── FLAG ── */
+  .flag { font-size:1.2rem; }
+  .country-row { display:flex; align-items:center; gap:0.75rem; margin-bottom:0.5rem; }
+  .country-name { width:120px; font-size:0.9rem; }
+
+  /* ── RESPONSIVE ── */
+  @media(max-width:768px) {
+    nav { padding:0 1rem; }
+    .nav-links { display:none; }
+    section { padding:3rem 1rem; }
+    .hero-stats { gap:1.5rem; }
+    .budget-label { width:120px; }
+  }
+
+  /* ── GLOW CARD ── */
+  .glow-card {
+    background: linear-gradient(135deg, rgba(0,168,225,0.08), rgba(26,35,50,0.95));
+    border:1px solid rgba(0,168,225,0.3);
+    border-radius:20px; padding:2rem;
+    box-shadow: 0 0 40px rgba(0,168,225,0.08);
+  }
+
+  /* Animate on scroll */
+  .fade-in { opacity:0; transform:translateY(20px); transition:opacity 0.6s, transform 0.6s; }
+  .fade-in.visible { opacity:1; transform:none; }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">
+    <span class="logo-pill">BOGEN.AI</span>
+    <span class="x">×</span>
+    <span class="ashth-pill">ASHTH</span>
+  </div>
+  <div class="nav-links">
+    <a href="#overview">Overview</a>
+    <a href="#competition">Competition</a>
+    <a href="#seo">SEO</a>
+    <a href="#social">Social</a>
+    <a href="#demographics">Demographics</a>
+    <a href="#strategy">Strategy</a>
+    <a href="#website-audit">Site Audit</a>
+    <a href="#ecommerce">E-Commerce</a>
+    <a href="#influencers">Influencers</a>
+    <a href="#budget">Budget</a>
+    <a href="#roadmap">Roadmap</a>
+  </div>
+  <button class="nav-cta" onclick="window.location='mailto:eytan@bogen.ai'">Book a Call</button>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-badge"><div class="dot"></div>Confidential Marketing Pitch — Prepared by Bogen.ai</div>
+  <h1>Ashth Europe<br>Launch Strategy</h1>
+  <p class="hero-sub">A full-spectrum digital marketing plan to establish Ashth's lab-grown diamond brand across Europe — SEO, PPC, Social, Influencers & Amazon.</p>
+  <div class="hero-stats">
+    <div class="stat">
+      <div class="stat-num">€8.2B</div>
+      <div class="stat-label">European LGD Market by 2030</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">34%</div>
+      <div class="stat-label">EU Millennials Choose Ethical Jewellery</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">5</div>
+      <div class="stat-label">Priority Launch Markets</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">12mo</div>
+      <div class="stat-label">Brand-to-Revenue Runway</div>
+    </div>
+  </div>
+  <div class="hero-ctas">
+    <a href="#strategy" class="btn-primary">View Strategy →</a>
+    <a href="#budget" class="btn-outline">See Budget Breakdown</a>
+  </div>
+</div>
+
+<!-- OVERVIEW -->
+<section id="overview" class="fade-in">
+  <div class="section-label">Brand Audit</div>
+  <h2>Where Ashth Stands Today</h2>
+  <p class="section-desc">Before building a European strategy, we assessed Ashth's current digital footprint, brand health, and competitive gaps.</p>
+
+  <div class="metric-row" style="margin-bottom:2rem;">
+    <div class="metric"><div class="metric-val">4.6★</div><div class="metric-lbl">On-Site Rating</div></div>
+    <div class="metric"><div class="metric-val">3.4K</div><div class="metric-lbl">Instagram Followers</div></div>
+    <div class="metric"><div class="metric-val red">303</div><div class="metric-lbl">LinkedIn Followers</div></div>
+    <div class="metric"><div class="metric-val gold">6</div><div class="metric-lbl">Indian Cities</div></div>
+    <div class="metric"><div class="metric-val green">97</div><div class="metric-lbl">Facet Patented Cut</div></div>
+    <div class="metric"><div class="metric-val">2024</div><div class="metric-lbl">Year Founded</div></div>
+  </div>
+
+  <div class="cards cards-3">
+    <div class="card">
+      <div class="tag tag-green">Strength</div>
+      <div class="card-icon">💎</div>
+      <h3>Patented Ashth Cut®</h3>
+      <p>A proprietary 97-facet octagon brilliant — a genuine differentiator that no European competitor can replicate. Makes for powerful storytelling.</p>
+    </div>
+    <div class="card">
+      <div class="tag tag-gold">Strength</div>
+      <div class="card-icon">🌿</div>
+      <h3>"Mine. Not Mined." Positioning</h3>
+      <p>Sustainability is a top purchasing driver for European consumers. This tagline is perfect for the EU market without any repositioning needed.</p>
+    </div>
+    <div class="card">
+      <div class="tag tag-blue">Strength</div>
+      <div class="card-icon">🏆</div>
+      <h3>Award-Winning Brand</h3>
+      <p>Two Franchise India Awards (2024, 2025) and Four Seasons launch event signal luxury-tier credibility.</p>
+    </div>
+    <div class="card">
+      <div class="tag tag-red">Gap</div>
+      <div class="card-icon">📱</div>
+      <h3>Micro Social Following</h3>
+      <p>3.4K Instagram followers is well below the threshold for paid partnership leverage. EU entry requires building from near-zero in new markets.</p>
+    </div>
+    <div class="card">
+      <div class="tag tag-red">Gap</div>
+      <div class="card-icon">🔍</div>
+      <h3>No EU SEO Footprint</h3>
+      <p>Zero domain authority in European SERPs. No .eu or country-code domains, no European press mentions, no multilingual landing pages.</p>
+    </div>
+    <div class="card">
+      <div class="tag tag-gold">Opportunity</div>
+      <div class="card-icon">🚀</div>
+      <h3>First-Mover Advantage</h3>
+      <p>India-origin lab-grown diamond brands are essentially unknown in Europe. Ashth can define the category and own premium positioning from Day 1.</p>
+    </div>
+  </div>
+</section>
+<div class="divider"></div>
+
+<!-- COMPETITION ANALYSIS -->
+<section id="competition" class="fade-in">
+  <div class="section-label">Competitive Intelligence</div>
+  <h2>European Competition Analysis</h2>
+  <p class="section-desc">Ashth enters a European lab-grown diamond market dominated by established UK/US brands and emerging European players. Here's how they stack up.</p>
+
+  <div class="chart-grid-2" style="margin-bottom:2rem;">
+    <div class="chart-wrap">
+      <div class="chart-title">Competitor Positioning Map</div>
+      <div class="chart-sub">Price point vs. Sustainability messaging strength</div>
+      <canvas id="positionChart" height="300"></canvas>
+    </div>
+    <div class="chart-wrap">
+      <div class="chart-title">Estimated EU Market Share — LGD Jewellery (2025)</div>
+      <canvas id="marketSharePie" height="300"></canvas>
+    </div>
+  </div>
+
+  <!-- Competitor Table -->
+  <div class="chart-wrap" style="margin-bottom:2rem;">
+    <div class="chart-title">Direct Competitor Benchmarking</div>
+    <br>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Brand</th>
+            <th>Origin</th>
+            <th>EU Presence</th>
+            <th>Price Range</th>
+            <th>IG Followers</th>
+            <th>Amazon</th>
+            <th>Ashth Advantage</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Brilliant Earth</strong></td>
+            <td>🇺🇸 USA</td>
+            <td><span class="tag tag-green">Strong</span></td>
+            <td>€600–€15,000</td>
+            <td>430K</td>
+            <td><span class="tag tag-green">Yes</span></td>
+            <td>Patented cut, lower entry price</td>
+          </tr>
+          <tr>
+            <td><strong>MiaDonna</strong></td>
+            <td>🇺🇸 USA</td>
+            <td><span class="tag tag-gold">Moderate</span></td>
+            <td>€400–€8,000</td>
+            <td>58K</td>
+            <td><span class="tag tag-red">No</span></td>
+            <td>Heritage design stories, patent</td>
+          </tr>
+          <tr>
+            <td><strong>Lightbox (De Beers)</strong></td>
+            <td>🇬🇧 UK</td>
+            <td><span class="tag tag-green">Strong</span></td>
+            <td>€200–€2,000</td>
+            <td>92K</td>
+            <td><span class="tag tag-gold">Limited</span></td>
+            <td>Luxury positioning, 97-facet cut</td>
+          </tr>
+          <tr>
+            <td><strong>Courbet</strong></td>
+            <td>🇫🇷 France</td>
+            <td><span class="tag tag-green">Strong (FR/EU)</span></td>
+            <td>€800–€25,000</td>
+            <td>28K</td>
+            <td><span class="tag tag-red">No</span></td>
+            <td>More accessible price entry</td>
+          </tr>
+          <tr>
+            <td><strong>Clean Origin</strong></td>
+            <td>🇺🇸 USA</td>
+            <td><span class="tag tag-gold">Moderate</span></td>
+            <td>€350–€5,000</td>
+            <td>41K</td>
+            <td><span class="tag tag-red">No</span></td>
+            <td>Indian craft tradition, patent</td>
+          </tr>
+          <tr>
+            <td><strong>Swarovski Created</strong></td>
+            <td>🇦🇹 Austria</td>
+            <td><span class="tag tag-green">Dominant</span></td>
+            <td>€150–€3,000</td>
+            <td>2.4M</td>
+            <td><span class="tag tag-green">Yes</span></td>
+            <td>True LGD vs. simulant; IGI cert.</td>
+          </tr>
+          <tr>
+            <td><strong style="color:var(--blue);">Ashth (Target)</strong></td>
+            <td>🇮🇳 India</td>
+            <td><span class="tag tag-red">None yet</span></td>
+            <td>€390–€2,000</td>
+            <td>3.4K</td>
+            <td><span class="tag tag-red">Not yet</span></td>
+            <td style="color:var(--gold);">Patented cut, heritage story, ethical</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Competitive advantages -->
+  <div class="cards cards-3" style="margin-bottom:2rem;">
+    <div class="card" style="border-color:rgba(107,203,119,0.4); background:rgba(107,203,119,0.04);">
+      <span class="tag tag-green">Ashth Wins</span>
+      <div class="card-icon">💎</div>
+      <h3>Unique Product: Ashth Cut®</h3>
+      <p>No European competitor has a patented 97-facet octagon cut. This is a genuine IP moat. European buyers and press will respond to "the world's most complex lab-grown diamond cut" — no competitor can say the same.</p>
+    </div>
+    <div class="card" style="border-color:rgba(107,203,119,0.4); background:rgba(107,203,119,0.04);">
+      <span class="tag tag-green">Ashth Wins</span>
+      <div class="card-icon">🏛️</div>
+      <h3>Heritage Design DNA</h3>
+      <p>Ashth Prive: Udaya is inspired by UNESCO World Heritage architecture. European luxury buyers deeply value cultural provenance. Indian craft heritage is an under-leveraged narrative in European jewellery — no competitor owns this story.</p>
+    </div>
+    <div class="card" style="border-color:rgba(107,203,119,0.4); background:rgba(107,203,119,0.04);">
+      <span class="tag tag-green">Ashth Wins</span>
+      <div class="card-icon">💰</div>
+      <h3>Price-Value Position</h3>
+      <p>At €390–€2,000, Ashth competes below Brilliant Earth and Courbet while delivering comparable or superior product quality. In a cost-of-living-conscious EU market, this pricing is extremely well-positioned for the 28–40 demographic.</p>
+    </div>
+    <div class="card" style="border-color:rgba(255,107,107,0.3); background:rgba(255,107,107,0.04);">
+      <span class="tag tag-red">Ashth Must Close</span>
+      <div class="card-icon">📱</div>
+      <h3>Social Following Gap</h3>
+      <p>Brilliant Earth has 430K Instagram followers — Ashth has 3.4K. This is a 126× gap in social proof. EU buyers discover luxury jewellery on Instagram first. Closing this gap is the #1 marketing priority for Year 1.</p>
+    </div>
+    <div class="card" style="border-color:rgba(255,107,107,0.3); background:rgba(255,107,107,0.04);">
+      <span class="tag tag-red">Ashth Must Close</span>
+      <div class="card-icon">⭐</div>
+      <h3>Review & Trust Volume</h3>
+      <p>Brilliant Earth has 50,000+ Trustpilot reviews. Ashth has 30 on-site. EU buyers read 7–10 reviews before high-ticket purchases. Building Trustpilot / Google Review volume is an urgent Month 1 priority.</p>
+    </div>
+    <div class="card" style="border-color:rgba(255,107,107,0.3); background:rgba(255,107,107,0.04);">
+      <span class="tag tag-red">Ashth Must Close</span>
+      <div class="card-icon">🔍</div>
+      <h3>EU Domain Authority</h3>
+      <p>Competitors like Brilliant Earth (DA 68) and Lightbox (DA 55) rank on page 1 for all high-intent EU keywords. Ashth starts at DA ~8. This is a 12–24 month SEO gap — which is precisely why PPC and influencer marketing must carry growth in Year 1.</p>
+    </div>
+  </div>
+
+  <!-- Opportunity Map -->
+  <div class="chart-wrap">
+    <div class="chart-title">EU Keyword Gap — Ashth vs. Top Competitors</div>
+    <div class="chart-sub">Estimated keyword ranking positions for top EU search terms</div>
+    <canvas id="keywordGap" height="220"></canvas>
+  </div>
+</section>
+<div class="divider"></div>
+
+<!-- SEO SECTION -->
+<section id="seo" class="fade-in">
+  <div class="section-label">Search Engine Optimization</div>
+  <h2>European SEO Blueprint</h2>
+  <p class="section-desc">A structured SEO plan targeting high-intent buyers across 5 priority markets in English, French, German, Spanish and Italian.</p>
+
+  <!-- Current SEO Audit -->
+  <div class="chart-grid-2" style="margin-bottom:2rem;">
+    <div class="chart-wrap">
+      <div class="chart-title">Current SEO Health Score — ashth.com</div>
+      <div class="chart-sub">Estimated domain metrics (pre-European expansion)</div>
+      <canvas id="seoRadar" height="250"></canvas>
+    </div>
+    <div class="chart-wrap">
+      <div class="chart-title">European Search Volume — Key Terms</div>
+      <div class="chart-sub">Monthly searches across EU for lab-grown diamond queries</div>
+      <canvas id="seoBar" height="250"></canvas>
+    </div>
+  </div>
+
+  <div class="cards cards-3" style="margin-bottom:2rem;">
+    <div class="card">
+      <div class="card-icon">🌐</div>
+      <h3>Technical SEO</h3>
+      <p>hreflang tags for 5 languages, Core Web Vitals optimization, schema markup (Product, Organization, BreadcrumbList), XML sitemaps per locale.</p>
+    </div>
+    <div class="card">
+      <div class="card-icon">📝</div>
+      <h3>Content Strategy</h3>
+      <p>Bilingual blog targeting "lab grown diamond engagement ring UK/FR/DE" keywords. Buyers guides, comparison posts, sustainability content — 4 posts/month per language.</p>
+    </div>
+    <div class="card">
+      <div class="card-icon">🔗</div>
+      <h3>Link Building</h3>
+      <p>PR outreach to EU jewellery publications (Vogue UK, Elle France, Harper's Bazaar Germany), sustainable lifestyle blogs, and bridal platforms.</p>
+    </div>
+  </div>
+
+  <!-- Keyword Clusters -->
+  <div class="chart-wrap" style="margin-bottom:2rem;">
+    <div class="chart-title">Priority Keyword Clusters — Europe</div>
+    <div class="chart-sub">Estimated monthly search volume by cluster</div>
+
+    <div style="margin-top:1rem;">
+      <div class="progress-wrap">
+        <div class="progress-label"><span>lab grown diamond ring (UK/FR/DE/ES/IT)</span><span class="tag tag-green" style="font-size:0.7rem;">High Intent</span></div>
+        <div class="progress-bar"><div class="progress-fill fill-blue" style="width:88%"></div></div>
+        <div style="font-size:0.75rem; color:var(--gray); margin-top:0.25rem;">~48,000 searches/mo across EU</div>
+      </div>
+      <div class="progress-wrap">
+        <div class="progress-label"><span>ethical diamond jewellery Europe</span><span class="tag tag-gold" style="font-size:0.7rem;">Brand Fit</span></div>
+        <div class="progress-bar"><div class="progress-fill fill-gold" style="width:62%"></div></div>
+        <div style="font-size:0.75rem; color:var(--gray); margin-top:0.25rem;">~29,000 searches/mo across EU</div>
+      </div>
+      <div class="progress-wrap">
+        <div class="progress-label"><span>sustainable engagement rings</span><span class="tag tag-green" style="font-size:0.7rem;">High Intent</span></div>
+        <div class="progress-bar"><div class="progress-fill fill-green" style="width:55%"></div></div>
+        <div style="font-size:0.75rem; color:var(--gray); margin-top:0.25rem;">~24,500 searches/mo across EU</div>
+      </div>
+      <div class="progress-wrap">
+        <div class="progress-label"><span>CVD diamond jewellery shop</span><span class="tag tag-blue" style="font-size:0.7rem;">Commercial</span></div>
+        <div class="progress-bar"><div class="progress-fill fill-purple" style="width:41%"></div></div>
+        <div style="font-size:0.75rem; color:var(--gray); margin-top:0.25rem;">~18,200 searches/mo across EU</div>
+      </div>
+      <div class="progress-wrap">
+        <div class="progress-label"><span>luxury lab diamond brand</span><span class="tag tag-red" style="font-size:0.7rem;">Brand Awareness</span></div>
+        <div class="progress-bar"><div class="progress-fill fill-red" style="width:28%"></div></div>
+        <div style="font-size:0.75rem; color:var(--gray); margin-top:0.25rem;">~12,400 searches/mo across EU</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="highlight">
+    <h4>🎯 12-Month SEO Goal</h4>
+    <p>Achieve top-10 rankings for 25+ transactional keywords across UK and France by month 12, driving an estimated 8,000–12,000 organic sessions/month with a projected CAC of €18–€32 per visitor.</p>
+  </div>
+</section>
+<div class="divider"></div>
+
+<!-- SOCIAL MEDIA -->
+<section id="social" class="fade-in">
+  <div class="section-label">Social Media Analysis</div>
+  <h2>Social Presence & EU Strategy</h2>
+  <p class="section-desc">Ashth currently operates from India-market accounts. Europe requires a dedicated geo-targeted social media presence and content calendar.</p>
+
+  <div class="chart-grid-2" style="margin-bottom:2rem;">
+    <div class="chart-wrap">
+      <div class="chart-title">Ashth vs. Competitors — Follower Count</div>
+      <div class="chart-sub">Instagram followers (current)</div>
+      <canvas id="socialBar" height="260"></canvas>
+    </div>
+    <div class="chart-wrap">
+      <div class="chart-title">Recommended EU Social Channel Mix</div>
+      <div class="chart-sub">Content effort allocation by platform</div>
+      <canvas id="socialPie" height="260"></canvas>
+    </div>
+  </div>
+
+  <div class="cards cards-2" style="margin-bottom:2rem;">
+    <div class="card">
+      <span class="tag tag-blue">Instagram</span>
+      <h3>📸 Visual-First Luxury Content</h3>
+      <p>Dedicated <strong>@ashth.europe</strong> account. Posting cadence: 5×/week Reels + 3×/week Stories. Focus on cinematic product shots, heritage collection narratives (Rani ki Vav), and behind-the-craft content. Target: 10K followers in 6 months.</p>
+    </div>
+    <div class="card">
+      <span class="tag tag-blue">TikTok</span>
+      <h3>🎬 Education + Virality</h3>
+      <p>TikTok is the #1 discovery platform for Gen Z luxury buyers in Europe. Content pillars: "Did you know your diamond is lab-grown?", sustainable luxury explainers, "Ashth Cut® vs mined diamond" comparisons. Target 5M organic views in Q1.</p>
+    </div>
+    <div class="card">
+      <span class="tag tag-gold">Pinterest</span>
+      <h3>📌 Bridal & Inspiration</h3>
+      <p>Pinterest drives 40% of jewellery purchase journeys in Europe. Create curated boards for each collection — bridal, everyday luxury, anniversary. Optimized pin descriptions for SEO crossover. High ROI, low cost.</p>
+    </div>
+    <div class="card">
+      <span class="tag tag-gold">LinkedIn</span>
+      <h3>💼 Trade & B2B Presence</h3>
+      <p>Target European jewellery retailers, luxury boutiques, and franchise investors. Thought leadership from Kaivan & Mukesh Shah. Case studies of the Indian franchise model. Goal: attract 2–3 EU retail partners in year 1.</p>
+    </div>
+  </div>
+
+  <div class="chart-wrap">
+    <div class="chart-title">12-Month Social Growth Projection — Instagram @ashth.europe</div>
+    <div class="chart-sub">Organic + paid follower trajectory with influencer campaigns</div>
+    <canvas id="socialGrowth" height="200"></canvas>
+  </div>
+</section>
+<div class="divider"></div>
+
+<!-- DEMOGRAPHICS -->
+<section id="demographics" class="fade-in">
+  <div class="section-label">Target Demographics</div>
+  <h2>Who Buys Ashth in Europe</h2>
+  <p class="section-desc">European luxury jewellery buyers skew younger, more ethically conscious, and digital-first compared to traditional markets.</p>
+
+  <div class="chart-grid-3" style="margin-bottom:2rem;">
+    <div class="chart-wrap">
+      <div class="chart-title">Age Distribution — EU LGD Buyers</div>
+      <canvas id="ageChart" height="240"></canvas>
+    </div>
+    <div class="chart-wrap">
+      <div class="chart-title">Gender Split</div>
+      <canvas id="genderChart" height="240"></canvas>
+    </div>
+    <div class="chart-wrap">
+      <div class="chart-title">Primary Purchase Motivation</div>
+      <canvas id="motivChart" height="240"></canvas>
+    </div>
+  </div>
+
+  <div class="cards cards-2" style="margin-bottom:2rem;">
+    <div class="card glow-card">
+      <div class="tag tag-blue">Primary Target</div>
+      <h3>The Conscious Millennial Couple</h3>
+      <p style="margin-bottom:1rem;">Age 28–40 · Dual-income · Urban UK/France/Germany<br>HHI €80K–€200K · Values sustainability + design</p>
+      <div class="progress-wrap">
+        <div class="progress-label"><span>Sustainability importance</span><span>92%</span></div>
+        <div class="progress-bar"><div class="progress-fill fill-blue" style="width:92%"></div></div>
+      </div>
+      <div class="progress-wrap">
+        <div class="progress-label"><span>Shops online for jewellery</span><span>78%</span></div>
+        <div class="progress-bar"><div class="progress-fill fill-green" style="width:78%"></div></div>
+      </div>
+      <div class="progress-wrap">
+        <div class="progress-label"><span>Influenced by social media</span><span>71%</span></div>
+        <div class="progress-bar"><div class="progress-fill fill-gold" style="width:71%"></div></div>
+      </div>
+    </div>
+    <div class="card glow-card">
+      <div class="tag tag-purple">Secondary Target</div>
+      <h3>The Affluent Gen Z Self-Buyer</h3>
+      <p style="margin-bottom:1rem;">Age 22–28 · Single or partnered · London/Paris/Barcelona<br>Income €35K–€65K · Discovers brands via TikTok/Reels</p>
+      <div class="progress-wrap">
+        <div class="progress-label"><span>Buys jewellery for self</span><span>84%</span></div>
+        <div class="progress-bar"><div class="progress-fill fill-purple" style="width:84%"></div></div>
+      </div>
+      <div class="progress-wrap">
+        <div class="progress-label"><span>Influenced by micro-influencers</span><span>89%</span></div>
+        <div class="progress-bar"><div class="progress-fill fill-blue" style="width:89%"></div></div>
+      </div>
+      <div class="progress-wrap">
+        <div class="progress-label"><span>Would choose lab-grown over mined</span><span>66%</span></div>
+        <div class="progress-bar"><div class="progress-fill fill-gold" style="width:66%"></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Priority Markets -->
+  <div class="chart-wrap">
+    <div class="chart-title">Priority European Launch Markets</div>
+    <div class="chart-sub">Ranked by LGD market readiness, digital maturity & Ashth brand fit</div>
+    <br>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Market</th>
+            <th>LGD Market Size</th>
+            <th>Digital Maturity</th>
+            <th>Avg. Jewellery Spend</th>
+            <th>Priority</th>
+            <th>Channel Focus</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span class="flag">🇬🇧</span> United Kingdom</td>
+            <td>€420M (2024)</td>
+            <td><span class="tag tag-green">Very High</span></td>
+            <td>€1,240/yr</td>
+            <td><span class="tag tag-blue">#1</span></td>
+            <td>Google Ads, Instagram, Amazon UK</td>
+          </tr>
+          <tr>
+            <td><span class="flag">🇫🇷</span> France</td>
+            <td>€310M (2024)</td>
+            <td><span class="tag tag-green">High</span></td>
+            <td>€1,050/yr</td>
+            <td><span class="tag tag-blue">#2</span></td>
+            <td>Meta Ads, Pinterest, TikTok</td>
+          </tr>
+          <tr>
+            <td><span class="flag">🇩🇪</span> Germany</td>
+            <td>€285M (2024)</td>
+            <td><span class="tag tag-green">High</span></td>
+            <td>€980/yr</td>
+            <td><span class="tag tag-gold">#3</span></td>
+            <td>Google Shopping, Sustainability Press</td>
+          </tr>
+          <tr>
+            <td><span class="flag">🇪🇸</span> Spain</td>
+            <td>€195M (2024)</td>
+            <td><span class="tag tag-gold">Medium</span></td>
+            <td>€720/yr</td>
+            <td><span class="tag tag-gold">#4</span></td>
+            <td>Instagram, TikTok, Meta Ads</td>
+          </tr>
+          <tr>
+            <td><span class="flag">🇵🇹</span> Portugal</td>
+            <td>€85M (2024)</td>
+            <td><span class="tag tag-gold">Medium</span></td>
+            <td>€540/yr</td>
+            <td><span class="tag tag-purple">#5</span></td>
+            <td>Instagram, Local PR, Influencers</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+<div class="divider"></div>
+
+<!-- STRATEGY TABS -->
+<section id="strategy" class="fade-in">
+  <div class="section-label">Marketing Strategy</div>
+  <h2>Full-Funnel EU Launch Plan</h2>
+  <p class="section-desc">An integrated approach covering every stage from brand awareness to purchase and retention.</p>
+
+  <div class="tabs">
+    <button class="tab-btn active" onclick="switchTab('ppc')">💰 PPC</button>
+    <button class="tab-btn" onclick="switchTab('seo2')">🔍 SEO Content</button>
+    <button class="tab-btn" onclick="switchTab('email')">📧 Email & CRM</button>
+    <button class="tab-btn" onclick="switchTab('pr')">📰 PR & Press</button>
+  </div>
+
+  <div id="tab-ppc" class="tab-content active">
+    <div class="chart-grid-2">
+      <div class="chart-wrap">
+        <div class="chart-title">Recommended PPC Budget Split — Month 1–3</div>
+        <div class="chart-sub">By platform and campaign type</div>
+        <canvas id="ppcPie" height="280"></canvas>
+      </div>
+      <div style="display:flex; flex-direction:column; gap:1rem;">
+        <div class="card">
+          <span class="tag tag-blue">Google Search Ads</span>
+          <h3>High-Intent Capture</h3>
+          <p>Target bottom-funnel keywords: "buy lab grown diamond ring UK", "ethical engagement ring France". Estimated CPC: €0.80–€2.40. ROAS target: 4.5×.</p>
+        </div>
+        <div class="card">
+          <span class="tag tag-gold">Google Shopping / PMax</span>
+          <h3>Product Feed Campaigns</h3>
+          <p>Upload full product catalogue with optimized titles & descriptions. Performance Max campaigns across YouTube, Gmail, Display, and Search simultaneously.</p>
+        </div>
+        <div class="card">
+          <span class="tag tag-purple">Meta Ads (FB + IG)</span>
+          <h3>Awareness & Retargeting</h3>
+          <p>Broad awareness using video Reels ads (Ashth Cut® close-up content). Retarget website visitors with dynamic product ads at €18–€35 CPM.</p>
+        </div>
+        <div class="card">
+          <span class="tag tag-green">TikTok Ads</span>
+          <h3>Gen Z Acquisition</h3>
+          <p>In-Feed Ads + TopView placement targeting 22–32 age group in UK, FR, DE. Use UGC-style creative — "real couples choosing lab-grown" format.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="tab-seo2" class="tab-content">
+    <div class="cards cards-3">
+      <div class="card">
+        <div class="card-icon">🗓️</div>
+        <h3>Content Calendar</h3>
+        <p>4 SEO blog posts/month per language (EN, FR, DE). Topics: lab-grown vs. mined, Ashth Cut® story, European bridal guides, sustainable gifting guides.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">🏪</div>
+        <h3>Local SEO</h3>
+        <p>Google Business Profiles for any EU popup events or retail partnerships. Location pages for "lab-grown diamond jewellery London/Paris/Berlin".</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">📊</div>
+        <h3>Structured Data</h3>
+        <p>Product schema with price, availability, ratings. Review schema from verified EU buyers. FAQ schema to capture featured snippets for comparison queries.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">🔗</div>
+        <h3>Digital PR Links</h3>
+        <p>Target: Vogue UK, Harper's Bazaar FR, Elle DE, Brides.co.uk, The Knot EU. Guest posts on sustainable luxury blogs with DA 50+.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">🌐</div>
+        <h3>EU Subdomain/Subdirectory</h3>
+        <p>Launch ashth.com/eu/ or ashth.eu with locale-specific landing pages, pricing in EUR/GBP, and EU-friendly payment methods (Klarna, iDEAL, etc.).</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">🎯</div>
+        <h3>Core Web Vitals</h3>
+        <p>Current site is custom-built — optimize LCP, FID, CLS for EU servers. Consider Cloudflare CDN with EU edge nodes for faster UK/FR load times.</p>
+      </div>
+    </div>
+  </div>
+
+  <div id="tab-email" class="tab-content">
+    <div class="cards cards-2">
+      <div class="card">
+        <span class="tag tag-blue">Welcome Series</span>
+        <h3>5-Email Nurture Sequence</h3>
+        <p>Email 1: Brand story "From Mumbai to Europe". Email 2: The Ashth Cut® explained. Email 3: Sustainability credentials. Email 4: Social proof + reviews. Email 5: First-purchase incentive (10% off).</p>
+      </div>
+      <div class="card">
+        <span class="tag tag-gold">Abandoned Cart</span>
+        <h3>3-Touch Recovery Flow</h3>
+        <p>Touch 1 (1hr): Gentle reminder. Touch 2 (24hr): Address objections (Is lab-grown "real"?). Touch 3 (72hr): Scarcity + social proof. Average 18–22% recovery rate for luxury jewellery.</p>
+      </div>
+      <div class="card">
+        <span class="tag tag-green">Post-Purchase</span>
+        <h3>Loyalty & Advocacy</h3>
+        <p>Order confirmation + care guide. 30-day check-in with review request. 6-month "Your diamond anniversary" email with upgrade offer. Birthday/anniversary reminders.</p>
+      </div>
+      <div class="card">
+        <span class="tag tag-purple">VIP Program</span>
+        <h3>Ashth Circle</h3>
+        <p>Invite repeat buyers to an exclusive EU waitlist for Ashth Prive launches. Early access, private preview events, personal shopping concierge. Builds brand advocates.</p>
+      </div>
+    </div>
+  </div>
+
+  <div id="tab-pr" class="tab-content">
+    <div class="cards cards-3">
+      <div class="card">
+        <div class="card-icon">🗞️</div>
+        <h3>Press Launch</h3>
+        <p>Pan-European press release timed to a London or Paris pop-up event. Target 15 tier-1 publications in the first 90 days. Founders available for interview.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">🎪</div>
+        <h3>Pop-Up Events</h3>
+        <p>6-week pop-up boutique in London (Mayfair or Marylebone) + Paris (Le Marais). Branded with Udaya/heritage aesthetic. Press + influencer preview nights.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">🏅</div>
+        <h3>Industry Awards</h3>
+        <p>Enter UK Jewellery Awards, Salon International de la Haute Horlogerie (SIHH), and Responsible Jewellery Council certification. EU credibility accelerators.</p>
+      </div>
+    </div>
+  </div>
+</section>
+<div class="divider"></div>
+
+<!-- ECOMMERCE -->
+<section id="ecommerce" class="fade-in">
+  <div class="section-label">E-Commerce Strategy</div>
+  <h2>European Digital Commerce</h2>
+  <p class="section-desc">A multi-channel e-commerce approach combining Ashth's own site, Amazon, and key European marketplaces.</p>
+
+  <!-- Amazon Section -->
+  <div class="amazon-section" style="margin-bottom:2rem;">
+    <div style="display:flex; align-items:center; gap:1rem; margin-bottom:1rem;">
+      <div class="amazon-logo">a<span>m</span>azon</div>
+      <div>
+        <div style="font-size:1.1rem; font-weight:700;">Amazon Brand Store — Europe</div>
+        <div style="color:var(--gray); font-size:0.85rem;">Amazon.co.uk · Amazon.fr · Amazon.de · Amazon.es · Amazon.it</div>
+      </div>
+    </div>
+
+    <div class="cards cards-3">
+      <div class="card" style="background:rgba(255,153,0,0.06); border-color:rgba(255,153,0,0.25);">
+        <div class="card-icon">🏪</div>
+        <h3>Amazon Brand Store</h3>
+        <p>Custom multi-page storefront showcasing all Ashth collections. Homepage video, collection pages (Aarambh, Bandhan, Udaya), brand story page, and Ashth Cut® explainer.</p>
+      </div>
+      <div class="card" style="background:rgba(255,153,0,0.06); border-color:rgba(255,153,0,0.25);">
+        <div class="card-icon">📦</div>
+        <h3>Amazon SEO (A9)</h3>
+        <p>Optimized listings with bullet points, A+ Content, 7+ images, and video. Backend keywords in all 5 EU languages. Winning the Buy Box with competitive Prime pricing.</p>
+      </div>
+      <div class="card" style="background:rgba(255,153,0,0.06); border-color:rgba(255,153,0,0.25);">
+        <div class="card-icon">📣</div>
+        <h3>Amazon Advertising</h3>
+        <p>Sponsored Products, Sponsored Brands (headline), and Sponsored Display. Target branded + category keywords. Run Deals and Lightning Deals on key dates (Valentine's, Christmas).</p>
+      </div>
+    </div>
+
+    <div class="highlight" style="margin-top:1rem; background:rgba(255,153,0,0.06); border-color:rgba(255,153,0,0.2);">
+      <h4 style="color:#FF9900;">💡 Amazon Strategy Note</h4>
+      <p>Ashth should register for Amazon Brand Registry to protect the Ashth Cut® trademark, unlock A+ Content and Stores, and access Brand Analytics for competitor intelligence. Start with Amazon.co.uk (highest LGD demand in EU), then expand to .fr and .de in Month 4.</p>
+    </div>
+  </div>
+
+  <!-- Other Platforms -->
+  <div class="cards cards-2" style="margin-bottom:2rem;">
+    <div class="card">
+      <span class="tag tag-blue">Own Website (EU)</span>
+      <h3>🌐 ashth.eu or ashth.com/eu</h3>
+      <ul style="color:var(--gray); font-size:0.9rem; line-height:2; padding-left:1.25rem;">
+        <li>EUR & GBP pricing</li>
+        <li>Klarna/Afterpay BNPL integration</li>
+        <li>EU-compliant cookie consent + GDPR</li>
+        <li>Local payment methods (iDEAL, Sofort, Bancontact)</li>
+        <li>DHL/FedEx EU express shipping</li>
+        <li>Carbon-neutral delivery option (brand alignment)</li>
+      </ul>
+    </div>
+    <div class="card">
+      <span class="tag tag-gold">European Marketplaces</span>
+      <h3>🛍️ Multi-Platform Presence</h3>
+      <ul style="color:var(--gray); font-size:0.9rem; line-height:2; padding-left:1.25rem;">
+        <li><strong>Etsy Europe</strong> — High intent jewellery buyers, custom orders</li>
+        <li><strong>Zalando Lounge</strong> — Flash sales, brand exposure</li>
+        <li><strong>Net-a-Porter / Farfetch</strong> — Luxury positioning</li>
+        <li><strong>ASOS Marketplace</strong> — Gen Z discovery</li>
+        <li><strong>Wolf &amp; Badger</strong> — Ethical luxury focused</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="chart-wrap">
+    <div class="chart-title">Projected EU Revenue by Channel — Year 1</div>
+    <div class="chart-sub">Estimated revenue split across direct, Amazon, and marketplace channels</div>
+    <canvas id="revenueChart" height="200"></canvas>
+  </div>
+</section>
+<div class="divider"></div>
+
+<!-- WEBSITE ASSESSMENT -->
+<section id="website-audit" class="fade-in">
+  <div class="section-label">Website E-Commerce Audit</div>
+  <h2>ashth.com — European Readiness Assessment</h2>
+  <p class="section-desc">A critical audit of the existing ashth.com site against European e-commerce standards, GDPR compliance, conversion optimization, and localisation requirements.</p>
+
+  <!-- Overall Score -->
+  <div class="chart-grid-2" style="margin-bottom:2rem;">
+    <div class="chart-wrap">
+      <div class="chart-title">EU E-Commerce Readiness Scorecard</div>
+      <div class="chart-sub">Current ashth.com vs. EU-Ready benchmark</div>
+      <canvas id="websiteRadar" height="270"></canvas>
+    </div>
+    <div class="chart-wrap">
+      <div class="chart-title">Priority Fix Effort vs. Impact</div>
+      <div class="chart-sub">Bubble size = estimated implementation effort</div>
+      <canvas id="impactChart" height="270"></canvas>
+    </div>
+  </div>
+
+  <!-- Critical Gaps -->
+  <div class="section-label" style="margin-bottom:0.75rem;">🚨 Critical Issues (Must Fix Before EU Launch)</div>
+  <div class="cards cards-3" style="margin-bottom:2rem;">
+    <div class="card" style="border-color:rgba(255,107,107,0.4); background:rgba(255,107,107,0.05);">
+      <span class="tag tag-red">CRITICAL</span>
+      <div class="card-icon">🔒</div>
+      <h3>GDPR & Cookie Compliance</h3>
+      <p>Current site has no GDPR-compliant cookie consent banner. EU law requires explicit opt-in consent before any tracking cookies (Google Analytics, Clarity) are set. Fine risk: up to 4% of global annual revenue under GDPR. <strong>Estimated fix: 2–3 days.</strong></p>
+    </div>
+    <div class="card" style="border-color:rgba(255,107,107,0.4); background:rgba(255,107,107,0.05);">
+      <span class="tag tag-red">CRITICAL</span>
+      <div class="card-icon">💶</div>
+      <h3>No EUR / GBP Pricing</h3>
+      <p>All pricing currently in Indian Rupees (₹). European buyers will not convert without local currency pricing. Requires currency switcher (GBP, EUR, CHF) with live exchange rate API or fixed European pricing tiers. <strong>Blocker for EU sales.</strong></p>
+    </div>
+    <div class="card" style="border-color:rgba(255,107,107,0.4); background:rgba(255,107,107,0.05);">
+      <span class="tag tag-red">CRITICAL</span>
+      <div class="card-icon">💳</div>
+      <h3>Missing EU Payment Methods</h3>
+      <p>No Klarna, Stripe, iDEAL, Sofort, Bancontact, or PayPal visible on the checkout. EU buyers expect BNPL options (Klarna/Afterpay) — especially for high-ticket items €500–€2,000. Cart abandonment will be 70%+ without these.</p>
+    </div>
+    <div class="card" style="border-color:rgba(255,107,107,0.4); background:rgba(255,107,107,0.05);">
+      <span class="tag tag-red">CRITICAL</span>
+      <div class="card-icon">🚚</div>
+      <h3>No EU Shipping Information</h3>
+      <p>No visible EU shipping policy, estimated delivery times, duties/VAT information, or customs declaration details. European buyers need to know: cost, time, and whether they owe import duty at delivery. Missing info = lost sales.</p>
+    </div>
+    <div class="card" style="border-color:rgba(255,107,107,0.4); background:rgba(255,107,107,0.05);">
+      <span class="tag tag-red">CRITICAL</span>
+      <div class="card-icon">📋</div>
+      <h3>No EU Returns Policy</h3>
+      <p>EU Consumer Rights Directive requires minimum 14-day "cooling off" right-to-return on all distance sales. The existing 14-day Indian return policy must be explicitly updated to reference EU statutory rights and be available in EN/FR/DE.</p>
+    </div>
+    <div class="card" style="border-color:rgba(255,107,107,0.4); background:rgba(255,107,107,0.05);">
+      <span class="tag tag-red">CRITICAL</span>
+      <div class="card-icon">🌐</div>
+      <h3>No Geo-Detection / Localisation</h3>
+      <p>Site serves all visitors identically regardless of location. No geo-IP detection to route EU visitors to an EU landing page, show local currency, or surface EU-relevant content. First impression for European visitors is an Indian rupee price — immediate trust failure.</p>
+    </div>
+  </div>
+
+  <!-- High Priority -->
+  <div class="section-label" style="margin-bottom:0.75rem;">⚠️ High Priority (Fix Within 30 Days)</div>
+  <div class="cards cards-3" style="margin-bottom:2rem;">
+    <div class="card" style="border-color:rgba(255,217,61,0.3);">
+      <span class="tag tag-gold">HIGH</span>
+      <div class="card-icon">🏷️</div>
+      <h3>Product Listings — EU Optimisation</h3>
+      <p>Titles need EU search terms: "Lab Grown Diamond Engagement Ring UK", not just collection names. Meta descriptions missing. No size guides in mm/European ring sizes (UK uses letters, DE/FR use numeric). No material composition EU labelling compliance.</p>
+    </div>
+    <div class="card" style="border-color:rgba(255,217,61,0.3);">
+      <span class="tag tag-gold">HIGH</span>
+      <div class="card-icon">📱</div>
+      <h3>Mobile UX Overhaul</h3>
+      <p>Site is functional on mobile but checkout flow has multiple friction points on small screens. EU buyers complete 68% of jewellery purchases on mobile. Checkout must be one-page, thumb-friendly, with Apple Pay / Google Pay as primary CTA.</p>
+    </div>
+    <div class="card" style="border-color:rgba(255,217,61,0.3);">
+      <span class="tag tag-gold">HIGH</span>
+      <div class="card-icon">⭐</div>
+      <h3>Third-Party Review Integration</h3>
+      <p>Current 4.6★ is on-site only — zero credibility for EU buyers. Must integrate Trustpilot or Google Reviews immediately. Target 50+ verified EU reviews in Month 1. EU buyers trust external review platforms 4× more than on-site testimonials.</p>
+    </div>
+    <div class="card" style="border-color:rgba(255,217,61,0.3);">
+      <span class="tag tag-gold">HIGH</span>
+      <div class="card-icon">🔍</div>
+      <h3>EU VAT Display</h3>
+      <p>EU law requires prices inclusive of VAT to be displayed prominently. Must show "incl. 20% VAT (UK)" or "incl. TVA 20% (FR)" for each product. Failure to do so is a legal violation in all EU member states and the UK.</p>
+    </div>
+    <div class="card" style="border-color:rgba(255,217,61,0.3);">
+      <span class="tag tag-gold">HIGH</span>
+      <div class="card-icon">🖼️</div>
+      <h3>Image Quality & Video</h3>
+      <p>Product photography is good but lacks 360° spin views, macro close-ups of the Ashth Cut® faceting, and lifestyle shots with European aesthetic (Nordic lighting, natural backgrounds). EU luxury buyers expect 8–12 images per product + video.</p>
+    </div>
+    <div class="card" style="border-color:rgba(255,217,61,0.3);">
+      <span class="tag tag-gold">HIGH</span>
+      <div class="card-icon">🔐</div>
+      <h3>Trust Badges & Security</h3>
+      <p>No visible SSL badges, payment security icons, or certifications on the checkout page. EU buyers are highly sensitive to checkout security signals. Add: "Secured by SSL", payment method icons, IGI certification badge, and BIS hallmark logos.</p>
+    </div>
+  </div>
+
+  <!-- Recommended Additions -->
+  <div class="section-label" style="margin-bottom:0.75rem;">✅ Recommended EU Additions (Month 2–3)</div>
+  <div class="cards cards-2" style="margin-bottom:2rem;">
+    <div class="card">
+      <span class="tag tag-blue">E-Commerce Feature</span>
+      <div class="card-icon">💬</div>
+      <h3>Live Chat / Concierge</h3>
+      <p>High-ticket diamond jewellery buyers need pre-purchase reassurance. Implement Intercom or Tidio live chat with canned responses about lab-grown diamonds, UK customs, EU delivery. A €1,200 ring purchase benefits enormously from a 2-minute chat. Converts hesitant buyers at 3–4× rate.</p>
+    </div>
+    <div class="card">
+      <span class="tag tag-blue">E-Commerce Feature</span>
+      <div class="card-icon">💍</div>
+      <h3>Virtual Try-On / Ring Sizer</h3>
+      <p>EU jewellery brands with AR try-on see 35% lower return rates. Integrate a ring sizer tool (printable PDF or interactive) and an augmented reality try-on feature (solutions: Tryon.io, Jewel Canvas, or custom AR via Spark AR). Reduces purchase hesitancy for first-time online jewellery buyers.</p>
+    </div>
+    <div class="card">
+      <span class="tag tag-green">Conversion Feature</span>
+      <div class="card-icon">🎁</div>
+      <h3>Gift Packaging & Personalisation</h3>
+      <p>EU buyers (especially UK/FR) place enormous value on gift presentation and personalisation. Add: gift wrapping checkbox at checkout, personalized message card option, engraving service for rings/pendants. Increases AOV by 18–25% and drives gifting repeat purchases.</p>
+    </div>
+    <div class="card">
+      <span class="tag tag-green">Conversion Feature</span>
+      <div class="card-icon">📊</div>
+      <h3>Lab-Grown Diamond Education Hub</h3>
+      <p>European consumers are early in the LGD education curve. A dedicated "Learn" section with: "What is a lab-grown diamond?", "CVD vs HPHT", "The Ashth Cut® explained", "Why choose ethical?" — increases time on site, reduces return rates, and captures SEO traffic for informational queries.</p>
+    </div>
+    <div class="card">
+      <span class="tag tag-purple">Technical Addition</span>
+      <div class="card-icon">🌍</div>
+      <h3>Multi-Language Support (EN/FR/DE)</h3>
+      <p>The site already supports 10+ languages in theory, but quality-check translations for jewellery-specific terminology. French and German product descriptions must be native-quality, not machine-translated. Hire professional translators for product pages, checkout flow, and legal pages.</p>
+    </div>
+    <div class="card">
+      <span class="tag tag-purple">Technical Addition</span>
+      <div class="card-icon">⚡</div>
+      <h3>EU CDN & Core Web Vitals</h3>
+      <p>Site loads from India-hosted servers. EU users likely experience 2.5–4s LCP (slow). Google penalises slow sites in rankings. Deploy Cloudflare CDN with EU edge nodes. Target: LCP under 2.5s for UK/FR users. Critical for both SEO and ad Quality Score (affects CPC).</p>
+    </div>
+  </div>
+
+  <!-- Score table -->
+  <div class="chart-wrap">
+    <div class="chart-title">Full EU E-Commerce Audit Scorecard</div>
+    <div class="chart-sub">Criteria scored against European luxury e-commerce standards</div>
+    <br>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Category</th>
+            <th>Current Score</th>
+            <th>EU Benchmark</th>
+            <th>Gap</th>
+            <th>Priority</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>GDPR & Legal Compliance</td><td><span style="color:var(--red)">2/10</span></td><td>10/10</td><td style="color:var(--red)">-8</td><td><span class="tag tag-red">Critical</span></td></tr>
+          <tr><td>Currency & Payment Methods</td><td><span style="color:var(--red)">1/10</span></td><td>10/10</td><td style="color:var(--red)">-9</td><td><span class="tag tag-red">Critical</span></td></tr>
+          <tr><td>Shipping & Returns Clarity</td><td><span style="color:var(--red)">3/10</span></td><td>9/10</td><td style="color:var(--red)">-6</td><td><span class="tag tag-red">Critical</span></td></tr>
+          <tr><td>Mobile UX & Checkout</td><td><span style="color:var(--gold)">5/10</span></td><td>9/10</td><td style="color:var(--gold)">-4</td><td><span class="tag tag-gold">High</span></td></tr>
+          <tr><td>Product Page Quality</td><td><span style="color:var(--gold)">6/10</span></td><td>9/10</td><td style="color:var(--gold)">-3</td><td><span class="tag tag-gold">High</span></td></tr>
+          <tr><td>Trust Signals & Reviews</td><td><span style="color:var(--red)">3/10</span></td><td>9/10</td><td style="color:var(--red)">-6</td><td><span class="tag tag-gold">High</span></td></tr>
+          <tr><td>Site Speed (EU Visitors)</td><td><span style="color:var(--red)">4/10</span></td><td>9/10</td><td style="color:var(--red)">-5</td><td><span class="tag tag-gold">High</span></td></tr>
+          <tr><td>SEO Localisation</td><td><span style="color:var(--red)">2/10</span></td><td>9/10</td><td style="color:var(--red)">-7</td><td><span class="tag tag-gold">High</span></td></tr>
+          <tr><td>Brand Design & Aesthetic</td><td><span style="color:var(--green)">7/10</span></td><td>9/10</td><td style="color:var(--gold)">-2</td><td><span class="tag tag-blue">Medium</span></td></tr>
+          <tr><td>Content & Education</td><td><span style="color:var(--gold)">5/10</span></td><td>8/10</td><td style="color:var(--gold)">-3</td><td><span class="tag tag-blue">Medium</span></td></tr>
+          <tr><td>Multi-Language Quality</td><td><span style="color:var(--gold)">5/10</span></td><td>9/10</td><td style="color:var(--gold)">-4</td><td><span class="tag tag-blue">Medium</span></td></tr>
+          <tr><td>Conversion Optimisation</td><td><span style="color:var(--red)">4/10</span></td><td>8/10</td><td style="color:var(--red)">-4</td><td><span class="tag tag-blue">Medium</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="highlight" style="margin-top:1.5rem;">
+      <h4>📊 Overall EU Readiness Score: 3.9 / 10</h4>
+      <p>The ashth.com website in its current form is <strong>not ready for European commercial launch.</strong> The critical compliance gaps (GDPR, currency, payment methods) alone would result in legal exposure and near-zero conversion for EU visitors. With a focused 60-day development sprint, the site can reach a 7.5/10 EU readiness score — sufficient for a soft launch in the UK and France. Full EU optimisation (all markets, all languages) requires approximately 90–120 days.</p>
+    </div>
+  </div>
+
+  <!-- Development Effort Estimate -->
+  <div class="chart-wrap" style="margin-top:1.5rem;">
+    <div class="chart-title">Estimated Development Effort by Fix Category</div>
+    <div class="chart-sub">Days required to implement each improvement area</div>
+    <canvas id="devEffort" height="200"></canvas>
+  </div>
+</section>
+<div class="divider"></div>
+
+<!-- INFLUENCERS -->
+<section id="influencers" class="fade-in">
+  <div class="section-label">Influencer Marketing</div>
+  <h2>EU Influencer Strategy</h2>
+  <p class="section-desc">A tiered approach using macro, micro, and nano influencers across UK, France, Germany, Spain and Portugal.</p>
+
+  <div class="chart-grid-2" style="margin-bottom:2rem;">
+    <div class="chart-wrap">
+      <div class="chart-title">Influencer Tier Budget Allocation</div>
+      <canvas id="influencerPie" height="260"></canvas>
+    </div>
+    <div class="chart-wrap">
+      <div class="chart-title">Estimated Reach by Tier</div>
+      <canvas id="reachBar" height="260"></canvas>
+    </div>
+  </div>
+
+  <!-- Tier Cards -->
+  <div class="cards cards-3" style="margin-bottom:2rem;">
+    <div class="card">
+      <span class="tag tag-blue">Macro (500K–5M)</span>
+      <h3>🌟 Brand Launchers</h3>
+      <p><strong>2–3 partnerships</strong> for the launch campaign. Focus: fashion/lifestyle influencers who already post sustainable luxury content. Format: gifted pieces + paid Reel. Budget: €8,000–€20,000 per post.</p>
+      <br>
+      <p style="font-size:0.8rem; color:var(--blue);">Target profiles: UK lifestyle, French fashion, German sustainability creators</p>
+    </div>
+    <div class="card">
+      <span class="tag tag-gold">Micro (50K–500K)</span>
+      <h3>💍 Engagement Drivers</h3>
+      <p><strong>15–20 partnerships/month.</strong> Jewellery, bridal, sustainable fashion niches. 3.5–8% engagement rate. Format: unboxing, styling, "Is lab-grown worth it?" reviews. Budget: €500–€3,000 per post.</p>
+      <br>
+      <p style="font-size:0.8rem; color:var(--gold);">Highest ROI tier — most trusted by target demographic</p>
+    </div>
+    <div class="card">
+      <span class="tag tag-green">Nano (5K–50K)</span>
+      <h3>💬 Community Builders</h3>
+      <p><strong>50+ partnerships/month.</strong> Gifted pieces in exchange for authentic content. Real couples, real stories. Highest trust signal. User-generated content rights for use in paid ads.</p>
+      <br>
+      <p style="font-size:0.8rem; color:var(--green);">UGC doubles ad performance at 1/10th the cost</p>
+    </div>
+  </div>
+
+  <!-- Influencer Profile Cards -->
+  <div class="section-label">Target Influencer Profiles by Market</div>
+  <div class="cards cards-4" style="margin-top:1rem;">
+    <div class="influencer-card">
+      <div class="avatar">🇬🇧</div>
+      <h4>UK Jewellery &amp; Bridal</h4>
+      <div class="platform">Instagram · TikTok</div>
+      <div class="reach">500K–2M reach</div>
+      <p style="font-size:0.78rem; color:var(--gray); margin-top:0.5rem;">Sustainable fashion, ethical luxury, bridal planning content</p>
+    </div>
+    <div class="influencer-card">
+      <div class="avatar">🇫🇷</div>
+      <h4>French Style Icons</h4>
+      <div class="platform">Instagram · YouTube</div>
+      <div class="reach">200K–800K reach</div>
+      <p style="font-size:0.78rem; color:var(--gray); margin-top:0.5rem;">Parisian lifestyle, minimalist luxury, conscious consumerism</p>
+    </div>
+    <div class="influencer-card">
+      <div class="avatar">🇩🇪</div>
+      <h4>German Eco-Luxury</h4>
+      <div class="platform">Instagram · Pinterest</div>
+      <div class="reach">100K–400K reach</div>
+      <p style="font-size:0.78rem; color:var(--gray); margin-top:0.5rem;">Sustainability advocates, ethical fashion, minimalist aesthetic</p>
+    </div>
+    <div class="influencer-card">
+      <div class="avatar">🇵🇹</div>
+      <h4>Portuguese Lifestyle</h4>
+      <div class="platform">Instagram · TikTok</div>
+      <div class="reach">30K–150K reach</div>
+      <p style="font-size:0.78rem; color:var(--gray); margin-top:0.5rem;">Nano-tier priority, local community trust, high conversion rates</p>
+    </div>
+  </div>
+</section>
+<div class="divider"></div>
+
+<!-- BUDGET -->
+<section id="budget" class="fade-in">
+  <div class="section-label">Investment Plan</div>
+  <h2>Monthly Marketing Budget</h2>
+  <p class="section-desc">Recommended monthly spend for the first 6 months of European market entry, broken down by channel.</p>
+
+  <div class="chart-grid-2" style="margin-bottom:2rem;">
+    <div class="chart-wrap">
+      <div class="chart-title">Budget Allocation — Month 1–3 (Launch Phase)</div>
+      <canvas id="budgetPie" height="280"></canvas>
+    </div>
+    <div class="chart-wrap">
+      <div class="chart-title">Projected ROAS by Channel</div>
+      <div class="chart-sub">Expected return on ad spend by month 6</div>
+      <canvas id="roasBar" height="280"></canvas>
+    </div>
+  </div>
+
+  <div class="chart-wrap" style="margin-bottom:2rem;">
+    <div class="chart-title">Monthly Budget Breakdown</div>
+    <br>
+
+    <div class="budget-row">
+      <div class="budget-label">🔍 SEO & Content</div>
+      <div class="budget-bar"><div class="budget-fill fill-blue" style="width:75%">€3,750</div></div>
+      <div class="budget-pct">15%</div>
+    </div>
+    <div class="budget-row">
+      <div class="budget-label">💰 Google Ads (PPC)</div>
+      <div class="budget-bar"><div class="budget-fill fill-gold" style="width:87.5%">€4,375</div></div>
+      <div class="budget-pct">17.5%</div>
+    </div>
+    <div class="budget-row">
+      <div class="budget-label">📱 Meta Ads</div>
+      <div class="budget-bar"><div class="budget-fill fill-purple" style="width:75%">€3,750</div></div>
+      <div class="budget-pct">15%</div>
+    </div>
+    <div class="budget-row">
+      <div class="budget-label">🎬 TikTok Ads</div>
+      <div class="budget-bar"><div class="budget-fill fill-green" style="width:50%">€2,500</div></div>
+      <div class="budget-pct">10%</div>
+    </div>
+    <div class="budget-row">
+      <div class="budget-label">🌟 Influencers</div>
+      <div class="budget-bar"><div class="budget-fill" style="width:87.5%; background:linear-gradient(90deg,#ff6b6b,#ffaaaa)">€4,375</div></div>
+      <div class="budget-pct">17.5%</div>
+    </div>
+    <div class="budget-row">
+      <div class="budget-label">📦 Amazon Ads</div>
+      <div class="budget-bar"><div class="budget-fill" style="width:62.5%; background:linear-gradient(90deg,#FF9900,#FFcc55)">€3,125</div></div>
+      <div class="budget-pct">12.5%</div>
+    </div>
+    <div class="budget-row">
+      <div class="budget-label">📧 Email / CRM</div>
+      <div class="budget-bar"><div class="budget-fill fill-blue" style="width:25%">€1,250</div></div>
+      <div class="budget-pct">5%</div>
+    </div>
+    <div class="budget-row">
+      <div class="budget-label">📰 PR & Events</div>
+      <div class="budget-bar"><div class="budget-fill fill-gold" style="width:37.5%">€1,875</div></div>
+      <div class="budget-pct">7.5%</div>
+    </div>
+
+    <div style="margin-top:1.5rem; padding-top:1rem; border-top:1px solid var(--border); display:flex; justify-content:space-between; align-items:center;">
+      <div style="font-weight:700; font-size:1.1rem;">Total Monthly Investment</div>
+      <div style="font-size:1.8rem; font-weight:800; color:var(--blue);">€25,000 / mo</div>
+    </div>
+  </div>
+
+  <div class="metric-row">
+    <div class="metric"><div class="metric-val green">4.2×</div><div class="metric-lbl">Projected ROAS (Mo 6)</div></div>
+    <div class="metric"><div class="metric-val">€42</div><div class="metric-lbl">Est. CAC (Paid)</div></div>
+    <div class="metric"><div class="metric-val gold">€840</div><div class="metric-lbl">Avg. Order Value</div></div>
+    <div class="metric"><div class="metric-val green">€105K</div><div class="metric-lbl">Projected Revenue Mo 6</div></div>
+    <div class="metric"><div class="metric-val">18%</div><div class="metric-lbl">Repeat Purchase Rate (Y1)</div></div>
+  </div>
+</section>
+<div class="divider"></div>
+
+<!-- ROADMAP -->
+<section id="roadmap" class="fade-in">
+  <div class="section-label">Implementation Roadmap</div>
+  <h2>12-Month EU Launch Plan</h2>
+  <p class="section-desc">A phased rollout from brand setup to full-scale European market penetration.</p>
+
+  <div class="cards cards-2">
+    <div class="chart-wrap">
+      <div class="chart-title">Phase 1: Foundation (Months 1–3)</div>
+      <br>
+      <div class="timeline">
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-month">Month 1</div>
+          <h4>Technical Setup</h4>
+          <p>EU site/subdomain live, hreflang, GDPR compliance, Amazon Brand Registry, social accounts created (@ashth.europe)</p>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-month">Month 2</div>
+          <h4>Content & Ads Go Live</h4>
+          <p>Google Search + Shopping campaigns launch. First 5 SEO articles published (EN/FR). Meta awareness campaigns start. First nano-influencer gifting wave (20 creators).</p>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-month">Month 3</div>
+          <h4>Press Launch + Amazon</h4>
+          <p>Pan-EU press release. Amazon.co.uk listings live with A+ content. TikTok ads begin. First micro-influencer partnerships (3–5 creators).</p>
+        </div>
+      </div>
+    </div>
+    <div class="chart-wrap">
+      <div class="chart-title">Phase 2: Growth (Months 4–8)</div>
+      <br>
+      <div class="timeline">
+        <div class="timeline-item">
+          <div class="timeline-dot" style="background:var(--gold)"></div>
+          <div class="timeline-month" style="color:var(--gold);">Month 4–5</div>
+          <h4>Market Expansion</h4>
+          <p>Amazon.fr + Amazon.de listings live. French & German content calendar active. First macro-influencer campaign (Valentine's season if timing aligns).</p>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-dot" style="background:var(--gold)"></div>
+          <div class="timeline-month" style="color:var(--gold);">Month 6</div>
+          <h4>London Pop-Up Event</h4>
+          <p>6-week Mayfair boutique activation. Press + influencer preview night. Email list target: 5,000 EU subscribers. ROAS target: 3.5× across all channels.</p>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-dot" style="background:var(--gold)"></div>
+          <div class="timeline-month" style="color:var(--gold);">Month 7–8</div>
+          <h4>Optimization & Scale</h4>
+          <p>Double down on winning ad creatives. Scale influencer program to 60+ nano creators. Launch Ashth Circle VIP loyalty program. Pinterest content strategy fully activated.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="chart-wrap" style="margin-top:1.5rem;">
+    <div class="chart-title">Phase 3: Scale (Months 9–12)</div>
+    <br>
+    <div class="cards cards-3">
+      <div>
+        <div class="timeline">
+          <div class="timeline-item">
+            <div class="timeline-dot" style="background:var(--green)"></div>
+            <div class="timeline-month" style="color:var(--green);">Month 9</div>
+            <h4>Paris Pop-Up + FR Expansion</h4>
+            <p>Le Marais boutique activation. French macro-influencer campaign for Christmas season. Target 10K Instagram followers.</p>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="timeline">
+          <div class="timeline-item">
+            <div class="timeline-dot" style="background:var(--green)"></div>
+            <div class="timeline-month" style="color:var(--green);">Month 10–11</div>
+            <h4>Peak Season Push</h4>
+            <p>Christmas + New Year campaigns. Amazon Lightning Deals. Full PPC budget increase (30%). Holiday gift guide PR placement in 10+ EU publications.</p>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="timeline">
+          <div class="timeline-item">
+            <div class="timeline-dot" style="background:var(--green)"></div>
+            <div class="timeline-month" style="color:var(--green);">Month 12</div>
+            <h4>Year 1 Review + Year 2 Plan</h4>
+            <p>Evaluate top-performing markets. Assess franchise opportunity for 1–2 EU retail partners. Set Year 2 targets: €2M+ EU revenue goal.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Year 1 Revenue Projection Chart -->
+  <div class="chart-wrap" style="margin-top:1.5rem;">
+    <div class="chart-title">Projected EU Monthly Revenue — Year 1</div>
+    <div class="chart-sub">Conservative estimate based on benchmark LGD brand launch data</div>
+    <canvas id="revenueGrowth" height="200"></canvas>
+  </div>
+</section>
+<div class="divider"></div>
+
+<!-- WHY BOGEN.AI -->
+<section style="padding:5rem 2rem; max-width:1200px; margin:0 auto;" class="fade-in">
+  <div class="section-label">Your Partner</div>
+  <h2>Why Bogen.ai for This Launch</h2>
+  <p class="section-desc">Eytan Benzeno and the Bogen.ai team bring cross-continent experience in digital marketing, AI-driven campaign optimization, and luxury brand positioning.</p>
+
+  <div class="cards cards-4">
+    <div class="card" style="text-align:center;">
+      <div class="card-icon">🌍</div>
+      <h3>Europe-Based</h3>
+      <p>Portugal-based team with EU market knowledge, language capabilities, and regulatory expertise.</p>
+    </div>
+    <div class="card" style="text-align:center;">
+      <div class="card-icon">🤖</div>
+      <h3>AI-Powered</h3>
+      <p>AI-driven content generation, ad creative optimization, and SEO automation — more output at lower cost.</p>
+    </div>
+    <div class="card" style="text-align:center;">
+      <div class="card-icon">🛒</div>
+      <h3>E-Commerce Native</h3>
+      <p>Amazon brand store build-out, marketplace management, and D2C funnel expertise from Day 1.</p>
+    </div>
+    <div class="card" style="text-align:center;">
+      <div class="card-icon">💎</div>
+      <h3>Luxury Brand Fluent</h3>
+      <p>Experience with premium positioning, luxury storytelling, and high-ticket conversion optimization.</p>
+    </div>
+  </div>
+
+  <div class="glow-card" style="margin-top:2rem; text-align:center;">
+    <div style="font-size:0.85rem; color:var(--gray); text-transform:uppercase; letter-spacing:0.15em; margin-bottom:0.5rem;">Ready to Launch</div>
+    <h3 style="font-size:2rem; margin-bottom:0.5rem;">Let's Build Ashth Europe Together</h3>
+    <p style="color:var(--gray); margin-bottom:1.5rem;">Contact Bogen.ai to discuss your European expansion roadmap and get a custom proposal.</p>
+    <div style="display:flex; gap:1rem; justify-content:center; flex-wrap:wrap;">
+      <a href="mailto:eytan@bogen.ai" class="btn-primary">📧 eytan@bogen.ai</a>
+      <a href="https://bogen.ai" class="btn-outline" target="_blank">Visit Bogen.ai →</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">BOGEN.AI</div>
+  <p>AI-Powered Marketing for Global Brands</p>
+  <div class="footer-links">
+    <a href="https://bogen.ai">bogen.ai</a>
+    <a href="mailto:eytan@bogen.ai">eytan@bogen.ai</a>
+    <a href="https://ashth.com" target="_blank">ashth.com</a>
+  </div>
+  <p style="font-size:0.75rem; color:#445566;">Prepared exclusively for Ashth / ConsciousCarats Pvt Ltd · Confidential · © 2026 Bogen.ai</p>
+</footer>
+
+<script>
+// ── CHART DEFAULTS ──
+Chart.defaults.color = '#8899aa';
+Chart.defaults.borderColor = 'rgba(0,168,225,0.1)';
+Chart.defaults.font.family = 'Segoe UI, system-ui, sans-serif';
+
+const BLUE = '#00a8e1';
+const GOLD = '#ffd93d';
+const RED = '#ff6b6b';
+const GREEN = '#6bcb77';
+const PURPLE = '#a064ff';
+const ORANGE = '#FF9900';
+
+// ── FADE IN ──
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.1 });
+document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+// ── TAB SWITCH ──
+function switchTab(name) {
+  document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('tab-' + name).classList.add('active');
+  event.target.classList.add('active');
+}
+
+// ── SEO RADAR ──
+new Chart(document.getElementById('seoRadar'), {
+  type: 'radar',
+  data: {
+    labels: ['Domain Authority', 'Content Depth', 'Technical SEO', 'Backlinks', 'Mobile UX', 'Page Speed'],
+    datasets: [{
+      label: 'Ashth Current',
+      data: [12, 28, 45, 8, 60, 52],
+      borderColor: RED, backgroundColor: 'rgba(255,107,107,0.1)',
+      pointBackgroundColor: RED,
+    },{
+      label: 'Target (12 months)',
+      data: [42, 72, 85, 55, 88, 80],
+      borderColor: BLUE, backgroundColor: 'rgba(0,168,225,0.1)',
+      pointBackgroundColor: BLUE,
+    }]
+  },
+  options: { responsive:true, scales: { r: { min:0, max:100, grid: { color:'rgba(255,255,255,0.05)' }, pointLabels: { font:{size:11} } } }, plugins: { legend: { position:'bottom' } } }
+});
+
+// ── SEO BAR ──
+new Chart(document.getElementById('seoBar'), {
+  type: 'bar',
+  data: {
+    labels: ['Lab grown\ndiamond ring', 'Ethical diamond\njewellery', 'Sustainable\nengagement', 'CVD diamond\nshop', 'Lab diamond\nnecklace'],
+    datasets: [{
+      label: 'Monthly EU Searches',
+      data: [48000, 29000, 24500, 18200, 14800],
+      backgroundColor: [BLUE, GOLD, GREEN, PURPLE, ORANGE],
+      borderRadius: 6, borderSkipped: false,
+    }]
+  },
+  options: { indexAxis:'y', responsive:true, plugins:{ legend:{display:false} }, scales:{ x:{ grid:{color:'rgba(255,255,255,0.05)'} } } }
+});
+
+// ── SOCIAL BAR ──
+new Chart(document.getElementById('socialBar'), {
+  type: 'bar',
+  data: {
+    labels: ['Cosmos Diamonds', 'The Solitario', 'Fiona Diamonds', 'Ashth (current)', 'Aukera', 'Limelight'],
+    datasets: [{
+      label: 'Instagram Followers',
+      data: [41000, 62000, 28000, 3473, 15000, 35000],
+      backgroundColor: [PURPLE, PURPLE, PURPLE, RED, BLUE, BLUE],
+      borderRadius: 6, borderSkipped: false,
+    }]
+  },
+  options: { responsive:true, plugins:{ legend:{display:false} }, scales:{ y:{ grid:{color:'rgba(255,255,255,0.05)'} } } }
+});
+
+// ── SOCIAL PIE ──
+new Chart(document.getElementById('socialPie'), {
+  type: 'doughnut',
+  data: {
+    labels: ['Instagram', 'TikTok', 'Pinterest', 'LinkedIn', 'Facebook'],
+    datasets: [{ data: [35, 30, 20, 10, 5], backgroundColor: [BLUE, RED, GOLD, PURPLE, GREEN], borderWidth:0, hoverOffset:8 }]
+  },
+  options: { responsive:true, plugins:{ legend:{ position:'bottom', labels:{padding:16, font:{size:12}} } }, cutout:'60%' }
+});
+
+// ── SOCIAL GROWTH ──
+new Chart(document.getElementById('socialGrowth'), {
+  type: 'line',
+  data: {
+    labels: ['Launch','M1','M2','M3','M4','M5','M6','M7','M8','M9','M10','M11','M12'],
+    datasets: [{
+      label: 'Followers (Organic)',
+      data: [0,150,420,900,1800,2800,4200,5900,7500,9100,10800,12400,14200],
+      borderColor: BLUE, backgroundColor: 'rgba(0,168,225,0.08)',
+      fill:true, tension:0.4, pointBackgroundColor:BLUE,
+    },{
+      label: 'Followers (With Influencer Push)',
+      data: [0,200,800,2400,5200,8800,12000,15500,19000,23000,27500,32000,38000],
+      borderColor: GOLD, backgroundColor: 'rgba(255,217,61,0.05)',
+      fill:false, tension:0.4, borderDash:[5,5], pointBackgroundColor:GOLD,
+    }]
+  },
+  options: { responsive:true, plugins:{ legend:{position:'bottom'} }, scales:{ y:{ grid:{color:'rgba(255,255,255,0.05)'} } } }
+});
+
+// ── AGE CHART ──
+new Chart(document.getElementById('ageChart'), {
+  type: 'doughnut',
+  data: {
+    labels: ['22–27', '28–35', '36–44', '45–55', '55+'],
+    datasets: [{ data: [18, 36, 28, 13, 5], backgroundColor: [PURPLE, BLUE, GREEN, GOLD, RED], borderWidth:0, hoverOffset:6 }]
+  },
+  options: { responsive:true, cutout:'55%', plugins:{ legend:{ position:'bottom', labels:{padding:14, font:{size:11}} } } }
+});
+
+// ── GENDER CHART ──
+new Chart(document.getElementById('genderChart'), {
+  type: 'doughnut',
+  data: {
+    labels: ['Women', 'Men (gifting)', 'Non-binary'],
+    datasets: [{ data: [58, 38, 4], backgroundColor: [BLUE, GOLD, PURPLE], borderWidth:0, hoverOffset:6 }]
+  },
+  options: { responsive:true, cutout:'55%', plugins:{ legend:{ position:'bottom', labels:{padding:14, font:{size:11}} } } }
+});
+
+// ── MOTIVATION CHART ──
+new Chart(document.getElementById('motivChart'), {
+  type: 'doughnut',
+  data: {
+    labels: ['Sustainability', 'Price vs Mined', 'Design/Cut', 'Gifting', 'Investment'],
+    datasets: [{ data: [32, 28, 22, 12, 6], backgroundColor: [GREEN, BLUE, GOLD, PURPLE, RED], borderWidth:0, hoverOffset:6 }]
+  },
+  options: { responsive:true, cutout:'55%', plugins:{ legend:{ position:'bottom', labels:{padding:14, font:{size:11}} } } }
+});
+
+// ── PPC PIE ──
+new Chart(document.getElementById('ppcPie'), {
+  type: 'doughnut',
+  data: {
+    labels: ['Google Search', 'Google Shopping/PMax', 'Meta Ads', 'TikTok Ads', 'Amazon Ads'],
+    datasets: [{ data: [25, 22, 20, 15, 18], backgroundColor: [BLUE, GREEN, PURPLE, RED, ORANGE], borderWidth:0, hoverOffset:8 }]
+  },
+  options: { responsive:true, cutout:'55%', plugins:{ legend:{ position:'bottom', labels:{padding:14, font:{size:11}} } } }
+});
+
+// ── REVENUE CHART ──
+new Chart(document.getElementById('revenueChart'), {
+  type: 'bar',
+  data: {
+    labels: ['Own Website (EU)', 'Amazon UK', 'Amazon FR/DE', 'Etsy EU', 'Wolf & Badger', 'Other Marketplaces'],
+    datasets: [{
+      label: 'Projected Year 1 Revenue (€)',
+      data: [480000, 240000, 160000, 80000, 60000, 40000],
+      backgroundColor: [BLUE, ORANGE, GOLD, GREEN, PURPLE, RED],
+      borderRadius: 8, borderSkipped: false,
+    }]
+  },
+  options: { responsive:true, plugins:{ legend:{display:false} }, scales:{ y:{ grid:{color:'rgba(255,255,255,0.05)'}, ticks:{ callback: v => '€' + (v/1000)+'K' } } } }
+});
+
+// ── INFLUENCER PIE ──
+new Chart(document.getElementById('influencerPie'), {
+  type: 'doughnut',
+  data: {
+    labels: ['Macro Influencers', 'Micro Influencers', 'Nano / UGC', 'Agency Fees'],
+    datasets: [{ data: [30, 40, 20, 10], backgroundColor: [BLUE, GOLD, GREEN, PURPLE], borderWidth:0, hoverOffset:8 }]
+  },
+  options: { responsive:true, cutout:'55%', plugins:{ legend:{ position:'bottom', labels:{padding:14, font:{size:11}} } } }
+});
+
+// ── REACH BAR ──
+new Chart(document.getElementById('reachBar'), {
+  type: 'bar',
+  data: {
+    labels: ['Macro (2–3)', 'Micro (20/mo)', 'Nano (60/mo)'],
+    datasets: [{
+      label: 'Total Estimated Monthly Reach',
+      data: [6000000, 8000000, 2400000],
+      backgroundColor: [BLUE, GOLD, GREEN],
+      borderRadius: 8, borderSkipped: false,
+    },{
+      label: 'Estimated Engagement',
+      data: [180000, 400000, 192000],
+      backgroundColor: ['rgba(0,168,225,0.3)', 'rgba(255,217,61,0.3)', 'rgba(107,203,119,0.3)'],
+      borderRadius: 8, borderSkipped: false,
+    }]
+  },
+  options: { responsive:true, plugins:{ legend:{position:'bottom'} }, scales:{ y:{ grid:{color:'rgba(255,255,255,0.05)'}, ticks:{ callback: v => (v/1000000).toFixed(1)+'M' } } } }
+});
+
+// ── BUDGET PIE ──
+new Chart(document.getElementById('budgetPie'), {
+  type: 'doughnut',
+  data: {
+    labels: ['Google Ads (PPC)', 'Influencers', 'Meta Ads', 'Amazon Ads', 'SEO & Content', 'TikTok Ads', 'PR & Events', 'Email/CRM'],
+    datasets: [{ data: [17.5, 17.5, 15, 12.5, 15, 10, 7.5, 5], backgroundColor: [BLUE, RED, PURPLE, ORANGE, GREEN, '#ff4444', GOLD, '#55aaff'], borderWidth:0, hoverOffset:8 }]
+  },
+  options: { responsive:true, cutout:'55%', plugins:{ legend:{ position:'bottom', labels:{padding:10, font:{size:11}, boxWidth:12} } } }
+});
+
+// ── ROAS BAR ──
+new Chart(document.getElementById('roasBar'), {
+  type: 'bar',
+  data: {
+    labels: ['Google Search', 'Google Shopping', 'Meta Ads', 'TikTok Ads', 'Amazon Ads', 'Influencers'],
+    datasets: [{
+      label: 'ROAS (Month 6)',
+      data: [5.2, 4.8, 3.4, 2.9, 4.1, 6.8],
+      backgroundColor: [BLUE, GREEN, PURPLE, RED, ORANGE, GOLD],
+      borderRadius: 8, borderSkipped: false,
+    }]
+  },
+  options: {
+    responsive:true,
+    plugins:{ legend:{display:false} },
+    scales:{
+      y:{
+        grid:{color:'rgba(255,255,255,0.05)'},
+        ticks:{ callback: v => v + '×' }
+      }
+    }
+  }
+});
+
+// ── REVENUE GROWTH ──
+new Chart(document.getElementById('revenueGrowth'), {
+  type: 'line',
+  data: {
+    labels: ['M1','M2','M3','M4','M5','M6','M7','M8','M9','M10','M11','M12'],
+    datasets: [{
+      label: 'Monthly EU Revenue (€)',
+      data: [2400, 6800, 14200, 22500, 34000, 48000, 62000, 74000, 85000, 98000, 118000, 105000],
+      borderColor: BLUE,
+      backgroundColor: 'rgba(0,168,225,0.08)',
+      fill:true, tension:0.4, pointBackgroundColor:BLUE,
+      pointRadius:5,
+    },{
+      label: 'Break-Even Line (€25K)',
+      data: [25000,25000,25000,25000,25000,25000,25000,25000,25000,25000,25000,25000],
+      borderColor: RED, borderDash:[6,4],
+      pointRadius:0, fill:false,
+    }]
+  },
+  options: {
+    responsive:true,
+    plugins:{ legend:{ position:'bottom' } },
+    scales:{
+      y:{
+        grid:{color:'rgba(255,255,255,0.05)'},
+        ticks:{ callback: v => '€' + (v >= 1000 ? (v/1000).toFixed(0)+'K' : v) }
+      }
+    }
+  }
+});
+
+// ── WEBSITE AUDIT RADAR ──
+new Chart(document.getElementById('websiteRadar'), {
+  type: 'radar',
+  data: {
+    labels: ['GDPR Compliance', 'Payment Methods', 'Shipping Clarity', 'Mobile UX', 'Product Pages', 'Trust Signals', 'Site Speed (EU)', 'SEO Localisation'],
+    datasets: [{
+      label: 'Current ashth.com',
+      data: [2, 1, 3, 5, 6, 3, 4, 2],
+      borderColor: RED, backgroundColor: 'rgba(255,107,107,0.12)',
+      pointBackgroundColor: RED,
+    },{
+      label: 'EU-Ready Benchmark',
+      data: [10, 10, 9, 9, 9, 9, 9, 9],
+      borderColor: BLUE, backgroundColor: 'rgba(0,168,225,0.08)',
+      pointBackgroundColor: BLUE,
+    }]
+  },
+  options: { responsive:true, scales: { r: { min:0, max:10, grid:{color:'rgba(255,255,255,0.06)'}, pointLabels:{font:{size:10}} } }, plugins:{legend:{position:'bottom'}} }
+});
+
+// ── IMPACT CHART ──
+new Chart(document.getElementById('impactChart'), {
+  type: 'bubble',
+  data: {
+    datasets: [
+      { label:'GDPR Fix', data:[{x:2,y:10,r:8}], backgroundColor:'rgba(255,107,107,0.7)' },
+      { label:'Currency/Payment', data:[{x:1,y:10,r:10}], backgroundColor:'rgba(255,153,0,0.7)' },
+      { label:'EU Shipping Policy', data:[{x:2,y:9,r:6}], backgroundColor:'rgba(255,217,61,0.7)' },
+      { label:'Mobile UX', data:[{x:6,y:8,r:12}], backgroundColor:'rgba(0,168,225,0.7)' },
+      { label:'Trustpilot Reviews', data:[{x:2,y:8,r:5}], backgroundColor:'rgba(107,203,119,0.7)' },
+      { label:'Live Chat', data:[{x:4,y:7,r:7}], backgroundColor:'rgba(160,100,255,0.7)' },
+      { label:'AR Try-On', data:[{x:9,y:6,r:14}], backgroundColor:'rgba(0,168,225,0.4)' },
+      { label:'EU CDN Speed', data:[{x:5,y:7,r:8}], backgroundColor:'rgba(107,203,119,0.5)' },
+    ]
+  },
+  options: {
+    responsive:true,
+    plugins:{ legend:{position:'bottom', labels:{font:{size:10}, padding:8, boxWidth:10}} },
+    scales:{
+      x:{ title:{display:true, text:'Dev Effort (days)', color:'#8899aa'}, min:0, max:12, grid:{color:'rgba(255,255,255,0.05)'} },
+      y:{ title:{display:true, text:'Revenue Impact (1–10)', color:'#8899aa'}, min:0, max:11, grid:{color:'rgba(255,255,255,0.05)'} }
+    }
+  }
+});
+
+// ── DEV EFFORT ──
+new Chart(document.getElementById('devEffort'), {
+  type: 'bar',
+  data: {
+    labels: ['GDPR Banner', 'Currency Switcher', 'EU Payment Methods', 'EU Shipping Policy', 'Trustpilot', 'Mobile Checkout', 'Multilingual QA', 'EU CDN Setup', 'AR Try-On', 'Live Chat', 'Education Hub'],
+    datasets: [{
+      label: 'Days to Implement',
+      data: [2, 4, 7, 1, 2, 10, 14, 3, 30, 3, 10],
+      backgroundColor: [RED, RED, RED, RED, GOLD, GOLD, GOLD, GOLD, BLUE, GREEN, BLUE],
+      borderRadius:6, borderSkipped:false,
+    }]
+  },
+  options: {
+    indexAxis:'y', responsive:true,
+    plugins:{ legend:{display:false} },
+    scales:{ x:{ grid:{color:'rgba(255,255,255,0.05)'}, title:{display:true, text:'Development Days', color:'#8899aa'} } }
+  }
+});
+
+// ── COMPETITOR POSITION CHART ──
+new Chart(document.getElementById('positionChart'), {
+  type: 'scatter',
+  data: {
+    datasets: [
+      { label:'Brilliant Earth', data:[{x:8.5,y:8}], backgroundColor:BLUE, pointRadius:14, pointStyle:'circle' },
+      { label:'Lightbox (De Beers)', data:[{x:7,y:6}], backgroundColor:PURPLE, pointRadius:12 },
+      { label:'Courbet (FR)', data:[{x:9,y:9}], backgroundColor:GOLD, pointRadius:11 },
+      { label:'Clean Origin', data:[{x:6,y:7}], backgroundColor:GREEN, pointRadius:10 },
+      { label:'MiaDonna', data:[{x:5,y:7.5}], backgroundColor:'#ff9955', pointRadius:9 },
+      { label:'Swarovski Created', data:[{x:4,y:5}], backgroundColor:'#aaaaff', pointRadius:16 },
+      { label:'Ashth (Current)', data:[{x:7.5,y:4}], backgroundColor:RED, pointRadius:10 },
+      { label:'Ashth (Target)', data:[{x:7.5,y:8.5}], backgroundColor:'rgba(0,168,225,0.5)', pointRadius:13, pointStyle:'star' },
+    ]
+  },
+  options: {
+    responsive:true,
+    plugins:{ legend:{position:'bottom', labels:{font:{size:10}, padding:8, boxWidth:10}} },
+    scales:{
+      x:{ min:2, max:11, title:{display:true, text:'Price Point (Low → Premium)', color:'#8899aa'}, grid:{color:'rgba(255,255,255,0.05)'} },
+      y:{ min:2, max:11, title:{display:true, text:'Sustainability Messaging Strength', color:'#8899aa'}, grid:{color:'rgba(255,255,255,0.05)'} }
+    }
+  }
+});
+
+// ── MARKET SHARE PIE ──
+new Chart(document.getElementById('marketSharePie'), {
+  type: 'doughnut',
+  data: {
+    labels: ['Brilliant Earth', 'Lightbox', 'Swarovski Created', 'Courbet', 'MiaDonna/Other US', 'EU Independents', 'All Others'],
+    datasets: [{ data: [28, 18, 15, 9, 8, 12, 10], backgroundColor: [BLUE, PURPLE, '#aaaaff', GOLD, '#ff9955', GREEN, RED], borderWidth:0, hoverOffset:8 }]
+  },
+  options: { responsive:true, cutout:'55%', plugins:{ legend:{ position:'bottom', labels:{padding:12, font:{size:11}, boxWidth:12} } } }
+});
+
+// ── KEYWORD GAP ──
+new Chart(document.getElementById('keywordGap'), {
+  type: 'bar',
+  data: {
+    labels: ['lab grown\ndiamond ring UK', 'ethical diamond\njewellery EU', 'sustainable\nengagement ring', 'buy CVD\ndiamond online', 'lab diamond\nnecklace'],
+    datasets: [
+      { label:'Brilliant Earth', data:[2,3,1,2,3], backgroundColor:'rgba(0,168,225,0.8)', borderRadius:4 },
+      { label:'Lightbox', data:[4,8,5,6,7], backgroundColor:'rgba(160,100,255,0.8)', borderRadius:4 },
+      { label:'Courbet', data:[12,2,8,15,11], backgroundColor:'rgba(255,217,61,0.8)', borderRadius:4 },
+      { label:'Ashth (current)', data:[100,100,100,100,100], backgroundColor:'rgba(255,107,107,0.8)', borderRadius:4 },
+      { label:'Ashth (target 12mo)', data:[25,30,22,28,25], backgroundColor:'rgba(107,203,119,0.8)', borderRadius:4 },
+    ]
+  },
+  options: {
+    responsive:true,
+    plugins:{ legend:{position:'bottom'} },
+    scales:{
+      y:{
+        reverse:true, min:0, max:105,
+        grid:{color:'rgba(255,255,255,0.05)'},
+        title:{display:true, text:'Google Ranking Position (lower = better)', color:'#8899aa'},
+        ticks:{ callback: v => v > 100 ? 'Not ranked' : '#'+v }
+      }
+    }
+  }
+});
+</script>
+</body>
+</html>
