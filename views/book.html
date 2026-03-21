@@ -1,0 +1,1414 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Prompt to Close: The AI Playbook for Real Estate Professionals - Edmund Bogen</title>
+  <meta name="description" content="Companion page for Prompt to Close by Edmund Bogen. Free AI tools directory, prompt library, video walkthroughs, and resources for real estate professionals.">
+  <meta name="keywords" content="AI for real estate agents, AI tools for realtors, ChatGPT real estate prompts, Claude AI real estate, real estate AI playbook, prompt to close book">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Prompt to Close - Book Companion Page">
+  <meta property="og:description" content="Free AI tools, prompts, and video walkthroughs for real estate professionals. Updated monthly.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://bogen.ai/book">
+
+  <!-- Schema.org Book -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Book",
+    "name": "Prompt to Close",
+    "alternateName": "The AI Playbook for Real Estate Professionals",
+    "author": {
+      "@type": "Person",
+      "name": "Edmund Bogen",
+      "url": "https://bogen.ai/about-us#edmund"
+    },
+    "description": "The complete AI integration playbook for real estate professionals. 16 chapters covering ChatGPT, Claude, content creation, contract review, listing presentations, and a 90-day implementation plan.",
+    "genre": "Business & Technology",
+    "inLanguage": "en",
+    "publisher": {
+      "@type": "Organization",
+      "name": "Bogen.ai"
+    }
+  }
+  </script>
+
+  <!-- FAQ Schema for SEO -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "What AI tools does Prompt to Close recommend for real estate agents?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The book recommends a Starting Stack of ChatGPT Plus ($20/mo) and Claude Pro ($20/mo), with optional additions like Canva Pro, Perplexity Pro, and specialized tools for virtual staging, video, and email marketing."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How much does AI cost for a real estate agent?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The Starting Stack costs $40/month. A full recommended stack runs $53-93/month. Compare that to the average real estate commission of $12,500 per transaction."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What is LLM Stacking for real estate?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "LLM Stacking is Edmund Bogen's methodology for routing different tasks through different AI tools in sequence — using each tool's strength to produce better results than any single AI alone."
+        }
+      }
+    ]
+  }
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/global.css">
+
+  <style>
+    /* Book Hero */
+    .book-hero {
+      position: relative;
+      padding: 160px 0 100px;
+      background: linear-gradient(135deg, #0f2a3f 0%, #1a3a52 50%, #0d1623 100%);
+      overflow: hidden;
+    }
+
+    .book-hero::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: radial-gradient(ellipse at 30% 50%, rgba(100, 181, 246, 0.08) 0%, transparent 60%);
+    }
+
+    .book-hero-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.2fr;
+      gap: var(--spacing-xl);
+      align-items: center;
+      position: relative;
+      z-index: 1;
+    }
+
+    .book-cover-wrapper {
+      text-align: center;
+    }
+
+    .book-cover-img {
+      max-width: 360px;
+      width: 100%;
+      border-radius: 4px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5), 0 0 40px rgba(100, 181, 246, 0.1);
+      transition: transform var(--transition-normal);
+    }
+
+    .book-cover-img:hover {
+      transform: translateY(-4px);
+    }
+
+    .book-hero-content .tagline {
+      color: var(--cyan);
+      font-size: 0.875rem;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      font-weight: 500;
+      margin-bottom: var(--spacing-sm);
+    }
+
+    .book-hero-content h1 {
+      font-size: 3.25rem;
+      font-weight: 300;
+      line-height: 1.15;
+      margin-bottom: var(--spacing-sm);
+    }
+
+    .book-hero-content h1 span {
+      color: var(--cyan);
+    }
+
+    .book-hero-content .subtitle {
+      font-size: 1.25rem;
+      color: rgba(255, 255, 255, 0.8);
+      font-weight: 300;
+      margin-bottom: var(--spacing-lg);
+      line-height: 1.6;
+    }
+
+    .hero-ctas {
+      display: flex;
+      gap: var(--spacing-sm);
+      flex-wrap: wrap;
+    }
+
+    .updated-badge {
+      display: inline-block;
+      margin-top: var(--spacing-md);
+      font-size: 0.8125rem;
+      color: rgba(255, 255, 255, 0.5);
+    }
+
+    /* Sticky CTA Bar */
+    .sticky-cta {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: rgba(15, 42, 63, 0.97);
+      backdrop-filter: blur(10px);
+      border-top: 1px solid rgba(100, 181, 246, 0.3);
+      padding: 12px 0;
+      z-index: 999;
+      transform: translateY(100%);
+      transition: transform 0.3s ease;
+    }
+
+    .sticky-cta.visible {
+      transform: translateY(0);
+    }
+
+    .sticky-cta .container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .sticky-cta-text {
+      color: rgba(255, 255, 255, 0.9);
+      font-size: 0.9375rem;
+      font-weight: 400;
+    }
+
+    .sticky-cta-text strong {
+      color: var(--cyan);
+    }
+
+    /* Tool Directory */
+    .tool-tier {
+      margin-bottom: var(--spacing-lg);
+    }
+
+    .tool-tier-header {
+      display: flex;
+      align-items: center;
+      gap: var(--spacing-sm);
+      margin-bottom: var(--spacing-md);
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .tool-tier-header h3 {
+      margin-bottom: 0;
+    }
+
+    .tool-tier-badge {
+      display: inline-block;
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .badge-essential {
+      background: var(--cyan);
+      color: var(--white);
+    }
+
+    .badge-recommended {
+      background: rgba(100, 181, 246, 0.2);
+      color: var(--cyan);
+      border: 1px solid var(--cyan);
+    }
+
+    .badge-specialized {
+      background: rgba(255, 255, 255, 0.1);
+      color: rgba(255, 255, 255, 0.7);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .tool-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: var(--spacing-md);
+    }
+
+    .tool-card {
+      background: rgba(26, 58, 82, 0.4);
+      border: 1px solid rgba(100, 181, 246, 0.15);
+      border-radius: var(--border-radius);
+      padding: var(--spacing-md);
+      transition: all var(--transition-normal);
+    }
+
+    .tool-card:hover {
+      border-color: var(--cyan);
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-md);
+    }
+
+    .tool-card-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: var(--spacing-sm);
+    }
+
+    .tool-name {
+      font-size: 1.125rem;
+      font-weight: 500;
+      color: var(--white);
+    }
+
+    .tool-price {
+      color: var(--cyan);
+      font-weight: 500;
+      font-size: 0.9375rem;
+    }
+
+    .tool-description {
+      color: rgba(255, 255, 255, 0.7);
+      font-size: 0.875rem;
+      margin-bottom: var(--spacing-sm);
+      line-height: 1.5;
+    }
+
+    .tool-meta {
+      display: flex;
+      align-items: center;
+      gap: var(--spacing-sm);
+      flex-wrap: wrap;
+    }
+
+    .edmunds-pick {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 2px 10px;
+      background: rgba(100, 181, 246, 0.15);
+      border: 1px solid rgba(100, 181, 246, 0.3);
+      border-radius: 12px;
+      font-size: 0.75rem;
+      color: var(--cyan);
+      font-weight: 500;
+    }
+
+    .tool-chapter {
+      font-size: 0.75rem;
+      color: rgba(255, 255, 255, 0.5);
+    }
+
+    /* Video Section */
+    .video-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+      gap: var(--spacing-md);
+    }
+
+    .video-card {
+      background: rgba(26, 58, 82, 0.4);
+      border: 1px solid rgba(100, 181, 246, 0.15);
+      border-radius: var(--border-radius);
+      overflow: hidden;
+      transition: all var(--transition-normal);
+    }
+
+    .video-card:hover {
+      border-color: var(--cyan);
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-md);
+    }
+
+    .video-thumbnail {
+      position: relative;
+      width: 100%;
+      padding-bottom: 56.25%;
+      background: rgba(15, 42, 63, 0.8);
+      overflow: hidden;
+    }
+
+    .video-thumbnail iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+
+    .video-placeholder {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, rgba(26, 58, 82, 0.8), rgba(15, 42, 63, 0.9));
+      color: rgba(255, 255, 255, 0.5);
+      font-size: 0.875rem;
+    }
+
+    .play-icon {
+      width: 60px;
+      height: 60px;
+      border: 2px solid rgba(100, 181, 246, 0.4);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: var(--spacing-sm);
+    }
+
+    .play-icon::after {
+      content: '';
+      width: 0;
+      height: 0;
+      border-top: 12px solid transparent;
+      border-bottom: 12px solid transparent;
+      border-left: 20px solid rgba(100, 181, 246, 0.6);
+      margin-left: 4px;
+    }
+
+    .video-info {
+      padding: var(--spacing-md);
+    }
+
+    .video-info h4 {
+      font-size: 1rem;
+      font-weight: 500;
+      margin-bottom: var(--spacing-xs);
+    }
+
+    .video-info p {
+      font-size: 0.8125rem;
+      color: rgba(255, 255, 255, 0.6);
+      margin-bottom: 0;
+    }
+
+    .video-runtime {
+      font-size: 0.75rem;
+      color: var(--cyan);
+      margin-bottom: var(--spacing-xs);
+    }
+
+    /* Resources Section */
+    .resource-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: var(--spacing-md);
+    }
+
+    .resource-card {
+      background: rgba(26, 58, 82, 0.4);
+      border: 1px solid rgba(100, 181, 246, 0.15);
+      border-radius: var(--border-radius);
+      padding: var(--spacing-md);
+      transition: all var(--transition-normal);
+      cursor: pointer;
+    }
+
+    .resource-card:hover {
+      border-color: var(--cyan);
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-md);
+    }
+
+    .resource-type {
+      display: inline-block;
+      padding: 2px 10px;
+      border-radius: 12px;
+      font-size: 0.6875rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: var(--spacing-sm);
+    }
+
+    .type-free {
+      background: rgba(76, 175, 80, 0.15);
+      color: #81c784;
+      border: 1px solid rgba(76, 175, 80, 0.3);
+    }
+
+    .type-email {
+      background: rgba(100, 181, 246, 0.15);
+      color: var(--cyan);
+      border: 1px solid rgba(100, 181, 246, 0.3);
+    }
+
+    .resource-card h4 {
+      font-size: 1rem;
+      font-weight: 500;
+      margin-bottom: var(--spacing-xs);
+    }
+
+    .resource-card p {
+      font-size: 0.8125rem;
+      color: rgba(255, 255, 255, 0.6);
+      margin-bottom: var(--spacing-sm);
+      line-height: 1.5;
+    }
+
+    .resource-chapter {
+      font-size: 0.75rem;
+      color: rgba(255, 255, 255, 0.4);
+    }
+
+    /* Social Proof */
+    .proof-ticker {
+      display: flex;
+      justify-content: center;
+      gap: var(--spacing-xl);
+      flex-wrap: wrap;
+      margin-bottom: var(--spacing-xl);
+    }
+
+    .proof-stat {
+      text-align: center;
+    }
+
+    .proof-stat .number {
+      display: block;
+      font-size: 2.5rem;
+      font-weight: 300;
+      color: var(--cyan);
+      line-height: 1;
+      margin-bottom: 4px;
+    }
+
+    .proof-stat .label {
+      font-size: 0.8125rem;
+      color: rgba(255, 255, 255, 0.6);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .testimonial-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: var(--spacing-md);
+    }
+
+    .testimonial-card {
+      background: rgba(26, 58, 82, 0.4);
+      border: 1px solid rgba(100, 181, 246, 0.15);
+      border-radius: var(--border-radius);
+      padding: var(--spacing-md);
+    }
+
+    .testimonial-metric {
+      display: block;
+      font-size: 1.5rem;
+      font-weight: 300;
+      color: var(--cyan);
+      margin-bottom: var(--spacing-sm);
+      line-height: 1.3;
+    }
+
+    .testimonial-text {
+      font-size: 0.9375rem;
+      color: rgba(255, 255, 255, 0.8);
+      font-style: italic;
+      margin-bottom: var(--spacing-sm);
+      line-height: 1.6;
+    }
+
+    .testimonial-author {
+      font-size: 0.8125rem;
+      color: rgba(255, 255, 255, 0.5);
+    }
+
+    /* Mastermind CTA Section */
+    .mastermind-cta {
+      background: linear-gradient(135deg, rgba(26, 58, 82, 0.6) 0%, rgba(15, 42, 63, 0.8) 100%);
+      border-top: 1px solid rgba(100, 181, 246, 0.2);
+      border-bottom: 1px solid rgba(100, 181, 246, 0.2);
+    }
+
+    .mastermind-features {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: var(--spacing-md);
+      margin: var(--spacing-lg) 0;
+    }
+
+    .mastermind-feature {
+      text-align: center;
+      padding: var(--spacing-sm);
+    }
+
+    .mastermind-feature h4 {
+      font-size: 0.9375rem;
+      font-weight: 500;
+      margin-bottom: 4px;
+    }
+
+    .mastermind-feature p {
+      font-size: 0.8125rem;
+      color: rgba(255, 255, 255, 0.6);
+      margin-bottom: 0;
+    }
+
+    .price-display {
+      font-size: 2rem;
+      font-weight: 300;
+      color: var(--white);
+      margin-bottom: var(--spacing-xs);
+    }
+
+    .price-display span {
+      font-size: 1rem;
+      color: rgba(255, 255, 255, 0.6);
+    }
+
+    .price-note {
+      font-size: 0.875rem;
+      color: var(--cyan);
+      margin-bottom: var(--spacing-md);
+    }
+
+    /* Email Modal */
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.7);
+      backdrop-filter: blur(4px);
+      z-index: 2000;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: var(--spacing-md);
+    }
+
+    .modal-overlay.active {
+      display: flex;
+    }
+
+    .modal-content {
+      background: var(--dark-navy);
+      border: 1px solid rgba(100, 181, 246, 0.3);
+      border-radius: var(--border-radius);
+      max-width: 500px;
+      width: 100%;
+      padding: var(--spacing-xl) var(--spacing-lg);
+      position: relative;
+    }
+
+    .modal-close {
+      position: absolute;
+      top: var(--spacing-sm);
+      right: var(--spacing-sm);
+      background: none;
+      border: none;
+      color: rgba(255, 255, 255, 0.5);
+      font-size: 1.5rem;
+      cursor: pointer;
+      padding: 8px;
+      line-height: 1;
+    }
+
+    .modal-close:hover {
+      color: var(--white);
+    }
+
+    /* Section anchor offset for fixed header */
+    .section-anchor {
+      scroll-margin-top: 100px;
+    }
+
+    /* Chapter tag navigation */
+    .chapter-nav {
+      display: flex;
+      gap: var(--spacing-xs);
+      flex-wrap: wrap;
+      margin-bottom: var(--spacing-lg);
+    }
+
+    .chapter-tag {
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-size: 0.8125rem;
+      background: rgba(26, 58, 82, 0.4);
+      border: 1px solid rgba(100, 181, 246, 0.2);
+      color: rgba(255, 255, 255, 0.7);
+      cursor: pointer;
+      transition: all var(--transition-fast);
+      text-decoration: none;
+    }
+
+    .chapter-tag:hover,
+    .chapter-tag.active {
+      background: var(--cyan);
+      color: var(--white);
+      border-color: var(--cyan);
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .book-hero {
+        padding: 120px 0 60px;
+      }
+
+      .book-hero-grid {
+        grid-template-columns: 1fr;
+        text-align: center;
+      }
+
+      .book-cover-img {
+        max-width: 260px;
+      }
+
+      .book-hero-content h1 {
+        font-size: 2.25rem;
+      }
+
+      .hero-ctas {
+        justify-content: center;
+      }
+
+      .proof-ticker {
+        gap: var(--spacing-lg);
+      }
+
+      .proof-stat .number {
+        font-size: 2rem;
+      }
+
+      .sticky-cta .container {
+        flex-direction: column;
+        gap: 8px;
+        text-align: center;
+      }
+
+      .tool-grid,
+      .video-grid,
+      .resource-grid,
+      .testimonial-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="header">
+    <div class="container">
+      <nav class="nav">
+        <a href="/" class="logo" style="display: flex; align-items: center; margin-left: -12px;">
+          <img src="/images/eb-logo.png" alt="Bogen.ai Logo" style="height: 100px; width: auto;">
+        </a>
+        <ul class="nav-menu">
+          <li><a href="/" class="nav-link">Home</a></li>
+          <li class="nav-dropdown">
+            <a href="/about-us" class="nav-link">About</a>
+            <ul class="dropdown-menu">
+              <li><a href="/about-us#edmund">About Edmund Bogen</a></li>
+              <li><a href="/about-us#eytan">About Eytan Benzeno</a></li>
+            </ul>
+          </li>
+          <li class="nav-dropdown">
+            <a href="/#services" class="nav-link">Services</a>
+            <ul class="dropdown-menu">
+              <li><a href="/tools-weve-built">Tools that we've built</a></li>
+              <li><a href="/services/communication-customer-interaction">Communication & Customer Interaction</a></li>
+              <li><a href="/services/sales-revenue-generation">Sales & Revenue Generation</a></li>
+              <li><a href="/services/operations-workflow">Operations & Workflow</a></li>
+              <li><a href="/services/marketing-content">Marketing & Content</a></li>
+              <li><a href="/services/industry-specific-premium">Industry-Specific Premium</a></li>
+            </ul>
+          </li>
+          <li class="nav-dropdown">
+            <a href="/skills" class="nav-link" style="color: var(--cyan);">Skills</a>
+            <ul class="dropdown-menu">
+              <li><a href="/skills">Browse All Skills</a></li>
+              <li><a href="/skills/business-professional">Business &amp; Professional</a></li>
+              <li><a href="/skills/technology">Technology</a></li>
+              <li><a href="/skills/marketing-sales">Marketing &amp; Sales</a></li>
+              <li><a href="/skills/submit">Submit Your Skill</a></li>
+            </ul>
+          </li>
+          <li class="nav-dropdown">
+            <a href="/partner-program" class="nav-link">Partner</a>
+            <ul class="dropdown-menu">
+              <li><a href="/contact?tab=partner">Apply to Become a Partner</a></li>
+              <li><a href="/partner-portal">Partner Log In</a></li>
+            </ul>
+          </li>
+          <li class="nav-dropdown">
+            <a href="/edmunds-mastermind" class="nav-link">Mastermind</a>
+            <ul class="dropdown-menu">
+              <li><a href="/#mastermind-registration">Register Now for This Week's Meeting</a></li>
+              <li><a href="/contact?tab=client">Join Our Mastermind Community</a></li>
+            </ul>
+          </li>
+          <li><a href="/blog" class="nav-link">Blog</a></li>
+          <li><a href="/book" class="nav-link active">Book</a></li>
+          <li><a href="/contact" class="btn btn-primary btn-sm">Get Started</a></li>
+        </ul>
+        <button class="nav-toggle" type="button" aria-label="Toggle navigation" onclick="window.bogenAI.toggleMobileMenu()">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <!-- ========== HERO ========== -->
+  <section class="book-hero">
+    <div class="container">
+      <div class="book-hero-grid">
+        <div class="book-cover-wrapper">
+          <img src="/images/book-cover.png" alt="Prompt to Close: The AI Playbook for Real Estate Professionals by Edmund Bogen" class="book-cover-img" onerror="this.style.display='none'">
+        </div>
+        <div class="book-hero-content">
+          <div class="tagline">Your Prompt to Close Companion Page</div>
+          <h1>Prompt to <span>Close</span></h1>
+          <p class="subtitle">The AI Playbook for Real Estate Professionals. Free tools, video walkthroughs, downloadable resources, and a community of 200+ AI-forward agents — all updated monthly.</p>
+          <div class="hero-ctas">
+            <a href="#resources" class="btn btn-primary">Download the Prompt Library</a>
+            <a href="#tools" class="btn btn-secondary">Browse AI Tools</a>
+          </div>
+          <div class="updated-badge">Last updated: March 2026</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== TOOL DIRECTORY ========== -->
+  <section id="tools" class="section section-anchor">
+    <div class="container">
+      <div class="text-center mb-xl">
+        <h2>AI Tool Directory for Real Estate</h2>
+        <p class="text-gray" style="max-width: 700px; margin: 0 auto;">The tools referenced throughout the book, with current pricing and Edmund's real-world recommendations. Updated monthly.</p>
+      </div>
+
+      <!-- Starting Stack -->
+      <div class="tool-tier">
+        <div class="tool-tier-header">
+          <h3>Starting Stack</h3>
+          <span class="tool-tier-badge badge-essential">$40/month</span>
+        </div>
+        <div class="tool-grid">
+          <div class="tool-card">
+            <div class="tool-card-header">
+              <span class="tool-name">ChatGPT Plus</span>
+              <span class="tool-price">$20/mo</span>
+            </div>
+            <p class="tool-description">Best for: creative content, brainstorming, social media captions, listing descriptions. GPT-4o model with image generation and web browsing.</p>
+            <div class="tool-meta">
+              <span class="edmunds-pick">Edmund's Pick</span>
+              <span class="tool-chapter">Chapters 2, 4, 7, 8</span>
+            </div>
+          </div>
+          <div class="tool-card">
+            <div class="tool-card-header">
+              <span class="tool-name">Claude Pro</span>
+              <span class="tool-price">$20/mo</span>
+            </div>
+            <p class="tool-description">Best for: contract review, long-form writing, nuanced analysis, Skills automation. Excels at following complex instructions and catching details others miss.</p>
+            <div class="tool-meta">
+              <span class="edmunds-pick">Edmund's Pick</span>
+              <span class="tool-chapter">Chapters 2, 5, 6, 11</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Recommended Additions -->
+      <div class="tool-tier">
+        <div class="tool-tier-header">
+          <h3>Recommended Additions</h3>
+          <span class="tool-tier-badge badge-recommended">$53-93/mo total</span>
+        </div>
+        <div class="tool-grid">
+          <div class="tool-card">
+            <div class="tool-card-header">
+              <span class="tool-name">Canva Pro</span>
+              <span class="tool-price">$13/mo</span>
+            </div>
+            <p class="tool-description">Design, social media graphics, AI-powered photo editing, video creation. One tool for all visual content needs.</p>
+            <div class="tool-meta">
+              <span class="edmunds-pick">Edmund's Pick</span>
+              <span class="tool-chapter">Chapters 4, 13</span>
+            </div>
+          </div>
+          <div class="tool-card">
+            <div class="tool-card-header">
+              <span class="tool-name">Perplexity Pro</span>
+              <span class="tool-price">$20/mo</span>
+            </div>
+            <p class="tool-description">Live research with cited sources. Market data, competitor analysis, neighborhood intel. The fact-checker in your LLM stack.</p>
+            <div class="tool-meta">
+              <span class="edmunds-pick">Edmund's Pick</span>
+              <span class="tool-chapter">Chapters 6, 9, 12</span>
+            </div>
+          </div>
+          <div class="tool-card">
+            <div class="tool-card-header">
+              <span class="tool-name">Genspark</span>
+              <span class="tool-price">Free - $20/mo</span>
+            </div>
+            <p class="tool-description">Research synthesis and multi-source analysis. Great for pulling together market reports from multiple data sources.</p>
+            <div class="tool-meta">
+              <span class="tool-chapter">Chapter 6</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Specialized Tools -->
+      <div class="tool-tier">
+        <div class="tool-tier-header">
+          <h3>Specialized Tools</h3>
+          <span class="tool-tier-badge badge-specialized">Add as needed</span>
+        </div>
+        <div class="tool-grid">
+          <div class="tool-card">
+            <div class="tool-card-header">
+              <span class="tool-name">Google AI Studio</span>
+              <span class="tool-price">Free</span>
+            </div>
+            <p class="tool-description">Virtual staging, image generation, property visualization. The free option that produces surprisingly good results.</p>
+            <div class="tool-meta">
+              <span class="tool-chapter">Chapter 13</span>
+            </div>
+          </div>
+          <div class="tool-card">
+            <div class="tool-card-header">
+              <span class="tool-name">HeyGen</span>
+              <span class="tool-price">From $29/mo</span>
+            </div>
+            <p class="tool-description">AI avatar videos for property tours, market updates, and client-facing content. Create professional video without being on camera.</p>
+            <div class="tool-meta">
+              <span class="tool-chapter">Chapter 13</span>
+            </div>
+          </div>
+          <div class="tool-card">
+            <div class="tool-card-header">
+              <span class="tool-name">Wispr Flow</span>
+              <span class="tool-price">From $10/mo</span>
+            </div>
+            <p class="tool-description">Voice-to-text dictation that actually works. Speak naturally — Wispr transcribes with context, not just words.</p>
+            <div class="tool-meta">
+              <span class="edmunds-pick">Edmund's Pick</span>
+              <span class="tool-chapter">Chapter 7</span>
+            </div>
+          </div>
+          <div class="tool-card">
+            <div class="tool-card-header">
+              <span class="tool-name">Constant Contact</span>
+              <span class="tool-price">From $12/mo</span>
+            </div>
+            <p class="tool-description">Email marketing platform. Build and send the AI-crafted newsletters, drip campaigns, and market updates from Chapter 10.</p>
+            <div class="tool-meta">
+              <span class="edmunds-pick">Edmund's Pick</span>
+              <span class="tool-chapter">Chapter 10</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="text-center mt-lg">
+        <p class="text-gray" style="font-size: 0.8125rem;">Prices verified March 2026. Tool pricing changes monthly — we track it so you don't have to.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== VIDEO WALKTHROUGHS ========== -->
+  <section id="videos" class="section section-anchor" style="background: rgba(26, 58, 82, 0.2);">
+    <div class="container">
+      <div class="text-center mb-xl">
+        <h2>Video Walkthroughs</h2>
+        <p class="text-gray" style="max-width: 700px; margin: 0 auto;">Watch the book's strategies come to life. Each walkthrough shows a real-world implementation, step by step.</p>
+      </div>
+
+      <div class="video-grid">
+        <div class="video-card">
+          <div class="video-thumbnail">
+            <!-- Replace data-video-id with actual YouTube ID when ready -->
+            <div class="video-placeholder" data-video-id="">
+              <div class="play-icon"></div>
+              Coming Soon
+            </div>
+          </div>
+          <div class="video-info">
+            <div class="video-runtime">8-10 min | Chapter 5</div>
+            <h4>Claude Skills Setup Walkthrough</h4>
+            <p>Create your first Claude Skill in 5 minutes. Screen-by-screen guide to the CMA generator, social media writer, and listing description skills from the book.</p>
+          </div>
+        </div>
+
+        <div class="video-card">
+          <div class="video-thumbnail">
+            <div class="video-placeholder" data-video-id="">
+              <div class="play-icon"></div>
+              Coming Soon
+            </div>
+          </div>
+          <div class="video-info">
+            <div class="video-runtime">12-15 min | Chapter 6</div>
+            <h4>LLM Stacking Live Demo</h4>
+            <p>Watch a real property description go through ChatGPT, Claude, and Perplexity in sequence. See the output improve at each stage.</p>
+          </div>
+        </div>
+
+        <div class="video-card">
+          <div class="video-thumbnail">
+            <div class="video-placeholder" data-video-id="">
+              <div class="play-icon"></div>
+              Coming Soon
+            </div>
+          </div>
+          <div class="video-info">
+            <div class="video-runtime">10-12 min | Chapter 11</div>
+            <h4>Risk Radar Contract Review</h4>
+            <p>Upload a contract, watch AI catch the buried clause change. The book's most dramatic example — now as a live walkthrough.</p>
+          </div>
+        </div>
+
+        <div class="video-card">
+          <div class="video-thumbnail">
+            <div class="video-placeholder" data-video-id="">
+              <div class="play-icon"></div>
+              Coming Soon
+            </div>
+          </div>
+          <div class="video-info">
+            <div class="video-runtime">15-20 min | Chapter 4</div>
+            <h4>Content Daisy Chain in Action</h4>
+            <p>One meeting transcript becomes 20+ content pieces. Watch the full Daisy Chain workflow from recording to published content.</p>
+          </div>
+        </div>
+
+        <div class="video-card">
+          <div class="video-thumbnail">
+            <div class="video-placeholder" data-video-id="">
+              <div class="play-icon"></div>
+              Coming Soon
+            </div>
+          </div>
+          <div class="video-info">
+            <div class="video-runtime">8-10 min | Chapter 13</div>
+            <h4>Virtual Staging with Google AI Studio</h4>
+            <p>Empty room to staged showpiece in under 2 minutes. See the exact prompts and settings for professional virtual staging.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== DOWNLOADABLE RESOURCES ========== -->
+  <section id="resources" class="section section-anchor">
+    <div class="container">
+      <div class="text-center mb-xl">
+        <h2>Downloadable Resources</h2>
+        <p class="text-gray" style="max-width: 700px; margin: 0 auto;">Templates, worksheets, and guides that extend the book. Some are free — the highest-value downloads just need your email.</p>
+      </div>
+
+      <div class="resource-grid">
+        <!-- Email-gated -->
+        <div class="resource-card" onclick="openEmailModal('prompt-library')">
+          <span class="resource-type type-email">Email Required</span>
+          <h4>Complete Prompt Library PDF</h4>
+          <p>All 40+ prompts from the book, organized by category. Formatted for print — keep it next to your keyboard.</p>
+          <span class="resource-chapter">All Chapters | Appendix A</span>
+        </div>
+
+        <div class="resource-card" onclick="openEmailModal('implementation-tracker')">
+          <span class="resource-type type-email">Email Required</span>
+          <h4>90-Day Implementation Tracker</h4>
+          <p>Printable checklist + Google Sheet. Track your progress through the 90-day plan from Chapter 16.</p>
+          <span class="resource-chapter">Chapter 16</span>
+        </div>
+
+        <div class="resource-card" onclick="openEmailModal('risk-radar-guide')">
+          <span class="resource-type type-email">Email Required</span>
+          <h4>Risk Radar Setup Guide</h4>
+          <p>Step-by-step with current screenshots. Set up AI contract review for your state in under 10 minutes.</p>
+          <span class="resource-chapter">Chapter 11</span>
+        </div>
+
+        <div class="resource-card" onclick="openEmailModal('daisy-chain-template')">
+          <span class="resource-type type-email">Email Required</span>
+          <h4>Content Daisy Chain Template</h4>
+          <p>Fill-in-the-blank worksheet. Paste your meeting transcript, follow steps 1-7, get 20+ content pieces.</p>
+          <span class="resource-chapter">Chapter 4</span>
+        </div>
+
+        <div class="resource-card" onclick="openEmailModal('stacking-cheatsheet')">
+          <span class="resource-type type-email">Email Required</span>
+          <h4>LLM Stacking Cheat Sheet</h4>
+          <p>One-page printable flowchart. What goes where, in what order, with which tool.</p>
+          <span class="resource-chapter">Chapter 6</span>
+        </div>
+
+        <div class="resource-card" onclick="openEmailModal('quickstart-card')">
+          <span class="resource-type type-email">Email Required</span>
+          <h4>"First 7 Days" Quick Start Card</h4>
+          <p>Phase 1 of the 90-day plan as a pocket reference. Seven days, seven tasks, done.</p>
+          <span class="resource-chapter">Chapter 16</span>
+        </div>
+
+        <!-- Free resources -->
+        <div class="resource-card" onclick="scrollToSection('tools')">
+          <span class="resource-type type-free">Free</span>
+          <h4>AI Tool Directory</h4>
+          <p>Always current, updated monthly. Every tool from the book with pricing, use cases, and Edmund's recommendations.</p>
+          <span class="resource-chapter">Appendix B</span>
+        </div>
+
+        <div class="resource-card" onclick="openEmailModal('roi-calculator')">
+          <span class="resource-type type-email">Email Required</span>
+          <h4>Personal AI ROI Calculator</h4>
+          <p>Google Sheet. Plug in your commission, volume, and time savings — see your exact AI return on investment.</p>
+          <span class="resource-chapter">Chapters 3, 16</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== SOCIAL PROOF ========== -->
+  <section id="results" class="section section-anchor" style="background: rgba(26, 58, 82, 0.2);">
+    <div class="container">
+      <div class="text-center mb-lg">
+        <h2>What Agents Are Achieving</h2>
+        <p class="text-gray" style="max-width: 600px; margin: 0 auto;">Real results from real estate professionals using the strategies in Prompt to Close.</p>
+      </div>
+
+      <div class="proof-ticker">
+        <div class="proof-stat">
+          <span class="number">200+</span>
+          <span class="label">Agents in Mastermind</span>
+        </div>
+        <div class="proof-stat">
+          <span class="number">15</span>
+          <span class="label">States Represented</span>
+        </div>
+        <div class="proof-stat">
+          <span class="number">85-90%</span>
+          <span class="label">Contract Review Time Saved</span>
+        </div>
+        <div class="proof-stat">
+          <span class="number">56.5%</span>
+          <span class="label">Email Open Rates</span>
+        </div>
+      </div>
+
+      <div class="testimonial-grid">
+        <div class="testimonial-card">
+          <span class="testimonial-metric">Contract review: 45 min to 6 min</span>
+          <p class="testimonial-text">"The Risk Radar system from Chapter 11 caught a buried clause change in the first contract I ran through it. That one catch saved my client thousands."</p>
+          <span class="testimonial-author">Mastermind Member | South Florida</span>
+        </div>
+
+        <div class="testimonial-card">
+          <span class="testimonial-metric">75-85% less time on content</span>
+          <p class="testimonial-text">"The Daisy Chain method turned my Monday meeting notes into an entire week of social media, two emails, and a blog post. I used to spend 6 hours on content. Now it's under 90 minutes."</p>
+          <span class="testimonial-author">Mastermind Member | Texas</span>
+        </div>
+
+        <div class="testimonial-card">
+          <span class="testimonial-metric">$40/mo investment, $12,500 avg commission</span>
+          <p class="testimonial-text">"I was skeptical about spending $40 a month on AI tools. Then the LLM Stacking method helped me write a listing description that generated three offers in the first weekend."</p>
+          <span class="testimonial-author">Mastermind Member | Colorado</span>
+        </div>
+
+        <div class="testimonial-card">
+          <span class="testimonial-metric">12+ hours saved per week</span>
+          <p class="testimonial-text">"Between the email automation, the content system, and the contract review — I got back two full workdays every week. That's time I spend on client meetings and open houses."</p>
+          <span class="testimonial-author">Mastermind Member | New York</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== MASTERMIND CTA ========== -->
+  <section id="mastermind" class="section mastermind-cta section-anchor">
+    <div class="container" style="max-width: 800px;">
+      <div class="text-center">
+        <h2>Go Beyond the Book</h2>
+        <p class="text-gray" style="font-size: 1.125rem; max-width: 600px; margin: 0 auto var(--spacing-lg);">Join 200+ AI-forward real estate professionals in Edmund's Mastermind. Weekly live sessions, private prompt library, and direct access to Edmund.</p>
+
+        <div class="mastermind-features">
+          <div class="mastermind-feature">
+            <h4>Weekly Live Sessions</h4>
+            <p>Every week, live with Edmund</p>
+          </div>
+          <div class="mastermind-feature">
+            <h4>Private Prompt Library</h4>
+            <p>Beyond what's in the book</p>
+          </div>
+          <div class="mastermind-feature">
+            <h4>Direct Access</h4>
+            <p>Ask Edmund anything, anytime</p>
+          </div>
+          <div class="mastermind-feature">
+            <h4>Community of 200+</h4>
+            <p>AI-forward agents, nationwide</p>
+          </div>
+        </div>
+
+        <div class="price-display">$250 <span>/month</span></div>
+        <p class="price-note">Book readers: ask about our introductory rate</p>
+
+        <div style="display: flex; gap: var(--spacing-sm); justify-content: center; flex-wrap: wrap;">
+          <a href="/edmunds-mastermind" class="btn btn-primary btn-lg">Join the Mastermind</a>
+          <a href="/contact?tab=client" class="btn btn-secondary">Book a Free Strategy Call</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== CONTACT / FOOTER INFO ========== -->
+  <section class="section-sm" style="background: rgba(26, 58, 82, 0.3);">
+    <div class="container" style="max-width: 600px;">
+      <div class="text-center">
+        <h3>Questions About the Book?</h3>
+        <p class="text-gray">Reach Edmund directly or try our AI Receptionist.</p>
+        <p style="margin-bottom: var(--spacing-xs);">
+          <a href="tel:+14245870840" style="color: var(--cyan); text-decoration: none; font-size: 1.125rem;">(424) 587-0840</a>
+          <span class="text-gray" style="font-size: 0.8125rem;"> — AI Receptionist, 24/7</span>
+        </p>
+        <p style="margin-bottom: 0;">
+          <a href="mailto:info@bogen.ai" style="color: var(--cyan); text-decoration: none;">info@bogen.ai</a>
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-column">
+          <h4>About</h4>
+          <ul class="footer-links">
+            <li><a href="/about-us">About Us</a></li>
+            <li><a href="/contact">Contact Us</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-column">
+          <h4>Services</h4>
+          <ul class="footer-links">
+            <li><a href="/services/communication-customer-interaction">Communication & Customer</a></li>
+            <li><a href="/services/sales-revenue-generation">Sales & Revenue</a></li>
+            <li><a href="/services/operations-workflow">Operations & Workflow</a></li>
+            <li><a href="/services/marketing-content">Marketing & Content</a></li>
+            <li><a href="/services/industry-specific-premium">Industry-Specific</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-column">
+          <h4>Book</h4>
+          <ul class="footer-links">
+            <li><a href="/book#tools">AI Tool Directory</a></li>
+            <li><a href="/book#videos">Video Walkthroughs</a></li>
+            <li><a href="/book#resources">Downloads</a></li>
+            <li><a href="/book#results">Member Results</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-column">
+          <h4>Partner Program</h4>
+          <ul class="footer-links">
+            <li><a href="/partner-program">How It Works</a></li>
+            <li><a href="/partner-portal">Partner Login</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-column">
+          <h4>Legal</h4>
+          <ul class="footer-links">
+            <li><a href="/privacy">Privacy Policy</a></li>
+            <li><a href="/terms">Terms of Service</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p>&copy; 2026 Bogen.ai. All rights reserved.</p>
+        <p>Miami Beach, FL | <a href="mailto:info@bogen.ai">info@bogen.ai</a></p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Sticky CTA Bar -->
+  <div class="sticky-cta" id="stickyCta">
+    <div class="container">
+      <span class="sticky-cta-text">Join <strong>200+ agents</strong> in Edmund's Mastermind — go beyond the book</span>
+      <a href="/edmunds-mastermind" class="btn btn-primary btn-sm">Join Now</a>
+    </div>
+  </div>
+
+  <!-- Email Capture Modal -->
+  <div class="modal-overlay" id="emailModal">
+    <div class="modal-content">
+      <button class="modal-close" onclick="closeEmailModal()">&times;</button>
+      <div class="text-center mb-md">
+        <h3 id="modalTitle">Get Your Free Resource</h3>
+        <p class="text-gray" id="modalDescription">Enter your email and we'll send it right over.</p>
+      </div>
+      <form id="emailForm" onsubmit="handleEmailSubmit(event)">
+        <input type="hidden" id="resourceId" name="resource">
+        <div class="form-group">
+          <label class="form-label" for="modalName">First Name</label>
+          <input type="text" id="modalName" name="name" class="form-input" placeholder="Your first name" required>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="modalEmail">Email Address</label>
+          <input type="email" id="modalEmail" name="email" class="form-input" placeholder="you@example.com" required>
+        </div>
+        <button type="submit" class="btn btn-primary" style="width: 100%;">Send Me the Resource</button>
+        <p style="font-size: 0.75rem; color: rgba(255, 255, 255, 0.4); margin-top: var(--spacing-sm); margin-bottom: 0; text-align: center;">No spam. Unsubscribe anytime. We respect your inbox.</p>
+      </form>
+      <div id="emailSuccess" style="display: none;" class="text-center">
+        <h3 style="color: var(--cyan);">Check Your Inbox</h3>
+        <p class="text-gray">Your resource is on its way. While you wait, explore the <a href="#tools" style="color: var(--cyan);" onclick="closeEmailModal()">AI Tool Directory</a> — it's free and always up to date.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="/js/common.js"></script>
+  <script>
+    // Resource metadata for the email modal
+    const resources = {
+      'prompt-library': {
+        title: 'Get the Complete Prompt Library',
+        description: 'All 40+ prompts from Prompt to Close, organized by category and formatted for print.'
+      },
+      'implementation-tracker': {
+        title: 'Get the 90-Day Implementation Tracker',
+        description: 'Printable checklist + Google Sheet to track your AI implementation progress.'
+      },
+      'risk-radar-guide': {
+        title: 'Get the Risk Radar Setup Guide',
+        description: 'Step-by-step screenshots to set up AI contract review for your state.'
+      },
+      'daisy-chain-template': {
+        title: 'Get the Content Daisy Chain Template',
+        description: 'Fill-in-the-blank worksheet to turn one meeting into 20+ content pieces.'
+      },
+      'stacking-cheatsheet': {
+        title: 'Get the LLM Stacking Cheat Sheet',
+        description: 'One-page flowchart: what tool, what order, what output.'
+      },
+      'quickstart-card': {
+        title: 'Get the "First 7 Days" Quick Start Card',
+        description: 'Seven days, seven tasks. Your pocket reference for Phase 1.'
+      },
+      'roi-calculator': {
+        title: 'Get the AI ROI Calculator',
+        description: 'Google Sheet to calculate your personal return on AI investment.'
+      }
+    };
+
+    // Email modal functions
+    function openEmailModal(resourceId) {
+      const resource = resources[resourceId];
+      if (!resource) return;
+
+      document.getElementById('modalTitle').textContent = resource.title;
+      document.getElementById('modalDescription').textContent = resource.description;
+      document.getElementById('resourceId').value = resourceId;
+      document.getElementById('emailForm').style.display = 'block';
+      document.getElementById('emailSuccess').style.display = 'none';
+      document.getElementById('emailModal').classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeEmailModal() {
+      document.getElementById('emailModal').classList.remove('active');
+      document.body.style.overflow = '';
+    }
+
+    function handleEmailSubmit(e) {
+      e.preventDefault();
+      const name = document.getElementById('modalName').value;
+      const email = document.getElementById('modalEmail').value;
+      const resource = document.getElementById('resourceId').value;
+
+      // TODO: Connect to Constant Contact or email API
+      // For now, log and show success
+      console.log('Email capture:', { name, email, resource });
+
+      // Track with UTM if available
+      const params = new URLSearchParams(window.location.search);
+      const source = params.get('utm_source') || 'direct';
+      const medium = params.get('utm_medium') || 'book-companion';
+      console.log('Attribution:', { source, medium });
+
+      document.getElementById('emailForm').style.display = 'none';
+      document.getElementById('emailSuccess').style.display = 'block';
+    }
+
+    // Close modal on overlay click
+    document.getElementById('emailModal').addEventListener('click', function(e) {
+      if (e.target === this) closeEmailModal();
+    });
+
+    // Close modal on Escape
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') closeEmailModal();
+    });
+
+    // Smooth scroll helper
+    function scrollToSection(id) {
+      const el = document.getElementById(id);
+      if (el) el.scrollIntoView({ behavior: 'smooth' });
+    }
+
+    // Sticky CTA bar — show after scrolling past hero
+    const stickyCta = document.getElementById('stickyCta');
+    let stickyShown = false;
+
+    window.addEventListener('scroll', function() {
+      const scrollY = window.scrollY || window.pageYOffset;
+      const triggerPoint = 600;
+
+      if (scrollY > triggerPoint && !stickyShown) {
+        stickyCta.classList.add('visible');
+        stickyShown = true;
+      } else if (scrollY <= triggerPoint && stickyShown) {
+        stickyCta.classList.remove('visible');
+        stickyShown = false;
+      }
+    });
+
+    // Replace video placeholders with YouTube embeds when they have IDs
+    document.querySelectorAll('.video-placeholder[data-video-id]').forEach(function(placeholder) {
+      const videoId = placeholder.getAttribute('data-video-id');
+      if (videoId) {
+        const iframe = document.createElement('iframe');
+        iframe.src = 'https://www.youtube-nocookie.com/embed/' + videoId;
+        iframe.title = 'Video walkthrough';
+        iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
+        iframe.allowFullscreen = true;
+        placeholder.parentNode.replaceChild(iframe, placeholder);
+      }
+    });
+  </script>
+
+</body>
+</html>

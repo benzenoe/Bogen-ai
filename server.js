@@ -177,6 +177,10 @@ app.get('/admin-portal', (req, res) => {
   res.sendFile(path.join(__dirname, 'views', 'admin-portal.html'));
 });
 
+app.get('/book', (req, res) => {
+  res.sendFile(path.join(__dirname, 'views', 'book.html'));
+});
+
 app.get('/blog', (req, res) => {
   res.sendFile(path.join(__dirname, 'views', 'blog.html'));
 });
