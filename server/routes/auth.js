@@ -4,7 +4,8 @@ const { body, validationResult } = require('express-validator');
 const { pool } = require('../config/database');
 const { generateToken } = require('../middleware/auth');
 const { generateReferralCode } = require('../utils/referralCode');
-const { sendPartnerApprovalEmail, sendPartnerApplicationNotification } = require('../utils/email');
+const crypto = require('crypto');
+const { sendPartnerApprovalEmail, sendPartnerApplicationNotification, sendAdminPasswordResetEmail } = require('../utils/email');
 
 const router = express.Router();
 
@@ -275,6 +276,101 @@ router.get('/admin/me', async (req, res) => {
     res.status(401).json({ error: 'Invalid token' });
   }
 });
+
+/**
+ * POST /api/auth/admin/forgot-password
+ * Send admin password reset email
+ */
+router.post(
+  '/admin/forgot-password',
+  [body('email').isEmail().normalizeEmail()],
+  async (req, res) => {
+    try {
+      const errors = validationResult(req);
+      if (!errors.isEmpty()) {
+        return res.status(400).json({ errors: errors.array() });
+      }
+
+      const { email } = req.body;
+
+      const result = await pool.query(
+        'SELECT admin_id, name, email FROM admin_users WHERE email = $1',
+        [email]
+      );
+
+      // Always return success to prevent email enumeration
+      if (result.rows.length === 0) {
+        return res.json({ message: 'If an account exists with that email, a reset link has been sent.' });
+      }
+
+      const admin = result.rows[0];
+
+      // Generate reset token
+      const resetToken = crypto.randomBytes(32).toString('hex');
+      const resetExpires = new Date(Date.now() + 60 * 60 * 1000); // 1 hour
+
+      await pool.query(
+        'UPDATE admin_users SET reset_token = $1, reset_token_expires = $2 WHERE admin_id = $3',
+        [resetToken, resetExpires, admin.admin_id]
+      );
+
+      await sendAdminPasswordResetEmail({
+        email: admin.email,
+        name: admin.name,
+        resetToken
+      });
+
+      res.json({ message: 'If an account exists with that email, a reset link has been sent.' });
+    } catch (error) {
+      console.error('Admin forgot password error:', error);
+      res.status(500).json({ error: 'Failed to process request' });
+    }
+  }
+);
+
+/**
+ * POST /api/auth/admin/reset-password
+ * Reset admin password using token
+ */
+router.post(
+  '/admin/reset-password',
+  [
+    body('token').notEmpty(),
+    body('password').isLength({ min: 8 }).withMessage('Password must be at least 8 characters')
+  ],
+  async (req, res) => {
+    try {
+      const errors = validationResult(req);
+      if (!errors.isEmpty()) {
+        return res.status(400).json({ errors: errors.array() });
+      }
+
+      const { token, password } = req.body;
+
+      const result = await pool.query(
+        'SELECT admin_id, name, email FROM admin_users WHERE reset_token = $1 AND reset_token_expires > NOW()',
+        [token]
+      );
+
+      if (result.rows.length === 0) {
+        return res.status(400).json({ error: 'Invalid or expired reset link. Please request a new one.' });
+      }
+
+      const admin = result.rows[0];
+      const passwordHash = await bcrypt.hash(password, 10);
+
+      await pool.query(
+        'UPDATE admin_users SET password_hash = $1, reset_token = NULL, reset_token_expires = NULL WHERE admin_id = $2',
+        [passwordHash, admin.admin_id]
+      );
+
+      res.json({ message: 'Password reset successfully. You can now log in.' });
+    } catch (error) {
+      console.error('Admin reset password error:', error);
+      res.status(500).json({ error: 'Failed to reset password' });
+    }
+  }
+);
 
 /**
  * POST /api/auth/logout

@@ -156,6 +156,41 @@
 
           <button type="submit" class="btn btn-primary" style="width: 100%;">Login</button>
         </form>
+
+        <div style="text-align: center; margin-top: 16px;">
+          <a href="#" onclick="showForgotPassword(event)" style="color: var(--cyan); font-size: 0.875rem; text-decoration: none;">Forgot Password?</a>
+        </div>
+
+        <!-- Forgot Password Form (hidden by default) -->
+        <div id="forgotPasswordForm" style="display: none; margin-top: 20px;">
+          <form onsubmit="handleForgotPassword(event)">
+            <p style="color: rgba(255,255,255,0.7); font-size: 0.875rem; margin-bottom: 16px;">Enter your admin email and we'll send you a reset link.</p>
+            <div class="form-group">
+              <label class="form-label">Email</label>
+              <input type="email" name="reset_email" class="form-input" required>
+            </div>
+            <button type="submit" class="btn btn-primary" style="width: 100%;">Send Reset Link</button>
+            <div style="text-align: center; margin-top: 12px;">
+              <a href="#" onclick="hideForgotPassword(event)" style="color: rgba(255,255,255,0.5); font-size: 0.875rem; text-decoration: none;">Back to Login</a>
+            </div>
+          </form>
+        </div>
+
+        <!-- Reset Password Form (shown when ?reset=token is in URL) -->
+        <div id="resetPasswordForm" style="display: none; margin-top: 20px;">
+          <form onsubmit="handleResetPassword(event)">
+            <p style="color: rgba(255,255,255,0.7); font-size: 0.875rem; margin-bottom: 16px;">Enter your new password.</p>
+            <div class="form-group">
+              <label class="form-label">New Password</label>
+              <input type="password" name="new_password" class="form-input" required minlength="8">
+            </div>
+            <div class="form-group">
+              <label class="form-label">Confirm Password</label>
+              <input type="password" name="confirm_password" class="form-input" required minlength="8">
+            </div>
+            <button type="submit" class="btn btn-primary" style="width: 100%;">Reset Password</button>
+          </form>
+        </div>
       </div>
     </div>
   </div>
@@ -534,6 +569,79 @@
     function showDashboard() {
       document.getElementById('login-view').classList.add('hidden');
       document.getElementById('dashboard-view').classList.remove('hidden');
+    }
+
+    // Check for reset token in URL on page load
+    (function checkResetToken() {
+      const params = new URLSearchParams(window.location.search);
+      const resetToken = params.get('reset');
+      if (resetToken) {
+        document.getElementById('adminLoginForm').style.display = 'none';
+        document.querySelector('#login-view .login-box a[onclick*="showForgotPassword"]')?.parentElement?.style &&
+          (document.querySelector('#login-view a[onclick*="showForgotPassword"]').parentElement.style.display = 'none');
+        document.getElementById('resetPasswordForm').style.display = 'block';
+        document.getElementById('resetPasswordForm').dataset.token = resetToken;
+      }
+    })();
+
+    function showForgotPassword(e) {
+      e.preventDefault();
+      document.getElementById('adminLoginForm').style.display = 'none';
+      e.target.parentElement.style.display = 'none';
+      document.getElementById('forgotPasswordForm').style.display = 'block';
+    }
+
+    function hideForgotPassword(e) {
+      e.preventDefault();
+      document.getElementById('adminLoginForm').style.display = 'block';
+      document.getElementById('forgotPasswordForm').style.display = 'none';
+      document.querySelector('#login-view a[onclick*="showForgotPassword"]').parentElement.style.display = 'block';
+    }
+
+    async function handleForgotPassword(event) {
+      event.preventDefault();
+      const form = event.target;
+      const email = new FormData(form).get('reset_email');
+
+      try {
+        const response = await window.bogenAI.apiRequest('/auth/admin/forgot-password', {
+          method: 'POST',
+          body: JSON.stringify({ email })
+        });
+        window.bogenAI.showNotification('If an account exists with that email, a reset link has been sent.', 'success');
+        form.reset();
+      } catch (error) {
+        window.bogenAI.showNotification(error.message || 'Failed to send reset email', 'error');
+      }
+    }
+
+    async function handleResetPassword(event) {
+      event.preventDefault();
+      const form = event.target;
+      const formData = new FormData(form);
+      const password = formData.get('new_password');
+      const confirm = formData.get('confirm_password');
+
+      if (password !== confirm) {
+        window.bogenAI.showNotification('Passwords do not match', 'error');
+        return;
+      }
+
+      const token = document.getElementById('resetPasswordForm').dataset.token;
+
+      try {
+        const response = await window.bogenAI.apiRequest('/auth/admin/reset-password', {
+          method: 'POST',
+          body: JSON.stringify({ token, password })
+        });
+        window.bogenAI.showNotification('Password reset successfully! You can now log in.', 'success');
+        // Clean URL and show login
+        window.history.replaceState({}, '', '/admin');
+        document.getElementById('resetPasswordForm').style.display = 'none';
+        document.getElementById('adminLoginForm').style.display = 'block';
+      } catch (error) {
+        window.bogenAI.showNotification(error.message || 'Failed to reset password', 'error');
+      }
     }
 
     async function handleAdminLogin(event) {

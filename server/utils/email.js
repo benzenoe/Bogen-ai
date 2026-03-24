@@ -310,6 +310,36 @@ async function sendClientNewMessageEmail(client, message) {
   });
 }
 
+/**
+ * Send password reset email to admin
+ */
+async function sendAdminPasswordResetEmail(admin) {
+  const resetUrl = `${process.env.BASE_URL}/admin?reset=${admin.resetToken}`;
+  const subject = 'Reset Your Admin Password - Bogen.ai';
+  const html = `
+    <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
+      <h1 style="color: #1a3a52;">Admin Password Reset</h1>
+      <p>Hi ${admin.name},</p>
+      <p>We received a request to reset your admin password. Click the button below to create a new password:</p>
+
+      <p style="margin: 30px 0;"><a href="${resetUrl}" style="display: inline-block; background: #D4AF37; color: #1B365D; padding: 14px 32px; text-decoration: none; border-radius: 6px; font-weight: bold;">Reset Password</a></p>
+
+      <p style="color: #666;">This link will expire in 1 hour for security reasons.</p>
+      <p style="color: #666;">If you didn't request this password reset, you can safely ignore this email.</p>
+
+      <hr style="border: none; border-top: 1px solid #e0e0e0; margin: 30px 0;">
+      <p style="color: #888; font-size: 12px;">Bogen.ai Admin System</p>
+    </div>
+  `;
+
+  return sendEmail({
+    to: admin.email,
+    subject,
+    html,
+    text: `Reset your admin password at: ${resetUrl}`
+  });
+}
+
 module.exports = {
   sendEmail,
   sendPartnerApprovalEmail,
@@ -318,5 +348,6 @@ module.exports = {
   sendClientWelcomeEmail,
   sendClientPasswordResetEmail,
   sendClientTransactionUpdateEmail,
-  sendClientNewMessageEmail
+  sendClientNewMessageEmail,
+  sendAdminPasswordResetEmail
 };
