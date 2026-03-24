@@ -152,6 +152,24 @@
       flex-wrap: wrap;
     }
 
+    .btn-amazon {
+      animation: amazonPulse 2s ease-in-out infinite;
+      box-shadow: 0 0 20px rgba(0, 168, 225, 0.4);
+      font-weight: 700;
+      letter-spacing: 0.02em;
+    }
+
+    .btn-amazon:hover {
+      animation: none;
+      transform: scale(1.05);
+      box-shadow: 0 0 30px rgba(0, 168, 225, 0.7);
+    }
+
+    @keyframes amazonPulse {
+      0%, 100% { transform: scale(1); box-shadow: 0 0 20px rgba(0, 168, 225, 0.4); }
+      50% { transform: scale(1.05); box-shadow: 0 0 30px rgba(0, 168, 225, 0.7); }
+    }
+
     .updated-badge {
       display: inline-block;
       margin-top: var(--spacing-md);
@@ -785,7 +803,7 @@
           <h1>Prompt to <span>Close</span></h1>
           <p class="subtitle">The AI Playbook for Real Estate Professionals. Free tools, video walkthroughs, downloadable resources, and a community of 200+ AI-forward agents — all updated monthly.</p>
           <div class="hero-ctas">
-            <a href="https://www.amazon.com/dp/B0GTRS9DVF" target="_blank" rel="noopener" class="btn btn-primary">Available Now on Amazon</a>
+            <a href="https://www.amazon.com/dp/B0GTRS9DVF" target="_blank" rel="noopener" class="btn btn-primary btn-amazon">Available Now on Amazon</a>
             <a href="#resources" class="btn btn-secondary">Download the Prompt Library</a>
             <a href="#tools" class="btn btn-secondary">Browse AI Tools</a>
           </div>
