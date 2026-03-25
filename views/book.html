@@ -1286,7 +1286,7 @@
       <button class="modal-close" onclick="closeEmailModal()">&times;</button>
       <div class="text-center mb-md">
         <h3 id="modalTitle">Get Your Free Resource</h3>
-        <p class="text-gray" id="modalDescription">Enter your email and we'll send it right over.</p>
+        <p class="text-gray" id="modalDescription">This resource is coming soon. Enter your info and we'll email you when it's ready.</p>
       </div>
       <form id="emailForm" onsubmit="handleEmailSubmit(event)">
         <input type="hidden" id="resourceId" name="resource">
@@ -1298,12 +1298,16 @@
           <label class="form-label" for="modalEmail">Email Address</label>
           <input type="email" id="modalEmail" name="email" class="form-input" placeholder="you@example.com" required>
         </div>
-        <button type="submit" class="btn btn-primary" style="width: 100%;">Send Me the Resource</button>
+        <label style="display: flex; align-items: flex-start; gap: 8px; margin-bottom: var(--spacing-sm); cursor: pointer;">
+          <input type="checkbox" name="optin" required style="margin-top: 3px; accent-color: var(--cyan);">
+          <span style="font-size: 0.8rem; color: rgba(255, 255, 255, 0.6); line-height: 1.4;">I agree to receive emails from Edmund Bogen about AI tools, resources, and updates. You can unsubscribe anytime.</span>
+        </label>
+        <button type="submit" class="btn btn-primary" style="width: 100%;">Notify Me When It's Ready</button>
         <p style="font-size: 0.75rem; color: rgba(255, 255, 255, 0.4); margin-top: var(--spacing-sm); margin-bottom: 0; text-align: center;">No spam. Unsubscribe anytime. We respect your inbox.</p>
       </form>
       <div id="emailSuccess" style="display: none;" class="text-center">
-        <h3 style="color: var(--cyan);">Check Your Inbox</h3>
-        <p class="text-gray">Your resource is on its way. While you wait, explore the <a href="#tools" style="color: var(--cyan);" onclick="closeEmailModal()">AI Tool Directory</a> — it's free and always up to date.</p>
+        <h3 style="color: var(--cyan);">You're on the List</h3>
+        <p class="text-gray">We've got your info. We'll email you as soon as this resource is available. In the meantime, explore the <a href="#tools" style="color: var(--cyan);" onclick="closeEmailModal()">AI Tool Directory</a> — it's free and always up to date.</p>
       </div>
     </div>
   </div>
@@ -1362,21 +1366,25 @@
       document.body.style.overflow = '';
     }
 
-    function handleEmailSubmit(e) {
+    async function handleEmailSubmit(e) {
       e.preventDefault();
       const name = document.getElementById('modalName').value;
       const email = document.getElementById('modalEmail').value;
       const resource = document.getElementById('resourceId').value;
 
-      // TODO: Connect to Constant Contact or email API
-      // For now, log and show success
-      console.log('Email capture:', { name, email, resource });
-
-      // Track with UTM if available
       const params = new URLSearchParams(window.location.search);
-      const source = params.get('utm_source') || 'direct';
-      const medium = params.get('utm_medium') || 'book-companion';
-      console.log('Attribution:', { source, medium });
+      const utm_source = params.get('utm_source') || 'direct';
+      const utm_medium = params.get('utm_medium') || 'book-companion';
+
+      try {
+        await fetch('/api/book/capture-email', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ name, email, resource, utm_source, utm_medium })
+        });
+      } catch (err) {
+        console.error('Email capture error:', err);
+      }
 
       document.getElementById('emailForm').style.display = 'none';
       document.getElementById('emailSuccess').style.display = 'block';

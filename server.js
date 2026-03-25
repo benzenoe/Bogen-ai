@@ -70,6 +70,25 @@ app.use('/api/skills', skillsRoutes);
 app.use('/api/auth', clientAuthRoutes);
 app.use('/api/client-portal', clientPortalRoutes);
 
+// Book companion email capture
+const { pool: dbPool } = require('./server/config/database');
+app.post('/api/book/capture-email', async (req, res) => {
+  try {
+    const { name, email, resource, utm_source, utm_medium } = req.body;
+    if (!name || !email || !resource) {
+      return res.status(400).json({ error: 'Name, email, and resource are required' });
+    }
+    await dbPool.query(
+      'INSERT INTO book_leads (name, email, resource, utm_source, utm_medium) VALUES ($1, $2, $3, $4, $5)',
+      [name, email, resource, utm_source || 'direct', utm_medium || 'book-companion']
+    );
+    res.json({ success: true });
+  } catch (error) {
+    console.error('Book email capture error:', error);
+    res.status(500).json({ error: 'Failed to save' });
+  }
+});
+
 // Serve HTML pages
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'views', 'index.html'));
