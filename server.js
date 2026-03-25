@@ -89,6 +89,24 @@ app.post('/api/book/capture-email', async (req, res) => {
   }
 });
 
+// Speaker inquiry capture
+app.post('/api/book/speaker-inquiry', async (req, res) => {
+  try {
+    const { first_name, last_name, email, phone, message } = req.body;
+    if (!first_name || !last_name || !email || !phone) {
+      return res.status(400).json({ error: 'All fields are required' });
+    }
+    await dbPool.query(
+      'INSERT INTO speaker_inquiries (first_name, last_name, email, phone, message) VALUES ($1, $2, $3, $4, $5)',
+      [first_name, last_name, email, phone, message || '']
+    );
+    res.json({ success: true });
+  } catch (error) {
+    console.error('Speaker inquiry error:', error);
+    res.status(500).json({ error: 'Failed to save' });
+  }
+});
+
 // Serve HTML pages
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'views', 'index.html'));
