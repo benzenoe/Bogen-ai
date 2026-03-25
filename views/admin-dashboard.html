@@ -246,6 +246,7 @@
           <button class="tab-btn" onclick="switchAdminTab('referrals')">Referrals</button>
           <button class="tab-btn" onclick="switchAdminTab('mastermind')">Mastermind</button>
           <button class="tab-btn" onclick="switchAdminTab('videos')">Video Archive</button>
+          <button class="tab-btn" onclick="switchAdminTab('analytics')">Site Analytics</button>
         </div>
 
         <!-- Partners Tab -->
@@ -410,6 +411,95 @@
             <div id="videos-list">
               <p class="text-center text-gray">Loading videos...</p>
             </div>
+          </div>
+        </div>
+
+        <!-- Site Analytics Tab -->
+        <div id="analytics-tab" class="tab-panel">
+          <h2 class="mb-lg">Site Analytics</h2>
+
+          <!-- Page View Stats -->
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: var(--spacing-md); margin-bottom: var(--spacing-xl);">
+            <div class="stat-card">
+              <div class="stat-label">Views Today</div>
+              <div class="stat-value" id="stat-views-today">-</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-label">Views (7 Days)</div>
+              <div class="stat-value" id="stat-views-week">-</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-label">Views (30 Days)</div>
+              <div class="stat-value" id="stat-views-month">-</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-label">Book Leads</div>
+              <div class="stat-value" id="stat-book-leads">-</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-label">Speaker Inquiries</div>
+              <div class="stat-value" id="stat-speaker-inquiries">-</div>
+            </div>
+          </div>
+
+          <!-- Daily Views Chart (simple bar) -->
+          <div class="card mb-lg">
+            <h3 class="mb-md">Daily Page Views (Last 14 Days)</h3>
+            <div id="daily-chart" style="display: flex; align-items: flex-end; gap: 4px; height: 200px; padding: 0 var(--spacing-sm);"></div>
+          </div>
+
+          <!-- Top Pages -->
+          <div class="card mb-lg">
+            <h3 class="mb-md">Top Pages (Last 7 Days)</h3>
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>Page</th>
+                  <th style="text-align: right;">Views</th>
+                </tr>
+              </thead>
+              <tbody id="top-pages-table">
+                <tr><td colspan="2" class="text-center text-gray">Loading...</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Book Leads -->
+          <div class="card mb-lg">
+            <h3 class="mb-md">Book Resource Signups</h3>
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>Email</th>
+                  <th>Resource</th>
+                  <th>Source</th>
+                  <th>Date</th>
+                </tr>
+              </thead>
+              <tbody id="book-leads-table">
+                <tr><td colspan="5" class="text-center text-gray">Loading...</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Speaker Inquiries -->
+          <div class="card">
+            <h3 class="mb-md">Speaker Inquiries</h3>
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>Email</th>
+                  <th>Phone</th>
+                  <th>Event Details</th>
+                  <th>Date</th>
+                </tr>
+              </thead>
+              <tbody id="speaker-inquiries-table">
+                <tr><td colspan="5" class="text-center text-gray">Loading...</td></tr>
+              </tbody>
+            </table>
           </div>
         </div>
       </div>
@@ -690,6 +780,8 @@
       } else if (tab === 'mastermind') {
         loadMastermindStats();
         loadMastermindRegistrations();
+      } else if (tab === 'analytics') {
+        loadAnalytics();
       }
     }
 
@@ -1287,6 +1379,74 @@
         loadMastermindStats();
       } catch (error) {
         window.bogenAI.showNotification('Failed to update event configuration', 'error');
+      }
+    }
+
+    // Analytics Functions
+    async function loadAnalytics() {
+      const token = localStorage.getItem('admin_token');
+      try {
+        const data = await window.bogenAI.apiRequest('/admin/analytics', {
+          headers: { 'Authorization': `Bearer ${token}` }
+        });
+
+        // Stats
+        document.getElementById('stat-views-today').textContent = data.pageViews.today;
+        document.getElementById('stat-views-week').textContent = data.pageViews.week;
+        document.getElementById('stat-views-month').textContent = data.pageViews.month;
+        document.getElementById('stat-book-leads').textContent = data.bookLeads.total;
+        document.getElementById('stat-speaker-inquiries').textContent = data.speakerInquiries.total;
+
+        // Daily chart
+        const chartEl = document.getElementById('daily-chart');
+        if (data.dailyViews.length === 0) {
+          chartEl.innerHTML = '<p class="text-gray" style="margin: auto;">No data yet. Views will appear as visitors hit the site.</p>';
+        } else {
+          const maxViews = Math.max(...data.dailyViews.map(d => parseInt(d.views)), 1);
+          chartEl.innerHTML = data.dailyViews.map(d => {
+            const height = Math.max((parseInt(d.views) / maxViews) * 170, 4);
+            const date = new Date(d.date);
+            const label = (date.getMonth() + 1) + '/' + date.getDate();
+            return `<div style="flex: 1; display: flex; flex-direction: column; align-items: center; gap: 4px;">
+              <span style="font-size: 0.7rem; color: var(--cyan);">${d.views}</span>
+              <div style="width: 100%; max-width: 40px; height: ${height}px; background: linear-gradient(to top, var(--cyan), rgba(100,181,246,0.4)); border-radius: 4px 4px 0 0;"></div>
+              <span style="font-size: 0.65rem; color: rgba(255,255,255,0.5);">${label}</span>
+            </div>`;
+          }).join('');
+        }
+
+        // Top pages
+        const topPagesEl = document.getElementById('top-pages-table');
+        if (data.topPages.length === 0) {
+          topPagesEl.innerHTML = '<tr><td colspan="2" class="text-center text-gray">No page views yet</td></tr>';
+        } else {
+          topPagesEl.innerHTML = data.topPages.map(p =>
+            `<tr><td>${p.page}</td><td style="text-align: right; font-weight: 600; color: var(--cyan);">${p.views}</td></tr>`
+          ).join('');
+        }
+
+        // Book leads
+        const bookEl = document.getElementById('book-leads-table');
+        if (data.bookLeads.recent.length === 0) {
+          bookEl.innerHTML = '<tr><td colspan="5" class="text-center text-gray">No signups yet</td></tr>';
+        } else {
+          bookEl.innerHTML = data.bookLeads.recent.map(l =>
+            `<tr><td>${l.name}</td><td>${l.email}</td><td>${l.resource}</td><td>${l.utm_source || 'direct'}</td><td>${new Date(l.created_at).toLocaleDateString()}</td></tr>`
+          ).join('');
+        }
+
+        // Speaker inquiries
+        const speakerEl = document.getElementById('speaker-inquiries-table');
+        if (data.speakerInquiries.recent.length === 0) {
+          speakerEl.innerHTML = '<tr><td colspan="5" class="text-center text-gray">No inquiries yet</td></tr>';
+        } else {
+          speakerEl.innerHTML = data.speakerInquiries.recent.map(s =>
+            `<tr><td>${s.first_name} ${s.last_name}</td><td>${s.email}</td><td>${s.phone}</td><td>${s.message || '-'}</td><td>${new Date(s.created_at).toLocaleDateString()}</td></tr>`
+          ).join('');
+        }
+
+      } catch (error) {
+        console.error('Analytics load error:', error);
       }
     }
   </script>

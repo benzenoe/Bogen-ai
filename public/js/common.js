@@ -215,6 +215,21 @@ function trackReferral() {
  * Initialize common functionality
  */
 document.addEventListener('DOMContentLoaded', () => {
+  // Track page view
+  try {
+    const params = new URLSearchParams(window.location.search);
+    fetch('/api/track/pageview', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        page: window.location.pathname,
+        referrer: document.referrer,
+        utm_source: params.get('utm_source') || '',
+        utm_medium: params.get('utm_medium') || ''
+      })
+    }).catch(() => {});
+  } catch (e) {}
+
   // Track referral if present
   trackReferral();
 

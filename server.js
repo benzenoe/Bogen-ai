@@ -107,6 +107,84 @@ app.post('/api/book/speaker-inquiry', async (req, res) => {
   }
 });
 
+// Page view tracking
+app.post('/api/track/pageview', async (req, res) => {
+  try {
+    const { page, referrer, utm_source, utm_medium } = req.body;
+    if (!page) return res.status(400).json({ error: 'Page is required' });
+    const userAgent = (req.headers['user-agent'] || '').substring(0, 500);
+    await dbPool.query(
+      'INSERT INTO page_views (page, referrer, utm_source, utm_medium, user_agent) VALUES ($1, $2, $3, $4, $5)',
+      [page, referrer || '', utm_source || '', utm_medium || '', userAgent]
+    );
+    res.json({ ok: true });
+  } catch (error) {
+    res.status(500).json({ error: 'Failed' });
+  }
+});
+
+// Site analytics API (admin only)
+const { authenticateAdmin } = require('./server/middleware/auth');
+app.get('/api/admin/analytics', authenticateAdmin, async (req, res) => {
+  try {
+    // Page views today
+    const todayViews = await dbPool.query(
+      "SELECT COUNT(*) as count FROM page_views WHERE created_at >= CURRENT_DATE"
+    );
+
+    // Page views last 7 days
+    const weekViews = await dbPool.query(
+      "SELECT COUNT(*) as count FROM page_views WHERE created_at >= CURRENT_DATE - INTERVAL '7 days'"
+    );
+
+    // Page views last 30 days
+    const monthViews = await dbPool.query(
+      "SELECT COUNT(*) as count FROM page_views WHERE created_at >= CURRENT_DATE - INTERVAL '30 days'"
+    );
+
+    // Top pages last 7 days
+    const topPages = await dbPool.query(
+      "SELECT page, COUNT(*) as views FROM page_views WHERE created_at >= CURRENT_DATE - INTERVAL '7 days' GROUP BY page ORDER BY views DESC LIMIT 15"
+    );
+
+    // Daily views last 14 days
+    const dailyViews = await dbPool.query(
+      "SELECT DATE(created_at) as date, COUNT(*) as views FROM page_views WHERE created_at >= CURRENT_DATE - INTERVAL '14 days' GROUP BY DATE(created_at) ORDER BY date"
+    );
+
+    // Book leads
+    const bookLeads = await dbPool.query(
+      "SELECT * FROM book_leads ORDER BY created_at DESC LIMIT 20"
+    );
+
+    // Speaker inquiries
+    const speakerInquiries = await dbPool.query(
+      "SELECT * FROM speaker_inquiries ORDER BY created_at DESC LIMIT 20"
+    );
+
+    // Book leads count
+    const bookLeadsTotal = await dbPool.query("SELECT COUNT(*) as count FROM book_leads");
+
+    // Speaker inquiries count
+    const speakerTotal = await dbPool.query("SELECT COUNT(*) as count FROM speaker_inquiries");
+
+    res.json({
+      pageViews: {
+        today: parseInt(todayViews.rows[0].count),
+        week: parseInt(weekViews.rows[0].count),
+        month: parseInt(monthViews.rows[0].count)
+      },
+      topPages: topPages.rows,
+      dailyViews: dailyViews.rows,
+      bookLeads: { total: parseInt(bookLeadsTotal.rows[0].count), recent: bookLeads.rows },
+      speakerInquiries: { total: parseInt(speakerTotal.rows[0].count), recent: speakerInquiries.rows }
+    });
+  } catch (error) {
+    console.error('Analytics error:', error);
+    res.status(500).json({ error: 'Failed to load analytics' });
+  }
+});
+
 // Serve HTML pages
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'views', 'index.html'));
