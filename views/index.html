@@ -143,6 +143,10 @@
   <link rel="stylesheet" href="/css/global.css">
   <link rel="stylesheet" href="/css/chatbot.css">
   <style>
+    @keyframes amazonBtnPulse {
+      0%, 100% { box-shadow: 0 4px 12px rgba(255, 153, 0, 0.3); }
+      50% { box-shadow: 0 4px 24px rgba(255, 153, 0, 0.6), 0 0 8px rgba(255, 153, 0, 0.4); }
+    }
     @media (max-width: 768px) {
       /* Make grid stack on mobile */
       .grid[style*="grid-template-columns: 1fr 1fr"] {
@@ -300,8 +304,7 @@
           <a href="https://www.amazon.com/dp/B0GTRS9DVF" target="_blank" rel="noopener" style="display: block; text-decoration: none;">
             <img src="/images/book-cover.png" alt="Prompt to Close: The AI Playbook for Real Estate Professionals by Edmund Bogen" style="max-height: 360px; border-radius: var(--border-radius); box-shadow: 0 8px 32px rgba(0,0,0,0.4); transition: transform 0.3s ease;">
           </a>
-          <p style="margin-top: var(--spacing-sm); color: var(--gold, #ffd93d); font-weight: 700; font-size: 0.85rem; letter-spacing: 0.15em; text-transform: uppercase;">Available Now</p>
-          <a href="https://www.amazon.com/dp/B0GTRS9DVF" target="_blank" rel="noopener" style="display: inline-flex; align-items: center; gap: 8px; margin-top: 8px; padding: 10px 24px; background: #ff9900; color: #111; font-weight: 700; font-size: 0.9rem; border-radius: 6px; text-decoration: none; transition: all 0.3s ease; box-shadow: 0 4px 12px rgba(255, 153, 0, 0.3);">
+          <a href="https://www.amazon.com/dp/B0GTRS9DVF" target="_blank" rel="noopener" style="display: inline-flex; align-items: center; gap: 8px; margin-top: 10px; padding: 10px 24px; background: #ff9900; color: #111; font-weight: 700; font-size: 0.9rem; border-radius: 6px; text-decoration: none; box-shadow: 0 4px 12px rgba(255, 153, 0, 0.3); animation: amazonBtnPulse 2s ease-in-out infinite;">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M.045 18.02c.07-.116.36-.198.896-.198h.15c2.18.494 4.406.74 6.684.74 1.965 0 3.885-.222 5.76-.667.06-.01.12 0 .181.03.06.03.089.08.089.15 0 .04-.01.07-.045.1-1.425 1.245-3.735 1.867-6.93 1.867-2.77 0-5.28-.494-7.53-1.483-.165-.074-.255-.15-.255-.24v-.3zm14.79-3.38c-.195.24-.48.36-.855.36-.345 0-.63-.09-.855-.27-.225-.18-.345-.42-.36-.72h-.015c-.06.51-.27.915-.63 1.215-.36.3-.81.45-1.35.45-.63 0-1.11-.18-1.44-.54-.33-.36-.495-.84-.495-1.44 0-.69.225-1.215.675-1.575.45-.36 1.095-.54 1.935-.54h1.26v-.42c0-.405-.105-.72-.315-.945-.21-.225-.54-.337-.99-.337-.39 0-.705.09-.945.27-.24.18-.36.42-.36.72h-1.53c.015-.57.255-1.035.72-1.395.465-.36 1.065-.54 1.8-.54.81 0 1.44.195 1.89.585.45.39.675.96.675 1.71v3.15c0 .45.075.78.225.99v.06h-1.59zm-2.34-.96c.315 0 .6-.075.855-.225.255-.15.435-.345.54-.585v-1.11h-1.065c-.78 0-1.17.315-1.17.945 0 .285.09.51.27.675.18.165.39.248.63.248l-.06.052z"/><path d="M21.69 18.14c-.84.72-2.07 1.11-3.69 1.11-1.74 0-3.225-.6-4.455-1.8-.12-.12-.135-.255-.045-.405.09-.12.21-.15.36-.09 1.23.66 2.61.99 4.14.99 1.02 0 2.145-.225 3.375-.675.195-.075.33-.015.405.18.045.135.015.27-.09.405v-.015z"/><path d="M22.545 17.2c-.105-.135-.69-.21-1.095-.105-.405.105-.675.315-.585.465.09.15.39.12.69.06.3-.06.525-.195.615-.345.075-.12.015-.21-.045-.27l.42.195z"/></svg>
             Buy on Amazon
           </a>
