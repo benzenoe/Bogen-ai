@@ -107,6 +107,24 @@ app.post('/api/book/speaker-inquiry', async (req, res) => {
   }
 });
 
+// Service inquiry capture
+app.post('/api/services/inquiry', async (req, res) => {
+  try {
+    const { industry, challenge, team_size, name, email, phone } = req.body;
+    if (!industry || !challenge || !team_size || !name || !email || !phone) {
+      return res.status(400).json({ error: 'All fields are required' });
+    }
+    await dbPool.query(
+      'INSERT INTO service_inquiries (industry, challenge, team_size, name, email, phone) VALUES ($1, $2, $3, $4, $5, $6)',
+      [industry, challenge, team_size, name, email, phone]
+    );
+    res.json({ success: true });
+  } catch (error) {
+    console.error('Service inquiry error:', error);
+    res.status(500).json({ error: 'Failed to save' });
+  }
+});
+
 // Page view tracking
 app.post('/api/track/pageview', async (req, res) => {
   try {
@@ -294,6 +312,10 @@ app.get('/admin-portal', (req, res) => {
 
 app.get('/book', (req, res) => {
   res.sendFile(path.join(__dirname, 'views', 'book.html'));
+});
+
+app.get('/services', (req, res) => {
+  res.sendFile(path.join(__dirname, 'views', 'services.html'));
 });
 
 app.get('/blog', (req, res) => {

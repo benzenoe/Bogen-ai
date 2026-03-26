@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Find Your AI Solution - Bogen.ai</title>
+  <meta name="description" content="Answer 3 quick questions and we'll recommend the right AI solution for your business. Custom proposals from Bogen.ai.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/global.css">
+  <style>
+    .quiz-container {
+      max-width: 700px;
+      margin: 0 auto;
+      padding: var(--spacing-xxl) var(--spacing-md);
+    }
+
+    .quiz-progress {
+      display: flex;
+      gap: 8px;
+      margin-bottom: var(--spacing-xl);
+    }
+
+    .quiz-progress-step {
+      flex: 1;
+      height: 4px;
+      background: rgba(100, 181, 246, 0.15);
+      border-radius: 2px;
+      transition: background 0.3s ease;
+    }
+
+    .quiz-progress-step.active {
+      background: var(--cyan);
+    }
+
+    .quiz-progress-step.done {
+      background: var(--gold);
+    }
+
+    .quiz-step {
+      display: none;
+      animation: fadeIn 0.4s ease;
+    }
+
+    .quiz-step.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .quiz-step h2 {
+      margin-bottom: var(--spacing-xs);
+    }
+
+    .quiz-step .subtitle {
+      color: rgba(255, 255, 255, 0.6);
+      margin-bottom: var(--spacing-lg);
+      font-size: 0.95rem;
+    }
+
+    .quiz-options {
+      display: grid;
+      gap: var(--spacing-sm);
+    }
+
+    .quiz-option {
+      background: rgba(26, 58, 82, 0.4);
+      border: 1px solid rgba(100, 181, 246, 0.15);
+      border-radius: var(--border-radius);
+      padding: var(--spacing-md);
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      gap: var(--spacing-md);
+    }
+
+    .quiz-option:hover {
+      border-color: var(--cyan);
+      transform: translateX(4px);
+    }
+
+    .quiz-option.selected {
+      border-color: var(--cyan);
+      background: rgba(100, 181, 246, 0.1);
+    }
+
+    .quiz-option-icon {
+      font-size: 1.5rem;
+      min-width: 40px;
+      text-align: center;
+    }
+
+    .quiz-option-text {
+      flex: 1;
+    }
+
+    .quiz-option-text strong {
+      display: block;
+      margin-bottom: 2px;
+      color: var(--white);
+    }
+
+    .quiz-option-text span {
+      font-size: 0.85rem;
+      color: rgba(255, 255, 255, 0.5);
+    }
+
+    .quiz-nav {
+      display: flex;
+      justify-content: space-between;
+      margin-top: var(--spacing-xl);
+    }
+
+    .quiz-nav .btn {
+      min-width: 120px;
+    }
+
+    .quiz-result {
+      text-align: center;
+      padding: var(--spacing-xl) 0;
+    }
+
+    .quiz-result h2 {
+      color: var(--cyan);
+      margin-bottom: var(--spacing-sm);
+    }
+
+    .quiz-summary {
+      background: rgba(26, 58, 82, 0.4);
+      border: 1px solid rgba(100, 181, 246, 0.15);
+      border-radius: var(--border-radius);
+      padding: var(--spacing-lg);
+      margin: var(--spacing-lg) 0;
+      text-align: left;
+    }
+
+    .quiz-summary-item {
+      display: flex;
+      justify-content: space-between;
+      padding: 8px 0;
+      border-bottom: 1px solid rgba(100, 181, 246, 0.1);
+    }
+
+    .quiz-summary-item:last-child {
+      border-bottom: none;
+    }
+
+    .quiz-summary-label {
+      color: rgba(255, 255, 255, 0.5);
+      font-size: 0.85rem;
+    }
+
+    .quiz-summary-value {
+      color: var(--cyan);
+      font-weight: 500;
+    }
+
+    .contact-form {
+      text-align: left;
+    }
+
+    .contact-form .form-group {
+      margin-bottom: var(--spacing-md);
+    }
+
+    .step-number {
+      color: var(--cyan);
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: var(--spacing-xs);
+    }
+  </style>
+</head>
+<body>
+
+  <header class="header">
+    <div class="container">
+      <nav class="nav">
+        <a href="/" class="logo" style="display: flex; align-items: center; margin-left: -12px;">
+          <img src="/images/eb-logo.png" alt="Bogen.ai Logo" style="height: 100px; width: auto;">
+        </a>
+        <ul class="nav-menu">
+          <li><a href="/" class="nav-link">Home</a></li>
+          <li class="nav-dropdown">
+            <a href="/about-us" class="nav-link">About</a>
+            <ul class="dropdown-menu">
+              <li><a href="/about-us#edmund">About Edmund Bogen</a></li>
+              <li><a href="/about-us#eytan">About Eytan Benzeno</a></li>
+            </ul>
+          </li>
+          <li><a href="/services" class="nav-link active">Services</a></li>
+          <li class="nav-dropdown">
+            <a href="/edmunds-mastermind" class="nav-link">Mastermind</a>
+            <ul class="dropdown-menu">
+              <li><a href="/edmunds-mastermind">Learn About Mastermind</a></li>
+              <li><a href="/contact?tab=client">Join Our Mastermind Community</a></li>
+            </ul>
+          </li>
+          <li><a href="/video-archive" class="nav-link">Video</a></li>
+          <li><a href="/book" class="nav-link">Book</a></li>
+          <li>
+            <a href="tel:+14245870840" class="nav-link" style="color: var(--cyan); white-space: nowrap;">&#x1F4DE; 424-587-0840</a>
+          </li>
+          <li class="nav-dropdown">
+            <a href="#" class="nav-link nav-login-btn">
+              <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="opacity: 0.8;">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
+              </svg>
+              Login
+            </a>
+            <ul class="dropdown-menu">
+              <li><a href="/client-portal">Client Portal</a></li>
+              <li><a href="/admin">Admin</a></li>
+            </ul>
+          </li>
+        </ul>
+        <button class="nav-toggle" type="button" aria-label="Toggle navigation" onclick="window.bogenAI.toggleMobileMenu()">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <main style="margin-top: 90px;">
+    <div class="quiz-container">
+
+      <!-- Progress Bar -->
+      <div class="quiz-progress">
+        <div class="quiz-progress-step active" id="prog-1"></div>
+        <div class="quiz-progress-step" id="prog-2"></div>
+        <div class="quiz-progress-step" id="prog-3"></div>
+        <div class="quiz-progress-step" id="prog-4"></div>
+      </div>
+
+      <!-- Step 1: Industry -->
+      <div class="quiz-step active" id="step-1">
+        <div class="step-number">Step 1 of 3</div>
+        <h2>What industry are you in?</h2>
+        <p class="subtitle">We tailor every AI solution to your specific industry.</p>
+        <div class="quiz-options">
+          <div class="quiz-option" onclick="selectOption(this, 'industry', 'Real Estate')">
+            <div class="quiz-option-icon">🏠</div>
+            <div class="quiz-option-text">
+              <strong>Real Estate</strong>
+              <span>Agents, brokers, teams, property management</span>
+            </div>
+          </div>
+          <div class="quiz-option" onclick="selectOption(this, 'industry', 'Professional Services')">
+            <div class="quiz-option-icon">⚖️</div>
+            <div class="quiz-option-text">
+              <strong>Professional Services</strong>
+              <span>Legal, accounting, consulting, financial</span>
+            </div>
+          </div>
+          <div class="quiz-option" onclick="selectOption(this, 'industry', 'Healthcare')">
+            <div class="quiz-option-icon">🏥</div>
+            <div class="quiz-option-text">
+              <strong>Healthcare</strong>
+              <span>Medical practices, dental, wellness, home health</span>
+            </div>
+          </div>
+          <div class="quiz-option" onclick="selectOption(this, 'industry', 'Home Services')">
+            <div class="quiz-option-icon">🔧</div>
+            <div class="quiz-option-text">
+              <strong>Home Services</strong>
+              <span>Contractors, landscaping, cleaning, HVAC, plumbing</span>
+            </div>
+          </div>
+          <div class="quiz-option" onclick="selectOption(this, 'industry', 'E-commerce / Retail')">
+            <div class="quiz-option-icon">🛒</div>
+            <div class="quiz-option-text">
+              <strong>E-commerce / Retail</strong>
+              <span>Online stores, brick and mortar, wholesale</span>
+            </div>
+          </div>
+          <div class="quiz-option" onclick="selectOption(this, 'industry', 'Other')">
+            <div class="quiz-option-icon">💼</div>
+            <div class="quiz-option-text">
+              <strong>Other</strong>
+              <span>Restaurant, fitness, education, nonprofit, etc.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 2: Challenge -->
+      <div class="quiz-step" id="step-2">
+        <div class="step-number">Step 2 of 3</div>
+        <h2>What's your biggest challenge right now?</h2>
+        <p class="subtitle">Pick the one that keeps you up at night.</p>
+        <div class="quiz-options">
+          <div class="quiz-option" onclick="selectOption(this, 'challenge', 'Getting more leads and clients')">
+            <div class="quiz-option-icon">📈</div>
+            <div class="quiz-option-text">
+              <strong>Getting more leads and clients</strong>
+              <span>Need a steady pipeline of qualified prospects</span>
+            </div>
+          </div>
+          <div class="quiz-option" onclick="selectOption(this, 'challenge', 'Saving time on repetitive tasks')">
+            <div class="quiz-option-icon">⏰</div>
+            <div class="quiz-option-text">
+              <strong>Saving time on repetitive tasks</strong>
+              <span>Drowning in admin work, emails, scheduling</span>
+            </div>
+          </div>
+          <div class="quiz-option" onclick="selectOption(this, 'challenge', 'Better customer communication')">
+            <div class="quiz-option-icon">💬</div>
+            <div class="quiz-option-text">
+              <strong>Better customer communication</strong>
+              <span>Leads fall through the cracks, slow response times</span>
+            </div>
+          </div>
+          <div class="quiz-option" onclick="selectOption(this, 'challenge', 'Creating content and marketing')">
+            <div class="quiz-option-icon">📱</div>
+            <div class="quiz-option-text">
+              <strong>Creating content and marketing</strong>
+              <span>Social media, emails, blog posts -- never enough time</span>
+            </div>
+          </div>
+          <div class="quiz-option" onclick="selectOption(this, 'challenge', 'Scaling without hiring')">
+            <div class="quiz-option-icon">🚀</div>
+            <div class="quiz-option-text">
+              <strong>Scaling without hiring</strong>
+              <span>Need to grow but can't afford more staff yet</span>
+            </div>
+          </div>
+        </div>
+        <div class="quiz-nav">
+          <button class="btn btn-secondary" onclick="goToStep(1)">Back</button>
+          <span></span>
+        </div>
+      </div>
+
+      <!-- Step 3: Team Size -->
+      <div class="quiz-step" id="step-3">
+        <div class="step-number">Step 3 of 3</div>
+        <h2>How big is your team?</h2>
+        <p class="subtitle">This helps us right-size the solution.</p>
+        <div class="quiz-options">
+          <div class="quiz-option" onclick="selectOption(this, 'team_size', 'Just me')">
+            <div class="quiz-option-icon">👤</div>
+            <div class="quiz-option-text">
+              <strong>Just me</strong>
+              <span>Solo operator or freelancer</span>
+            </div>
+          </div>
+          <div class="quiz-option" onclick="selectOption(this, 'team_size', '2-5 people')">
+            <div class="quiz-option-icon">👥</div>
+            <div class="quiz-option-text">
+              <strong>2-5 people</strong>
+              <span>Small team</span>
+            </div>
+          </div>
+          <div class="quiz-option" onclick="selectOption(this, 'team_size', '6-20 people')">
+            <div class="quiz-option-icon">👥</div>
+            <div class="quiz-option-text">
+              <strong>6-20 people</strong>
+              <span>Growing business</span>
+            </div>
+          </div>
+          <div class="quiz-option" onclick="selectOption(this, 'team_size', '20+ people')">
+            <div class="quiz-option-icon">🏢</div>
+            <div class="quiz-option-text">
+              <strong>20+ people</strong>
+              <span>Established company</span>
+            </div>
+          </div>
+        </div>
+        <div class="quiz-nav">
+          <button class="btn btn-secondary" onclick="goToStep(2)">Back</button>
+          <span></span>
+        </div>
+      </div>
+
+      <!-- Step 4: Contact Info -->
+      <div class="quiz-step" id="step-4">
+        <div class="step-number">Almost done</div>
+        <h2>Where should we send your custom recommendation?</h2>
+        <p class="subtitle">We'll review your answers and get back to you within 24 hours with a tailored AI solution.</p>
+
+        <div class="quiz-summary">
+          <div class="quiz-summary-item">
+            <span class="quiz-summary-label">Industry</span>
+            <span class="quiz-summary-value" id="summary-industry">-</span>
+          </div>
+          <div class="quiz-summary-item">
+            <span class="quiz-summary-label">Biggest Challenge</span>
+            <span class="quiz-summary-value" id="summary-challenge">-</span>
+          </div>
+          <div class="quiz-summary-item">
+            <span class="quiz-summary-label">Team Size</span>
+            <span class="quiz-summary-value" id="summary-team">-</span>
+          </div>
+        </div>
+
+        <form class="contact-form" onsubmit="handleQuizSubmit(event)">
+          <div class="form-group">
+            <label class="form-label">Your Name</label>
+            <input type="text" name="name" class="form-input" placeholder="Full name" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Email</label>
+            <input type="email" name="email" class="form-input" placeholder="you@company.com" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Phone</label>
+            <input type="tel" name="phone" class="form-input" placeholder="(555) 123-4567" required>
+          </div>
+          <label style="display: flex; align-items: flex-start; gap: 8px; margin-bottom: var(--spacing-md); cursor: pointer;">
+            <input type="checkbox" required style="margin-top: 3px; accent-color: var(--cyan);">
+            <span style="font-size: 0.8rem; color: rgba(255, 255, 255, 0.6); line-height: 1.4;">I agree to receive a custom AI recommendation and follow-up from Bogen.ai.</span>
+          </label>
+          <button type="submit" class="btn btn-primary" style="width: 100%;">Get My Custom Recommendation</button>
+        </form>
+
+        <div class="quiz-nav" style="margin-top: var(--spacing-md);">
+          <button class="btn btn-secondary" onclick="goToStep(3)">Back</button>
+          <span></span>
+        </div>
+      </div>
+
+      <!-- Success -->
+      <div class="quiz-step" id="step-success">
+        <div class="quiz-result">
+          <h2>We're On It</h2>
+          <p style="color: rgba(255,255,255,0.7); font-size: 1.1rem; max-width: 500px; margin: 0 auto var(--spacing-lg);">Thank you for taking the time. A member of our team will review your answers and reach out within 24 hours with a tailored recommendation.</p>
+
+          <div class="quiz-summary">
+            <div class="quiz-summary-item">
+              <span class="quiz-summary-label">Industry</span>
+              <span class="quiz-summary-value" id="final-industry">-</span>
+            </div>
+            <div class="quiz-summary-item">
+              <span class="quiz-summary-label">Challenge</span>
+              <span class="quiz-summary-value" id="final-challenge">-</span>
+            </div>
+            <div class="quiz-summary-item">
+              <span class="quiz-summary-label">Team Size</span>
+              <span class="quiz-summary-value" id="final-team">-</span>
+            </div>
+          </div>
+
+          <div style="margin-top: var(--spacing-xl);">
+            <p style="color: rgba(255,255,255,0.5); margin-bottom: var(--spacing-md);">While you wait, check these out:</p>
+            <div style="display: flex; gap: var(--spacing-sm); justify-content: center; flex-wrap: wrap;">
+              <a href="/book" class="btn btn-secondary">Read the Book</a>
+              <a href="/video-archive" class="btn btn-secondary">Watch Videos</a>
+              <a href="/edmunds-mastermind" class="btn btn-secondary">Join Mastermind</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-bottom">
+        <p>&copy; 2026 Bogen.ai. All rights reserved.</p>
+        <p>Boca Raton, FL | <a href="mailto:info@bogen.ai">info@bogen.ai</a></p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="/js/common.js"></script>
+  <script>
+    const answers = {};
+
+    function selectOption(el, field, value) {
+      answers[field] = value;
+
+      // Highlight selection
+      el.parentElement.querySelectorAll('.quiz-option').forEach(o => o.classList.remove('selected'));
+      el.classList.add('selected');
+
+      // Auto-advance after short delay
+      setTimeout(() => {
+        if (field === 'industry') goToStep(2);
+        else if (field === 'challenge') goToStep(3);
+        else if (field === 'team_size') goToStep(4);
+      }, 300);
+    }
+
+    function goToStep(step) {
+      // Validate previous steps
+      if (step === 2 && !answers.industry) return;
+      if (step === 3 && !answers.challenge) return;
+      if (step === 4 && !answers.team_size) return;
+
+      // Hide all steps
+      document.querySelectorAll('.quiz-step').forEach(s => s.classList.remove('active'));
+
+      // Show target step
+      const target = document.getElementById('step-' + step);
+      target.classList.remove('active');
+      // Force reflow for animation
+      void target.offsetWidth;
+      target.classList.add('active');
+
+      // Update progress bar
+      for (let i = 1; i <= 4; i++) {
+        const prog = document.getElementById('prog-' + i);
+        prog.classList.remove('active', 'done');
+        if (i < step) prog.classList.add('done');
+        else if (i === step) prog.classList.add('active');
+      }
+
+      // Update summary on step 4
+      if (step === 4) {
+        document.getElementById('summary-industry').textContent = answers.industry || '-';
+        document.getElementById('summary-challenge').textContent = answers.challenge || '-';
+        document.getElementById('summary-team').textContent = answers.team_size || '-';
+      }
+
+      // Re-highlight previous selection if going back
+      if (step <= 3) {
+        const fieldMap = { 1: 'industry', 2: 'challenge', 3: 'team_size' };
+        const field = fieldMap[step];
+        if (answers[field]) {
+          target.querySelectorAll('.quiz-option').forEach(o => {
+            const text = o.querySelector('.quiz-option-text strong').textContent;
+            if (answers[field].startsWith(text)) o.classList.add('selected');
+            else o.classList.remove('selected');
+          });
+        }
+      }
+    }
+
+    async function handleQuizSubmit(e) {
+      e.preventDefault();
+      const form = e.target;
+      const formData = new FormData(form);
+
+      try {
+        await fetch('/api/services/inquiry', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            industry: answers.industry,
+            challenge: answers.challenge,
+            team_size: answers.team_size,
+            name: formData.get('name'),
+            email: formData.get('email'),
+            phone: formData.get('phone')
+          })
+        });
+      } catch (err) {
+        console.error('Submit error:', err);
+      }
+
+      // Show success
+      document.querySelectorAll('.quiz-step').forEach(s => s.classList.remove('active'));
+      document.getElementById('step-success').classList.add('active');
+      document.querySelectorAll('.quiz-progress-step').forEach(p => p.classList.add('done'));
+
+      document.getElementById('final-industry').textContent = answers.industry;
+      document.getElementById('final-challenge').textContent = answers.challenge;
+      document.getElementById('final-team').textContent = answers.team_size;
+    }
+  </script>
+
+</body>
+</html>
