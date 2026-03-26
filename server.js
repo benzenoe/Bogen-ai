@@ -110,13 +110,13 @@ app.post('/api/book/speaker-inquiry', async (req, res) => {
 // Service inquiry capture
 app.post('/api/services/inquiry', async (req, res) => {
   try {
-    const { industry, challenge, team_size, name, email, phone } = req.body;
+    const { industry, challenge, team_size, name, email, phone, company, business_description } = req.body;
     if (!industry || !challenge || !team_size || !name || !email || !phone) {
       return res.status(400).json({ error: 'All fields are required' });
     }
     await dbPool.query(
-      'INSERT INTO service_inquiries (industry, challenge, team_size, name, email, phone) VALUES ($1, $2, $3, $4, $5, $6)',
-      [industry, challenge, team_size, name, email, phone]
+      'INSERT INTO service_inquiries (industry, challenge, team_size, name, email, phone, company, business_description) VALUES ($1, $2, $3, $4, $5, $6, $7, $8)',
+      [industry, challenge, team_size, name, email, phone, company || '', business_description || '']
     );
     res.json({ success: true });
   } catch (error) {
