@@ -89,6 +89,31 @@
       background: rgba(100, 181, 246, 0.1);
     }
 
+    .quiz-option.selected .quiz-option-check {
+      display: flex;
+    }
+
+    .quiz-option-check {
+      display: none;
+      width: 22px;
+      height: 22px;
+      min-width: 22px;
+      border-radius: 50%;
+      background: var(--cyan);
+      align-items: center;
+      justify-content: center;
+      color: var(--dark-navy);
+      font-size: 0.75rem;
+      font-weight: 700;
+    }
+
+    .multi-hint {
+      color: var(--cyan);
+      font-size: 0.8rem;
+      font-style: italic;
+      margin-top: var(--spacing-sm);
+    }
+
     .quiz-option-icon {
       font-size: 1.5rem;
       min-width: 40px;
@@ -292,51 +317,56 @@
         </div>
       </div>
 
-      <!-- Step 2: Challenge -->
+      <!-- Step 2: Challenge (multi-select) -->
       <div class="quiz-step" id="step-2">
         <div class="step-number">Step 2 of 3</div>
-        <h2>What's your biggest challenge right now?</h2>
-        <p class="subtitle">Pick the one that keeps you up at night.</p>
+        <h2>What are your biggest challenges right now?</h2>
+        <p class="subtitle">Select all that apply.</p>
         <div class="quiz-options">
-          <div class="quiz-option" onclick="selectOption(this, 'challenge', 'Getting more leads and clients')">
+          <div class="quiz-option" onclick="toggleChallenge(this, 'Getting more leads and clients')">
             <div class="quiz-option-icon">📈</div>
             <div class="quiz-option-text">
               <strong>Getting more leads and clients</strong>
               <span>Need a steady pipeline of qualified prospects</span>
             </div>
+            <div class="quiz-option-check">&#10003;</div>
           </div>
-          <div class="quiz-option" onclick="selectOption(this, 'challenge', 'Saving time on repetitive tasks')">
+          <div class="quiz-option" onclick="toggleChallenge(this, 'Saving time on repetitive tasks')">
             <div class="quiz-option-icon">⏰</div>
             <div class="quiz-option-text">
               <strong>Saving time on repetitive tasks</strong>
               <span>Drowning in admin work, emails, scheduling</span>
             </div>
+            <div class="quiz-option-check">&#10003;</div>
           </div>
-          <div class="quiz-option" onclick="selectOption(this, 'challenge', 'Better customer communication')">
+          <div class="quiz-option" onclick="toggleChallenge(this, 'Better customer communication')">
             <div class="quiz-option-icon">💬</div>
             <div class="quiz-option-text">
               <strong>Better customer communication</strong>
               <span>Leads fall through the cracks, slow response times</span>
             </div>
+            <div class="quiz-option-check">&#10003;</div>
           </div>
-          <div class="quiz-option" onclick="selectOption(this, 'challenge', 'Creating content and marketing')">
+          <div class="quiz-option" onclick="toggleChallenge(this, 'Creating content and marketing')">
             <div class="quiz-option-icon">📱</div>
             <div class="quiz-option-text">
               <strong>Creating content and marketing</strong>
               <span>Social media, emails, blog posts -- never enough time</span>
             </div>
+            <div class="quiz-option-check">&#10003;</div>
           </div>
-          <div class="quiz-option" onclick="selectOption(this, 'challenge', 'Scaling without hiring')">
+          <div class="quiz-option" onclick="toggleChallenge(this, 'Scaling without hiring')">
             <div class="quiz-option-icon">🚀</div>
             <div class="quiz-option-text">
               <strong>Scaling without hiring</strong>
               <span>Need to grow but can't afford more staff yet</span>
             </div>
+            <div class="quiz-option-check">&#10003;</div>
           </div>
         </div>
         <div class="quiz-nav">
           <button class="btn btn-secondary" onclick="goToStep(1)">Back</button>
-          <span></span>
+          <button class="btn btn-primary" id="challenge-continue" onclick="goToStep(3)" disabled style="opacity: 0.5;">Continue</button>
         </div>
       </div>
 
@@ -475,6 +505,7 @@
   <script src="/js/common.js"></script>
   <script>
     const answers = {};
+    const selectedChallenges = new Set();
 
     function selectOption(el, field, value) {
       answers[field] = value;
@@ -486,9 +517,31 @@
       // Auto-advance after short delay
       setTimeout(() => {
         if (field === 'industry') goToStep(2);
-        else if (field === 'challenge') goToStep(3);
         else if (field === 'team_size') goToStep(4);
       }, 300);
+    }
+
+    function toggleChallenge(el, value) {
+      if (selectedChallenges.has(value)) {
+        selectedChallenges.delete(value);
+        el.classList.remove('selected');
+      } else {
+        selectedChallenges.add(value);
+        el.classList.add('selected');
+      }
+
+      // Update answers
+      answers.challenge = Array.from(selectedChallenges).join(', ');
+
+      // Enable/disable continue button
+      const btn = document.getElementById('challenge-continue');
+      if (selectedChallenges.size > 0) {
+        btn.disabled = false;
+        btn.style.opacity = '1';
+      } else {
+        btn.disabled = true;
+        btn.style.opacity = '0.5';
+      }
     }
 
     function goToStep(step) {
@@ -522,17 +575,28 @@
         document.getElementById('summary-team').textContent = answers.team_size || '-';
       }
 
-      // Re-highlight previous selection if going back
-      if (step <= 3) {
-        const fieldMap = { 1: 'industry', 2: 'challenge', 3: 'team_size' };
-        const field = fieldMap[step];
-        if (answers[field]) {
-          target.querySelectorAll('.quiz-option').forEach(o => {
-            const text = o.querySelector('.quiz-option-text strong').textContent;
-            if (answers[field].startsWith(text)) o.classList.add('selected');
-            else o.classList.remove('selected');
-          });
-        }
+      // Re-highlight previous selections if going back
+      if (step === 1 && answers.industry) {
+        target.querySelectorAll('.quiz-option').forEach(o => {
+          const text = o.querySelector('.quiz-option-text strong').textContent;
+          if (answers.industry.startsWith(text)) o.classList.add('selected');
+          else o.classList.remove('selected');
+        });
+      } else if (step === 2) {
+        target.querySelectorAll('.quiz-option').forEach(o => {
+          const text = o.querySelector('.quiz-option-text strong').textContent;
+          if (selectedChallenges.has(text)) o.classList.add('selected');
+          else o.classList.remove('selected');
+        });
+        const btn = document.getElementById('challenge-continue');
+        btn.disabled = selectedChallenges.size === 0;
+        btn.style.opacity = selectedChallenges.size > 0 ? '1' : '0.5';
+      } else if (step === 3 && answers.team_size) {
+        target.querySelectorAll('.quiz-option').forEach(o => {
+          const text = o.querySelector('.quiz-option-text strong').textContent;
+          if (answers.team_size === text) o.classList.add('selected');
+          else o.classList.remove('selected');
+        });
       }
     }
 

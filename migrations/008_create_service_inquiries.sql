@@ -2,7 +2,7 @@
 CREATE TABLE IF NOT EXISTS service_inquiries (
   id SERIAL PRIMARY KEY,
   industry VARCHAR(100) NOT NULL,
-  challenge VARCHAR(100) NOT NULL,
+  challenge TEXT NOT NULL,
   team_size VARCHAR(50) NOT NULL,
   name VARCHAR(255) NOT NULL,
   email VARCHAR(255) NOT NULL,
