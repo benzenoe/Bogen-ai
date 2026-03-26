@@ -357,6 +357,27 @@ p {
   font-weight: 400;
 }
 
+.nav-login-btn {
+  animation: loginPulse 2s ease-in-out infinite;
+  border: 1px solid rgba(100, 181, 246, 0.4);
+  border-radius: 4px;
+  padding: 6px 12px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.nav-login-btn:hover {
+  animation: none;
+  border-color: var(--cyan);
+  box-shadow: 0 0 15px rgba(100, 181, 246, 0.5);
+}
+
+@keyframes loginPulse {
+  0%, 100% { border-color: rgba(100, 181, 246, 0.4); box-shadow: 0 0 5px rgba(100, 181, 246, 0.1); }
+  50% { border-color: var(--cyan); box-shadow: 0 0 15px rgba(100, 181, 246, 0.4); }
+}
+
 /* Dropdown Navigation */
 .nav-dropdown {
   position: relative;
@@ -504,23 +525,8 @@ p {
   left: 0;
   right: 0;
   bottom: 0;
-  background: linear-gradient(90deg, #1a2332 0%, #00d4ff 100%);
+  background: linear-gradient(135deg, var(--dark-navy) 0%, var(--navy) 50%, var(--dark-navy) 100%);
   z-index: 0;
-}
-
-.masthead-bg::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-image: url('/images/woman-at-computer.png');
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  opacity: 0.2;
-  z-index: 1;
 }
 
 .neural-network {
