@@ -95,7 +95,7 @@
 
     .book-hero-grid {
       display: grid;
-      grid-template-columns: 1fr 1.2fr;
+      grid-template-columns: 1.4fr 1fr;
       gap: var(--spacing-xl);
       align-items: center;
       position: relative;
@@ -107,15 +107,37 @@
     }
 
     .book-cover-img {
-      max-width: 360px;
+      max-width: 600px;
       width: 100%;
-      border-radius: 4px;
+      border-radius: 8px;
       box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5), 0 0 40px rgba(100, 181, 246, 0.1);
       transition: transform var(--transition-normal);
     }
 
     .book-cover-img:hover {
       transform: translateY(-4px);
+    }
+
+    .book-buy-link {
+      display: inline-block;
+      margin-top: var(--spacing-md);
+      padding: 16px 48px;
+      font-size: 1.35rem;
+      font-weight: 700;
+      letter-spacing: 0.03em;
+      color: #fff;
+      background: linear-gradient(135deg, var(--cyan), #0077b6);
+      border-radius: 8px;
+      text-decoration: none;
+      box-shadow: 0 0 24px rgba(0, 168, 225, 0.5);
+      transition: transform 0.2s, box-shadow 0.2s;
+      animation: amazonPulse 2s ease-in-out infinite;
+    }
+
+    .book-buy-link:hover {
+      animation: none;
+      transform: scale(1.07);
+      box-shadow: 0 0 36px rgba(0, 168, 225, 0.8);
     }
 
     .book-hero-content .tagline {
@@ -691,7 +713,12 @@
       }
 
       .book-cover-img {
-        max-width: 260px;
+        max-width: 480px;
+      }
+
+      .book-buy-link {
+        font-size: 1.15rem;
+        padding: 14px 36px;
       }
 
       .book-hero-content h1 {
@@ -783,7 +810,9 @@
     <div class="container">
       <div class="book-hero-grid">
         <div class="book-cover-wrapper">
-          <a href="https://www.amazon.com/dp/B0GTRS9DVF" target="_blank" rel="noopener"><img src="/images/book-cover.png" alt="Prompt to Close: The AI Playbook for Real Estate Professionals by Edmund Bogen" class="book-cover-img" onerror="this.style.display='none'"></a>
+          <a href="https://www.amazon.com/dp/B0GTRS9DVF" target="_blank" rel="noopener"><img src="/images/book-cover-wide.png" alt="Prompt to Close: The AI Playbook for Real Estate Professionals by Edmund Bogen" class="book-cover-img" onerror="this.style.display='none'"></a>
+          <br>
+          <a href="https://www.amazon.com/dp/B0GTRS9DVF" target="_blank" rel="noopener" class="book-buy-link">Buy on Amazon</a>
         </div>
         <div class="book-hero-content">
           <div class="tagline">Your Prompt to Close Companion Page</div>
