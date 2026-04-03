@@ -1,0 +1,864 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<style>
+  @page {
+    size: letter;
+    margin: 0.65in 0.7in 0.85in 0.7in;
+    @bottom-center {
+      content: "bogen.ai  |  (424) 587-0840  |  edmund@bogenhomes.com";
+      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      font-size: 7.5pt;
+      color: #94a3b8;
+      padding-top: 8pt;
+    }
+    @bottom-right {
+      content: counter(page);
+      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      font-size: 7.5pt;
+      color: #94a3b8;
+    }
+  }
+  @page:first {
+    margin-top: 0;
+    margin-bottom: 0;
+    @bottom-center { content: none; }
+    @bottom-right { content: none; }
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 9.5pt;
+    line-height: 1.55;
+    color: #1a1a1a;
+  }
+
+  /* COVER PAGE */
+  .cover {
+    page-break-after: always;
+    width: 8.5in;
+    height: 11in;
+    background: linear-gradient(160deg, #0f2a3f 0%, #1a3a52 55%, #24527A 100%);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 1.5in;
+    position: relative;
+    overflow: hidden;
+  }
+  .cover::before {
+    content: '';
+    position: absolute;
+    top: -80px; right: -80px;
+    width: 400px; height: 400px;
+    background: radial-gradient(circle, rgba(100,181,246,0.15) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+  .cover-badge {
+    display: inline-block;
+    background: rgba(100,181,246,0.2);
+    border: 1px solid rgba(100,181,246,0.4);
+    color: #64b5f6;
+    font-size: 8pt;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 5pt 14pt;
+    border-radius: 100px;
+    margin-bottom: 24pt;
+  }
+  .cover h1 {
+    color: #fff;
+    font-size: 32pt;
+    font-weight: 700;
+    line-height: 1.15;
+    margin-bottom: 8pt;
+    letter-spacing: -0.02em;
+  }
+  .cover h1 span { color: #64b5f6; }
+  .cover h2 {
+    color: rgba(255,255,255,0.6);
+    font-size: 14pt;
+    font-weight: 400;
+    margin-bottom: 36pt;
+    max-width: 4.5in;
+  }
+  .cover-line {
+    width: 60px;
+    height: 2px;
+    background: #64b5f6;
+    margin: 0 auto 24pt;
+  }
+  .cover-author {
+    color: rgba(255,255,255,0.85);
+    font-size: 11pt;
+    font-weight: 500;
+    margin-bottom: 4pt;
+  }
+  .cover-source {
+    color: rgba(255,255,255,0.45);
+    font-size: 8.5pt;
+    margin-bottom: 28pt;
+  }
+  .cover-cta {
+    background: rgba(100,181,246,0.12);
+    border: 1px solid rgba(100,181,246,0.25);
+    border-radius: 8pt;
+    padding: 14pt 20pt;
+    max-width: 4in;
+  }
+  .cover-cta p {
+    color: rgba(255,255,255,0.7);
+    font-size: 8.5pt;
+    line-height: 1.5;
+    margin-bottom: 6pt;
+  }
+  .cover-cta .phone {
+    color: #64b5f6;
+    font-size: 13pt;
+    font-weight: 700;
+    letter-spacing: 0.03em;
+  }
+  .cover-cta .phone-label {
+    color: rgba(255,255,255,0.45);
+    font-size: 7.5pt;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+
+  /* INTERIOR PAGES */
+  h2.phase-title {
+    font-size: 16pt;
+    font-weight: 700;
+    color: #1a3a52;
+    margin-bottom: 3pt;
+    padding-top: 4pt;
+  }
+  .phase-days {
+    font-size: 9pt;
+    color: #64b5f6;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 12pt;
+  }
+  .phase-intro {
+    font-size: 9pt;
+    color: #555;
+    margin-bottom: 14pt;
+    line-height: 1.6;
+    max-width: 6.5in;
+  }
+
+  /* Task Row */
+  .task-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 8pt;
+    padding: 7pt 0;
+    border-bottom: 0.5pt solid #e8edf2;
+    page-break-inside: avoid;
+  }
+  .task-row:last-child { border-bottom: none; }
+  .task-checkbox {
+    width: 13pt;
+    height: 13pt;
+    border: 1.5pt solid #b0c4d8;
+    border-radius: 3pt;
+    flex-shrink: 0;
+    margin-top: 1pt;
+  }
+  .task-content { flex: 1; }
+  .task-day-label {
+    font-size: 7.5pt;
+    font-weight: 700;
+    color: #1a3a52;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin-bottom: 1pt;
+  }
+  .task-title {
+    font-size: 9.5pt;
+    font-weight: 600;
+    color: #1a1a1a;
+    line-height: 1.35;
+  }
+  .task-detail {
+    font-size: 8.5pt;
+    color: #666;
+    line-height: 1.45;
+    margin-top: 1pt;
+  }
+  .task-meta {
+    display: flex;
+    gap: 8pt;
+    margin-top: 3pt;
+  }
+  .task-meta-item {
+    font-size: 7pt;
+    font-weight: 600;
+    color: #8899aa;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    background: #f0f4f8;
+    padding: 1.5pt 6pt;
+    border-radius: 100pt;
+  }
+  .task-meta-tool {
+    background: #e8f4fc;
+    color: #1a3a52;
+  }
+
+  /* Milestone */
+  .milestone {
+    background: #f0f7fc;
+    border: 1pt solid #d0e3f0;
+    border-left: 3pt solid #64b5f6;
+    border-radius: 6pt;
+    padding: 10pt 12pt;
+    margin-top: 14pt;
+    margin-bottom: 6pt;
+    page-break-inside: avoid;
+  }
+  .milestone-label {
+    font-size: 7.5pt;
+    font-weight: 700;
+    color: #1a3a52;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 4pt;
+  }
+  .milestone p {
+    font-size: 8.5pt;
+    color: #444;
+    line-height: 1.55;
+  }
+
+  /* Cost Section */
+  .cost-section {
+    page-break-before: always;
+    padding-top: 8pt;
+  }
+  .cost-section h2 {
+    font-size: 16pt;
+    font-weight: 700;
+    color: #1a3a52;
+    margin-bottom: 14pt;
+  }
+  .cost-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 14pt;
+    font-size: 9.5pt;
+  }
+  .cost-table th {
+    text-align: left;
+    font-size: 7.5pt;
+    font-weight: 700;
+    color: #8899aa;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    padding: 6pt 8pt;
+    border-bottom: 1.5pt solid #d0e3f0;
+  }
+  .cost-table td {
+    padding: 7pt 8pt;
+    border-bottom: 0.5pt solid #e8edf2;
+  }
+  .cost-table .total-row td {
+    border-top: 1.5pt solid #1a3a52;
+    font-weight: 700;
+    color: #1a3a52;
+    padding-top: 8pt;
+  }
+  .cost-table .price { text-align: right; font-weight: 600; color: #1a3a52; }
+  .cost-note {
+    font-size: 8.5pt;
+    color: #666;
+    line-height: 1.6;
+    max-width: 6in;
+    margin-bottom: 20pt;
+  }
+
+  /* ROI Section */
+  .roi-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 14pt;
+    font-size: 9pt;
+  }
+  .roi-table th {
+    text-align: left;
+    font-size: 7.5pt;
+    font-weight: 700;
+    color: #fff;
+    background: #1a3a52;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    padding: 6pt 8pt;
+  }
+  .roi-table td {
+    padding: 5pt 8pt;
+    border-bottom: 0.5pt solid #e8edf2;
+    font-size: 8.5pt;
+  }
+  .roi-table tr:nth-child(even) { background: #f8fafc; }
+  .roi-improve { color: #2d7d52; font-weight: 700; }
+
+  /* Notes Section */
+  .notes-section {
+    page-break-before: always;
+    padding-top: 8pt;
+  }
+  .notes-section h2 {
+    font-size: 16pt;
+    font-weight: 700;
+    color: #1a3a52;
+    margin-bottom: 6pt;
+  }
+  .notes-section p {
+    font-size: 9pt;
+    color: #666;
+    margin-bottom: 16pt;
+  }
+  .notes-lines {
+    border-top: 0.5pt solid #d0e3f0;
+  }
+  .notes-line {
+    height: 28pt;
+    border-bottom: 0.5pt solid #e8edf2;
+  }
+
+  /* CTA Footer Block */
+  .cta-block {
+    background: #f0f7fc;
+    border: 1pt solid #d0e3f0;
+    border-radius: 8pt;
+    padding: 16pt 20pt;
+    text-align: center;
+    margin-top: 24pt;
+    page-break-inside: avoid;
+  }
+  .cta-block h3 {
+    font-size: 12pt;
+    font-weight: 700;
+    color: #1a3a52;
+    margin-bottom: 4pt;
+  }
+  .cta-block p {
+    font-size: 9pt;
+    color: #555;
+    line-height: 1.55;
+    margin-bottom: 8pt;
+    max-width: 5in;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .cta-phone {
+    font-size: 16pt;
+    font-weight: 700;
+    color: #1a3a52;
+    letter-spacing: 0.02em;
+    margin-bottom: 2pt;
+  }
+  .cta-web {
+    font-size: 9pt;
+    color: #64b5f6;
+    font-weight: 600;
+  }
+  .cta-services {
+    display: flex;
+    justify-content: center;
+    gap: 16pt;
+    margin-top: 10pt;
+    flex-wrap: wrap;
+  }
+  .cta-service {
+    font-size: 7.5pt;
+    font-weight: 600;
+    color: #1a3a52;
+    background: #fff;
+    border: 0.5pt solid #d0e3f0;
+    padding: 4pt 10pt;
+    border-radius: 100pt;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+
+  /* Page break helpers */
+  .page-break { page-break-before: always; }
+</style>
+</head>
+<body>
+
+<!-- COVER PAGE -->
+<div class="cover">
+  <div class="cover-badge">Chapter 16 &bull; Prompt to Close</div>
+  <h1>Your 90-Day<br><span>AI Implementation Plan</span></h1>
+  <h2>Day-by-day checklist to build a fully AI-integrated real estate practice</h2>
+  <div class="cover-line"></div>
+  <div class="cover-author">Edmund Bogen</div>
+  <div class="cover-source">From <em>Prompt to Close: The AI Playbook for Real Estate Professionals</em></div>
+  <div class="cover-cta">
+    <p>Ready for one-on-one coaching or want to explore what AI can do for your business?</p>
+    <div class="phone">(424) 587-0840</div>
+    <div class="phone-label">Call or text to get started</div>
+  </div>
+</div>
+
+<!-- PHASE 1 -->
+<h2 class="phase-title">Phase 1: Foundation Setup</h2>
+<div class="phase-days">Days 1-7 &bull; Total: ~3.5 Hours</div>
+<div class="phase-intro">The first week is about getting your tools in place and establishing habits. Skip this phase, and everything you build later will be shaky.</div>
+
+<div class="task-row">
+  <div class="task-checkbox"></div>
+  <div class="task-content">
+    <div class="task-day-label">Day 1</div>
+    <div class="task-title">Create ChatGPT Plus and Claude Pro accounts</div>
+    <div class="task-detail">Run one conversation with each -- ask about your neighborhood market.</div>
+    <div class="task-meta"><span class="task-meta-item">30 min</span><span class="task-meta-item task-meta-tool">Both</span></div>
+  </div>
+</div>
+
+<div class="task-row">
+  <div class="task-checkbox"></div>
+  <div class="task-content">
+    <div class="task-day-label">Day 2</div>
+    <div class="task-title">Export MLS data and generate first AI-powered CMA</div>
+    <div class="task-detail">Export sold and active listings for your farm area as CSV. Use the master CMA prompt from Chapter 3.</div>
+    <div class="task-meta"><span class="task-meta-item">45 min</span><span class="task-meta-item task-meta-tool">Claude</span></div>
+  </div>
+</div>
+
+<div class="task-row">
+  <div class="task-checkbox"></div>
+  <div class="task-content">
+    <div class="task-day-label">Day 3</div>
+    <div class="task-title">Create first social media content</div>
+    <div class="task-detail">Use the Interested Suitor framework from Chapter 4. Post it.</div>
+    <div class="task-meta"><span class="task-meta-item">20 min</span><span class="task-meta-item task-meta-tool">ChatGPT</span></div>
+  </div>
+</div>
+
+<div class="task-row">
+  <div class="task-checkbox"></div>
+  <div class="task-content">
+    <div class="task-day-label">Day 4</div>
+    <div class="task-title">Build your first Claude Skill</div>
+    <div class="task-detail">Create a reusable instruction set for your brand voice (Chapter 5).</div>
+    <div class="task-meta"><span class="task-meta-item">30 min</span><span class="task-meta-item task-meta-tool">Claude</span></div>
+  </div>
+</div>
+
+<div class="task-row">
+  <div class="task-checkbox"></div>
+  <div class="task-content">
+    <div class="task-day-label">Day 5</div>
+    <div class="task-title">Upload state contract and run Risk Radar</div>
+    <div class="task-detail">Upload your standard contract to a Claude Project. Run your first Risk Radar comparison on a recent contract.</div>
+    <div class="task-meta"><span class="task-meta-item">30 min</span><span class="task-meta-item task-meta-tool">Claude</span></div>
+  </div>
+</div>
+
+<div class="task-row">
+  <div class="task-checkbox"></div>
+  <div class="task-content">
+    <div class="task-day-label">Day 6</div>
+    <div class="task-title">Generate first Client Whisperer weekly update</div>
+    <div class="task-detail">Create a weekly update for an active transaction using the Client Whisperer prompt.</div>
+    <div class="task-meta"><span class="task-meta-item">20 min</span><span class="task-meta-item task-meta-tool">ChatGPT</span></div>
+  </div>
+</div>
+
+<div class="task-row">
+  <div class="task-checkbox"></div>
+  <div class="task-content">
+    <div class="task-day-label">Day 7</div>
+    <div class="task-title">Review results and establish daily AI habit</div>
+    <div class="task-detail">Review all outputs from the week, adjust prompts, and commit to a daily practice schedule.</div>
+    <div class="task-meta"><span class="task-meta-item">30 min</span><span class="task-meta-item task-meta-tool">Both</span></div>
+  </div>
+</div>
+
+<div class="milestone">
+  <div class="milestone-label">Phase 1 Milestone</div>
+  <p>By Day 7 you should have both AI platforms active, one CMA you can print and send, one piece of content posted, your brand skill built, your standard contract uploaded, and at least one contract comparison completed.</p>
+</div>
+
+<!-- PHASE 2 -->
+<div class="page-break"></div>
+<h2 class="phase-title">Phase 2: Core Systems Integration</h2>
+<div class="phase-days">Days 8-21 &bull; Target: 8-12 Hours Saved/Week</div>
+<div class="phase-intro">With your foundation set, Phase 2 builds the systems that transform how you handle every transaction. Each system you implement makes the others more powerful.</div>
+
+<div class="task-row">
+  <div class="task-checkbox"></div>
+  <div class="task-content">
+    <div class="task-day-label">Days 8-9</div>
+    <div class="task-title">Build FOS Detector workflow</div>
+    <div class="task-detail">Set up your Fraud/Oversight/Scam detection workflow for suspicious communications.</div>
+    <div class="task-meta"><span class="task-meta-item">45 min</span><span class="task-meta-item task-meta-tool">Both</span></div>
+  </div>
+</div>
+
+<div class="task-row">
+  <div class="task-checkbox"></div>
+  <div class="task-content">
+    <div class="task-day-label">Days 10-11</div>
+    <div class="task-title">Create listing presentation AI template</div>
+    <div class="task-detail">Build a reusable template that generates listing presentations from property data.</div>
+    <div class="task-meta"><span class="task-meta-item">60 min</span><span class="task-meta-item task-meta-tool">ChatGPT</span></div>
+  </div>
+</div>
+
+<div class="task-row">
+  <div class="task-checkbox"></div>
+  <div class="task-content">
+    <div class="task-day-label">Days 12-13</div>
+    <div class="task-title">Set up AI-powered market analysis workflow</div>
+    <div class="task-detail">Build a repeatable workflow for generating market analyses from MLS data.</div>
+    <div class="task-meta"><span class="task-meta-item">45 min</span><span class="task-meta-item task-meta-tool">Claude</span></div>
+  </div>
+</div>
+
+<div class="task-row">
+  <div class="task-checkbox"></div>
+  <div class="task-content">
+    <div class="task-day-label">Day 14</div>
+    <div class="task-title">Week 2 review -- test all systems with real transactions</div>
+    <div class="task-detail">Run each workflow against a real transaction to validate outputs.</div>
+    <div class="task-meta"><span class="task-meta-item">60 min</span><span class="task-meta-item task-meta-tool">Both</span></div>
+  </div>
+</div>
+
+<div class="task-row">
+  <div class="task-checkbox"></div>
+  <div class="task-content">
+    <div class="task-day-label">Days 15-16</div>
+    <div class="task-title">Build social media content generation system</div>
+    <div class="task-detail">Create a system that produces a week's worth of posts in one session.</div>
+    <div class="task-meta"><span class="task-meta-item">60 min</span><span class="task-meta-item task-meta-tool">ChatGPT</span></div>
+  </div>
+</div>
+
+<div class="task-row">
+  <div class="task-checkbox"></div>
+  <div class="task-content">
+    <div class="task-day-label">Days 17-18</div>
+    <div class="task-title">Create email newsletter AI workflow</div>
+    <div class="task-detail">Build a repeatable process for drafting and formatting email newsletters.</div>
+    <div class="task-meta"><span class="task-meta-item">45 min</span><span class="task-meta-item task-meta-tool">ChatGPT</span></div>
+  </div>
+</div>
+
+<div class="task-row">
+  <div class="task-checkbox"></div>
+  <div class="task-content">
+    <div class="task-day-label">Days 19-20</div>
+    <div class="task-title">Set up lead response automation templates</div>
+    <div class="task-detail">Create AI templates for instant, personalized lead responses.</div>
+    <div class="task-meta"><span class="task-meta-item">45 min</span><span class="task-meta-item task-meta-tool">Claude</span></div>
+  </div>
+</div>
+
+<div class="task-row">
+  <div class="task-checkbox"></div>
+  <div class="task-content">
+    <div class="task-day-label">Day 21</div>
+    <div class="task-title">Week 3 review -- measure time savings</div>
+    <div class="task-detail">Track hours saved vs. pre-AI baseline. Adjust workflows as needed.</div>
+    <div class="task-meta"><span class="task-meta-item">60 min</span><span class="task-meta-item task-meta-tool">Both</span></div>
+  </div>
+</div>
+
+<div class="milestone">
+  <div class="milestone-label">Phase 2 Milestone</div>
+  <p>By Day 21 you should have active workflows for contract review, deadline management, client communication, listing presentations, market analysis, social media content, email newsletters, and lead response.</p>
+</div>
+
+<!-- PHASE 3 -->
+<div class="page-break"></div>
+<h2 class="phase-title">Phase 3: Advanced Implementation</h2>
+<div class="phase-days">Days 22-45 &bull; Target: 15-20 Hours Saved/Week</div>
+<div class="phase-intro">You move from basic AI usage to strategic AI integration. The systems you built in Phase 2 become the foundation for more sophisticated workflows that your competitors won't have for years.</div>
+
+<div class="task-row">
+  <div class="task-checkbox"></div>
+  <div class="task-content">
+    <div class="task-day-label">Days 22-25</div>
+    <div class="task-title">Implement LLM Stacking methodology</div>
+    <div class="task-detail">Start routing content through multiple AI platforms in sequence (Chapter 6). Generate in one tool, refine in the other.</div>
+    <div class="task-meta"><span class="task-meta-item">60 min</span><span class="task-meta-item task-meta-tool">Both</span></div>
+  </div>
+</div>
+
+<div class="task-row">
+  <div class="task-checkbox"></div>
+  <div class="task-content">
+    <div class="task-day-label">Days 26-30</div>
+    <div class="task-title">Build advanced contract intelligence</div>
+    <div class="task-detail">Process enough contracts to start recognizing patterns -- which agents modify what, which clauses change most often.</div>
+    <div class="task-meta"><span class="task-meta-item">45 min/day</span><span class="task-meta-item task-meta-tool">Claude</span></div>
+  </div>
+</div>
+
+<div class="task-row">
+  <div class="task-checkbox"></div>
+  <div class="task-content">
+    <div class="task-day-label">Days 31-35</div>
+    <div class="task-title">Quality enhancement across all content</div>
+    <div class="task-detail">Use the LLM Stacking Quality Enhancement prompt to review and improve all AI-generated content.</div>
+    <div class="task-meta"><span class="task-meta-item">30 min/day</span><span class="task-meta-item task-meta-tool">Both</span></div>
+  </div>
+</div>
+
+<div class="task-row">
+  <div class="task-checkbox"></div>
+  <div class="task-content">
+    <div class="task-day-label">Days 36-40</div>
+    <div class="task-title">Advanced prompt engineering techniques</div>
+    <div class="task-detail">Refine your prompts based on 30+ days of output. Build prompt chains for complex workflows.</div>
+    <div class="task-meta"><span class="task-meta-item">30 min/day</span><span class="task-meta-item task-meta-tool">Both</span></div>
+  </div>
+</div>
+
+<div class="task-row">
+  <div class="task-checkbox"></div>
+  <div class="task-content">
+    <div class="task-day-label">Days 41-45</div>
+    <div class="task-title">Measure lead conversion and client satisfaction</div>
+    <div class="task-detail">Track response rates, client feedback, and conversion metrics. Document improvements.</div>
+    <div class="task-meta"><span class="task-meta-item">60 min</span><span class="task-meta-item task-meta-tool">Both</span></div>
+  </div>
+</div>
+
+<div class="milestone">
+  <div class="milestone-label">Phase 3 Milestone</div>
+  <p>By Day 45 you should be running LLM stacking workflows for all major content, using advanced prompt engineering, and beginning to see measurable improvements in lead conversion and client satisfaction.</p>
+</div>
+
+<!-- PHASE 4 -->
+<div class="page-break"></div>
+<h2 class="phase-title">Phase 4: Automation & Scale</h2>
+<div class="phase-days">Days 46-60 &bull; Build Claude Skills</div>
+<div class="phase-intro">Phase 4 is about automating what you've built manually so you can focus on the high-value activities only you can do -- relationships, negotiations, and human judgment.</div>
+
+<div class="task-row">
+  <div class="task-checkbox"></div>
+  <div class="task-content">
+    <div class="task-day-label">Days 46-48</div>
+    <div class="task-title">Build Claude Skill: Contract Review Automation</div>
+    <div class="task-detail">Create a Skill that automatically compares uploaded contracts against your baseline, flags modifications, and extracts deadlines.</div>
+    <div class="task-meta"><span class="task-meta-item">60 min</span><span class="task-meta-item task-meta-tool">Claude</span></div>
+  </div>
+</div>
+
+<div class="task-row">
+  <div class="task-checkbox"></div>
+  <div class="task-content">
+    <div class="task-day-label">Days 49-51</div>
+    <div class="task-title">Build Claude Skill: Listing Presentation Generator</div>
+    <div class="task-detail">Create a Skill that generates complete listing presentations from property data input.</div>
+    <div class="task-meta"><span class="task-meta-item">60 min</span><span class="task-meta-item task-meta-tool">Claude</span></div>
+  </div>
+</div>
+
+<div class="task-row">
+  <div class="task-checkbox"></div>
+  <div class="task-content">
+    <div class="task-day-label">Days 52-54</div>
+    <div class="task-title">Build Claude Skill: Client Communication System</div>
+    <div class="task-detail">Create a Skill that generates personalized client updates, milestone notifications, and follow-up sequences.</div>
+    <div class="task-meta"><span class="task-meta-item">60 min</span><span class="task-meta-item task-meta-tool">Claude</span></div>
+  </div>
+</div>
+
+<div class="task-row">
+  <div class="task-checkbox"></div>
+  <div class="task-content">
+    <div class="task-day-label">Days 55-57</div>
+    <div class="task-title">Build social media content engine</div>
+    <div class="task-detail">Create an automated workflow that produces platform-specific content from a single topic input.</div>
+    <div class="task-meta"><span class="task-meta-item">60 min</span><span class="task-meta-item task-meta-tool">Both</span></div>
+  </div>
+</div>
+
+<div class="task-row">
+  <div class="task-checkbox"></div>
+  <div class="task-content">
+    <div class="task-day-label">Days 58-60</div>
+    <div class="task-title">Integration review and optimization</div>
+    <div class="task-detail">Test all Skills end-to-end. Identify bottlenecks and refine.</div>
+    <div class="task-meta"><span class="task-meta-item">90 min</span><span class="task-meta-item task-meta-tool">Both</span></div>
+  </div>
+</div>
+
+<div class="milestone">
+  <div class="milestone-label">Phase 4 Milestone</div>
+  <p>By Day 60 you should have at least 3 Claude Skills active, content creation time reduced substantially, and transaction management should feel almost effortless. You are now operating at a level most agents won't reach for 2-3 years.</p>
+</div>
+
+<!-- PHASE 5 -->
+<div class="page-break"></div>
+<h2 class="phase-title">Phase 5: Mastery & Optimization</h2>
+<div class="phase-days">Days 61-90 &bull; Refine, Measure, Scale</div>
+<div class="phase-intro">The final thirty days are about refinement, optimization, and preparing for what comes next. You've built the systems. Now you make them excellent.</div>
+
+<div class="task-row">
+  <div class="task-checkbox"></div>
+  <div class="task-content">
+    <div class="task-day-label">Days 61-65</div>
+    <div class="task-title">Measure your ROI</div>
+    <div class="task-detail">Track 3 key metrics: time saved per week, lead response time improvement, client satisfaction. Compare to pre-AI baseline.</div>
+    <div class="task-meta"><span class="task-meta-item">90 min</span><span class="task-meta-item task-meta-tool">Both</span></div>
+  </div>
+</div>
+
+<div class="task-row">
+  <div class="task-checkbox"></div>
+  <div class="task-content">
+    <div class="task-day-label">Days 66-70</div>
+    <div class="task-title">Optimize contract review workflow</div>
+    <div class="task-detail">Target: 85-90% time improvement (45-60 min down to 5-8 min per contract).</div>
+    <div class="task-meta"><span class="task-meta-item">30 min/day</span><span class="task-meta-item task-meta-tool">Claude</span></div>
+  </div>
+</div>
+
+<div class="task-row">
+  <div class="task-checkbox"></div>
+  <div class="task-content">
+    <div class="task-day-label">Days 71-75</div>
+    <div class="task-title">Optimize content and communication workflows</div>
+    <div class="task-detail">Target: 75-85% time improvement on social media (4-6 hrs/week down to 45-60 min).</div>
+    <div class="task-meta"><span class="task-meta-item">30 min/day</span><span class="task-meta-item task-meta-tool">Both</span></div>
+  </div>
+</div>
+
+<div class="task-row">
+  <div class="task-checkbox"></div>
+  <div class="task-content">
+    <div class="task-day-label">Days 76-80</div>
+    <div class="task-title">Explore agentic AI</div>
+    <div class="task-detail">Try one agentic AI tool that takes autonomous action on your behalf. Understand the shift from "ask and receive" to "delegate and supervise."</div>
+    <div class="task-meta"><span class="task-meta-item">60 min</span><span class="task-meta-item task-meta-tool">Both</span></div>
+  </div>
+</div>
+
+<div class="task-row">
+  <div class="task-checkbox"></div>
+  <div class="task-content">
+    <div class="task-day-label">Days 81-85</div>
+    <div class="task-title">Refine and document your system</div>
+    <div class="task-detail">Create SOPs for every AI workflow you've built. Make them transferable to team members or assistants.</div>
+    <div class="task-meta"><span class="task-meta-item">45 min/day</span><span class="task-meta-item task-meta-tool">Both</span></div>
+  </div>
+</div>
+
+<div class="task-row">
+  <div class="task-checkbox"></div>
+  <div class="task-content">
+    <div class="task-day-label">Days 86-90</div>
+    <div class="task-title">Plan your next 90 days</div>
+    <div class="task-detail">Set goals for the next quarter. Identify new AI capabilities to explore. Schedule your continued learning.</div>
+    <div class="task-meta"><span class="task-meta-item">60 min</span><span class="task-meta-item task-meta-tool">Both</span></div>
+  </div>
+</div>
+
+<div class="milestone">
+  <div class="milestone-label">Phase 5 Milestone</div>
+  <p>By Day 90 you should have a complete AI-integrated practice with measurable ROI, optimized workflows, at least one agentic AI exploration completed, and a clear plan for continued growth. You are now in the top 5% of technology-enabled agents in the country.</p>
+</div>
+
+<!-- COST & ROI PAGE -->
+<div class="cost-section">
+  <h2>What This Actually Costs</h2>
+
+  <table class="cost-table">
+    <thead>
+      <tr><th>Tool</th><th>Covers</th><th style="text-align:right;">Monthly Cost</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>ChatGPT Plus</td><td>Content, presentations, social media</td><td class="price">$20</td></tr>
+      <tr><td>Claude Pro</td><td>Contracts, CMAs, Skills, analysis</td><td class="price">$20</td></tr>
+      <tr><td>Canva Pro</td><td>Graphics, templates, social visuals</td><td class="price">$13</td></tr>
+      <tr class="total-row"><td>Entry-Level Stack</td><td>Phases 1-3</td><td class="price">$53/mo</td></tr>
+      <tr><td>+ Perplexity Pro</td><td>Research, market data, fact-checking</td><td class="price">$20</td></tr>
+      <tr><td>+ Genspark</td><td>Advanced research, competitive intel</td><td class="price">Free-$20</td></tr>
+      <tr class="total-row"><td>Full Stack</td><td>All Phases</td><td class="price">$73-93/mo</td></tr>
+    </tbody>
+  </table>
+
+  <p class="cost-note">The average commission on a $500,000 home at 2.5% is $12,500 -- 134 months of the full stack. One additional deal per year makes the investment irrelevant.</p>
+
+  <h2 style="margin-top: 20pt;">Expected Results by Day 60</h2>
+
+  <table class="roi-table">
+    <thead>
+      <tr><th>Task</th><th>Before AI</th><th>After AI</th><th>Improvement</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Contract review</td><td>45-60 min</td><td>5-8 min</td><td class="roi-improve">85-90%</td></tr>
+      <tr><td>Weekly client updates</td><td>30 min/client</td><td>5 min/client</td><td class="roi-improve">83%</td></tr>
+      <tr><td>Social media content</td><td>4-6 hrs/week</td><td>45-60 min/week</td><td class="roi-improve">75-85%</td></tr>
+      <tr><td>Lead response time</td><td>2-4 hours</td><td>Under 15 min</td><td class="roi-improve">87-94%</td></tr>
+      <tr><td>Listing presentations</td><td>3-4 hours each</td><td>45 min each</td><td class="roi-improve">75-81%</td></tr>
+    </tbody>
+  </table>
+
+  <div class="cta-block">
+    <h3>Ready to Accelerate Your Results?</h3>
+    <p>Don't do this alone. Get one-on-one coaching from Edmund, join 200+ agents in the Mastermind, or explore custom AI solutions for your business.</p>
+    <div class="cta-phone">(424) 587-0840</div>
+    <div class="cta-web">bogen.ai</div>
+    <div class="cta-services">
+      <span class="cta-service">1-on-1 Coaching</span>
+      <span class="cta-service">Mastermind Membership</span>
+      <span class="cta-service">Custom AI Builds</span>
+      <span class="cta-service">Speaking Engagements</span>
+    </div>
+  </div>
+</div>
+
+<!-- NOTES PAGE -->
+<div class="notes-section">
+  <h2>Notes & Observations</h2>
+  <p>Track your wins, questions, and ideas as you work through each phase.</p>
+  <div class="notes-lines">
+    <div class="notes-line"></div>
+    <div class="notes-line"></div>
+    <div class="notes-line"></div>
+    <div class="notes-line"></div>
+    <div class="notes-line"></div>
+    <div class="notes-line"></div>
+    <div class="notes-line"></div>
+    <div class="notes-line"></div>
+    <div class="notes-line"></div>
+    <div class="notes-line"></div>
+    <div class="notes-line"></div>
+    <div class="notes-line"></div>
+    <div class="notes-line"></div>
+    <div class="notes-line"></div>
+    <div class="notes-line"></div>
+    <div class="notes-line"></div>
+    <div class="notes-line"></div>
+    <div class="notes-line"></div>
+    <div class="notes-line"></div>
+    <div class="notes-line"></div>
+  </div>
+
+  <div class="cta-block" style="margin-top: 30pt;">
+    <h3>Questions? Need Help?</h3>
+    <p>Call or text Edmund's team to discuss one-on-one coaching, Mastermind membership, or any of our AI consulting services.</p>
+    <div class="cta-phone">(424) 587-0840</div>
+    <div class="cta-web">bogen.ai &bull; edmund@bogenhomes.com</div>
+  </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>First 7 Days Quick Start Card - Edmund Bogen</title>
+  <style>
+    @page {
+      size: letter;
+      margin: 0.75in 0.75in 1in 0.75in;
+      @bottom-center {
+        content: "bogen.ai  |  (424) 587-0840  |  edmund@bogenhomes.com";
+        font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        font-size: 8pt;
+        color: #999;
+      }
+    }
+    @page :first {
+      margin: 0;
+      @bottom-center { content: none; }
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      font-size: 10pt;
+      line-height: 1.5;
+      color: #333;
+    }
+
+    /* COVER */
+    .cover {
+      page-break-after: always;
+      width: 100%;
+      height: 100vh;
+      background: linear-gradient(135deg, #0f2a3f 0%, #1a3a52 60%, #24527A 100%);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 2in;
+      color: #fff;
+    }
+    .cover-badge {
+      display: inline-block;
+      border: 1px solid rgba(100,181,246,0.5);
+      color: #64b5f6;
+      font-size: 9pt;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 4pt 14pt;
+      border-radius: 50pt;
+      margin-bottom: 20pt;
+    }
+    .cover h1 {
+      font-size: 28pt;
+      font-weight: 700;
+      line-height: 1.2;
+      margin-bottom: 8pt;
+    }
+    .cover h1 span { color: #64b5f6; }
+    .cover-sub {
+      font-size: 12pt;
+      color: rgba(255,255,255,0.7);
+      max-width: 380pt;
+      margin-bottom: 30pt;
+    }
+    .cover-stats {
+      display: flex;
+      gap: 40pt;
+      margin-top: 20pt;
+    }
+    .cover-stat-num {
+      font-size: 22pt;
+      font-weight: 700;
+      color: #fff;
+      display: block;
+    }
+    .cover-stat-label {
+      font-size: 8pt;
+      color: rgba(255,255,255,0.55);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+    .cover-author {
+      margin-top: 40pt;
+      font-size: 10pt;
+      color: rgba(255,255,255,0.5);
+    }
+    .cover-author strong { color: #64b5f6; }
+
+    /* PAGE */
+    .page { page-break-after: always; }
+    .page:last-child { page-break-after: auto; }
+
+    h2 {
+      font-size: 16pt;
+      font-weight: 700;
+      color: #1a3a52;
+      margin-bottom: 6pt;
+      padding-bottom: 4pt;
+      border-bottom: 2px solid #64b5f6;
+    }
+    p { margin-bottom: 6pt; }
+    .intro { font-size: 10pt; color: #555; margin-bottom: 12pt; line-height: 1.6; }
+
+    /* Day Card */
+    .day-card {
+      border: 1pt solid #ddd;
+      border-radius: 6pt;
+      padding: 8pt 10pt;
+      margin-bottom: 6pt;
+      page-break-inside: avoid;
+      display: flex;
+      gap: 8pt;
+    }
+    .day-check {
+      width: 18pt; height: 18pt;
+      border: 1.5pt solid #bbb;
+      border-radius: 4pt;
+      flex-shrink: 0;
+      margin-top: 2pt;
+    }
+    .day-info { flex: 1; }
+    .day-meta {
+      display: flex;
+      align-items: center;
+      gap: 6pt;
+      margin-bottom: 2pt;
+    }
+    .day-num {
+      font-size: 10pt;
+      font-weight: 700;
+      color: #1a3a52;
+    }
+    .day-time {
+      font-size: 7.5pt;
+      font-weight: 600;
+      color: #888;
+      background: #f0f0f0;
+      padding: 1pt 6pt;
+      border-radius: 50pt;
+      text-transform: uppercase;
+    }
+    .day-tool {
+      font-size: 7pt;
+      font-weight: 700;
+      color: #fff;
+      background: #1a3a52;
+      padding: 1pt 6pt;
+      border-radius: 50pt;
+      text-transform: uppercase;
+    }
+    .day-title {
+      font-size: 10.5pt;
+      font-weight: 700;
+      color: #1a3a52;
+      margin-bottom: 2pt;
+    }
+    .day-desc {
+      font-size: 9pt;
+      color: #555;
+      line-height: 1.5;
+    }
+    .day-chapter {
+      font-size: 7.5pt;
+      color: #aaa;
+      margin-top: 2pt;
+    }
+
+    /* Milestone */
+    .milestone {
+      border: 1pt solid #1a3a52;
+      border-radius: 6pt;
+      padding: 10pt;
+      margin-top: 10pt;
+      page-break-inside: avoid;
+    }
+    .milestone h3 {
+      font-size: 11pt;
+      font-weight: 700;
+      color: #1a3a52;
+      margin-bottom: 6pt;
+    }
+    .milestone ul {
+      padding-left: 16pt;
+      margin-bottom: 6pt;
+    }
+    .milestone li {
+      font-size: 9pt;
+      color: #444;
+      line-height: 1.5;
+      margin-bottom: 1pt;
+    }
+    .milestone-quote {
+      font-size: 8.5pt;
+      color: #888;
+      font-style: italic;
+      border-top: 1pt solid #eee;
+      padding-top: 6pt;
+      margin-top: 6pt;
+    }
+
+    /* Cost */
+    .cost-box {
+      border: 1pt solid #ddd;
+      border-radius: 6pt;
+      padding: 8pt 10pt;
+      margin-top: 8pt;
+      page-break-inside: avoid;
+    }
+    .cost-box h4 { font-size: 10pt; font-weight: 700; color: #1a3a52; margin-bottom: 4pt; }
+    .cost-row {
+      display: flex; justify-content: space-between; padding: 2pt 0;
+      font-size: 9pt; border-bottom: 1pt solid #f0f0f0;
+    }
+    .cost-row:last-child { border-bottom: none; }
+    .cost-value { font-weight: 700; color: #1a3a52; }
+    .cost-total { border-top: 2pt solid #1a3a52; margin-top: 4pt; padding-top: 4pt; }
+    .cost-total span:first-child { font-weight: 700; }
+
+    /* What's Next */
+    .next-box {
+      border: 1pt solid #ddd;
+      border-radius: 6pt;
+      padding: 8pt 10pt;
+      margin-top: 8pt;
+      page-break-inside: avoid;
+    }
+    .next-box h4 { font-size: 10pt; font-weight: 700; color: #1a3a52; margin-bottom: 4pt; }
+    .next-box p { font-size: 9pt; color: #555; }
+    .next-phases {
+      display: flex; flex-wrap: wrap; gap: 4pt; margin-top: 6pt;
+    }
+    .next-phase {
+      font-size: 7.5pt; font-weight: 600; color: #666;
+      background: #f0f0f0; padding: 2pt 8pt; border-radius: 50pt;
+    }
+
+    /* CTA */
+    .cta-block {
+      background: #f5f8fb;
+      border: 1pt solid #1a3a52;
+      border-radius: 6pt;
+      padding: 14pt;
+      text-align: center;
+      margin-top: 14pt;
+      page-break-inside: avoid;
+    }
+    .cta-block h3 { color: #1a3a52; font-size: 12pt; margin: 0 0 4pt; }
+    .cta-block p { font-size: 9pt; color: #555; margin-bottom: 6pt; }
+    .cta-phone { font-size: 16pt; font-weight: 700; color: #1a3a52; }
+    .cta-url { font-size: 10pt; color: #64b5f6; font-weight: 600; }
+    .cta-services {
+      list-style: none; padding: 0; margin-top: 8pt;
+      display: flex; justify-content: center; gap: 16pt;
+      font-size: 8.5pt; color: #666;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- COVER -->
+  <div class="cover">
+    <div class="cover-badge">Chapter 16 &middot; Prompt to Close</div>
+    <h1>The <span>First 7 Days</span><br>Quick Start Card</h1>
+    <p class="cover-sub">Phase 1 of your 90-day plan as a pocket reference. Seven days, seven tasks, 3.5 hours total.</p>
+    <div class="cover-stats">
+      <div>
+        <span class="cover-stat-num">7</span>
+        <span class="cover-stat-label">Days</span>
+      </div>
+      <div>
+        <span class="cover-stat-num">7</span>
+        <span class="cover-stat-label">Tasks</span>
+      </div>
+      <div>
+        <span class="cover-stat-num">3.5</span>
+        <span class="cover-stat-label">Hours Total</span>
+      </div>
+    </div>
+    <p class="cover-author">By <strong>Edmund Bogen</strong> | bogen.ai</p>
+  </div>
+
+  <!-- PAGE 2: THE 7 DAYS -->
+  <div class="page">
+    <h2>Your First 7 Days</h2>
+    <p class="intro">Start today. Not tomorrow. Not Monday. The hardest part isn't the technology -- it's committing to the first week. After that, the results do the talking.</p>
+
+    <div class="day-card">
+      <div class="day-check"></div>
+      <div class="day-info">
+        <div class="day-meta">
+          <span class="day-num">Day 1</span>
+          <span class="day-time">30 min</span>
+          <span class="day-tool">Both</span>
+        </div>
+        <div class="day-title">Create Your AI Accounts</div>
+        <div class="day-desc">ChatGPT Plus ($20/mo) + Claude Pro ($20/mo). Run one conversation with each -- ask about your neighborhood market.</div>
+        <div class="day-chapter">Chapter 2: Your AI Toolkit</div>
+      </div>
+    </div>
+
+    <div class="day-card">
+      <div class="day-check"></div>
+      <div class="day-info">
+        <div class="day-meta">
+          <span class="day-num">Day 2</span>
+          <span class="day-time">45 min</span>
+          <span class="day-tool">Claude</span>
+        </div>
+        <div class="day-title">Generate Your First AI-Powered CMA</div>
+        <div class="day-desc">Export MLS data (sold + active) as CSV. Use the master CMA prompt. Print it -- you now have a deliverable.</div>
+        <div class="day-chapter">Chapter 3: The CMA Machine</div>
+      </div>
+    </div>
+
+    <div class="day-card">
+      <div class="day-check"></div>
+      <div class="day-info">
+        <div class="day-meta">
+          <span class="day-num">Day 3</span>
+          <span class="day-time">20 min</span>
+          <span class="day-tool">ChatGPT</span>
+        </div>
+        <div class="day-title">Create and Post Your First AI Content</div>
+        <div class="day-desc">Use the Interested Suitor framework. Post it today.</div>
+        <div class="day-chapter">Chapter 4: Content Creation</div>
+      </div>
+    </div>
+
+    <div class="day-card">
+      <div class="day-check"></div>
+      <div class="day-info">
+        <div class="day-meta">
+          <span class="day-num">Day 4</span>
+          <span class="day-time">30 min</span>
+          <span class="day-tool">Claude</span>
+        </div>
+        <div class="day-title">Build Your First Claude Skill</div>
+        <div class="day-desc">Create a brand voice instruction set -- colors, tone, audience, territory. Build once, invoke forever.</div>
+        <div class="day-chapter">Chapter 5: Claude Skills</div>
+      </div>
+    </div>
+
+    <div class="day-card">
+      <div class="day-check"></div>
+      <div class="day-info">
+        <div class="day-meta">
+          <span class="day-num">Day 5</span>
+          <span class="day-time">30 min</span>
+          <span class="day-tool">Claude</span>
+        </div>
+        <div class="day-title">Set Up the Risk Radar</div>
+        <div class="day-desc">Upload your state's standard contract to a Claude Project. Run your first comparison on a recent contract.</div>
+        <div class="day-chapter">Chapter 11: Risk Radar</div>
+      </div>
+    </div>
+
+    <div class="day-card">
+      <div class="day-check"></div>
+      <div class="day-info">
+        <div class="day-meta">
+          <span class="day-num">Day 6</span>
+          <span class="day-time">20 min</span>
+          <span class="day-tool">ChatGPT</span>
+        </div>
+        <div class="day-title">Generate Your First Client Whisperer Update</div>
+        <div class="day-desc">Create a weekly update for an active transaction. Personalized, professional, ready to send.</div>
+        <div class="day-chapter">Chapter 8: Client Communication</div>
+      </div>
+    </div>
+
+    <div class="day-card">
+      <div class="day-check"></div>
+      <div class="day-info">
+        <div class="day-meta">
+          <span class="day-num">Day 7</span>
+          <span class="day-time">30 min</span>
+          <span class="day-tool">Both</span>
+        </div>
+        <div class="day-title">Review, Adjust, Commit</div>
+        <div class="day-desc">Review all outputs. Adjust prompts. Block 30 minutes daily on your calendar. Establish the habit.</div>
+        <div class="day-chapter">Chapter 16: Implementation Plan</div>
+      </div>
+    </div>
+
+    <div class="milestone">
+      <h3>Phase 1 Milestone: By Day 7</h3>
+      <ul>
+        <li>Both AI platforms active</li>
+        <li>One CMA you can print and send</li>
+        <li>One piece of content posted</li>
+        <li>Your brand skill built</li>
+        <li>Standard contract uploaded + first comparison complete</li>
+        <li>One Client Whisperer update sent</li>
+        <li>Daily AI habit established</li>
+      </ul>
+      <p class="milestone-quote">"I've been doing this wrong for two decades. Not wrong -- just harder than it needed to be." -- 20-year veteran, Denver</p>
+    </div>
+  </div>
+
+  <!-- PAGE 3: COST + WHAT'S NEXT + CTA -->
+  <div class="page">
+    <h2>Phase 1 Investment</h2>
+
+    <div class="cost-box">
+      <h4>What This Costs</h4>
+      <div class="cost-row"><span>ChatGPT Plus</span><span class="cost-value">$20/mo</span></div>
+      <div class="cost-row"><span>Claude Pro</span><span class="cost-value">$20/mo</span></div>
+      <div class="cost-row cost-total"><span>Total</span><span class="cost-value">$40/mo + 3.5 hours</span></div>
+    </div>
+
+    <p style="font-size:9pt;color:#666;margin-top:8pt;">The average commission on a $500,000 home at 2.5% is $12,500 -- 312 months of the Phase 1 stack. One additional deal per year makes the investment irrelevant.</p>
+
+    <div class="next-box">
+      <h4>What Comes After Day 7</h4>
+      <p>Phase 1 is just the beginning. The full 90-day plan takes you through four more phases to a fully AI-integrated practice. Visit bogen.ai/implementation-tracker for the complete interactive checklist.</p>
+      <div class="next-phases">
+        <span class="next-phase">Phase 2: Core Systems (Days 8-21)</span>
+        <span class="next-phase">Phase 3: Advanced (Days 22-45)</span>
+        <span class="next-phase">Phase 4: Automation (Days 46-60)</span>
+        <span class="next-phase">Phase 5: Mastery (Days 61-90)</span>
+      </div>
+    </div>
+
+    <h2 style="margin-top:16pt;">5 Action Items (Start Today)</h2>
+    <div class="day-card" style="flex-direction:column;gap:0;">
+      <ol style="padding-left:16pt;margin:0;">
+        <li style="font-size:9.5pt;color:#444;margin-bottom:4pt;"><strong>Start Phase 1 today.</strong> Not tomorrow. Not Monday. Create your accounts and upload your first contract.</li>
+        <li style="font-size:9.5pt;color:#444;margin-bottom:4pt;"><strong>Block 30 minutes daily for AI practice.</strong> Put it on your calendar. Protect it. Consistency beats intensity.</li>
+        <li style="font-size:9.5pt;color:#444;margin-bottom:4pt;"><strong>Join a community of AI-forward agents.</strong> Learning alone is slow. Learning with others is fast.</li>
+        <li style="font-size:9.5pt;color:#444;margin-bottom:4pt;"><strong>Track your results from Day 1.</strong> You can't improve what you don't measure.</li>
+        <li style="font-size:9.5pt;color:#444;margin-bottom:0;"><strong>Share what you learn.</strong> Becoming known as AI-forward attracts clients who value innovation.</li>
+      </ol>
+    </div>
+
+    <div class="cta-block">
+      <h3>Don't Do This Alone</h3>
+      <p>One-on-one coaching, Mastermind membership, custom AI builds, and speaking engagements.</p>
+      <div class="cta-phone">(424) 587-0840</div>
+      <div class="cta-url">bogen.ai</div>
+      <ul class="cta-services">
+        <li>1-on-1 Coaching</li>
+        <li>Mastermind Membership</li>
+        <li>Custom AI Builds</li>
+        <li>Speaking Engagements</li>
+      </ul>
+    </div>
+  </div>
+
+</body>
+</html>

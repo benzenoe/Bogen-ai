@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>LLM Stacking Cheat Sheet - Edmund Bogen</title>
+  <style>
+    @page {
+      size: letter;
+      margin: 0.75in 0.75in 1in 0.75in;
+      @bottom-center {
+        content: "bogen.ai  |  (424) 587-0840  |  edmund@bogenhomes.com";
+        font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        font-size: 8pt;
+        color: #999;
+      }
+    }
+    @page :first {
+      margin: 0;
+      @bottom-center { content: none; }
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      font-size: 10pt;
+      line-height: 1.5;
+      color: #333;
+    }
+
+    /* COVER PAGE */
+    .cover {
+      page-break-after: always;
+      width: 100%;
+      height: 100vh;
+      background: linear-gradient(135deg, #0f2a3f 0%, #1a3a52 60%, #24527A 100%);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 2in;
+      color: #fff;
+    }
+    .cover-badge {
+      display: inline-block;
+      border: 1px solid rgba(100,181,246,0.5);
+      color: #64b5f6;
+      font-size: 9pt;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 4pt 14pt;
+      border-radius: 50pt;
+      margin-bottom: 20pt;
+    }
+    .cover h1 {
+      font-size: 28pt;
+      font-weight: 700;
+      line-height: 1.2;
+      margin-bottom: 8pt;
+    }
+    .cover h1 span { color: #64b5f6; }
+    .cover-sub {
+      font-size: 12pt;
+      color: rgba(255,255,255,0.7);
+      max-width: 380pt;
+      margin-bottom: 30pt;
+    }
+    .cover-tagline {
+      font-size: 14pt;
+      font-weight: 700;
+      color: #64b5f6;
+      margin-bottom: 30pt;
+    }
+    .cover-author {
+      margin-top: 20pt;
+      font-size: 10pt;
+      color: rgba(255,255,255,0.5);
+    }
+    .cover-author strong { color: #64b5f6; }
+
+    /* PAGE CONTENT */
+    .page { page-break-after: always; }
+    .page:last-child { page-break-after: auto; }
+
+    h2 {
+      font-size: 16pt;
+      font-weight: 700;
+      color: #1a3a52;
+      margin-bottom: 6pt;
+      padding-bottom: 4pt;
+      border-bottom: 2px solid #64b5f6;
+    }
+    h3 {
+      font-size: 12pt;
+      font-weight: 700;
+      color: #1a3a52;
+      margin: 12pt 0 4pt;
+    }
+    p { margin-bottom: 6pt; font-size: 9.5pt; }
+    .intro { font-size: 10pt; color: #555; margin-bottom: 12pt; line-height: 1.6; }
+
+    /* Flow Step */
+    .flow-step {
+      border: 1pt solid #ddd;
+      border-radius: 6pt;
+      padding: 10pt;
+      margin-bottom: 8pt;
+      page-break-inside: avoid;
+    }
+    .flow-header {
+      display: flex;
+      align-items: center;
+      gap: 8pt;
+      margin-bottom: 4pt;
+    }
+    .flow-num {
+      width: 24pt; height: 24pt;
+      background: #1a3a52; color: #fff;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 11pt; font-weight: 700; flex-shrink: 0;
+    }
+    .flow-title { font-size: 12pt; font-weight: 700; color: #1a3a52; }
+    .flow-tool {
+      margin-left: auto;
+      font-size: 8pt; font-weight: 700;
+      color: #fff; background: #1a3a52;
+      padding: 2pt 8pt; border-radius: 50pt;
+      text-transform: uppercase;
+    }
+    .flow-role { font-size: 8.5pt; color: #888; font-style: italic; margin-bottom: 4pt; }
+    .flow-step p { font-size: 9pt; color: #444; line-height: 1.5; }
+    .flow-arrow { text-align: center; font-size: 14pt; color: #1a3a52; padding: 2pt 0; }
+
+    /* Prompt Box */
+    .prompt-box {
+      background: #f5f8fb;
+      border: 1pt solid #ddd;
+      border-left: 3pt solid #1a3a52;
+      border-radius: 4pt;
+      padding: 6pt 8pt;
+      font-size: 8.5pt;
+      color: #333;
+      line-height: 1.5;
+      white-space: pre-wrap;
+      margin-top: 4pt;
+    }
+
+    /* When to Stack */
+    .when-grid {
+      display: flex; gap: 8pt; margin: 8pt 0;
+    }
+    .when-card {
+      flex: 1;
+      border: 1pt solid #ddd;
+      border-radius: 4pt;
+      padding: 8pt;
+      page-break-inside: avoid;
+    }
+    .when-card h4 { font-size: 10pt; font-weight: 700; color: #1a3a52; margin-bottom: 4pt; }
+    .when-card ul { padding-left: 14pt; margin: 0; }
+    .when-card li { font-size: 8.5pt; color: #555; line-height: 1.5; }
+
+    /* Application Card */
+    .app-card {
+      border: 1pt solid #ddd;
+      border-radius: 6pt;
+      padding: 10pt;
+      margin-bottom: 8pt;
+      page-break-inside: avoid;
+    }
+    .app-card h4 { font-size: 11pt; font-weight: 700; color: #1a3a52; margin-bottom: 4pt; }
+    .app-card ul { padding-left: 16pt; margin-bottom: 4pt; }
+    .app-card li { font-size: 9pt; color: #444; line-height: 1.5; margin-bottom: 2pt; }
+
+    /* Warning */
+    .warning-box {
+      background: #fff5f5;
+      border: 1pt solid #f5c6c6;
+      border-left: 3pt solid #dc4c3c;
+      border-radius: 4pt;
+      padding: 8pt 10pt;
+      margin: 10pt 0;
+      page-break-inside: avoid;
+    }
+    .warning-box strong { color: #dc4c3c; font-size: 9pt; }
+    .warning-box p { font-size: 9pt; color: #555; margin-bottom: 0; }
+
+    /* Tip Box */
+    .tip-box {
+      background: #f0f9f4;
+      border: 1pt solid #c8e6c9;
+      border-left: 3pt solid #2d7d52;
+      border-radius: 4pt;
+      padding: 8pt 10pt;
+      margin: 6pt 0;
+      page-break-inside: avoid;
+    }
+    .tip-box strong { color: #2d7d52; font-size: 9pt; }
+    .tip-box p { font-size: 9pt; color: #555; margin-bottom: 0; }
+
+    /* CTA Block */
+    .cta-block {
+      background: #f5f8fb;
+      border: 1pt solid #1a3a52;
+      border-radius: 6pt;
+      padding: 14pt;
+      text-align: center;
+      margin-top: 14pt;
+      page-break-inside: avoid;
+    }
+    .cta-block h3 { color: #1a3a52; margin: 0 0 4pt; }
+    .cta-block p { font-size: 9pt; color: #555; margin-bottom: 6pt; }
+    .cta-phone { font-size: 16pt; font-weight: 700; color: #1a3a52; }
+    .cta-url { font-size: 10pt; color: #64b5f6; font-weight: 600; }
+    .cta-services {
+      list-style: none; padding: 0; margin-top: 8pt;
+      display: flex; justify-content: center; gap: 16pt;
+      font-size: 8.5pt; color: #666;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- COVER -->
+  <div class="cover">
+    <div class="cover-badge">Chapter 6 &middot; Prompt to Close</div>
+    <h1>The <span>LLM Stacking</span><br>Cheat Sheet</h1>
+    <div class="cover-tagline">One AI is a liability. Two is a safeguard. Three is a system.</div>
+    <p class="cover-sub">The complete workflow for using ChatGPT, Claude, and Perplexity together to produce trusted, verified output.</p>
+    <p class="cover-author">By <strong>Edmund Bogen</strong> | bogen.ai</p>
+  </div>
+
+  <!-- PAGE 2: THE WORKFLOW -->
+  <div class="page">
+    <h2>The 4-Step Stacking Workflow</h2>
+    <p class="intro">What goes where, in what order, with which tool. Every large language model hallucinates. Stacking catches errors before they reach your clients.</p>
+
+    <div class="flow-step">
+      <div class="flow-header">
+        <div class="flow-num">1</div>
+        <div class="flow-title">Generate</div>
+        <div class="flow-tool">ChatGPT</div>
+      </div>
+      <p class="flow-role">Your enthusiastic junior associate. Talented, fast, occasionally overconfident.</p>
+      <p>First-pass content engine: property descriptions, market analyses, blog outlines, email drafts, client presentations.</p>
+      <div class="prompt-box">Create a [TYPE OF CONTENT] about [TOPIC] for [TARGET AUDIENCE]. Include [SPECIFIC REQUIREMENTS].</div>
+    </div>
+
+    <div class="flow-arrow">&#8595;</div>
+
+    <div class="flow-step">
+      <div class="flow-header">
+        <div class="flow-num">2</div>
+        <div class="flow-title">Verify</div>
+        <div class="flow-tool">Claude</div>
+      </div>
+      <p class="flow-role">Your detail-oriented quality control manager.</p>
+      <p>Fact-check the output. Identify logical inconsistencies, unsupported claims, hallucinated statistics.</p>
+      <div class="prompt-box">Fact-check the following content. Identify any claims that cannot be verified, statistics that may be inaccurate, and statements that could be misleading. Flag each issue with a brief explanation.
+
+[PASTE CHATGPT OUTPUT]</div>
+    </div>
+
+    <div class="flow-arrow">&#8595;</div>
+
+    <div class="flow-step">
+      <div class="flow-header">
+        <div class="flow-num">3</div>
+        <div class="flow-title">Fact-Check</div>
+        <div class="flow-tool">Perplexity</div>
+      </div>
+      <p class="flow-role">Your research librarian -- the one who checks the footnotes.</p>
+      <p>Searches the live internet in real-time with citations. Verify specific statistics, market trends, and claims.</p>
+      <div class="prompt-box">Verify the following specific claims with current sources: [LIST FLAGGED CLAIMS FROM CLAUDE]</div>
+    </div>
+
+    <div class="flow-arrow">&#8595;</div>
+
+    <div class="flow-step">
+      <div class="flow-header">
+        <div class="flow-num">4</div>
+        <div class="flow-title">Correct + Format</div>
+        <div class="flow-tool">Claude + Skill</div>
+      </div>
+      <p class="flow-role">Your graphic designer and brand manager. $20/month.</p>
+      <p>Run through your custom Brand Skill. Polished, on-brand, ready for client delivery.</p>
+      <div class="prompt-box">Using my [BRAND NAME] skill, rewrite the following content incorporating these corrections: [LIST CORRECTIONS]. Maintain the original structure but ensure all facts are accurate and the tone matches my brand voice.
+
+[PASTE ORIGINAL CONTENT + CORRECTIONS]</div>
+    </div>
+  </div>
+
+  <!-- PAGE 3: WHEN TO STACK + APPLICATIONS -->
+  <div class="page">
+    <h2>When to Stack</h2>
+    <p class="intro">The higher the stakes, the more AIs touch it.</p>
+
+    <div class="when-grid">
+      <div class="when-card">
+        <h4>Always Stack</h4>
+        <ul>
+          <li>Property descriptions</li>
+          <li>Listing presentations</li>
+          <li>Market analyses</li>
+          <li>Marketing materials</li>
+          <li>Client-facing content</li>
+          <li>Contracts</li>
+        </ul>
+      </div>
+      <div class="when-card">
+        <h4>Stack Key Elements</h4>
+        <ul>
+          <li>Internal reports (verify stats)</li>
+          <li>Draft emails (confirm dates)</li>
+          <li>Blog posts (check claims)</li>
+          <li>Newsletter content</li>
+        </ul>
+      </div>
+      <div class="when-card">
+        <h4>Single AI Is Fine</h4>
+        <ul>
+          <li>Internal communications</li>
+          <li>Brainstorming</li>
+          <li>Personal organization</li>
+          <li>Draft ideas for review</li>
+        </ul>
+      </div>
+    </div>
+
+    <h2>Application: Contract Stacking</h2>
+
+    <div class="app-card">
+      <h4>5-Step Contract Review</h4>
+      <ul>
+        <li><strong>Step 1 -- Baseline (ChatGPT):</strong> Upload contract. Identify all terms, deadlines, contingencies, obligations, non-standard clauses.</li>
+        <li><strong>Step 2 -- Second Review (Claude):</strong> Same contract, separately. Compare outputs. Both flagged = immediate attention.</li>
+        <li><strong>Step 3 -- Verification (Perplexity):</strong> Verify statistical claims, legal references, regulatory citations.</li>
+        <li><strong>Step 4 -- Comparison (Claude):</strong> Upload both versions: "What changed between these two documents?"</li>
+        <li><strong>Step 5 -- Deadlines:</strong> Extract every deadline, calculate dates, assign responsibility, generate calendar entries.</li>
+      </ul>
+    </div>
+
+    <h2>Application: Content Quality</h2>
+
+    <div class="app-card">
+      <ul>
+        <li><strong>Draft Phase (ChatGPT):</strong> Property details + buyer profile + tone = comprehensive first draft.</li>
+        <li><strong>Critique Phase (Claude):</strong> Identify cliches, empty claims, generic sections, inconsistencies.</li>
+        <li><strong>Refinement Phase (Either):</strong> Revise addressing every weakness while keeping strengths.</li>
+      </ul>
+    </div>
+
+    <div class="warning-box">
+      <strong>The Idiocracy Warning</strong>
+      <p>The moment you stop reading the final product, you've crossed from augmented intelligence to replaced intelligence. You are the expert. AI is the tool.</p>
+    </div>
+
+    <div class="cta-block">
+      <h3>Want Help Building Your Stacking Workflow?</h3>
+      <p>One-on-one coaching, Mastermind membership, custom AI builds, and speaking engagements.</p>
+      <div class="cta-phone">(424) 587-0840</div>
+      <div class="cta-url">bogen.ai</div>
+      <ul class="cta-services">
+        <li>1-on-1 Coaching</li>
+        <li>Mastermind Membership</li>
+        <li>Custom AI Builds</li>
+        <li>Speaking Engagements</li>
+      </ul>
+    </div>
+  </div>
+
+</body>
+</html>

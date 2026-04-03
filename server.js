@@ -314,6 +314,34 @@ app.get('/book', (req, res) => {
   res.sendFile(path.join(__dirname, 'views', 'book.html'));
 });
 
+app.get('/prompt-library', (req, res) => {
+  res.sendFile(path.join(__dirname, 'views', 'prompt-library.html'));
+});
+
+app.get('/implementation-tracker', (req, res) => {
+  res.sendFile(path.join(__dirname, 'views', 'implementation-tracker.html'));
+});
+
+app.get('/risk-radar-guide', (req, res) => {
+  res.sendFile(path.join(__dirname, 'views', 'risk-radar-guide.html'));
+});
+
+app.get('/daisy-chain-template', (req, res) => {
+  res.sendFile(path.join(__dirname, 'views', 'daisy-chain-template.html'));
+});
+
+app.get('/stacking-cheatsheet', (req, res) => {
+  res.sendFile(path.join(__dirname, 'views', 'stacking-cheatsheet.html'));
+});
+
+app.get('/quickstart-card', (req, res) => {
+  res.sendFile(path.join(__dirname, 'views', 'quickstart-card.html'));
+});
+
+app.get('/roi-calculator', (req, res) => {
+  res.sendFile(path.join(__dirname, 'views', 'roi-calculator.html'));
+});
+
 app.get('/services', (req, res) => {
   res.sendFile(path.join(__dirname, 'views', 'services.html'));
 });

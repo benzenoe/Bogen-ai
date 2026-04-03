@@ -1,0 +1,704 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LLM Stacking Cheat Sheet | Prompt to Close - Edmund Bogen</title>
+  <meta name="description" content="The 4-step LLM Stacking workflow: Generate, Verify, Fact-Check, Format. Use multiple AI platforms to catch errors before they reach your clients.">
+  <meta name="keywords" content="LLM stacking, AI fact checking, ChatGPT Claude Perplexity, real estate AI workflow, Edmund Bogen, Prompt to Close">
+
+  <meta property="og:title" content="LLM Stacking Cheat Sheet | Edmund Bogen">
+  <meta property="og:description" content="One AI is a liability. Two is a safeguard. Three is a system. The complete stacking workflow from Chapter 6.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://bogen.ai/stacking-cheatsheet">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/global.css">
+
+  <style>
+    /* Hero */
+    .st-hero {
+      position: relative;
+      padding: 160px 0 60px;
+      background: linear-gradient(135deg, var(--dark-navy) 0%, var(--navy) 60%, #24527A 100%);
+      text-align: center;
+      overflow: hidden;
+    }
+    .st-hero::before {
+      content: '';
+      position: absolute;
+      top: -60px; right: -60px;
+      width: 320px; height: 320px;
+      background: radial-gradient(circle, rgba(100,181,246,0.12) 0%, transparent 70%);
+      border-radius: 50%;
+    }
+    .st-hero-badge {
+      display: inline-block;
+      background: rgba(100,181,246,0.15);
+      border: 1px solid rgba(100,181,246,0.35);
+      color: var(--cyan);
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 0.3rem 0.9rem;
+      border-radius: 100px;
+      margin-bottom: 1.25rem;
+    }
+    .st-hero h1 {
+      font-family: var(--font-serif);
+      color: #fff;
+      font-size: clamp(2rem, 5vw, 2.75rem);
+      font-weight: 700;
+      line-height: 1.2;
+      margin-bottom: 0.75rem;
+      max-width: 700px;
+      margin-left: auto; margin-right: auto;
+    }
+    .st-hero h1 span { color: var(--cyan); }
+    .st-hero p {
+      color: rgba(255,255,255,0.7);
+      font-size: 1.05rem;
+      max-width: 580px;
+      margin: 0 auto 1.5rem;
+      line-height: 1.7;
+    }
+    .st-hero-stats {
+      display: flex;
+      justify-content: center;
+      gap: 2.5rem;
+      margin-top: 1rem;
+    }
+    .st-stat { text-align: center; }
+    .st-stat-num {
+      display: block;
+      font-family: var(--font-serif);
+      font-size: 1.75rem;
+      font-weight: 700;
+      color: #fff;
+    }
+    .st-stat-label {
+      font-size: 0.78rem;
+      color: rgba(255,255,255,0.55);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+    .st-divider {
+      width: 1px; height: 40px;
+      background: rgba(255,255,255,0.15);
+      align-self: center;
+    }
+
+    /* Download Button */
+    .dl-btn-wrap { text-align: center; padding: 1.25rem 2rem; }
+    .dl-btn-pulse {
+      display: inline-block; background: var(--cyan); color: var(--dark-navy);
+      font-size: 1.05rem; font-weight: 700; padding: 0.85rem 2.5rem;
+      border-radius: 8px; text-decoration: none; font-family: var(--font-sans);
+      animation: dlPulse 2s ease-in-out infinite;
+      box-shadow: 0 0 20px rgba(100,181,246,0.4); transition: transform 0.2s;
+    }
+    .dl-btn-pulse:hover {
+      animation: none; transform: scale(1.05);
+      box-shadow: 0 0 30px rgba(100,181,246,0.7); color: var(--dark-navy);
+    }
+    @keyframes dlPulse {
+      0%, 100% { transform: scale(1); box-shadow: 0 0 20px rgba(100,181,246,0.4); }
+      50% { transform: scale(1.05); box-shadow: 0 0 30px rgba(100,181,246,0.7); }
+    }
+
+    /* Main */
+    .st-main { max-width: 800px; margin: 0 auto; padding: 2.5rem 2rem 4rem; }
+
+    /* Intro */
+    .st-intro {
+      font-size: 0.92rem; color: rgba(255,255,255,0.65); line-height: 1.7; margin-bottom: 2rem;
+    }
+    .st-intro strong { color: rgba(255,255,255,0.85); }
+
+    /* Flow Diagram */
+    .st-flow {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      margin: 1.5rem 0 2rem;
+    }
+    .st-flow-step {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: var(--border-radius);
+      padding: 1.5rem;
+      position: relative;
+    }
+    .st-flow-step:hover { border-color: rgba(100,181,246,0.25); }
+    .st-flow-arrow {
+      text-align: center;
+      font-size: 1.5rem;
+      color: var(--cyan);
+      padding: 0.35rem 0;
+      line-height: 1;
+    }
+    .st-flow-header {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.75rem;
+      margin-bottom: 0.75rem;
+    }
+    .st-flow-num {
+      width: 36px; height: 36px;
+      background: rgba(100,181,246,0.15);
+      border: 1px solid rgba(100,181,246,0.3);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-family: var(--font-serif); font-size: 0.95rem; font-weight: 700;
+      color: var(--cyan); flex-shrink: 0;
+    }
+    .st-flow-title {
+      font-family: var(--font-serif); font-size: 1.15rem; font-weight: 700;
+      color: #fff; line-height: 1.3; padding-top: 0.3rem;
+    }
+    .st-flow-tool {
+      margin-left: auto;
+      font-size: 0.72rem; font-weight: 600;
+      color: var(--dark-navy); background: var(--cyan);
+      padding: 0.2rem 0.6rem; border-radius: 100px;
+      text-transform: uppercase; letter-spacing: 0.04em;
+      white-space: nowrap; margin-top: 0.35rem;
+    }
+    .st-flow-step p {
+      font-size: 0.9rem; color: rgba(255,255,255,0.65); line-height: 1.65; margin-bottom: 0.5rem;
+    }
+    .st-flow-step .st-role {
+      font-size: 0.82rem; color: rgba(255,255,255,0.5); font-style: italic; margin-bottom: 0.75rem;
+    }
+
+    /* Prompt Box */
+    .st-prompt-box {
+      background: rgba(15,42,63,0.6);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-left: 3px solid var(--cyan);
+      border-radius: 8px;
+      padding: 1rem 1.15rem;
+      font-size: 0.85rem;
+      color: rgba(255,255,255,0.85);
+      line-height: 1.65;
+      white-space: pre-wrap;
+      word-break: break-word;
+      position: relative;
+      margin-top: 0.5rem;
+    }
+    .st-copy-btn {
+      position: absolute; top: 0.5rem; right: 0.5rem;
+      background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 6px; padding: 0.25rem 0.6rem; font-size: 0.72rem;
+      font-weight: 600; color: var(--cyan); cursor: pointer;
+      transition: all 0.2s; font-family: var(--font-sans);
+    }
+    .st-copy-btn:hover { background: var(--cyan); color: var(--dark-navy); border-color: var(--cyan); }
+    .st-copy-btn.copied { background: #2D7D52; color: #fff; border-color: #2D7D52; }
+
+    /* Section Titles */
+    .st-section-title {
+      font-family: var(--font-serif); font-size: 1.35rem; font-weight: 700;
+      color: #fff; margin: 2.5rem 0 1rem; padding-bottom: 0.5rem;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+    .st-section-subtitle {
+      font-size: 0.88rem; color: rgba(255,255,255,0.5);
+      margin-top: -0.5rem; margin-bottom: 1.25rem;
+    }
+
+    /* When to Stack */
+    .st-when-grid {
+      display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 0.75rem; margin: 1rem 0;
+    }
+    .st-when-card {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 8px; padding: 1rem;
+    }
+    .st-when-card h4 {
+      font-family: var(--font-serif); color: #fff; font-size: 0.95rem;
+      margin-bottom: 0.4rem;
+    }
+    .st-when-card ul {
+      list-style: none; padding: 0; margin: 0;
+    }
+    .st-when-card li {
+      font-size: 0.82rem; color: rgba(255,255,255,0.55); line-height: 1.5;
+      padding: 0.15rem 0 0.15rem 0.85rem; position: relative;
+    }
+    .st-when-card li::before {
+      content: ''; position: absolute; left: 0; top: 0.5rem;
+      width: 5px; height: 5px; border-radius: 50%;
+    }
+    .st-when-always li::before { background: #e86858; }
+    .st-when-key li::before { background: #f0a500; }
+    .st-when-single li::before { background: #5dd99a; }
+
+    /* Tip Box */
+    .st-tip {
+      background: rgba(45,125,82,0.08);
+      border: 1px solid rgba(45,125,82,0.25);
+      border-left: 3px solid #2d7d52;
+      border-radius: 8px; padding: 1rem 1.15rem; margin-top: 0.75rem;
+    }
+    .st-tip h4 { color: #5dd99a; font-size: 0.85rem; font-weight: 700; margin-bottom: 0.3rem; }
+    .st-tip p { font-size: 0.85rem; color: rgba(255,255,255,0.6); line-height: 1.6; margin-bottom: 0; }
+
+    /* Warning Box */
+    .st-warning {
+      background: rgba(220,80,60,0.08);
+      border: 1px solid rgba(220,80,60,0.25);
+      border-left: 3px solid #dc4c3c;
+      border-radius: 8px; padding: 1rem 1.15rem; margin: 1.25rem 0;
+    }
+    .st-warning h4 { color: #e86858; font-size: 0.88rem; font-weight: 700; margin-bottom: 0.35rem; }
+    .st-warning p { font-size: 0.85rem; color: rgba(255,255,255,0.6); line-height: 1.6; margin-bottom: 0.35rem; }
+    .st-warning p:last-child { margin-bottom: 0; }
+
+    /* Application Cards */
+    .st-app-card {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: var(--border-radius);
+      padding: 1.5rem; margin-bottom: 1.25rem;
+    }
+    .st-app-card:hover { border-color: rgba(100,181,246,0.25); }
+    .st-app-card h4 {
+      font-family: var(--font-serif); color: #fff; font-size: 1.1rem;
+      margin-bottom: 0.5rem;
+    }
+    .st-app-card p {
+      font-size: 0.9rem; color: rgba(255,255,255,0.65); line-height: 1.65; margin-bottom: 0.5rem;
+    }
+    .st-app-card ul { list-style: none; padding: 0; }
+    .st-app-card li {
+      font-size: 0.88rem; color: rgba(255,255,255,0.65); line-height: 1.55;
+      padding: 0.25rem 0 0.25rem 1.25rem; position: relative;
+    }
+    .st-app-card li::before {
+      content: ''; position: absolute; left: 0; top: 0.6rem;
+      width: 6px; height: 6px; background: var(--cyan); border-radius: 50%;
+    }
+
+    /* CTA */
+    .st-cta {
+      background: linear-gradient(135deg, var(--dark-navy) 0%, var(--navy) 100%);
+      border: 1px solid rgba(100,181,246,0.15);
+      border-radius: var(--border-radius); padding: 2rem; margin-top: 2.5rem; text-align: center;
+    }
+    .st-cta h3 { font-family: var(--font-serif); color: #fff; font-size: 1.25rem; margin-bottom: 0.5rem; }
+    .st-cta p {
+      color: rgba(255,255,255,0.6); font-size: 0.9rem; max-width: 500px;
+      margin: 0 auto 1.25rem; line-height: 1.6;
+    }
+    .st-cta .btn { margin: 0 0.5rem; }
+
+    /* Download Modal */
+    .dl-modal-bg {
+      display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.7);
+      z-index: 9999; justify-content: center; align-items: center; padding: 1rem;
+    }
+    .dl-modal-bg.open { display: flex; }
+    .dl-modal {
+      background: var(--navy); border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 12px; padding: 2rem; max-width: 420px; width: 100%; position: relative;
+    }
+    .dl-modal-close {
+      position: absolute; top: 0.75rem; right: 0.75rem; background: none;
+      border: none; color: rgba(255,255,255,0.5); font-size: 1.25rem; cursor: pointer;
+    }
+    .dl-modal-close:hover { color: #fff; }
+    .dl-modal h3 { font-family: var(--font-serif); color: #fff; font-size: 1.25rem; margin-bottom: 0.35rem; }
+    .dl-modal p { color: rgba(255,255,255,0.6); font-size: 0.9rem; margin-bottom: 1rem; line-height: 1.5; }
+    .dl-modal label {
+      display: block; font-size: 0.8rem; font-weight: 600;
+      color: rgba(255,255,255,0.7); margin-bottom: 0.25rem; margin-top: 0.75rem;
+    }
+    .dl-modal input[type="text"],
+    .dl-modal input[type="email"] {
+      width: 100%; padding: 0.6rem 0.75rem; font-size: 0.9rem;
+      background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 8px; color: #fff; font-family: var(--font-sans);
+    }
+    .dl-modal input::placeholder { color: rgba(255,255,255,0.3); }
+    .dl-modal input:focus { border-color: var(--cyan); outline: none; }
+    .dl-modal-submit {
+      width: 100%; padding: 0.75rem; margin-top: 1rem; font-size: 1rem;
+      font-weight: 700; background: var(--cyan); color: var(--dark-navy);
+      border: none; border-radius: 8px; cursor: pointer; font-family: var(--font-sans);
+    }
+    .dl-modal-submit:hover { background: #82c8f7; }
+    .dl-modal-note { text-align: center; font-size: 0.75rem; color: rgba(255,255,255,0.4); margin-top: 0.5rem; }
+    .dl-modal-success { display: none; text-align: center; padding: 1rem 0; }
+    .dl-modal-success h4 { color: var(--cyan); font-family: var(--font-serif); font-size: 1.25rem; margin-bottom: 0.5rem; }
+    .dl-modal-success p { font-size: 0.9rem; color: rgba(255,255,255,0.6); }
+
+    @media (max-width: 640px) {
+      .st-hero-stats { gap: 1.25rem; }
+      .st-stat-num { font-size: 1.35rem; }
+      .dl-btn-pulse { font-size: 0.95rem; padding: 0.75rem 1.75rem; }
+      .st-when-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header class="header">
+    <div class="container">
+      <nav class="nav">
+        <a href="/" class="logo" style="display: flex; align-items: center; margin-left: -12px;">
+          <img src="/images/eb-logo.png" alt="Bogen.ai Logo" style="height: 100px; width: auto;">
+        </a>
+        <ul class="nav-menu">
+          <li><a href="/" class="nav-link">Home</a></li>
+          <li class="nav-dropdown">
+            <a href="/about-us" class="nav-link">About</a>
+            <ul class="dropdown-menu">
+              <li><a href="/about-us#edmund">About Edmund Bogen</a></li>
+              <li><a href="/about-us#eytan">About Eytan Benzeno</a></li>
+            </ul>
+          </li>
+          <li><a href="/services" class="nav-link">Services</a></li>
+          <li class="nav-dropdown">
+            <a href="/edmunds-mastermind" class="nav-link">Mastermind</a>
+            <ul class="dropdown-menu">
+              <li><a href="/edmunds-mastermind">Learn About Mastermind</a></li>
+              <li><a href="/contact?tab=client">Join Our Mastermind Community</a></li>
+            </ul>
+          </li>
+          <li><a href="/video-archive" class="nav-link">Video</a></li>
+          <li><a href="/book" class="nav-link active">Book</a></li>
+          <li>
+            <a href="tel:+14245870840" class="nav-link" style="color: var(--cyan); white-space: nowrap;">📞 424-587-0840</a>
+          </li>
+          <li class="nav-dropdown">
+            <a href="#" class="nav-link nav-login-btn">
+              <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="opacity: 0.8;">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
+              </svg>
+              Login
+            </a>
+            <ul class="dropdown-menu">
+              <li><a href="/client-portal">Client Portal</a></li>
+              <li><a href="/admin">Admin</a></li>
+            </ul>
+          </li>
+        </ul>
+        <button class="nav-toggle" type="button" aria-label="Toggle navigation" onclick="window.bogenAI.toggleMobileMenu()">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section class="st-hero">
+    <div class="st-hero-badge">Chapter 6 &middot; Prompt to Close</div>
+    <h1>The <span>LLM Stacking</span> Cheat Sheet</h1>
+    <p>One AI is a liability. Two is a safeguard. Three is a system. The complete workflow for using multiple AI platforms to produce trusted output.</p>
+    <div class="st-hero-stats">
+      <div class="st-stat">
+        <span class="st-stat-num">4</span>
+        <span class="st-stat-label">Steps</span>
+      </div>
+      <div class="st-divider"></div>
+      <div class="st-stat">
+        <span class="st-stat-num">3</span>
+        <span class="st-stat-label">AI Platforms</span>
+      </div>
+      <div class="st-divider"></div>
+      <div class="st-stat">
+        <span class="st-stat-num">$60</span>
+        <span class="st-stat-label">/Month Total</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- TOP DOWNLOAD -->
+  <div class="dl-btn-wrap">
+    <a href="#" onclick="openDlModal(); return false;" class="dl-btn-pulse">Download the LLM Stacking Cheat Sheet (PDF)</a>
+  </div>
+
+  <!-- MAIN -->
+  <div class="st-main">
+
+    <div class="st-intro">
+      <strong>Every large language model hallucinates.</strong> This is not a bug that will be fixed in the next update. It's a fundamental characteristic of how these models work. AI presents uncertain information with unwavering certainty -- fabricated case law in the same tone as verified market statistics. If you're using one AI to produce client-facing content, you're asking one unsupervised employee to research, write, fact-check, and approve their own work.
+    </div>
+
+    <!-- THE 4-STEP FLOW -->
+    <h2 class="st-section-title">The 4-Step Stacking Workflow</h2>
+    <p class="st-section-subtitle">What goes where, in what order, with which tool.</p>
+
+    <div class="st-flow">
+
+      <!-- STEP 1 -->
+      <div class="st-flow-step">
+        <div class="st-flow-header">
+          <div class="st-flow-num">1</div>
+          <div class="st-flow-title">Generate</div>
+          <div class="st-flow-tool">ChatGPT</div>
+        </div>
+        <p class="st-role">Your enthusiastic junior associate. Talented, fast, occasionally overconfident.</p>
+        <p>ChatGPT excels at broad research synthesis and first-draft content creation. Use it as your first-pass content engine -- property descriptions, market analyses, blog outlines, email drafts, client presentations.</p>
+        <div class="st-prompt-box" id="prompt-generate">
+          <button class="st-copy-btn" onclick="copyPrompt('prompt-generate', this)">Copy</button>
+Create a [TYPE OF CONTENT] about [TOPIC] for [TARGET AUDIENCE]. Include [SPECIFIC REQUIREMENTS].</div>
+      </div>
+
+      <div class="st-flow-arrow">&#8595;</div>
+
+      <!-- STEP 2 -->
+      <div class="st-flow-step">
+        <div class="st-flow-header">
+          <div class="st-flow-num">2</div>
+          <div class="st-flow-title">Verify</div>
+          <div class="st-flow-tool">Claude</div>
+        </div>
+        <p class="st-role">Your detail-oriented quality control manager. Catches what the associate missed.</p>
+        <p>Claude tends toward careful, nuanced analysis. Paste the ChatGPT output and ask it to fact-check -- looking for potential inaccuracies, unsupported claims, and hallucinated statistics.</p>
+        <div class="st-prompt-box" id="prompt-verify">
+          <button class="st-copy-btn" onclick="copyPrompt('prompt-verify', this)">Copy</button>
+Fact-check the following content. Identify any claims that cannot be verified, statistics that may be inaccurate, and statements that could be misleading. Flag each issue with a brief explanation.
+
+[PASTE CHATGPT OUTPUT]</div>
+      </div>
+
+      <div class="st-flow-arrow">&#8595;</div>
+
+      <!-- STEP 3 -->
+      <div class="st-flow-step">
+        <div class="st-flow-header">
+          <div class="st-flow-num">3</div>
+          <div class="st-flow-title">Fact-Check</div>
+          <div class="st-flow-tool">Perplexity</div>
+        </div>
+        <p class="st-role">Your research librarian -- the one who actually checks the footnotes.</p>
+        <p>Perplexity searches the live internet in real-time and provides citations. Use it to verify specific statistics, confirm market trends, or validate claims about communities or properties.</p>
+        <div class="st-prompt-box" id="prompt-factcheck">
+          <button class="st-copy-btn" onclick="copyPrompt('prompt-factcheck', this)">Copy</button>
+Verify the following specific claims with current sources:
+
+[LIST FLAGGED CLAIMS FROM CLAUDE]</div>
+      </div>
+
+      <div class="st-flow-arrow">&#8595;</div>
+
+      <!-- STEP 4 -->
+      <div class="st-flow-step">
+        <div class="st-flow-header">
+          <div class="st-flow-num">4</div>
+          <div class="st-flow-title">Correct + Format</div>
+          <div class="st-flow-tool">Claude + Skill</div>
+        </div>
+        <p class="st-role">Your graphic designer and brand manager rolled into one. $20/month.</p>
+        <p>Bring verified content back to Claude and run it through your custom Brand Skill. Output is polished, on-brand, and ready for client delivery without manual formatting.</p>
+        <div class="st-prompt-box" id="prompt-format">
+          <button class="st-copy-btn" onclick="copyPrompt('prompt-format', this)">Copy</button>
+Using my [BRAND NAME] skill, rewrite the following content incorporating these corrections: [LIST CORRECTIONS]. Maintain the original structure but ensure all facts are accurate and the tone matches my brand voice.
+
+[PASTE ORIGINAL CONTENT + CORRECTIONS]</div>
+      </div>
+
+    </div>
+
+    <!-- WHEN TO STACK -->
+    <h2 class="st-section-title">When to Stack vs. When Not To</h2>
+    <p class="st-section-subtitle">The higher the stakes, the more AIs touch it.</p>
+
+    <div class="st-when-grid">
+      <div class="st-when-card st-when-always">
+        <h4>Always Stack</h4>
+        <ul>
+          <li>Property descriptions</li>
+          <li>Listing presentations</li>
+          <li>Market analyses</li>
+          <li>Marketing materials</li>
+          <li>Client-facing content</li>
+          <li>Contracts</li>
+        </ul>
+      </div>
+      <div class="st-when-card st-when-key">
+        <h4>Stack Key Elements</h4>
+        <ul>
+          <li>Internal reports (verify stats)</li>
+          <li>Draft emails (confirm dates)</li>
+          <li>Blog posts (check claims)</li>
+          <li>Newsletter content</li>
+        </ul>
+      </div>
+      <div class="st-when-card st-when-single">
+        <h4>Single AI Is Fine</h4>
+        <ul>
+          <li>Internal communications</li>
+          <li>Brainstorming sessions</li>
+          <li>Personal organization</li>
+          <li>Draft ideas for review</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- APPLICATION: CONTRACT STACKING -->
+    <h2 class="st-section-title">Application: Contract Stacking</h2>
+    <p class="st-section-subtitle">The single application that justifies multiple AI subscriptions by itself.</p>
+
+    <div class="st-app-card">
+      <h4>The 5-Step Contract Review</h4>
+      <ul>
+        <li><strong>Step 1 -- Baseline Analysis (ChatGPT):</strong> Upload contract. Identify all key terms, deadlines, contingencies, obligations, and non-standard clauses. Don't tell it what to look for.</li>
+        <li><strong>Step 2 -- Independent Second Review (Claude):</strong> Upload the same contract separately. Compare outputs. Anything flagged by both deserves immediate attention.</li>
+        <li><strong>Step 3 -- Specific Verification (Perplexity):</strong> Verify any statistical claims, legal references, or regulatory citations from either AI's analysis.</li>
+        <li><strong>Step 4 -- Comparison Analysis (Claude):</strong> If reviewing a modified contract, upload both versions: "What changed between these two documents?"</li>
+        <li><strong>Step 5 -- Deadline Extraction:</strong> Extract every deadline, calculate dates, assign responsibility, flag consequences, generate calendar entries.</li>
+      </ul>
+      <div class="st-tip">
+        <h4>Real Story</h4>
+        <p>Dina uploaded two versions of a "clean" contract to Claude. It found a single sentence modified in thirteen pages -- a change that would have shifted significant liability onto her buyer. Two minutes to catch what human review would have missed.</p>
+      </div>
+    </div>
+
+    <!-- APPLICATION: CONTENT STACKING -->
+    <div class="st-app-card">
+      <h4>Content Stacking for Quality</h4>
+      <ul>
+        <li><strong>Draft Phase (ChatGPT):</strong> Provide property details, target buyer profile, desired tone. Get a comprehensive first draft.</li>
+        <li><strong>Critique Phase (Claude):</strong> Identify weaknesses -- overused cliches, claims that mean nothing, generic sections, inconsistencies.</li>
+        <li><strong>Refinement Phase (Either):</strong> Revise addressing every identified weakness while maintaining strengths.</li>
+      </ul>
+      <p>AI is excellent at generating content AND analyzing content, but rarely does both well simultaneously. Separating creation and critique across platforms gets the best of each.</p>
+    </div>
+
+    <!-- APPLICATION: FOS DETECTOR -->
+    <div class="st-app-card">
+      <h4>The FOS Detector: Communication Pattern Analysis</h4>
+      <p>Run suspicious communications through all three AIs with the same prompt. If all three rate it 7+ for directness, proceed with confidence. If two out of three rate it below 5, something doesn't add up.</p>
+      <div class="st-prompt-box" id="prompt-fos">
+        <button class="st-copy-btn" onclick="copyPrompt('prompt-fos', this)">Copy</button>
+Analyze the following written communication for clarity and credibility. Rate it on a scale of 1-10 for directness and consistency, where 1 is highly evasive and 10 is completely straightforward.
+
+Specifically evaluate:
+- Vagueness vs. specificity of claims
+- Presence of hedging language or qualifiers
+- Consistency of stated facts
+- Emotional manipulation indicators
+- Promises without supporting evidence
+- Unusual urgency or pressure tactics
+
+Provide your rating, then explain your reasoning with specific examples from the text.
+
+[PASTE THE COMMUNICATION HERE]</div>
+    </div>
+
+    <!-- WARNING -->
+    <div class="st-warning">
+      <h4>The Idiocracy Warning</h4>
+      <p><strong>LLM stacking is powerful. But the moment you stop reading the final product, you've crossed from augmented intelligence to replaced intelligence.</strong></p>
+      <p>You are the expert. AI is the tool. Your market knowledge, relationship awareness, and understanding of what a specific client needs -- no stack of AIs replicates that. Use the tools. Master them. But never forget that the intelligence being augmented is yours.</p>
+    </div>
+
+    <!-- CTA -->
+    <div class="st-cta">
+      <h3>Want Help Building Your Stacking Workflow?</h3>
+      <p>Get one-on-one coaching from Edmund, join 200+ agents in the Mastermind, or explore custom AI systems for your practice.</p>
+      <div style="font-size:1.5rem;font-weight:700;color:#fff;margin-bottom:0.25rem;">(424) 587-0840</div>
+      <div style="font-size:0.82rem;color:var(--cyan);font-weight:600;margin-bottom:1.25rem;">bogen.ai</div>
+      <a href="/edmunds-mastermind" class="btn btn-primary">Learn About Mastermind</a>
+      <a href="/book" class="btn btn-secondary">Back to Book Page</a>
+    </div>
+
+  </div>
+
+  <!-- BOTTOM DOWNLOAD -->
+  <div class="dl-btn-wrap" style="padding-bottom: 2rem;">
+    <a href="#" onclick="openDlModal(); return false;" class="dl-btn-pulse">Download the LLM Stacking Cheat Sheet (PDF)</a>
+  </div>
+
+  <!-- DOWNLOAD EMAIL MODAL -->
+  <div class="dl-modal-bg" id="dlModal">
+    <div class="dl-modal">
+      <button class="dl-modal-close" onclick="closeDlModal()">&#10005;</button>
+      <div id="dlModalForm">
+        <h3>Download the Stacking Cheat Sheet</h3>
+        <p>Enter your name and email and the PDF is yours instantly.</p>
+        <label>First Name</label>
+        <input type="text" id="dlName" placeholder="Your first name">
+        <label>Email Address</label>
+        <input type="email" id="dlEmail" placeholder="you@example.com">
+        <button class="dl-modal-submit" onclick="submitDlModal()">Send Me the PDF</button>
+        <div class="dl-modal-note">No spam. Unsubscribe anytime.</div>
+      </div>
+      <div class="dl-modal-success" id="dlModalSuccess">
+        <h4>It's yours!</h4>
+        <p>Your download is starting now.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="footer" style="padding: var(--spacing-lg) 0;">
+    <div class="container">
+      <div class="footer-bottom" style="border-top: none; padding-top: 0;">
+        <p>&copy; 2026 Bogen.ai. All rights reserved. | Boca Raton, FL | <a href="mailto:info@bogen.ai">info@bogen.ai</a></p>
+        <p style="margin-top: 4px;"><a href="/privacy" style="color: rgba(255,255,255,0.5); font-size: 0.8rem;">Privacy Policy</a></p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="/js/common.js"></script>
+  <script>
+function copyPrompt(id, btn) {
+  const el = document.getElementById(id);
+  const text = el.innerText.replace('Copy', '').replace('Copied!', '').trim();
+  navigator.clipboard.writeText(text).then(() => {
+    btn.textContent = 'Copied!';
+    btn.classList.add('copied');
+    setTimeout(() => { btn.textContent = 'Copy'; btn.classList.remove('copied'); }, 2000);
+  });
+}
+
+// Download modal
+function openDlModal() { document.getElementById('dlModal').classList.add('open'); }
+function closeDlModal() {
+  document.getElementById('dlModal').classList.remove('open');
+  document.getElementById('dlModalForm').style.display = 'block';
+  document.getElementById('dlModalSuccess').style.display = 'none';
+}
+async function submitDlModal() {
+  const name = document.getElementById('dlName').value;
+  const email = document.getElementById('dlEmail').value;
+  if (!name || !email) { alert('Please enter your name and email.'); return; }
+  try {
+    await fetch('/api/book/capture-email', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ name, email, resource: 'stacking-cheatsheet', utm_source: 'resource-page', utm_medium: 'download' })
+    });
+  } catch (err) { console.error('Email capture error:', err); }
+  document.getElementById('dlModalForm').style.display = 'none';
+  document.getElementById('dlModalSuccess').style.display = 'block';
+  const a = document.createElement('a');
+  a.href = '/downloads/LLM-Stacking-Cheat-Sheet-Edmund-Bogen.pdf';
+  a.download = '';
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+}
+document.getElementById('dlModal').addEventListener('click', function(e) { if (e.target === this) closeDlModal(); });
+document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closeDlModal(); });
+
+// Track page view
+fetch('/api/track/pageview', {
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify({ page: '/stacking-cheatsheet', referrer: document.referrer })
+}).catch(() => {});
+  </script>
+</body>
+</html>

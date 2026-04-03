@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Content Daisy Chain Template - Edmund Bogen</title>
+  <style>
+    @page {
+      size: letter;
+      margin: 0.75in 0.75in 1in 0.75in;
+      @bottom-center {
+        content: "bogen.ai  |  (424) 587-0840  |  edmund@bogenhomes.com";
+        font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        font-size: 8pt;
+        color: #999;
+      }
+    }
+    @page :first {
+      margin: 0;
+      @bottom-center { content: none; }
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      font-size: 10pt;
+      line-height: 1.5;
+      color: #333;
+    }
+
+    /* COVER PAGE */
+    .cover {
+      page-break-after: always;
+      width: 100%;
+      height: 100vh;
+      background: linear-gradient(135deg, #0f2a3f 0%, #1a3a52 60%, #24527A 100%);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 2in;
+      color: #fff;
+    }
+    .cover-badge {
+      display: inline-block;
+      border: 1px solid rgba(100,181,246,0.5);
+      color: #64b5f6;
+      font-size: 9pt;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 4pt 14pt;
+      border-radius: 50pt;
+      margin-bottom: 20pt;
+    }
+    .cover h1 {
+      font-size: 28pt;
+      font-weight: 700;
+      line-height: 1.2;
+      margin-bottom: 8pt;
+    }
+    .cover h1 span { color: #64b5f6; }
+    .cover-sub {
+      font-size: 12pt;
+      color: rgba(255,255,255,0.7);
+      max-width: 380pt;
+      margin-bottom: 30pt;
+    }
+    .cover-stats {
+      display: flex;
+      gap: 40pt;
+      margin-top: 20pt;
+    }
+    .cover-stat-num {
+      font-size: 22pt;
+      font-weight: 700;
+      color: #fff;
+      display: block;
+    }
+    .cover-stat-label {
+      font-size: 8pt;
+      color: rgba(255,255,255,0.55);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+    .cover-author {
+      margin-top: 40pt;
+      font-size: 10pt;
+      color: rgba(255,255,255,0.5);
+    }
+    .cover-author strong { color: #64b5f6; }
+
+    /* PAGE CONTENT */
+    .page { page-break-after: always; }
+    .page:last-child { page-break-after: auto; }
+
+    h2 {
+      font-size: 16pt;
+      font-weight: 700;
+      color: #1a3a52;
+      margin-bottom: 6pt;
+      padding-bottom: 4pt;
+      border-bottom: 2px solid #64b5f6;
+    }
+    h3 {
+      font-size: 12pt;
+      font-weight: 700;
+      color: #1a3a52;
+      margin: 14pt 0 4pt;
+    }
+    p { margin-bottom: 6pt; }
+    .intro {
+      font-size: 10pt;
+      color: #555;
+      margin-bottom: 14pt;
+      line-height: 1.6;
+    }
+
+    /* Step Block */
+    .step {
+      border: 1pt solid #ddd;
+      border-radius: 6pt;
+      padding: 10pt;
+      margin-bottom: 10pt;
+      page-break-inside: avoid;
+    }
+    .step-header {
+      display: flex;
+      align-items: center;
+      gap: 8pt;
+      margin-bottom: 6pt;
+    }
+    .step-num {
+      width: 24pt;
+      height: 24pt;
+      background: #1a3a52;
+      color: #fff;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11pt;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+    .step-title {
+      font-size: 12pt;
+      font-weight: 700;
+      color: #1a3a52;
+    }
+    .step-time {
+      margin-left: auto;
+      font-size: 8pt;
+      font-weight: 600;
+      color: #888;
+      background: #f0f0f0;
+      padding: 2pt 8pt;
+      border-radius: 50pt;
+      text-transform: uppercase;
+    }
+    .step p, .step li {
+      font-size: 9.5pt;
+      color: #444;
+      line-height: 1.55;
+    }
+    .step ul {
+      padding-left: 16pt;
+      margin-bottom: 6pt;
+    }
+    .step li { margin-bottom: 2pt; }
+
+    /* Prompt Box */
+    .prompt-box {
+      background: #f5f8fb;
+      border: 1pt solid #ddd;
+      border-left: 3pt solid #1a3a52;
+      border-radius: 4pt;
+      padding: 8pt 10pt;
+      font-size: 9pt;
+      color: #333;
+      line-height: 1.55;
+      white-space: pre-wrap;
+      margin-top: 6pt;
+    }
+
+    /* Fill-in fields */
+    .field-row {
+      display: flex;
+      align-items: center;
+      gap: 6pt;
+      margin-bottom: 4pt;
+      page-break-inside: avoid;
+    }
+    .field-label {
+      font-size: 9pt;
+      font-weight: 600;
+      color: #1a3a52;
+      min-width: 80pt;
+    }
+    .field-line {
+      flex: 1;
+      border-bottom: 1pt solid #ccc;
+      height: 16pt;
+    }
+
+    /* Output Grid */
+    .output-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6pt;
+      margin: 8pt 0;
+    }
+    .output-item {
+      border: 1pt solid #ddd;
+      border-radius: 4pt;
+      padding: 6pt 10pt;
+      text-align: center;
+      width: calc(33.33% - 4pt);
+      page-break-inside: avoid;
+    }
+    .output-num {
+      font-size: 16pt;
+      font-weight: 700;
+      color: #1a3a52;
+      display: block;
+    }
+    .output-label {
+      font-size: 7.5pt;
+      color: #888;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    /* Math Box */
+    .math-box {
+      border: 1pt solid #1a3a52;
+      border-radius: 6pt;
+      padding: 10pt;
+      margin: 10pt 0;
+      page-break-inside: avoid;
+    }
+    .math-box h3 { margin-top: 0; }
+    .math-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 3pt 0;
+      border-bottom: 1pt solid #eee;
+      font-size: 9.5pt;
+    }
+    .math-row:last-child { border-bottom: none; }
+    .math-value { font-weight: 700; color: #1a3a52; }
+    .math-total {
+      border-top: 2pt solid #1a3a52;
+      margin-top: 4pt;
+      padding-top: 6pt;
+      font-weight: 700;
+    }
+    .math-total .math-value { font-size: 11pt; }
+
+    /* Tip Box */
+    .tip-box {
+      background: #f0f9f4;
+      border: 1pt solid #c8e6c9;
+      border-left: 3pt solid #2d7d52;
+      border-radius: 4pt;
+      padding: 8pt 10pt;
+      margin: 6pt 0;
+      page-break-inside: avoid;
+    }
+    .tip-box strong {
+      color: #2d7d52;
+      font-size: 9pt;
+    }
+    .tip-box p {
+      font-size: 9pt;
+      color: #555;
+      margin-bottom: 0;
+    }
+
+    /* CTA Block */
+    .cta-block {
+      background: #f5f8fb;
+      border: 1pt solid #1a3a52;
+      border-radius: 6pt;
+      padding: 14pt;
+      text-align: center;
+      margin-top: 16pt;
+      page-break-inside: avoid;
+    }
+    .cta-block h3 {
+      color: #1a3a52;
+      margin: 0 0 4pt;
+    }
+    .cta-block p {
+      font-size: 9pt;
+      color: #555;
+      margin-bottom: 6pt;
+    }
+    .cta-phone {
+      font-size: 16pt;
+      font-weight: 700;
+      color: #1a3a52;
+    }
+    .cta-url {
+      font-size: 10pt;
+      color: #64b5f6;
+      font-weight: 600;
+    }
+    .cta-services {
+      list-style: none;
+      padding: 0;
+      margin-top: 8pt;
+      display: flex;
+      justify-content: center;
+      gap: 16pt;
+      font-size: 8.5pt;
+      color: #666;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- COVER -->
+  <div class="cover">
+    <div class="cover-badge">Chapter 4 &middot; Prompt to Close</div>
+    <h1>The Content<br><span>Daisy Chain</span><br>Template</h1>
+    <p class="cover-sub">One input becomes 20+ pieces of platform-optimized content in under 45 minutes.</p>
+    <div class="cover-stats">
+      <div>
+        <span class="cover-stat-num">7</span>
+        <span class="cover-stat-label">Steps</span>
+      </div>
+      <div>
+        <span class="cover-stat-num">20+</span>
+        <span class="cover-stat-label">Content Pieces</span>
+      </div>
+      <div>
+        <span class="cover-stat-num">35</span>
+        <span class="cover-stat-label">Minutes Total</span>
+      </div>
+    </div>
+    <p class="cover-author">By <strong>Edmund Bogen</strong> | bogen.ai</p>
+  </div>
+
+  <!-- PAGE 2: OVERVIEW + STEPS 1-2 -->
+  <div class="page">
+    <h2>What One Input Produces</h2>
+    <p class="intro">The Daisy Chain transforms a single source -- meeting transcript, listing notes, market insight -- into 20+ platform-optimized content pieces. Only 3-5% of your followers see any given post. Frequency is a feature when every post delivers value.</p>
+
+    <div class="output-grid">
+      <div class="output-item"><span class="output-num">1</span><span class="output-label">Summary</span></div>
+      <div class="output-item"><span class="output-num">1</span><span class="output-label">YouTube</span></div>
+      <div class="output-item"><span class="output-num">5</span><span class="output-label">Facebook</span></div>
+      <div class="output-item"><span class="output-num">3</span><span class="output-label">Instagram</span></div>
+      <div class="output-item"><span class="output-num">3</span><span class="output-label">LinkedIn</span></div>
+      <div class="output-item"><span class="output-num">3</span><span class="output-label">AI Avatar</span></div>
+      <div class="output-item"><span class="output-num">1</span><span class="output-label">Blog Post</span></div>
+      <div class="output-item"><span class="output-num">1</span><span class="output-label">Podcast</span></div>
+      <div class="output-item"><span class="output-num">1</span><span class="output-label">Email</span></div>
+    </div>
+
+    <h2>The 7-Step Workflow</h2>
+
+    <div class="step">
+      <div class="step-header">
+        <div class="step-num">1</div>
+        <div class="step-title">Record the Source Material</div>
+        <div class="step-time">During event</div>
+      </div>
+      <p>Any transcript, voice memo, or meeting recording. One source becomes everything.</p>
+      <div class="field-row"><span class="field-label">Source type:</span><span class="field-line"></span></div>
+      <div class="field-row"><span class="field-label">Date:</span><span class="field-line"></span></div>
+      <div class="field-row"><span class="field-label">Key topic:</span><span class="field-line"></span></div>
+      <div class="field-row"><span class="field-label">Key takeaway:</span><span class="field-line"></span></div>
+    </div>
+
+    <div class="step">
+      <div class="step-header">
+        <div class="step-num">2</div>
+        <div class="step-title">Run the Mega-Prompt</div>
+        <div class="step-time">~2 min</div>
+      </div>
+      <p>Paste transcript into Claude or ChatGPT with the Mega-Prompt (next page). In 90 seconds: summary, takeaways, and raw material for everything.</p>
+    </div>
+  </div>
+
+  <!-- PAGE 3: THE MEGA-PROMPT -->
+  <div class="page">
+    <h2>The Mega-Prompt</h2>
+    <p class="intro">Copy this prompt. Paste your source material after it. Customize the bracketed sections for your market and brand.</p>
+
+    <div class="prompt-box">Analyze the provided source material carefully.
+
+First, write a comprehensive summary along with key takeaways and actionable items. All content must be actionable.
+
+Step 1: Extract 3-5 key takeaways that are clear, impactful, and applicable by professionals aiming to grow their businesses.
+
+Step 2: Generate the following content:
+
+YOUTUBE DESCRIPTION (SEO-optimized, under 5,000 characters):
+- Include emojis, keywords, hooks, and timestamps
+- Include [YOUR NAME] in the title
+- Add relevant hashtags for discoverability
+
+FACEBOOK (5 Posts):
+- Concise, engaging, actionable tips with emojis
+- Include questions to stimulate interaction
+- Vary topics across the 5 posts; add hashtags
+
+INSTAGRAM (3 Posts):
+- 1 carousel post with descriptions for 3-5 images
+- 2 single-image/video posts with compelling insights
+- Include relevant emojis and hashtags
+
+LINKEDIN (3 Posts):
+- Professional tone, valuable insights
+- Use emojis sparingly; highlight real-world applications
+- Link one post to the blog
+
+AI AVATAR SCRIPTS (3 Scripts, 30-60 seconds each):
+- Start with 'This is A.I. [YOUR NAME]...'
+- Solution-focused, direct, implementation-oriented
+- No camera or movement directions - narratives only
+
+BLOG POST:
+- Long-form article with SEO optimization
+- Include calls to action throughout
+- Professional yet accessible tone
+
+EMAIL NEWSLETTER:
+- Key insights formatted for email
+- One clear CTA
+- Subject line options (3 variations)
+
+Throughout all content, occasionally encourage engagement with your services.</div>
+  </div>
+
+  <!-- PAGE 4: STEPS 3-7 -->
+  <div class="page">
+    <h2>Steps 3-7: Deploy Your Content</h2>
+
+    <div class="step">
+      <div class="step-header">
+        <div class="step-num">3</div>
+        <div class="step-title">YouTube Description</div>
+        <div class="step-time">~3 min</div>
+      </div>
+      <p>SEO-optimized description with hooks, timestamps, keywords, and hashtags. Would take 30-45 minutes manually.</p>
+    </div>
+
+    <div class="step">
+      <div class="step-header">
+        <div class="step-num">4</div>
+        <div class="step-title">Social Media Content</div>
+        <div class="step-time">~10 min</div>
+      </div>
+      <p>5 Facebook posts (end with questions), 3 Instagram posts (1 carousel + 2 single), 3 LinkedIn articles (thought leader tone).</p>
+      <div class="field-row"><span class="field-label">Facebook:</span><span class="field-line"></span></div>
+      <div class="field-row"><span class="field-label">Instagram:</span><span class="field-line"></span></div>
+      <div class="field-row"><span class="field-label">LinkedIn:</span><span class="field-line"></span></div>
+    </div>
+
+    <div class="step">
+      <div class="step-header">
+        <div class="step-num">5</div>
+        <div class="step-title">AI Avatar Scripts</div>
+        <div class="step-time">~5 min</div>
+      </div>
+      <p>Three 30-60 second scripts. Feed into HeyGen ($2-3/clip) or Captions App ($24/mo). Start with "This is A.I. [Your Name]..."</p>
+    </div>
+
+    <div class="step">
+      <div class="step-header">
+        <div class="step-num">6</div>
+        <div class="step-title">Blog Post</div>
+        <div class="step-time">~5 min</div>
+      </div>
+      <p>Long-form SEO content. Add personal anecdotes and local data. Publish on your website, link from one LinkedIn post.</p>
+    </div>
+
+    <div class="step">
+      <div class="step-header">
+        <div class="step-num">7</div>
+        <div class="step-title">Podcast + Email Newsletter</div>
+        <div class="step-time">~10 min</div>
+      </div>
+      <p>Upload to Google Notebook LM for AI podcast (free, 2-5 min). Reformat key insights for email with one clear CTA.</p>
+    </div>
+
+    <div class="math-box">
+      <h3>The Math</h3>
+      <div class="math-row"><span>YouTube description</span><span class="math-value">1</span></div>
+      <div class="math-row"><span>Facebook posts</span><span class="math-value">5</span></div>
+      <div class="math-row"><span>Instagram posts</span><span class="math-value">3</span></div>
+      <div class="math-row"><span>LinkedIn articles</span><span class="math-value">3</span></div>
+      <div class="math-row"><span>AI avatar scripts</span><span class="math-value">3</span></div>
+      <div class="math-row"><span>Blog + Podcast + Email</span><span class="math-value">3</span></div>
+      <div class="math-row math-total"><span>Total output from ONE source</span><span class="math-value">~20 pieces</span></div>
+      <div class="math-row"><span>Your time: 35-45 min</span><span class="math-value">Traditional: 15-20 hrs</span></div>
+    </div>
+  </div>
+
+  <!-- PAGE 5: QUALITY + CTA -->
+  <div class="page">
+    <h2>The "Interested Suitor" Test</h2>
+    <p class="intro">Before you post anything, ask: <strong>Would someone actively interested in buying or selling in my market want to see this?</strong> If yes, post it. Post it again tomorrow with a different angle. If it's about you and your gratitude, rethink it.</p>
+
+    <h2>5 Elements of Effective Prompts</h2>
+    <div class="step">
+      <ul>
+        <li><strong>Context:</strong> Who are you? What's your market? What's the goal?</li>
+        <li><strong>Specificity:</strong> Colors, emotions, settings, actions. Think like a film director.</li>
+        <li><strong>Format:</strong> Numbered list? Paragraph? Emojis? Word count? Tone?</li>
+        <li><strong>Examples:</strong> Show the AI what good looks like. Paste a post you admire.</li>
+        <li><strong>Constraints:</strong> "No cliches." "Under 200 words." "No exclamation marks on LinkedIn."</li>
+      </ul>
+    </div>
+
+    <div class="tip-box">
+      <strong>LLM Stacking (Chapter 6):</strong>
+      <p>Generate with Claude for brand voice, fact-check with ChatGPT, verify data with Perplexity. Combining AI tools produces results that exceed any single tool.</p>
+    </div>
+
+    <h2>Notes</h2>
+    <div class="field-row"><span class="field-label">Source used:</span><span class="field-line"></span></div>
+    <div class="field-row"><span class="field-label">Date run:</span><span class="field-line"></span></div>
+    <div class="field-row"><span class="field-label">Pieces created:</span><span class="field-line"></span></div>
+    <div class="field-row"><span class="field-label">Time spent:</span><span class="field-line"></span></div>
+    <div class="field-row"><span class="field-label">Best performer:</span><span class="field-line"></span></div>
+    <div class="field-row"><span class="field-label">What to repeat:</span><span class="field-line"></span></div>
+    <div class="field-row"><span class="field-label">What to change:</span><span class="field-line"></span></div>
+
+    <div class="cta-block">
+      <h3>Want Help Building Your Content System?</h3>
+      <p>One-on-one coaching, Mastermind membership, custom AI content builds, and speaking engagements.</p>
+      <div class="cta-phone">(424) 587-0840</div>
+      <div class="cta-url">bogen.ai</div>
+      <ul class="cta-services">
+        <li>1-on-1 Coaching</li>
+        <li>Mastermind Membership</li>
+        <li>Custom AI Builds</li>
+        <li>Speaking Engagements</li>
+      </ul>
+    </div>
+  </div>
+
+</body>
+</html>

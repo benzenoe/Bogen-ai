@@ -1,0 +1,989 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Content Daisy Chain Template | Prompt to Close - Edmund Bogen</title>
+  <meta name="description" content="Turn one meeting transcript into 20+ pieces of platform-optimized content. The Content Daisy Chain from Prompt to Close by Edmund Bogen.">
+  <meta name="keywords" content="content daisy chain, content multiplication, real estate content, AI content creation, Edmund Bogen, Prompt to Close">
+
+  <meta property="og:title" content="Content Daisy Chain Template | Edmund Bogen">
+  <meta property="og:description" content="One input becomes 20+ content pieces across every platform. From Prompt to Close, Chapter 4.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://bogen.ai/daisy-chain-template">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/global.css">
+
+  <style>
+    /* Hero */
+    .dc-hero {
+      position: relative;
+      padding: 160px 0 60px;
+      background: linear-gradient(135deg, var(--dark-navy) 0%, var(--navy) 60%, #24527A 100%);
+      text-align: center;
+      overflow: hidden;
+    }
+    .dc-hero::before {
+      content: '';
+      position: absolute;
+      top: -60px; right: -60px;
+      width: 320px; height: 320px;
+      background: radial-gradient(circle, rgba(100,181,246,0.12) 0%, transparent 70%);
+      border-radius: 50%;
+    }
+    .dc-hero-badge {
+      display: inline-block;
+      background: rgba(100,181,246,0.15);
+      border: 1px solid rgba(100,181,246,0.35);
+      color: var(--cyan);
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 0.3rem 0.9rem;
+      border-radius: 100px;
+      margin-bottom: 1.25rem;
+    }
+    .dc-hero h1 {
+      font-family: var(--font-serif);
+      color: #fff;
+      font-size: clamp(2rem, 5vw, 2.75rem);
+      font-weight: 700;
+      line-height: 1.2;
+      margin-bottom: 0.75rem;
+      max-width: 700px;
+      margin-left: auto; margin-right: auto;
+    }
+    .dc-hero h1 span { color: var(--cyan); }
+    .dc-hero p {
+      color: rgba(255,255,255,0.7);
+      font-size: 1.05rem;
+      max-width: 560px;
+      margin: 0 auto 1.5rem;
+      line-height: 1.7;
+    }
+    .dc-hero-stats {
+      display: flex;
+      justify-content: center;
+      gap: 2.5rem;
+      margin-top: 1rem;
+    }
+    .dc-stat { text-align: center; }
+    .dc-stat-num {
+      display: block;
+      font-family: var(--font-serif);
+      font-size: 1.75rem;
+      font-weight: 700;
+      color: #fff;
+    }
+    .dc-stat-label {
+      font-size: 0.78rem;
+      color: rgba(255,255,255,0.55);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+    .dc-divider {
+      width: 1px; height: 40px;
+      background: rgba(255,255,255,0.15);
+      align-self: center;
+    }
+
+    /* Download Button */
+    .dl-btn-wrap {
+      text-align: center;
+      padding: 1.25rem 2rem;
+    }
+    .dl-btn-pulse {
+      display: inline-block;
+      background: var(--cyan);
+      color: var(--dark-navy);
+      font-size: 1.05rem;
+      font-weight: 700;
+      padding: 0.85rem 2.5rem;
+      border-radius: 8px;
+      text-decoration: none;
+      font-family: var(--font-sans);
+      animation: dlPulse 2s ease-in-out infinite;
+      box-shadow: 0 0 20px rgba(100,181,246,0.4);
+      transition: transform 0.2s;
+    }
+    .dl-btn-pulse:hover {
+      animation: none;
+      transform: scale(1.05);
+      box-shadow: 0 0 30px rgba(100,181,246,0.7);
+      color: var(--dark-navy);
+    }
+    @keyframes dlPulse {
+      0%, 100% { transform: scale(1); box-shadow: 0 0 20px rgba(100,181,246,0.4); }
+      50% { transform: scale(1.05); box-shadow: 0 0 30px rgba(100,181,246,0.7); }
+    }
+
+    /* Main */
+    .dc-main {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 2.5rem 2rem 4rem;
+    }
+
+    /* Intro */
+    .dc-intro {
+      font-size: 0.92rem;
+      color: rgba(255,255,255,0.65);
+      line-height: 1.7;
+      margin-bottom: 2rem;
+    }
+    .dc-intro strong { color: rgba(255,255,255,0.85); }
+
+    /* Step Cards */
+    .dc-step {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: var(--border-radius);
+      padding: 1.5rem;
+      margin-bottom: 1.25rem;
+      position: relative;
+    }
+    .dc-step:hover { border-color: rgba(100,181,246,0.25); }
+    .dc-step-header {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.75rem;
+      margin-bottom: 0.75rem;
+    }
+    .dc-step-num {
+      width: 36px; height: 36px;
+      background: rgba(100,181,246,0.15);
+      border: 1px solid rgba(100,181,246,0.3);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-serif);
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--cyan);
+      flex-shrink: 0;
+    }
+    .dc-step-title {
+      font-family: var(--font-serif);
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: #fff;
+      line-height: 1.3;
+      padding-top: 0.3rem;
+    }
+    .dc-step-time {
+      margin-left: auto;
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: rgba(255,255,255,0.5);
+      background: rgba(255,255,255,0.06);
+      padding: 0.2rem 0.6rem;
+      border-radius: 100px;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      white-space: nowrap;
+      margin-top: 0.35rem;
+    }
+    .dc-step p {
+      font-size: 0.9rem;
+      color: rgba(255,255,255,0.65);
+      line-height: 1.65;
+      margin-bottom: 0.75rem;
+    }
+    .dc-step ul {
+      list-style: none;
+      padding: 0;
+      margin-bottom: 0.75rem;
+    }
+    .dc-step li {
+      font-size: 0.88rem;
+      color: rgba(255,255,255,0.65);
+      line-height: 1.55;
+      padding: 0.25rem 0 0.25rem 1.25rem;
+      position: relative;
+    }
+    .dc-step li::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0.6rem;
+      width: 6px; height: 6px;
+      background: var(--cyan);
+      border-radius: 50%;
+    }
+
+    /* Prompt Box */
+    .dc-prompt-box {
+      background: rgba(15,42,63,0.6);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-left: 3px solid var(--cyan);
+      border-radius: 8px;
+      padding: 1rem 1.15rem;
+      font-size: 0.85rem;
+      color: rgba(255,255,255,0.85);
+      line-height: 1.65;
+      white-space: pre-wrap;
+      word-break: break-word;
+      position: relative;
+      margin-top: 0.5rem;
+    }
+    .dc-copy-btn {
+      position: absolute;
+      top: 0.5rem; right: 0.5rem;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 6px;
+      padding: 0.25rem 0.6rem;
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: var(--cyan);
+      cursor: pointer;
+      transition: all 0.2s;
+      font-family: var(--font-sans);
+    }
+    .dc-copy-btn:hover { background: var(--cyan); color: var(--dark-navy); border-color: var(--cyan); }
+    .dc-copy-btn.copied { background: #2D7D52; color: #fff; border-color: #2D7D52; }
+
+    /* Tip Box */
+    .dc-tip {
+      background: rgba(45,125,82,0.08);
+      border: 1px solid rgba(45,125,82,0.25);
+      border-left: 3px solid #2d7d52;
+      border-radius: 8px;
+      padding: 1rem 1.15rem;
+      margin-top: 0.75rem;
+    }
+    .dc-tip h4 {
+      color: #5dd99a;
+      font-size: 0.85rem;
+      font-weight: 700;
+      margin-bottom: 0.3rem;
+    }
+    .dc-tip p {
+      font-size: 0.85rem;
+      color: rgba(255,255,255,0.6);
+      line-height: 1.6;
+      margin-bottom: 0;
+    }
+
+    /* Output Grid */
+    .dc-output-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 0.75rem;
+      margin: 1rem 0;
+    }
+    .dc-output-card {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 8px;
+      padding: 0.85rem;
+      text-align: center;
+    }
+    .dc-output-card:hover { border-color: rgba(100,181,246,0.25); }
+    .dc-output-count {
+      font-family: var(--font-serif);
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--cyan);
+      display: block;
+    }
+    .dc-output-label {
+      font-size: 0.78rem;
+      color: rgba(255,255,255,0.55);
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    /* Math Box */
+    .dc-math {
+      background: rgba(100,181,246,0.06);
+      border: 1px solid rgba(100,181,246,0.15);
+      border-radius: var(--border-radius);
+      padding: 1.5rem;
+      margin: 2rem 0;
+    }
+    .dc-math h3 {
+      font-family: var(--font-serif);
+      color: #fff;
+      font-size: 1.1rem;
+      margin-bottom: 0.75rem;
+    }
+    .dc-math-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.4rem 0;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      font-size: 0.88rem;
+    }
+    .dc-math-row:last-child { border-bottom: none; }
+    .dc-math-label { color: rgba(255,255,255,0.6); }
+    .dc-math-value { color: var(--cyan); font-weight: 700; }
+    .dc-math-total {
+      border-top: 2px solid rgba(100,181,246,0.3);
+      margin-top: 0.5rem;
+      padding-top: 0.75rem;
+    }
+    .dc-math-total .dc-math-label { color: #fff; font-weight: 700; }
+    .dc-math-total .dc-math-value { font-size: 1.1rem; }
+
+    /* Section Divider */
+    .dc-section-title {
+      font-family: var(--font-serif);
+      font-size: 1.35rem;
+      font-weight: 700;
+      color: #fff;
+      margin: 2.5rem 0 1rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+    .dc-section-subtitle {
+      font-size: 0.88rem;
+      color: rgba(255,255,255,0.5);
+      margin-top: -0.5rem;
+      margin-bottom: 1.25rem;
+    }
+
+    /* CTA */
+    .dc-cta {
+      background: linear-gradient(135deg, var(--dark-navy) 0%, var(--navy) 100%);
+      border: 1px solid rgba(100,181,246,0.15);
+      border-radius: var(--border-radius);
+      padding: 2rem;
+      margin-top: 2.5rem;
+      text-align: center;
+    }
+    .dc-cta h3 {
+      font-family: var(--font-serif);
+      color: #fff;
+      font-size: 1.25rem;
+      margin-bottom: 0.5rem;
+    }
+    .dc-cta p {
+      color: rgba(255,255,255,0.6);
+      font-size: 0.9rem;
+      max-width: 500px;
+      margin: 0 auto 1.25rem;
+      line-height: 1.6;
+    }
+    .dc-cta .btn { margin: 0 0.5rem; }
+
+    /* Worksheet */
+    .dc-worksheet {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: var(--border-radius);
+      padding: 1.25rem;
+      margin-bottom: 1rem;
+    }
+    .dc-worksheet h4 {
+      font-family: var(--font-serif);
+      color: #fff;
+      font-size: 1rem;
+      margin-bottom: 0.75rem;
+    }
+    .dc-field {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.5rem;
+      margin-bottom: 0.5rem;
+    }
+    .dc-field-label {
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--cyan);
+      min-width: 100px;
+      flex-shrink: 0;
+    }
+    .dc-field-input {
+      flex: 1;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 6px;
+      padding: 0.4rem 0.6rem;
+      font-size: 0.85rem;
+      color: rgba(255,255,255,0.8);
+      min-height: 1.8rem;
+      font-family: var(--font-sans);
+      resize: vertical;
+    }
+    .dc-field-input:focus {
+      outline: none;
+      border-color: var(--cyan);
+      background: rgba(255,255,255,0.08);
+    }
+    .dc-field-input::placeholder {
+      color: rgba(255,255,255,0.3);
+    }
+
+    @media (max-width: 640px) {
+      .dc-hero-stats { gap: 1.25rem; }
+      .dc-stat-num { font-size: 1.35rem; }
+      .dl-btn-pulse { font-size: 0.95rem; padding: 0.75rem 1.75rem; }
+      .dc-output-grid { grid-template-columns: repeat(2, 1fr); }
+      .dc-field { flex-direction: column; }
+      .dc-field-label { min-width: unset; }
+    }
+
+    /* Download Modal */
+    .dl-modal-bg {
+      display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.7);
+      z-index: 9999; justify-content: center; align-items: center; padding: 1rem;
+    }
+    .dl-modal-bg.open { display: flex; }
+    .dl-modal {
+      background: var(--navy); border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 12px; padding: 2rem; max-width: 420px; width: 100%;
+      position: relative;
+    }
+    .dl-modal-close {
+      position: absolute; top: 0.75rem; right: 0.75rem; background: none;
+      border: none; color: rgba(255,255,255,0.5); font-size: 1.25rem; cursor: pointer;
+    }
+    .dl-modal-close:hover { color: #fff; }
+    .dl-modal h3 {
+      font-family: var(--font-serif); color: #fff; font-size: 1.25rem;
+      margin-bottom: 0.35rem;
+    }
+    .dl-modal p {
+      color: rgba(255,255,255,0.6); font-size: 0.9rem; margin-bottom: 1rem; line-height: 1.5;
+    }
+    .dl-modal label {
+      display: block; font-size: 0.8rem; font-weight: 600;
+      color: rgba(255,255,255,0.7); margin-bottom: 0.25rem; margin-top: 0.75rem;
+    }
+    .dl-modal input[type="text"],
+    .dl-modal input[type="email"] {
+      width: 100%; padding: 0.6rem 0.75rem; font-size: 0.9rem;
+      background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 8px; color: #fff; font-family: var(--font-sans);
+    }
+    .dl-modal input::placeholder { color: rgba(255,255,255,0.3); }
+    .dl-modal input:focus { border-color: var(--cyan); outline: none; }
+    .dl-modal-submit {
+      width: 100%; padding: 0.75rem; margin-top: 1rem; font-size: 1rem;
+      font-weight: 700; background: var(--cyan); color: var(--dark-navy);
+      border: none; border-radius: 8px; cursor: pointer; font-family: var(--font-sans);
+    }
+    .dl-modal-submit:hover { background: #82c8f7; }
+    .dl-modal-note {
+      text-align: center; font-size: 0.75rem; color: rgba(255,255,255,0.4);
+      margin-top: 0.5rem;
+    }
+    .dl-modal-success { display: none; text-align: center; padding: 1rem 0; }
+    .dl-modal-success h4 { color: var(--cyan); font-family: var(--font-serif); font-size: 1.25rem; margin-bottom: 0.5rem; }
+    .dl-modal-success p { font-size: 0.9rem; color: rgba(255,255,255,0.6); }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header class="header">
+    <div class="container">
+      <nav class="nav">
+        <a href="/" class="logo" style="display: flex; align-items: center; margin-left: -12px;">
+          <img src="/images/eb-logo.png" alt="Bogen.ai Logo" style="height: 100px; width: auto;">
+        </a>
+        <ul class="nav-menu">
+          <li><a href="/" class="nav-link">Home</a></li>
+          <li class="nav-dropdown">
+            <a href="/about-us" class="nav-link">About</a>
+            <ul class="dropdown-menu">
+              <li><a href="/about-us#edmund">About Edmund Bogen</a></li>
+              <li><a href="/about-us#eytan">About Eytan Benzeno</a></li>
+            </ul>
+          </li>
+          <li><a href="/services" class="nav-link">Services</a></li>
+          <li class="nav-dropdown">
+            <a href="/edmunds-mastermind" class="nav-link">Mastermind</a>
+            <ul class="dropdown-menu">
+              <li><a href="/edmunds-mastermind">Learn About Mastermind</a></li>
+              <li><a href="/contact?tab=client">Join Our Mastermind Community</a></li>
+            </ul>
+          </li>
+          <li><a href="/video-archive" class="nav-link">Video</a></li>
+          <li><a href="/book" class="nav-link active">Book</a></li>
+          <li>
+            <a href="tel:+14245870840" class="nav-link" style="color: var(--cyan); white-space: nowrap;">📞 424-587-0840</a>
+          </li>
+          <li class="nav-dropdown">
+            <a href="#" class="nav-link nav-login-btn">
+              <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="opacity: 0.8;">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
+              </svg>
+              Login
+            </a>
+            <ul class="dropdown-menu">
+              <li><a href="/client-portal">Client Portal</a></li>
+              <li><a href="/admin">Admin</a></li>
+            </ul>
+          </li>
+        </ul>
+        <button class="nav-toggle" type="button" aria-label="Toggle navigation" onclick="window.bogenAI.toggleMobileMenu()">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section class="dc-hero">
+    <div class="dc-hero-badge">Chapter 4 &middot; Prompt to Close</div>
+    <h1>The Content <span>Daisy Chain</span> Template</h1>
+    <p>One meeting transcript, listing appointment, or market insight becomes 20+ pieces of platform-optimized content. Follow the 7 steps below.</p>
+    <div class="dc-hero-stats">
+      <div class="dc-stat">
+        <span class="dc-stat-num">7</span>
+        <span class="dc-stat-label">Steps</span>
+      </div>
+      <div class="dc-divider"></div>
+      <div class="dc-stat">
+        <span class="dc-stat-num">20+</span>
+        <span class="dc-stat-label">Content Pieces</span>
+      </div>
+      <div class="dc-divider"></div>
+      <div class="dc-stat">
+        <span class="dc-stat-num">35</span>
+        <span class="dc-stat-label">Minutes Total</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- TOP DOWNLOAD -->
+  <div class="dl-btn-wrap">
+    <a href="#" onclick="openDlModal(); return false;" class="dl-btn-pulse">Download the Daisy Chain Template (PDF)</a>
+  </div>
+
+  <!-- MAIN -->
+  <div class="dc-main">
+
+    <div class="dc-intro">
+      <strong>The problem has never been "I'm posting too much." It's always been "I'm posting the wrong things."</strong> Only 3-5% of your followers see any given post. You could post ten times a day without annoying anyone -- provided each post delivers value. The Daisy Chain gives you a repeatable system to create that value at scale, from a single source.
+    </div>
+
+    <!-- OUTPUT PREVIEW -->
+    <h2 class="dc-section-title">What One Input Produces</h2>
+    <p class="dc-section-subtitle">Every piece is platform-optimized, not copy-pasted.</p>
+
+    <div class="dc-output-grid">
+      <div class="dc-output-card">
+        <span class="dc-output-count">1</span>
+        <span class="dc-output-label">Summary + Takeaways</span>
+      </div>
+      <div class="dc-output-card">
+        <span class="dc-output-count">1</span>
+        <span class="dc-output-label">YouTube Description</span>
+      </div>
+      <div class="dc-output-card">
+        <span class="dc-output-count">5</span>
+        <span class="dc-output-label">Facebook Posts</span>
+      </div>
+      <div class="dc-output-card">
+        <span class="dc-output-count">3</span>
+        <span class="dc-output-label">Instagram Posts</span>
+      </div>
+      <div class="dc-output-card">
+        <span class="dc-output-count">3</span>
+        <span class="dc-output-label">LinkedIn Articles</span>
+      </div>
+      <div class="dc-output-card">
+        <span class="dc-output-count">3</span>
+        <span class="dc-output-label">AI Avatar Scripts</span>
+      </div>
+      <div class="dc-output-card">
+        <span class="dc-output-count">1</span>
+        <span class="dc-output-label">Blog Post</span>
+      </div>
+      <div class="dc-output-card">
+        <span class="dc-output-count">1</span>
+        <span class="dc-output-label">Podcast Episode</span>
+      </div>
+      <div class="dc-output-card">
+        <span class="dc-output-count">1</span>
+        <span class="dc-output-label">Email Newsletter</span>
+      </div>
+    </div>
+
+    <!-- THE 7 STEPS -->
+    <h2 class="dc-section-title">The 7-Step Workflow</h2>
+    <p class="dc-section-subtitle">Follow these in order. Each step feeds the next.</p>
+
+    <!-- STEP 1 -->
+    <div class="dc-step">
+      <div class="dc-step-header">
+        <div class="dc-step-num">1</div>
+        <div class="dc-step-title">Record the Source Material</div>
+        <div class="dc-step-time">During event</div>
+      </div>
+      <p>Any transcript, voice memo, or meeting recording works. One single source becomes everything.</p>
+      <ul>
+        <li><strong>Coaching session</strong> -- use Otter.ai, Zoom transcription, or Wispr Flow</li>
+        <li><strong>Listing appointment</strong> -- voice memo the key details after</li>
+        <li><strong>Market insight</strong> -- write a quick paragraph about what you observed</li>
+        <li><strong>Client conversation</strong> -- capture the questions they asked and your answers</li>
+      </ul>
+      <div class="dc-worksheet">
+        <h4>Your Source</h4>
+        <div class="dc-field">
+          <span class="dc-field-label">Source type:</span>
+          <input type="text" class="dc-field-input" placeholder="Meeting transcript, listing notes, market observation...">
+        </div>
+        <div class="dc-field">
+          <span class="dc-field-label">Date:</span>
+          <input type="text" class="dc-field-input" placeholder="When did this happen?">
+        </div>
+        <div class="dc-field">
+          <span class="dc-field-label">Key topic:</span>
+          <input type="text" class="dc-field-input" placeholder="What's the core subject?">
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 2 -->
+    <div class="dc-step">
+      <div class="dc-step-header">
+        <div class="dc-step-num">2</div>
+        <div class="dc-step-title">Run the Mega-Prompt</div>
+        <div class="dc-step-time">~2 min</div>
+      </div>
+      <p>Paste your transcript into Claude (or ChatGPT) with the Mega-Prompt below. In 90 seconds you get: a complete summary, key takeaways, and raw material for everything that follows.</p>
+      <div class="dc-prompt-box" id="prompt-mega">
+        <button class="dc-copy-btn" onclick="copyPrompt('prompt-mega', this)">Copy</button>
+Analyze the provided source material carefully.
+
+First, write a comprehensive summary along with key takeaways and actionable items. All content must be actionable.
+
+Step 1: Extract 3-5 key takeaways that are clear, impactful, and applicable by professionals aiming to grow their businesses.
+
+Step 2: Generate the following content:
+
+YOUTUBE DESCRIPTION (SEO-optimized, under 5,000 characters):
+- Include emojis, keywords, hooks, and timestamps
+- Include [YOUR NAME] in the title
+- Add relevant hashtags for discoverability
+
+FACEBOOK (5 Posts):
+- Concise, engaging, actionable tips with emojis
+- Include questions to stimulate interaction
+- Vary topics across the 5 posts; add hashtags
+
+INSTAGRAM (3 Posts):
+- 1 carousel post with descriptions for 3-5 images
+- 2 single-image/video posts with compelling insights
+- Include relevant emojis and hashtags
+
+LINKEDIN (3 Posts):
+- Professional tone, valuable insights
+- Use emojis sparingly; highlight real-world applications
+- Link one post to the blog
+
+AI AVATAR SCRIPTS (3 Scripts, 30-60 seconds each):
+- Start with 'This is A.I. [YOUR NAME]...'
+- Solution-focused, direct, implementation-oriented
+- No camera or movement directions - narratives only
+
+BLOG POST:
+- Long-form article with SEO optimization
+- Include calls to action throughout
+- Professional yet accessible tone
+
+EMAIL NEWSLETTER:
+- Key insights formatted for email
+- One clear CTA
+- Subject line options (3 variations)
+
+Throughout all content, occasionally encourage engagement with your services.</div>
+      <div class="dc-tip">
+        <h4>Pro Tip: Brand Skills</h4>
+        <p>If you've set up a Claude Brand Skill (Chapter 5), invoke it before running the Mega-Prompt. Every output will automatically match your voice, colors, and audience.</p>
+      </div>
+    </div>
+
+    <!-- STEP 3 -->
+    <div class="dc-step">
+      <div class="dc-step-header">
+        <div class="dc-step-num">3</div>
+        <div class="dc-step-title">YouTube Description</div>
+        <div class="dc-step-time">~3 min</div>
+      </div>
+      <p>The Mega-Prompt generates an SEO-optimized description with hooks, timestamps, keywords, and hashtags -- under 5,000 characters. This would take 30-45 minutes manually.</p>
+      <ul>
+        <li>Copy the description from the AI output</li>
+        <li>Add your video link and any specific timestamps</li>
+        <li>Upload to YouTube along with your video content</li>
+      </ul>
+      <div class="dc-tip">
+        <h4>YouTube is a Search Engine</h4>
+        <p>Content you post today generates views and leads for years. Your description is an SEO asset. Titles with specificity, numbers, and curiosity gaps drive clicks.</p>
+      </div>
+    </div>
+
+    <!-- STEP 4 -->
+    <div class="dc-step">
+      <div class="dc-step-header">
+        <div class="dc-step-num">4</div>
+        <div class="dc-step-title">Social Media Content</div>
+        <div class="dc-step-time">~10 min</div>
+      </div>
+      <p>Five Facebook posts, three Instagram posts (one carousel, two single-image), three LinkedIn articles. Each platform-optimized -- not copy-pasted.</p>
+      <ul>
+        <li><strong>Facebook:</strong> End with questions. "What neighborhood are YOU trying to own?" drives engagement.</li>
+        <li><strong>Instagram:</strong> Carousels outperform single images. Five slides with one clear, bold statement each.</li>
+        <li><strong>LinkedIn:</strong> Thought leader tone. Lead with the insight, tell a brief story, invite discussion.</li>
+      </ul>
+      <div class="dc-worksheet">
+        <h4>Platform Scheduling</h4>
+        <div class="dc-field">
+          <span class="dc-field-label">Facebook:</span>
+          <input type="text" class="dc-field-input" placeholder="Mon-Fri posting schedule or specific dates">
+        </div>
+        <div class="dc-field">
+          <span class="dc-field-label">Instagram:</span>
+          <input type="text" class="dc-field-input" placeholder="Carousel day + 2 single-post days">
+        </div>
+        <div class="dc-field">
+          <span class="dc-field-label">LinkedIn:</span>
+          <input type="text" class="dc-field-input" placeholder="Tue/Thu/Sat works well">
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 5 -->
+    <div class="dc-step">
+      <div class="dc-step-header">
+        <div class="dc-step-num">5</div>
+        <div class="dc-step-title">AI Avatar Scripts</div>
+        <div class="dc-step-time">~5 min</div>
+      </div>
+      <p>Three 30-60 second scripts for your AI avatar. Each starts with "This is A.I. [Your Name]" and maintains a solution-focused, implementation-oriented tone. Feed directly into HeyGen or Captions App.</p>
+      <ul>
+        <li><strong>HeyGen:</strong> Upload a sample video, get a digital avatar that speaks any language</li>
+        <li><strong>Captions App ($24/mo):</strong> Lower barrier to entry, professional results</li>
+        <li><strong>Cost:</strong> $2-3 per clip vs. $5,000-$15,000 for traditional video production</li>
+      </ul>
+    </div>
+
+    <!-- STEP 6 -->
+    <div class="dc-step">
+      <div class="dc-step-header">
+        <div class="dc-step-num">6</div>
+        <div class="dc-step-title">Blog Post</div>
+        <div class="dc-step-time">~5 min</div>
+      </div>
+      <p>Long-form content with SEO optimization, structured sections, internal links, and calls to action. This becomes the cornerstone content piece that everything else supports.</p>
+      <ul>
+        <li>Review and customize the AI-generated blog draft</li>
+        <li>Add your personal anecdotes or local market data</li>
+        <li>Publish on your website and link from one LinkedIn post</li>
+      </ul>
+    </div>
+
+    <!-- STEP 7 -->
+    <div class="dc-step">
+      <div class="dc-step-header">
+        <div class="dc-step-num">7</div>
+        <div class="dc-step-title">Podcast + Email Newsletter</div>
+        <div class="dc-step-time">~10 min</div>
+      </div>
+      <p>Upload your source material to Google Notebook LM for an AI-generated podcast. Then reformat key insights for your email newsletter.</p>
+      <ul>
+        <li><strong>Google Notebook LM:</strong> Free. Upload source material, click "Generate," select podcast format. Publishable audio in 2-5 minutes.</li>
+        <li><strong>Email newsletter:</strong> Pull the 3-5 key takeaways, add a personal intro, and one clear CTA</li>
+        <li><strong>The coattail strategy:</strong> Feature clients or community leaders in the podcast -- their network discovers you through search</li>
+      </ul>
+    </div>
+
+    <!-- THE MATH -->
+    <div class="dc-math">
+      <h3>The Math That Makes This Real</h3>
+      <div class="dc-math-row">
+        <span class="dc-math-label">YouTube description</span>
+        <span class="dc-math-value">1 piece</span>
+      </div>
+      <div class="dc-math-row">
+        <span class="dc-math-label">Facebook posts</span>
+        <span class="dc-math-value">5 pieces</span>
+      </div>
+      <div class="dc-math-row">
+        <span class="dc-math-label">Instagram posts</span>
+        <span class="dc-math-value">3 pieces</span>
+      </div>
+      <div class="dc-math-row">
+        <span class="dc-math-label">LinkedIn articles</span>
+        <span class="dc-math-value">3 pieces</span>
+      </div>
+      <div class="dc-math-row">
+        <span class="dc-math-label">AI avatar video scripts</span>
+        <span class="dc-math-value">3 pieces</span>
+      </div>
+      <div class="dc-math-row">
+        <span class="dc-math-label">Blog post</span>
+        <span class="dc-math-value">1 piece</span>
+      </div>
+      <div class="dc-math-row">
+        <span class="dc-math-label">Podcast episode</span>
+        <span class="dc-math-value">1 piece</span>
+      </div>
+      <div class="dc-math-row">
+        <span class="dc-math-label">Email newsletter</span>
+        <span class="dc-math-value">1 piece</span>
+      </div>
+      <div class="dc-math-row dc-math-total">
+        <span class="dc-math-label">Total Content Output</span>
+        <span class="dc-math-value">~20 pieces</span>
+      </div>
+      <div class="dc-math-row">
+        <span class="dc-math-label">Your time investment</span>
+        <span class="dc-math-value">35-45 min</span>
+      </div>
+      <div class="dc-math-row">
+        <span class="dc-math-label">Traditional equivalent</span>
+        <span class="dc-math-value">15-20 hours</span>
+      </div>
+    </div>
+
+    <!-- BONUS: INTERESTED SUITOR -->
+    <h2 class="dc-section-title">Bonus: The "Interested Suitor" Test</h2>
+    <p class="dc-section-subtitle">Every piece of content should pass this test before you post it.</p>
+
+    <div class="dc-step">
+      <div class="dc-step-header">
+        <div class="dc-step-num">+</div>
+        <div class="dc-step-title">Quality Check for Every Post</div>
+      </div>
+      <p>Ask yourself: <strong>Would someone actively interested in buying or selling in my market want to see this?</strong></p>
+      <ul>
+        <li><strong>Fails the test:</strong> "Just sold! So grateful for another amazing closing with the best clients ever!" -- that's about you. Nobody searching for homes cares about your gratitude.</li>
+        <li><strong>Passes the test:</strong> "This 4-bedroom just closed at $87 per square foot above the community average. Here's what that tells us about where pricing is headed." -- same sale, completely different value to the reader.</li>
+      </ul>
+      <p>If the content serves your audience, frequency is a feature. If it's generic "just listed/just sold" posts, one a week feels like spam.</p>
+    </div>
+
+    <!-- BONUS: PROMPT ENGINEERING -->
+    <h2 class="dc-section-title">Bonus: 5 Elements of Effective Prompts</h2>
+    <p class="dc-section-subtitle">AI is only as good as the instructions you give it.</p>
+
+    <div class="dc-step">
+      <div class="dc-step-header">
+        <div class="dc-step-num">+</div>
+        <div class="dc-step-title">The Prompt Quality Framework</div>
+      </div>
+      <ul>
+        <li><strong>Context:</strong> Who are you? What's your market? What's the goal?</li>
+        <li><strong>Specificity:</strong> Colors, lighting, character descriptions, emotions, settings. Think like a film director.</li>
+        <li><strong>Format:</strong> Numbered list? Paragraph? Include emojis? Word count? Tone?</li>
+        <li><strong>Examples:</strong> Show the AI what good looks like. Paste in a post you admire.</li>
+        <li><strong>Constraints:</strong> "Don't use real estate cliches." "Keep it under 200 words." "No exclamation marks in the LinkedIn version."</li>
+      </ul>
+      <div class="dc-tip">
+        <h4>LLM Stacking Advantage</h4>
+        <p>Generate with Claude for brand voice, fact-check with ChatGPT, verify data with Perplexity. Each AI has different strengths. Combining them produces results that exceed any single tool. See Chapter 6 for the full workflow.</p>
+      </div>
+    </div>
+
+    <!-- CTA -->
+    <div class="dc-cta">
+      <h3>Want Help Building Your Daisy Chain?</h3>
+      <p>Get one-on-one coaching from Edmund, join 200+ agents in the Mastermind, or explore custom AI content systems for your practice.</p>
+      <div style="font-size:1.5rem;font-weight:700;color:#fff;margin-bottom:0.25rem;">(424) 587-0840</div>
+      <div style="font-size:0.82rem;color:var(--cyan);font-weight:600;margin-bottom:1.25rem;">bogen.ai</div>
+      <a href="/edmunds-mastermind" class="btn btn-primary">Learn About Mastermind</a>
+      <a href="/book" class="btn btn-secondary">Back to Book Page</a>
+    </div>
+
+  </div>
+
+  <!-- BOTTOM DOWNLOAD -->
+  <div class="dl-btn-wrap" style="padding-bottom: 2rem;">
+    <a href="#" onclick="openDlModal(); return false;" class="dl-btn-pulse">Download the Daisy Chain Template (PDF)</a>
+  </div>
+
+  <!-- DOWNLOAD EMAIL MODAL -->
+  <div class="dl-modal-bg" id="dlModal">
+    <div class="dl-modal">
+      <button class="dl-modal-close" onclick="closeDlModal()">&#10005;</button>
+      <div id="dlModalForm">
+        <h3>Download the Daisy Chain Template</h3>
+        <p>Enter your name and email and the PDF is yours instantly.</p>
+        <label>First Name</label>
+        <input type="text" id="dlName" placeholder="Your first name">
+        <label>Email Address</label>
+        <input type="email" id="dlEmail" placeholder="you@example.com">
+        <button class="dl-modal-submit" onclick="submitDlModal()">Send Me the PDF</button>
+        <div class="dl-modal-note">No spam. Unsubscribe anytime.</div>
+      </div>
+      <div class="dl-modal-success" id="dlModalSuccess">
+        <h4>It's yours!</h4>
+        <p>Your download is starting now.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="footer" style="padding: var(--spacing-lg) 0;">
+    <div class="container">
+      <div class="footer-bottom" style="border-top: none; padding-top: 0;">
+        <p>&copy; 2026 Bogen.ai. All rights reserved. | Boca Raton, FL | <a href="mailto:info@bogen.ai">info@bogen.ai</a></p>
+        <p style="margin-top: 4px;"><a href="/privacy" style="color: rgba(255,255,255,0.5); font-size: 0.8rem;">Privacy Policy</a></p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="/js/common.js"></script>
+  <script>
+function copyPrompt(id, btn) {
+  const el = document.getElementById(id);
+  const text = el.innerText.replace('Copy', '').replace('Copied!', '').trim();
+  navigator.clipboard.writeText(text).then(() => {
+    btn.textContent = 'Copied!';
+    btn.classList.add('copied');
+    setTimeout(() => { btn.textContent = 'Copy'; btn.classList.remove('copied'); }, 2000);
+  });
+}
+
+// Download modal
+function openDlModal() { document.getElementById('dlModal').classList.add('open'); }
+function closeDlModal() {
+  document.getElementById('dlModal').classList.remove('open');
+  document.getElementById('dlModalForm').style.display = 'block';
+  document.getElementById('dlModalSuccess').style.display = 'none';
+}
+async function submitDlModal() {
+  const name = document.getElementById('dlName').value;
+  const email = document.getElementById('dlEmail').value;
+  if (!name || !email) { alert('Please enter your name and email.'); return; }
+  try {
+    await fetch('/api/book/capture-email', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ name, email, resource: 'daisy-chain-template', utm_source: 'resource-page', utm_medium: 'download' })
+    });
+  } catch (err) { console.error('Email capture error:', err); }
+  document.getElementById('dlModalForm').style.display = 'none';
+  document.getElementById('dlModalSuccess').style.display = 'block';
+  const a = document.createElement('a');
+  a.href = '/downloads/Content-Daisy-Chain-Template-Edmund-Bogen.pdf';
+  a.download = '';
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+}
+document.getElementById('dlModal').addEventListener('click', function(e) { if (e.target === this) closeDlModal(); });
+document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closeDlModal(); });
+
+// Track page view
+fetch('/api/track/pageview', {
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify({ page: '/daisy-chain-template', referrer: document.referrer })
+}).catch(() => {});
+  </script>
+</body>
+</html>

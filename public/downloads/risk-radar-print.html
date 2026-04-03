@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<style>
+  @page {
+    size: letter;
+    margin: 0.65in 0.7in 0.85in 0.7in;
+    @bottom-center {
+      content: "bogen.ai  |  (424) 587-0840  |  edmund@bogenhomes.com";
+      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      font-size: 7.5pt;
+      color: #94a3b8;
+      padding-top: 8pt;
+    }
+    @bottom-right {
+      content: counter(page);
+      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      font-size: 7.5pt;
+      color: #94a3b8;
+    }
+  }
+  @page:first {
+    margin-top: 0; margin-bottom: 0;
+    @bottom-center { content: none; }
+    @bottom-right { content: none; }
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 9.5pt;
+    line-height: 1.55;
+    color: #1a1a1a;
+  }
+
+  /* COVER */
+  .cover {
+    page-break-after: always;
+    width: 8.5in; height: 11in;
+    background: linear-gradient(160deg, #0f2a3f 0%, #1a3a52 55%, #24527A 100%);
+    display: flex; flex-direction: column; justify-content: center; align-items: center;
+    text-align: center; padding: 1.5in; position: relative; overflow: hidden;
+  }
+  .cover::before {
+    content: ''; position: absolute; top: -80px; right: -80px;
+    width: 400px; height: 400px;
+    background: radial-gradient(circle, rgba(100,181,246,0.15) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+  .cover-badge {
+    display: inline-block; background: rgba(100,181,246,0.2);
+    border: 1px solid rgba(100,181,246,0.4); color: #64b5f6;
+    font-size: 8pt; font-weight: 600; letter-spacing: 0.12em;
+    text-transform: uppercase; padding: 5pt 14pt; border-radius: 100px; margin-bottom: 24pt;
+  }
+  .cover h1 { color: #fff; font-size: 34pt; font-weight: 700; line-height: 1.15; margin-bottom: 8pt; letter-spacing: -0.02em; }
+  .cover h1 span { color: #64b5f6; }
+  .cover h2 { color: rgba(255,255,255,0.6); font-size: 13pt; font-weight: 400; margin-bottom: 36pt; max-width: 4.5in; }
+  .cover-line { width: 60px; height: 2px; background: #64b5f6; margin: 0 auto 24pt; }
+  .cover-author { color: rgba(255,255,255,0.85); font-size: 11pt; font-weight: 500; margin-bottom: 4pt; }
+  .cover-source { color: rgba(255,255,255,0.45); font-size: 8.5pt; margin-bottom: 28pt; }
+  .cover-cta {
+    background: rgba(100,181,246,0.12); border: 1px solid rgba(100,181,246,0.25);
+    border-radius: 8pt; padding: 14pt 20pt; max-width: 4in;
+  }
+  .cover-cta p { color: rgba(255,255,255,0.7); font-size: 8.5pt; line-height: 1.5; margin-bottom: 6pt; }
+  .cover-cta .phone { color: #64b5f6; font-size: 13pt; font-weight: 700; letter-spacing: 0.03em; }
+  .cover-cta .phone-label { color: rgba(255,255,255,0.45); font-size: 7.5pt; text-transform: uppercase; letter-spacing: 0.08em; }
+
+  /* Content */
+  h2 { font-size: 16pt; font-weight: 700; color: #1a3a52; margin-bottom: 10pt; padding-top: 4pt; }
+  h3 { font-size: 11pt; font-weight: 700; color: #1a3a52; margin-bottom: 6pt; }
+  .subtitle { font-size: 9pt; color: #888; margin-top: -6pt; margin-bottom: 14pt; }
+
+  /* Step */
+  .step {
+    border: 1pt solid #e0e8f0; border-radius: 6pt; padding: 12pt 14pt;
+    margin-bottom: 10pt; page-break-inside: avoid;
+  }
+  .step-header { display: flex; align-items: flex-start; gap: 8pt; margin-bottom: 6pt; }
+  .step-num {
+    width: 26pt; height: 26pt; background: #e8f4fc; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 10pt; font-weight: 700; color: #1a3a52; flex-shrink: 0;
+  }
+  .step-title { font-size: 11pt; font-weight: 700; color: #1a3a52; padding-top: 3pt; flex: 1; }
+  .step-time {
+    font-size: 7pt; font-weight: 600; color: #8899aa; background: #f0f4f8;
+    padding: 2pt 6pt; border-radius: 100pt; text-transform: uppercase;
+    letter-spacing: 0.05em; margin-top: 4pt; white-space: nowrap;
+  }
+  .step p { font-size: 9pt; color: #444; line-height: 1.6; margin-bottom: 6pt; }
+  .step ul { list-style: disc; padding-left: 16pt; margin-bottom: 6pt; }
+  .step li { font-size: 8.5pt; color: #444; line-height: 1.55; padding: 1pt 0; }
+
+  /* Prompt */
+  .prompt-box {
+    background: #f8fbfd; border: 1pt solid #d0e3f0; border-left: 3pt solid #64b5f6;
+    border-radius: 6pt; padding: 10pt 12pt; font-size: 8.5pt; color: #1a1a1a;
+    line-height: 1.6; white-space: pre-wrap; word-break: break-word; margin-top: 6pt;
+  }
+  .prompt-label {
+    font-size: 7pt; font-weight: 700; color: #64b5f6; text-transform: uppercase;
+    letter-spacing: 0.08em; margin-bottom: 4pt;
+  }
+
+  /* Warning */
+  .warning-box {
+    background: #fef2f1; border: 1pt solid #f0c0b8; border-left: 3pt solid #dc4c3c;
+    border-radius: 6pt; padding: 10pt 12pt; margin: 12pt 0; page-break-inside: avoid;
+  }
+  .warning-box h4 { font-size: 9pt; font-weight: 700; color: #c0392b; margin-bottom: 4pt; }
+  .warning-box p { font-size: 8.5pt; color: #555; line-height: 1.55; margin-bottom: 3pt; }
+  .warning-box p:last-child { margin-bottom: 0; }
+
+  /* Tip */
+  .tip-box {
+    background: #eef8f2; border: 1pt solid #c0e0cc; border-left: 3pt solid #2d7d52;
+    border-radius: 6pt; padding: 8pt 12pt; margin-top: 8pt; page-break-inside: avoid;
+  }
+  .tip-box h4 { font-size: 8pt; font-weight: 700; color: #2d7d52; margin-bottom: 3pt; }
+  .tip-box p { font-size: 8.5pt; color: #444; line-height: 1.55; margin-bottom: 0; }
+
+  /* CTA Block */
+  .cta-block {
+    background: #f0f7fc; border: 1pt solid #d0e3f0; border-radius: 8pt;
+    padding: 16pt 20pt; text-align: center; margin-top: 20pt; page-break-inside: avoid;
+  }
+  .cta-block h3 { font-size: 12pt; font-weight: 700; color: #1a3a52; margin-bottom: 4pt; }
+  .cta-block p { font-size: 9pt; color: #555; line-height: 1.55; margin-bottom: 8pt; max-width: 5in; margin-left: auto; margin-right: auto; }
+  .cta-phone { font-size: 16pt; font-weight: 700; color: #1a3a52; letter-spacing: 0.02em; margin-bottom: 2pt; }
+  .cta-web { font-size: 9pt; color: #64b5f6; font-weight: 600; }
+  .cta-services { display: flex; justify-content: center; gap: 12pt; margin-top: 10pt; flex-wrap: wrap; }
+  .cta-service {
+    font-size: 7.5pt; font-weight: 600; color: #1a3a52; background: #fff;
+    border: 0.5pt solid #d0e3f0; padding: 4pt 10pt; border-radius: 100pt;
+    text-transform: uppercase; letter-spacing: 0.06em;
+  }
+
+  .page-break { page-break-before: always; }
+</style>
+</head>
+<body>
+
+<!-- COVER -->
+<div class="cover">
+  <div class="cover-badge">Chapter 11 &bull; Prompt to Close</div>
+  <h1>The <span>Risk Radar</span><br>Setup Guide</h1>
+  <h2>AI-powered contract review for your state in under 15 minutes</h2>
+  <div class="cover-line"></div>
+  <div class="cover-author">Edmund Bogen</div>
+  <div class="cover-source">From <em>Prompt to Close: The AI Playbook for Real Estate Professionals</em></div>
+  <div class="cover-cta">
+    <p>Want hands-on help setting this up? Call or text for one-on-one coaching and AI consulting.</p>
+    <div class="phone">(424) 587-0840</div>
+    <div class="phone-label">Call or text to get started</div>
+  </div>
+</div>
+
+<!-- PAGE 2: SETUP STEPS -->
+<h2>Setup: Build Your Risk Radar</h2>
+<p class="subtitle">One-time setup. Every contract after this takes 2 minutes.</p>
+
+<div class="step">
+  <div class="step-header">
+    <div class="step-num">1</div>
+    <div class="step-title">Get Your Standard Contract</div>
+    <div class="step-time">5 min</div>
+  </div>
+  <p>Download the clean, unmodified version of your state's standard residential contract -- the one your association provides before anyone touches it.</p>
+  <ul>
+    <li><strong>Florida:</strong> FAR/BAR "As Is" Residential Contract for Sale and Purchase</li>
+    <li><strong>Other states:</strong> Your state or local association's standard residential form</li>
+    <li>Make sure it's the current version with no agent modifications</li>
+    <li>PDF format works best -- Claude reads PDFs natively</li>
+  </ul>
+</div>
+
+<div class="step">
+  <div class="step-header">
+    <div class="step-num">2</div>
+    <div class="step-title">Create a Claude Project for Contracts</div>
+    <div class="step-time">3 min</div>
+  </div>
+  <p>Open Claude Pro and create a new Project. Name it "Contract Review - [Your State]". Upload your standard contract to the Project's knowledge base. Then set the Project's system prompt to:</p>
+  <div class="prompt-box"><div class="prompt-label">Project System Prompt</div>
+Memorize this document word for word. This is our standard residential real estate contract for [YOUR STATE]. Every clause. Every contingency. Every timeline. Every obligation. This is your baseline.
+
+When I upload a new contract, perform a forensic comparison against this baseline and report:
+- Every difference, no matter how small
+- Any additions not in the standard form
+- Any deletions from the standard form
+- Any language changes and their implications
+- Changes that shift risk from one party to another
+- Shortened or eliminated contingency periods
+- Removed protections
+- Added obligations not previously present
+
+Always provide an overall risk assessment and suggest questions for my attorney.</div>
+</div>
+
+<div class="step">
+  <div class="step-header">
+    <div class="step-num">3</div>
+    <div class="step-title">Run Your First Comparison</div>
+    <div class="step-time">5 min</div>
+  </div>
+  <p>Upload a recent contract to your new Project and use this prompt:</p>
+  <div class="prompt-box"><div class="prompt-label">Contract Review Prompt (Risk Radar)</div>
+I am uploading my state's standard residential real estate contract AND a modified version I just received.
+
+For the standard contract: memorize every word, clause, contingency, timeline, and obligation.
+
+For the modified version: perform a complete comparison and report every difference (no matter how minor), any additions not in the standard form, any deletions, any language changes and their implications, an overall risk assessment, and recommended questions for my attorney.
+
+I am a [buyer's/seller's] agent in [STATE].</div>
+  <div class="tip-box">
+    <h4>Pro Tip</h4>
+    <p>Compare AI's findings against what you caught manually. Most agents find AI catches 2-3 items they missed. That's the gap this technology closes.</p>
+  </div>
+</div>
+
+<div class="step">
+  <div class="step-header">
+    <div class="step-num">4</div>
+    <div class="step-title">Make It a Habit</div>
+    <div class="step-time">2 min per contract</div>
+  </div>
+  <p>From now on, every incoming contract goes through the Risk Radar before you respond. No exceptions:</p>
+  <ul>
+    <li>Receive new contract</li>
+    <li>Upload to your Claude Contract Project</li>
+    <li>Run the comparison prompt</li>
+    <li>Review AI's findings</li>
+    <li>Bring flagged items to your attorney</li>
+  </ul>
+  <p>You're not providing legal analysis. You're performing due diligence. Your attorney interprets -- you save them the time of hunting for the needle because AI already found it.</p>
+</div>
+
+<!-- PAGE 3: BONUS PROMPTS -->
+<div class="page-break"></div>
+<h2>Bonus: The Never Miss Engine</h2>
+<p class="subtitle">Extract every deadline from any contract with one prompt.</p>
+
+<div class="step">
+  <div class="step-header">
+    <div class="step-num">+</div>
+    <div class="step-title">Deadline Extraction Prompt</div>
+    <div class="step-time">5 min</div>
+  </div>
+  <p>A typical contract has 8-20 deadlines. Across 4-8 deals, that's up to 160 to track. This prompt extracts them all and creates calendar events automatically.</p>
+  <div class="prompt-box"><div class="prompt-label">Never Miss Engine -- Deadline Extraction</div>
+Review this real estate contract and extract every deadline and time-sensitive obligation.
+
+For each item, provide:
+- The specific deadline or timeframe stated
+- The calculated calendar date (effective date is [DATE])
+- Who is responsible (buyer, seller, agent, lender, title company)
+- What happens if the deadline is missed
+- Whether it can be extended and under what conditions
+
+Then generate Google Calendar links for each deadline with reminders at 7 days, 3 days, and 1 day before.
+
+Organize everything chronologically.</div>
+</div>
+
+<h2 style="margin-top: 18pt;">Bonus: Manipulation Detection</h2>
+<p class="subtitle">When you receive a revised contract that feels "off."</p>
+
+<div class="step">
+  <div class="step-header">
+    <div class="step-num">+</div>
+    <div class="step-title">Side-by-Side Forensic Analysis</div>
+    <div class="step-time">3 min</div>
+  </div>
+  <p>Use this when you receive a "revised" version and want to catch every change -- especially the ones the other side doesn't mention.</p>
+  <div class="prompt-box"><div class="prompt-label">Manipulation Detection -- Side-by-Side Analysis</div>
+I am uploading two versions of a contract. Document A is the original agreed-upon version. Document B is the version I just received.
+
+Please perform a forensic comparison: identify EVERY difference between the two documents, no matter how small.
+
+For each difference, explain:
+- What was changed
+- How the change affects each party
+- Whether this type of change is typical or unusual
+
+Flag any changes that:
+- Shift risk from one party to another
+- Shorten or eliminate contingency periods
+- Remove protections from the original
+- Add obligations that weren't previously present
+
+Provide an overall risk assessment for my [buyer/seller] and suggest specific questions I should ask my attorney about the flagged changes.</div>
+</div>
+
+<div class="warning-box">
+  <h4>Critical Warning: AI and Redacted Documents</h4>
+  <p><strong>Visual redaction is not true redaction.</strong> Black boxes, highlight overlays, and image-based covers do not remove the underlying text. Claude and other AI tools can read right through visual redactions.</p>
+  <p>If you must upload redacted documents: ensure the redaction permanently removes the underlying data.</p>
+  <p><strong>When in doubt, don't upload it.</strong> Copy only the text you want AI to see into a new document.</p>
+</div>
+
+<div class="cta-block">
+  <h3>Ready to Go Further?</h3>
+  <p>Get one-on-one coaching from Edmund, join 200+ agents in the Mastermind, or explore custom AI solutions for your practice.</p>
+  <div class="cta-phone">(424) 587-0840</div>
+  <div class="cta-web">bogen.ai</div>
+  <div class="cta-services">
+    <span class="cta-service">1-on-1 Coaching</span>
+    <span class="cta-service">Mastermind Membership</span>
+    <span class="cta-service">Custom AI Builds</span>
+    <span class="cta-service">Speaking Engagements</span>
+  </div>
+</div>
+
+</body>
+</html>
