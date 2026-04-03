@@ -100,6 +100,27 @@ app.post('/api/book/speaker-inquiry', async (req, res) => {
       'INSERT INTO speaker_inquiries (first_name, last_name, email, phone, message) VALUES ($1, $2, $3, $4, $5)',
       [first_name, last_name, email, phone, message || '']
     );
+
+    // Send email notification to Edmund
+    const { sendEmail } = require('./server/utils/email');
+    sendEmail({
+      to: 'edmund@bogenhomes.com',
+      subject: `New Inquiry: ${first_name} ${last_name}`,
+      html: `
+        <div style="font-family: Arial, sans-serif; max-width: 600px;">
+          <h2 style="color: #1B365D;">New Inquiry Received</h2>
+          <table style="width: 100%; border-collapse: collapse;">
+            <tr><td style="padding: 8px; border-bottom: 1px solid #e0e0e0;"><strong>Name:</strong></td><td style="padding: 8px; border-bottom: 1px solid #e0e0e0;">${first_name} ${last_name}</td></tr>
+            <tr><td style="padding: 8px; border-bottom: 1px solid #e0e0e0;"><strong>Email:</strong></td><td style="padding: 8px; border-bottom: 1px solid #e0e0e0;">${email}</td></tr>
+            <tr><td style="padding: 8px; border-bottom: 1px solid #e0e0e0;"><strong>Phone:</strong></td><td style="padding: 8px; border-bottom: 1px solid #e0e0e0;">${phone}</td></tr>
+            <tr><td style="padding: 8px; vertical-align: top;"><strong>Message:</strong></td><td style="padding: 8px;">${message || 'N/A'}</td></tr>
+          </table>
+          <p style="margin-top: 20px;"><a href="https://www.bogen.ai/admin-dashboard" style="display: inline-block; background: #1B365D; color: white; padding: 12px 30px; text-decoration: none; border-radius: 4px;">View in Dashboard</a></p>
+        </div>
+      `,
+      text: `New inquiry from ${first_name} ${last_name} (${email}, ${phone}). Message: ${message || 'N/A'}`
+    }).catch(err => console.error('Email notification error:', err));
+
     res.json({ success: true });
   } catch (error) {
     console.error('Speaker inquiry error:', error);
@@ -118,6 +139,31 @@ app.post('/api/services/inquiry', async (req, res) => {
       'INSERT INTO service_inquiries (industry, challenge, team_size, name, email, phone, company, business_description) VALUES ($1, $2, $3, $4, $5, $6, $7, $8)',
       [industry, challenge, team_size, name, email, phone, company || '', business_description || '']
     );
+
+    // Send email notification to Edmund
+    const { sendEmail } = require('./server/utils/email');
+    sendEmail({
+      to: 'edmund@bogenhomes.com',
+      subject: `New Service Inquiry: ${name} (${industry})`,
+      html: `
+        <div style="font-family: Arial, sans-serif; max-width: 600px;">
+          <h2 style="color: #1B365D;">New Service Inquiry</h2>
+          <table style="width: 100%; border-collapse: collapse;">
+            <tr><td style="padding: 8px; border-bottom: 1px solid #e0e0e0;"><strong>Name:</strong></td><td style="padding: 8px; border-bottom: 1px solid #e0e0e0;">${name}</td></tr>
+            <tr><td style="padding: 8px; border-bottom: 1px solid #e0e0e0;"><strong>Email:</strong></td><td style="padding: 8px; border-bottom: 1px solid #e0e0e0;">${email}</td></tr>
+            <tr><td style="padding: 8px; border-bottom: 1px solid #e0e0e0;"><strong>Phone:</strong></td><td style="padding: 8px; border-bottom: 1px solid #e0e0e0;">${phone}</td></tr>
+            <tr><td style="padding: 8px; border-bottom: 1px solid #e0e0e0;"><strong>Company:</strong></td><td style="padding: 8px; border-bottom: 1px solid #e0e0e0;">${company || 'N/A'}</td></tr>
+            <tr><td style="padding: 8px; border-bottom: 1px solid #e0e0e0;"><strong>Industry:</strong></td><td style="padding: 8px; border-bottom: 1px solid #e0e0e0;">${industry}</td></tr>
+            <tr><td style="padding: 8px; border-bottom: 1px solid #e0e0e0;"><strong>Challenge:</strong></td><td style="padding: 8px; border-bottom: 1px solid #e0e0e0;">${challenge}</td></tr>
+            <tr><td style="padding: 8px; border-bottom: 1px solid #e0e0e0;"><strong>Team Size:</strong></td><td style="padding: 8px; border-bottom: 1px solid #e0e0e0;">${team_size}</td></tr>
+            <tr><td style="padding: 8px; vertical-align: top;"><strong>Description:</strong></td><td style="padding: 8px;">${business_description || 'N/A'}</td></tr>
+          </table>
+          <p style="margin-top: 20px;"><a href="https://www.bogen.ai/admin-dashboard" style="display: inline-block; background: #1B365D; color: white; padding: 12px 30px; text-decoration: none; border-radius: 4px;">View in Dashboard</a></p>
+        </div>
+      `,
+      text: `New service inquiry from ${name} (${email}). Industry: ${industry}, Challenge: ${challenge}`
+    }).catch(err => console.error('Email notification error:', err));
+
     res.json({ success: true });
   } catch (error) {
     console.error('Service inquiry error:', error);
@@ -200,6 +246,107 @@ app.get('/api/admin/analytics', authenticateAdmin, async (req, res) => {
   } catch (error) {
     console.error('Analytics error:', error);
     res.status(500).json({ error: 'Failed to load analytics' });
+  }
+});
+
+// Weekly inquiry digest — called by Vercel cron every Friday at 9am ET
+app.get('/api/cron/inquiry-digest', async (req, res) => {
+  // Verify cron secret to prevent unauthorized triggers
+  const cronSecret = req.headers['authorization'];
+  if (cronSecret !== `Bearer ${process.env.CRON_SECRET}`) {
+    return res.status(401).json({ error: 'Unauthorized' });
+  }
+
+  try {
+    const { sendEmail } = require('./server/utils/email');
+
+    // Get all unresponded speaker inquiries (status = 'new')
+    const speakerResult = await dbPool.query(
+      "SELECT first_name, last_name, email, phone, message, created_at FROM speaker_inquiries WHERE status = 'new' ORDER BY created_at DESC"
+    );
+
+    // Get all unresponded service inquiries (status = 'pending')
+    const serviceResult = await dbPool.query(
+      "SELECT name, email, phone, company, industry, challenge, created_at FROM service_inquiries WHERE status = 'pending' ORDER BY created_at DESC"
+    );
+
+    const speakerCount = speakerResult.rows.length;
+    const serviceCount = serviceResult.rows.length;
+    const totalCount = speakerCount + serviceCount;
+
+    if (totalCount === 0) {
+      return res.json({ success: true, message: 'No pending inquiries — no email sent' });
+    }
+
+    // Build speaker inquiry rows
+    let speakerRows = '';
+    speakerResult.rows.forEach(r => {
+      const date = new Date(r.created_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+      speakerRows += `<tr>
+        <td style="padding: 8px; border-bottom: 1px solid #e0e0e0;">${r.first_name} ${r.last_name}</td>
+        <td style="padding: 8px; border-bottom: 1px solid #e0e0e0;">${r.email}</td>
+        <td style="padding: 8px; border-bottom: 1px solid #e0e0e0;">${r.phone}</td>
+        <td style="padding: 8px; border-bottom: 1px solid #e0e0e0;">${date}</td>
+      </tr>`;
+    });
+
+    // Build service inquiry rows
+    let serviceRows = '';
+    serviceResult.rows.forEach(r => {
+      const date = new Date(r.created_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+      serviceRows += `<tr>
+        <td style="padding: 8px; border-bottom: 1px solid #e0e0e0;">${r.name}</td>
+        <td style="padding: 8px; border-bottom: 1px solid #e0e0e0;">${r.email}</td>
+        <td style="padding: 8px; border-bottom: 1px solid #e0e0e0;">${r.industry}</td>
+        <td style="padding: 8px; border-bottom: 1px solid #e0e0e0;">${date}</td>
+      </tr>`;
+    });
+
+    const html = `
+      <div style="font-family: Arial, sans-serif; max-width: 700px;">
+        <h2 style="color: #1B365D;">Weekly Inquiry Digest — ${totalCount} Unanswered</h2>
+        <p>You have <strong>${totalCount}</strong> inquiries waiting for a response.</p>
+
+        ${speakerCount > 0 ? `
+        <h3 style="color: #D4AF37; margin-top: 24px;">Speaker/Contact Inquiries (${speakerCount})</h3>
+        <table style="width: 100%; border-collapse: collapse; font-size: 14px;">
+          <tr style="background: #f4f4f4;">
+            <th style="padding: 8px; text-align: left;">Name</th>
+            <th style="padding: 8px; text-align: left;">Email</th>
+            <th style="padding: 8px; text-align: left;">Phone</th>
+            <th style="padding: 8px; text-align: left;">Date</th>
+          </tr>
+          ${speakerRows}
+        </table>` : ''}
+
+        ${serviceCount > 0 ? `
+        <h3 style="color: #D4AF37; margin-top: 24px;">Service Inquiries (${serviceCount})</h3>
+        <table style="width: 100%; border-collapse: collapse; font-size: 14px;">
+          <tr style="background: #f4f4f4;">
+            <th style="padding: 8px; text-align: left;">Name</th>
+            <th style="padding: 8px; text-align: left;">Email</th>
+            <th style="padding: 8px; text-align: left;">Industry</th>
+            <th style="padding: 8px; text-align: left;">Date</th>
+          </tr>
+          ${serviceRows}
+        </table>` : ''}
+
+        <p style="margin-top: 24px;"><a href="https://www.bogen.ai/admin-dashboard" style="display: inline-block; background: #1B365D; color: white; padding: 12px 30px; text-decoration: none; border-radius: 4px;">Open Dashboard</a></p>
+        <p style="color: #999; font-size: 12px; margin-top: 20px;">This is an automated weekly digest from bogen.ai. Mark inquiries as responded in the dashboard to remove them from future digests.</p>
+      </div>
+    `;
+
+    await sendEmail({
+      to: 'edmund@bogenhomes.com',
+      subject: `Bogen.ai: ${totalCount} Unanswered Inquiries`,
+      html,
+      text: `You have ${totalCount} unanswered inquiries (${speakerCount} speaker, ${serviceCount} service). View at https://www.bogen.ai/admin-dashboard`
+    });
+
+    res.json({ success: true, sent: totalCount });
+  } catch (error) {
+    console.error('Inquiry digest error:', error);
+    res.status(500).json({ error: 'Failed to send digest' });
   }
 });
 
