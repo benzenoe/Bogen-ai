@@ -16,20 +16,10 @@
     <link rel="stylesheet" href="/css/chatbot.css">
 
     <style>
+        /* Landing Page Specific Styles - Use with global.css */
 
         :root {
-            --bg: #ffffff;
-            --text-primary: #1a1a1a;
-            --text-secondary: #4a4a4a;
-            --text-tertiary: #666666;
-            --text-muted: #888888;
-            --border: #d0d8e0;
-            --card-bg: #f7f9fb;
-            --card-accent-bg: #eef8fc;
-            --accent: #0090c4;
-            --navy: #1a3e5c;
-            --header-bg: linear-gradient(135deg, #1a3e5c 0%, #0d5e8c 100%);
-            --nav-bg: rgba(26,62,92,0.97);
+            /* Color palette for feature cards */
             --color-blue: #0090c4;
             --color-green: #10b981;
             --color-orange: #f59e0b;
@@ -39,48 +29,16 @@
             --color-red: #ef4444;
         }
 
-        [data-theme="dark"] {
-            --bg: #0d1117;
-            --text-primary: #f0f6fc;
-            --text-secondary: #c9d1d9;
-            --text-tertiary: #8b949e;
-            --text-muted: #6e7681;
-            --border: #30363d;
-            --card-bg: #161b22;
-            --card-accent-bg: #1c2128;
-            --header-bg: #0d1117;
-            --nav-bg: rgba(13,17,23,0.97);
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        html {
-            scroll-behavior: smooth;
-        }
-
-        body {
-            font-family: 'Montserrat', 'Helvetica Neue', Arial, sans-serif;
-            color: var(--text-primary);
-            background: var(--bg);
-            line-height: 1.7;
-            font-size: 16px;
-            -webkit-font-smoothing: antialiased;
-            transition: background 0.3s, color 0.3s;
-        }
-
-        .container {
-            max-width: 740px;
+        /* Page-specific container */
+        .landing-container {
+            max-width: 900px;
             margin: 0 auto;
             padding: 60px 40px 80px;
         }
 
         .intro {
-            font-size: 16px;
-            color: var(--text-primary);
+            font-size: 1.0625rem;
+            color: rgba(255,255,255,0.9);
             margin-bottom: 48px;
             line-height: 1.8;
         }
@@ -90,7 +48,7 @@
         }
 
         .intro strong {
-            color: var(--accent);
+            color: var(--cyan);
         }
 
         .section-header {
@@ -105,11 +63,12 @@
             margin-bottom: 6px;
         }
 
-        h2.section-title {
-            font-size: 22px;
-            font-weight: 500;
-            color: var(--text-primary);
-            margin-bottom: 16px;
+        h2, h2.section-title {
+            font-size: 2rem;
+            font-weight: 300;
+            color: rgba(255,255,255,0.95);
+            margin-bottom: 24px;
+            letter-spacing: 0.02em;
         }
 
         .value-props {
@@ -124,10 +83,11 @@
         }
 
         .prop-card {
-            background: var(--card-bg);
-            border-radius: 6px;
+            background: rgba(26, 58, 82, 0.3);
+            border: 1px solid rgba(100, 181, 246, 0.2);
+            border-radius: 8px;
             padding: 20px 24px;
-            border-left: 4px solid var(--accent);
+            border-left: 4px solid var(--cyan);
             transition: all 0.3s;
         }
 
@@ -140,20 +100,21 @@
         .prop-card:nth-child(7n+7) { border-left-color: var(--color-red); }
 
         .prop-card:hover {
-            box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+            background: rgba(26, 58, 82, 0.5);
+            box-shadow: 0 6px 20px rgba(100, 181, 246, 0.15);
             transform: translateY(-2px);
         }
 
         .prop-title {
             font-size: 15px;
             font-weight: 600;
-            color: var(--text-primary);
+            color: rgba(255,255,255,0.95);
             margin-bottom: 6px;
         }
 
         .prop-desc {
             font-size: 14px;
-            color: var(--text-tertiary);
+            color: rgba(255,255,255,0.7);
             line-height: 1.6;
         }
 
@@ -169,8 +130,8 @@
         }
 
         .pricing-card {
-            background: var(--card-bg);
-            border: 2px solid var(--border);
+            background: rgba(26, 58, 82, 0.3);
+            border: 2px solid rgba(100, 181, 246, 0.2);
             border-radius: 8px;
             padding: 32px 28px;
             text-align: center;
@@ -180,15 +141,16 @@
 
         .pricing-card:hover {
             transform: translateY(-4px);
-            box-shadow: 0 8px 24px rgba(0,168,225,0.15);
-            border-color: var(--accent);
+            background: rgba(26, 58, 82, 0.5);
+            box-shadow: 0 8px 24px rgba(100, 181, 246, 0.2);
+            border-color: var(--cyan);
         }
 
         .pricing-card.featured {
             border-color: var(--color-purple);
             border-width: 3px;
-            background: linear-gradient(135deg, rgba(139,92,246,0.05) 0%, rgba(236,72,153,0.05) 100%);
-            box-shadow: 0 4px 16px rgba(139,92,246,0.15);
+            background: linear-gradient(135deg, rgba(139,92,246,0.15) 0%, rgba(236,72,153,0.15) 100%);
+            box-shadow: 0 4px 16px rgba(139,92,246,0.3);
         }
 
         .pricing-card.featured::before {
@@ -210,7 +172,7 @@
         .pricing-package-name {
             font-size: 14px;
             font-weight: 600;
-            color: var(--text-secondary);
+            color: rgba(255,255,255,0.7);
             text-transform: uppercase;
             letter-spacing: 0.1em;
             margin-bottom: 12px;
@@ -236,13 +198,13 @@
 
         .pricing-pages {
             font-size: 16px;
-            color: var(--text-tertiary);
+            color: rgba(255,255,255,0.8);
             margin-bottom: 16px;
         }
 
         .pricing-per-page {
             font-size: 13px;
-            color: var(--text-tertiary);
+            color: rgba(255,255,255,0.6);
             margin-bottom: 8px;
         }
 
@@ -299,7 +261,7 @@
 
         .pricing-note {
             font-size: 14px;
-            color: var(--text-tertiary);
+            color: rgba(255,255,255,0.6);
             margin-top: 20px;
             line-height: 1.6;
         }
@@ -307,19 +269,19 @@
         .value-callout {
             margin-top: 24px;
             padding: 20px 24px;
-            background: var(--card-accent-bg);
-            border-radius: 6px;
-            border-left: 4px solid var(--accent);
+            background: rgba(100, 181, 246, 0.1);
+            border-radius: 8px;
+            border-left: 4px solid var(--cyan);
         }
 
         .value-callout p {
             font-size: 14px;
-            color: var(--text-primary);
+            color: rgba(255,255,255,0.9);
             line-height: 1.6;
         }
 
         .value-callout strong {
-            color: var(--accent);
+            color: var(--cyan);
         }
 
         .form-section {
@@ -328,15 +290,16 @@
 
         .form-intro {
             font-size: 15px;
-            color: var(--text-secondary);
+            color: rgba(255,255,255,0.8);
             line-height: 1.7;
             margin-bottom: 28px;
         }
 
         form {
-            background: var(--card-bg);
+            background: rgba(26, 58, 82, 0.3);
+            border: 1px solid rgba(100, 181, 246, 0.2);
             padding: 32px;
-            border-radius: 6px;
+            border-radius: 8px;
         }
 
         .form-grid {
@@ -354,7 +317,7 @@
             display: block;
             font-size: 12px;
             font-weight: 600;
-            color: var(--text-primary);
+            color: rgba(255,255,255,0.8);
             letter-spacing: 0.08em;
             text-transform: uppercase;
             margin-bottom: 8px;
@@ -363,18 +326,19 @@
         input, select, textarea {
             width: 100%;
             padding: 12px 14px;
-            border: 1px solid var(--border);
+            border: 1px solid rgba(100, 181, 246, 0.3);
             border-radius: 4px;
             font-family: 'Montserrat', sans-serif;
             font-size: 15px;
-            color: var(--text-primary);
-            background: var(--bg);
+            color: rgba(255,255,255,0.95);
+            background: rgba(15, 42, 63, 0.6);
             transition: border-color 0.2s;
         }
 
         input:focus, select:focus, textarea:focus {
             outline: none;
-            border-color: var(--accent);
+            border-color: var(--cyan);
+            background: rgba(15, 42, 63, 0.8);
         }
 
         textarea {
@@ -411,7 +375,7 @@
 
         .examples-intro {
             font-size: 15px;
-            color: var(--text-secondary);
+            color: rgba(255,255,255,0.8);
             line-height: 1.7;
             margin-bottom: 28px;
         }
@@ -423,12 +387,12 @@
         }
 
         .example-card {
-            background: var(--card-bg);
+            background: rgba(26, 58, 82, 0.3);
             border-radius: 8px;
             padding: 24px;
             text-align: center;
-            border: 2px solid var(--border);
-            border-top: 4px solid var(--accent);
+            border: 1px solid rgba(100, 181, 246, 0.2);
+            border-top: 4px solid var(--cyan);
             transition: all 0.3s;
         }
 
@@ -441,8 +405,9 @@
         .example-card:nth-child(7n+7) { border-top-color: var(--color-red); }
 
         .example-card:hover {
+            background: rgba(26, 58, 82, 0.5);
             transform: translateY(-4px);
-            box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+            box-shadow: 0 6px 20px rgba(100, 181, 246, 0.15);
         }
 
         .example-icon {
@@ -453,21 +418,19 @@
         .example-title {
             font-size: 15px;
             font-weight: 600;
-            color: var(--text-primary);
+            color: rgba(255,255,255,0.95);
             margin-bottom: 8px;
         }
 
         .example-desc {
             font-size: 13px;
-            color: var(--text-tertiary);
+            color: rgba(255,255,255,0.7);
             line-height: 1.5;
         }
 
-        .footer {
-            background: var(--header-bg);
-            padding: 32px 60px;
-            margin-top: 80px;
-            text-align: center;
+        /* Remove custom footer styles - using global */
+        .landing-footer-removed {
+            display: none;
         }
 
         .footer-text {
@@ -488,10 +451,10 @@
 
         .success-message {
             display: none;
-            background: var(--card-accent-bg);
-            border-left: 4px solid var(--accent);
+            background: rgba(16, 185, 129, 0.15);
+            border-left: 4px solid var(--color-green);
             padding: 20px 24px;
-            border-radius: 6px;
+            border-radius: 8px;
             margin-top: 20px;
         }
 
@@ -501,7 +464,7 @@
 
         .success-message p {
             font-size: 15px;
-            color: var(--accent);
+            color: var(--color-green);
             font-weight: 500;
         }
 
@@ -582,13 +545,7 @@
         <p style="font-size: 1rem; color: rgba(255,255,255,0.75);">One page per listing. Fully branded. SEO optimized. Fast turnaround.</p>
     </div>
 
-    <div class="container" style="padding-top: 40px;">
-        <!-- Hero -->
-        <div class="hero-block">
-            <h1>Professional Landing Pages<br>Starting at <span class="price-highlight">$99</span></h1>
-            <div class="subtitle">One page per listing. Fully branded. SEO optimized. Fast turnaround.</div>
-        </div>
-
+    <div class="landing-container">
         <!-- Intro -->
         <div class="intro">
             <p>Every listing deserves its own spotlight. Most agents rely on Zillow, Realtor.com, and generic MLS syndication — but those platforms are optimized for <em>their</em> business, not yours. They capture the lead, control the experience, and push your commission dollars toward their own ecosystem.</p>
