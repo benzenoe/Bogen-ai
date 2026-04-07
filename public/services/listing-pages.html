@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Choose Your Landing Page Template | Bogen.ai</title>
-    <meta name="description" content="Select from our professional landing page templates. Each design optimized for real estate listings.">
+    <title>Real Estate Landing Pages — Starting at $99 | Bogen.ai</title>
+    <meta name="description" content="Professional real estate landing pages starting at $99. One page per listing. Fast turnaround. SEO optimized.">
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -16,268 +16,631 @@
     <link rel="stylesheet" href="/css/chatbot.css">
 
     <style>
-        /* Scroll offset for anchor links */
-        #features, #pricing, #order {
-            scroll-margin-top: 150px;
+        /* Landing Page Specific Styles - Use with global.css */
+
+        :root {
+            /* Color palette for feature cards */
+            --color-blue: #0090c4;
+            --color-green: #10b981;
+            --color-orange: #f59e0b;
+            --color-purple: #8b5cf6;
+            --color-teal: #14b8a6;
+            --color-pink: #ec4899;
+            --color-red: #ef4444;
         }
 
-        /* Page Submenu */
-        .page-submenu {
-            position: sticky;
-            top: 80px;
-            background: rgba(15, 42, 63, 0.95);
-            backdrop-filter: blur(10px);
-            border-bottom: 1px solid rgba(100, 181, 246, 0.2);
-            z-index: 100;
-            padding: 0;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
-        }
-
-        .page-submenu-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 40px;
-        }
-
-        .page-submenu nav {
-            display: flex;
-            gap: 32px;
-            overflow-x: auto;
-            -webkit-overflow-scrolling: touch;
-        }
-
-        .page-submenu nav::-webkit-scrollbar {
-            display: none;
-        }
-
-        .page-submenu a {
-            display: block;
-            padding: 16px 0;
-            font-size: 14px;
-            font-weight: 600;
-            color: rgba(255,255,255,0.7);
-            text-decoration: none;
-            white-space: nowrap;
-            border-bottom: 2px solid transparent;
-            transition: all 0.2s ease;
-        }
-
-        .page-submenu a:hover {
-            color: var(--cyan);
-            border-bottom-color: var(--cyan);
-        }
-
-        @media (max-width: 768px) {
-            .page-submenu {
-                top: 70px;
-            }
-
-            .page-submenu-container {
-                padding: 0 20px;
-            }
-
-            .page-submenu nav {
-                gap: 24px;
-            }
-        }
-
-        .template-selector {
-            max-width: 1200px;
+        /* Page-specific container */
+        .landing-container {
+            max-width: 900px;
             margin: 0 auto;
             padding: 60px 40px 80px;
         }
 
-        .page-header {
-            text-align: center;
-            margin-bottom: 60px;
+        .intro {
+            font-size: 1.0625rem;
+            color: rgba(255,255,255,0.9);
+            margin-bottom: 48px;
+            line-height: 1.8;
         }
 
-        .page-header h1 {
-            font-size: 3rem;
-            margin-bottom: 16px;
+        .intro p + p {
+            margin-top: 14px;
         }
 
-        .page-header p {
-            font-size: 1.25rem;
-            color: rgba(255,255,255,0.8);
+        .intro strong {
+            color: var(--cyan);
         }
 
-        .templates-grid {
+        .section-header {
+            font-size: 12px;
+            font-weight: 600;
+            background: linear-gradient(135deg, var(--color-blue) 0%, var(--color-purple) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            margin-bottom: 6px;
+        }
+
+        h2, h2.section-title {
+            font-size: 2rem;
+            font-weight: 300;
+            color: rgba(255,255,255,0.95);
+            margin-bottom: 24px;
+            letter-spacing: 0.02em;
+        }
+
+        .value-props {
+            margin-bottom: 48px;
+        }
+
+        .prop-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 32px;
-            margin-top: 48px;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin-top: 24px;
         }
 
-        .template-card {
+        .prop-card {
+            background: rgba(26, 58, 82, 0.3);
+            border: 1px solid rgba(100, 181, 246, 0.2);
+            border-radius: 8px;
+            padding: 20px 24px;
+            border-left: 4px solid var(--cyan);
+            transition: all 0.3s;
+        }
+
+        .prop-card:nth-child(7n+1) { border-left-color: var(--color-blue); }
+        .prop-card:nth-child(7n+2) { border-left-color: var(--color-green); }
+        .prop-card:nth-child(7n+3) { border-left-color: var(--color-orange); }
+        .prop-card:nth-child(7n+4) { border-left-color: var(--color-purple); }
+        .prop-card:nth-child(7n+5) { border-left-color: var(--color-teal); }
+        .prop-card:nth-child(7n+6) { border-left-color: var(--color-pink); }
+        .prop-card:nth-child(7n+7) { border-left-color: var(--color-red); }
+
+        .prop-card:hover {
+            background: rgba(26, 58, 82, 0.5);
+            box-shadow: 0 6px 20px rgba(100, 181, 246, 0.15);
+            transform: translateY(-2px);
+        }
+
+        .prop-title {
+            font-size: 15px;
+            font-weight: 600;
+            color: rgba(255,255,255,0.95);
+            margin-bottom: 6px;
+        }
+
+        .prop-desc {
+            font-size: 14px;
+            color: rgba(255,255,255,0.7);
+            line-height: 1.6;
+        }
+
+        .pricing-section {
+            margin: 48px 0;
+        }
+
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 24px;
+            margin-top: 32px;
+        }
+
+        .pricing-card {
             background: rgba(26, 58, 82, 0.3);
             border: 2px solid rgba(100, 181, 246, 0.2);
-            border-radius: 12px;
-            overflow: hidden;
+            border-radius: 8px;
+            padding: 32px 28px;
+            text-align: center;
             transition: all 0.3s;
-            cursor: pointer;
+            position: relative;
         }
 
-        .template-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 12px 32px rgba(100, 181, 246, 0.25);
+        .pricing-card:hover {
+            transform: translateY(-4px);
+            background: rgba(26, 58, 82, 0.5);
+            box-shadow: 0 8px 24px rgba(100, 181, 246, 0.2);
             border-color: var(--cyan);
         }
 
-        .template-preview {
-            width: 100%;
-            height: 300px;
-            background: linear-gradient(135deg, #1a3e5c 0%, #0d5e8c 100%);
-            position: relative;
-            overflow: hidden;
+        .pricing-card.featured {
+            border-color: var(--color-purple);
+            border-width: 3px;
+            background: linear-gradient(135deg, rgba(139,92,246,0.15) 0%, rgba(236,72,153,0.15) 100%);
+            box-shadow: 0 4px 16px rgba(139,92,246,0.3);
         }
 
-        .template-preview img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .template-badge {
+        .pricing-card.featured::before {
+            content: 'BEST VALUE';
             position: absolute;
-            top: 16px;
-            right: 16px;
-            background: rgba(0,0,0,0.7);
+            top: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: linear-gradient(135deg, var(--color-purple) 0%, var(--color-pink) 100%);
             color: white;
-            padding: 6px 14px;
-            border-radius: 20px;
+            padding: 6px 18px;
+            border-radius: 16px;
             font-size: 11px;
             font-weight: 700;
+            letter-spacing: 0.1em;
+            box-shadow: 0 4px 12px rgba(139,92,246,0.3);
+        }
+
+        .pricing-package-name {
+            font-size: 14px;
+            font-weight: 600;
+            color: rgba(255,255,255,0.7);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 12px;
+        }
+
+        .pricing-amount {
+            font-size: 48px;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--color-blue) 0%, var(--color-teal) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            line-height: 1;
+            margin-bottom: 8px;
+        }
+
+        .pricing-card.featured .pricing-amount {
+            background: linear-gradient(135deg, var(--color-purple) 0%, var(--color-pink) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .pricing-pages {
+            font-size: 16px;
+            color: rgba(255,255,255,0.8);
+            margin-bottom: 16px;
+        }
+
+        .pricing-per-page {
+            font-size: 13px;
+            color: rgba(255,255,255,0.6);
+            margin-bottom: 8px;
+        }
+
+        .pricing-savings {
+            font-size: 13px;
+            background: linear-gradient(135deg, var(--color-green) 0%, var(--color-teal) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: 600;
+            margin-bottom: 24px;
+        }
+
+        .pricing-card.featured .pricing-savings {
+            background: linear-gradient(135deg, var(--color-purple) 0%, var(--color-pink) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .pricing-cta {
+            background: linear-gradient(135deg, var(--color-blue) 0%, var(--color-teal) 100%);
+            color: white;
+            border: none;
+            padding: 12px 28px;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-block;
+            width: 100%;
+            box-shadow: 0 4px 12px rgba(0,144,196,0.25);
+        }
+
+        .pricing-cta:hover {
+            background: linear-gradient(135deg, var(--color-teal) 0%, var(--color-blue) 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(0,144,196,0.35);
+        }
+
+        .pricing-card.featured .pricing-cta {
+            background: linear-gradient(135deg, var(--color-purple) 0%, var(--color-pink) 100%);
+            box-shadow: 0 4px 12px rgba(139,92,246,0.3);
+        }
+
+        .pricing-card.featured .pricing-cta:hover {
+            background: linear-gradient(135deg, var(--color-pink) 0%, var(--color-purple) 100%);
+            box-shadow: 0 6px 16px rgba(139,92,246,0.4);
+        }
+
+        .pricing-note {
+            font-size: 14px;
+            color: rgba(255,255,255,0.6);
+            margin-top: 20px;
+            line-height: 1.6;
+        }
+
+        .value-callout {
+            margin-top: 24px;
+            padding: 20px 24px;
+            background: rgba(100, 181, 246, 0.1);
+            border-radius: 8px;
+            border-left: 4px solid var(--cyan);
+        }
+
+        .value-callout p {
+            font-size: 14px;
+            color: rgba(255,255,255,0.9);
+            line-height: 1.6;
+        }
+
+        .value-callout strong {
+            color: var(--cyan);
+        }
+
+        .form-section {
+            margin: 52px 0;
+        }
+
+        .form-intro {
+            font-size: 15px;
+            color: rgba(255,255,255,0.8);
+            line-height: 1.7;
+            margin-bottom: 28px;
+        }
+
+        form {
+            background: rgba(26, 58, 82, 0.3);
+            border: 1px solid rgba(100, 181, 246, 0.2);
+            padding: 32px;
+            border-radius: 8px;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .form-full {
+            grid-column: 1 / -1;
+        }
+
+        label {
+            display: block;
+            font-size: 12px;
+            font-weight: 600;
+            color: rgba(255,255,255,0.8);
             letter-spacing: 0.08em;
             text-transform: uppercase;
+            margin-bottom: 8px;
         }
 
-        .template-badge.new {
-            background: linear-gradient(135deg, var(--color-green, #10b981) 0%, var(--color-teal, #14b8a6) 100%);
+        input, select, textarea {
+            width: 100%;
+            padding: 12px 14px;
+            border: 1px solid rgba(100, 181, 246, 0.3);
+            border-radius: 4px;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 15px;
+            color: rgba(255,255,255,0.95);
+            background: rgba(15, 42, 63, 0.6);
+            transition: border-color 0.2s;
         }
 
-        .template-badge.popular {
-            background: linear-gradient(135deg, var(--color-purple, #8b5cf6) 0%, var(--color-pink, #ec4899) 100%);
+        input:focus, select:focus, textarea:focus {
+            outline: none;
+            border-color: var(--cyan);
+            background: rgba(15, 42, 63, 0.8);
         }
 
-        .template-info {
+        textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        .submit-btn {
+            background: linear-gradient(135deg, var(--color-green) 0%, var(--color-teal) 100%);
+            color: #ffffff;
+            border: none;
+            padding: 14px 32px;
+            border-radius: 6px;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 14px;
+            font-weight: 600;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 8px;
+            box-shadow: 0 4px 12px rgba(16,185,129,0.3);
+        }
+
+        .submit-btn:hover {
+            background: linear-gradient(135deg, var(--color-teal) 0%, var(--color-green) 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(16,185,129,0.4);
+        }
+
+        .examples-section {
+            margin: 52px 0;
+        }
+
+        .examples-intro {
+            font-size: 15px;
+            color: rgba(255,255,255,0.8);
+            line-height: 1.7;
+            margin-bottom: 28px;
+        }
+
+        .examples-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px;
+        }
+
+        .example-card {
+            background: rgba(26, 58, 82, 0.3);
+            border-radius: 8px;
             padding: 24px;
+            text-align: center;
+            border: 1px solid rgba(100, 181, 246, 0.2);
+            border-top: 4px solid var(--cyan);
+            transition: all 0.3s;
         }
 
-        .template-name {
-            font-size: 1.5rem;
+        .example-card:nth-child(7n+1) { border-top-color: var(--color-blue); }
+        .example-card:nth-child(7n+2) { border-top-color: var(--color-green); }
+        .example-card:nth-child(7n+3) { border-top-color: var(--color-orange); }
+        .example-card:nth-child(7n+4) { border-top-color: var(--color-purple); }
+        .example-card:nth-child(7n+5) { border-top-color: var(--color-teal); }
+        .example-card:nth-child(7n+6) { border-top-color: var(--color-pink); }
+        .example-card:nth-child(7n+7) { border-top-color: var(--color-red); }
+
+        .example-card:hover {
+            background: rgba(26, 58, 82, 0.5);
+            transform: translateY(-4px);
+            box-shadow: 0 6px 20px rgba(100, 181, 246, 0.15);
+        }
+
+        .example-icon {
+            font-size: 48px;
+            margin-bottom: 16px;
+        }
+
+        .example-title {
+            font-size: 15px;
             font-weight: 600;
             color: rgba(255,255,255,0.95);
             margin-bottom: 8px;
         }
 
-        .template-desc {
-            font-size: 0.9375rem;
+        .example-desc {
+            font-size: 13px;
             color: rgba(255,255,255,0.7);
-            line-height: 1.6;
-            margin-bottom: 20px;
+            line-height: 1.5;
         }
 
-        .template-features {
-            list-style: none;
-            margin-bottom: 24px;
+        /* Remove custom footer styles - using global */
+        .landing-footer-removed {
+            display: none;
         }
 
-        .template-features li {
-            font-size: 0.875rem;
-            color: rgba(255,255,255,0.8);
-            padding: 6px 0;
-            border-bottom: 1px solid rgba(100, 181, 246, 0.1);
+        .footer-text {
+            color: rgba(255,255,255,0.6);
+            font-size: 12px;
+            letter-spacing: 0.06em;
+            line-height: 1.8;
         }
 
-        .template-features li:last-child {
-            border-bottom: none;
-        }
-
-        .template-features li::before {
-            content: '✓';
-            color: var(--cyan);
-            margin-right: 8px;
-            font-weight: bold;
-        }
-
-        .template-actions {
-            display: flex;
-            gap: 12px;
-        }
-
-        .btn-preview {
-            flex: 1;
-            background: transparent;
-            border: 2px solid var(--cyan);
-            color: var(--cyan);
-            padding: 12px 20px;
-            border-radius: 6px;
-            font-size: 14px;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            cursor: pointer;
-            transition: all 0.3s;
+        .footer-text a {
+            color: var(--accent);
             text-decoration: none;
-            text-align: center;
         }
 
-        .btn-preview:hover {
-            background: var(--cyan);
-            color: var(--dark-navy);
+        .footer-text a:hover {
+            text-decoration: underline;
         }
 
-        .btn-select {
-            flex: 1;
-            background: linear-gradient(135deg, var(--color-blue, #0090c4) 0%, var(--color-teal, #14b8a6) 100%);
-            color: white;
-            padding: 12px 20px;
-            border-radius: 6px;
-            font-size: 14px;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            cursor: pointer;
-            border: none;
-            transition: all 0.3s;
-            text-decoration: none;
-            text-align: center;
-        }
-
-        .btn-select:hover {
-            transform: scale(1.05);
-            box-shadow: 0 6px 20px rgba(0,144,196,0.4);
-        }
-
-        .info-section {
-            background: rgba(100, 181, 246, 0.1);
-            border-left: 4px solid var(--cyan);
-            padding: 24px 28px;
+        .success-message {
+            display: none;
+            background: rgba(16, 185, 129, 0.15);
+            border-left: 4px solid var(--color-green);
+            padding: 20px 24px;
             border-radius: 8px;
-            margin-top: 60px;
+            margin-top: 20px;
         }
 
-        .info-section h3 {
-            font-size: 1.5rem;
-            margin-bottom: 12px;
-            color: rgba(255,255,255,0.95);
+        .success-message.show {
+            display: block;
         }
 
-        .info-section p {
-            font-size: 1rem;
-            color: rgba(255,255,255,0.8);
-            line-height: 1.7;
+        .success-message p {
+            font-size: 15px;
+            color: var(--color-green);
+            font-weight: 500;
         }
 
-        @media (max-width: 768px) {
-            .templates-grid {
+        @media (max-width: 600px) {
+            .container {
+                padding: 40px 20px 60px;
+            }
+            .form-grid {
                 grid-template-columns: 1fr;
             }
-
-            .template-actions {
-                flex-direction: column;
+            .pricing-grid {
+                grid-template-columns: 1fr;
             }
+            .examples-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Theme Toggle */
+        .theme-toggle {
+            position: fixed;
+            bottom: 100px;
+            right: 24px;
+            z-index: 1000;
+            width: 48px;
+            height: 48px;
+            background: rgba(26, 58, 82, 0.9);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        }
+
+        .theme-toggle:hover {
+            background: rgba(26, 58, 82, 1);
+            transform: scale(1.05);
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
+        }
+
+        /* Light mode styles */
+        body.light-mode {
+            background: linear-gradient(135deg, #f0f4f8 0%, #e8eef3 100%);
+            color: #1a3a52;
+        }
+
+        body.light-mode .header {
+            background: rgba(255, 255, 255, 0.95);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        body.light-mode .nav-link {
+            color: #1a3a52;
+        }
+
+        body.light-mode .nav-link:hover {
+            color: var(--color-blue);
+        }
+
+        body.light-mode .dropdown-menu {
+            background: rgba(255, 255, 255, 0.98);
+            border: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        body.light-mode .dropdown-menu li a {
+            color: #1a3a52;
+        }
+
+        body.light-mode .dropdown-menu li a:hover {
+            background: rgba(0, 144, 196, 0.05);
+            color: var(--color-blue);
+        }
+
+        body.light-mode .intro {
+            color: rgba(26, 58, 82, 0.9);
+        }
+
+        body.light-mode .prop-card {
+            background: rgba(255, 255, 255, 0.8);
+            border: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        body.light-mode .prop-title {
+            color: #1a3a52;
+        }
+
+        body.light-mode .prop-desc {
+            color: rgba(26, 58, 82, 0.8);
+        }
+
+        body.light-mode .pricing-card {
+            background: rgba(255, 255, 255, 0.8);
+            border: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        body.light-mode .pricing-title {
+            color: #1a3a52;
+        }
+
+        body.light-mode .pricing-price {
+            color: #1a3a52;
+        }
+
+        body.light-mode .pricing-desc {
+            color: rgba(26, 58, 82, 0.8);
+        }
+
+        body.light-mode .pricing-features li {
+            color: rgba(26, 58, 82, 0.8);
+        }
+
+        body.light-mode .pricing-note {
+            color: rgba(26, 58, 82, 0.6);
+        }
+
+        body.light-mode .example-card {
+            background: rgba(255, 255, 255, 0.8);
+            border: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        body.light-mode .example-title {
+            color: #1a3a52;
+        }
+
+        body.light-mode .example-desc {
+            color: rgba(26, 58, 82, 0.8);
+        }
+
+        body.light-mode form {
+            background: rgba(255, 255, 255, 0.7);
+            border: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        body.light-mode .form-intro {
+            color: rgba(26, 58, 82, 0.8);
+        }
+
+        body.light-mode label {
+            color: #1a3a52;
+        }
+
+        body.light-mode input,
+        body.light-mode select,
+        body.light-mode textarea {
+            background: rgba(255, 255, 255, 0.9);
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            color: #1a3a52;
+        }
+
+        body.light-mode input:focus,
+        body.light-mode select:focus,
+        body.light-mode textarea:focus {
+            border-color: var(--color-blue);
+            outline: none;
+        }
+
+        body.light-mode .footer {
+            background: rgba(255, 255, 255, 0.5);
+            color: rgba(26, 58, 82, 0.7);
+        }
+
+        body.light-mode .footer a {
+            color: rgba(26, 58, 82, 0.7);
+        }
+
+        body.light-mode .theme-toggle {
+            background: rgba(255, 255, 255, 0.9);
+            border: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        body.light-mode .theme-toggle:hover {
+            background: rgba(255, 255, 255, 1);
         }
     </style>
 </head>
@@ -335,228 +698,353 @@
     </div>
   </header>
 
-  <!-- Page Heading -->
-  <div style="background: linear-gradient(135deg, #1a3e5c 0%, #0d5e8c 100%); padding: 100px 60px 80px; text-align: center; margin-top: 80px;">
-    <h1 style="font-size: 3rem; color: white; font-weight: 600; margin-bottom: 16px;">Real Estate Landing Pages</h1>
-    <p style="font-size: 1.5rem; color: rgba(255,255,255,0.9); margin-bottom: 12px;">Professional Landing Pages Starting at <span style="color: #00d4ff; font-weight: 700;">$99</span></p>
-    <p style="font-size: 1.125rem; color: rgba(255,255,255,0.75);">One page per listing • Fully branded • SEO optimized</p>
-  </div>
-
-  <!-- Page Submenu -->
-  <div class="page-submenu">
-    <div class="page-submenu-container">
-      <nav>
-        <a href="#features">Features</a>
-        <a href="#pricing">Pricing</a>
-        <a href="#order">Get Started</a>
-      </nav>
-    </div>
-  </div>
-
-  <div class="template-selector">
-
-    <!-- Introduction -->
-    <div style="max-width: 900px; margin: 0 auto 60px; text-align: center;">
-      <p style="font-size: 1.125rem; line-height: 1.8; color: rgba(255,255,255,0.85); margin-bottom: 24px;">
-        Every listing deserves its own spotlight. Most agents rely on Zillow, Realtor.com, and generic MLS syndication — but those platforms are optimized for their business, not yours. They capture the lead, control the experience, and push your commission dollars toward their own ecosystem.
-      </p>
-      <p style="font-size: 1.125rem; line-height: 1.8; color: rgba(255,255,255,0.85);">
-        <strong style="color: #00d4ff;">A dedicated landing page puts you back in control.</strong> Each listing gets two versions: one beautiful page for clients showcasing the property, and one for cooperating agents with commission details — fully compliant with NAR rules.
-      </p>
+    <!-- Page Heading -->
+    <div style="background: linear-gradient(135deg, var(--navy, #1a3e5c) 0%, #0d5e8c 100%); padding: 80px 60px 60px; text-align: center; margin-top: 80px;">
+        <h1 style="font-size: 2.5rem; color: white; font-weight: 600; margin-bottom: 12px;">Real Estate Landing Pages</h1>
+        <p style="font-size: 1.25rem; color: rgba(255,255,255,0.9); margin-bottom: 8px;">Professional Landing Pages Starting at <span style="color: #00d4ff; font-weight: 700;">$99</span></p>
+        <p style="font-size: 1rem; color: rgba(255,255,255,0.75);">One page per listing. Fully branded. SEO optimized. Fast turnaround.</p>
     </div>
 
-    <!-- Features & Pricing Section -->
-    <div id="features" style="background: rgba(26, 58, 82, 0.3); padding: 60px 40px; border-radius: 12px; margin: 60px 0;">
-      <h2 style="font-size: 2rem; text-align: center; margin-bottom: 16px; color: rgba(255,255,255,0.95);">Everything You Need</h2>
-      <p style="text-align: center; font-size: 1.125rem; color: rgba(255,255,255,0.75); margin-bottom: 48px;">19 Premium Features Included</p>
+    <div class="landing-container">
+        <!-- Intro -->
+        <div class="intro">
+            <p>Every listing deserves its own spotlight. Most agents rely on Zillow, Realtor.com, and generic MLS syndication — but those platforms are optimized for <em>their</em> business, not yours. They capture the lead, control the experience, and push your commission dollars toward their own ecosystem.</p>
+            <p><strong>A dedicated landing page puts you back in control.</strong> Each listing gets two versions: one beautiful page for clients showcasing the property, and one for cooperating agents with commission details — fully compliant with NAR rules. Embed virtual tours and video walkthroughs. Let buyers schedule showings with integrated calendar booking. Track everything with analytics. Use an AI chatbot to qualify leads 24/7. Add mortgage calculators, custom domains, printable brochures, and tablet mode for open houses. Publish directly to Zillow and Realtor.com. Integrate seamlessly with your CRM and IDX website. And it costs less than one afternoon of pay-per-click spend.</p>
+        </div>
 
-      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; max-width: 1000px; margin: 0 auto;">
-        <div style="background: rgba(26, 58, 82, 0.5); padding: 20px; border-radius: 8px; border-left: 4px solid #00d4ff;">
-          <div style="font-weight: 600; margin-bottom: 8px; color: rgba(255,255,255,0.95);">📱 Mobile Responsive</div>
-          <div style="font-size: 14px; color: rgba(255,255,255,0.7);">Perfect on all devices</div>
+        <!-- Value Props -->
+        <div class="value-props">
+            <div class="section-header">What You Get</div>
+            <h2 class="section-title">Every Landing Page Includes</h2>
+
+            <div class="prop-grid">
+                <div class="prop-card">
+                    <div class="prop-title">1. 🎨 Custom Branded Design</div>
+                    <div class="prop-desc">Your colors, your logo, your style. Professional layout that matches your brand identity.</div>
+                </div>
+
+                <div class="prop-card">
+                    <div class="prop-title">2. 📱 Mobile Responsive</div>
+                    <div class="prop-desc">Looks perfect on desktop, tablet, and phone. 70% of home searches happen on mobile.</div>
+                </div>
+
+                <div class="prop-card">
+                    <div class="prop-title">3. 🔍 SEO Optimized</div>
+                    <div class="prop-desc">Meta tags, structured data, and search-friendly URLs. Get found on Google.</div>
+                </div>
+
+                <div class="prop-card">
+                    <div class="prop-title">4. 📧 Lead Capture Form</div>
+                    <div class="prop-desc">Integrated contact form. Leads go straight to your email. No middleman.</div>
+                </div>
+
+                <div class="prop-card">
+                    <div class="prop-title">5. ⚡ 24-48 Hour Delivery</div>
+                    <div class="prop-desc">Send us the details, we'll have your page live within 2 business days.</div>
+                </div>
+
+                <div class="prop-card">
+                    <div class="prop-title">6. 🔗 Easy Sharing</div>
+                    <div class="prop-desc">Clean URL you can share on social, email, or text. Track engagement with your own analytics.</div>
+                </div>
+
+                <div class="prop-card">
+                    <div class="prop-title">7. 📱 Social Media Optimized</div>
+                    <div class="prop-desc">Perfect Open Graph tags and preview images. Looks great when shared on Facebook, Instagram, LinkedIn, and Twitter.</div>
+                </div>
+
+                <div class="prop-card">
+                    <div class="prop-title">8. 🎯 Direct CRM Integration</div>
+                    <div class="prop-desc">Capture leads directly into your CRM. Works with Follow Up Boss, Lofty, KvCore, and all major platforms.</div>
+                </div>
+
+                <div class="prop-card">
+                    <div class="prop-title">9. 🏠 Zillow & Realtor.com Publishing</div>
+                    <div class="prop-desc">Publish directly to Zillow and Realtor.com from your landing page. One-click syndication to major portals.</div>
+                </div>
+
+                <div class="prop-card">
+                    <div class="prop-title">10. 👥 Dual-Version Pages</div>
+                    <div class="prop-desc">Two versions per listing: one for clients (clean property showcase) and one for cooperating agents (with commission details).</div>
+                </div>
+
+                <div class="prop-card">
+                    <div class="prop-title">11. 🏘️ Open House Mode</div>
+                    <div class="prop-desc">Tablet-friendly interface with QR code for on-site lead capture. Visitors scan and register instantly at your open house.</div>
+                </div>
+
+                <div class="prop-card">
+                    <div class="prop-title">12. 📄 Printable Brochure</div>
+                    <div class="prop-desc">One-click PDF download with your branding. Professional brochures visitors can print or email themselves on the spot.</div>
+                </div>
+
+                <div class="prop-card">
+                    <div class="prop-title">13. 🌐 IDX Website Integration</div>
+                    <div class="prop-desc">Seamlessly integrate with your existing IDX website. Add now or later — fully compliant with commission display rules.</div>
+                </div>
+
+                <div class="prop-card">
+                    <div class="prop-title">14. 🎥 Virtual Tour Integration</div>
+                    <div class="prop-desc">Embed Matterport 3D tours, video walkthroughs, and drone footage. Give buyers the full experience online.</div>
+                </div>
+
+                <div class="prop-card">
+                    <div class="prop-title">15. 📊 Analytics Dashboard</div>
+                    <div class="prop-desc">Track page views, time on page, lead sources, and geographic data. Know exactly what's working.</div>
+                </div>
+
+                <div class="prop-card">
+                    <div class="prop-title">16. 📅 Showing Scheduler</div>
+                    <div class="prop-desc">Integrated calendar booking system. Buyers schedule showings directly — syncs with Google Calendar and Outlook.</div>
+                </div>
+
+                <div class="prop-card">
+                    <div class="prop-title">17. 💰 Mortgage Calculator</div>
+                    <div class="prop-desc">Interactive payment calculator with custom rates. Help buyers qualify themselves before reaching out.</div>
+                </div>
+
+                <div class="prop-card">
+                    <div class="prop-title">18. 🤖 AI Chat Widget</div>
+                    <div class="prop-desc">24/7 AI assistant answers questions instantly, qualifies leads, and schedules showings while you sleep.</div>
+                </div>
+
+                <div class="prop-card">
+                    <div class="prop-title">19. 🌐 Custom Domain</div>
+                    <div class="prop-desc">Use your own branded domain like listings.yourname.com instead of generic URLs. Premium professional touch.</div>
+                </div>
+            </div>
         </div>
-        <div style="background: rgba(26, 58, 82, 0.5); padding: 20px; border-radius: 8px; border-left: 4px solid #10b981;">
-          <div style="font-weight: 600; margin-bottom: 8px; color: rgba(255,255,255,0.95);">🔍 SEO Optimized</div>
-          <div style="font-size: 14px; color: rgba(255,255,255,0.7);">Rank higher on Google</div>
+
+        <!-- Pricing -->
+        <div class="pricing-section" id="pricing">
+            <h2>Pricing</h2>
+
+            <div class="pricing-grid">
+                <div class="pricing-card">
+                    <div class="pricing-package-name">Single Page</div>
+                    <div class="pricing-amount">$99</div>
+                    <div class="pricing-pages">1 landing page</div>
+                    <div class="pricing-per-page">$99 per page</div>
+                    <p style="font-size: 13px; color: var(--text-tertiary); margin: 16px 0 20px;">Perfect for testing the waters</p>
+                    <a href="#order" class="pricing-cta">Get Started</a>
+                </div>
+
+                <div class="pricing-card">
+                    <div class="pricing-package-name">Starter Pack</div>
+                    <div class="pricing-amount">$449</div>
+                    <div class="pricing-pages">5 landing pages</div>
+                    <div class="pricing-per-page">$89.80 per page</div>
+                    <div class="pricing-savings">Save $46</div>
+                    <a href="#order" class="pricing-cta">Get Started</a>
+                </div>
+
+                <div class="pricing-card featured">
+                    <div class="pricing-package-name">Premium Pack</div>
+                    <div class="pricing-amount">$799</div>
+                    <div class="pricing-pages">10 landing pages</div>
+                    <div class="pricing-per-page">$79.90 per page</div>
+                    <div class="pricing-savings">Save $191 — Best Value!</div>
+                    <a href="#order" class="pricing-cta">Get Started</a>
+                </div>
+            </div>
+
+            <div class="value-callout">
+                <p><strong>All packages expire in 12 months.</strong> Use your pages as you need them — perfect for agents with rotating inventory or seasonal listings. Premium Pack saves you nearly 20% and gives you unlimited flexibility.</p>
+            </div>
+
+            <div class="pricing-note">
+                No monthly fees. No subscriptions. Just pay once and use your pages throughout the year.
+            </div>
         </div>
-        <div style="background: rgba(26, 58, 82, 0.5); padding: 20px; border-radius: 8px; border-left: 4px solid #f59e0b;">
-          <div style="font-weight: 600; margin-bottom: 8px; color: rgba(255,255,255,0.95);">📧 Lead Capture</div>
-          <div style="font-size: 14px; color: rgba(255,255,255,0.7);">Direct to your inbox</div>
+
+        <!-- Examples -->
+        <div class="examples-section" id="examples">
+            <div class="section-header">Examples</div>
+            <h2 class="section-title">What We Build</h2>
+            <div class="examples-intro">
+                Professional, conversion-optimized landing pages customized for your market and listing type.
+            </div>
+
+            <div class="examples-grid">
+                <div class="example-card">
+                    <div class="example-icon">🏰</div>
+                    <div class="example-title">Luxury Estates</div>
+                    <div class="example-desc">Premium showcase for high-end estates with photo galleries, virtual tours, and luxury branding</div>
+                </div>
+
+                <div class="example-card">
+                    <div class="example-icon">🏡</div>
+                    <div class="example-title">Single-Family Homes</div>
+                    <div class="example-desc">Beautiful layouts for houses with neighborhood info, school districts, and family-friendly features</div>
+                </div>
+
+                <div class="example-card">
+                    <div class="example-icon">🏙️</div>
+                    <div class="example-title">Condos & Apartments</div>
+                    <div class="example-desc">Modern design highlighting amenities, HOA details, and urban lifestyle benefits</div>
+                </div>
+
+                <div class="example-card">
+                    <div class="example-icon">🏢</div>
+                    <div class="example-title">Commercial Property</div>
+                    <div class="example-desc">Professional layout for office, retail, and commercial real estate opportunities</div>
+                </div>
+
+                <div class="example-card">
+                    <div class="example-icon">🌴</div>
+                    <div class="example-title">Vacation Rentals</div>
+                    <div class="example-desc">Eye-catching design for short-term rentals and vacation properties</div>
+                </div>
+
+                <div class="example-card">
+                    <div class="example-icon">🏘️</div>
+                    <div class="example-title">New Construction</div>
+                    <div class="example-desc">Builder-grade pages with floor plans, community features, and pre-sale information</div>
+                </div>
+
+                <div class="example-card">
+                    <div class="example-icon">🔑</div>
+                    <div class="example-title">Rental Properties</div>
+                    <div class="example-desc">Long-term rental pages with integrated application forms, lease terms, and tenant screening</div>
+                </div>
+            </div>
         </div>
-        <div style="background: rgba(26, 58, 82, 0.5); padding: 20px; border-radius: 8px; border-left: 4px solid #8b5cf6;">
-          <div style="font-weight: 600; margin-bottom: 8px; color: rgba(255,255,255,0.95);">🎨 Multiple Design Templates</div>
-          <div style="font-size: 14px; color: rgba(255,255,255,0.7);"><a href="/templates/modern-listing.html" target="_blank" style="color: #00d4ff; text-decoration: none;">Modern</a> & <a href="/templates/luxury-listing.html" target="_blank" style="color: #00d4ff; text-decoration: none;">Luxury</a> styles available</div>
+
+        <!-- Order Form -->
+        <div class="form-section" id="order">
+            <div class="section-header">Get Started</div>
+            <h2 class="section-title">Order Your Landing Page</h2>
+            <p class="form-intro">
+                Fill out the form below and we'll get back to you within 24 hours with next steps and a custom proposal.
+            </p>
+
+            <form id="order-form" action="https://formspree.io/f/xpwzjryr" method="POST">
+                <div class="form-grid">
+                    <div>
+                        <label for="name">Your Name *</label>
+                        <input type="text" id="name" name="name" required>
+                    </div>
+
+                    <div>
+                        <label for="email">Email Address *</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+
+                    <div>
+                        <label for="phone">Phone Number</label>
+                        <input type="tel" id="phone" name="phone">
+                    </div>
+
+                    <div>
+                        <label for="package">Package *</label>
+                        <select id="package" name="package" required>
+                            <option value="">Select package...</option>
+                            <option value="single">Single Page — $99</option>
+                            <option value="starter">Starter Pack (5 pages) — $449</option>
+                            <option value="premium">Premium Pack (10 pages) — $799</option>
+                            <option value="custom">Custom Quote</option>
+                        </select>
+                    </div>
+
+                    <div class="form-full">
+                        <label for="brokerage">Brokerage / Company</label>
+                        <input type="text" id="brokerage" name="brokerage">
+                    </div>
+
+                    <div class="form-full">
+                        <label for="website">Current Website (if any)</label>
+                        <input type="url" id="website" name="website" placeholder="https://">
+                    </div>
+
+                    <div class="form-full">
+                        <label for="details">Tell us about your needs</label>
+                        <textarea id="details" name="details" placeholder="What type of properties? Any specific design preferences? Timeline requirements?"></textarea>
+                    </div>
+                </div>
+
+                <input type="hidden" name="_subject" value="New Landing Page Order - Bogen.ai">
+                <input type="hidden" name="_cc" value="info@bogen.ai,eytan@eytan.com">
+                <input type="hidden" name="_next" value="https://bogen.ai/services/listing-pages#success">
+
+                <button type="submit" class="submit-btn">Submit Order Request</button>
+            </form>
+
+            <div id="success-message" class="success-message">
+                <p>✓ Thank you! We've received your request and will be in touch within 24 hours.</p>
+            </div>
         </div>
-        <div style="background: rgba(26, 58, 82, 0.5); padding: 20px; border-radius: 8px; border-left: 4px solid #14b8a6;">
-          <div style="font-weight: 600; margin-bottom: 8px; color: rgba(255,255,255,0.95);">📱 Social Media Ready</div>
-          <div style="font-size: 14px; color: rgba(255,255,255,0.7);">Optimized sharing</div>
-        </div>
-        <div style="background: rgba(26, 58, 82, 0.5); padding: 20px; border-radius: 8px; border-left: 4px solid #ec4899;">
-          <div style="font-weight: 600; margin-bottom: 8px; color: rgba(255,255,255,0.95);">🎯 CRM Integration</div>
-          <div style="font-size: 14px; color: rgba(255,255,255,0.7);">Works with all major CRMs</div>
-        </div>
-        <div style="background: rgba(26, 58, 82, 0.5); padding: 20px; border-radius: 8px; border-left: 4px solid #ef4444;">
-          <div style="font-weight: 600; margin-bottom: 8px; color: rgba(255,255,255,0.95);">🏠 Zillow Publishing</div>
-          <div style="font-size: 14px; color: rgba(255,255,255,0.7);">Direct to major portals</div>
-        </div>
-        <div style="background: rgba(26, 58, 82, 0.5); padding: 20px; border-radius: 8px; border-left: 4px solid #00d4ff;">
-          <div style="font-weight: 600; margin-bottom: 8px; color: rgba(255,255,255,0.95);">👥 Dual Versions</div>
-          <div style="font-size: 14px; color: rgba(255,255,255,0.7);">Client & agent pages</div>
-        </div>
-        <div style="background: rgba(26, 58, 82, 0.5); padding: 20px; border-radius: 8px; border-left: 4px solid #10b981;">
-          <div style="font-weight: 600; margin-bottom: 8px; color: rgba(255,255,255,0.95);">🎥 Virtual Tours</div>
-          <div style="font-size: 14px; color: rgba(255,255,255,0.7);">Matterport integration</div>
-        </div>
-        <div style="background: rgba(26, 58, 82, 0.5); padding: 20px; border-radius: 8px; border-left: 4px solid #f59e0b;">
-          <div style="font-weight: 600; margin-bottom: 8px; color: rgba(255,255,255,0.95);">📊 Analytics</div>
-          <div style="font-size: 14px; color: rgba(255,255,255,0.7);">Track performance</div>
-        </div>
-        <div style="background: rgba(26, 58, 82, 0.5); padding: 20px; border-radius: 8px; border-left: 4px solid #8b5cf6;">
-          <div style="font-weight: 600; margin-bottom: 8px; color: rgba(255,255,255,0.95);">📅 Showing Scheduler</div>
-          <div style="font-size: 14px; color: rgba(255,255,255,0.7);">Automated booking</div>
-        </div>
-        <div style="background: rgba(26, 58, 82, 0.5); padding: 20px; border-radius: 8px; border-left: 4px solid #14b8a6;">
-          <div style="font-weight: 600; margin-bottom: 8px; color: rgba(255,255,255,0.95);">💰 Mortgage Calculator</div>
-          <div style="font-size: 14px; color: rgba(255,255,255,0.7);">Interactive payments</div>
-        </div>
-        <div style="background: rgba(26, 58, 82, 0.5); padding: 20px; border-radius: 8px; border-left: 4px solid #ec4899;">
-          <div style="font-weight: 600; margin-bottom: 8px; color: rgba(255,255,255,0.95);">🤖 AI Chatbot</div>
-          <div style="font-size: 14px; color: rgba(255,255,255,0.7);">24/7 lead qualification</div>
-        </div>
-        <div style="background: rgba(26, 58, 82, 0.5); padding: 20px; border-radius: 8px; border-left: 4px solid #ef4444;">
-          <div style="font-weight: 600; margin-bottom: 8px; color: rgba(255,255,255,0.95);">🌐 Custom Domain</div>
-          <div style="font-size: 14px; color: rgba(255,255,255,0.7);">Your branded URL</div>
-        </div>
-        <div style="background: rgba(26, 58, 82, 0.5); padding: 20px; border-radius: 8px; border-left: 4px solid #00d4ff;">
-          <div style="font-weight: 600; margin-bottom: 8px; color: rgba(255,255,255,0.95);">📄 Printable Brochure</div>
-          <div style="font-size: 14px; color: rgba(255,255,255,0.7);">One-click PDF</div>
-        </div>
-        <div style="background: rgba(26, 58, 82, 0.5); padding: 20px; border-radius: 8px; border-left: 4px solid #10b981;">
-          <div style="font-weight: 600; margin-bottom: 8px; color: rgba(255,255,255,0.95);">🏘️ Open House Mode</div>
-          <div style="font-size: 14px; color: rgba(255,255,255,0.7);">QR code sign-in</div>
-        </div>
-        <div style="background: rgba(26, 58, 82, 0.5); padding: 20px; border-radius: 8px; border-left: 4px solid #f59e0b;">
-          <div style="font-weight: 600; margin-bottom: 8px; color: rgba(255,255,255,0.95);">🌐 IDX Integration</div>
-          <div style="font-size: 14px; color: rgba(255,255,255,0.7);">Connect your website</div>
-        </div>
-        <div style="background: rgba(26, 58, 82, 0.5); padding: 20px; border-radius: 8px; border-left: 4px solid #8b5cf6;">
-          <div style="font-weight: 600; margin-bottom: 8px; color: rgba(255,255,255,0.95);">⚡ Fast Delivery</div>
-          <div style="font-size: 14px; color: rgba(255,255,255,0.7);">24-48 hour turnaround</div>
-        </div>
-        <div style="background: rgba(26, 58, 82, 0.5); padding: 20px; border-radius: 8px; border-left: 4px solid #14b8a6;">
-          <div style="font-weight: 600; margin-bottom: 8px; color: rgba(255,255,255,0.95);">🎨 Custom Branding</div>
-          <div style="font-size: 14px; color: rgba(255,255,255,0.7);">Your colors & logo</div>
-        </div>
-      </div>
     </div>
 
-    <!-- Pricing -->
-    <div id="pricing" style="margin: 60px 0;">
-      <h2 style="font-size: 2rem; text-align: center; margin-bottom: 48px; color: rgba(255,255,255,0.95);">Simple, Transparent Pricing</h2>
-      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 32px; max-width: 900px; margin: 0 auto;">
+    <!-- Theme Toggle Button -->
+    <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+        <span class="theme-icon">🌙</span>
+    </button>
 
-        <div style="background: rgba(26, 58, 82, 0.3); border: 2px solid rgba(100, 181, 246, 0.2); border-radius: 12px; padding: 40px 32px; text-align: center;">
-          <div style="font-size: 14px; font-weight: 600; color: rgba(255,255,255,0.6); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 16px;">Single Page</div>
-          <div style="font-size: 3rem; font-weight: 700; color: #00d4ff; margin-bottom: 12px;">$99</div>
-          <div style="color: rgba(255,255,255,0.7); margin-bottom: 24px;">Perfect for testing</div>
-          <a href="#order" style="display: block; background: linear-gradient(135deg, #0090c4 0%, #14b8a6 100%); color: white; padding: 14px; border-radius: 6px; text-decoration: none; font-weight: 600;">Get Started</a>
+    <!-- Footer -->
+    <footer class="footer" style="padding: var(--spacing-lg, 3rem) 0; margin-top: 80px;">
+        <div class="container">
+            <div class="footer-bottom" style="border-top: none; padding-top: 0; text-align: center;">
+                <p>© 2026 Bogen.ai. All rights reserved. | Boca Raton, FL | <a href="mailto:info@bogen.ai">info@bogen.ai</a></p>
+                <p style="margin-top: 4px;"><a href="/privacy" style="color: rgba(255,255,255,0.5); font-size: 0.8rem;">Privacy Policy</a></p>
+            </div>
         </div>
+    </footer>
 
-        <div style="background: rgba(26, 58, 82, 0.3); border: 2px solid rgba(100, 181, 246, 0.2); border-radius: 12px; padding: 40px 32px; text-align: center;">
-          <div style="font-size: 14px; font-weight: 600; color: rgba(255,255,255,0.6); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 16px;">5 Pages</div>
-          <div style="font-size: 3rem; font-weight: 700; color: #00d4ff; margin-bottom: 12px;">$449</div>
-          <div style="color: rgba(255,255,255,0.7); margin-bottom: 8px;">$89.80/page</div>
-          <div style="color: #10b981; font-weight: 600; margin-bottom: 16px;">Save $46</div>
-          <a href="#order" style="display: block; background: linear-gradient(135deg, #0090c4 0%, #14b8a6 100%); color: white; padding: 14px; border-radius: 6px; text-decoration: none; font-weight: 600;">Get Started</a>
-        </div>
-
-        <div style="background: linear-gradient(135deg, rgba(139,92,246,0.2) 0%, rgba(236,72,153,0.2) 100%); border: 3px solid #8b5cf6; border-radius: 12px; padding: 40px 32px; text-align: center; position: relative;">
-          <div style="position: absolute; top: -12px; left: 50%; transform: translateX(-50%); background: linear-gradient(135deg, #8b5cf6 0%, #ec4899 100%); color: white; padding: 6px 18px; border-radius: 16px; font-size: 11px; font-weight: 700; letter-spacing: 0.1em;">BEST VALUE</div>
-          <div style="font-size: 14px; font-weight: 600; color: rgba(255,255,255,0.6); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 16px;">10 Pages</div>
-          <div style="font-size: 3rem; font-weight: 700; color: #ec4899; margin-bottom: 12px;">$799</div>
-          <div style="color: rgba(255,255,255,0.7); margin-bottom: 8px;">$79.90/page</div>
-          <div style="color: #ec4899; font-weight: 600; margin-bottom: 16px;">Save $191</div>
-          <a href="#order" style="display: block; background: linear-gradient(135deg, #8b5cf6 0%, #ec4899 100%); color: white; padding: 14px; border-radius: 6px; text-decoration: none; font-weight: 600;">Get Started</a>
-        </div>
-
-      </div>
-      <p style="text-align: center; margin-top: 32px; color: rgba(255,255,255,0.7);">No monthly fees • No subscriptions • All packages valid for 12 months</p>
-    </div>
-
-    <!-- Order Form -->
-    <div id="order" style="background: rgba(100, 181, 246, 0.1); border-left: 4px solid #00d4ff; padding: 48px 40px; border-radius: 12px; margin: 60px 0;">
-      <h2 style="font-size: 2rem; margin-bottom: 16px; color: rgba(255,255,255,0.95);">Get Started Today</h2>
-      <p style="color: rgba(255,255,255,0.75); margin-bottom: 32px;">Fill out the form below and we'll get back to you within 24 hours</p>
-
-      <form action="https://formspree.io/f/xpwzjryr" method="POST" style="max-width: 700px;">
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 20px;">
-          <div>
-            <label style="display: block; font-size: 12px; font-weight: 600; color: rgba(255,255,255,0.7); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 8px;">Name *</label>
-            <input type="text" name="name" required style="width: 100%; padding: 12px; border: 1px solid rgba(100, 181, 246, 0.2); border-radius: 4px; background: rgba(26, 58, 82, 0.3); color: rgba(255,255,255,0.95); font-size: 15px;">
-          </div>
-          <div>
-            <label style="display: block; font-size: 12px; font-weight: 600; color: rgba(255,255,255,0.7); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 8px;">Email *</label>
-            <input type="email" name="email" required style="width: 100%; padding: 12px; border: 1px solid rgba(100, 181, 246, 0.2); border-radius: 4px; background: rgba(26, 58, 82, 0.3); color: rgba(255,255,255,0.95); font-size: 15px;">
-          </div>
-          <div>
-            <label style="display: block; font-size: 12px; font-weight: 600; color: rgba(255,255,255,0.7); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 8px;">Phone</label>
-            <input type="tel" name="phone" style="width: 100%; padding: 12px; border: 1px solid rgba(100, 181, 246, 0.2); border-radius: 4px; background: rgba(26, 58, 82, 0.3); color: rgba(255,255,255,0.95); font-size: 15px;">
-          </div>
-          <div>
-            <label style="display: block; font-size: 12px; font-weight: 600; color: rgba(255,255,255,0.7); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 8px;">Package *</label>
-            <select name="package" required style="width: 100%; padding: 12px; border: 1px solid rgba(100, 181, 246, 0.2); border-radius: 4px; background: rgba(26, 58, 82, 0.3); color: rgba(255,255,255,0.95); font-size: 15px;">
-              <option value="">Select package...</option>
-              <option value="single">Single Page — $99</option>
-              <option value="starter">5 Pages — $449</option>
-              <option value="premium">10 Pages — $799 (Best Value)</option>
-              <option value="custom">Custom Quote</option>
-            </select>
-          </div>
-        </div>
-        <div style="margin-bottom: 20px;">
-          <label style="display: block; font-size: 12px; font-weight: 600; color: rgba(255,255,255,0.7); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 8px;">Message</label>
-          <textarea name="message" rows="4" style="width: 100%; padding: 12px; border: 1px solid rgba(100, 181, 246, 0.2); border-radius: 4px; background: rgba(26, 58, 82, 0.3); color: rgba(255,255,255,0.95); font-size: 15px; resize: vertical;" placeholder="Tell us about your needs..."></textarea>
-        </div>
-        <input type="hidden" name="_subject" value="New Landing Page Order - Bogen.ai">
-        <input type="hidden" name="_cc" value="info@bogen.ai,eytan@eytan.com">
-        <button type="submit" style="width: 100%; background: linear-gradient(135deg, #10b981 0%, #14b8a6 100%); color: white; padding: 16px; border: none; border-radius: 6px; font-weight: 600; font-size: 16px; cursor: pointer; text-transform: uppercase; letter-spacing: 0.08em;">Submit Request</button>
-      </form>
-    </div>
-
-  </div>
-
-  <!-- Footer -->
-  <footer class="footer" style="padding: var(--spacing-lg, 3rem) 0; margin-top: 80px;">
-    <div class="container">
-      <div class="footer-bottom" style="border-top: none; padding-top: 0; text-align: center;">
-        <p>© 2026 Bogen.ai. All rights reserved. | Boca Raton, FL | <a href="mailto:info@bogen.ai">info@bogen.ai</a></p>
-        <p style="margin-top: 4px;"><a href="/privacy" style="color: rgba(255,255,255,0.5); font-size: 0.8rem;">Privacy Policy</a></p>
-      </div>
-    </div>
-  </footer>
-
-  <!-- Scripts -->
-  <script src="/js/common.js"></script>
-  <script src="/js/chatbot.js"></script>
-
-  <script>
-    // Smooth scrolling for anchor links
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-      anchor.addEventListener('click', function (e) {
-        e.preventDefault();
-        const targetId = this.getAttribute('href');
-        if (targetId === '#') return;
-
-        const targetElement = document.querySelector(targetId);
-        if (targetElement) {
-          window.scrollTo({
-            top: targetElement.offsetTop - 150,
-            behavior: 'smooth'
-          });
+    <!-- Scripts -->
+    <script src="/js/common.js"></script>
+    <script src="/js/chatbot.js"></script>
+    <script>
+        // Check URL hash for success message
+        if (window.location.hash === '#success') {
+            const successMsg = document.getElementById('success-message');
+            const orderForm = document.getElementById('order-form');
+            if (successMsg) successMsg.classList.add('show');
+            if (orderForm) orderForm.style.display = 'none';
         }
-      });
-    });
-  </script>
 
+        // Form submission handling
+        const form = document.getElementById('order-form');
+        if (form) {
+            form.addEventListener('submit', function(e) {
+                const btn = this.querySelector('.submit-btn');
+                if (btn) {
+                    btn.textContent = 'Submitting...';
+                    btn.disabled = true;
+                }
+            });
+        }
+
+        // Theme toggle functionality
+        const themeToggle = document.getElementById('themeToggle');
+        const themeIcon = themeToggle.querySelector('.theme-icon');
+
+        // Set light mode as default on first visit
+        if (!localStorage.getItem('theme')) {
+            localStorage.setItem('theme', 'light');
+            document.body.classList.add('light-mode');
+            themeIcon.textContent = '🌙';
+        } else {
+            // Load saved theme preference
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme === 'light') {
+                document.body.classList.add('light-mode');
+                themeIcon.textContent = '🌙';
+            } else {
+                themeIcon.textContent = '☀️';
+            }
+        }
+
+        themeToggle.addEventListener('click', () => {
+            document.body.classList.toggle('light-mode');
+
+            if (document.body.classList.contains('light-mode')) {
+                themeIcon.textContent = '🌙';
+                localStorage.setItem('theme', 'light');
+            } else {
+                themeIcon.textContent = '☀️';
+                localStorage.setItem('theme', 'dark');
+            }
+        });
+    </script>
 </body>
 </html>
