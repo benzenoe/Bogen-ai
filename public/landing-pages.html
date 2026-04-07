@@ -16,6 +16,71 @@
     <link rel="stylesheet" href="/css/chatbot.css">
 
     <style>
+        /* Scroll offset for anchor links */
+        #features, #pricing, #order, #templates {
+            scroll-margin-top: 150px;
+        }
+
+        /* Page Submenu */
+        .page-submenu {
+            position: sticky;
+            top: 80px;
+            background: rgba(15, 42, 63, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(100, 181, 246, 0.2);
+            z-index: 100;
+            padding: 0;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+        }
+
+        .page-submenu-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 40px;
+        }
+
+        .page-submenu nav {
+            display: flex;
+            gap: 32px;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .page-submenu nav::-webkit-scrollbar {
+            display: none;
+        }
+
+        .page-submenu a {
+            display: block;
+            padding: 16px 0;
+            font-size: 14px;
+            font-weight: 600;
+            color: rgba(255,255,255,0.7);
+            text-decoration: none;
+            white-space: nowrap;
+            border-bottom: 2px solid transparent;
+            transition: all 0.2s ease;
+        }
+
+        .page-submenu a:hover {
+            color: var(--cyan);
+            border-bottom-color: var(--cyan);
+        }
+
+        @media (max-width: 768px) {
+            .page-submenu {
+                top: 70px;
+            }
+
+            .page-submenu-container {
+                padding: 0 20px;
+            }
+
+            .page-submenu nav {
+                gap: 24px;
+            }
+        }
+
         .template-selector {
             max-width: 1200px;
             margin: 0 auto;
@@ -277,10 +342,22 @@
     <p style="font-size: 1.125rem; color: rgba(255,255,255,0.75);">One page per listing • Fully branded • SEO optimized</p>
   </div>
 
+  <!-- Page Submenu -->
+  <div class="page-submenu">
+    <div class="page-submenu-container">
+      <nav>
+        <a href="#templates">Templates</a>
+        <a href="#features">Features</a>
+        <a href="#pricing">Pricing</a>
+        <a href="#order">Get Started</a>
+      </nav>
+    </div>
+  </div>
+
   <div class="template-selector">
 
     <!-- Template Design Options Section -->
-    <div style="margin-bottom: 60px;">
+    <div id="templates" style="margin-bottom: 60px;">
       <h2 style="font-size: 2rem; text-align: center; margin-bottom: 16px; color: rgba(255,255,255,0.95);">Choose Your Design Style</h2>
       <p style="text-align: center; font-size: 1.125rem; color: rgba(255,255,255,0.75); margin-bottom: 48px;">Select from multiple professional templates designed for real estate</p>
 
@@ -332,7 +409,7 @@
     </div>
 
     <!-- Features & Pricing Section -->
-    <div style="background: rgba(26, 58, 82, 0.3); padding: 60px 40px; border-radius: 12px; margin: 60px 0;">
+    <div id="features" style="background: rgba(26, 58, 82, 0.3); padding: 60px 40px; border-radius: 12px; margin: 60px 0;">
       <h2 style="font-size: 2rem; text-align: center; margin-bottom: 16px; color: rgba(255,255,255,0.95);">Everything You Need</h2>
       <p style="text-align: center; font-size: 1.125rem; color: rgba(255,255,255,0.75); margin-bottom: 48px;">19 Premium Features Included</p>
 
@@ -417,7 +494,7 @@
     </div>
 
     <!-- Pricing -->
-    <div style="margin: 60px 0;">
+    <div id="pricing" style="margin: 60px 0;">
       <h2 style="font-size: 2rem; text-align: center; margin-bottom: 48px; color: rgba(255,255,255,0.95);">Simple, Transparent Pricing</h2>
       <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 32px; max-width: 900px; margin: 0 auto;">
 
@@ -504,6 +581,25 @@
   <!-- Scripts -->
   <script src="/js/common.js"></script>
   <script src="/js/chatbot.js"></script>
+
+  <script>
+    // Smooth scrolling for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const targetId = this.getAttribute('href');
+        if (targetId === '#') return;
+
+        const targetElement = document.querySelector(targetId);
+        if (targetElement) {
+          window.scrollTo({
+            top: targetElement.offsetTop - 150,
+            behavior: 'smooth'
+          });
+        }
+      });
+    });
+  </script>
 
 </body>
 </html>
