@@ -16,9 +16,32 @@
     <link rel="stylesheet" href="/css/chatbot.css">
 
     <style>
-        /* Landing Page Specific Styles - Use with global.css */
+        /* Landing Page Specific Styles with Light/Dark Mode */
+
+        /* Light Mode (Default) */
+        body.landing-page {
+            background: #ffffff !important;
+            color: #1a1a1a !important;
+        }
+
+        body.landing-page .landing-container {
+            background: transparent;
+        }
+
+        /* Dark Mode */
+        body.landing-page.dark-mode {
+            background: var(--dark-navy) !important;
+            color: rgba(255,255,255,0.95) !important;
+        }
 
         :root {
+            /* Light theme colors */
+            --page-bg: #ffffff;
+            --page-text: #1a1a1a;
+            --page-text-secondary: #4a4a4a;
+            --page-card-bg: #f7f9fb;
+            --page-border: #d0d8e0;
+
             /* Color palette for feature cards */
             --color-blue: #0090c4;
             --color-green: #10b981;
@@ -27,6 +50,42 @@
             --color-teal: #14b8a6;
             --color-pink: #ec4899;
             --color-red: #ef4444;
+        }
+
+        body.landing-page.dark-mode {
+            /* Dark theme colors */
+            --page-bg: #0f2a3f;
+            --page-text: rgba(255,255,255,0.95);
+            --page-text-secondary: rgba(255,255,255,0.7);
+            --page-card-bg: rgba(26, 58, 82, 0.3);
+            --page-border: rgba(100, 181, 246, 0.2);
+        }
+
+        /* Theme Toggle Button */
+        .theme-toggle {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            z-index: 1000;
+            background: var(--color-purple);
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 24px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(139,92,246,0.3);
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .theme-toggle:hover {
+            background: var(--color-pink);
+            box-shadow: 0 6px 16px rgba(236,72,153,0.4);
+            transform: translateY(-2px);
         }
 
         /* Page-specific container */
@@ -38,7 +97,7 @@
 
         .intro {
             font-size: 1.0625rem;
-            color: rgba(255,255,255,0.9);
+            color: var(--page-text);
             margin-bottom: 48px;
             line-height: 1.8;
         }
@@ -48,7 +107,7 @@
         }
 
         .intro strong {
-            color: var(--cyan);
+            color: var(--color-blue);
         }
 
         .section-header {
@@ -66,7 +125,7 @@
         h2, h2.section-title {
             font-size: 2rem;
             font-weight: 300;
-            color: rgba(255,255,255,0.95);
+            color: var(--page-text);
             margin-bottom: 24px;
             letter-spacing: 0.02em;
         }
@@ -83,11 +142,11 @@
         }
 
         .prop-card {
-            background: rgba(26, 58, 82, 0.3);
-            border: 1px solid rgba(100, 181, 246, 0.2);
+            background: var(--page-card-bg);
+            border: 1px solid var(--page-border);
             border-radius: 8px;
             padding: 20px 24px;
-            border-left: 4px solid var(--cyan);
+            border-left: 4px solid var(--color-blue);
             transition: all 0.3s;
         }
 
@@ -100,21 +159,24 @@
         .prop-card:nth-child(7n+7) { border-left-color: var(--color-red); }
 
         .prop-card:hover {
-            background: rgba(26, 58, 82, 0.5);
-            box-shadow: 0 6px 20px rgba(100, 181, 246, 0.15);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.1);
             transform: translateY(-2px);
+        }
+
+        body.landing-page.dark-mode .prop-card:hover {
+            box-shadow: 0 6px 20px rgba(100, 181, 246, 0.15);
         }
 
         .prop-title {
             font-size: 15px;
             font-weight: 600;
-            color: rgba(255,255,255,0.95);
+            color: var(--page-text);
             margin-bottom: 6px;
         }
 
         .prop-desc {
             font-size: 14px;
-            color: rgba(255,255,255,0.7);
+            color: var(--page-text-secondary);
             line-height: 1.6;
         }
 
@@ -130,8 +192,8 @@
         }
 
         .pricing-card {
-            background: rgba(26, 58, 82, 0.3);
-            border: 2px solid rgba(100, 181, 246, 0.2);
+            background: var(--page-card-bg);
+            border: 2px solid var(--page-border);
             border-radius: 8px;
             padding: 32px 28px;
             text-align: center;
@@ -141,8 +203,11 @@
 
         .pricing-card:hover {
             transform: translateY(-4px);
-            background: rgba(26, 58, 82, 0.5);
-            box-shadow: 0 8px 24px rgba(100, 181, 246, 0.2);
+            box-shadow: 0 8px 24px rgba(0,144,196,0.2);
+            border-color: var(--color-blue);
+        }
+
+        body.landing-page.dark-mode .pricing-card:hover {
             border-color: var(--cyan);
         }
 
@@ -172,7 +237,7 @@
         .pricing-package-name {
             font-size: 14px;
             font-weight: 600;
-            color: rgba(255,255,255,0.7);
+            color: var(--page-text-secondary);
             text-transform: uppercase;
             letter-spacing: 0.1em;
             margin-bottom: 12px;
@@ -198,13 +263,13 @@
 
         .pricing-pages {
             font-size: 16px;
-            color: rgba(255,255,255,0.8);
+            color: var(--page-text-secondary);
             margin-bottom: 16px;
         }
 
         .pricing-per-page {
             font-size: 13px;
-            color: rgba(255,255,255,0.6);
+            color: var(--page-text-secondary);
             margin-bottom: 8px;
         }
 
@@ -261,7 +326,7 @@
 
         .pricing-note {
             font-size: 14px;
-            color: rgba(255,255,255,0.6);
+            color: var(--page-text-secondary);
             margin-top: 20px;
             line-height: 1.6;
         }
@@ -269,18 +334,27 @@
         .value-callout {
             margin-top: 24px;
             padding: 20px 24px;
-            background: rgba(100, 181, 246, 0.1);
+            background: rgba(0, 144, 196, 0.1);
             border-radius: 8px;
-            border-left: 4px solid var(--cyan);
+            border-left: 4px solid var(--color-blue);
+        }
+
+        body.landing-page.dark-mode .value-callout {
+            background: rgba(100, 181, 246, 0.1);
+            border-left-color: var(--cyan);
         }
 
         .value-callout p {
             font-size: 14px;
-            color: rgba(255,255,255,0.9);
+            color: var(--page-text);
             line-height: 1.6;
         }
 
         .value-callout strong {
+            color: var(--color-blue);
+        }
+
+        body.landing-page.dark-mode .value-callout strong {
             color: var(--cyan);
         }
 
@@ -290,14 +364,14 @@
 
         .form-intro {
             font-size: 15px;
-            color: rgba(255,255,255,0.8);
+            color: var(--page-text-secondary);
             line-height: 1.7;
             margin-bottom: 28px;
         }
 
         form {
-            background: rgba(26, 58, 82, 0.3);
-            border: 1px solid rgba(100, 181, 246, 0.2);
+            background: var(--page-card-bg);
+            border: 1px solid var(--page-border);
             padding: 32px;
             border-radius: 8px;
         }
@@ -317,7 +391,7 @@
             display: block;
             font-size: 12px;
             font-weight: 600;
-            color: rgba(255,255,255,0.8);
+            color: var(--page-text-secondary);
             letter-spacing: 0.08em;
             text-transform: uppercase;
             margin-bottom: 8px;
@@ -326,17 +400,30 @@
         input, select, textarea {
             width: 100%;
             padding: 12px 14px;
-            border: 1px solid rgba(100, 181, 246, 0.3);
+            border: 1px solid var(--page-border);
             border-radius: 4px;
             font-family: 'Montserrat', sans-serif;
             font-size: 15px;
-            color: rgba(255,255,255,0.95);
-            background: rgba(15, 42, 63, 0.6);
+            color: var(--page-text);
+            background: var(--page-bg);
             transition: border-color 0.2s;
+        }
+
+        body.landing-page.dark-mode input,
+        body.landing-page.dark-mode select,
+        body.landing-page.dark-mode textarea {
+            background: rgba(15, 42, 63, 0.6);
+            color: rgba(255,255,255,0.95);
         }
 
         input:focus, select:focus, textarea:focus {
             outline: none;
+            border-color: var(--color-blue);
+        }
+
+        body.landing-page.dark-mode input:focus,
+        body.landing-page.dark-mode select:focus,
+        body.landing-page.dark-mode textarea:focus {
             border-color: var(--cyan);
             background: rgba(15, 42, 63, 0.8);
         }
@@ -375,7 +462,7 @@
 
         .examples-intro {
             font-size: 15px;
-            color: rgba(255,255,255,0.8);
+            color: var(--page-text-secondary);
             line-height: 1.7;
             margin-bottom: 28px;
         }
@@ -387,12 +474,12 @@
         }
 
         .example-card {
-            background: rgba(26, 58, 82, 0.3);
+            background: var(--page-card-bg);
             border-radius: 8px;
             padding: 24px;
             text-align: center;
-            border: 1px solid rgba(100, 181, 246, 0.2);
-            border-top: 4px solid var(--cyan);
+            border: 1px solid var(--page-border);
+            border-top: 4px solid var(--color-blue);
             transition: all 0.3s;
         }
 
@@ -405,8 +492,11 @@
         .example-card:nth-child(7n+7) { border-top-color: var(--color-red); }
 
         .example-card:hover {
-            background: rgba(26, 58, 82, 0.5);
             transform: translateY(-4px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+        }
+
+        body.landing-page.dark-mode .example-card:hover {
             box-shadow: 0 6px 20px rgba(100, 181, 246, 0.15);
         }
 
@@ -418,13 +508,13 @@
         .example-title {
             font-size: 15px;
             font-weight: 600;
-            color: rgba(255,255,255,0.95);
+            color: var(--page-text);
             margin-bottom: 8px;
         }
 
         .example-desc {
             font-size: 13px;
-            color: rgba(255,255,255,0.7);
+            color: var(--page-text-secondary);
             line-height: 1.5;
         }
 
@@ -484,7 +574,13 @@
         }
     </style>
 </head>
-<body>
+<body class="landing-page">
+
+  <!-- Theme Toggle Button -->
+  <button class="theme-toggle" onclick="toggleTheme()" id="theme-toggle">
+    <span id="theme-icon">☀️</span>
+    <span id="theme-text">Light Mode</span>
+  </button>
 
   <!-- Header -->
   <header class="header">
@@ -829,6 +925,35 @@
     <script src="/js/common.js"></script>
     <script src="/js/chatbot.js"></script>
     <script>
+        // Theme toggle functionality
+        function toggleTheme() {
+            const body = document.body;
+            const themeIcon = document.getElementById('theme-icon');
+            const themeText = document.getElementById('theme-text');
+
+            if (body.classList.contains('dark-mode')) {
+                // Switch to light mode
+                body.classList.remove('dark-mode');
+                themeIcon.textContent = '☀️';
+                themeText.textContent = 'Light Mode';
+                localStorage.setItem('landing-theme', 'light');
+            } else {
+                // Switch to dark mode
+                body.classList.add('dark-mode');
+                themeIcon.textContent = '🌙';
+                themeText.textContent = 'Dark Mode';
+                localStorage.setItem('landing-theme', 'dark');
+            }
+        }
+
+        // Load saved theme preference
+        const savedTheme = localStorage.getItem('landing-theme');
+        if (savedTheme === 'dark') {
+            document.body.classList.add('dark-mode');
+            document.getElementById('theme-icon').textContent = '🌙';
+            document.getElementById('theme-text').textContent = 'Dark Mode';
+        }
+
         // Check URL hash for success message
         if (window.location.hash === '#success') {
             const successMsg = document.getElementById('success-message');
