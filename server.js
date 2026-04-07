@@ -597,6 +597,11 @@ serviceCategories.forEach(category => {
   });
 });
 
+// Listing pages service
+app.get('/services/listing-pages', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'services', 'listing-pages.html'));
+});
+
 // 404 handler
 app.use((req, res) => {
   res.status(404).send('Page not found');
