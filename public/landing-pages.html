@@ -10,14 +10,14 @@
 
         :root {
             --bg: #ffffff;
-            --text-primary: #333333;
-            --text-secondary: #666666;
-            --text-tertiary: #888888;
-            --text-muted: #999999;
-            --border: #e4e8ec;
+            --text-primary: #1a1a1a;
+            --text-secondary: #4a4a4a;
+            --text-tertiary: #666666;
+            --text-muted: #888888;
+            --border: #d0d8e0;
             --card-bg: #f7f9fb;
             --card-accent-bg: #eef8fc;
-            --accent: #00a8e1;
+            --accent: #0090c4;
             --navy: #1a3e5c;
             --header-bg: #1a3e5c;
             --nav-bg: rgba(26,62,92,0.97);
@@ -25,13 +25,13 @@
 
         [data-theme="dark"] {
             --bg: #0d1117;
-            --text-primary: #e6edf3;
-            --text-secondary: #adbac7;
-            --text-tertiary: #768390;
-            --text-muted: #545d68;
-            --border: #373e47;
+            --text-primary: #f0f6fc;
+            --text-secondary: #c9d1d9;
+            --text-tertiary: #8b949e;
+            --text-muted: #6e7681;
+            --border: #30363d;
             --card-bg: #161b22;
-            --card-accent-bg: #1a2332;
+            --card-accent-bg: #1c2128;
             --header-bg: #0d1117;
             --nav-bg: rgba(13,17,23,0.97);
         }
@@ -288,19 +288,23 @@
 
         .pricing-amount {
             font-size: 20px;
-            font-weight: 600;
-            color: var(--navy);
+            font-weight: 700;
+            color: #1a3e5c;
             text-align: right;
             white-space: nowrap;
         }
 
         [data-theme="dark"] .pricing-amount {
-            color: var(--accent);
+            color: #00bfff;
         }
 
         .pricing-amount.featured {
-            color: var(--accent);
+            color: #0090c4;
             font-size: 22px;
+        }
+
+        [data-theme="dark"] .pricing-amount.featured {
+            color: #00bfff;
         }
 
         .pricing-note {
@@ -532,6 +536,9 @@
     <!-- Sticky Navigation -->
     <nav class="nav-bar">
         <div class="nav-links">
+            <a href="/" style="display:flex; align-items:center; padding:0;">
+                <img src="/images/eb-logo.png" alt="Bogen.ai" style="height: 32px; margin-right:0.5rem;">
+            </a>
             <a href="#pricing">Pricing</a>
             <a href="#examples">Examples</a>
             <a href="#order">Order</a>
@@ -541,7 +548,10 @@
 
     <!-- Header -->
     <div class="header">
-        <div class="header-brand"><strong>Bogen</strong>.ai</div>
+        <div class="header-brand" style="display:flex; align-items:center; gap:1rem;">
+            <img src="/images/eb-logo.png" alt="EB" style="height: 40px;">
+            <span><strong>Bogen</strong>.ai</span>
+        </div>
         <div class="header-tag">Real Estate Landing Pages</div>
     </div>
 
