@@ -36,6 +36,14 @@
             padding: 60px 40px 80px;
         }
 
+        /* Scroll offset for anchor links */
+        #features,
+        #pricing,
+        #examples,
+        #order {
+            scroll-margin-top: 160px;
+        }
+
         .intro {
             font-size: 1.0625rem;
             color: rgba(255,255,255,0.9);
@@ -663,6 +671,76 @@
         body.light-mode .value-callout p {
             color: #0d2435;
         }
+
+        /* Sticky Submenu Navigation */
+        .page-submenu {
+            position: sticky;
+            top: 80px;
+            background: rgba(15, 42, 63, 0.98);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            z-index: 900;
+            padding: 16px 0;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        .submenu-nav {
+            max-width: 900px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: center;
+            gap: 32px;
+            padding: 0 40px;
+        }
+
+        .submenu-nav a {
+            color: rgba(255, 255, 255, 0.85);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            padding: 8px 12px;
+            border-radius: 4px;
+            transition: all 0.3s;
+        }
+
+        .submenu-nav a:hover {
+            color: white;
+            background: rgba(0, 212, 255, 0.1);
+        }
+
+        body.light-mode .page-submenu {
+            background: rgba(255, 255, 255, 0.98);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+        }
+
+        body.light-mode .submenu-nav a {
+            color: #1a3a52;
+        }
+
+        body.light-mode .submenu-nav a:hover {
+            color: var(--color-blue);
+            background: rgba(0, 144, 196, 0.1);
+        }
+
+        @media (max-width: 600px) {
+            .page-submenu {
+                top: 60px;
+            }
+
+            .submenu-nav {
+                gap: 16px;
+                padding: 0 20px;
+                flex-wrap: wrap;
+            }
+
+            .submenu-nav a {
+                font-size: 12px;
+                padding: 6px 10px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -719,6 +797,16 @@
     </div>
   </header>
 
+    <!-- Sticky Submenu Navigation -->
+    <div class="page-submenu">
+        <nav class="submenu-nav">
+            <a href="#features">Features</a>
+            <a href="#pricing">Pricing</a>
+            <a href="#examples">Examples</a>
+            <a href="#order">Order Now</a>
+        </nav>
+    </div>
+
     <!-- Page Heading -->
     <div style="background: linear-gradient(135deg, var(--navy, #1a3e5c) 0%, #0d5e8c 100%); padding: 80px 60px 60px; text-align: center; margin-top: 80px;">
         <h1 style="font-size: 2.5rem; color: white; font-weight: 600; margin-bottom: 12px;">Real Estate Landing Pages</h1>
@@ -734,7 +822,7 @@
         </div>
 
         <!-- Value Props -->
-        <div class="value-props">
+        <div class="value-props" id="features">
             <div class="section-header">What You Get</div>
             <h2 class="section-title">Every Landing Page Includes</h2>
 
