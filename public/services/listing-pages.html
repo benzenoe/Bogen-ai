@@ -654,6 +654,15 @@
             color: #0d2435;
         }
 
+        body.light-mode h1 {
+            color: #0d2435 !important;
+            -webkit-text-fill-color: #0d2435 !important;
+        }
+
+        body.light-mode .hero-subtext {
+            color: #1a3a52 !important;
+        }
+
         body.light-mode .section-header {
             color: var(--color-blue);
             font-weight: 600;
@@ -813,8 +822,15 @@
     </div>
   </header>
 
+    <!-- Hero Heading -->
+    <div style="max-width: 960px; margin: 0 auto; padding: 100px 40px 0; text-align: center;">
+        <p style="font-size: 12px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; background: linear-gradient(135deg, var(--color-blue) 0%, var(--color-purple) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; margin-bottom: 12px;">Bogen.ai</p>
+        <h1 style="font-family: 'Playfair Display', serif; font-size: 3.2rem; font-weight: 600; color: rgba(255,255,255,0.95); line-height: 1.15; margin-bottom: 16px;">Let Us Build Your Website</h1>
+        <p class="hero-subtext" style="font-size: 1.125rem; color: rgba(255,255,255,0.7); max-width: 600px; margin: 0 auto 48px; line-height: 1.6;">Professional. Branded. Built to convert.</p>
+    </div>
+
     <!-- Video Section -->
-    <div style="max-width: 960px; margin: 0 auto; padding: 80px 40px 40px;">
+    <div style="max-width: 960px; margin: 0 auto; padding: 0 40px 60px;">
         <div style="position: relative; width: 100%; padding-bottom: 56.25%; border-radius: 12px; overflow: hidden; box-shadow: 0 8px 32px rgba(0,0,0,0.4);">
             <iframe
                 src="https://www.youtube.com/embed/3cNSR6EUveM?rel=0"
@@ -827,7 +843,8 @@
         </div>
     </div>
 
-    <div class="landing-container" style="display: none;">
+    <!-- Hidden sections -->
+    <div style="display: none;">
 
         <!-- Value Props -->
         <div class="value-props" id="features">
@@ -932,7 +949,10 @@
             </div>
         </div>
 
-        <!-- Pricing -->
+    </div><!-- end hidden sections -->
+
+    <!-- Pricing -->
+    <div class="landing-container">
         <div class="pricing-section" id="pricing">
             <h2>Pricing</h2>
 
@@ -974,8 +994,8 @@
             </div>
         </div>
 
-        <!-- Examples -->
-        <div class="examples-section" id="examples">
+        <!-- Examples (hidden) -->
+        <div class="examples-section" id="examples" style="display: none;">
             <div class="section-header">Examples</div>
             <h2 class="section-title">What We Build</h2>
             <div class="examples-intro">
