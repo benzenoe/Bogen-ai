@@ -946,12 +946,20 @@
             }
         }
 
-        // Load saved theme preference
+        // Load saved theme preference (defaults to light mode)
         const savedTheme = localStorage.getItem('landing-theme');
         if (savedTheme === 'dark') {
             document.body.classList.add('dark-mode');
             document.getElementById('theme-icon').textContent = '🌙';
             document.getElementById('theme-text').textContent = 'Dark Mode';
+        } else {
+            // Explicitly set light mode as default
+            document.body.classList.remove('dark-mode');
+            document.getElementById('theme-icon').textContent = '☀️';
+            document.getElementById('theme-text').textContent = 'Light Mode';
+            if (!savedTheme) {
+                localStorage.setItem('landing-theme', 'light');
+            }
         }
 
         // Check URL hash for success message
