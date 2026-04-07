@@ -813,29 +813,21 @@
     </div>
   </header>
 
-    <!-- Sticky Submenu Navigation -->
-    <div class="page-submenu">
-        <nav class="submenu-nav">
-            <a href="#features">Features</a>
-            <a href="#pricing">Pricing</a>
-            <a href="#examples">Examples</a>
-            <a href="#order">Order Now</a>
-        </nav>
-    </div>
-
-    <!-- Page Heading -->
-    <div style="background: linear-gradient(135deg, var(--navy, #1a3e5c) 0%, #0d5e8c 100%); padding: 80px 60px 60px; text-align: center;">
-        <h1 style="font-size: 2.5rem; color: white; font-weight: 600; margin-bottom: 12px;">Real Estate Landing Pages</h1>
-        <p style="font-size: 1.25rem; color: rgba(255,255,255,0.9); margin-bottom: 8px;">Professional Landing Pages Starting at <span style="color: #00d4ff; font-weight: 700;">$249</span></p>
-        <p style="font-size: 1rem; color: rgba(255,255,255,0.75);">One page per listing. Fully branded. SEO optimized. Fast turnaround.</p>
-    </div>
-
-    <div class="landing-container">
-        <!-- Intro -->
-        <div class="intro">
-            <p>Every listing deserves its own spotlight. Most agents rely on Zillow, Realtor.com, and generic MLS syndication — but those platforms are optimized for <em>their</em> business, not yours. They capture the lead, control the experience, and push your commission dollars toward their own ecosystem.</p>
-            <p><strong>A dedicated landing page puts you back in control.</strong> Each listing gets two versions: one beautiful page for clients showcasing the property, and one for cooperating agents with commission details — fully compliant with NAR rules. Embed virtual tours and video walkthroughs. Let buyers schedule showings with integrated calendar booking. Track everything with analytics. Use an AI chatbot to qualify leads 24/7. Add mortgage calculators, custom domains, printable brochures, and tablet mode for open houses. Publish directly to Zillow and Realtor.com. Integrate seamlessly with your CRM and IDX website. And it costs less than one afternoon of pay-per-click spend.</p>
+    <!-- Video Section -->
+    <div style="max-width: 960px; margin: 0 auto; padding: 80px 40px 40px;">
+        <div style="position: relative; width: 100%; padding-bottom: 56.25%; border-radius: 12px; overflow: hidden; box-shadow: 0 8px 32px rgba(0,0,0,0.4);">
+            <iframe
+                src="https://www.youtube.com/embed/3cNSR6EUveM?rel=0"
+                title="Bogen.ai Listing Pages"
+                frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowfullscreen
+                style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;">
+            </iframe>
         </div>
+    </div>
+
+    <div class="landing-container" style="display: none;">
 
         <!-- Value Props -->
         <div class="value-props" id="features">
@@ -1143,14 +1135,13 @@
         const themeToggle = document.getElementById('themeToggle');
         const themeIcon = themeToggle.querySelector('.theme-icon');
 
-        // Set light mode as default on first visit
-        if (!localStorage.getItem('theme')) {
-            localStorage.setItem('theme', 'light');
-            document.body.classList.add('light-mode');
-            themeIcon.textContent = '🌙';
+        // Set dark mode as default on first visit
+        if (!localStorage.getItem('theme-listing')) {
+            localStorage.setItem('theme-listing', 'dark');
+            themeIcon.textContent = '☀️';
         } else {
             // Load saved theme preference
-            const savedTheme = localStorage.getItem('theme');
+            const savedTheme = localStorage.getItem('theme-listing');
             if (savedTheme === 'light') {
                 document.body.classList.add('light-mode');
                 themeIcon.textContent = '🌙';
@@ -1164,10 +1155,10 @@
 
             if (document.body.classList.contains('light-mode')) {
                 themeIcon.textContent = '🌙';
-                localStorage.setItem('theme', 'light');
+                localStorage.setItem('theme-listing', 'light');
             } else {
                 themeIcon.textContent = '☀️';
-                localStorage.setItem('theme', 'dark');
+                localStorage.setItem('theme-listing', 'dark');
             }
         });
     </script>
