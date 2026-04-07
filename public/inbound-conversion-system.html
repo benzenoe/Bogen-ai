@@ -3,9 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Inbound Conversion System | Bogen.ai - AI-Powered Lead Conversion for Real Estate</title>
-    <meta name="description" content="Transform how you capture, nurture, and close inbound leads with Bogen.ai's flagship 7-step methodology. AI phone agents that never miss a call. 5-minute response guarantee.">
+    <title>The Inbound Conversion System — Bogen.ai</title>
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap');
+
         * {
             margin: 0;
             padding: 0;
@@ -13,1262 +14,565 @@
         }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-            line-height: 1.6;
-            color: #2c3e50;
-            background: #f8f9fa;
+            font-family: 'Montserrat', 'Helvetica Neue', Arial, sans-serif;
+            color: #333333;
+            background: #ffffff;
+            line-height: 1.7;
+            font-size: 16px;
+            -webkit-font-smoothing: antialiased;
         }
 
-        /* Hero Section - Matching PDF Style */
-        .hero {
-            background: linear-gradient(135deg, #1e3a5f 0%, #2c5282 100%);
-            color: white;
-            padding: 4rem 2rem;
-            text-align: center;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120"><path d="M0,0V46.29c47.79,22.2,103.59,32.17,158,28,70.36-5.37,136.33-33.31,206.8-37.5C438.64,32.43,512.34,53.67,583,72.05c69.27,18,138.3,24.88,209.4,13.08,36.15-6,69.85-17.84,104.45-29.34C989.49,25,1113-14.29,1200,52.47V0Z" opacity=".1" fill="%23ffffff"></path></svg>') no-repeat bottom;
-            background-size: cover;
-            opacity: 0.1;
-        }
-
-        .hero-content {
-            max-width: 1200px;
-            margin: 0 auto;
-            position: relative;
-            z-index: 1;
-        }
-
-        .hero-badge {
-            display: inline-block;
-            background: rgba(59, 130, 246, 0.2);
-            color: #3b82f6;
-            padding: 0.5rem 1.5rem;
-            border-radius: 30px;
-            font-size: 0.9rem;
-            font-weight: 600;
-            margin-bottom: 1.5rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        .hero h1 {
-            font-size: 3.5rem;
-            margin-bottom: 1rem;
-            font-weight: 700;
-            line-height: 1.2;
-        }
-
-        .hero h1 .highlight {
-            background: linear-gradient(135deg, #3b82f6 0%, #60a5fa 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            display: inline-block;
-        }
-
-        .hero .subtitle {
-            font-size: 1.3rem;
-            margin-bottom: 2rem;
-            opacity: 0.95;
-            max-width: 800px;
-            margin-left: auto;
-            margin-right: auto;
-            line-height: 1.6;
-        }
-
-        .hero-cta {
+        .header {
+            background: #1a3e5c;
+            padding: 40px 60px;
             display: flex;
-            gap: 1rem;
-            justify-content: center;
-            margin-top: 2rem;
-            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
         }
 
-        .cta-button {
-            display: inline-block;
-            padding: 1rem 2.5rem;
-            border-radius: 8px;
-            text-decoration: none;
+        .header-brand {
+            color: #ffffff;
+            font-weight: 300;
+            font-size: 22px;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+        }
+
+        .header-brand strong {
             font-weight: 600;
-            font-size: 1.1rem;
-            transition: all 0.3s ease;
-            cursor: pointer;
-            border: 2px solid transparent;
         }
 
-        .cta-primary {
-            background: #3b82f6;
-            color: white;
-            box-shadow: 0 4px 14px rgba(59, 130, 246, 0.4);
-        }
-
-        .cta-primary:hover {
-            background: #2563eb;
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(59, 130, 246, 0.5);
-        }
-
-        .cta-secondary {
-            background: transparent;
-            color: white;
-            border: 2px solid white;
-        }
-
-        .cta-secondary:hover {
-            background: white;
-            color: #1e3a5f;
-        }
-
-        /* Stats Bar */
-        .stats-bar {
-            background: white;
-            padding: 2rem;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-            margin-top: -3rem;
-            position: relative;
-            z-index: 2;
-            border-radius: 12px;
-            max-width: 1200px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 2rem;
-            text-align: center;
-        }
-
-        .stat-item {
-            padding: 1rem;
-        }
-
-        .stat-number {
-            font-size: 3rem;
-            font-weight: bold;
-            color: #1e3a5f;
-            display: block;
-            margin-bottom: 0.5rem;
-        }
-
-        .stat-label {
-            color: #64748b;
-            font-size: 0.95rem;
+        .header-date {
+            color: rgba(255,255,255,0.6);
+            font-size: 13px;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
         }
 
         .container {
-            max-width: 1200px;
+            max-width: 740px;
             margin: 0 auto;
-            padding: 4rem 2rem;
+            padding: 60px 40px 80px;
         }
 
-        .section {
-            margin-bottom: 4rem;
+        .title-block {
+            margin-bottom: 48px;
+            padding-bottom: 32px;
+            border-bottom: 3px solid #00a8e1;
+        }
+
+        .title-block h1 {
+            font-size: 28px;
+            font-weight: 300;
+            color: #1a3e5c;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            margin-bottom: 8px;
+        }
+
+        .title-block .subtitle {
+            font-size: 15px;
+            color: #666666;
+            font-weight: 400;
+        }
+
+        .intro {
+            font-size: 16px;
+            color: #444444;
+            margin-bottom: 48px;
+            line-height: 1.8;
+        }
+
+        .intro p + p {
+            margin-top: 14px;
+        }
+
+        .stats-bar {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px;
+            margin-bottom: 48px;
+        }
+
+        .stat-card {
+            background: #f7f9fb;
+            border-radius: 6px;
+            padding: 20px 24px;
+            border-left: 4px solid #00a8e1;
+        }
+
+        .stat-number {
+            font-size: 32px;
+            font-weight: 600;
+            color: #1a3e5c;
+            display: block;
+            margin-bottom: 4px;
+        }
+
+        .stat-label {
+            font-size: 13px;
+            color: #666666;
+            line-height: 1.5;
         }
 
         .section-header {
-            text-align: center;
-            margin-bottom: 3rem;
-        }
-
-        .section-badge {
-            display: inline-block;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 0.5rem 1.5rem;
-            border-radius: 30px;
-            font-size: 0.85rem;
+            font-size: 12px;
             font-weight: 600;
-            margin-bottom: 1rem;
+            color: #00a8e1;
+            letter-spacing: 0.14em;
             text-transform: uppercase;
-            letter-spacing: 1px;
+            margin-bottom: 6px;
         }
 
-        .section-title {
-            font-size: 2.5rem;
-            color: #1e3a5f;
-            margin-bottom: 1rem;
-            font-weight: 700;
+        h2.section-title {
+            font-size: 22px;
+            font-weight: 500;
+            color: #1a3e5c;
+            margin-bottom: 16px;
         }
 
-        .section-subtitle {
-            font-size: 1.2rem;
-            color: #64748b;
-            max-width: 700px;
-            margin: 0 auto;
+        .phase {
+            margin-bottom: 44px;
+            padding-left: 20px;
+            border-left: 4px solid #00a8e1;
         }
 
-        /* 7 Steps Grid */
-        .steps-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 2rem;
-            margin: 3rem 0;
-        }
-
-        .step-card {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 2rem;
-            border-radius: 12px;
-            box-shadow: 0 8px 16px rgba(102, 126, 234, 0.3);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .step-card::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            right: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
-            transition: all 0.5s ease;
-        }
-
-        .step-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 12px 24px rgba(102, 126, 234, 0.4);
-        }
-
-        .step-card:hover::before {
-            top: -25%;
-            right: -25%;
-        }
-
-        .step-number {
-            font-size: 0.9rem;
-            opacity: 0.9;
-            margin-bottom: 0.5rem;
+        .phase-label {
+            font-size: 11px;
             font-weight: 600;
+            color: #00a8e1;
+            letter-spacing: 0.14em;
             text-transform: uppercase;
-            letter-spacing: 1px;
+            margin-bottom: 4px;
         }
 
-        .step-title {
-            font-size: 1.5rem;
-            margin-bottom: 1rem;
-            font-weight: 700;
+        .phase h2 {
+            font-size: 20px;
+            font-weight: 500;
+            color: #1a3e5c;
+            margin-bottom: 12px;
         }
 
-        .step-description {
-            opacity: 0.95;
+        .phase .why {
+            font-size: 15px;
+            color: #555555;
+            margin-bottom: 16px;
             line-height: 1.7;
-            margin-bottom: 1.5rem;
         }
 
-        .step-features {
+        .phase ul {
             list-style: none;
             padding: 0;
         }
 
-        .step-features li {
-            padding: 0.5rem 0;
-            padding-left: 1.5rem;
+        .phase ul li {
+            padding: 6px 0 6px 20px;
             position: relative;
-            opacity: 0.9;
-            font-size: 0.95rem;
+            font-size: 15px;
+            color: #444444;
         }
 
-        .step-features li:before {
-            content: "✓";
+        .phase ul li::before {
+            content: '';
             position: absolute;
             left: 0;
-            font-weight: bold;
+            top: 14px;
+            width: 8px;
+            height: 8px;
+            background: #00a8e1;
+            border-radius: 50%;
         }
 
-        /* SLA Box - Matching PDF */
         .sla-box {
-            background: #1e3a5f;
-            color: white;
-            padding: 1.5rem;
-            border-radius: 8px;
-            margin: 2rem 0;
+            margin: 32px 0;
+            padding: 20px 24px;
+            background: #1a3e5c;
+            border-radius: 6px;
+            color: #ffffff;
+            font-size: 15px;
+            line-height: 1.7;
             text-align: center;
-            font-weight: 600;
-            font-size: 1.1rem;
-            letter-spacing: 0.5px;
-            box-shadow: 0 4px 12px rgba(30, 58, 95, 0.3);
+            font-weight: 500;
         }
 
-        /* Phone Layer Highlight */
+        .sla-box strong {
+            color: #00a8e1;
+        }
+
         .phone-layer-section {
-            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
-            color: white;
-            padding: 3rem 2rem;
-            border-radius: 12px;
-            margin: 3rem 0;
-            box-shadow: 0 8px 24px rgba(16, 185, 129, 0.3);
+            margin: 48px 0;
+            padding: 28px 32px;
+            background: #eef8fc;
+            border-radius: 6px;
+            border-left: 4px solid #00a8e1;
         }
 
         .phone-layer-section h2 {
-            font-size: 2rem;
-            margin-bottom: 1.5rem;
-            text-align: center;
+            font-size: 18px;
+            font-weight: 500;
+            color: #1a3e5c;
+            margin-bottom: 12px;
+        }
+
+        .phone-layer-section p {
+            font-size: 15px;
+            color: #555555;
+            line-height: 1.7;
+            margin-bottom: 16px;
         }
 
         .phone-features-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 1.5rem;
-            margin-top: 2rem;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px;
+            margin-top: 20px;
         }
 
         .phone-feature {
-            background: rgba(255, 255, 255, 0.1);
-            padding: 1.5rem;
-            border-radius: 8px;
-            backdrop-filter: blur(10px);
-        }
-
-        .phone-feature-icon {
-            font-size: 2rem;
-            margin-bottom: 0.5rem;
+            background: #ffffff;
+            border-radius: 6px;
+            padding: 16px 20px;
+            border: 1px solid #e4e8ec;
         }
 
         .phone-feature h3 {
-            font-size: 1.2rem;
-            margin-bottom: 0.5rem;
+            font-size: 14px;
+            font-weight: 600;
+            color: #1a3e5c;
+            margin-bottom: 6px;
         }
 
-        /* Pricing Section */
-        .pricing-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            margin: 3rem 0;
+        .phone-feature p {
+            font-size: 13px;
+            color: #666666;
+            line-height: 1.6;
+            margin: 0;
         }
 
-        .pricing-card {
-            background: white;
-            border-radius: 12px;
-            padding: 2.5rem;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            position: relative;
+        .pricing {
+            background: #f7f9fb;
+            border-radius: 6px;
+            padding: 36px 32px;
+            margin: 48px 0;
         }
 
-        .pricing-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 12px 24px rgba(0,0,0,0.15);
+        .pricing h2 {
+            font-size: 18px;
+            font-weight: 500;
+            color: #1a3e5c;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            margin-bottom: 20px;
         }
 
-        .pricing-card.featured {
-            border: 3px solid #3b82f6;
-            transform: scale(1.05);
+        .pricing-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            padding: 16px 0;
+            border-bottom: 1px solid #e4e8ec;
         }
 
-        .pricing-card.featured::before {
-            content: 'MOST POPULAR';
-            position: absolute;
-            top: -15px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
-            color: white;
-            padding: 0.5rem 1.5rem;
-            border-radius: 20px;
-            font-size: 0.75rem;
-            font-weight: 700;
-            letter-spacing: 1px;
-        }
-
-        .pricing-tier {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: #1e3a5f;
-            margin-bottom: 1rem;
-        }
-
-        .pricing-price {
-            font-size: 3rem;
-            font-weight: 700;
-            color: #1e3a5f;
-            margin-bottom: 0.5rem;
-        }
-
-        .pricing-price span {
-            font-size: 1.2rem;
-            color: #64748b;
-            font-weight: 400;
-        }
-
-        .pricing-features {
-            list-style: none;
-            padding: 0;
-            margin: 2rem 0;
-        }
-
-        .pricing-features li {
-            padding: 0.75rem 0;
-            padding-left: 2rem;
-            position: relative;
-            border-bottom: 1px solid #e5e7eb;
-        }
-
-        .pricing-features li:last-child {
+        .pricing-row:last-of-type {
             border-bottom: none;
         }
 
-        .pricing-features li:before {
-            content: "✓";
-            position: absolute;
-            left: 0;
-            color: #10b981;
-            font-weight: bold;
-            font-size: 1.2rem;
+        .pricing-label {
+            font-size: 15px;
+            color: #444444;
+            flex: 1;
         }
 
-        /* Contact Form */
-        .contact-section {
-            background: linear-gradient(135deg, #1e3a5f 0%, #2c5282 100%);
-            color: white;
-            padding: 4rem 2rem;
-            border-radius: 12px;
-            margin: 4rem 0;
-        }
-
-        .contact-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 3rem;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .contact-info h2 {
-            font-size: 2.5rem;
-            margin-bottom: 1.5rem;
-        }
-
-        .contact-info p {
-            font-size: 1.1rem;
-            opacity: 0.95;
-            margin-bottom: 2rem;
-            line-height: 1.7;
-        }
-
-        .contact-details {
-            list-style: none;
-            padding: 0;
-        }
-
-        .contact-details li {
-            padding: 1rem 0;
-            padding-left: 2.5rem;
-            position: relative;
-            font-size: 1.1rem;
-        }
-
-        .contact-details li:before {
-            content: "→";
-            position: absolute;
-            left: 0;
-            color: #3b82f6;
-            font-weight: bold;
-            font-size: 1.5rem;
-        }
-
-        .contact-form {
-            background: white;
-            padding: 2.5rem;
-            border-radius: 12px;
-            box-shadow: 0 8px 24px rgba(0,0,0,0.2);
-        }
-
-        .form-group {
-            margin-bottom: 1.5rem;
-        }
-
-        .form-group label {
+        .pricing-label .note {
             display: block;
-            color: #1e3a5f;
+            font-size: 13px;
+            color: #888888;
+            margin-top: 2px;
+        }
+
+        .pricing-amount {
+            font-size: 18px;
             font-weight: 600;
-            margin-bottom: 0.5rem;
+            color: #1a3e5c;
+            text-align: right;
+            white-space: nowrap;
         }
 
-        .form-group input,
-        .form-group textarea,
-        .form-group select {
-            width: 100%;
-            padding: 0.875rem;
-            border: 2px solid #e5e7eb;
-            border-radius: 8px;
-            font-size: 1rem;
-            font-family: inherit;
-            transition: border-color 0.3s ease;
+        .pricing-note {
+            font-size: 14px;
+            color: #777777;
+            margin-top: 20px;
+            line-height: 1.6;
         }
 
-        .form-group input:focus,
-        .form-group textarea:focus,
-        .form-group select:focus {
-            outline: none;
-            border-color: #3b82f6;
+        .cta {
+            margin-top: 48px;
+            padding-top: 32px;
+            border-top: 1px solid #e4e8ec;
         }
 
-        .form-group textarea {
-            resize: vertical;
-            min-height: 120px;
+        .cta h2 {
+            font-size: 18px;
+            font-weight: 500;
+            color: #1a3e5c;
+            margin-bottom: 12px;
         }
 
-        .submit-button {
-            width: 100%;
-            padding: 1rem;
-            background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
-            color: white;
-            border: none;
-            border-radius: 8px;
-            font-size: 1.1rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        .cta p {
+            font-size: 15px;
+            color: #444444;
+            line-height: 1.8;
         }
 
-        .submit-button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(59, 130, 246, 0.4);
+        .cta p + p {
+            margin-top: 14px;
         }
 
-        /* Comparison CTA */
-        .comparison-cta {
-            background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
-            color: white;
-            padding: 3rem 2rem;
-            border-radius: 12px;
-            text-align: center;
-            margin: 4rem 0;
-            box-shadow: 0 8px 24px rgba(245, 158, 11, 0.3);
+        .cta a {
+            color: #00a8e1;
+            text-decoration: none;
+            font-weight: 500;
         }
 
-        .comparison-cta h2 {
-            font-size: 2rem;
-            margin-bottom: 1rem;
-        }
-
-        .comparison-cta p {
-            font-size: 1.2rem;
-            margin-bottom: 2rem;
-            opacity: 0.95;
-        }
-
-        /* Footer */
         .footer {
-            background: #1e3a5f;
-            color: white;
-            padding: 3rem 2rem;
+            background: #1a3e5c;
+            padding: 32px 60px;
+            margin-top: 60px;
             text-align: center;
         }
 
-        .footer-content {
-            max-width: 1200px;
-            margin: 0 auto;
+        .footer-text {
+            color: rgba(255,255,255,0.5);
+            font-size: 12px;
+            letter-spacing: 0.06em;
         }
 
-        .footer-logo {
-            font-size: 2rem;
-            font-weight: 700;
-            margin-bottom: 1rem;
-            background: linear-gradient(135deg, #3b82f6 0%, #60a5fa 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .footer-links {
-            display: flex;
-            justify-content: center;
-            gap: 2rem;
-            margin: 2rem 0;
-            flex-wrap: wrap;
-        }
-
-        .footer-links a {
-            color: white;
+        .footer-text a {
+            color: #00a8e1;
             text-decoration: none;
-            opacity: 0.8;
-            transition: opacity 0.3s ease;
         }
 
-        .footer-links a:hover {
-            opacity: 1;
+        @media print {
+            body { font-size: 14px; }
+            .header, .footer { padding: 24px 40px; }
+            .container { padding: 40px 20px 40px; }
+            .phase { margin-bottom: 28px; }
+            .pricing { padding: 24px 20px; }
         }
 
-        .footer-social {
-            margin: 2rem 0;
-        }
-
-        .footer-social a {
-            display: inline-block;
-            width: 40px;
-            height: 40px;
-            line-height: 40px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 50%;
-            margin: 0 0.5rem;
-            color: white;
-            text-decoration: none;
-            transition: background 0.3s ease;
-        }
-
-        .footer-social a:hover {
-            background: #3b82f6;
-        }
-
-        .footer-copyright {
-            opacity: 0.7;
-            font-size: 0.9rem;
-            margin-top: 2rem;
-            padding-top: 2rem;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        /* Mobile Responsive */
-        @media (max-width: 768px) {
-            .hero h1 {
-                font-size: 2.5rem;
-            }
-
-            .hero .subtitle {
-                font-size: 1.1rem;
-            }
-
-            .hero-cta {
+        @media (max-width: 600px) {
+            .header { padding: 28px 24px; }
+            .container { padding: 40px 20px 60px; }
+            .stats-bar { grid-template-columns: 1fr; }
+            .phone-features-grid { grid-template-columns: 1fr; }
+            .pricing-row {
                 flex-direction: column;
+                gap: 4px;
             }
-
-            .stats-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .steps-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .contact-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .pricing-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .pricing-card.featured {
-                transform: scale(1);
-            }
-
-            .section-title {
-                font-size: 2rem;
-            }
-        }
-
-        /* Success Message */
-        .success-message {
-            background: #10b981;
-            color: white;
-            padding: 1rem;
-            border-radius: 8px;
-            margin-bottom: 1rem;
-            display: none;
-            text-align: center;
-            font-weight: 600;
-        }
-
-        .success-message.show {
-            display: block;
-            animation: slideDown 0.3s ease;
-        }
-
-        @keyframes slideDown {
-            from {
-                opacity: 0;
-                transform: translateY(-20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        /* Modal Styles */
-        .modal {
-            display: none;
-            position: fixed;
-            z-index: 1000;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0,0,0,0.7);
-            animation: fadeIn 0.3s ease;
-        }
-
-        .modal.show {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .modal-content {
-            background: white;
-            padding: 2.5rem;
-            border-radius: 12px;
-            max-width: 600px;
-            width: 90%;
-            max-height: 90vh;
-            overflow-y: auto;
-            position: relative;
-            animation: slideUp 0.3s ease;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-
-        @keyframes slideUp {
-            from {
-                opacity: 0;
-                transform: translateY(50px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .modal-close {
-            position: absolute;
-            top: 1rem;
-            right: 1rem;
-            font-size: 2rem;
-            color: #64748b;
-            cursor: pointer;
-            line-height: 1;
-            transition: color 0.3s ease;
-        }
-
-        .modal-close:hover {
-            color: #1e3a5f;
-        }
-
-        .modal h2 {
-            color: #1e3a5f;
-            margin-bottom: 1.5rem;
+            .pricing-amount { text-align: left; }
         }
     </style>
 </head>
 <body>
-    <!-- Hero Section -->
-    <section class="hero">
-        <div class="hero-content">
-            <div class="hero-badge">BOGEN.AI — PRIMARY PRODUCT</div>
-            <h1>
-                THE INBOUND<br>
-                <span class="highlight">CONVERSION SYSTEM</span>
-            </h1>
-            <p class="subtitle">
-                A complete methodology that transforms how professionals capture, nurture, and close inbound leads using AI-powered automation, branded content, and systematic follow-up sequences. It's not a single tool. <strong>It's a full operating system for turning attention into revenue.</strong>
-            </p>
-            <div class="hero-cta">
-                <a href="#contact" class="cta-button cta-primary">Schedule Your Assessment</a>
-                <a href="#pricing" class="cta-button cta-secondary">View Pricing</a>
-            </div>
-        </div>
-    </section>
-
-    <!-- Stats Bar -->
-    <div class="container">
-        <div class="stats-bar">
-            <div class="stats-grid">
-                <div class="stat-item">
-                    <span class="stat-number">78%</span>
-                    <span class="stat-label">of buyers work with first responder</span>
-                </div>
-                <div class="stat-item">
-                    <span class="stat-number">62%</span>
-                    <span class="stat-label">of inquiries come after hours</span>
-                </div>
-                <div class="stat-item">
-                    <span class="stat-number">$10K</span>
-                    <span class="stat-label">commission lost per missed call</span>
-                </div>
-                <div class="stat-item">
-                    <span class="stat-number">0.5s</span>
-                    <span class="stat-label">AI response time vs 15 hours human</span>
-                </div>
-            </div>
-        </div>
+    <div class="header">
+        <div class="header-brand"><strong>Bogen</strong>.ai</div>
+        <div class="header-date">Primary Product — April 2026</div>
     </div>
 
-    <!-- The Process Section -->
-    <section class="container section">
-        <div class="section-header">
-            <div class="section-badge">THE PROCESS</div>
-            <h2 class="section-title">7 Steps to Conversion</h2>
-            <p class="section-subtitle">
-                A systematic approach that eliminates missed opportunities and turns every inbound inquiry into a qualified, nurtured, and closed deal.
-            </p>
+    <div class="container">
+        <div class="title-block">
+            <h1>The Inbound Conversion System</h1>
+            <div class="subtitle">A complete methodology for turning attention into revenue through AI-powered automation</div>
         </div>
 
-        <div class="steps-grid">
-            <div class="step-card">
-                <div class="step-number">STEP 1</div>
-                <h3 class="step-title">CAPTURE</h3>
-                <p class="step-description">Build the inbound engine with multiple branded entry points.</p>
-                <ul class="step-features">
-                    <li>AI phone agent answers every call (no voicemail)</li>
-                    <li>Branded landing pages & lead magnets</li>
-                    <li>QR code systems</li>
-                    <li>Auto-creates lead in CRM with source tracking</li>
-                </ul>
-            </div>
+        <div class="intro">
+            <p>Most professionals lose money the second an inbound lead comes in — not because they're unqualified, but because no one answers the phone. <strong>78% of buyers work with the first responder.</strong> 62% of inquiries come after hours. The average human response time is 15 hours. AI answers in 0.5 seconds.</p>
+            <p>The Inbound Conversion System is a 7-step methodology that eliminates missed opportunities. It's not a single tool. It's a full operating system for capturing, qualifying, nurturing, and closing inbound leads using AI phone agents, branded content, and systematic follow-up sequences. One closed deal from an AI-captured lead pays for 5+ years of the service. Teams report 1–6 additional deals per month.</p>
+        </div>
 
-            <div class="step-card">
-                <div class="step-number">STEP 2</div>
-                <h3 class="step-title">QUALIFY</h3>
-                <p class="step-description">Score and segment immediately within 5 minutes of capture.</p>
-                <ul class="step-features">
-                    <li>AI asks qualifying questions live on call</li>
-                    <li>Hot/Warm/Nurture segmentation</li>
-                    <li>Automatic CRM tagging</li>
-                    <li>Smart routing to follow-up sequences</li>
-                </ul>
+        <div class="stats-bar">
+            <div class="stat-card">
+                <span class="stat-number">78%</span>
+                <span class="stat-label">of buyers work with first responder</span>
             </div>
+            <div class="stat-card">
+                <span class="stat-number">62%</span>
+                <span class="stat-label">of inquiries come after hours</span>
+            </div>
+            <div class="stat-card">
+                <span class="stat-number">$10K</span>
+                <span class="stat-label">commission lost per missed call</span>
+            </div>
+            <div class="stat-card">
+                <span class="stat-number">0.5s</span>
+                <span class="stat-label">AI response time vs 15 hours human</span>
+            </div>
+        </div>
 
-            <div class="step-card">
-                <div class="step-number">STEP 3</div>
-                <h3 class="step-title">RESPOND</h3>
-                <p class="step-description">Personalized first touch that builds trust immediately.</p>
-                <ul class="step-features">
-                    <li>AI phone agent IS the first response (0.5s)</li>
-                    <li>Hot leads trigger instant SMS alerts</li>
-                    <li>AI-drafted personalized responses</li>
-                    <li>Follow-up text with resource links mid-call</li>
-                </ul>
-            </div>
+        <div style="margin-top: 48px;">
+            <div class="section-header">The Process</div>
+            <h2 class="section-title">7 Steps to Conversion</h2>
+        </div>
 
-            <div class="step-card">
-                <div class="step-number">STEP 4</div>
-                <h3 class="step-title">NURTURE</h3>
-                <p class="step-description">Stay top-of-mind with consistent, valuable content.</p>
-                <ul class="step-features">
-                    <li>30/60/90-day drip sequences</li>
-                    <li>AI-generated market intelligence</li>
-                    <li>Automated email with dynamic content</li>
-                    <li>Premium: Outbound AI calls to non-responders</li>
-                </ul>
-            </div>
+        <div class="phase">
+            <div class="phase-label">Step 1</div>
+            <h2>CAPTURE</h2>
+            <p class="why">Build the inbound engine with multiple branded entry points.</p>
+            <ul>
+                <li>AI phone agent answers every call (no voicemail)</li>
+                <li>Branded landing pages & lead magnets</li>
+                <li>QR code systems</li>
+                <li>Auto-creates lead in CRM with source tracking</li>
+            </ul>
+        </div>
 
-            <div class="step-card">
-                <div class="step-number">STEP 5</div>
-                <h3 class="step-title">CONVERT</h3>
-                <p class="step-description">Move qualified leads into high-value strategy sessions.</p>
-                <ul class="step-features">
-                    <li>AI books sessions on Google Calendar</li>
-                    <li>Automated pre-session briefing packets</li>
-                    <li>AI-generated CMAs & market reports</li>
-                    <li>Smart scheduling with reminders</li>
-                </ul>
-            </div>
+        <div class="phase">
+            <div class="phase-label">Step 2</div>
+            <h2>QUALIFY</h2>
+            <p class="why">Score and segment immediately within 5 minutes of capture.</p>
+            <ul>
+                <li>AI asks qualifying questions live on call</li>
+                <li>Hot/Warm/Nurture segmentation</li>
+                <li>Automatic CRM tagging</li>
+                <li>Smart routing to follow-up sequences</li>
+            </ul>
+        </div>
 
-            <div class="step-card">
-                <div class="step-number">STEP 6</div>
-                <h3 class="step-title">CLOSE</h3>
-                <p class="step-description">Execute with flawless transaction management.</p>
-                <ul class="step-features">
-                    <li>7/3/1-day alert system for critical dates</li>
-                    <li>AI-powered timeline management</li>
-                    <li>Automated status updates</li>
-                    <li>Predictive issue flagging</li>
-                </ul>
-            </div>
+        <div class="phase">
+            <div class="phase-label">Step 3</div>
+            <h2>RESPOND</h2>
+            <p class="why">Personalized first touch that builds trust immediately.</p>
+            <ul>
+                <li>AI phone agent IS the first response (0.5s)</li>
+                <li>Hot leads trigger instant SMS alerts</li>
+                <li>AI-drafted personalized responses</li>
+                <li>Follow-up text with resource links mid-call</li>
+            </ul>
+        </div>
 
-            <div class="step-card">
-                <div class="step-number">STEP 7</div>
-                <h3 class="step-title">MULTIPLY</h3>
-                <p class="step-description">Turn every closed client into a referral source.</p>
-                <ul class="step-features">
-                    <li>AI post-close calls at 30/60/90 days</li>
-                    <li>Automated review request sequences</li>
-                    <li>Non-negotiable referral ask at Day 30</li>
-                    <li>Annual touchpoint calendar</li>
-                </ul>
-            </div>
+        <div class="phase">
+            <div class="phase-label">Step 4</div>
+            <h2>NURTURE</h2>
+            <p class="why">Stay top-of-mind with consistent, valuable content.</p>
+            <ul>
+                <li>30/60/90-day drip sequences</li>
+                <li>AI-generated market intelligence</li>
+                <li>Automated email with dynamic content</li>
+                <li>Premium: Outbound AI calls to non-responders</li>
+            </ul>
+        </div>
+
+        <div class="phase">
+            <div class="phase-label">Step 5</div>
+            <h2>CONVERT</h2>
+            <p class="why">Move qualified leads into high-value strategy sessions.</p>
+            <ul>
+                <li>AI books sessions on Google Calendar</li>
+                <li>Automated pre-session briefing packets</li>
+                <li>AI-generated CMAs & market reports</li>
+                <li>Smart scheduling with reminders</li>
+            </ul>
+        </div>
+
+        <div class="phase">
+            <div class="phase-label">Step 6</div>
+            <h2>CLOSE</h2>
+            <p class="why">Execute with flawless transaction management.</p>
+            <ul>
+                <li>7/3/1-day alert system for critical dates</li>
+                <li>AI-powered timeline management</li>
+                <li>Automated status updates</li>
+                <li>Predictive issue flagging</li>
+            </ul>
+        </div>
+
+        <div class="phase">
+            <div class="phase-label">Step 7</div>
+            <h2>MULTIPLY</h2>
+            <p class="why">Turn every closed client into a referral source.</p>
+            <ul>
+                <li>AI post-close calls at 30/60/90 days</li>
+                <li>Automated review request sequences</li>
+                <li>Non-negotiable referral ask at Day 30</li>
+                <li>Annual touchpoint calendar</li>
+            </ul>
         </div>
 
         <div class="sla-box">
             RULE: EVERY PIECE OF CONTENT MUST HAVE A CAPTURE MECHANISM. NO DEAD ENDS.
         </div>
-    </section>
 
-    <!-- Phone Layer Section -->
-    <section class="phone-layer-section">
-        <div class="container">
-            <h2>🎯 The Phone Layer: What Changes Everything</h2>
-            <p style="text-align: center; font-size: 1.2rem; margin-bottom: 2rem; opacity: 0.95;">
-                The phone layer is what makes the 5-minute SLA real. Without it, we're relying on humans to answer calls—and the data says they don't. <strong>AI phone agents eliminate this gap entirely.</strong>
-            </p>
+        <div class="phone-layer-section">
+            <h2>The Phone Layer: What Changes Everything</h2>
+            <p>The phone layer is what makes the 5-minute SLA real. Without it, we're relying on humans to answer calls—and the data says they don't. <strong>AI phone agents eliminate this gap entirely.</strong></p>
 
             <div class="phone-features-grid">
                 <div class="phone-feature">
-                    <div class="phone-feature-icon">📞</div>
                     <h3>100% Answer Rate</h3>
                     <p>24/7/365 availability. No voicemail, no missed leads. Every call answered in 0.5 seconds.</p>
                 </div>
 
                 <div class="phone-feature">
-                    <div class="phone-feature-icon">🎯</div>
                     <h3>Live Qualification</h3>
                     <p>AI asks budget, timeline, pre-approval, location during the call. Routes to correct pipeline stage instantly.</p>
                 </div>
 
                 <div class="phone-feature">
-                    <div class="phone-feature-icon">📅</div>
                     <h3>Calendar Booking</h3>
                     <p>Books strategy sessions directly on Google Calendar during the call. Automated confirmations sent.</p>
                 </div>
 
                 <div class="phone-feature">
-                    <div class="phone-feature-icon">⚡</div>
                     <h3>Instant Alerts</h3>
                     <p>Hot leads trigger SMS to agent with call summary + recommended action within seconds.</p>
                 </div>
 
                 <div class="phone-feature">
-                    <div class="phone-feature-icon">🔄</div>
                     <h3>Outbound Follow-Up</h3>
                     <p>Premium tier: AI calls non-responders after 48 hours. Documented TCPA consent required.</p>
                 </div>
 
                 <div class="phone-feature">
-                    <div class="phone-feature-icon">💼</div>
                     <h3>CRM Integration</h3>
                     <p>Every call auto-creates lead in Follow Up Boss with tags, notes, source tracking, and pipeline stage.</p>
                 </div>
             </div>
-
-            <div class="sla-box" style="background: rgba(255, 255, 255, 0.1); margin-top: 2rem;">
-                One closed deal from an AI-captured lead pays for 5+ years of the service. Teams report 1-6 additional deals per month.
-            </div>
-        </div>
-    </section>
-
-    <!-- Pricing Section -->
-    <section id="pricing" class="container section">
-        <div class="section-header">
-            <div class="section-badge">REVENUE MODEL</div>
-            <h2 class="section-title">Consulting Packages</h2>
-            <p class="section-subtitle">
-                Choose the level of support that matches your business goals. All packages include the full 7-step methodology and AI integration.
-            </p>
         </div>
 
-        <div class="pricing-grid">
-            <div class="pricing-card">
-                <div class="pricing-tier">Assessment</div>
-                <div class="pricing-price">$1,000<span> one-time</span></div>
-                <ul class="pricing-features">
-                    <li>90-minute audit session</li>
-                    <li>Current state assessment</li>
-                    <li>Gap analysis & roadmap</li>
-                    <li>Phone platform recommendation</li>
-                    <li>90-day implementation plan</li>
-                </ul>
-                <button class="cta-button cta-primary" onclick="openModal('assessment')">Get Started</button>
+        <div class="pricing">
+            <h2>Investment</h2>
+            <div class="pricing-row">
+                <div class="pricing-label">Assessment<span class="note">90-minute audit session, gap analysis & roadmap, phone platform recommendation</span></div>
+                <div class="pricing-amount">$1,000</div>
             </div>
-
-            <div class="pricing-card featured">
-                <div class="pricing-tier">Setup</div>
-                <div class="pricing-price">$4-5K<span> one-time</span></div>
-                <ul class="pricing-features">
-                    <li>Full system build (4 weeks)</li>
-                    <li>AI phone agent setup (My AI Front Desk)</li>
-                    <li>Landing pages & lead magnets</li>
-                    <li>Email sequences & CRM setup</li>
-                    <li>Zapier automation flows</li>
-                    <li>Team training included</li>
-                </ul>
-                <button class="cta-button cta-primary" onclick="openModal('setup')">Get Started</button>
+            <div class="pricing-row">
+                <div class="pricing-label">Setup<span class="note">Full system build (4 weeks), AI phone agent setup, landing pages, email sequences, CRM integration</span></div>
+                <div class="pricing-amount">$4–5K</div>
             </div>
-
-            <div class="pricing-card">
-                <div class="pricing-tier">Ongoing</div>
-                <div class="pricing-price">$1.2-1.8K<span>/month</span></div>
-                <ul class="pricing-features">
-                    <li>Content generation & optimization</li>
-                    <li>AI phone script management</li>
-                    <li>Weekly performance coaching</li>
-                    <li>Sequence refinement</li>
-                    <li>Monthly strategy calls</li>
-                </ul>
-                <button class="cta-button cta-primary" onclick="openModal('ongoing')">Get Started</button>
+            <div class="pricing-row">
+                <div class="pricing-label">Ongoing<span class="note">Monthly retainer: content generation, phone script management, weekly coaching, sequence refinement</span></div>
+                <div class="pricing-amount">$1.2–1.8K /mo</div>
             </div>
-
-            <div class="pricing-card">
-                <div class="pricing-tier">Premium</div>
-                <div class="pricing-price">$3K<span>/month</span></div>
-                <ul class="pricing-features">
-                    <li>Done-for-you content creation</li>
-                    <li>Bland AI custom build & management</li>
-                    <li>Outbound AI follow-up calls</li>
-                    <li>Weekly 1-on-1 strategy calls</li>
-                    <li>Full system optimization</li>
-                    <li>Priority support</li>
-                </ul>
-                <button class="cta-button cta-primary" onclick="openModal('premium')">Get Started</button>
+            <div class="pricing-row">
+                <div class="pricing-label">Premium<span class="note">Done-for-you content, Bland AI custom build, outbound AI calls, weekly 1-on-1 strategy calls</span></div>
+                <div class="pricing-amount">$3K /mo</div>
             </div>
+            <p class="pricing-note"><strong>Year 1 Investment: $21K–49K</strong> (includes consulting, setup, and optimization). Compare to hiring: Full-time ISA costs $48K–72K/year + benefits.</p>
         </div>
 
-        <div class="sla-box">
-            Year 1 Investment: $21K-49K (includes consulting, setup, and optimization)<br>
-            Compare to hiring: Full-time ISA costs $48K-72K/year + benefits
+        <div class="cta">
+            <h2>Ready to Transform Your Lead Conversion?</h2>
+            <p>Schedule your 90-minute assessment and discover exactly where you're losing leads—and how to capture them with AI-powered automation. The assessment is $1,000 and credited toward Setup if you move forward.</p>
+            <p><strong>Contact:</strong> <a href="mailto:contact@bogen.ai">contact@bogen.ai</a> | See our <a href="lofty-comparison.html">comparison with Lofty</a></p>
         </div>
-    </section>
 
-    <!-- Comparison CTA -->
-    <section class="container">
-        <div class="comparison-cta">
-            <h2>How Does This Compare to Lofty?</h2>
-            <p>See our detailed side-by-side comparison of Bogen.ai vs. Lofty's all-in-one platform</p>
-            <a href="lofty-comparison.html" class="cta-button" style="background: white; color: #d97706; display: inline-block;">View Full Comparison →</a>
-        </div>
-    </section>
-
-    <!-- Contact Section -->
-    <section id="contact" class="contact-section">
-        <div class="contact-grid">
-            <div class="contact-info">
-                <h2>Ready to Transform Your Lead Conversion?</h2>
-                <p>Schedule your 90-minute assessment and discover exactly where you're losing leads—and how to capture them with AI-powered automation.</p>
-
-                <ul class="contact-details">
-                    <li><strong>Response Time:</strong> Within 24 hours</li>
-                    <li><strong>Assessment:</strong> 90 minutes via Zoom</li>
-                    <li><strong>Deliverable:</strong> Custom 90-day roadmap</li>
-                    <li><strong>Investment:</strong> $1,000 (credited toward Setup)</li>
-                </ul>
-
-                <p style="margin-top: 2rem; font-size: 0.95rem; opacity: 0.9;">
-                    Questions? Email us at <strong>contact@bogen.ai</strong> or call <strong>(305) XXX-XXXX</strong>
-                </p>
-            </div>
-
-            <div class="contact-form">
-                <div class="success-message" id="successMessage">
-                    ✓ Thank you! We'll be in touch within 24 hours.
-                </div>
-                <form id="contactForm" onsubmit="handleSubmit(event)">
-                    <div class="form-group">
-                        <label for="name">Full Name *</label>
-                        <input type="text" id="name" name="name" required>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="email">Email Address *</label>
-                        <input type="email" id="email" name="email" required>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="phone">Phone Number *</label>
-                        <input type="tel" id="phone" name="phone" required>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="package">Interested In *</label>
-                        <select id="package" name="package" required>
-                            <option value="">Select a package...</option>
-                            <option value="assessment">Assessment ($1K)</option>
-                            <option value="setup">Setup ($4-5K)</option>
-                            <option value="ongoing">Ongoing ($1.2-1.8K/mo)</option>
-                            <option value="premium">Premium ($3K/mo)</option>
-                            <option value="not_sure">Not sure - need guidance</option>
-                        </select>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="deals">How many deals do you close per year?</label>
-                        <input type="text" id="deals" name="deals" placeholder="e.g., 20-30">
-                    </div>
-
-                    <div class="form-group">
-                        <label for="message">Tell us about your lead challenges</label>
-                        <textarea id="message" name="message" placeholder="What's your biggest frustration with lead conversion right now?"></textarea>
-                    </div>
-
-                    <button type="submit" class="submit-button">Schedule My Assessment →</button>
-                </form>
-            </div>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="footer-content">
-            <div class="footer-logo">BOGEN.AI</div>
-            <p style="max-width: 600px; margin: 0 auto 2rem; opacity: 0.8;">
-                The Inbound Conversion System - A complete methodology for turning attention into revenue through AI-powered automation.
-            </p>
-
-            <div class="footer-links">
-                <a href="#pricing">Pricing</a>
-                <a href="#contact">Contact</a>
-                <a href="lofty-comparison.html">vs. Lofty</a>
-                <a href="#">Case Studies</a>
-                <a href="#">Resources</a>
-            </div>
-
-            <div class="footer-social">
-                <a href="#">f</a>
-                <a href="#">in</a>
-                <a href="#">tw</a>
-                <a href="#">ig</a>
-            </div>
-
-            <div class="footer-copyright">
-                <p>&copy; 2026 Bogen.ai - Internal Strategy Document</p>
-                <p>Edmund Bogen & Eytan Benzeno | <a href="https://eytan.com" style="color: #3b82f6; text-decoration: none;">eytan.com</a></p>
-            </div>
-        </div>
-    </footer>
-
-    <!-- Modal -->
-    <div id="modal" class="modal">
-        <div class="modal-content">
-            <span class="modal-close" onclick="closeModal()">&times;</span>
-            <h2 id="modalTitle">Schedule Your Assessment</h2>
-            <form id="modalForm" onsubmit="handleModalSubmit(event)">
-                <div class="form-group">
-                    <label for="modalName">Full Name *</label>
-                    <input type="text" id="modalName" name="name" required>
-                </div>
-
-                <div class="form-group">
-                    <label for="modalEmail">Email Address *</label>
-                    <input type="email" id="modalEmail" name="email" required>
-                </div>
-
-                <div class="form-group">
-                    <label for="modalPhone">Phone Number *</label>
-                    <input type="tel" id="modalPhone" name="phone" required>
-                </div>
-
-                <div class="form-group">
-                    <label for="modalDeals">Annual Deal Volume</label>
-                    <input type="text" id="modalDeals" name="deals" placeholder="e.g., 20-30 deals/year">
-                </div>
-
-                <div class="form-group">
-                    <label for="modalMessage">What's your biggest lead conversion challenge?</label>
-                    <textarea id="modalMessage" name="message" rows="4"></textarea>
-                </div>
-
-                <input type="hidden" id="modalPackage" name="package">
-
-                <button type="submit" class="submit-button">Schedule Now →</button>
-            </form>
+        <div style="margin-top: 48px; padding-top: 32px; border-top: 1px solid #e4e8ec;">
+            <p style="font-size: 15px; color: #444444; line-height: 1.8; margin-bottom: 14px;"><strong>Edmund Bogen & Eytan Benzeno</strong><br>Bogen.ai</p>
         </div>
     </div>
 
-    <script>
-        // Form submission handler
-        function handleSubmit(event) {
-            event.preventDefault();
-            const form = event.target;
-            const formData = new FormData(form);
-
-            // Here you would normally send to your backend
-            console.log('Form submitted:', Object.fromEntries(formData));
-
-            // Show success message
-            document.getElementById('successMessage').classList.add('show');
-            form.reset();
-
-            // Hide success message after 5 seconds
-            setTimeout(() => {
-                document.getElementById('successMessage').classList.remove('show');
-            }, 5000);
-
-            // Scroll to success message
-            document.getElementById('successMessage').scrollIntoView({ behavior: 'smooth' });
-        }
-
-        // Modal functions
-        function openModal(packageType) {
-            const modal = document.getElementById('modal');
-            const modalTitle = document.getElementById('modalTitle');
-            const modalPackage = document.getElementById('modalPackage');
-
-            const titles = {
-                'assessment': 'Schedule Your Assessment ($1K)',
-                'setup': 'Get Started with Setup ($4-5K)',
-                'ongoing': 'Start Ongoing Support ($1.2-1.8K/mo)',
-                'premium': 'Go Premium ($3K/mo)'
-            };
-
-            modalTitle.textContent = titles[packageType] || 'Get Started';
-            modalPackage.value = packageType;
-            modal.classList.add('show');
-
-            // Prevent body scroll
-            document.body.style.overflow = 'hidden';
-        }
-
-        function closeModal() {
-            const modal = document.getElementById('modal');
-            modal.classList.remove('show');
-            document.body.style.overflow = '';
-        }
-
-        function handleModalSubmit(event) {
-            event.preventDefault();
-            const form = event.target;
-            const formData = new FormData(form);
-
-            // Here you would normally send to your backend
-            console.log('Modal form submitted:', Object.fromEntries(formData));
-
-            alert('Thank you! We\'ll contact you within 24 hours to schedule your session.');
-            closeModal();
-            form.reset();
-        }
-
-        // Close modal when clicking outside
-        window.onclick = function(event) {
-            const modal = document.getElementById('modal');
-            if (event.target == modal) {
-                closeModal();
-            }
-        }
-
-        // Smooth scroll for anchor links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                const href = this.getAttribute('href');
-                if (href !== '#' && href !== '#contact' && href !== '#pricing') return;
-
-                e.preventDefault();
-                const target = document.querySelector(href);
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                }
-            });
-        });
-    </script>
+    <div class="footer">
+        <div class="footer-text">Bogen.ai  •  Boca Raton, FL  •  <a href="mailto:edmund@bogen.ai">edmund@bogen.ai</a></div>
+    </div>
 </body>
 </html>
