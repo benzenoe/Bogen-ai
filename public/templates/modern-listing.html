@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stunning 4BR Modern Estate | $1,250,000 | Miami, FL</title>
+    <meta name="description" content="Gorgeous 4 bedroom, 3.5 bath modern estate in Miami. 3,500 sq ft with pool, smart home features, and ocean views.">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #0090c4;
+            --secondary: #14b8a6;
+            --accent: #8b5cf6;
+            --dark: #1a1a1a;
+            --light: #f8f9fa;
+            --border: #e2e8f0;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            color: #1a1a1a;
+            line-height: 1.6;
+            background: #ffffff;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+        }
+
+        /* Hero Section */
+        .hero {
+            position: relative;
+            height: 70vh;
+            min-height: 500px;
+            background: #1a1a1a;
+            overflow: hidden;
+        }
+
+        .hero-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.9;
+        }
+
+        .hero-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, transparent 100%);
+            padding: 60px 40px 40px;
+            color: white;
+        }
+
+        .hero-price {
+            font-size: 3rem;
+            font-weight: 700;
+            color: white;
+            margin-bottom: 12px;
+            text-shadow: 0 2px 8px rgba(0,0,0,0.3);
+        }
+
+        .hero-address {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            opacity: 0.95;
+        }
+
+        .hero-specs {
+            display: flex;
+            gap: 32px;
+            font-size: 1.125rem;
+            flex-wrap: wrap;
+        }
+
+        .hero-spec {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* Quick Actions */
+        .quick-actions {
+            position: sticky;
+            top: 0;
+            background: white;
+            border-bottom: 2px solid var(--border);
+            padding: 16px 0;
+            z-index: 100;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+
+        .quick-actions-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+
+        .quick-nav {
+            display: flex;
+            gap: 24px;
+        }
+
+        .quick-nav a {
+            color: #4a5568;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 14px;
+            transition: color 0.2s;
+        }
+
+        .quick-nav a:hover {
+            color: var(--primary);
+        }
+
+        .quick-cta {
+            display: flex;
+            gap: 12px;
+        }
+
+        .btn {
+            padding: 10px 24px;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 14px;
+            text-decoration: none;
+            transition: all 0.3s;
+            cursor: pointer;
+            border: none;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,144,196,0.3);
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+        }
+
+        .btn-outline:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+        /* Main Content */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 60px 40px;
+        }
+
+        .content-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 60px;
+        }
+
+        /* Description */
+        .description {
+            margin-bottom: 48px;
+        }
+
+        .description h2 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+            color: var(--dark);
+        }
+
+        .description p {
+            font-size: 1.0625rem;
+            line-height: 1.8;
+            color: #4a5568;
+            margin-bottom: 16px;
+        }
+
+        /* Features Grid */
+        .features {
+            margin-bottom: 48px;
+        }
+
+        .features h2 {
+            font-size: 1.75rem;
+            margin-bottom: 24px;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 16px;
+        }
+
+        .feature-item {
+            padding: 16px 20px;
+            background: var(--light);
+            border-radius: 8px;
+            border-left: 4px solid var(--primary);
+            font-size: 0.9375rem;
+            color: #2d3748;
+        }
+
+        /* Gallery */
+        .gallery {
+            margin-bottom: 48px;
+        }
+
+        .gallery h2 {
+            font-size: 1.75rem;
+            margin-bottom: 24px;
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 16px;
+        }
+
+        .gallery-item {
+            aspect-ratio: 4/3;
+            background: #e2e8f0;
+            border-radius: 8px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+
+        .gallery-item:hover {
+            transform: scale(1.02);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            position: sticky;
+            top: 100px;
+            height: fit-content;
+        }
+
+        .info-card {
+            background: white;
+            border: 2px solid var(--border);
+            border-radius: 12px;
+            padding: 32px;
+            margin-bottom: 24px;
+        }
+
+        .info-card h3 {
+            font-size: 1.25rem;
+            margin-bottom: 20px;
+            color: var(--dark);
+        }
+
+        .info-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 12px 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .info-row:last-child {
+            border-bottom: none;
+        }
+
+        .info-label {
+            color: #718096;
+            font-size: 0.9375rem;
+        }
+
+        .info-value {
+            font-weight: 600;
+            color: var(--dark);
+        }
+
+        /* Contact Form */
+        .contact-form {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            padding: 32px;
+            border-radius: 12px;
+            color: white;
+        }
+
+        .contact-form h3 {
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 16px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 6px;
+            font-size: 0.875rem;
+            font-weight: 500;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 6px;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.9375rem;
+        }
+
+        .form-group textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        .submit-btn {
+            width: 100%;
+            background: white;
+            color: var(--primary);
+            padding: 14px;
+            border: none;
+            border-radius: 6px;
+            font-weight: 700;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        }
+
+        /* Agent Card */
+        .agent-card {
+            text-align: center;
+        }
+
+        .agent-photo {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background: #e2e8f0;
+            margin: 0 auto 16px;
+            overflow: hidden;
+        }
+
+        .agent-photo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .agent-name {
+            font-size: 1.125rem;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .agent-title {
+            color: #718096;
+            font-size: 0.875rem;
+            margin-bottom: 12px;
+        }
+
+        .agent-contact {
+            font-size: 0.9375rem;
+            color: var(--primary);
+            margin-bottom: 16px;
+        }
+
+        /* Responsive */
+        @media (max-width: 968px) {
+            .content-grid {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+
+            .sidebar {
+                position: static;
+            }
+
+            .hero-price {
+                font-size: 2rem;
+            }
+
+            .hero-address {
+                font-size: 1.25rem;
+            }
+
+            .quick-actions-container {
+                padding: 0 20px;
+            }
+
+            .container {
+                padding: 40px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Hero Section -->
+    <div class="hero">
+        <img src="https://images.unsplash.com/photo-1613490493576-7fde63acd811?w=1920&q=80" alt="Modern Estate" class="hero-image">
+        <div class="hero-overlay">
+            <div class="hero-price">$1,250,000</div>
+            <div class="hero-address">123 Ocean View Drive, Miami Beach, FL 33139</div>
+            <div class="hero-specs">
+                <div class="hero-spec">🛏️ 4 Bedrooms</div>
+                <div class="hero-spec">🛁 3.5 Bathrooms</div>
+                <div class="hero-spec">📐 3,500 sq ft</div>
+                <div class="hero-spec">🏊 Pool</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Quick Actions Bar -->
+    <div class="quick-actions">
+        <div class="quick-actions-container">
+            <nav class="quick-nav">
+                <a href="#description">About</a>
+                <a href="#features">Features</a>
+                <a href="#gallery">Gallery</a>
+                <a href="#contact">Contact</a>
+            </nav>
+            <div class="quick-cta">
+                <a href="#contact" class="btn btn-outline">Schedule Showing</a>
+                <a href="#contact" class="btn btn-primary">Request Info</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="container">
+        <div class="content-grid">
+            <!-- Left Column -->
+            <div>
+                <!-- Description -->
+                <div class="description" id="description">
+                    <h2>About This Property</h2>
+                    <p>Welcome to coastal luxury living at its finest. This stunning 4-bedroom, 3.5-bathroom modern estate offers 3,500 square feet of meticulously designed living space with breathtaking ocean views.</p>
+                    <p>Step inside to discover an open-concept floor plan with floor-to-ceiling windows that flood the space with natural light. The gourmet kitchen features top-of-the-line Miele appliances, custom cabinetry, and a large center island perfect for entertaining.</p>
+                    <p>The master suite is a true sanctuary, complete with a spa-like ensuite bathroom, walk-in closet, and private balcony overlooking the pool and ocean beyond. Three additional generously sized bedrooms provide ample space for family and guests.</p>
+                    <p>Outside, enjoy your private heated pool, outdoor kitchen, and beautifully landscaped grounds. Smart home technology throughout ensures modern convenience at your fingertips.</p>
+                </div>
+
+                <!-- Features -->
+                <div class="features" id="features">
+                    <h2>Premium Features</h2>
+                    <div class="features-grid">
+                        <div class="feature-item">🏊 Heated Saltwater Pool</div>
+                        <div class="feature-item">🧠 Smart Home System</div>
+                        <div class="feature-item">🍳 Gourmet Chef's Kitchen</div>
+                        <div class="feature-item">🌊 Ocean Views</div>
+                        <div class="feature-item">🚗 2-Car Garage</div>
+                        <div class="feature-item">❄️ Central A/C</div>
+                        <div class="feature-item">🌳 Landscaped Yard</div>
+                        <div class="feature-item">🏋️ Home Gym</div>
+                        <div class="feature-item">🎬 Media Room</div>
+                        <div class="feature-item">🔒 Security System</div>
+                        <div class="feature-item">☀️ Solar Panels</div>
+                        <div class="feature-item">🏖️ Beach Access</div>
+                    </div>
+                </div>
+
+                <!-- Gallery -->
+                <div class="gallery" id="gallery">
+                    <h2>Photo Gallery</h2>
+                    <div class="gallery-grid">
+                        <div class="gallery-item">
+                            <img src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=800&q=80" alt="Living Room">
+                        </div>
+                        <div class="gallery-item">
+                            <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=800&q=80" alt="Kitchen">
+                        </div>
+                        <div class="gallery-item">
+                            <img src="https://images.unsplash.com/photo-1617104678098-de229db51175?w=800&q=80" alt="Master Bedroom">
+                        </div>
+                        <div class="gallery-item">
+                            <img src="https://images.unsplash.com/photo-1600607687644-aac4c3eac7f4?w=800&q=80" alt="Pool">
+                        </div>
+                        <div class="gallery-item">
+                            <img src="https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?w=800&q=80" alt="Bathroom">
+                        </div>
+                        <div class="gallery-item">
+                            <img src="https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=800&q=80" alt="Exterior">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Column - Sidebar -->
+            <div class="sidebar">
+                <!-- Property Details -->
+                <div class="info-card">
+                    <h3>Property Details</h3>
+                    <div class="info-row">
+                        <span class="info-label">Price</span>
+                        <span class="info-value">$1,250,000</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Bedrooms</span>
+                        <span class="info-value">4</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Bathrooms</span>
+                        <span class="info-value">3.5</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Square Feet</span>
+                        <span class="info-value">3,500</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Lot Size</span>
+                        <span class="info-value">0.25 acres</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Year Built</span>
+                        <span class="info-value">2021</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Property Type</span>
+                        <span class="info-value">Single Family</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">HOA</span>
+                        <span class="info-value">$250/month</span>
+                    </div>
+                </div>
+
+                <!-- Contact Form -->
+                <div class="contact-form" id="contact">
+                    <h3>Request Information</h3>
+                    <form>
+                        <div class="form-group">
+                            <label>Name</label>
+                            <input type="text" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Email</label>
+                            <input type="email" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Phone</label>
+                            <input type="tel">
+                        </div>
+                        <div class="form-group">
+                            <label>Message</label>
+                            <textarea placeholder="I'm interested in this property..."></textarea>
+                        </div>
+                        <button type="submit" class="submit-btn">Send Message</button>
+                    </form>
+                </div>
+
+                <!-- Agent Card -->
+                <div class="info-card agent-card">
+                    <div class="agent-photo">
+                        <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?w=400&q=80" alt="Agent">
+                    </div>
+                    <div class="agent-name">Sarah Johnson</div>
+                    <div class="agent-title">Luxury Real Estate Specialist</div>
+                    <div class="agent-contact">📞 (305) 555-0123</div>
+                    <div class="agent-contact">✉️ sarah@luxuryrealty.com</div>
+                    <a href="#contact" class="btn btn-primary" style="width: 100%; text-align: center; display: block; margin-top: 12px;">Contact Agent</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

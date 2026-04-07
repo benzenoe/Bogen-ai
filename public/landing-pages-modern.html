@@ -16,32 +16,9 @@
     <link rel="stylesheet" href="/css/chatbot.css">
 
     <style>
-        /* Landing Page Specific Styles with Light/Dark Mode */
-
-        /* Light Mode (Default) */
-        body.landing-page {
-            background: #ffffff !important;
-            color: #1a1a1a !important;
-        }
-
-        body.landing-page .landing-container {
-            background: transparent;
-        }
-
-        /* Dark Mode */
-        body.landing-page.dark-mode {
-            background: var(--dark-navy) !important;
-            color: rgba(255,255,255,0.95) !important;
-        }
+        /* Landing Page Specific Styles - Use with global.css */
 
         :root {
-            /* Light theme colors */
-            --page-bg: #ffffff;
-            --page-text: #1a1a1a;
-            --page-text-secondary: #4a4a4a;
-            --page-card-bg: #f7f9fb;
-            --page-border: #d0d8e0;
-
             /* Color palette for feature cards */
             --color-blue: #0090c4;
             --color-green: #10b981;
@@ -50,121 +27,6 @@
             --color-teal: #14b8a6;
             --color-pink: #ec4899;
             --color-red: #ef4444;
-        }
-
-        body.landing-page.dark-mode {
-            /* Dark theme colors */
-            --page-bg: #0f2a3f;
-            --page-text: rgba(255,255,255,0.95);
-            --page-text-secondary: rgba(255,255,255,0.7);
-            --page-card-bg: rgba(26, 58, 82, 0.3);
-            --page-border: rgba(100, 181, 246, 0.2);
-        }
-
-        /* Theme Toggle Button */
-        .theme-toggle {
-            position: fixed;
-            bottom: 100px;
-            right: 24px;
-            z-index: 1000;
-            background: var(--color-purple);
-            color: white;
-            border: none;
-            padding: 12px 20px;
-            border-radius: 24px;
-            font-size: 14px;
-            font-weight: 600;
-            cursor: pointer;
-            box-shadow: 0 4px 12px rgba(139,92,246,0.3);
-            transition: all 0.3s;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .theme-toggle:hover {
-            background: var(--color-pink);
-            box-shadow: 0 6px 16px rgba(236,72,153,0.4);
-            transform: translateY(-2px);
-        }
-
-        /* Page Submenu Navigation */
-        .page-submenu {
-            position: sticky;
-            top: 80px;
-            background: var(--page-bg);
-            border-bottom: 1px solid var(--page-border);
-            z-index: 100;
-            padding: 0;
-            margin: 0;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-        }
-
-        body.landing-page.dark-mode .page-submenu {
-            box-shadow: 0 2px 8px rgba(100, 181, 246, 0.1);
-        }
-
-        .page-submenu-container {
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 0 40px;
-        }
-
-        .page-submenu nav {
-            display: flex;
-            gap: 32px;
-            overflow-x: auto;
-            -webkit-overflow-scrolling: touch;
-        }
-
-        .page-submenu nav::-webkit-scrollbar {
-            display: none;
-        }
-
-        .page-submenu a {
-            display: block;
-            padding: 16px 0;
-            font-size: 14px;
-            font-weight: 600;
-            color: var(--page-text-secondary);
-            text-decoration: none;
-            white-space: nowrap;
-            border-bottom: 2px solid transparent;
-            transition: all 0.2s ease;
-        }
-
-        .page-submenu a:hover {
-            color: var(--color-blue);
-            border-bottom-color: var(--color-blue);
-        }
-
-        body.landing-page.dark-mode .page-submenu a:hover {
-            color: var(--cyan);
-            border-bottom-color: var(--cyan);
-        }
-
-        .page-submenu a.active {
-            color: var(--color-blue);
-            border-bottom-color: var(--color-blue);
-        }
-
-        body.landing-page.dark-mode .page-submenu a.active {
-            color: var(--cyan);
-            border-bottom-color: var(--cyan);
-        }
-
-        @media (max-width: 768px) {
-            .page-submenu {
-                top: 70px;
-            }
-
-            .page-submenu-container {
-                padding: 0 20px;
-            }
-
-            .page-submenu nav {
-                gap: 24px;
-            }
         }
 
         /* Page-specific container */
@@ -176,7 +38,7 @@
 
         .intro {
             font-size: 1.0625rem;
-            color: var(--page-text);
+            color: rgba(255,255,255,0.9);
             margin-bottom: 48px;
             line-height: 1.8;
         }
@@ -186,7 +48,7 @@
         }
 
         .intro strong {
-            color: var(--color-blue);
+            color: var(--cyan);
         }
 
         .section-header {
@@ -204,7 +66,7 @@
         h2, h2.section-title {
             font-size: 2rem;
             font-weight: 300;
-            color: var(--page-text);
+            color: rgba(255,255,255,0.95);
             margin-bottom: 24px;
             letter-spacing: 0.02em;
         }
@@ -221,11 +83,11 @@
         }
 
         .prop-card {
-            background: var(--page-card-bg);
-            border: 1px solid var(--page-border);
+            background: rgba(26, 58, 82, 0.3);
+            border: 1px solid rgba(100, 181, 246, 0.2);
             border-radius: 8px;
             padding: 20px 24px;
-            border-left: 4px solid var(--color-blue);
+            border-left: 4px solid var(--cyan);
             transition: all 0.3s;
         }
 
@@ -238,24 +100,21 @@
         .prop-card:nth-child(7n+7) { border-left-color: var(--color-red); }
 
         .prop-card:hover {
-            box-shadow: 0 6px 20px rgba(0,0,0,0.1);
-            transform: translateY(-2px);
-        }
-
-        body.landing-page.dark-mode .prop-card:hover {
+            background: rgba(26, 58, 82, 0.5);
             box-shadow: 0 6px 20px rgba(100, 181, 246, 0.15);
+            transform: translateY(-2px);
         }
 
         .prop-title {
             font-size: 15px;
             font-weight: 600;
-            color: var(--page-text);
+            color: rgba(255,255,255,0.95);
             margin-bottom: 6px;
         }
 
         .prop-desc {
             font-size: 14px;
-            color: var(--page-text-secondary);
+            color: rgba(255,255,255,0.7);
             line-height: 1.6;
         }
 
@@ -271,8 +130,8 @@
         }
 
         .pricing-card {
-            background: var(--page-card-bg);
-            border: 2px solid var(--page-border);
+            background: rgba(26, 58, 82, 0.3);
+            border: 2px solid rgba(100, 181, 246, 0.2);
             border-radius: 8px;
             padding: 32px 28px;
             text-align: center;
@@ -282,11 +141,8 @@
 
         .pricing-card:hover {
             transform: translateY(-4px);
-            box-shadow: 0 8px 24px rgba(0,144,196,0.2);
-            border-color: var(--color-blue);
-        }
-
-        body.landing-page.dark-mode .pricing-card:hover {
+            background: rgba(26, 58, 82, 0.5);
+            box-shadow: 0 8px 24px rgba(100, 181, 246, 0.2);
             border-color: var(--cyan);
         }
 
@@ -316,7 +172,7 @@
         .pricing-package-name {
             font-size: 14px;
             font-weight: 600;
-            color: var(--page-text-secondary);
+            color: rgba(255,255,255,0.7);
             text-transform: uppercase;
             letter-spacing: 0.1em;
             margin-bottom: 12px;
@@ -342,13 +198,13 @@
 
         .pricing-pages {
             font-size: 16px;
-            color: var(--page-text-secondary);
+            color: rgba(255,255,255,0.8);
             margin-bottom: 16px;
         }
 
         .pricing-per-page {
             font-size: 13px;
-            color: var(--page-text-secondary);
+            color: rgba(255,255,255,0.6);
             margin-bottom: 8px;
         }
 
@@ -405,7 +261,7 @@
 
         .pricing-note {
             font-size: 14px;
-            color: var(--page-text-secondary);
+            color: rgba(255,255,255,0.6);
             margin-top: 20px;
             line-height: 1.6;
         }
@@ -413,27 +269,18 @@
         .value-callout {
             margin-top: 24px;
             padding: 20px 24px;
-            background: rgba(0, 144, 196, 0.1);
-            border-radius: 8px;
-            border-left: 4px solid var(--color-blue);
-        }
-
-        body.landing-page.dark-mode .value-callout {
             background: rgba(100, 181, 246, 0.1);
-            border-left-color: var(--cyan);
+            border-radius: 8px;
+            border-left: 4px solid var(--cyan);
         }
 
         .value-callout p {
             font-size: 14px;
-            color: var(--page-text);
+            color: rgba(255,255,255,0.9);
             line-height: 1.6;
         }
 
         .value-callout strong {
-            color: var(--color-blue);
-        }
-
-        body.landing-page.dark-mode .value-callout strong {
             color: var(--cyan);
         }
 
@@ -443,14 +290,14 @@
 
         .form-intro {
             font-size: 15px;
-            color: var(--page-text-secondary);
+            color: rgba(255,255,255,0.8);
             line-height: 1.7;
             margin-bottom: 28px;
         }
 
         form {
-            background: var(--page-card-bg);
-            border: 1px solid var(--page-border);
+            background: rgba(26, 58, 82, 0.3);
+            border: 1px solid rgba(100, 181, 246, 0.2);
             padding: 32px;
             border-radius: 8px;
         }
@@ -470,7 +317,7 @@
             display: block;
             font-size: 12px;
             font-weight: 600;
-            color: var(--page-text-secondary);
+            color: rgba(255,255,255,0.8);
             letter-spacing: 0.08em;
             text-transform: uppercase;
             margin-bottom: 8px;
@@ -479,30 +326,17 @@
         input, select, textarea {
             width: 100%;
             padding: 12px 14px;
-            border: 1px solid var(--page-border);
+            border: 1px solid rgba(100, 181, 246, 0.3);
             border-radius: 4px;
             font-family: 'Montserrat', sans-serif;
             font-size: 15px;
-            color: var(--page-text);
-            background: var(--page-bg);
-            transition: border-color 0.2s;
-        }
-
-        body.landing-page.dark-mode input,
-        body.landing-page.dark-mode select,
-        body.landing-page.dark-mode textarea {
-            background: rgba(15, 42, 63, 0.6);
             color: rgba(255,255,255,0.95);
+            background: rgba(15, 42, 63, 0.6);
+            transition: border-color 0.2s;
         }
 
         input:focus, select:focus, textarea:focus {
             outline: none;
-            border-color: var(--color-blue);
-        }
-
-        body.landing-page.dark-mode input:focus,
-        body.landing-page.dark-mode select:focus,
-        body.landing-page.dark-mode textarea:focus {
             border-color: var(--cyan);
             background: rgba(15, 42, 63, 0.8);
         }
@@ -541,7 +375,7 @@
 
         .examples-intro {
             font-size: 15px;
-            color: var(--page-text-secondary);
+            color: rgba(255,255,255,0.8);
             line-height: 1.7;
             margin-bottom: 28px;
         }
@@ -553,12 +387,12 @@
         }
 
         .example-card {
-            background: var(--page-card-bg);
+            background: rgba(26, 58, 82, 0.3);
             border-radius: 8px;
             padding: 24px;
             text-align: center;
-            border: 1px solid var(--page-border);
-            border-top: 4px solid var(--color-blue);
+            border: 1px solid rgba(100, 181, 246, 0.2);
+            border-top: 4px solid var(--cyan);
             transition: all 0.3s;
         }
 
@@ -571,11 +405,8 @@
         .example-card:nth-child(7n+7) { border-top-color: var(--color-red); }
 
         .example-card:hover {
+            background: rgba(26, 58, 82, 0.5);
             transform: translateY(-4px);
-            box-shadow: 0 6px 20px rgba(0,0,0,0.1);
-        }
-
-        body.landing-page.dark-mode .example-card:hover {
             box-shadow: 0 6px 20px rgba(100, 181, 246, 0.15);
         }
 
@@ -587,13 +418,13 @@
         .example-title {
             font-size: 15px;
             font-weight: 600;
-            color: var(--page-text);
+            color: rgba(255,255,255,0.95);
             margin-bottom: 8px;
         }
 
         .example-desc {
             font-size: 13px;
-            color: var(--page-text-secondary);
+            color: rgba(255,255,255,0.7);
             line-height: 1.5;
         }
 
@@ -653,13 +484,7 @@
         }
     </style>
 </head>
-<body class="landing-page">
-
-  <!-- Theme Toggle Button -->
-  <button class="theme-toggle" onclick="toggleTheme()" id="theme-toggle">
-    <span id="theme-icon">☀️</span>
-    <span id="theme-text">Light Mode</span>
-  </button>
+<body>
 
   <!-- Header -->
   <header class="header">
@@ -720,18 +545,6 @@
         <p style="font-size: 1rem; color: rgba(255,255,255,0.75);">One page per listing. Fully branded. SEO optimized. Fast turnaround.</p>
     </div>
 
-    <!-- Page Submenu -->
-    <div class="page-submenu">
-        <div class="page-submenu-container">
-            <nav>
-                <a href="#features">Features</a>
-                <a href="#pricing">Pricing</a>
-                <a href="#examples">Examples</a>
-                <a href="#order">Get Started</a>
-            </nav>
-        </div>
-    </div>
-
     <div class="landing-container">
         <!-- Intro -->
         <div class="intro">
@@ -740,7 +553,7 @@
         </div>
 
         <!-- Value Props -->
-        <div class="value-props" id="features">
+        <div class="value-props">
             <div class="section-header">What You Get</div>
             <h2 class="section-title">Every Landing Page Includes</h2>
 
@@ -1016,43 +829,6 @@
     <script src="/js/common.js"></script>
     <script src="/js/chatbot.js"></script>
     <script>
-        // Theme toggle functionality
-        function toggleTheme() {
-            const body = document.body;
-            const themeIcon = document.getElementById('theme-icon');
-            const themeText = document.getElementById('theme-text');
-
-            if (body.classList.contains('dark-mode')) {
-                // Switch to light mode
-                body.classList.remove('dark-mode');
-                themeIcon.textContent = '☀️';
-                themeText.textContent = 'Light Mode';
-                localStorage.setItem('landing-theme', 'light');
-            } else {
-                // Switch to dark mode
-                body.classList.add('dark-mode');
-                themeIcon.textContent = '🌙';
-                themeText.textContent = 'Dark Mode';
-                localStorage.setItem('landing-theme', 'dark');
-            }
-        }
-
-        // Load saved theme preference (defaults to light mode)
-        const savedTheme = localStorage.getItem('landing-theme');
-        if (savedTheme === 'dark') {
-            document.body.classList.add('dark-mode');
-            document.getElementById('theme-icon').textContent = '🌙';
-            document.getElementById('theme-text').textContent = 'Dark Mode';
-        } else {
-            // Explicitly set light mode as default
-            document.body.classList.remove('dark-mode');
-            document.getElementById('theme-icon').textContent = '☀️';
-            document.getElementById('theme-text').textContent = 'Light Mode';
-            if (!savedTheme) {
-                localStorage.setItem('landing-theme', 'light');
-            }
-        }
-
         // Check URL hash for success message
         if (window.location.hash === '#success') {
             const successMsg = document.getElementById('success-message');
@@ -1072,48 +848,6 @@
                 }
             });
         }
-
-        // Smooth scrolling for submenu links
-        document.querySelectorAll('.page-submenu a').forEach(link => {
-            link.addEventListener('click', function(e) {
-                e.preventDefault();
-                const targetId = this.getAttribute('href');
-                const targetElement = document.querySelector(targetId);
-                if (targetElement) {
-                    const offset = 150; // Account for sticky header + submenu
-                    const targetPosition = targetElement.offsetTop - offset;
-                    window.scrollTo({
-                        top: targetPosition,
-                        behavior: 'smooth'
-                    });
-                }
-            });
-        });
-
-        // Active state on scroll
-        const submenuLinks = document.querySelectorAll('.page-submenu a');
-        const sections = ['features', 'pricing', 'examples', 'order'];
-
-        window.addEventListener('scroll', function() {
-            let current = '';
-
-            sections.forEach(sectionId => {
-                const section = document.getElementById(sectionId);
-                if (section) {
-                    const sectionTop = section.offsetTop - 200;
-                    if (window.pageYOffset >= sectionTop) {
-                        current = sectionId;
-                    }
-                }
-            });
-
-            submenuLinks.forEach(link => {
-                link.classList.remove('active');
-                if (link.getAttribute('href') === '#' + current) {
-                    link.classList.add('active');
-                }
-            });
-        });
     </script>
 </body>
 </html>
