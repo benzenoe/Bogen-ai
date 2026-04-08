@@ -267,6 +267,46 @@
             box-shadow: 0 6px 16px rgba(139,92,246,0.4);
         }
 
+        .pricing-card.custom {
+            border-color: var(--color-orange);
+            border-width: 3px;
+            background: linear-gradient(135deg, rgba(245,158,11,0.12) 0%, rgba(239,68,68,0.10) 100%);
+            box-shadow: 0 4px 16px rgba(245,158,11,0.25);
+        }
+
+        .pricing-card.custom::before {
+            content: 'FULL BUILD';
+            position: absolute;
+            top: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: linear-gradient(135deg, var(--color-orange) 0%, var(--color-red) 100%);
+            color: white;
+            padding: 6px 18px;
+            border-radius: 16px;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            box-shadow: 0 4px 12px rgba(245,158,11,0.3);
+        }
+
+        .pricing-card.custom .pricing-amount {
+            background: linear-gradient(135deg, var(--color-orange) 0%, var(--color-red) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .pricing-card.custom .pricing-cta {
+            background: linear-gradient(135deg, var(--color-orange) 0%, var(--color-red) 100%);
+            box-shadow: 0 4px 12px rgba(245,158,11,0.3);
+        }
+
+        .pricing-card.custom .pricing-cta:hover {
+            background: linear-gradient(135deg, var(--color-red) 0%, var(--color-orange) 100%);
+            box-shadow: 0 6px 16px rgba(245,158,11,0.4);
+        }
+
         .pricing-note {
             font-size: 14px;
             color: rgba(255,255,255,0.6);
@@ -551,6 +591,12 @@
         body.light-mode .pricing-card.featured {
             border: 2px solid var(--color-blue);
             box-shadow: 0 6px 20px rgba(0, 144, 196, 0.15);
+        }
+
+        body.light-mode .pricing-card.custom {
+            border: 3px solid var(--color-orange);
+            background: linear-gradient(135deg, rgba(245,158,11,0.06) 0%, rgba(239,68,68,0.04) 100%);
+            box-shadow: 0 6px 20px rgba(245,158,11,0.12);
         }
 
         body.light-mode .pricing-package-name {
@@ -981,6 +1027,15 @@
                     <div class="pricing-pages">10 landing pages</div>
                     <div class="pricing-per-page">$99.90 per page</div>
                     <div class="pricing-savings">Save $1,491 — Best Value!</div>
+                    <a href="#order" class="pricing-cta">Get Started</a>
+                </div>
+
+                <div class="pricing-card custom">
+                    <div class="pricing-package-name">Complete Custom Builds</div>
+                    <div class="pricing-amount">$1,000+</div>
+                    <div class="pricing-pages">Full website build</div>
+                    <div class="pricing-per-page">Starting at $1,000</div>
+                    <p style="font-size: 13px; color: var(--text-tertiary); margin: 16px 0 20px;">Fully custom, built from scratch for your brand</p>
                     <a href="#order" class="pricing-cta">Get Started</a>
                 </div>
             </div>
