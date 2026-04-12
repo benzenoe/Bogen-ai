@@ -602,6 +602,10 @@ app.get('/services/listing-pages', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'services', 'listing-pages.html'));
 });
 
+app.get('/services/listing-pages-1a', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'services', 'listing-pages-1a.html'));
+});
+
 // 404 handler
 app.use((req, res) => {
   res.status(404).send('Page not found');
