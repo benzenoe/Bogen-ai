@@ -1,0 +1,1577 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Your First AI Employee: Hire a 24/7 Lead Qualifier — Complete Implementation Workbook</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #1a3e5c;
+    --cyan: #00a8e1;
+    --white: #ffffff;
+    --dark-text: #333333;
+    --light-bg: #f4f4f4;
+    --muted: #666666;
+    --bg: #ffffff;
+    --section-alt: #f4f4f4;
+    --card-bg: #ffffff;
+    --card-border: #e0e0e0;
+    --line-color: #cccccc;
+    --prompt-bg: #f4f4f4;
+    --prompt-border: #e0e0e0;
+    --cover-bg: #1a3e5c;
+  }
+
+  [data-theme="dark"] {
+    --bg: #0d1b2a;
+    --section-alt: #1a3e5c;
+    --dark-text: #e0e0e0;
+    --muted: #aaaaaa;
+    --card-bg: #162a3e;
+    --card-border: #2a4a6a;
+    --line-color: #3a5a7a;
+    --prompt-bg: #162a3e;
+    --prompt-border: #2a4a6a;
+    --light-bg: #162a3e;
+    --cover-bg: #0d1b2a;
+  }
+
+  @page {
+    size: letter;
+    margin: 0.6in 0.75in;
+    @bottom-center {
+      content: "Edmund's Mastermind | Your First AI Employee | April 2026 | Page " counter(page);
+      font-family: 'Montserrat', sans-serif;
+      font-size: 8pt;
+      color: #666666;
+    }
+  }
+
+  @media print {
+    .page-break { page-break-after: always; }
+    .no-break { page-break-inside: avoid; }
+    body { font-size: 10pt; background: #ffffff !important; color: #333333 !important; }
+    .theme-toggle, .pdf-download { display: none !important; }
+    .cover { min-height: 9.5in; }
+    .page { padding: 0; }
+    h1, h2, h3, h4 { color: #1a3e5c !important; }
+    .navy-box { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .prompt-block { background: #f4f4f4 !important; border-color: #e0e0e0 !important; color: #333333 !important; }
+    .light-box { background: #f4f4f4 !important; }
+    .footer-bar { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    [data-theme="dark"] { --bg: #ffffff; --dark-text: #333333; --section-alt: #f4f4f4; --card-bg: #ffffff; --prompt-bg: #f4f4f4; --light-bg: #f4f4f4; }
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Montserrat', sans-serif;
+    color: var(--dark-text);
+    line-height: 1.6;
+    font-size: 11pt;
+    background: var(--bg);
+    transition: background 0.3s ease, color 0.3s ease;
+  }
+
+  /* Theme Toggle */
+  .theme-toggle {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--navy);
+    padding: 8px 16px;
+    border-radius: 50px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.3);
+    cursor: pointer;
+    user-select: none;
+  }
+
+  .theme-toggle-label {
+    font-size: 9pt;
+    font-weight: 600;
+    color: var(--white);
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+
+  .toggle-switch {
+    width: 44px;
+    height: 24px;
+    background: #2a5a8a;
+    border-radius: 12px;
+    position: relative;
+    transition: background 0.3s ease;
+  }
+
+  .toggle-switch::after {
+    content: '';
+    position: absolute;
+    top: 3px;
+    left: 3px;
+    width: 18px;
+    height: 18px;
+    background: var(--white);
+    border-radius: 50%;
+    transition: transform 0.3s ease;
+  }
+
+  [data-theme="dark"] .toggle-switch {
+    background: var(--cyan);
+  }
+
+  [data-theme="dark"] .toggle-switch::after {
+    transform: translateX(20px);
+  }
+
+  /* PDF Download Button */
+  .pdf-download {
+    position: fixed;
+    top: 20px;
+    right: 180px;
+    z-index: 1000;
+  }
+
+  .pdf-download a {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--cyan);
+    color: var(--white);
+    padding: 8px 18px;
+    border-radius: 50px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 9pt;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    text-decoration: none;
+    box-shadow: 0 2px 12px rgba(0,168,225,0.3);
+    transition: background 0.3s ease, transform 0.15s ease;
+  }
+
+  .pdf-download a:hover {
+    background: #008aba;
+    transform: translateY(-1px);
+  }
+
+  .pdf-download a svg {
+    width: 14px;
+    height: 14px;
+    fill: currentColor;
+  }
+
+  /* Page Container */
+  .page {
+    max-width: 7.5in;
+    margin: 0 auto;
+    padding: 0.5in 0.25in;
+    position: relative;
+  }
+
+  /* Cover Page */
+  .cover {
+    text-align: center;
+    padding: 1in 0.5in;
+    background: var(--cover-bg);
+    color: var(--white);
+    min-height: 95vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .cover-hero {
+    width: 100%;
+    max-width: 6in;
+    border-radius: 8px;
+    margin-bottom: 0.4in;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.3);
+  }
+
+  .cover h1 {
+    font-size: 26pt;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 0.15in;
+    line-height: 1.2;
+    color: var(--white);
+  }
+
+  .cover .cover-subtitle {
+    font-size: 14pt;
+    font-weight: 300;
+    color: var(--cyan);
+    letter-spacing: 0.05em;
+    margin-bottom: 0.2in;
+    line-height: 1.4;
+  }
+
+  .cover .cover-tagline {
+    font-size: 11pt;
+    font-weight: 500;
+    color: var(--cyan);
+    font-style: italic;
+    margin-bottom: 0.5in;
+  }
+
+  .cover .cover-type {
+    font-size: 12pt;
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    border-top: 2px solid var(--cyan);
+    border-bottom: 2px solid var(--cyan);
+    padding: 0.1in 0.4in;
+    margin-bottom: 0.4in;
+  }
+
+  .cover .cover-date {
+    font-size: 11pt;
+    color: rgba(255,255,255,0.7);
+    margin-bottom: 0.1in;
+  }
+
+  .cover .cover-zoom {
+    font-size: 9pt;
+    color: rgba(255,255,255,0.5);
+    margin-bottom: 0.5in;
+  }
+
+  .cover .cover-zoom a {
+    color: var(--cyan);
+    text-decoration: none;
+  }
+
+  .cover .cover-brand {
+    font-size: 10pt;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.5);
+  }
+
+  /* Headers */
+  h1 {
+    font-size: 20pt;
+    font-weight: 700;
+    color: var(--navy);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 0.15in;
+  }
+
+  [data-theme="dark"] h1:not(.cover h1) { color: var(--cyan); }
+
+  h2 {
+    font-size: 15pt;
+    font-weight: 700;
+    color: var(--navy);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin-bottom: 0.12in;
+    margin-top: 0.25in;
+  }
+
+  [data-theme="dark"] h2 { color: var(--cyan); }
+
+  h3 {
+    font-size: 12pt;
+    font-weight: 600;
+    color: var(--navy);
+    margin-bottom: 0.08in;
+    margin-top: 0.15in;
+  }
+
+  [data-theme="dark"] h3 { color: #7fc8e8; }
+
+  h4 {
+    font-size: 10.5pt;
+    font-weight: 600;
+    color: var(--cyan);
+    margin-bottom: 0.06in;
+    margin-top: 0.1in;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+
+  p {
+    margin-bottom: 0.1in;
+    font-size: 10.5pt;
+    line-height: 1.55;
+  }
+
+  /* Accent Elements */
+  .accent-bar-section {
+    border-left: 4px solid var(--cyan);
+    padding-left: 0.2in;
+    margin: 0.15in 0;
+  }
+
+  .navy-box {
+    background: var(--navy);
+    color: var(--white);
+    padding: 0.2in 0.25in;
+    border-radius: 4px;
+    margin: 0.15in 0;
+  }
+
+  .navy-box h2, .navy-box h3, .navy-box h4 {
+    color: var(--cyan) !important;
+  }
+
+  .navy-box p, .navy-box li {
+    color: var(--white);
+  }
+
+  .light-box {
+    background: var(--light-bg);
+    padding: 0.2in 0.25in;
+    border-radius: 4px;
+    margin: 0.15in 0;
+    transition: background 0.3s ease;
+  }
+
+  .cyan-highlight {
+    color: var(--cyan);
+    font-weight: 600;
+  }
+
+  /* Lists */
+  ul, ol {
+    margin: 0.08in 0;
+    padding-left: 0.3in;
+  }
+
+  li {
+    margin-bottom: 0.04in;
+    font-size: 10.5pt;
+    line-height: 1.5;
+  }
+
+  /* Prompt Blocks */
+  .prompt-block {
+    background: var(--prompt-bg);
+    border: 1px solid var(--prompt-border);
+    border-left: 4px solid var(--cyan);
+    padding: 0.15in 0.2in;
+    margin: 0.1in 0;
+    font-family: 'Courier New', monospace;
+    font-size: 8.5pt;
+    line-height: 1.5;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    color: var(--dark-text);
+    transition: background 0.3s ease, border-color 0.3s ease;
+  }
+
+  .prompt-label {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+    color: var(--cyan);
+    font-size: 9pt;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    margin-bottom: 0.06in;
+    display: block;
+  }
+
+  /* Worksheet Lines */
+  .write-line {
+    border-bottom: 1px solid var(--line-color);
+    height: 0.35in;
+    margin: 0.04in 0;
+    width: 100%;
+    transition: border-color 0.3s ease;
+  }
+
+  .write-line-label {
+    font-size: 9pt;
+    font-weight: 600;
+    color: var(--muted);
+    margin-top: 0.12in;
+    margin-bottom: 0.02in;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+  }
+
+  .write-line-short {
+    border-bottom: 1px solid var(--line-color);
+    height: 0.35in;
+    margin: 0.04in 0;
+    width: 3in;
+    display: inline-block;
+  }
+
+  .write-area {
+    border: 1px solid var(--line-color);
+    min-height: 1in;
+    margin: 0.08in 0;
+    border-radius: 4px;
+    width: 100%;
+  }
+
+  /* Checkbox Items */
+  .checkbox-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    margin-bottom: 0.06in;
+    font-size: 10.5pt;
+    line-height: 1.5;
+  }
+
+  .checkbox-item::before {
+    content: '';
+    flex-shrink: 0;
+    width: 14px;
+    height: 14px;
+    border: 2px solid var(--navy);
+    border-radius: 2px;
+    margin-top: 3px;
+  }
+
+  [data-theme="dark"] .checkbox-item::before {
+    border-color: var(--cyan);
+  }
+
+  /* System Number Badge */
+  .system-badge {
+    display: inline-block;
+    background: var(--cyan);
+    color: var(--white);
+    font-weight: 700;
+    font-size: 11pt;
+    width: 32px;
+    height: 32px;
+    line-height: 32px;
+    text-align: center;
+    border-radius: 50%;
+    margin-right: 8px;
+    vertical-align: middle;
+  }
+
+  /* Key Stat */
+  .stat-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 12px;
+    margin: 0.15in 0;
+  }
+
+  .stat-card {
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-top: 3px solid var(--cyan);
+    padding: 12px 16px;
+    border-radius: 4px;
+    text-align: center;
+    transition: background 0.3s ease, border-color 0.3s ease;
+  }
+
+  .stat-card .stat-number {
+    font-size: 20pt;
+    font-weight: 700;
+    color: var(--navy);
+    display: block;
+  }
+
+  [data-theme="dark"] .stat-card .stat-number { color: var(--cyan); }
+
+  .stat-card .stat-label {
+    font-size: 8pt;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--muted);
+  }
+
+  /* Footer Bar */
+  .footer-bar {
+    background: var(--navy);
+    color: rgba(255,255,255,0.5);
+    text-align: center;
+    padding: 0.15in;
+    font-size: 8pt;
+    letter-spacing: 0.05em;
+    margin-top: 0.3in;
+  }
+
+  /* Calculator Grid */
+  .calc-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px 24px;
+    margin: 0.1in 0;
+  }
+
+  .calc-grid .write-line-label {
+    grid-column: 1 / -1;
+  }
+
+  /* Manifesto */
+  .manifesto-text {
+    font-size: 13pt;
+    font-weight: 400;
+    line-height: 1.8;
+    text-align: center;
+    color: var(--white);
+    max-width: 5.5in;
+    margin: 0 auto;
+  }
+
+  .manifesto-text strong {
+    color: var(--cyan);
+  }
+
+  /* Comparison Table */
+  .comparison-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 0.12in 0;
+    font-size: 10pt;
+  }
+
+  .comparison-table th {
+    background: var(--navy);
+    color: var(--white);
+    padding: 8px 12px;
+    text-align: left;
+    font-weight: 600;
+    font-size: 9pt;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+
+  .comparison-table td {
+    padding: 8px 12px;
+    border-bottom: 1px solid var(--card-border);
+  }
+
+  .comparison-table tr:nth-child(even) {
+    background: var(--light-bg);
+  }
+
+  .comparison-table .highlight-row {
+    background: rgba(0, 168, 225, 0.08);
+    font-weight: 600;
+  }
+
+  [data-theme="dark"] .comparison-table .highlight-row {
+    background: rgba(0, 168, 225, 0.15);
+  }
+
+  /* ROI Grid */
+  .roi-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 8px;
+    margin: 0.1in 0;
+  }
+
+  .roi-grid .roi-header {
+    font-size: 8pt;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--navy);
+    padding: 6px;
+    background: var(--light-bg);
+    text-align: center;
+    border-radius: 3px;
+  }
+
+  [data-theme="dark"] .roi-grid .roi-header { color: var(--cyan); }
+
+  .roi-grid .roi-cell {
+    border-bottom: 1px solid var(--line-color);
+    height: 0.3in;
+  }
+
+  /* Day Cards for Implementation */
+  .day-card {
+    border: 1px solid var(--card-border);
+    border-left: 4px solid var(--cyan);
+    padding: 10px 14px;
+    margin-bottom: 8px;
+    border-radius: 0 4px 4px 0;
+    transition: border-color 0.3s ease;
+  }
+
+  .day-card .day-label {
+    font-size: 9pt;
+    font-weight: 700;
+    color: var(--cyan);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    margin-bottom: 4px;
+  }
+
+  .day-card p {
+    margin-bottom: 0;
+    font-size: 10pt;
+  }
+
+  /* Signature Section */
+  .signature-section {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    margin-top: 0.3in;
+  }
+
+  .signature-section > div {
+    text-align: center;
+  }
+
+  /* Notes Lines */
+  .notes-lines .write-line {
+    height: 0.4in;
+  }
+
+  /* Compliance Box */
+  .compliance-box {
+    border: 2px solid var(--cyan);
+    border-radius: 4px;
+    padding: 0.2in;
+    margin: 0.12in 0;
+  }
+
+  .compliance-box h4 {
+    margin-top: 0;
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .page { padding: 0.3in 0.2in; }
+    .cover { padding: 0.5in 0.3in; }
+    .cover h1 { font-size: 20pt; }
+    h1 { font-size: 16pt; }
+    h2 { font-size: 13pt; }
+    .stat-grid { grid-template-columns: 1fr 1fr; }
+    .calc-grid { grid-template-columns: 1fr; }
+    .comparison-table { font-size: 9pt; }
+    .comparison-table th, .comparison-table td { padding: 6px 8px; }
+    .theme-toggle { top: 10px; right: 10px; padding: 6px 12px; }
+    .pdf-download { top: 10px; right: 140px; }
+    .pdf-download a { padding: 6px 12px; font-size: 8pt; }
+    .roi-grid { grid-template-columns: 1fr 1fr; }
+  }
+
+  @media (max-width: 480px) {
+    .cover h1 { font-size: 16pt; }
+    .cover .cover-subtitle { font-size: 11pt; }
+    .pdf-download { top: 56px; right: 10px; }
+    .theme-toggle { top: 10px; right: 10px; }
+    .stat-grid { grid-template-columns: 1fr; }
+    .signature-section { grid-template-columns: 1fr; }
+    .roi-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body data-theme="light">
+
+<!-- Theme Toggle -->
+<div class="theme-toggle" onclick="toggleTheme()" title="Toggle dark/light mode">
+  <span class="theme-toggle-label">Light</span>
+  <div class="toggle-switch"></div>
+  <span class="theme-toggle-label">Dark</span>
+</div>
+
+<!-- PDF Download -->
+<div class="pdf-download">
+  <a href="ai-phone-agent-workbook.pdf" download>
+    <svg viewBox="0 0 24 24"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
+    Download Workbook (PDF)
+  </a>
+</div>
+
+<!-- ==================== PAGE 1: COVER ==================== -->
+<div class="cover">
+  <img src="Images/ai-phone-agent-hero.png" alt="AI Phone Agent for Real Estate" class="cover-hero">
+  <div class="cover-type">Complete Implementation Workbook</div>
+  <h1>Your First AI Employee</h1>
+  <div class="cover-subtitle">Hire a 24/7 Lead Qualifier for Less Than Your Phone Bill</div>
+  <div class="cover-tagline">"Because Missing Calls is NOT an Option!"</div>
+  <div class="cover-date">Session 1: Wednesday, April 15, 2026 at 9:00 AM ET</div>
+  <div class="cover-date">Session 2: Friday, April 17, 2026 at 12:00 PM ET</div>
+  <div class="cover-zoom">Zoom: <a href="https://us02web.zoom.us/j/83924796230">us02web.zoom.us/j/83924796230</a></div>
+  <div class="cover-brand">Edmund's Mastermind</div>
+</div>
+
+<div class="page-break"></div>
+
+<!-- ==================== PAGE 2: MISSION & OVERVIEW ==================== -->
+<div class="page">
+
+  <h1>The Mission</h1>
+  <div class="accent-bar-section">
+    <p style="font-size: 12pt; font-weight: 400; line-height: 1.7;">Every unanswered call is a client choosing someone else. Every delayed response is a commission walking out the door. The agents who win the next decade will not be the ones who work the hardest -- they will be the ones whose phones <strong>never stop answering</strong>. Today, you set up the employee who never sleeps, never complains, and never misses a lead.</p>
+  </div>
+
+  <h2>The Problem in Four Numbers</h2>
+  <div class="stat-grid">
+    <div class="stat-card no-break">
+      <span class="stat-number">78%</span>
+      <span class="stat-label">of buyers work with the first agent who responds</span>
+    </div>
+    <div class="stat-card no-break">
+      <span class="stat-number">62%</span>
+      <span class="stat-label">of inquiries come outside business hours</span>
+    </div>
+    <div class="stat-card no-break">
+      <span class="stat-number">$10K</span>
+      <span class="stat-label">average lost commission per missed call</span>
+    </div>
+    <div class="stat-card no-break">
+      <span class="stat-number">15+ hrs</span>
+      <span class="stat-label">average agent response time to new leads</span>
+    </div>
+  </div>
+
+  <div class="navy-box no-break">
+    <h3>What You Will Build Today</h3>
+    <p>This workbook gives you three complete systems -- from plug-and-play to enterprise-grade -- plus the ROI math to justify every dollar. By the end of this session, you will have a live AI phone agent qualifying leads while you sleep.</p>
+    <ul>
+      <li><strong>System 1:</strong> "The Never-Miss Setup" -- My AI Front Desk (live in one day)</li>
+      <li><strong>System 2:</strong> "The Custom AI ISA" -- Bland AI (for teams and power users)</li>
+      <li><strong>System 3:</strong> "The ROI Machine" -- The math, integrations, and 7-day launch plan</li>
+    </ul>
+  </div>
+
+  <div class="footer-bar">Edmund's Mastermind | Your First AI Employee | April 2026</div>
+</div>
+
+<div class="page-break"></div>
+
+<!-- ==================== PAGES 3-4: SYSTEM 1 ==================== -->
+<div class="page">
+
+  <h1><span class="system-badge">1</span> The Never-Miss Setup</h1>
+  <h2>My AI Front Desk -- The Plug-and-Play AI Receptionist</h2>
+
+  <p>This is the fastest path from "I miss calls" to "I never miss calls." My AI Front Desk is a purpose-built AI receptionist that any agent can set up in 2-4 hours with zero technical skills. It answers every call instantly, qualifies leads using your custom script, and books appointments directly into your calendar -- 24 hours a day, 7 days a week.</p>
+
+  <div class="light-box no-break">
+    <h4>Why Speed to Lead is Everything</h4>
+    <ul>
+      <li><strong>78% of buyers</strong> work with the FIRST agent who responds to their inquiry</li>
+      <li><strong>62% of inquiries</strong> come outside business hours, with peak volume between 6-9 PM</li>
+      <li>The average agent takes <strong>15+ hours</strong> to respond to a new lead</li>
+      <li><strong>48% of sales inquiries</strong> go completely unanswered -- nearly half</li>
+      <li>Each missed call represents approximately <strong>$10,000 in lost commission</strong></li>
+    </ul>
+  </div>
+
+  <h3>What My AI Front Desk Does</h3>
+  <ul>
+    <li>Answers every call instantly -- no hold music, no voicemail, no missed opportunities</li>
+    <li>Qualifies leads with your custom questions (buyer/seller, timeline, budget, pre-approval)</li>
+    <li>Books appointments directly into your Google Calendar with real-time availability</li>
+    <li>Sends SMS mid-call -- property links, intake forms, directions</li>
+    <li>Handles unlimited simultaneous calls (your phone can only take one at a time)</li>
+    <li>Supports multiple languages for diverse markets</li>
+    <li>Comes with real estate-specific templates built in</li>
+    <li>Integrates with Follow Up Boss via Zapier for automatic lead capture</li>
+  </ul>
+
+  <h3>Pricing</h3>
+  <table class="comparison-table no-break">
+    <thead>
+      <tr>
+        <th>Plan</th>
+        <th>Monthly Cost</th>
+        <th>Minutes Included</th>
+        <th>Best For</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Free Trial</td>
+        <td>$0</td>
+        <td>20 minutes</td>
+        <td>Testing the system</td>
+      </tr>
+      <tr>
+        <td>Basic</td>
+        <td>$99/mo</td>
+        <td>200 minutes</td>
+        <td>Solo agents</td>
+      </tr>
+      <tr class="highlight-row">
+        <td>Growth</td>
+        <td>$149/mo</td>
+        <td>300 minutes</td>
+        <td>Active agents & small teams</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3>Setup Process (2-4 Hours, Live in One Day)</h3>
+  <ol>
+    <li>Sign up and select the real estate template</li>
+    <li>Customize your greeting and qualifying questions</li>
+    <li>Connect your Google Calendar for real-time booking</li>
+    <li>Set up call forwarding from your business line</li>
+    <li>Connect to Follow Up Boss via Zapier</li>
+    <li>Make test calls and refine your script</li>
+    <li>Go live</li>
+  </ol>
+
+  <div class="footer-bar">Edmund's Mastermind | Your First AI Employee | April 2026</div>
+</div>
+
+<div class="page-break"></div>
+
+<div class="page">
+
+  <h2><span class="system-badge">1</span> System 1 Prompts -- Copy, Paste, Customize</h2>
+
+  <div class="no-break">
+    <span class="prompt-label">Prompt 1: AI Phone Greeting Script</span>
+    <div class="prompt-block">Write a professional AI phone greeting for a real estate agent that identifies itself as an AI assistant, sounds warm and helpful, and immediately asks how it can help the caller. Include the recording disclosure.</div>
+  </div>
+
+  <div class="no-break">
+    <span class="prompt-label">Prompt 2: Lead Qualification Script</span>
+    <div class="prompt-block">Create a lead qualification script for an AI phone agent that asks: buyer or seller, timeline, budget range, pre-approval status, preferred neighborhoods, and how they heard about you -- in a natural conversational flow, not an interrogation.</div>
+  </div>
+
+  <div class="no-break">
+    <span class="prompt-label">Prompt 3: FAQ Response Library</span>
+    <div class="prompt-block">Write 10 FAQ responses your AI phone agent should know: office hours, service area, commission structure, how showings work, what to bring to a first meeting, how offers work, inspection process, closing timeline, mortgage pre-approval steps, and why they should work with you.</div>
+  </div>
+
+  <div class="no-break">
+    <span class="prompt-label">Prompt 4: Post-Call Follow-Up Text</span>
+    <div class="prompt-block">Create a follow-up text message template the AI sends immediately after qualifying a buyer lead, including a link to schedule a consultation and a brief value proposition.</div>
+  </div>
+
+  <div class="no-break">
+    <span class="prompt-label">Prompt 5: After-Hours Greeting with Urgency</span>
+    <div class="prompt-block">Write an after-hours AI greeting that creates urgency: acknowledges the late call, assures them they'll get full service, qualifies them, and books a next-day callback or showing.</div>
+  </div>
+
+  <div class="no-break">
+    <span class="prompt-label">Prompt 6: Weekly Performance Review Checklist</span>
+    <div class="prompt-block">Generate a weekly AI phone agent performance review checklist: calls answered, leads qualified, appointments booked, common questions asked, gaps identified, and script improvements needed.</div>
+  </div>
+
+  <div class="footer-bar">Edmund's Mastermind | Your First AI Employee | April 2026</div>
+</div>
+
+<div class="page-break"></div>
+
+<!-- ==================== PAGE 5: SYSTEM 1 WORKSHEET ==================== -->
+<div class="page">
+
+  <h1><span class="system-badge">1</span> Worksheet: My AI Front Desk Setup Checklist</h1>
+
+  <div class="light-box">
+    <h4>Account Setup</h4>
+    <div class="write-line-label">My AI Front Desk Account Email</div>
+    <div class="write-line"></div>
+    <div class="write-line-label">Plan Selected (Free / Basic / Growth)</div>
+    <div class="write-line"></div>
+  </div>
+
+  <h3>Greeting Script</h3>
+  <div class="write-line-label">Opening Greeting (what the AI says when it picks up)</div>
+  <div class="write-area"></div>
+
+  <h3>Qualifying Questions (customize your flow)</h3>
+  <div class="write-line-label">Question 1: Buyer or Seller?</div>
+  <div class="write-line"></div>
+  <div class="write-line-label">Question 2: Timeline</div>
+  <div class="write-line"></div>
+  <div class="write-line-label">Question 3: Budget Range</div>
+  <div class="write-line"></div>
+  <div class="write-line-label">Question 4: Pre-Approval Status</div>
+  <div class="write-line"></div>
+  <div class="write-line-label">Question 5: Preferred Neighborhoods</div>
+  <div class="write-line"></div>
+  <div class="write-line-label">Question 6: How Did You Hear About Us?</div>
+  <div class="write-line"></div>
+
+  <h3>Integrations</h3>
+  <div class="write-line-label">Google Calendar Link</div>
+  <div class="write-line"></div>
+  <div class="write-line-label">Call Forwarding Number (your business line)</div>
+  <div class="write-line"></div>
+  <div class="write-line-label">CRM Connection Status (Follow Up Boss / Other)</div>
+  <div class="write-line"></div>
+  <div class="write-line-label">Zapier Zap URL</div>
+  <div class="write-line"></div>
+
+  <h3>Go-Live Checklist</h3>
+  <div class="checkbox-item">Test call #1 completed -- greeting sounds natural</div>
+  <div class="checkbox-item">Test call #2 completed -- qualification flow works</div>
+  <div class="checkbox-item">Test call #3 completed -- appointment booked to calendar</div>
+  <div class="checkbox-item">Test call #4 completed -- CRM received the lead data</div>
+  <div class="checkbox-item">Test call #5 completed -- follow-up SMS received</div>
+  <div class="checkbox-item">Call forwarding active (start with after-hours only)</div>
+  <div class="checkbox-item">Team notified that AI is handling initial calls</div>
+
+  <div class="footer-bar">Edmund's Mastermind | Your First AI Employee | April 2026</div>
+</div>
+
+<div class="page-break"></div>
+
+<!-- ==================== PAGES 6-7: SYSTEM 2 ==================== -->
+<div class="page">
+
+  <h1><span class="system-badge">2</span> The Custom AI ISA</h1>
+  <h2>Bland AI -- Maximum Control for Teams and Power Users</h2>
+
+  <p>If My AI Front Desk is the plug-and-play solution, Bland AI is the custom-built machine. It is an API-first platform designed for teams that want total control over every aspect of their AI phone agent -- from the voice it uses (including cloning your own voice) to the exact decision pathways it follows on every call. This is for agents and teams with technical resources or a willingness to invest in a more powerful setup.</p>
+
+  <div class="light-box no-break">
+    <h4>Key Capabilities</h4>
+    <ul>
+      <li><strong>Conversational Pathways:</strong> Visual node-based builder for designing complex call flows with branching logic at every decision point</li>
+      <li><strong>Voice Library + Voice Cloning:</strong> Choose from a library of voices or clone your own from a short audio sample -- your AI sounds like you</li>
+      <li><strong>Scalability:</strong> Handles up to 20,000 simultaneous calls per hour</li>
+      <li><strong>Gap Detection:</strong> Automatically identifies questions the AI could not answer so you can patch knowledge gaps in real time</li>
+      <li><strong>CRM Integration:</strong> Connects via webhooks, Zapier, or Make.com to any CRM</li>
+      <li><strong>SIP/Twilio Support:</strong> Works with your existing phone system infrastructure</li>
+    </ul>
+  </div>
+
+  <h3>The Results Speak</h3>
+  <div class="navy-box no-break">
+    <ul>
+      <li>One enterprise client reported <strong>$42 million in tangible revenue added</strong> using Bland AI</li>
+      <li>AI qualification nearly <strong>doubles MQL conversion</strong> -- from 38.8% to 76%</li>
+      <li>Setup time: 4-8 hours, fully operational in 2-5 days</li>
+    </ul>
+  </div>
+
+  <h3>Pricing</h3>
+  <table class="comparison-table no-break">
+    <thead>
+      <tr>
+        <th>Plan</th>
+        <th>Monthly Cost</th>
+        <th>Per Minute</th>
+        <th>Best For</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Start</td>
+        <td>$0</td>
+        <td>$0.14/min</td>
+        <td>Testing and solo agents</td>
+      </tr>
+      <tr>
+        <td>Build</td>
+        <td>$299/mo</td>
+        <td>$0.12/min</td>
+        <td>Growing teams</td>
+      </tr>
+      <tr class="highlight-row">
+        <td>Scale</td>
+        <td>$499/mo</td>
+        <td>$0.11/min</td>
+        <td>High-volume operations</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3>My AI Front Desk vs. Bland AI</h3>
+  <table class="comparison-table no-break">
+    <thead>
+      <tr>
+        <th>Feature</th>
+        <th>My AI Front Desk</th>
+        <th>Bland AI</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Setup Difficulty</td>
+        <td>Easy (no code)</td>
+        <td>Moderate (some tech needed)</td>
+      </tr>
+      <tr>
+        <td>Setup Time</td>
+        <td>2-4 hours</td>
+        <td>4-8 hours</td>
+      </tr>
+      <tr>
+        <td>Voice Cloning</td>
+        <td>No</td>
+        <td>Yes</td>
+      </tr>
+      <tr>
+        <td>Custom Call Flows</td>
+        <td>Template-based</td>
+        <td>Full visual builder</td>
+      </tr>
+      <tr>
+        <td>Scalability</td>
+        <td>Unlimited concurrent</td>
+        <td>20,000 calls/hour</td>
+      </tr>
+      <tr>
+        <td>Starting Price</td>
+        <td>$99/mo flat</td>
+        <td>$0 + $0.14/min</td>
+      </tr>
+      <tr>
+        <td>Best For</td>
+        <td>Solo agents, fast start</td>
+        <td>Teams, power users, custom</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="footer-bar">Edmund's Mastermind | Your First AI Employee | April 2026</div>
+</div>
+
+<div class="page-break"></div>
+
+<div class="page">
+
+  <h2><span class="system-badge">2</span> System 2 Prompts -- Copy, Paste, Customize</h2>
+
+  <div class="no-break">
+    <span class="prompt-label">Prompt 1: Luxury Real Estate Conversational Pathway</span>
+    <div class="prompt-block">Design a Bland AI Conversational Pathway for a luxury real estate team: greeting > determine buyer/seller > qualify (budget $500K+, timeline, pre-approval) > if qualified, book showing > if not qualified, capture info for nurture > transfer to agent if requested. Include branching logic for each decision point.</div>
+  </div>
+
+  <div class="no-break">
+    <span class="prompt-label">Prompt 2: Voice Cloning Consent Script</span>
+    <div class="prompt-block">Write a voice cloning consent script you can send to your team: explains what voice cloning is, how it will be used (AI phone agent), gets written permission, and provides recording instructions for the 30-second audio sample.</div>
+  </div>
+
+  <div class="no-break">
+    <span class="prompt-label">Prompt 3: Outbound Follow-Up Script</span>
+    <div class="prompt-block">Create an outbound AI calling script for following up with leads who submitted a form but haven't responded to texts/emails in 48 hours. Warm, not pushy. Goal: book a 15-minute phone consultation.</div>
+  </div>
+
+  <div class="no-break">
+    <span class="prompt-label">Prompt 4: Seller Lead Qualification</span>
+    <div class="prompt-block">Write a Bland AI qualification script for seller leads that determines: property address, reason for selling, desired timeline, price expectation, condition of home, and whether they've spoken with other agents. Natural conversation, not interrogation.</div>
+  </div>
+
+  <div class="no-break">
+    <span class="prompt-label">Prompt 5: Gap Detection Action Plan</span>
+    <div class="prompt-block">Generate a Gap Detection action plan template: when AI identifies a question it couldn't answer, here's the process for adding that answer to the knowledge base within 24 hours.</div>
+  </div>
+
+  <div class="no-break">
+    <span class="prompt-label">Prompt 6: Bilingual Agent Script (English/Spanish)</span>
+    <div class="prompt-block">Create a bilingual (English/Spanish) AI phone agent greeting and qualification script for a real estate team serving a diverse market. The AI should detect language preference and switch seamlessly.</div>
+  </div>
+
+  <div class="footer-bar">Edmund's Mastermind | Your First AI Employee | April 2026</div>
+</div>
+
+<div class="page-break"></div>
+
+<!-- ==================== PAGE 8: SYSTEM 2 WORKSHEET ==================== -->
+<div class="page">
+
+  <h1><span class="system-badge">2</span> Worksheet: Bland AI Conversational Pathway Planner</h1>
+
+  <p>Map out your custom call flow below. Each node is a decision point in your AI agent's conversation. Draw arrows or note connections between nodes.</p>
+
+  <div class="light-box no-break">
+    <h4>Node 1: Greeting</h4>
+    <div class="write-line-label">What does the AI say when it picks up?</div>
+    <div class="write-area"></div>
+  </div>
+
+  <div class="light-box no-break">
+    <h4>Node 2: Buyer or Seller?</h4>
+    <div class="write-line-label">If Buyer, go to Node:</div>
+    <div class="write-line-short"></div>
+    <div class="write-line-label">If Seller, go to Node:</div>
+    <div class="write-line-short"></div>
+  </div>
+
+  <div class="light-box no-break">
+    <h4>Node 3: Buyer Qualification</h4>
+    <div class="write-line-label">Budget Question</div>
+    <div class="write-line"></div>
+    <div class="write-line-label">Timeline Question</div>
+    <div class="write-line"></div>
+    <div class="write-line-label">Pre-Approval Question</div>
+    <div class="write-line"></div>
+    <div class="write-line-label">If Qualified, go to Node:</div>
+    <div class="write-line-short"></div>
+    <div class="write-line-label">If Not Qualified, go to Node:</div>
+    <div class="write-line-short"></div>
+  </div>
+
+  <div class="light-box no-break">
+    <h4>Node 4: Seller Qualification</h4>
+    <div class="write-line-label">Property Address</div>
+    <div class="write-line"></div>
+    <div class="write-line-label">Reason for Selling</div>
+    <div class="write-line"></div>
+    <div class="write-line-label">Timeline &amp; Price Expectation</div>
+    <div class="write-line"></div>
+  </div>
+
+  <div class="light-box no-break">
+    <h4>Node 5: Book Appointment (Qualified Lead)</h4>
+    <div class="write-line-label">Appointment booking language</div>
+    <div class="write-area" style="min-height: 0.6in;"></div>
+  </div>
+
+  <div class="light-box no-break">
+    <h4>Node 6: Nurture Capture (Not Yet Qualified)</h4>
+    <div class="write-line-label">Information to capture for follow-up</div>
+    <div class="write-area" style="min-height: 0.6in;"></div>
+  </div>
+
+  <div class="light-box no-break">
+    <h4>Node 7: Transfer / Escalation</h4>
+    <div class="write-line-label">When does the AI transfer to a live agent?</div>
+    <div class="write-line"></div>
+    <div class="write-line-label">Transfer phone number</div>
+    <div class="write-line"></div>
+  </div>
+
+  <div class="footer-bar">Edmund's Mastermind | Your First AI Employee | April 2026</div>
+</div>
+
+<div class="page-break"></div>
+
+<!-- ==================== PAGES 9-10: SYSTEM 3 ==================== -->
+<div class="page">
+
+  <h1><span class="system-badge">3</span> The ROI Machine</h1>
+  <h2>The Math That Makes This a No-Brainer</h2>
+
+  <p>This is not a nice-to-have. This is the single highest-ROI investment you can make in your business this year. Let us walk through the numbers.</p>
+
+  <div class="navy-box no-break">
+    <h3>The $149/Month Investment Case</h3>
+    <p>My AI Front Desk Growth plan costs $149/month. Here is what happens when it captures just 5 extra leads per month that would have otherwise gone to voicemail:</p>
+    <ul>
+      <li>Average commission per transaction: <strong>$9,830</strong></li>
+      <li>Conservative (2% conversion): 60 leads/year = 1.2 deals = <strong>$11,796 additional GCI</strong></li>
+      <li>Moderate (3% conversion, 8 leads/mo): 96 leads/year = 2.88 deals = <strong>$28,310 additional GCI</strong></li>
+      <li>Luxury market ($1M+ properties): 1.8 deals x $27,500 avg commission = <strong>$49,500 additional GCI</strong></li>
+      <li>Annual cost of the tool: <strong>$1,788</strong></li>
+      <li>Conservative ROI: <strong>6,500%</strong></li>
+    </ul>
+    <p style="font-size: 12pt; font-weight: 600; color: var(--cyan); margin-top: 0.1in;">One deal pays for 5+ years of the service.</p>
+  </div>
+
+  <h3>Cost Comparison: AI vs. Human Alternatives</h3>
+  <table class="comparison-table no-break">
+    <thead>
+      <tr>
+        <th>Solution</th>
+        <th>Monthly Cost</th>
+        <th>Hours Available</th>
+        <th>Simultaneous Calls</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr class="highlight-row">
+        <td>AI Phone Agent</td>
+        <td>$149/mo</td>
+        <td>24/7/365</td>
+        <td>Unlimited</td>
+      </tr>
+      <tr>
+        <td>Part-Time Assistant</td>
+        <td>$1,500-$2,500</td>
+        <td>20-30 hrs/week</td>
+        <td>1</td>
+      </tr>
+      <tr>
+        <td>Full-Time Receptionist</td>
+        <td>$3,500-$5,000</td>
+        <td>40 hrs/week</td>
+        <td>1</td>
+      </tr>
+      <tr>
+        <td>ISA (Inside Sales Agent)</td>
+        <td>$4,000-$6,000</td>
+        <td>40 hrs/week</td>
+        <td>1</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3>Follow Up Boss Integration via Zapier</h3>
+  <div class="light-box no-break">
+    <h4>Automation Recipe</h4>
+    <ul>
+      <li><strong>Trigger:</strong> "New Call Completed" in My AI Front Desk</li>
+      <li><strong>Action:</strong> "Create Person" in Follow Up Boss</li>
+      <li><strong>Field Mapping:</strong></li>
+    </ul>
+    <ul style="padding-left: 0.5in;">
+      <li>Caller Name &rarr; First Name / Last Name</li>
+      <li>Phone Number &rarr; Phone</li>
+      <li>Email (if captured) &rarr; Email</li>
+      <li>Lead Source &rarr; "AI Phone Agent"</li>
+      <li>Call Summary &rarr; Notes</li>
+      <li>Auto-tag &rarr; "AI-Qualified"</li>
+    </ul>
+  </div>
+
+  <div class="footer-bar">Edmund's Mastermind | Your First AI Employee | April 2026</div>
+</div>
+
+<div class="page-break"></div>
+
+<div class="page">
+
+  <h2><span class="system-badge">3</span> System 3 Prompts -- Copy, Paste, Customize</h2>
+
+  <div class="no-break">
+    <span class="prompt-label">Prompt 1: Personal Missed-Call Cost Calculator</span>
+    <div class="prompt-block">Calculate your personal missed-call cost: [Your average commission] x [Estimated missed calls per week] x 52 weeks x [2% conversion rate] = your annual cost of NOT having an AI phone agent. Fill in your numbers.</div>
+  </div>
+
+  <div class="no-break">
+    <span class="prompt-label">Prompt 2: Zapier Automation Recipe</span>
+    <div class="prompt-block">Write a Zapier automation recipe connecting My AI Front Desk to Follow Up Boss: trigger, action, field mapping for name, phone, email, lead source (AI Phone), call summary in notes, and tag as 'AI-Qualified'.</div>
+  </div>
+
+  <div class="no-break">
+    <span class="prompt-label">Prompt 3: Speed-to-Lead Audit</span>
+    <div class="prompt-block">Create a 'speed to lead' audit for your business: track every incoming call for one week -- time received, time you responded, outcome. Calculate your average response time and compare to the 5-minute benchmark.</div>
+  </div>
+
+  <div class="no-break">
+    <span class="prompt-label">Prompt 4: Broker Adoption Proposal</span>
+    <div class="prompt-block">Write an email to your broker/team leader proposing AI phone agent adoption. Include: the problem (missed calls data), the solution (My AI Front Desk or Bland AI), the cost ($149/mo), the ROI math, and a 30-day pilot proposal.</div>
+  </div>
+
+  <div class="no-break">
+    <span class="prompt-label">Prompt 5: Monthly ROI Report Template</span>
+    <div class="prompt-block">Generate a monthly AI phone agent ROI report template: total calls handled, leads qualified, appointments booked, deals closed from AI leads, total commission earned from AI leads, cost of service, net ROI.</div>
+  </div>
+
+  <div class="no-break">
+    <span class="prompt-label">Prompt 6: Client-Facing AI Explanation</span>
+    <div class="prompt-block">Create a client-facing explanation of your AI phone system: 'You may notice our office has 24/7 availability now. Here's how it works...' -- professional, builds confidence, explains they'll always reach a real agent for important matters.</div>
+  </div>
+
+  <div class="footer-bar">Edmund's Mastermind | Your First AI Employee | April 2026</div>
+</div>
+
+<div class="page-break"></div>
+
+<!-- ==================== PAGE 11: SYSTEM 3 WORKSHEET ==================== -->
+<div class="page">
+
+  <h1><span class="system-badge">3</span> Worksheet: Personal ROI Calculator</h1>
+
+  <p>Fill in your numbers below. This is the business case for your AI phone agent -- the math that proves this investment pays for itself with a single deal.</p>
+
+  <div class="light-box">
+    <h4>Your Numbers</h4>
+    <div class="calc-grid">
+      <div>
+        <div class="write-line-label">A. Your Average Commission ($)</div>
+        <div class="write-line"></div>
+      </div>
+      <div>
+        <div class="write-line-label">B. Estimated Missed Calls Per Week</div>
+        <div class="write-line"></div>
+      </div>
+      <div>
+        <div class="write-line-label">C. Missed Calls Per Year (B x 52)</div>
+        <div class="write-line"></div>
+      </div>
+      <div>
+        <div class="write-line-label">D. Conservative Conversion Rate (2%)</div>
+        <div class="write-line"></div>
+      </div>
+      <div>
+        <div class="write-line-label">E. Deals Lost Per Year (C x D)</div>
+        <div class="write-line"></div>
+      </div>
+      <div>
+        <div class="write-line-label">F. Annual Cost of Missed Calls (E x A)</div>
+        <div class="write-line"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="light-box">
+    <h4>The Investment</h4>
+    <div class="calc-grid">
+      <div>
+        <div class="write-line-label">G. AI Tool Monthly Cost ($)</div>
+        <div class="write-line"></div>
+      </div>
+      <div>
+        <div class="write-line-label">H. AI Tool Annual Cost (G x 12)</div>
+        <div class="write-line"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="navy-box no-break">
+    <h4>Your ROI</h4>
+    <div class="calc-grid" style="gap: 8px 24px;">
+      <div>
+        <div class="write-line-label" style="color: rgba(255,255,255,0.7);">I. Net Revenue Gained (F - H)</div>
+        <div class="write-line" style="border-color: rgba(255,255,255,0.3);"></div>
+      </div>
+      <div>
+        <div class="write-line-label" style="color: rgba(255,255,255,0.7);">J. ROI Percentage (I / H x 100)</div>
+        <div class="write-line" style="border-color: rgba(255,255,255,0.3);"></div>
+      </div>
+    </div>
+    <p style="margin-top: 0.1in; font-weight: 600; color: var(--cyan);">If your ROI is above 100%, this is a no-brainer. Most agents see 3,000%+ ROI.</p>
+  </div>
+
+  <h3>Speed-to-Lead Audit (Track for One Week)</h3>
+  <div class="roi-grid" style="grid-template-columns: 0.8fr 1fr 1fr 1fr;">
+    <div class="roi-header">Day</div>
+    <div class="roi-header">Time Call Came In</div>
+    <div class="roi-header">Time You Responded</div>
+    <div class="roi-header">Outcome</div>
+    <div class="roi-cell"></div><div class="roi-cell"></div><div class="roi-cell"></div><div class="roi-cell"></div>
+    <div class="roi-cell"></div><div class="roi-cell"></div><div class="roi-cell"></div><div class="roi-cell"></div>
+    <div class="roi-cell"></div><div class="roi-cell"></div><div class="roi-cell"></div><div class="roi-cell"></div>
+    <div class="roi-cell"></div><div class="roi-cell"></div><div class="roi-cell"></div><div class="roi-cell"></div>
+    <div class="roi-cell"></div><div class="roi-cell"></div><div class="roi-cell"></div><div class="roi-cell"></div>
+    <div class="roi-cell"></div><div class="roi-cell"></div><div class="roi-cell"></div><div class="roi-cell"></div>
+    <div class="roi-cell"></div><div class="roi-cell"></div><div class="roi-cell"></div><div class="roi-cell"></div>
+  </div>
+  <div class="write-line-label">Average Response Time</div>
+  <div class="write-line-short"></div>
+  <span style="font-size: 9pt; color: var(--muted); margin-left: 12px;">Benchmark: under 5 minutes</span>
+
+  <div class="footer-bar">Edmund's Mastermind | Your First AI Employee | April 2026</div>
+</div>
+
+<div class="page-break"></div>
+
+<!-- ==================== PAGE 12: 7-DAY IMPLEMENTATION PLAN ==================== -->
+<div class="page">
+
+  <h1>7-Day Implementation Plan</h1>
+  <p>Follow this day-by-day plan and you will have a fully operational AI phone agent by the end of the week. No excuses. No delays. One day at a time.</p>
+
+  <div class="day-card no-break">
+    <div class="day-label">Day 1 -- Sign Up &amp; Explore</div>
+    <div class="checkbox-item">Sign up for My AI Front Desk free trial</div>
+    <div class="checkbox-item">Explore the dashboard -- review templates, settings, and integrations</div>
+    <div class="checkbox-item">Watch the platform walkthrough video (10 min)</div>
+  </div>
+
+  <div class="day-card no-break">
+    <div class="day-label">Day 2 -- Build Your Script</div>
+    <div class="checkbox-item">Customize your greeting using Prompt 1 from System 1</div>
+    <div class="checkbox-item">Build your qualifying question flow using Prompt 2</div>
+    <div class="checkbox-item">Add your top 10 FAQ responses using Prompt 3</div>
+  </div>
+
+  <div class="day-card no-break">
+    <div class="day-label">Day 3 -- Connect Your Systems</div>
+    <div class="checkbox-item">Connect Google Calendar for real-time appointment booking</div>
+    <div class="checkbox-item">Set up Zapier: My AI Front Desk &rarr; Follow Up Boss</div>
+    <div class="checkbox-item">Test the calendar integration with a sample booking</div>
+  </div>
+
+  <div class="day-card no-break">
+    <div class="day-label">Day 4 -- Set Up Call Forwarding</div>
+    <div class="checkbox-item">Configure call forwarding from your business line</div>
+    <div class="checkbox-item">Start with after-hours only (evenings + weekends)</div>
+    <div class="checkbox-item">Verify forwarding is working with a test call</div>
+  </div>
+
+  <div class="day-card no-break">
+    <div class="day-label">Day 5 -- Test &amp; Refine</div>
+    <div class="checkbox-item">Make 5 test calls as different caller types (buyer, seller, investor, renter, tire-kicker)</div>
+    <div class="checkbox-item">Refine the script based on test results</div>
+    <div class="checkbox-item">Verify lead data appears correctly in Follow Up Boss</div>
+  </div>
+
+  <div class="day-card no-break">
+    <div class="day-label">Day 6 -- Go Live</div>
+    <div class="checkbox-item">Forward ALL unanswered calls to your AI agent</div>
+    <div class="checkbox-item">Set up the after-hours greeting using Prompt 5</div>
+    <div class="checkbox-item">Notify your team that AI is handling initial calls</div>
+  </div>
+
+  <div class="day-card no-break">
+    <div class="day-label">Day 7 -- Review &amp; Optimize</div>
+    <div class="checkbox-item">Review first week's call data and transcripts</div>
+    <div class="checkbox-item">Adjust qualifying questions based on actual conversations</div>
+    <div class="checkbox-item">Run the weekly performance review (Prompt 6)</div>
+    <div class="checkbox-item">Celebrate your first AI-captured lead</div>
+  </div>
+
+  <div class="footer-bar">Edmund's Mastermind | Your First AI Employee | April 2026</div>
+</div>
+
+<div class="page-break"></div>
+
+<!-- ==================== PAGE 13: COMPLIANCE ==================== -->
+<div class="page">
+
+  <h1>Compliance Quick Reference</h1>
+  <p>AI phone agents are powerful -- but they come with legal responsibilities. This is not optional. Review this checklist before going live and revisit it quarterly.</p>
+
+  <div class="compliance-box no-break">
+    <h4>Before You Go Live -- Mandatory Checklist</h4>
+    <div class="checkbox-item"><strong>Recording Disclosure:</strong> Program your AI to disclose recording at the start of every call. Example: "This call may be recorded for quality assurance."</div>
+    <div class="checkbox-item"><strong>AI Identification:</strong> Program your AI to identify itself as an AI assistant. This is recommended now and may soon be legally required in many states.</div>
+    <div class="checkbox-item"><strong>Outbound Consent (FCC 2025 Rule):</strong> Only use AI for outbound calls to contacts with documented 1-to-1 consent. Mass robocalling with AI voices is illegal.</div>
+    <div class="checkbox-item"><strong>Fair Housing Compliance:</strong> Review all AI scripts to ensure no questions touch on protected classes (race, color, religion, sex, national origin, familial status, disability).</div>
+    <div class="checkbox-item"><strong>Call Logs:</strong> Maintain complete call logs and recordings for compliance documentation.</div>
+    <div class="checkbox-item"><strong>Opt-Out Instructions:</strong> Add clear opt-out instructions to all AI-initiated outbound communications.</div>
+  </div>
+
+  <div class="navy-box no-break">
+    <h3>Two-Party Consent States</h3>
+    <p>In these states, <strong>all parties</strong> on the call must consent to recording. Your AI must disclose recording at the start of every call. If you operate in or receive calls from any of these states, this is mandatory.</p>
+    <p style="margin-top: 0.1in; font-size: 10pt; line-height: 1.8;">
+      <strong>California</strong> &bull; <strong>Connecticut</strong> &bull; <strong>Delaware</strong> &bull; <strong>Florida</strong> &bull; <strong>Illinois</strong> &bull; <strong>Maryland</strong> &bull; <strong>Massachusetts</strong> &bull; <strong>Michigan</strong> &bull; <strong>Montana</strong> &bull; <strong>Nevada</strong> &bull; <strong>New Hampshire</strong> &bull; <strong>Oregon</strong> &bull; <strong>Pennsylvania</strong> &bull; <strong>Washington</strong>
+    </p>
+  </div>
+
+  <div class="light-box no-break">
+    <h4>Best Practice: Default Recording Disclosure</h4>
+    <p>Even if your state only requires one-party consent, always disclose recording at the start of every call. It builds trust, protects you legally, and future-proofs your operation as regulations evolve.</p>
+  </div>
+
+  <div class="accent-bar-section no-break">
+    <h4>Note on AI Regulation</h4>
+    <p>AI phone regulations are evolving rapidly. The FCC's 2025 ruling on AI-generated voices in robocalls is just the beginning. Stay current by reviewing FCC and state-level guidelines quarterly. When in doubt, consult your broker's legal team.</p>
+  </div>
+
+  <div class="footer-bar">Edmund's Mastermind | Your First AI Employee | April 2026</div>
+</div>
+
+<div class="page-break"></div>
+
+<!-- ==================== PAGE 14: COMMITMENT + NOTES ==================== -->
+<div class="page">
+
+  <h1>Commitment Contract</h1>
+
+  <div class="navy-box">
+    <p style="font-size: 12pt; line-height: 1.8; text-align: center;">I commit to setting up my AI phone agent within 7 days of this session. I understand that every unanswered call is a lost opportunity, and I refuse to leave money on the table. I will follow the implementation plan, test my system, and go live before the next Mastermind session.</p>
+  </div>
+
+  <div class="signature-section">
+    <div>
+      <div class="write-line-label">Name</div>
+      <div class="write-line"></div>
+    </div>
+    <div>
+      <div class="write-line-label">Date</div>
+      <div class="write-line"></div>
+    </div>
+  </div>
+
+  <div class="calc-grid" style="margin-top: 0.25in;">
+    <div>
+      <div class="write-line-label">AI Tool I Will Implement</div>
+      <div class="write-line"></div>
+    </div>
+    <div>
+      <div class="write-line-label">My Go-Live Date</div>
+      <div class="write-line"></div>
+    </div>
+    <div>
+      <div class="write-line-label">My Accountability Partner</div>
+      <div class="write-line"></div>
+    </div>
+    <div>
+      <div class="write-line-label">Partner's Phone Number</div>
+      <div class="write-line"></div>
+    </div>
+  </div>
+
+  <h2 style="margin-top: 0.4in;">Session Notes</h2>
+  <div class="notes-lines">
+    <div class="write-line"></div>
+    <div class="write-line"></div>
+    <div class="write-line"></div>
+    <div class="write-line"></div>
+    <div class="write-line"></div>
+    <div class="write-line"></div>
+    <div class="write-line"></div>
+    <div class="write-line"></div>
+    <div class="write-line"></div>
+    <div class="write-line"></div>
+    <div class="write-line"></div>
+    <div class="write-line"></div>
+    <div class="write-line"></div>
+    <div class="write-line"></div>
+    <div class="write-line"></div>
+    <div class="write-line"></div>
+  </div>
+
+  <div class="footer-bar">Edmund's Mastermind | Your First AI Employee | April 2026</div>
+</div>
+
+<div class="page-break"></div>
+
+<!-- ==================== PAGE 15: CLOSING MANIFESTO ==================== -->
+<div class="cover" style="min-height: 90vh;">
+
+  <div class="cover-type" style="margin-bottom: 0.6in;">The Manifesto</div>
+
+  <div class="manifesto-text">
+    The phone rings.<br><br>
+    It rings at 7 AM while you are at the gym.<br>
+    It rings at 9 PM while you are at dinner with your family.<br>
+    It rings on Saturday morning while you are at your kid's soccer game.<br><br>
+    Every ring is someone ready to buy, ready to sell, ready to <strong>choose you</strong>.<br><br>
+    And every ring that goes to voicemail is someone choosing <strong>somebody else</strong>.<br><br>
+    You did not get into this business to miss opportunities.<br>
+    You did not build your reputation to lose leads to a voicemail box.<br>
+    You did not work this hard to let a $10,000 commission slip through your fingers because you were in the shower.<br><br>
+    <strong>Starting today, your phone never stops answering.</strong><br><br>
+    Your AI employee does not take breaks.<br>
+    It does not call in sick.<br>
+    It does not forget to ask the qualifying questions.<br>
+    It does not let a single lead slip through the cracks.<br><br>
+    This is not about replacing you.<br>
+    This is about <strong>multiplying you</strong>.<br><br>
+    Because missing calls is NOT an option.<br><br>
+    <strong>Now go set it up.</strong>
+  </div>
+
+  <div style="margin-top: 0.6in; border-top: 2px solid var(--cyan); padding-top: 0.3in;">
+    <div class="cover-brand">Edmund's Mastermind</div>
+    <div class="cover-date" style="margin-top: 0.15in;">Your First AI Employee | April 2026</div>
+    <div style="font-size: 9pt; color: rgba(255,255,255,0.4); margin-top: 0.2in;">&copy; 2026 Edmund Bogen. All rights reserved.</div>
+  </div>
+
+</div>
+
+<!-- Theme Toggle Script -->
+<script>
+  function toggleTheme() {
+    const body = document.body;
+    const current = body.getAttribute('data-theme');
+    const next = current === 'dark' ? 'light' : 'dark';
+    body.setAttribute('data-theme', next);
+    localStorage.setItem('workbook-theme', next);
+  }
+
+  // Restore saved theme
+  (function() {
+    const saved = localStorage.getItem('workbook-theme');
+    if (saved) {
+      document.body.setAttribute('data-theme', saved);
+    }
+  })();
+</script>
+
+</body>
+</html>
