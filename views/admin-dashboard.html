@@ -501,6 +501,26 @@
               </tbody>
             </table>
           </div>
+
+          <!-- Service Inquiries -->
+          <div class="card">
+            <h3 class="mb-md">Service Inquiries</h3>
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>Email</th>
+                  <th>Phone</th>
+                  <th>Industry</th>
+                  <th>Challenge</th>
+                  <th>Date</th>
+                </tr>
+              </thead>
+              <tbody id="service-inquiries-table">
+                <tr><td colspan="6" class="text-center text-gray">Loading...</td></tr>
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
     </main>
@@ -1442,6 +1462,16 @@
         } else {
           speakerEl.innerHTML = data.speakerInquiries.recent.map(s =>
             `<tr><td>${s.first_name} ${s.last_name}</td><td>${s.email}</td><td>${s.phone}</td><td>${s.message || '-'}</td><td>${new Date(s.created_at).toLocaleDateString()}</td></tr>`
+          ).join('');
+        }
+
+        // Service inquiries
+        const serviceEl = document.getElementById('service-inquiries-table');
+        if (data.serviceInquiries.recent.length === 0) {
+          serviceEl.innerHTML = '<tr><td colspan="6" class="text-center text-gray">No inquiries yet</td></tr>';
+        } else {
+          serviceEl.innerHTML = data.serviceInquiries.recent.map(s =>
+            `<tr><td>${s.name}</td><td>${s.email}</td><td>${s.phone || '-'}</td><td>${s.industry}</td><td>${(s.challenge || '-').substring(0, 80)}</td><td>${new Date(s.created_at).toLocaleDateString()}</td></tr>`
           ).join('');
         }
 

@@ -267,6 +267,14 @@ app.get('/api/admin/analytics', authenticateAdmin, async (req, res) => {
     // Speaker inquiries count
     const speakerTotal = await dbPool.query("SELECT COUNT(*) as count FROM speaker_inquiries");
 
+    // Service inquiries
+    const serviceInquiries = await dbPool.query(
+      "SELECT * FROM service_inquiries ORDER BY created_at DESC LIMIT 20"
+    );
+
+    // Service inquiries count
+    const serviceTotal = await dbPool.query("SELECT COUNT(*) as count FROM service_inquiries");
+
     res.json({
       pageViews: {
         today: parseInt(todayViews.rows[0].count),
@@ -276,7 +284,8 @@ app.get('/api/admin/analytics', authenticateAdmin, async (req, res) => {
       topPages: topPages.rows,
       dailyViews: dailyViews.rows,
       bookLeads: { total: parseInt(bookLeadsTotal.rows[0].count), recent: bookLeads.rows },
-      speakerInquiries: { total: parseInt(speakerTotal.rows[0].count), recent: speakerInquiries.rows }
+      speakerInquiries: { total: parseInt(speakerTotal.rows[0].count), recent: speakerInquiries.rows },
+      serviceInquiries: { total: parseInt(serviceTotal.rows[0].count), recent: serviceInquiries.rows }
     });
   } catch (error) {
     console.error('Analytics error:', error);
