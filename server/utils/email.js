@@ -126,7 +126,7 @@ async function sendClientInquiryNotification(client) {
   `;
 
   return sendEmail({
-    to: process.env.ADMIN_EMAIL || 'info@bogen.ai',
+    to: process.env.ADMIN_EMAIL || 'sales@reignation.com',
     subject,
     html,
     text: `New client inquiry from ${client.name} (${client.email})`
@@ -174,7 +174,7 @@ async function sendPartnerApplicationNotification(partner) {
   `;
 
   return sendEmail({
-    to: process.env.ADMIN_EMAIL || 'info@bogen.ai',
+    to: process.env.ADMIN_EMAIL || 'sales@reignation.com',
     subject,
     html,
     text: `New partner application from ${partner.name} (${partner.email})`
