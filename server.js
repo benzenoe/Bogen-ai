@@ -101,9 +101,9 @@ app.post('/api/book/speaker-inquiry', async (req, res) => {
       [first_name, last_name, email, phone, message || '']
     );
 
-    // Send email notification to Edmund
+    // Send email notification to Edmund (must await before responding on Vercel)
     const { sendEmail } = require('./server/utils/email');
-    sendEmail({
+    await sendEmail({
       to: 'edmund@bogenhomes.com',
       subject: `New Inquiry: ${first_name} ${last_name}`,
       html: `
@@ -140,9 +140,9 @@ app.post('/api/services/inquiry', async (req, res) => {
       [industry, challenge, team_size, name, email, phone, company || '', business_description || '']
     );
 
-    // Send email notification to Edmund
+    // Send email notification to Edmund (must await before responding on Vercel)
     const { sendEmail } = require('./server/utils/email');
-    sendEmail({
+    await sendEmail({
       to: 'edmund@bogenhomes.com',
       subject: `New Service Inquiry: ${name} (${industry})`,
       html: `
