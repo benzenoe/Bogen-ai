@@ -176,6 +176,8 @@ app.post('/api/listing-pages/order', async (req, res) => {
   try {
     const { name, email, phone, package: packageType, brokerage, website, details } = req.body;
 
+    console.log('📋 Listing page order received:', { name, email, package: packageType });
+
     // Validate required fields
     if (!name || !email || !packageType) {
       return res.status(400).json({ error: 'Name, email, and package are required' });
@@ -189,6 +191,8 @@ app.post('/api/listing-pages/order', async (req, res) => {
 
     // Send email notification
     const { sendListingPageOrderNotification } = require('./server/utils/email');
+    console.log('📧 Sending email notification to:', process.env.ADMIN_EMAIL || 'sales@reignation.com');
+
     await sendListingPageOrderNotification({
       name,
       email,
@@ -199,9 +203,10 @@ app.post('/api/listing-pages/order', async (req, res) => {
       details: details || ''
     });
 
+    console.log('✅ Order processed successfully');
     res.json({ success: true, message: 'Order submitted successfully' });
   } catch (error) {
-    console.error('Listing page order error:', error);
+    console.error('❌ Listing page order error:', error);
     res.status(500).json({ error: 'Failed to submit order. Please try again.' });
   }
 });

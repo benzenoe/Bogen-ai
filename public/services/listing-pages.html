@@ -1142,7 +1142,7 @@
 
                     <div class="form-full">
                         <label for="website">Current Website (if any)</label>
-                        <input type="url" id="website" name="website" placeholder="https://">
+                        <input type="text" id="website" name="website" placeholder="www.example.com or https://example.com">
                     </div>
 
                     <div class="form-full">
@@ -1204,13 +1204,20 @@
                     if (errorMessage) errorMessage.style.display = 'none';
 
                     // Collect form data
+                    let websiteValue = document.getElementById('website').value.trim();
+
+                    // Normalize website URL - add https:// if missing
+                    if (websiteValue && !websiteValue.match(/^https?:\/\//i)) {
+                        websiteValue = 'https://' + websiteValue;
+                    }
+
                     const formData = {
                         name: document.getElementById('name').value,
                         email: document.getElementById('email').value,
                         phone: document.getElementById('phone').value,
                         package: document.getElementById('package').value,
                         brokerage: document.getElementById('brokerage').value,
-                        website: document.getElementById('website').value,
+                        website: websiteValue,
                         details: document.getElementById('details').value
                     };
 

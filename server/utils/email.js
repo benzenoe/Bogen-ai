@@ -29,7 +29,7 @@ async function sendEmail({ to, subject, text, html }) {
     return { success: true, messageId: info.messageId };
   } catch (error) {
     console.error('❌ Email error:', error.message);
-    return { success: false, error: error.message };
+    throw new Error(`Failed to send email: ${error.message}`);
   }
 }
 
