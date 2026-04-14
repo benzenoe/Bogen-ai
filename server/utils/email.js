@@ -340,6 +340,58 @@ async function sendAdminPasswordResetEmail(admin) {
   });
 }
 
+/**
+ * Send listing page order notification to admin
+ */
+async function sendListingPageOrderNotification(order) {
+  const subject = `New Listing Page Order: ${order.name}`;
+  const html = `
+    <div style="font-family: Arial, sans-serif; max-width: 600px;">
+      <h2 style="color: #1B365D;">New Listing Page Order</h2>
+
+      <table style="width: 100%; border-collapse: collapse;">
+        <tr>
+          <td style="padding: 8px; border-bottom: 1px solid #e0e0e0;"><strong>Name:</strong></td>
+          <td style="padding: 8px; border-bottom: 1px solid #e0e0e0;">${order.name}</td>
+        </tr>
+        <tr>
+          <td style="padding: 8px; border-bottom: 1px solid #e0e0e0;"><strong>Email:</strong></td>
+          <td style="padding: 8px; border-bottom: 1px solid #e0e0e0;">${order.email}</td>
+        </tr>
+        <tr>
+          <td style="padding: 8px; border-bottom: 1px solid #e0e0e0;"><strong>Phone:</strong></td>
+          <td style="padding: 8px; border-bottom: 1px solid #e0e0e0;">${order.phone || 'N/A'}</td>
+        </tr>
+        <tr>
+          <td style="padding: 8px; border-bottom: 1px solid #e0e0e0;"><strong>Package:</strong></td>
+          <td style="padding: 8px; border-bottom: 1px solid #e0e0e0;">${order.package}</td>
+        </tr>
+        <tr>
+          <td style="padding: 8px; border-bottom: 1px solid #e0e0e0;"><strong>Brokerage:</strong></td>
+          <td style="padding: 8px; border-bottom: 1px solid #e0e0e0;">${order.brokerage || 'N/A'}</td>
+        </tr>
+        <tr>
+          <td style="padding: 8px; border-bottom: 1px solid #e0e0e0;"><strong>Website:</strong></td>
+          <td style="padding: 8px; border-bottom: 1px solid #e0e0e0;">${order.website || 'N/A'}</td>
+        </tr>
+        <tr>
+          <td style="padding: 8px; vertical-align: top;"><strong>Details:</strong></td>
+          <td style="padding: 8px;">${order.details || 'N/A'}</td>
+        </tr>
+      </table>
+
+      <p style="margin-top: 20px;"><a href="${process.env.BASE_URL}/admin" style="display: inline-block; background: #1B365D; color: white; padding: 12px 30px; text-decoration: none; border-radius: 4px;">View in Admin</a></p>
+    </div>
+  `;
+
+  return sendEmail({
+    to: process.env.ADMIN_EMAIL || 'sales@reignation.com',
+    subject,
+    html,
+    text: `New listing page order from ${order.name} (${order.email}). Package: ${order.package}. Details: ${order.details || 'N/A'}`
+  });
+}
+
 module.exports = {
   sendEmail,
   sendPartnerApprovalEmail,
@@ -349,5 +401,6 @@ module.exports = {
   sendClientPasswordResetEmail,
   sendClientTransactionUpdateEmail,
   sendClientNewMessageEmail,
-  sendAdminPasswordResetEmail
+  sendAdminPasswordResetEmail,
+  sendListingPageOrderNotification
 };

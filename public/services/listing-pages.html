@@ -1107,7 +1107,7 @@
                 Fill out the form below and we'll get back to you within 24 hours with next steps and a custom proposal.
             </p>
 
-            <form id="order-form" action="https://formspree.io/f/xpwzjryr" method="POST">
+            <form id="order-form">
                 <div class="form-grid">
                     <div>
                         <label for="name">Your Name *</label>
@@ -1128,10 +1128,10 @@
                         <label for="package">Package *</label>
                         <select id="package" name="package" required>
                             <option value="">Select package...</option>
-                            <option value="single">Single Page — $249</option>
-                            <option value="starter">Starter Pack (5 pages) — $699</option>
-                            <option value="premium">Premium Pack (10 pages) — $999</option>
-                            <option value="custom">Custom Quote</option>
+                            <option value="Single Page — $249">Single Page — $249</option>
+                            <option value="Starter Pack (5 pages) — $699">Starter Pack (5 pages) — $699</option>
+                            <option value="Premium Pack (10 pages) — $999">Premium Pack (10 pages) — $999</option>
+                            <option value="Custom Quote">Custom Quote</option>
                         </select>
                     </div>
 
@@ -1151,15 +1151,14 @@
                     </div>
                 </div>
 
-                <input type="hidden" name="_subject" value="New Landing Page Order - Bogen.ai">
-                <input type="hidden" name="_cc" value="info@bogen.ai,eytan@eytan.com">
-                <input type="hidden" name="_next" value="https://bogen.ai/services/listing-pages#success">
-
                 <button type="submit" class="submit-btn">Submit Order Request</button>
             </form>
 
             <div id="success-message" class="success-message">
                 <p>✓ Thank you! We've received your request and will be in touch within 24 hours.</p>
+            </div>
+            <div id="error-message" class="error-message" style="display: none; padding: 1rem; background: #fee; border: 1px solid #fcc; border-radius: 8px; margin-top: 1rem; color: #c33;">
+                <p></p>
             </div>
         </div>
     </div>
@@ -1183,22 +1182,79 @@
     <script src="/js/common.js"></script>
     <script src="/js/chatbot.js"></script>
     <script>
-        // Check URL hash for success message
-        if (window.location.hash === '#success') {
-            const successMsg = document.getElementById('success-message');
-            const orderForm = document.getElementById('order-form');
-            if (successMsg) successMsg.classList.add('show');
-            if (orderForm) orderForm.style.display = 'none';
-        }
-
         // Form submission handling
         const form = document.getElementById('order-form');
+        const successMessage = document.getElementById('success-message');
+        const errorMessage = document.getElementById('error-message');
+
         if (form) {
-            form.addEventListener('submit', function(e) {
+            form.addEventListener('submit', async function(e) {
+                e.preventDefault();
+
                 const btn = this.querySelector('.submit-btn');
-                if (btn) {
+                const originalText = btn.textContent;
+
+                try {
+                    // Disable button and show loading state
                     btn.textContent = 'Submitting...';
                     btn.disabled = true;
+
+                    // Hide any previous messages
+                    if (successMessage) successMessage.style.display = 'none';
+                    if (errorMessage) errorMessage.style.display = 'none';
+
+                    // Collect form data
+                    const formData = {
+                        name: document.getElementById('name').value,
+                        email: document.getElementById('email').value,
+                        phone: document.getElementById('phone').value,
+                        package: document.getElementById('package').value,
+                        brokerage: document.getElementById('brokerage').value,
+                        website: document.getElementById('website').value,
+                        details: document.getElementById('details').value
+                    };
+
+                    // Submit to API
+                    const response = await fetch('/api/listing-pages/order', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(formData)
+                    });
+
+                    const data = await response.json();
+
+                    if (response.ok) {
+                        // Show success message
+                        if (successMessage) {
+                            successMessage.style.display = 'block';
+                            successMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                        }
+                        // Hide form
+                        form.style.display = 'none';
+                    } else {
+                        // Show error message
+                        if (errorMessage) {
+                            errorMessage.querySelector('p').textContent = data.error || 'Something went wrong. Please try again.';
+                            errorMessage.style.display = 'block';
+                            errorMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                        }
+                        // Re-enable button
+                        btn.textContent = originalText;
+                        btn.disabled = false;
+                    }
+                } catch (error) {
+                    console.error('Form submission error:', error);
+                    // Show error message
+                    if (errorMessage) {
+                        errorMessage.querySelector('p').textContent = 'Network error. Please check your connection and try again.';
+                        errorMessage.style.display = 'block';
+                        errorMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    }
+                    // Re-enable button
+                    btn.textContent = originalText;
+                    btn.disabled = false;
                 }
             });
         }

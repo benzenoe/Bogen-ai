@@ -171,6 +171,41 @@ app.post('/api/services/inquiry', async (req, res) => {
   }
 });
 
+// Listing page order capture
+app.post('/api/listing-pages/order', async (req, res) => {
+  try {
+    const { name, email, phone, package: packageType, brokerage, website, details } = req.body;
+
+    // Validate required fields
+    if (!name || !email || !packageType) {
+      return res.status(400).json({ error: 'Name, email, and package are required' });
+    }
+
+    // Email validation
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      return res.status(400).json({ error: 'Invalid email address' });
+    }
+
+    // Send email notification
+    const { sendListingPageOrderNotification } = require('./server/utils/email');
+    await sendListingPageOrderNotification({
+      name,
+      email,
+      phone: phone || '',
+      package: packageType,
+      brokerage: brokerage || '',
+      website: website || '',
+      details: details || ''
+    });
+
+    res.json({ success: true, message: 'Order submitted successfully' });
+  } catch (error) {
+    console.error('Listing page order error:', error);
+    res.status(500).json({ error: 'Failed to submit order. Please try again.' });
+  }
+});
+
 // Page view tracking
 app.post('/api/track/pageview', async (req, res) => {
   try {
