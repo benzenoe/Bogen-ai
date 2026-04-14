@@ -171,6 +171,29 @@ app.post('/api/services/inquiry', async (req, res) => {
   }
 });
 
+// Debug email test endpoint (temporary)
+app.get('/api/debug/test-email', async (req, res) => {
+  try {
+    const host = process.env.EMAIL_HOST;
+    const port = process.env.EMAIL_PORT;
+    const user = process.env.EMAIL_USER;
+    const pass = process.env.EMAIL_PASSWORD ? `${process.env.EMAIL_PASSWORD.length} chars` : 'MISSING';
+    const from = process.env.EMAIL_FROM;
+
+    const { sendEmail } = require('./server/utils/email');
+    const result = await sendEmail({
+      to: 'edmund@bogenhomes.com',
+      subject: 'Bogen.ai Debug Test',
+      html: '<p>If you see this, email is working.</p>',
+      text: 'If you see this, email is working.'
+    });
+
+    res.json({ envVars: { host, port, user, pass, from }, emailResult: result });
+  } catch (error) {
+    res.json({ error: error.message, stack: error.stack });
+  }
+});
+
 // Listing page order capture
 app.post('/api/listing-pages/order', async (req, res) => {
   try {
