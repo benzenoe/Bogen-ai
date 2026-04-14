@@ -1,22 +1,38 @@
 const nodemailer = require('nodemailer');
-require('dotenv').config();
 
-// Create transporter
-const transporter = nodemailer.createTransport({
-  host: process.env.EMAIL_HOST,
-  port: process.env.EMAIL_PORT,
-  secure: process.env.EMAIL_PORT == 465,
-  auth: {
-    user: process.env.EMAIL_USER,
-    pass: process.env.EMAIL_PASSWORD
+/**
+ * Create transporter on demand so Vercel env vars are available
+ */
+function getTransporter() {
+  const host = process.env.EMAIL_HOST || 'smtp.gmail.com';
+  const port = parseInt(process.env.EMAIL_PORT || '587', 10);
+  const user = process.env.EMAIL_USER;
+  const pass = process.env.EMAIL_PASSWORD;
+
+  if (!user || !pass || user === 'placeholder@gmail.com') {
+    console.error('❌ Email not configured: EMAIL_USER or EMAIL_PASSWORD missing');
+    return null;
   }
-});
+
+  return nodemailer.createTransport({
+    host,
+    port,
+    secure: port === 465,
+    auth: { user, pass }
+  });
+}
 
 /**
  * Send email notification
  */
 async function sendEmail({ to, subject, text, html }) {
   try {
+    const transporter = getTransporter();
+    if (!transporter) {
+      console.error('❌ Email skipped — no SMTP credentials configured');
+      return { success: false, error: 'SMTP not configured' };
+    }
+
     const info = await transporter.sendMail({
       from: process.env.EMAIL_FROM || 'info@bogen.ai',
       to,
