@@ -131,55 +131,156 @@
   /* PDF Download Button */
   .pdf-download {
     position: fixed;
-    top: 20px;
-    left: 20px;
+    bottom: 30px;
+    right: 30px;
     z-index: 1000;
-    display: flex;
-    gap: 8px;
   }
 
-  .pdf-download a {
+  .pdf-download button {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--cyan);
+    color: var(--white);
+    padding: 12px 24px;
+    border: none;
+    border-radius: 50px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 10pt;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    cursor: pointer;
+    box-shadow: 0 4px 20px rgba(0,168,225,0.4);
+    transition: all 0.3s ease;
+  }
+
+  .pdf-download button:hover {
+    background: #008aba;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 24px rgba(0,168,225,0.5);
+  }
+
+  .pdf-download button svg {
+    width: 16px;
+    height: 16px;
+    fill: currentColor;
+  }
+
+  /* PDF Preview Modal */
+  .pdf-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.8);
+    z-index: 2000;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+  }
+
+  .pdf-modal.active {
+    display: flex;
+  }
+
+  .pdf-modal-content {
+    background: var(--bg);
+    border-radius: 12px;
+    width: 90%;
+    max-width: 900px;
+    height: 90vh;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 8px 40px rgba(0,0,0,0.3);
+  }
+
+  .pdf-modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 24px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .pdf-modal-header h3 {
+    margin: 0;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 14pt;
+    color: var(--text);
+  }
+
+  .pdf-modal-actions {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+  }
+
+  .pdf-modal-actions button {
     display: inline-flex;
     align-items: center;
     gap: 6px;
     padding: 8px 16px;
-    border-radius: 50px;
+    border-radius: 6px;
     font-family: 'Montserrat', sans-serif;
     font-size: 9pt;
     font-weight: 600;
-    letter-spacing: 0.05em;
     text-transform: uppercase;
-    text-decoration: none;
-    transition: all 0.3s ease;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border: none;
   }
 
-  .pdf-download .preview-btn {
+  .pdf-modal-actions .print-btn {
     background: var(--cyan);
     color: var(--white);
-    box-shadow: 0 2px 12px rgba(0,168,225,0.3);
   }
 
-  .pdf-download .preview-btn:hover {
+  .pdf-modal-actions .print-btn:hover {
     background: #008aba;
-    transform: translateY(-1px);
   }
 
-  .pdf-download .download-btn {
+  .pdf-modal-actions .download-btn {
     background: transparent;
     color: var(--cyan);
     border: 2px solid var(--cyan);
   }
 
-  .pdf-download .download-btn:hover {
+  .pdf-modal-actions .download-btn:hover {
     background: var(--cyan);
     color: var(--white);
-    transform: translateY(-1px);
   }
 
-  .pdf-download a svg {
+  .pdf-modal-actions .close-btn {
+    background: transparent;
+    color: var(--text-light);
+    padding: 8px;
+  }
+
+  .pdf-modal-actions .close-btn:hover {
+    color: var(--text);
+    background: rgba(0,0,0,0.1);
+  }
+
+  .pdf-modal-actions button svg {
     width: 14px;
     height: 14px;
     fill: currentColor;
+  }
+
+  .pdf-preview {
+    flex: 1;
+    overflow: auto;
+    padding: 20px;
+  }
+
+  .pdf-preview iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+    border-radius: 8px;
   }
 
   /* Page Container */
@@ -675,15 +776,16 @@
     .comparison-table { font-size: 9pt; }
     .comparison-table th, .comparison-table td { padding: 6px 8px; }
     .theme-toggle { top: 10px; right: 10px; padding: 6px 12px; }
-    .pdf-download { top: 10px; left: 10px; flex-direction: column; gap: 6px; }
-    .pdf-download a { padding: 6px 12px; font-size: 8pt; }
+    .pdf-download { bottom: 20px; right: 20px; }
+    .pdf-download button { padding: 10px 18px; font-size: 9pt; }
     .roi-grid { grid-template-columns: 1fr 1fr; }
   }
 
   @media (max-width: 480px) {
     .cover h1 { font-size: 16pt; }
     .cover .cover-subtitle { font-size: 11pt; }
-    .pdf-download { top: 56px; left: 10px; }
+    .pdf-download { bottom: 10px; right: 10px; }
+    .pdf-download button { padding: 8px 14px; font-size: 8pt; }
     .theme-toggle { top: 10px; right: 10px; }
     .stat-grid { grid-template-columns: 1fr; }
     .signature-section { grid-template-columns: 1fr; }
@@ -700,16 +802,37 @@
   <span class="theme-toggle-label">Dark</span>
 </div>
 
-<!-- PDF Download -->
+<!-- PDF Download Button -->
 <div class="pdf-download">
-  <a href="ai-phone-agent-workbook.pdf" target="_blank" class="preview-btn">
-    <svg viewBox="0 0 24 24"><path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>
-    Preview PDF
-  </a>
-  <a href="ai-phone-agent-workbook.pdf" download class="download-btn">
-    <svg viewBox="0 0 24 24"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
-    Download
-  </a>
+  <button onclick="openPdfModal()">
+    <svg viewBox="0 0 24 24"><path d="M14,2H6A2,2 0 0,0 4,4V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V8L14,2M18,20H6V4H13V9H18V20Z"/></svg>
+    View Workbook
+  </button>
+</div>
+
+<!-- PDF Preview Modal -->
+<div id="pdfModal" class="pdf-modal">
+  <div class="pdf-modal-content">
+    <div class="pdf-modal-header">
+      <h3>AI Phone Agent Workbook</h3>
+      <div class="pdf-modal-actions">
+        <button class="print-btn" onclick="printPdf()">
+          <svg viewBox="0 0 24 24"><path d="M18,3H6V7H18M19,12A1,1 0 0,1 18,11A1,1 0 0,1 19,10A1,1 0 0,1 20,11A1,1 0 0,1 19,12M16,19H8V14H16M19,8H5A3,3 0 0,0 2,11V17H6V21H18V17H22V11A3,3 0 0,0 19,8Z"/></svg>
+          Print
+        </button>
+        <button class="download-btn" onclick="downloadPdf()">
+          <svg viewBox="0 0 24 24"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
+          Download
+        </button>
+        <button class="close-btn" onclick="closePdfModal()">
+          <svg viewBox="0 0 24 24"><path d="M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z"/></svg>
+        </button>
+      </div>
+    </div>
+    <div class="pdf-preview">
+      <iframe id="pdfFrame" src=""></iframe>
+    </div>
+  </div>
 </div>
 
 <!-- ==================== PAGE 1: COVER ==================== -->
@@ -1592,6 +1715,50 @@
       document.body.setAttribute('data-theme', saved);
     }
   })();
+
+  // PDF Modal Functions
+  function openPdfModal() {
+    const modal = document.getElementById('pdfModal');
+    const iframe = document.getElementById('pdfFrame');
+    iframe.src = 'ai-phone-agent-workbook.pdf';
+    modal.classList.add('active');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closePdfModal() {
+    const modal = document.getElementById('pdfModal');
+    const iframe = document.getElementById('pdfFrame');
+    modal.classList.remove('active');
+    iframe.src = '';
+    document.body.style.overflow = '';
+  }
+
+  function printPdf() {
+    const iframe = document.getElementById('pdfFrame');
+    iframe.contentWindow.print();
+  }
+
+  function downloadPdf() {
+    const link = document.createElement('a');
+    link.href = 'ai-phone-agent-workbook.pdf';
+    link.download = 'ai-phone-agent-workbook.pdf';
+    link.click();
+  }
+
+  // Close modal on background click
+  document.addEventListener('click', function(e) {
+    const modal = document.getElementById('pdfModal');
+    if (e.target === modal) {
+      closePdfModal();
+    }
+  });
+
+  // Close modal on Escape key
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+      closePdfModal();
+    }
+  });
 </script>
 
 </body>
