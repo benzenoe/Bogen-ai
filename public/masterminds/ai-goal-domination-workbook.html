@@ -1,0 +1,1083 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The 8% System - Complete Implementation Workbook | Edmund's Mastermind</title>
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap');
+
+    @page {
+        size: letter;
+        margin: 0.6in 0.75in;
+    }
+
+    @media print {
+        .page-break { page-break-after: always; }
+        .no-break { page-break-inside: avoid; }
+        .toolbar { display: none !important; }
+        body { font-size: 10pt; background: #fff !important; color: #333 !important; }
+        .page { box-shadow: none !important; margin: 0 !important; padding: 30px 0 !important; }
+        .cover { min-height: 9.5in; }
+        h2, h3, h4 { page-break-after: avoid; }
+        .prompt-block, .navy-box, .highlight-box, table { page-break-inside: avoid; }
+    }
+
+    /* ===== LIGHT THEME ===== */
+    :root {
+        --bg: #f0f0f0;
+        --page-bg: #ffffff;
+        --text: #333333;
+        --text-light: #666666;
+        --heading: #1a3e5c;
+        --accent: #00a8e1;
+        --navy: #1a3e5c;
+        --navy-deep: #0d2840;
+        --card-bg: #f4f4f4;
+        --border: #e0e0e0;
+        --line: #cccccc;
+        --table-stripe: #f9f9f9;
+        --prompt-bg: #f9f9f9;
+        --prompt-border: #e0e0e0;
+        --prompt-text: #333333;
+        --cover-bg: linear-gradient(135deg, #1a3e5c 0%, #0d2840 100%);
+        --toolbar-bg: #1a3e5c;
+        --toolbar-text: #ffffff;
+        --checkbox-color: #1a3e5c;
+        --fill-line: #cccccc;
+        --highlight-bg: #f4f4f4;
+        --commit-border: #1a3e5c;
+    }
+
+    /* ===== DARK THEME ===== */
+    [data-theme="dark"] {
+        --bg: #0a0a0a;
+        --page-bg: #1a1a2e;
+        --text: #e0e0e0;
+        --text-light: #aaaaaa;
+        --heading: #00a8e1;
+        --accent: #00a8e1;
+        --navy: #0f2a40;
+        --navy-deep: #091c2e;
+        --card-bg: #16213e;
+        --border: #2a2a4a;
+        --line: #444466;
+        --table-stripe: #1e1e3a;
+        --prompt-bg: #0f1a2e;
+        --prompt-border: #2a3a5a;
+        --prompt-text: #d0d0d0;
+        --cover-bg: linear-gradient(135deg, #0a1628 0%, #1a3e5c 100%);
+        --toolbar-bg: #0a1628;
+        --toolbar-text: #ffffff;
+        --checkbox-color: #00a8e1;
+        --fill-line: #444466;
+        --highlight-bg: #16213e;
+        --commit-border: #00a8e1;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+        font-family: 'Montserrat', Arial, sans-serif;
+        color: var(--text);
+        background: var(--bg);
+        line-height: 1.6;
+        font-size: 11pt;
+    }
+
+    /* ===== TOOLBAR ===== */
+    .toolbar {
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+        background: var(--toolbar-bg);
+        padding: 12px 24px;
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+    }
+
+    .toolbar .brand {
+        font-size: 10pt;
+        font-weight: 600;
+        color: var(--toolbar-text);
+        letter-spacing: 0.05em;
+        text-transform: uppercase;
+        white-space: nowrap;
+    }
+
+    .toolbar .spacer { flex: 1; }
+
+    .toolbar button, .toolbar a button {
+        font-family: 'Montserrat', sans-serif;
+        font-size: 9pt;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+        border: none;
+        border-radius: 4px;
+        padding: 8px 18px;
+        cursor: pointer;
+        transition: all 0.2s;
+    }
+
+    .btn-theme {
+        background: transparent;
+        color: var(--toolbar-text);
+        border: 2px solid rgba(255,255,255,0.3) !important;
+    }
+    .btn-theme:hover { border-color: #00a8e1 !important; color: #00a8e1; }
+
+    .btn-download {
+        background: #00a8e1;
+        color: #ffffff;
+        text-decoration: none;
+    }
+    .btn-download:hover { background: #008bbf; }
+
+    .toolbar a { text-decoration: none; }
+
+    /* ===== COVER ===== */
+    .cover {
+        min-height: 10in;
+        background: var(--cover-bg);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        padding: 60px 40px;
+        color: #ffffff;
+    }
+
+    .cover .hero-image {
+        width: 100%;
+        max-width: 520px;
+        margin-bottom: 35px;
+        border-radius: 12px;
+        overflow: hidden;
+    }
+
+    .cover .hero-image img {
+        width: 100%;
+        height: auto;
+        display: block;
+        border-radius: 12px;
+    }
+
+    .cover h1 {
+        font-size: 34pt;
+        font-weight: 300;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        margin-bottom: 10px;
+    }
+
+    .cover h1 span { color: #00a8e1; font-weight: 600; }
+
+    .cover .subtitle {
+        font-size: 13pt;
+        color: rgba(255,255,255,0.8);
+        margin-bottom: 8px;
+    }
+
+    .cover .hook {
+        font-size: 15pt;
+        color: #00a8e1;
+        font-weight: 500;
+        margin-bottom: 30px;
+        font-style: italic;
+    }
+
+    .cover .workbook-label {
+        font-size: 11pt;
+        color: #00a8e1;
+        text-transform: uppercase;
+        letter-spacing: 0.15em;
+        font-weight: 500;
+        margin-bottom: 8px;
+    }
+
+    .cover .date {
+        font-size: 12pt;
+        color: rgba(255,255,255,0.7);
+        margin-bottom: 40px;
+    }
+
+    .cover .brand-line {
+        font-size: 10pt;
+        color: rgba(255,255,255,0.5);
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+    }
+
+    /* ===== PAGE ===== */
+    .page {
+        background: var(--page-bg);
+        max-width: 8in;
+        margin: 20px auto;
+        padding: 45px 50px;
+        box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+        border-radius: 4px;
+    }
+
+    [data-theme="dark"] .page { box-shadow: 0 2px 12px rgba(0,0,0,0.4); }
+
+    .page-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-bottom: 2px solid var(--heading);
+        padding-bottom: 8px;
+        margin-bottom: 30px;
+    }
+
+    .page-header .brand-mark {
+        font-size: 8pt;
+        color: var(--heading);
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        font-weight: 600;
+    }
+
+    .page-header .page-num { font-size: 8pt; color: var(--text-light); }
+
+    .page-footer {
+        text-align: center;
+        margin-top: 30px;
+        padding-top: 10px;
+        border-top: 1px solid var(--border);
+        font-size: 8pt;
+        color: var(--text-light);
+    }
+
+    /* ===== TYPOGRAPHY ===== */
+    h2 {
+        font-size: 18pt;
+        font-weight: 600;
+        color: var(--heading);
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+        margin-bottom: 20px;
+        page-break-after: avoid;
+    }
+
+    h3 {
+        font-size: 13pt;
+        font-weight: 600;
+        color: var(--heading);
+        margin-bottom: 12px;
+        page-break-after: avoid;
+    }
+
+    h4 {
+        font-size: 11pt;
+        font-weight: 600;
+        color: var(--accent);
+        margin-bottom: 8px;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        page-break-after: avoid;
+    }
+
+    p { margin-bottom: 12px; }
+
+    /* ===== COMPONENTS ===== */
+    .accent-bar { width: 4px; height: 30px; background: var(--accent); margin-bottom: 15px; }
+
+    .highlight-box {
+        background: var(--highlight-bg);
+        border-left: 4px solid var(--accent);
+        padding: 15px 20px;
+        margin: 15px 0;
+        border-radius: 0 4px 4px 0;
+        page-break-inside: avoid;
+    }
+    .highlight-box p { margin-bottom: 6px; }
+
+    .navy-box {
+        background: var(--navy);
+        color: #ffffff;
+        padding: 20px;
+        border-radius: 6px;
+        margin: 15px 0;
+        page-break-inside: avoid;
+    }
+    .navy-box h4 { color: #00a8e1; }
+    .navy-box p, .navy-box li { color: #ffffff; }
+
+    /* ===== PROMPTS ===== */
+    .prompt-block {
+        background: var(--prompt-bg);
+        border: 1px solid var(--prompt-border);
+        border-radius: 4px;
+        padding: 12px 15px;
+        margin: 10px 0;
+        font-family: 'Courier New', monospace;
+        font-size: 8.5pt;
+        line-height: 1.5;
+        white-space: pre-wrap;
+        color: var(--prompt-text);
+        page-break-inside: avoid;
+    }
+
+    .prompt-label {
+        font-family: 'Montserrat', sans-serif;
+        font-size: 9pt;
+        font-weight: 600;
+        color: var(--accent);
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        margin-bottom: 6px;
+        display: block;
+    }
+
+    /* ===== WORKSHEETS ===== */
+    .fill-line { border-bottom: 1px solid var(--fill-line); display: block; height: 28px; margin: 6px 0; }
+    .fill-line-long { border-bottom: 1px solid var(--fill-line); display: block; height: 28px; margin: 6px 0; width: 100%; }
+
+    .checkbox-item { padding: 5px 0 5px 25px; position: relative; font-size: 10pt; }
+    .checkbox-item::before { content: "[ ]"; position: absolute; left: 0; font-family: monospace; color: var(--checkbox-color); }
+
+    ul, ol { margin: 10px 0 10px 20px; }
+    li { margin-bottom: 6px; line-height: 1.5; }
+
+    .two-col { display: flex; gap: 25px; }
+    .two-col .col { flex: 1; }
+
+    table { width: 100%; border-collapse: collapse; margin: 15px 0; font-size: 9.5pt; page-break-inside: avoid; }
+    th { background: var(--navy); color: #ffffff; padding: 8px 12px; text-align: left; font-weight: 600; font-size: 9pt; text-transform: uppercase; letter-spacing: 0.03em; }
+    td { padding: 8px 12px; border-bottom: 1px solid var(--border); }
+    tr:nth-child(even) { background: var(--table-stripe); }
+
+    hr { border: none; border-top: 1px solid var(--border); margin: 20px 0; }
+    .section-divider { border: none; border-top: 3px solid var(--accent); margin: 25px 0; }
+
+    .page-break { page-break-after: always; height: 0; margin: 0; padding: 0; }
+
+    @media (max-width: 700px) {
+        .page { padding: 25px 20px; margin: 10px; }
+        .cover h1 { font-size: 22pt; }
+        .two-col { flex-direction: column; gap: 15px; }
+        .toolbar .brand { display: none; }
+    }
+</style>
+</head>
+<body>
+
+<!-- ===== TOOLBAR ===== -->
+<div class="toolbar">
+    <span class="brand">Edmund's Mastermind | The 8% System</span>
+    <span class="spacer"></span>
+    <button class="btn-theme" onclick="toggleTheme()" id="themeBtn">Dark Mode</button>
+    <a href="ai-goal-domination-workbook.pdf" download="The-8-Percent-System-Workbook.pdf">
+        <button class="btn-download">Download PDF</button>
+    </a>
+</div>
+
+<!-- ==================== PAGE 1: COVER ==================== -->
+<div class="cover">
+    <div class="hero-image">
+        <img src="ai-goal-domination-hero.png" alt="92% of Goals Fail. Here's the System the Other 8% Use.">
+    </div>
+
+    <div class="workbook-label">Complete Implementation Workbook</div>
+    <h1>THE <span>8%</span> SYSTEM</h1>
+    <div class="hook">92% of Goals Fail. Here's the System the Other 8% Use.</div>
+    <div class="subtitle">Turn Your Biggest Ambitions Into Unstoppable Daily Execution</div>
+    <div class="date">Edmund's Mastermind | April 22, 2026</div>
+    <div class="brand-line">Edmund's Mastermind & Group Coaching</div>
+</div>
+
+<div class="page-break"></div>
+
+<!-- ==================== PAGE 2: MISSION & OVERVIEW ==================== -->
+<div class="page">
+    <div class="page-header">
+        <span class="brand-mark">Edmund's Mastermind</span>
+        <span class="page-num">2</span>
+    </div>
+
+    <div class="accent-bar"></div>
+    <h2>Your Money-Making Mission</h2>
+
+    <div class="navy-box">
+        <h4>Why You're Here</h4>
+        <p>To stop relying on willpower and motivation -- and build an AI-powered system that turns your biggest 5-year goals into daily calendar-driven execution that runs whether you feel like it or not.</p>
+
+        <h4 style="margin-top: 15px;">Your Goal Today</h4>
+        <p>Walk out with a complete, working goal execution machine: your 5-year vision clarified, reverse-engineered into daily actions, embedded in your calendar, and backed by an identity upgrade plan.</p>
+
+        <h4 style="margin-top: 15px;">Success Metric</h4>
+        <p>Within 30 days, your AI-powered system is running daily inside your calendar, you've hit your first 3 weekly milestones, and you've identified and replaced at least one willpower patch with a permanent habit.</p>
+    </div>
+
+    <hr class="section-divider">
+
+    <h3>Workshop Overview: Your Profit-Generating Toolkit</h3>
+    <p><strong>The 3 Systems You'll Master Today:</strong></p>
+
+    <div class="highlight-box">
+        <p><strong>1. The Vision Lock System</strong> -- Clarify your 5-year SMART goals with AI and turn them into vivid visual representations that keep your brain locked on the target every single day.</p>
+    </div>
+
+    <div class="highlight-box">
+        <p><strong>2. The Autopilot Roadmap System</strong> -- AI reverse-engineers your vision into yearly, quarterly, monthly, weekly, and daily milestones -- then embeds them directly into your calendar with recurring focus blocks.</p>
+    </div>
+
+    <div class="highlight-box">
+        <p><strong>3. The Identity Upgrade Loop</strong> -- Stop patching your way through the day with hacks and tricks. Become the person who naturally does what winners do -- using AI to rewire your habits at the root.</p>
+    </div>
+
+    <div class="page-footer">The 8% System | Edmund's Mastermind | April 22, 2026</div>
+</div>
+
+<div class="page-break"></div>
+
+<!-- ==================== PAGE 3: SYSTEM 1 - TEACHING ==================== -->
+<div class="page">
+    <div class="page-header">
+        <span class="brand-mark">System 1: The Vision Lock System</span>
+        <span class="page-num">3</span>
+    </div>
+
+    <div class="accent-bar"></div>
+    <h2>System 1: "The Vision Lock System"</h2>
+    <h3>The $100K Clarity Killer</h3>
+
+    <div class="navy-box">
+        <h4>What This Means for Your Bank Account</h4>
+        <ul>
+            <li>Agents with written, specific goals earn 2-3x more than those with vague intentions</li>
+            <li>Visual goal representation activates the reticular activating system -- your brain literally starts filtering opportunities that match your vision</li>
+            <li>SMART goals eliminate "busy work" that feels productive but moves nothing forward</li>
+        </ul>
+    </div>
+
+    <h4>The Psychology Behind Vision Clarity</h4>
+
+    <p>Here's what 92% of goal-setters get wrong: they set goals that are either too vague ("make more money") or too disconnected from their daily reality ("become a millionaire"). The result? Their subconscious treats the goal as fiction -- something nice to think about but not something that drives behavior.</p>
+
+    <p>The science is clear. Your brain processes images 60,000 times faster than text. When you can SEE your 5-year future -- the home, the office, the bank balance, the lifestyle -- your reticular activating system (RAS) starts filtering every decision through that lens. Suddenly you notice opportunities you've been walking past for years.</p>
+
+    <h4>Why This Changes Everything in Real Estate & Business</h4>
+
+    <p>Most agents and entrepreneurs set income goals without reverse-engineering the behaviors required to hit them. "I want to close $10M this year" means nothing without knowing: how many listings, how many buyer appointments, how many lead conversations per week, and what your conversion rates need to be at each stage.</p>
+
+    <p>AI eliminates the guesswork. Feed it your target and your current numbers, and it builds the math backwards to your daily behaviors. No more hoping. Pure engineering.</p>
+
+    <h4>The Early Adopter Advantage</h4>
+
+    <p>Most people won't use AI for goal architecture for another 12-18 months. They'll keep using vision boards made of magazine cutouts and planners that go blank by February. You'll have a living, AI-powered system that adapts as your life changes. The competitive gap widens every month you're running this while they're not.</p>
+
+    <h4>Real Revenue Applications</h4>
+    <ul>
+        <li>GCI target broken into exact weekly lead generation numbers</li>
+        <li>AI-generated vision board as daily phone wallpaper reinforcement</li>
+        <li>Quarterly business reviews that AI pre-populates with progress data</li>
+        <li>Partnership and team growth goals with clear hiring milestones</li>
+        <li>Personal net worth targets with investment allocation roadmaps</li>
+    </ul>
+
+    <div class="page-footer">The 8% System | Edmund's Mastermind | April 22, 2026</div>
+</div>
+
+<div class="page-break"></div>
+
+<!-- ==================== PAGE 4: SYSTEM 1 - PROMPTS ==================== -->
+<div class="page">
+    <div class="page-header">
+        <span class="brand-mark">System 1: Profit-Generating Prompts</span>
+        <span class="page-num">4</span>
+    </div>
+
+    <div class="accent-bar"></div>
+    <h2>The Vision Lock System: Prompts</h2>
+    <p style="font-style: italic; color: var(--text-light);">Copy these exact prompts into ChatGPT for immediate results:</p>
+
+    <span class="prompt-label">For Defining Your 5-Year SMART Goal:</span>
+    <div class="prompt-block">I want to create a 5-year SMART goal for my career as a [real estate agent / entrepreneur / your role]. My current annual income is $[amount]. I want to reach $[target] in 5 years. Ask me 10 clarifying questions about my business model, lifestyle goals, and what success looks like across health, relationships, and finances. After my answers, write a single SMART goal statement that is specific, measurable, attainable, relevant, and time-bound. Make it vivid enough that I can feel it.</div>
+
+    <span class="prompt-label">For Pressure-Testing Your Goal:</span>
+    <div class="prompt-block">Here is my 5-year SMART goal: [paste your goal]. Now challenge it. Ask me 5 hard questions to make sure this goal is realistic given my current resources, genuinely exciting (not just impressive-sounding), and aligned with what I actually want my daily life to look like. Revise the goal based on my answers.</div>
+
+    <span class="prompt-label">For Creating Your Vision Board Description:</span>
+    <div class="prompt-block">Based on my 5-year SMART goal: [paste your goal], describe my ideal life 5 years from now in vivid sensory detail. Include: what my morning looks like, what my office/workspace looks like, what my bank account shows, what my health and fitness level is, what my family life looks like, and what my reputation in my industry is. Write it as a present-tense narrative, as if I'm living it right now. Make it so real I can smell it.</div>
+
+    <span class="prompt-label">For Generating AI Vision Board Image Prompts:</span>
+    <div class="prompt-block">Based on this vision description: [paste your vision narrative], create 6 image generation prompts I can use in Midjourney, DALL-E, or Canva AI to create a visual vision board. Each prompt should represent a different area of my 5-year vision: (1) career/business success, (2) financial abundance, (3) health/fitness, (4) family/relationships, (5) lifestyle/travel, (6) reputation/impact. Make each prompt photorealistic and aspirational.</div>
+
+    <span class="prompt-label">For Daily Goal Reinforcement:</span>
+    <div class="prompt-block">I want a daily morning prompt that takes 2 minutes. Based on my 5-year SMART goal: [paste goal], create a short script I can read every morning that: (1) reminds me of my vision in 2 sentences, (2) states my #1 priority for today that moves me closer, (3) includes one affirmation tied to my specific goal. Keep it under 100 words. I'll read this while looking at my vision board.</div>
+
+    <span class="prompt-label">For Breaking Income Goals Into Daily Math:</span>
+    <div class="prompt-block">I'm a [real estate agent / business owner] who wants to earn $[annual target] this year. My average [commission / deal size] is $[amount]. My lead-to-close conversion rate is approximately [X]%. Break this down into: how many closed deals I need per month, how many appointments per week, how many lead conversations per day, and what my daily prospecting time needs to be. Give me the exact math so I know my daily number.</div>
+
+    <div class="page-footer">The 8% System | Edmund's Mastermind | April 22, 2026</div>
+</div>
+
+<div class="page-break"></div>
+
+<!-- ==================== PAGE 5: SYSTEM 1 - WORKSHEET ==================== -->
+<div class="page">
+    <div class="page-header">
+        <span class="brand-mark">System 1: Your Success Notes</span>
+        <span class="page-num">5</span>
+    </div>
+
+    <div class="accent-bar"></div>
+    <h2>The Vision Lock System: Your Notes</h2>
+
+    <h4>My 5-Year SMART Goal (Write It Here After AI Refinement)</h4>
+    <span class="fill-line-long"></span>
+    <span class="fill-line-long"></span>
+    <span class="fill-line-long"></span>
+    <span class="fill-line-long"></span>
+
+    <h4 style="margin-top: 20px;">The 3 Parts of My Vision That Excite Me Most</h4>
+    <p>1. <span class="fill-line" style="width: 85%; display: inline-block;"></span></p>
+    <p>2. <span class="fill-line" style="width: 85%; display: inline-block;"></span></p>
+    <p>3. <span class="fill-line" style="width: 85%; display: inline-block;"></span></p>
+
+    <h4 style="margin-top: 20px;">My Daily Math (From the Income Breakdown Prompt)</h4>
+
+    <table>
+        <tr><th>Metric</th><th>My Number</th></tr>
+        <tr><td>Annual income target</td><td>$ <span class="fill-line" style="width: 80px; display: inline-block;"></span></td></tr>
+        <tr><td>Deals/closings needed per year</td><td><span class="fill-line" style="width: 80px; display: inline-block;"></span></td></tr>
+        <tr><td>Deals/closings needed per month</td><td><span class="fill-line" style="width: 80px; display: inline-block;"></span></td></tr>
+        <tr><td>Appointments needed per week</td><td><span class="fill-line" style="width: 80px; display: inline-block;"></span></td></tr>
+        <tr><td>Lead conversations per day</td><td><span class="fill-line" style="width: 80px; display: inline-block;"></span></td></tr>
+        <tr><td>Daily prospecting hours</td><td><span class="fill-line" style="width: 80px; display: inline-block;"></span></td></tr>
+    </table>
+
+    <h4 style="margin-top: 20px;">Where I'll Put My Vision Board (Check All That Apply)</h4>
+    <div class="checkbox-item">Phone lock screen wallpaper</div>
+    <div class="checkbox-item">Phone home screen wallpaper</div>
+    <div class="checkbox-item">Printed and framed in my office</div>
+    <div class="checkbox-item">Desktop/laptop wallpaper</div>
+    <div class="checkbox-item">Bathroom mirror (laminated)</div>
+    <div class="checkbox-item">Other: ________________________________</div>
+
+    <h4 style="margin-top: 20px;">Questions to Ask During Q&A</h4>
+    <span class="fill-line-long"></span>
+    <span class="fill-line-long"></span>
+    <span class="fill-line-long"></span>
+
+    <div class="page-footer">The 8% System | Edmund's Mastermind | April 22, 2026</div>
+</div>
+
+<div class="page-break"></div>
+
+<!-- ==================== PAGE 6: SYSTEM 2 - TEACHING ==================== -->
+<div class="page">
+    <div class="page-header">
+        <span class="brand-mark">System 2: The Autopilot Roadmap System</span>
+        <span class="page-num">6</span>
+    </div>
+
+    <div class="accent-bar"></div>
+    <h2>System 2: "The Autopilot Roadmap System"</h2>
+    <h3>The "Never Guess What to Do Next" Machine</h3>
+
+    <div class="navy-box">
+        <h4>What This Means for Your Bank Account</h4>
+        <ul>
+            <li>Eliminates the #1 productivity killer: decision fatigue about what to work on next</li>
+            <li>Your calendar becomes a revenue-generating machine -- every block tied to a milestone that feeds your 5-year goal</li>
+            <li>AI shifts and adapts your schedule around cancellations, conflicts, and changing priorities -- automatically</li>
+        </ul>
+    </div>
+
+    <h4>The Science of "Next Telephone Pole" Execution</h4>
+
+    <p>Marathon runners don't think about mile 26 at mile 1. They focus on the next telephone pole. That's how the brain handles big goals -- by breaking them into the smallest meaningful next step. But most people stare at their 5-year goal and feel paralyzed because the gap between where they are and where they want to be is overwhelming.</p>
+
+    <p>AI solves this by creating a cascade of milestones: 5-year vision becomes annual targets, which become quarterly objectives, which become monthly priorities, which become weekly must-dos, which become daily calendar blocks. You never have to think about the "big goal" again. You just execute today's blocks.</p>
+
+    <h4>Why Calendar Integration Changes Everything</h4>
+
+    <p>Here's the brutal truth about goal-setting: if it's not in your calendar, it doesn't exist. A goal that lives in a journal, a Notion page, or your head is a wish. A goal that lives in your Google Calendar with recurring time blocks, reminders, and weekly reviews is a system.</p>
+
+    <p>The agents and entrepreneurs making real money have their prospecting blocks, follow-up windows, content creation time, and strategic thinking sessions locked into their calendar like appointments with their most important client -- because they ARE appointments with their most important client: their future self.</p>
+
+    <h4>The Early Adopter Advantage</h4>
+
+    <p>Right now, less than 5% of professionals use AI to manage their goal-to-calendar pipeline. Most are still manually planning their week on Sunday night (if they plan at all). You'll have an AI system that reviews your goals weekly, adjusts your calendar around real-life conflicts, and keeps your daily execution aligned with your 5-year vision -- without you thinking about it.</p>
+
+    <h4>Real Revenue Applications</h4>
+    <ul>
+        <li>Quarterly GCI targets broken into weekly prospecting blocks that auto-schedule</li>
+        <li>Listing presentation prep time automatically calendared before every appointment</li>
+        <li>Content creation windows tied to your marketing growth milestones</li>
+        <li>Weekly business reviews that AI pre-populates with your progress metrics</li>
+        <li>Health and relationship goals woven into your work calendar so nothing gets sacrificed</li>
+    </ul>
+
+    <div class="page-footer">The 8% System | Edmund's Mastermind | April 22, 2026</div>
+</div>
+
+<div class="page-break"></div>
+
+<!-- ==================== PAGE 7: SYSTEM 2 - PROMPTS ==================== -->
+<div class="page">
+    <div class="page-header">
+        <span class="brand-mark">System 2: Profit-Generating Prompts</span>
+        <span class="page-num">7</span>
+    </div>
+
+    <div class="accent-bar"></div>
+    <h2>The Autopilot Roadmap System: Prompts</h2>
+    <p style="font-style: italic; color: var(--text-light);">Copy these exact prompts into ChatGPT for immediate results:</p>
+
+    <span class="prompt-label">For Building Your 5-Year-to-Daily Roadmap:</span>
+    <div class="prompt-block">Here is my 5-year SMART goal: [paste goal]. Break this down into a cascading roadmap:
+- 5 annual milestones (Year 1 through Year 5)
+- 4 quarterly objectives for Year 1
+- Monthly targets for Q1 and Q2
+- Weekly priorities for the next 4 weeks
+- Daily actions for this week (Monday through Friday)
+
+Format as a structured plan I can reference daily. Make each level specific and measurable. Every daily action should clearly connect upward to the 5-year vision.</div>
+
+    <span class="prompt-label">For Creating Calendar Focus Blocks:</span>
+    <div class="prompt-block">Based on my weekly priorities: [paste this week's priorities from roadmap], create a Google Calendar-ready weekly schedule. My work hours are [X AM to Y PM], [days]. I need: (1) prospecting/lead gen blocks, (2) client-facing appointment windows, (3) content/marketing time, (4) strategic planning time, (5) health/fitness blocks, (6) family time protection. Give me specific time blocks with names and durations. Format: Day | Time | Block Name | Duration | Goal Connection.</div>
+
+    <span class="prompt-label">For Weekly Goal Review:</span>
+    <div class="prompt-block">I'm doing my weekly goal review. Here is my quarterly objective: [paste it]. Here is what I accomplished this week: [list accomplishments]. Here is what I didn't complete: [list]. Based on this, tell me: (1) Am I on track for my quarterly target? (2) What should I adjust next week? (3) What's my #1 priority for next week that will move the needle most? (4) Are there any red flags I should address? Be direct and honest.</div>
+
+    <span class="prompt-label">For Rescheduling Around Conflicts:</span>
+    <div class="prompt-block">My planned schedule for this week was: [paste your calendar blocks]. However, [describe conflicts: e.g., "a showing got moved to Tuesday morning, I have a dentist appointment Wednesday at 2pm, and Thursday is a holiday"]. Reorganize my focus blocks around these conflicts so I still hit my weekly targets. Don't delete any blocks -- just move them. Show me the updated schedule.</div>
+
+    <span class="prompt-label">For Monthly Milestone Check-In:</span>
+    <div class="prompt-block">End of month review. My monthly targets were: [paste targets]. My actual results were: [paste results]. My 5-year goal is: [paste goal]. Based on the gap (or surplus) between target and actual: (1) Recalculate my targets for next month, (2) Identify the 1-2 behaviors that most impacted results (positive or negative), (3) Suggest one system change that would improve execution, (4) Give me an updated daily number for next month.</div>
+
+    <span class="prompt-label">For Creating a 90-Day Sprint Plan:</span>
+    <div class="prompt-block">I need a focused 90-day sprint plan. My biggest goal for the next 90 days is: [goal]. My current baseline is: [where I am now]. Create a week-by-week plan with: Week number | Primary focus | Key metric to hit | Daily non-negotiable action. Include a "checkpoint" every 2 weeks where I assess and adjust. Make it aggressive but achievable.</div>
+
+    <div class="page-footer">The 8% System | Edmund's Mastermind | April 22, 2026</div>
+</div>
+
+<div class="page-break"></div>
+
+<!-- ==================== PAGE 8: SYSTEM 2 - WORKSHEET ==================== -->
+<div class="page">
+    <div class="page-header">
+        <span class="brand-mark">System 2: Your Success Notes</span>
+        <span class="page-num">8</span>
+    </div>
+
+    <div class="accent-bar"></div>
+    <h2>The Autopilot Roadmap System: Your Notes</h2>
+
+    <h4>My Year 1 Annual Milestone</h4>
+    <span class="fill-line-long"></span>
+    <span class="fill-line-long"></span>
+
+    <h4 style="margin-top: 15px;">My Q2 2026 Quarterly Objective (Next 90 Days)</h4>
+    <span class="fill-line-long"></span>
+    <span class="fill-line-long"></span>
+
+    <h4 style="margin-top: 15px;">My Weekly Calendar Blocks</h4>
+
+    <table>
+        <tr><th>Day</th><th>Time</th><th>Block Name</th><th>Goal It Serves</th></tr>
+        <tr><td>Mon</td><td>____________</td><td>______________________</td><td>________________</td></tr>
+        <tr><td>Tue</td><td>____________</td><td>______________________</td><td>________________</td></tr>
+        <tr><td>Wed</td><td>____________</td><td>______________________</td><td>________________</td></tr>
+        <tr><td>Thu</td><td>____________</td><td>______________________</td><td>________________</td></tr>
+        <tr><td>Fri</td><td>____________</td><td>______________________</td><td>________________</td></tr>
+    </table>
+
+    <h4 style="margin-top: 15px;">My Daily Non-Negotiable (The ONE Thing I Do Every Day)</h4>
+    <span class="fill-line-long"></span>
+
+    <h4 style="margin-top: 15px;">Estimated Impact of Calendar Automation</h4>
+
+    <div class="two-col">
+        <div class="col">
+            <p>Hours planning per week (before): ________</p>
+            <p>Hours planning per week (after): ________</p>
+        </div>
+        <div class="col">
+            <p>Calendar blocks completed last week: ________%</p>
+            <p>Weekly time saved: ________ hrs</p>
+        </div>
+    </div>
+
+    <h4 style="margin-top: 15px;">My First Weekly Review Date</h4>
+    <p>Day: ________________ Time: ____________ (Put this in your calendar NOW)</p>
+
+    <div class="page-footer">The 8% System | Edmund's Mastermind | April 22, 2026</div>
+</div>
+
+<div class="page-break"></div>
+
+<!-- ==================== PAGE 9: SYSTEM 3 - TEACHING ==================== -->
+<div class="page">
+    <div class="page-header">
+        <span class="brand-mark">System 3: The Identity Upgrade Loop</span>
+        <span class="page-num">9</span>
+    </div>
+
+    <div class="accent-bar"></div>
+    <h2>System 3: "The Identity Upgrade Loop"</h2>
+    <h3>The "Become the Person" Transformation Engine</h3>
+
+    <div class="navy-box">
+        <h4>What This Means for Your Bank Account</h4>
+        <ul>
+            <li>Eliminates the cycle of "start strong, burn out, restart" that costs you months of momentum every year</li>
+            <li>Builds durable habits that compound -- each month you get better, not just busier</li>
+            <li>Creates the identity shift that separates $100K agents from $1M agents: systems-thinking vs. hustle-thinking</li>
+        </ul>
+    </div>
+
+    <h4>The Willpower Trap Nobody Talks About</h4>
+
+    <p>Here's the uncomfortable truth: if you need willpower to do something, your system is broken. Top performers don't force themselves to prospect, exercise, or follow up. They've engineered their environment, routines, and identity so that these behaviors are AUTOMATIC.</p>
+
+    <p>Most people try to fix performance problems with external patches: a new timer app, a better planner, an accountability group, another cup of coffee. These work for 2-3 weeks. Then the patch wears off and you're back to baseline. The real fix isn't another tool on top of a broken foundation. The real fix is rebuilding the foundation itself.</p>
+
+    <h4>Why Identity Beats Willpower Every Time</h4>
+
+    <p>James Clear nailed it: "Every action you take is a vote for the person you want to become." The question isn't "How do I force myself to make 20 calls a day?" The question is "What kind of person naturally makes 20 calls a day -- and how do I become that person?"</p>
+
+    <p>When your identity aligns with your goals, execution is effortless. A person who identifies as "an elite-level agent who masters their craft" doesn't debate whether to do a CMA. They do CMAs because that's who they are. AI helps you map the gap between your current identity and your target identity -- then builds the bridge.</p>
+
+    <h4>The Early Adopter Advantage</h4>
+
+    <p>While everyone else is downloading the next productivity hack, you're doing the deep work of identity transformation. This compounds in ways that hacks never can. In 6 months, you won't need motivation because the behaviors will be who you are. Your competitors will still be searching for the "right app."</p>
+
+    <h4>Real Revenue Applications</h4>
+    <ul>
+        <li>Replacing "I should prospect" resistance with automatic daily lead gen habits</li>
+        <li>Building a "CEO schedule" identity that protects high-value time blocks</li>
+        <li>Eliminating self-sabotage patterns that cap your income at a comfortable-but-limiting level</li>
+        <li>Creating morning and evening routines that compound into massive annual results</li>
+        <li>Shifting from "busy agent" identity to "business owner" identity</li>
+    </ul>
+
+    <div class="page-footer">The 8% System | Edmund's Mastermind | April 22, 2026</div>
+</div>
+
+<div class="page-break"></div>
+
+<!-- ==================== PAGE 10: SYSTEM 3 - PROMPTS ==================== -->
+<div class="page">
+    <div class="page-header">
+        <span class="brand-mark">System 3: Profit-Generating Prompts</span>
+        <span class="page-num">10</span>
+    </div>
+
+    <div class="accent-bar"></div>
+    <h2>The Identity Upgrade Loop: Prompts</h2>
+    <p style="font-style: italic; color: var(--text-light);">Copy these exact prompts into ChatGPT for immediate results:</p>
+
+    <span class="prompt-label">For Identifying Your Willpower Patches:</span>
+    <div class="prompt-block">I want to audit my current habits for "willpower patches" -- things I force myself to do rather than naturally want to do. Here are the behaviors I struggle to maintain consistently: [list 5-7 behaviors, e.g., "prospecting calls, exercise, eating healthy, following up with leads, content creation, reading, waking up early"]. For each one, tell me: (1) Is this a patch problem or a system problem? (2) What might the root cause be? (3) What would make this behavior automatic instead of forced?</div>
+
+    <span class="prompt-label">For Designing Your Identity Shift:</span>
+    <div class="prompt-block">I currently identify as: [describe how you see yourself, e.g., "a hard-working agent who hustles but struggles with consistency"]. I want to become: [describe target identity, e.g., "a disciplined business owner who runs systems and attracts opportunities"]. Map out the 5 biggest identity shifts I need to make. For each shift, give me: (1) The old belief, (2) The new belief, (3) One daily action that reinforces the new identity, (4) How I'll know the shift has happened.</div>
+
+    <span class="prompt-label">For Building Habit Replacements:</span>
+    <div class="prompt-block">I have these unproductive habits I want to replace: [list habits, e.g., "scrolling social media first thing in the morning, skipping exercise when busy, avoiding difficult phone calls, eating fast food for lunch"]. For each one: (1) Identify the trigger (what causes it), (2) Identify the reward I'm actually seeking, (3) Design a replacement habit that delivers the same reward but serves my goals. Use the habit loop framework: Cue > Routine > Reward.</div>
+
+    <span class="prompt-label">For Creating Your Morning Power Routine:</span>
+    <div class="prompt-block">Design a morning routine for a [your role] whose 5-year goal is [paste goal]. I wake up at [time] and need to be working by [time]. The routine should include: physical movement, mental clarity, goal reinforcement, and preparation for the day. Keep it under [30/45/60] minutes. Make every element serve either my health, my mindset, or my business -- nothing wasted. Include the exact sequence and time allocation.</div>
+
+    <span class="prompt-label">For Your Weekly Identity Check-In:</span>
+    <div class="prompt-block">Weekly identity check-in. My target identity is: [paste target identity]. This week I: [describe your week honestly -- wins, failures, avoidances, breakthroughs]. Based on this, score me 1-10 on how closely I lived as my target identity. Then tell me: (1) Where I voted FOR my new identity, (2) Where I voted AGAINST it, (3) The single most important identity vote I can make next week. Be honest, not motivational.</div>
+
+    <span class="prompt-label">For Designing Your Environment for Automatic Behavior:</span>
+    <div class="prompt-block">I want to redesign my physical and digital environment so that [desired behavior, e.g., "prospecting for 2 hours every morning"] becomes the path of least resistance. Describe my current environment: [workspace details]. Suggest 5 specific changes to my physical space, phone setup, computer desktop, and daily triggers that would make this behavior nearly automatic. Think friction reduction and cue placement.</div>
+
+    <div class="page-footer">The 8% System | Edmund's Mastermind | April 22, 2026</div>
+</div>
+
+<div class="page-break"></div>
+
+<!-- ==================== PAGE 11: SYSTEM 3 - WORKSHEET ==================== -->
+<div class="page">
+    <div class="page-header">
+        <span class="brand-mark">System 3: Your Success Notes</span>
+        <span class="page-num">11</span>
+    </div>
+
+    <div class="accent-bar"></div>
+    <h2>The Identity Upgrade Loop: Your Notes</h2>
+
+    <h4>My Current Identity (Honest Assessment)</h4>
+    <p>I currently see myself as: ________________________________________________</p>
+    <span class="fill-line-long"></span>
+
+    <h4 style="margin-top: 15px;">My Target Identity (Who I'm Becoming)</h4>
+    <p>In 12 months, I will be the kind of person who: ________________________________________________</p>
+    <span class="fill-line-long"></span>
+
+    <h4 style="margin-top: 15px;">My Top 3 Willpower Patches (Things I Force, Not Flow)</h4>
+
+    <table>
+        <tr><th>#</th><th>Behavior I Force</th><th>Root Cause</th><th>Replacement</th></tr>
+        <tr><td>1</td><td>____________________</td><td>____________________</td><td>____________________</td></tr>
+        <tr><td>2</td><td>____________________</td><td>____________________</td><td>____________________</td></tr>
+        <tr><td>3</td><td>____________________</td><td>____________________</td><td>____________________</td></tr>
+    </table>
+
+    <h4 style="margin-top: 15px;">My Morning Power Routine (Design It Here)</h4>
+    <table>
+        <tr><th>Time</th><th>Activity</th><th>Duration</th><th>Serves</th></tr>
+        <tr><td>________</td><td>______________________</td><td>________</td><td>____________</td></tr>
+        <tr><td>________</td><td>______________________</td><td>________</td><td>____________</td></tr>
+        <tr><td>________</td><td>______________________</td><td>________</td><td>____________</td></tr>
+        <tr><td>________</td><td>______________________</td><td>________</td><td>____________</td></tr>
+        <tr><td>________</td><td>______________________</td><td>________</td><td>____________</td></tr>
+    </table>
+
+    <h4 style="margin-top: 15px;">One Environment Change I'm Making This Week</h4>
+    <span class="fill-line-long"></span>
+    <span class="fill-line-long"></span>
+
+    <div class="page-footer">The 8% System | Edmund's Mastermind | April 22, 2026</div>
+</div>
+
+<div class="page-break"></div>
+
+<!-- ==================== PAGE 12: IMPLEMENTATION PLAN ==================== -->
+<div class="page">
+    <div class="page-header">
+        <span class="brand-mark">30-Day Implementation Plan</span>
+        <span class="page-num">12</span>
+    </div>
+
+    <div class="accent-bar"></div>
+    <h2>Your 30-Day Profit Plan</h2>
+
+    <div class="two-col">
+        <div class="col">
+            <div class="navy-box" style="padding: 15px;">
+                <h4>Week 1: Foundation Setup</h4>
+                <div class="checkbox-item" style="color: #fff;">Complete 5-year SMART goal with AI (iterate 3x minimum)</div>
+                <div class="checkbox-item" style="color: #fff;">Generate vision board images and set as phone wallpaper</div>
+                <div class="checkbox-item" style="color: #fff;">Run income breakdown prompt -- know your daily number</div>
+                <div class="checkbox-item" style="color: #fff;">Create cascading roadmap (5yr > annual > quarterly > monthly)</div>
+                <div class="checkbox-item" style="color: #fff;">Print daily morning script and post by your mirror</div>
+            </div>
+
+            <div class="navy-box" style="padding: 15px; margin-top: 15px;">
+                <h4>Week 2: Calendar Integration</h4>
+                <div class="checkbox-item" style="color: #fff;">Build weekly calendar blocks from roadmap prompt</div>
+                <div class="checkbox-item" style="color: #fff;">Schedule recurring focus blocks in Google Calendar</div>
+                <div class="checkbox-item" style="color: #fff;">Complete first weekly goal review with AI</div>
+                <div class="checkbox-item" style="color: #fff;">Identify and contact accountability partner</div>
+                <div class="checkbox-item" style="color: #fff;">Run first calendar conflict resolution prompt</div>
+            </div>
+        </div>
+
+        <div class="col">
+            <div class="navy-box" style="padding: 15px;">
+                <h4>Week 3: Identity Work</h4>
+                <div class="checkbox-item" style="color: #fff;">Complete willpower patch audit with AI</div>
+                <div class="checkbox-item" style="color: #fff;">Design identity shift roadmap (5 shifts)</div>
+                <div class="checkbox-item" style="color: #fff;">Build and implement morning power routine</div>
+                <div class="checkbox-item" style="color: #fff;">Make 1 environment change for automatic behavior</div>
+                <div class="checkbox-item" style="color: #fff;">Replace 1 willpower patch with a system</div>
+            </div>
+
+            <div class="navy-box" style="padding: 15px; margin-top: 15px;">
+                <h4>Week 4: Measurement & Optimization</h4>
+                <div class="checkbox-item" style="color: #fff;">Run monthly milestone check-in prompt</div>
+                <div class="checkbox-item" style="color: #fff;">Complete first identity check-in (score 1-10)</div>
+                <div class="checkbox-item" style="color: #fff;">Calculate time saved and ROI from new systems</div>
+                <div class="checkbox-item" style="color: #fff;">Build 90-day sprint plan for next quarter</div>
+                <div class="checkbox-item" style="color: #fff;">Share first success story with mastermind community</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="page-footer">The 8% System | Edmund's Mastermind | April 22, 2026</div>
+</div>
+
+<div class="page-break"></div>
+
+<!-- ==================== PAGE 13: COMMITMENT CONTRACT ==================== -->
+<div class="page">
+    <div class="page-header">
+        <span class="brand-mark">Your Profit Commitment</span>
+        <span class="page-num">13</span>
+    </div>
+
+    <div class="accent-bar"></div>
+    <h2>Your Profit Commitment Contract</h2>
+
+    <div class="highlight-box" style="border: 2px solid var(--heading); padding: 25px;">
+
+        <p style="font-style: italic; margin-bottom: 20px;">Based on today's session, I commit to the following:</p>
+
+        <h4>Primary System Focus</h4>
+        <p>I will master ________________________________ first because it will save me ________ hours per week and move me $____________ closer to my annual target.</p>
+
+        <h4 style="margin-top: 20px;">Time Investment</h4>
+        <p>I will invest ________ hours per week learning and running these systems.</p>
+
+        <h4 style="margin-top: 20px;">Success Metrics</h4>
+        <p>Time savings target: ________ hours per week</p>
+        <p>Calendar block completion rate: ________% per week</p>
+        <p>Revenue increase: $____________ per month within 90 days</p>
+        <p>Identity score improvement: from ____/10 to ____/10</p>
+
+        <h4 style="margin-top: 20px;">Accountability</h4>
+        <p>Accountability partner: ________________________________</p>
+        <p>Weekly check-in: Every ____________ at ____________</p>
+        <p>30-day review date: ________________________</p>
+        <p>90-day sprint end date: ________________________</p>
+
+        <hr style="margin: 25px 0;">
+
+        <p style="text-align: center; font-weight: 600; font-size: 12pt;">My Signature</p>
+        <p style="text-align: center;">________________________________________</p>
+        <p style="text-align: center; font-size: 9pt; color: var(--text-light);">Date: ____________________</p>
+    </div>
+
+    <div class="page-footer">The 8% System | Edmund's Mastermind | April 22, 2026</div>
+</div>
+
+<div class="page-break"></div>
+
+<!-- ==================== PAGE 14: NOTES & ROI TRACKER ==================== -->
+<div class="page">
+    <div class="page-header">
+        <span class="brand-mark">Tracking & Notes</span>
+        <span class="page-num">14</span>
+    </div>
+
+    <div class="accent-bar"></div>
+    <h2>Weekly Progress Scorecard</h2>
+
+    <table>
+        <tr><th>Week</th><th>Calendar Blocks Hit</th><th>Daily # Hit</th><th>Identity Score</th><th>Biggest Win</th></tr>
+        <tr><td>1</td><td>________%</td><td>________</td><td>____/10</td><td>________________________</td></tr>
+        <tr><td>2</td><td>________%</td><td>________</td><td>____/10</td><td>________________________</td></tr>
+        <tr><td>3</td><td>________%</td><td>________</td><td>____/10</td><td>________________________</td></tr>
+        <tr><td>4</td><td>________%</td><td>________</td><td>____/10</td><td>________________________</td></tr>
+    </table>
+
+    <h3 style="margin-top: 25px;">Monthly ROI Assessment</h3>
+
+    <div class="two-col">
+        <div class="col">
+            <h4>Time Savings</h4>
+            <p>Planning time saved: ________ hrs/week</p>
+            <p>Decision fatigue eliminated: ________ hrs/week</p>
+            <p>Total time reclaimed: ________ hrs/month</p>
+            <p>Value of time ($________/hr): $____________</p>
+        </div>
+        <div class="col">
+            <h4>Revenue Impact</h4>
+            <p>New leads generated: ________</p>
+            <p>Appointments set: ________</p>
+            <p>Deals in pipeline: ________</p>
+            <p>Revenue attributed: $____________</p>
+        </div>
+    </div>
+
+    <hr>
+
+    <h3>Session Notes</h3>
+
+    <h4>Key Takeaways From Live Demos</h4>
+    <span class="fill-line-long"></span>
+    <span class="fill-line-long"></span>
+    <span class="fill-line-long"></span>
+    <span class="fill-line-long"></span>
+
+    <h4 style="margin-top: 15px;">Member Questions & Insights That Resonated</h4>
+    <span class="fill-line-long"></span>
+    <span class="fill-line-long"></span>
+
+    <h4 style="margin-top: 15px;">What I'm Doing DIFFERENTLY Starting Tomorrow</h4>
+    <span class="fill-line-long"></span>
+    <span class="fill-line-long"></span>
+
+    <div class="page-footer">The 8% System | Edmund's Mastermind | April 22, 2026</div>
+</div>
+
+<div class="page-break"></div>
+
+<!-- ==================== PAGE 15: CLOSING ==================== -->
+<div class="page">
+    <div class="page-header">
+        <span class="brand-mark">Edmund's Mastermind</span>
+        <span class="page-num">15</span>
+    </div>
+
+    <div class="accent-bar"></div>
+    <h2>Before You Leave Today</h2>
+
+    <div class="checkbox-item">5-year SMART goal written and refined with AI</div>
+    <div class="checkbox-item">Vision board images generated and set as wallpaper</div>
+    <div class="checkbox-item">Cascading roadmap built (5yr > annual > quarterly > monthly > weekly > daily)</div>
+    <div class="checkbox-item">Weekly calendar blocks created and scheduled</div>
+    <div class="checkbox-item">Morning power routine designed</div>
+    <div class="checkbox-item">Willpower patches identified with replacement plans</div>
+    <div class="checkbox-item">Accountability partner identified and contact exchanged</div>
+    <div class="checkbox-item">30-day implementation plan reviewed and committed to</div>
+    <div class="checkbox-item">First weekly review date in calendar</div>
+
+    <hr class="section-divider">
+
+    <h3>This Week</h3>
+    <div class="checkbox-item">Complete all Week 1 implementation tasks</div>
+    <div class="checkbox-item">Run at least 3 prompts from the workbook and save outputs</div>
+    <div class="checkbox-item">Share your vision board in the mastermind community</div>
+    <div class="checkbox-item">Text your accountability partner your daily number</div>
+
+    <hr class="section-divider">
+
+    <div class="navy-box" style="text-align: center; padding: 30px;">
+        <p style="font-style: italic; font-size: 12pt; line-height: 1.8; margin-bottom: 20px;">"While my competitors are setting goals on napkins and hoping for the best, I'm running an AI-powered system that turns my biggest ambitions into daily calendar blocks that execute themselves. These tools don't make me lazy -- they make me unstoppable. Every hour I save planning is an hour I spend closing, building, and growing. This is my competitive weapon, and I will master it."</p>
+
+        <h4 style="margin-top: 20px;">My Personal Success Statement</h4>
+        <p>________________________________________________________________________</p>
+        <p>________________________________________________________________________</p>
+        <p>________________________________________________________________________</p>
+    </div>
+
+    <div style="text-align: center; margin-top: 30px;">
+        <p style="font-size: 10pt; color: var(--text-light);">&copy; 2026 Edmund's Mastermind -- The 8% System</p>
+        <p style="font-size: 12pt; color: #00a8e1; font-weight: 600; font-style: italic; margin-top: 10px;">"Because Winging It is NOT an Option!"</p>
+    </div>
+
+    <div class="page-footer">The 8% System | Edmund's Mastermind | April 22, 2026</div>
+</div>
+
+<!-- ===== THEME TOGGLE ===== -->
+<script>
+    function toggleTheme() {
+        var html = document.documentElement;
+        var btn = document.getElementById('themeBtn');
+        if (html.getAttribute('data-theme') === 'light') {
+            html.setAttribute('data-theme', 'dark');
+            btn.textContent = 'Light Mode';
+            localStorage.setItem('workbook-theme', 'dark');
+        } else {
+            html.setAttribute('data-theme', 'light');
+            btn.textContent = 'Dark Mode';
+            localStorage.setItem('workbook-theme', 'light');
+        }
+    }
+
+    (function() {
+        var saved = localStorage.getItem('workbook-theme');
+        if (saved === 'dark') {
+            document.documentElement.setAttribute('data-theme', 'dark');
+            document.addEventListener('DOMContentLoaded', function() {
+                document.getElementById('themeBtn').textContent = 'Light Mode';
+            });
+        }
+    })();
+</script>
+
+</body>
+</html>
