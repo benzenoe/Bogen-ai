@@ -16,6 +16,8 @@
         .page-break { page-break-after: always; }
         .no-break { page-break-inside: avoid; }
         .toolbar { display: none !important; }
+        .pdf-download { display: none !important; }
+        .pdf-modal-overlay { display: none !important; }
         body { font-size: 10pt; background: #fff !important; color: #333 !important; }
         .page { box-shadow: none !important; margin: 0 !important; padding: 30px 0 !important; }
         .cover { min-height: 9.5in; }
@@ -129,14 +131,107 @@
     }
     .btn-theme:hover { border-color: #00a8e1 !important; color: #00a8e1; }
 
-    .btn-download {
+    .toolbar a { text-decoration: none; }
+
+    /* PDF Download Button */
+    .pdf-download {
+        position: fixed;
+        bottom: 30px;
+        right: 30px;
+        z-index: 1000;
+    }
+    .pdf-download button {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
         background: #00a8e1;
         color: #ffffff;
-        text-decoration: none;
+        padding: 12px 24px;
+        border: none;
+        border-radius: 50px;
+        font-family: 'Montserrat', sans-serif;
+        font-size: 10pt;
+        font-weight: 600;
+        letter-spacing: 0.05em;
+        text-transform: uppercase;
+        cursor: pointer;
+        box-shadow: 0 4px 20px rgba(0,168,225,0.4);
+        transition: all 0.3s ease;
     }
-    .btn-download:hover { background: #008bbf; }
+    .pdf-download button:hover {
+        background: #008aba;
+        transform: translateY(-2px);
+        box-shadow: 0 6px 24px rgba(0,168,225,0.5);
+    }
+    .pdf-download button svg { width: 16px; height: 16px; fill: currentColor; }
 
-    .toolbar a { text-decoration: none; }
+    /* PDF Preview Modal */
+    .pdf-modal-overlay {
+        display: none;
+        position: fixed;
+        top: 0; left: 0; right: 0; bottom: 0;
+        background: rgba(0,0,0,0.85);
+        z-index: 9999;
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+    }
+    .pdf-modal-overlay.active { display: flex; }
+    .pdf-modal {
+        background: var(--page-bg);
+        border-radius: 8px;
+        width: 100%;
+        max-width: 1200px;
+        height: 90vh;
+        display: flex;
+        flex-direction: column;
+        box-shadow: 0 10px 50px rgba(0,0,0,0.5);
+    }
+    .pdf-modal-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 20px 30px;
+        border-bottom: 1px solid var(--border);
+        background: var(--page-bg);
+        border-radius: 8px 8px 0 0;
+    }
+    .pdf-modal-title {
+        font-family: 'Montserrat', sans-serif;
+        font-size: 14pt;
+        font-weight: 600;
+        color: var(--text);
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+    }
+    .pdf-modal-actions { display: flex; gap: 12px; }
+    .pdf-modal-actions button {
+        padding: 10px 20px;
+        border-radius: 6px;
+        font-family: 'Montserrat', sans-serif;
+        font-size: 9pt;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        border: none;
+    }
+    .btn-close-modal {
+        background: transparent;
+        color: var(--text-light);
+        border: 1px solid var(--border) !important;
+    }
+    .btn-close-modal:hover { background: rgba(0,0,0,0.1); color: var(--text); }
+    .btn-confirm-download { background: #00a8e1; color: #ffffff; }
+    .btn-confirm-download:hover { background: #008aba; }
+    .pdf-modal-body {
+        flex: 1;
+        overflow: hidden;
+        background: #525659;
+        border-radius: 0 0 8px 8px;
+    }
+    .pdf-modal-body iframe { width: 100%; height: 100%; border: none; }
 
     /* ===== COVER ===== */
     .cover {
@@ -371,9 +466,30 @@
     <span class="brand">Edmund's Mastermind | The 8% System</span>
     <span class="spacer"></span>
     <button class="btn-theme" onclick="toggleTheme()" id="themeBtn">Dark Mode</button>
-    <a href="ai-goal-domination-workbook.pdf" download="The-8-Percent-System-Workbook.pdf">
-        <button class="btn-download">Download PDF</button>
-    </a>
+</div>
+
+<!-- PDF Download Button -->
+<div class="pdf-download">
+  <button id="downloadBtn">
+    <svg viewBox="0 0 24 24"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
+    Download PDF
+  </button>
+</div>
+
+<!-- PDF Preview Modal -->
+<div class="pdf-modal-overlay" id="pdfModal">
+  <div class="pdf-modal">
+    <div class="pdf-modal-header">
+      <div class="pdf-modal-title">The 8% System Workbook — Preview</div>
+      <div class="pdf-modal-actions">
+        <button class="btn-close-modal" id="closeModal">Close</button>
+        <button class="btn-confirm-download" id="confirmDownload">Download PDF</button>
+      </div>
+    </div>
+    <div class="pdf-modal-body">
+      <iframe id="pdfFrame"></iframe>
+    </div>
+  </div>
 </div>
 
 <!-- ==================== PAGE 1: COVER ==================== -->
@@ -1077,6 +1193,40 @@ Format as a structured plan I can reference daily. Make each level specific and 
             });
         }
     })();
+
+    // PDF Modal
+    const pdfModal = document.getElementById('pdfModal');
+    const downloadBtn = document.getElementById('downloadBtn');
+    const closeModal = document.getElementById('closeModal');
+    const confirmDownload = document.getElementById('confirmDownload');
+    const pdfFrame = document.getElementById('pdfFrame');
+
+    downloadBtn.addEventListener('click', function() {
+        pdfFrame.src = 'ai-goal-domination-workbook.pdf';
+        pdfModal.classList.add('active');
+    });
+    closeModal.addEventListener('click', function() {
+        pdfModal.classList.remove('active');
+        pdfFrame.src = '';
+    });
+    confirmDownload.addEventListener('click', function() {
+        const link = document.createElement('a');
+        link.href = 'ai-goal-domination-workbook.pdf';
+        link.download = 'The-8-Percent-System-Workbook.pdf';
+        link.click();
+    });
+    pdfModal.addEventListener('click', function(e) {
+        if (e.target === pdfModal) {
+            pdfModal.classList.remove('active');
+            pdfFrame.src = '';
+        }
+    });
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && pdfModal.classList.contains('active')) {
+            pdfModal.classList.remove('active');
+            pdfFrame.src = '';
+        }
+    });
 </script>
 
 </body>
