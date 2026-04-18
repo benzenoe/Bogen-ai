@@ -1,0 +1,1684 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Claude Commands Library: Working Slash Commands & Prompts | Edmund Bogen</title>
+  <meta name="description" content="A free, searchable library of working Claude Code slash commands and prompts. Copy, paste, and ship. Built for realtors, executives, and entrepreneurs by Edmund Bogen.">
+  <meta name="keywords" content="Claude slash commands, Claude Code prompts, Claude skills, AI prompts realtor, Edmund Bogen, Bogen.ai, Claude Code library">
+
+  <meta property="og:title" content="The Claude Commands Library | Edmund Bogen">
+  <meta property="og:description" content="A searchable, copy-paste library of working Claude Code slash commands. Free to use. Download the expanded PDF.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://bogen.ai/claude-commands">
+  <meta property="og:image" content="https://bogen.ai/images/hero-claude-commands.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://bogen.ai/images/hero-claude-commands.jpg">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/global.css">
+
+  <style>
+    /* ========== THEME TOKENS (inherit from global.css) ========== */
+    :root {
+      --cmd-bg: var(--dark-navy);
+      --cmd-bg-2: var(--navy);
+      --cmd-text: #fff;
+      --cmd-text-muted: rgba(255,255,255,0.65);
+      --cmd-text-dim: rgba(255,255,255,0.5);
+      --cmd-card-bg: rgba(255,255,255,0.04);
+      --cmd-card-border: rgba(255,255,255,0.10);
+      --cmd-accent: var(--cyan);
+      --cmd-accent-soft: rgba(100,181,246,0.15);
+      --cmd-code-bg: rgba(15,42,63,0.6);
+      --cmd-chip-bg: rgba(255,255,255,0.05);
+      --cmd-chip-border: rgba(255,255,255,0.12);
+      --cmd-input-bg: rgba(255,255,255,0.06);
+      --cmd-input-border: rgba(255,255,255,0.15);
+    }
+    :root[data-theme="light"] {
+      --cmd-bg: #ffffff;
+      --cmd-bg-2: #f7f9fb;
+      --cmd-text: #0f2a3f;
+      --cmd-text-muted: #4a5568;
+      --cmd-text-dim: #718096;
+      --cmd-card-bg: #ffffff;
+      --cmd-card-border: #e5e9ef;
+      --cmd-code-bg: #f4f7fb;
+      --cmd-chip-bg: #ffffff;
+      --cmd-chip-border: #dbe1ea;
+      --cmd-input-bg: #ffffff;
+      --cmd-input-border: #dbe1ea;
+    }
+
+    /* ========== BASE ========== */
+    body {
+      background: var(--cmd-bg);
+      color: var(--cmd-text);
+      transition: background 0.3s, color 0.3s;
+    }
+
+    /* Theme toggle button in nav */
+    .cmd-theme-toggle {
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.15);
+      color: #fff;
+      width: 38px; height: 38px;
+      border-radius: 50%;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s;
+      font-size: 1rem;
+      line-height: 1;
+      margin-left: 0.5rem;
+    }
+    .cmd-theme-toggle:hover { background: rgba(100,181,246,0.2); border-color: var(--cyan); }
+    :root[data-theme="light"] .cmd-theme-toggle {
+      background: rgba(0,0,0,0.06);
+      border-color: rgba(0,0,0,0.12);
+      color: #0f2a3f;
+    }
+
+    /* ========== HERO ========== */
+    .cmd-hero {
+      position: relative;
+      padding: 140px 0 60px;
+      background: linear-gradient(135deg, var(--dark-navy) 0%, var(--navy) 60%, #24527A 100%);
+      overflow: hidden;
+    }
+    :root[data-theme="light"] .cmd-hero {
+      background: linear-gradient(135deg, #0f2a3f 0%, #1a3a52 55%, #24527A 100%);
+    }
+    .cmd-hero::before {
+      content: '';
+      position: absolute;
+      top: -80px; right: -80px;
+      width: 380px; height: 380px;
+      background: radial-gradient(circle, rgba(100,181,246,0.14) 0%, transparent 70%);
+      border-radius: 50%;
+    }
+    .cmd-hero-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 2rem;
+      display: grid;
+      grid-template-columns: 1.05fr 1fr;
+      gap: 3rem;
+      align-items: center;
+      position: relative;
+      z-index: 1;
+    }
+    .cmd-hero-badge {
+      display: inline-block;
+      background: rgba(100,181,246,0.15);
+      border: 1px solid rgba(100,181,246,0.35);
+      color: var(--cyan);
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 0.3rem 0.9rem;
+      border-radius: 100px;
+      margin-bottom: 1.25rem;
+    }
+    .cmd-hero h1 {
+      font-family: var(--font-serif);
+      color: #fff;
+      font-size: clamp(2rem, 4.5vw, 3rem);
+      font-weight: 700;
+      line-height: 1.15;
+      margin-bottom: 1rem;
+    }
+    .cmd-hero h1 span { color: var(--cyan); }
+    .cmd-hero p {
+      color: rgba(255,255,255,0.78);
+      font-size: 1.08rem;
+      line-height: 1.65;
+      margin-bottom: 1.75rem;
+      max-width: 560px;
+    }
+    .cmd-hero-stats {
+      display: flex;
+      gap: 2rem;
+      margin-bottom: 1.75rem;
+      flex-wrap: wrap;
+    }
+    .cmd-hero-stat {
+      border-left: 2px solid var(--cyan);
+      padding-left: 0.85rem;
+    }
+    .cmd-hero-stat-num {
+      font-family: var(--font-serif);
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #fff;
+      line-height: 1;
+      display: block;
+    }
+    .cmd-hero-stat-label {
+      font-size: 0.75rem;
+      color: rgba(255,255,255,0.6);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-top: 0.25rem;
+      display: block;
+    }
+    .cmd-hero-ctas { display: flex; flex-wrap: wrap; gap: 0.75rem; }
+    .cmd-btn-primary {
+      background: var(--cyan);
+      color: var(--dark-navy);
+      font-family: var(--font-sans);
+      font-size: 1rem;
+      font-weight: 700;
+      padding: 0.85rem 1.75rem;
+      border: none;
+      border-radius: 8px;
+      text-decoration: none;
+      cursor: pointer;
+      transition: all 0.2s;
+      display: inline-block;
+      box-shadow: 0 4px 20px rgba(100,181,246,0.3);
+    }
+    .cmd-btn-primary:hover {
+      background: #82c8f7;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 24px rgba(100,181,246,0.45);
+    }
+    .cmd-btn-secondary {
+      background: transparent;
+      color: #fff;
+      border: 1px solid rgba(255,255,255,0.25);
+      font-family: var(--font-sans);
+      font-size: 1rem;
+      font-weight: 600;
+      padding: 0.85rem 1.75rem;
+      border-radius: 8px;
+      text-decoration: none;
+      transition: all 0.2s;
+      display: inline-block;
+    }
+    .cmd-btn-secondary:hover {
+      background: rgba(255,255,255,0.08);
+      border-color: var(--cyan);
+    }
+    .cmd-hero-image {
+      border-radius: 14px;
+      overflow: hidden;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+    .cmd-hero-image img {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+
+    /* ========== MAIN ========== */
+    .cmd-main {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 3rem 2rem 4rem;
+    }
+
+    /* Intro strip */
+    .cmd-intro {
+      background: var(--cmd-card-bg);
+      border: 1px solid var(--cmd-card-border);
+      border-radius: 14px;
+      padding: 1.5rem 2rem;
+      margin-bottom: 2.5rem;
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 2rem;
+    }
+    .cmd-intro-item h4 {
+      font-family: var(--font-serif);
+      color: var(--cmd-text);
+      font-size: 1rem;
+      font-weight: 700;
+      margin-bottom: 0.4rem;
+    }
+    .cmd-intro-item p {
+      color: var(--cmd-text-muted);
+      font-size: 0.9rem;
+      line-height: 1.55;
+      margin: 0;
+    }
+
+    /* Build Your Own section */
+    .cmd-build {
+      background: linear-gradient(135deg, rgba(100,181,246,0.06) 0%, rgba(100,181,246,0.02) 100%);
+      border: 1px solid rgba(100,181,246,0.2);
+      border-radius: 14px;
+      padding: 2rem;
+      margin-bottom: 2.5rem;
+    }
+    :root[data-theme="light"] .cmd-build {
+      background: linear-gradient(135deg, #f0f7ff 0%, #f7fbff 100%);
+      border-color: #bcdcf9;
+    }
+    .cmd-build-head { margin-bottom: 1.5rem; }
+    .cmd-build-eyebrow {
+      color: var(--cmd-accent);
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: 0.4rem;
+    }
+    .cmd-build-head h2 {
+      font-family: var(--font-serif);
+      color: var(--cmd-text);
+      font-size: 1.65rem;
+      font-weight: 700;
+      margin: 0 0 0.4rem 0;
+    }
+    .cmd-build-head p {
+      color: var(--cmd-text-muted);
+      font-size: 0.98rem;
+      line-height: 1.6;
+      margin: 0;
+      max-width: 720px;
+    }
+    .cmd-build-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.25rem;
+    }
+    .cmd-build-card {
+      background: var(--cmd-card-bg);
+      border: 1px solid var(--cmd-card-border);
+      border-radius: 12px;
+      padding: 1.5rem;
+    }
+    .cmd-build-card.recommended {
+      border-color: rgba(100,181,246,0.45);
+    }
+    .cmd-build-card .label {
+      display: inline-block;
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 0.25rem 0.7rem;
+      border-radius: 100px;
+      background: var(--cmd-accent-soft);
+      color: var(--cmd-accent);
+      margin-bottom: 0.75rem;
+    }
+    .cmd-build-card h3 {
+      font-family: var(--font-serif);
+      color: var(--cmd-text);
+      font-size: 1.15rem;
+      margin: 0 0 0.5rem 0;
+    }
+    .cmd-build-card p.sub {
+      color: var(--cmd-text-muted);
+      font-size: 0.9rem;
+      line-height: 1.55;
+      margin: 0 0 1rem 0;
+    }
+    .cmd-build-card ol {
+      color: var(--cmd-text);
+      font-size: 0.9rem;
+      line-height: 1.65;
+      padding-left: 1.1rem;
+      margin: 0 0 1rem 0;
+    }
+    .cmd-build-card ol li { margin-bottom: 0.3rem; }
+    .cmd-build-card code {
+      background: var(--cmd-code-bg);
+      border: 1px solid var(--cmd-card-border);
+      color: var(--cmd-accent);
+      padding: 2px 7px;
+      border-radius: 4px;
+      font-family: 'SF Mono', Menlo, Consolas, monospace;
+      font-size: 0.82rem;
+    }
+    .cmd-build-card pre {
+      background: var(--cmd-code-bg);
+      border: 1px solid var(--cmd-card-border);
+      border-left: 3px solid var(--cmd-accent);
+      border-radius: 8px;
+      padding: 0.85rem 1rem;
+      font-family: 'SF Mono', Menlo, Consolas, monospace;
+      font-size: 0.8rem;
+      line-height: 1.55;
+      color: var(--cmd-text);
+      margin: 0;
+      overflow-x: auto;
+      white-space: pre;
+    }
+    @media (max-width: 760px) {
+      .cmd-build-grid { grid-template-columns: 1fr; }
+    }
+
+    /* Search + chips */
+    .cmd-controls {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: var(--cmd-bg);
+      padding: 1.25rem 0 1rem;
+      margin: 0 -2rem 1.5rem;
+      padding-left: 2rem;
+      padding-right: 2rem;
+      border-bottom: 1px solid var(--cmd-card-border);
+      transition: background 0.3s;
+    }
+    .cmd-search-wrap {
+      position: relative;
+      margin-bottom: 1rem;
+    }
+    .cmd-search {
+      width: 100%;
+      padding: 0.85rem 1rem 0.85rem 2.75rem;
+      font-size: 1rem;
+      font-family: var(--font-sans);
+      background: var(--cmd-input-bg);
+      border: 1px solid var(--cmd-input-border);
+      border-radius: 10px;
+      color: var(--cmd-text);
+      transition: all 0.2s;
+    }
+    .cmd-search:focus {
+      outline: none;
+      border-color: var(--cyan);
+      box-shadow: 0 0 0 3px rgba(100,181,246,0.18);
+    }
+    .cmd-search::placeholder { color: var(--cmd-text-dim); }
+    .cmd-search-icon {
+      position: absolute;
+      left: 1rem;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--cmd-text-dim);
+      font-size: 1.1rem;
+      pointer-events: none;
+    }
+    .cmd-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+    .cmd-chip {
+      background: var(--cmd-chip-bg);
+      border: 1px solid var(--cmd-chip-border);
+      color: var(--cmd-text);
+      font-size: 0.82rem;
+      font-weight: 500;
+      padding: 0.4rem 0.9rem;
+      border-radius: 100px;
+      cursor: pointer;
+      transition: all 0.15s;
+      font-family: var(--font-sans);
+    }
+    .cmd-chip:hover {
+      border-color: var(--cyan);
+      color: var(--cyan);
+    }
+    .cmd-chip.active {
+      background: var(--cyan);
+      color: var(--dark-navy);
+      border-color: var(--cyan);
+      font-weight: 700;
+    }
+    .cmd-count {
+      color: var(--cmd-text-dim);
+      font-size: 0.85rem;
+      margin-top: 0.75rem;
+      font-style: italic;
+    }
+
+    /* Prompt cards */
+    .cmd-grid {
+      display: grid;
+      gap: 1.25rem;
+      grid-template-columns: 1fr;
+    }
+    .cmd-card {
+      background: var(--cmd-card-bg);
+      border: 1px solid var(--cmd-card-border);
+      border-radius: 12px;
+      padding: 1.5rem 1.75rem;
+      transition: all 0.2s;
+    }
+    .cmd-card:hover {
+      border-color: rgba(100,181,246,0.35);
+      transform: translateY(-1px);
+    }
+    .cmd-card.hidden { display: none; }
+    .cmd-card-header {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      margin-bottom: 0.5rem;
+    }
+    .cmd-card-tag {
+      display: inline-block;
+      font-size: 0.68rem;
+      font-weight: 700;
+      color: var(--cmd-accent);
+      background: var(--cmd-accent-soft);
+      padding: 0.25rem 0.7rem;
+      border-radius: 100px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+    .cmd-card-title {
+      font-family: 'SF Mono', Menlo, Consolas, monospace;
+      color: var(--cmd-text);
+      font-size: 1.05rem;
+      font-weight: 700;
+      margin: 0;
+      letter-spacing: -0.01em;
+    }
+    .cmd-card-desc {
+      color: var(--cmd-text-muted);
+      font-size: 0.92rem;
+      line-height: 1.6;
+      margin: 0 0 0.85rem 0;
+    }
+    .cmd-card-code {
+      position: relative;
+      background: var(--cmd-code-bg);
+      border: 1px solid var(--cmd-card-border);
+      border-left: 3px solid var(--cmd-accent);
+      border-radius: 8px;
+      padding: 1rem 3.25rem 1rem 1.15rem;
+      font-family: 'SF Mono', Menlo, Consolas, monospace;
+      font-size: 0.85rem;
+      line-height: 1.6;
+      color: var(--cmd-text);
+      white-space: pre-wrap;
+      word-break: break-word;
+      margin: 0;
+      overflow-x: auto;
+    }
+    .cmd-card-code code {
+      font-family: inherit;
+      color: inherit;
+      background: none;
+      padding: 0;
+    }
+    .cmd-copy-btn {
+      position: absolute;
+      top: 0.5rem;
+      right: 0.5rem;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 6px;
+      padding: 0.3rem 0.7rem;
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: var(--cmd-accent);
+      cursor: pointer;
+      transition: all 0.2s;
+      font-family: var(--font-sans);
+    }
+    .cmd-copy-btn:hover { background: var(--cmd-accent); color: var(--dark-navy); }
+    .cmd-copy-btn.copied { background: #2D7D52; color: #fff; border-color: #2D7D52; }
+    :root[data-theme="light"] .cmd-copy-btn {
+      background: rgba(0,0,0,0.04);
+      border-color: rgba(0,0,0,0.12);
+      color: #2563eb;
+    }
+    :root[data-theme="light"] .cmd-copy-btn:hover {
+      background: #2563eb;
+      color: #fff;
+    }
+
+    /* Empty state */
+    .cmd-empty {
+      display: none;
+      text-align: center;
+      padding: 3rem 1rem;
+      color: var(--cmd-text-dim);
+      font-size: 0.95rem;
+      font-style: italic;
+    }
+    .cmd-empty.visible { display: block; }
+
+    /* Final CTA */
+    .cmd-final-cta {
+      background: linear-gradient(135deg, var(--dark-navy) 0%, var(--navy) 100%);
+      border: 1px solid rgba(100,181,246,0.2);
+      border-radius: 14px;
+      padding: 2.75rem 2rem;
+      margin: 3.5rem 0 2rem;
+      text-align: center;
+    }
+    :root[data-theme="light"] .cmd-final-cta {
+      background: linear-gradient(135deg, #0f2a3f 0%, #1a3a52 100%);
+    }
+    .cmd-final-cta h2 {
+      font-family: var(--font-serif);
+      color: #fff;
+      font-size: 1.75rem;
+      margin-bottom: 0.5rem;
+    }
+    .cmd-final-cta p {
+      color: rgba(255,255,255,0.75);
+      font-size: 1rem;
+      max-width: 620px;
+      margin: 0 auto 1.5rem;
+      line-height: 1.65;
+    }
+    .cmd-final-cta .cmd-hero-ctas { justify-content: center; }
+
+    /* ========== DOWNLOAD MODAL ========== */
+    .cmd-modal-bg {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.75);
+      z-index: 9999;
+      justify-content: center;
+      align-items: center;
+      padding: 1rem;
+    }
+    .cmd-modal-bg.open { display: flex; }
+    .cmd-modal {
+      background: var(--navy);
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 12px;
+      padding: 2rem;
+      max-width: 440px;
+      width: 100%;
+      position: relative;
+    }
+    .cmd-modal-close {
+      position: absolute;
+      top: 0.75rem; right: 0.75rem;
+      background: none;
+      border: none;
+      color: rgba(255,255,255,0.5);
+      font-size: 1.25rem;
+      cursor: pointer;
+    }
+    .cmd-modal-close:hover { color: #fff; }
+    .cmd-modal h3 {
+      font-family: var(--font-serif);
+      color: #fff;
+      font-size: 1.3rem;
+      margin-bottom: 0.4rem;
+    }
+    .cmd-modal p {
+      color: rgba(255,255,255,0.65);
+      font-size: 0.9rem;
+      margin-bottom: 1rem;
+      line-height: 1.5;
+    }
+    .cmd-modal label {
+      display: block;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: rgba(255,255,255,0.75);
+      margin: 0.75rem 0 0.25rem;
+    }
+    .cmd-modal input {
+      width: 100%;
+      padding: 0.65rem 0.85rem;
+      font-size: 0.95rem;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 8px;
+      color: #fff;
+      font-family: var(--font-sans);
+    }
+    .cmd-modal input:focus { border-color: var(--cyan); outline: none; }
+    .cmd-modal input::placeholder { color: rgba(255,255,255,0.3); }
+    .cmd-modal-submit {
+      width: 100%;
+      padding: 0.85rem;
+      margin-top: 1rem;
+      font-size: 1rem;
+      font-weight: 700;
+      background: var(--cyan);
+      color: var(--dark-navy);
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-family: var(--font-sans);
+    }
+    .cmd-modal-submit:hover { background: #82c8f7; }
+    .cmd-modal-note {
+      text-align: center;
+      font-size: 0.75rem;
+      color: rgba(255,255,255,0.4);
+      margin-top: 0.5rem;
+    }
+    .cmd-modal-success { display: none; text-align: center; padding: 1rem 0; }
+    .cmd-modal-success h4 {
+      color: var(--cyan);
+      font-family: var(--font-serif);
+      font-size: 1.3rem;
+      margin-bottom: 0.5rem;
+    }
+    .cmd-modal-success p {
+      font-size: 0.95rem;
+      color: rgba(255,255,255,0.7);
+    }
+
+    /* ========== RESPONSIVE ========== */
+    @media (max-width: 860px) {
+      .cmd-hero-inner { grid-template-columns: 1fr; }
+      .cmd-hero-image { order: -1; }
+      .cmd-intro { grid-template-columns: 1fr; gap: 1.25rem; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      * { animation: none !important; transition: none !important; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header class="header">
+    <div class="container">
+      <nav class="nav">
+        <a href="/" class="logo" style="display: flex; align-items: center; margin-left: -12px;">
+          <img src="/images/eb-logo.png" alt="Bogen.ai Logo" style="height: 100px; width: auto;">
+        </a>
+        <ul class="nav-menu">
+          <li><a href="/" class="nav-link">Home</a></li>
+          <li><a href="/about-us" class="nav-link">About</a></li>
+          <li><a href="/services" class="nav-link">Services</a></li>
+          <li><a href="/edmunds-mastermind" class="nav-link">Mastermind</a></li>
+          <li><a href="/book" class="nav-link">Book</a></li>
+          <li><a href="tel:+14245870840" class="nav-link" style="color: var(--cyan); white-space: nowrap;">📞 424-587-0840</a></li>
+          <li><button id="cmdThemeToggle" class="cmd-theme-toggle" aria-label="Toggle light / dark mode" title="Toggle light / dark">🌙</button></li>
+        </ul>
+        <button class="nav-toggle" type="button" aria-label="Toggle navigation" onclick="window.bogenAI && window.bogenAI.toggleMobileMenu()">
+          <span></span><span></span><span></span>
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section class="cmd-hero">
+    <div class="cmd-hero-inner">
+      <div>
+        <div class="cmd-hero-badge">Free Library · Updated Weekly</div>
+        <h1>The Claude Commands <span>Library</span></h1>
+        <p>Working slash commands and prompts for Claude Code. Copy, paste, ship. Organized by category, searchable, and expanded in a downloadable PDF playbook.</p>
+        <div class="cmd-hero-stats">
+          <div class="cmd-hero-stat">
+            <span class="cmd-hero-stat-num" id="cmdStatTotal">—</span>
+            <span class="cmd-hero-stat-label">Commands</span>
+          </div>
+          <div class="cmd-hero-stat">
+            <span class="cmd-hero-stat-num" id="cmdStatCats">—</span>
+            <span class="cmd-hero-stat-label">Categories</span>
+          </div>
+          <div class="cmd-hero-stat">
+            <span class="cmd-hero-stat-num">$0</span>
+            <span class="cmd-hero-stat-label">Cost</span>
+          </div>
+        </div>
+        <div class="cmd-hero-ctas">
+          <a href="#" onclick="openDlModal(); return false;" class="cmd-btn-primary">Get the Expanded PDF</a>
+          <a href="#library" class="cmd-btn-secondary">Browse the Library</a>
+        </div>
+      </div>
+      <div class="cmd-hero-image">
+        <img src="/images/hero-claude-commands.jpg" alt="The Claude Commands Library — a curated collection of slash commands and prompts for Claude Code" loading="eager" width="1600" height="900">
+      </div>
+    </div>
+  </section>
+
+  <!-- MAIN -->
+  <main class="cmd-main">
+
+    <!-- Intro strip -->
+    <section class="cmd-intro">
+      <div class="cmd-intro-item">
+        <h4>Built for Claude Code</h4>
+        <p>Every prompt is a working slash command you can drop into Claude Code, Claude Desktop, or Claude.ai — no editing required.</p>
+      </div>
+      <div class="cmd-intro-item">
+        <h4>Copy & Ship</h4>
+        <p>One-click copy on every card. The prompts are opinionated and battle-tested — not generic AI fluff.</p>
+      </div>
+      <div class="cmd-intro-item">
+        <h4>Expand Into a PDF</h4>
+        <p>The PDF playbook adds context, example outputs, and pro tips for every prompt. Free with name and email.</p>
+      </div>
+    </section>
+
+    <!-- Build Your Own Slash Commands -->
+    <section class="cmd-build" id="build-your-own">
+      <div class="cmd-build-head">
+        <div class="cmd-build-eyebrow">Teach Section</div>
+        <h2>Build Your Own Slash Commands</h2>
+        <p>The commands below are the starter set. The real unlock is making your own — turning any prompt you repeat more than twice into a single slash. Two routes. Always go the easiest first.</p>
+      </div>
+      <div class="cmd-build-grid">
+        <div class="cmd-build-card">
+          <span class="label">Option 1 — Simplest</span>
+          <h3>Legacy Commands (Folder + Markdown)</h3>
+          <p class="sub">Drop a markdown file in a folder, restart Claude, done. No YAML, no config, no skill structure. The fastest way to save a prompt.</p>
+          <ol>
+            <li>Create folder <code>~/.claude/commands/</code> (personal — works everywhere) or <code>.claude/commands/</code> (project-scoped)</li>
+            <li>Make a file: filename = command name. Example <code>prospect-research.md</code> becomes <code>/prospect-research</code></li>
+            <li>Put your prompt instructions inside the file as plain markdown</li>
+            <li>Restart Claude Code (or the Claude desktop app)</li>
+            <li>Type <code>/prospect-research</code> in chat</li>
+          </ol>
+          <pre>~/.claude/commands/prospect-research.md
+&#8627;  [prompt text here]</pre>
+        </div>
+        <div class="cmd-build-card recommended">
+          <span class="label">Option 2 — Recommended</span>
+          <h3>Skills-Based (Folder + SKILL.md)</h3>
+          <p class="sub">Skills let you version, share, and attach supporting files (templates, examples, data). Use this route when a command matters enough to reuse on a team.</p>
+          <ol>
+            <li>Create folder <code>~/.claude/skills/</code> (personal) or <code>.claude/skills/</code> (project)</li>
+            <li>Make one subfolder per skill — any name works</li>
+            <li>Inside, add <code>SKILL.md</code> with YAML frontmatter (see right)</li>
+            <li>Optionally add <code>TEMPLATES.md</code>, <code>EXAMPLES.md</code>, or data files in the same folder</li>
+            <li>Web UI: zip the folder and upload under Settings → Features → Skills</li>
+          </ol>
+          <pre>---
+name: prospect-research
+description: Analyze a prospect
+  and produce pain points,
+  triggers, and objections.
+model: claude-sonnet-4-6
+---
+
+[prompt text here]</pre>
+        </div>
+      </div>
+    </section>
+
+    <!-- Library anchor + controls -->
+    <div id="library"></div>
+    <div class="cmd-controls">
+      <div class="cmd-search-wrap">
+        <span class="cmd-search-icon">⌕</span>
+        <input
+          type="search"
+          id="cmdSearch"
+          class="cmd-search"
+          placeholder="Search commands, keywords, or categories…"
+          aria-label="Search commands">
+      </div>
+      <div class="cmd-chips" id="cmdChips" role="tablist" aria-label="Filter by category">
+        <button class="cmd-chip active" data-category="all" type="button">All</button>
+        <button class="cmd-chip" data-category="sales" type="button">Sales</button>
+        <button class="cmd-chip" data-category="marketing" type="button">Marketing</button>
+        <button class="cmd-chip" data-category="content" type="button">Content</button>
+        <button class="cmd-chip" data-category="ops" type="button">Ops</button>
+        <button class="cmd-chip" data-category="setup" type="button">Claude Setup</button>
+      </div>
+      <div class="cmd-count" id="cmdCount"></div>
+    </div>
+
+    <!-- PROMPT CARDS — 46 working slash commands -->
+    <div class="cmd-grid" id="cmdGrid">
+      <!-- SALES CARDS INJECTED BELOW -->
+      <article class="cmd-card" data-category="sales" data-keywords="prospect research linkedin background pain points triggers">
+        <div class="cmd-card-header"><span class="cmd-card-tag">Sales</span><h3 class="cmd-card-title">/prospect-research</h3></div>
+        <p class="cmd-card-desc">Background summary + pain points + buying triggers + likely objections from LinkedIn, website, and notes.</p>
+        <pre class="cmd-card-code"><code>/prospect-research
+Prospect: [NAME, TITLE, COMPANY]
+Inputs: [PASTE LINKEDIN BIO, WEBSITE COPY, AND ANY CALL NOTES]
+Produce:
+1. 3-sentence background summary
+2. Top 3 likely pain points (with why)
+3. 3 buying triggers right now
+4. 3 likely objections to my offer
+5. 1 personalized opener I could use in outreach</code><button class="cmd-copy-btn" onclick="copyPromptFromCard(this)" aria-label="Copy prompt">Copy</button></pre>
+      </article>
+
+      <article class="cmd-card" data-category="sales" data-keywords="lead qualification cold warm hot discovery temperature">
+        <div class="cmd-card-header"><span class="cmd-card-tag">Sales</span><h3 class="cmd-card-title">/lead-qualification</h3></div>
+        <p class="cmd-card-desc">Classify a lead as cold/warm/hot with discovery questions and a reply draft per temperature.</p>
+        <pre class="cmd-card-code"><code>/lead-qualification
+Lead: [NAME + COMPANY]
+Signals so far: [PASTE EMAIL, DM, OR FORM RESPONSES]
+Output:
+1. Temperature: cold / warm / hot (with 2 reasons)
+2. 5 discovery questions to move them forward
+3. Reply draft tuned to their temperature (under 120 words)
+4. Recommended next step + timing</code><button class="cmd-copy-btn" onclick="copyPromptFromCard(this)" aria-label="Copy prompt">Copy</button></pre>
+      </article>
+
+      <article class="cmd-card" data-category="sales" data-keywords="segmentation list csv buckets next touch">
+        <div class="cmd-card-header"><span class="cmd-card-tag">Sales</span><h3 class="cmd-card-title">/list-segmentation</h3></div>
+        <p class="cmd-card-desc">Bucket a CSV of leads into segments with a next-touch recommendation per segment.</p>
+        <pre class="cmd-card-code"><code>/list-segmentation
+Leads: [PASTE CSV OR TABLE]
+My offer: [ONE LINE]
+Output:
+1. 3-5 segments with clear definitions
+2. Count of leads per segment
+3. Priority ranking (1 = hottest)
+4. Next-touch recommendation per segment (channel + message angle)
+5. Leads that should be dropped and why</code><button class="cmd-copy-btn" onclick="copyPromptFromCard(this)" aria-label="Copy prompt">Copy</button></pre>
+      </article>
+
+      <article class="cmd-card" data-category="sales" data-keywords="battlecard competitive differentiator rebuttal landmine">
+        <div class="cmd-card-header"><span class="cmd-card-tag">Sales</span><h3 class="cmd-card-title">/competitive-battlecard</h3></div>
+        <p class="cmd-card-desc">Differentiators, competitor claim rebuttals, landmine questions, and a 60-second pitch you can actually remember.</p>
+        <pre class="cmd-card-code"><code>/competitive-battlecard
+Competitor: [NAME]
+My business: [ONE LINE POSITIONING]
+Produce:
+1. 3 true differentiators (not marketing fluff)
+2. 3 competitor claims + honest rebuttals
+3. 3 landmine questions that expose their weakness
+4. 60-second pitch I can say in a call
+5. Proof points I should collect this quarter</code><button class="cmd-copy-btn" onclick="copyPromptFromCard(this)" aria-label="Copy prompt">Copy</button></pre>
+      </article>
+
+      <article class="cmd-card" data-category="sales" data-keywords="cold email generator outreach variants personalized">
+        <div class="cmd-card-header"><span class="cmd-card-tag">Sales</span><h3 class="cmd-card-title">/cold-email-generator</h3></div>
+        <p class="cmd-card-desc">5 variants of a 2-4 sentence cold email with a personalized first line per variant.</p>
+        <pre class="cmd-card-code"><code>/cold-email-generator
+Prospect: [NAME, TITLE, COMPANY]
+Their context: [PASTE 1-2 RELEVANT FACTS]
+My offer: [ONE LINE]
+Write 5 cold email variants:
+- 2-4 sentences max
+- Personalized first line per variant (different angle each)
+- Specific ask, not "quick chat"
+- Subject line under 45 chars per variant</code><button class="cmd-copy-btn" onclick="copyPromptFromCard(this)" aria-label="Copy prompt">Copy</button></pre>
+      </article>
+
+      <article class="cmd-card" data-category="sales" data-keywords="outreach sequence multi-step email sms dm conditional">
+        <div class="cmd-card-header"><span class="cmd-card-tag">Sales</span><h3 class="cmd-card-title">/multi-step-outreach-sequence</h3></div>
+        <p class="cmd-card-desc">7-touch sequence across email, SMS, and DM with conditional logic for openers, no-replies, and replies.</p>
+        <pre class="cmd-card-code"><code>/multi-step-outreach-sequence
+Offer: [ONE LINE]
+ICP: [TITLE / INDUSTRY / SIZE]
+Channels available: email, SMS, LinkedIn DM
+Build a 7-touch sequence over 14 days:
+- Day, channel, message (under 90 words each)
+- Branch: if opened no reply / replied positive / replied objection
+- End with a clean break-up message</code><button class="cmd-copy-btn" onclick="copyPromptFromCard(this)" aria-label="Copy prompt">Copy</button></pre>
+      </article>
+
+      <article class="cmd-card" data-category="sales" data-keywords="dm script linkedin instagram short question pitch">
+        <div class="cmd-card-header"><span class="cmd-card-tag">Sales</span><h3 class="cmd-card-title">/dm-script</h3></div>
+        <p class="cmd-card-desc">10 DM scripts (150 characters max) focused on a single question — not a pitch.</p>
+        <pre class="cmd-card-code"><code>/dm-script
+Platform: [INSTAGRAM / LINKEDIN / X]
+ICP: [WHO I AM MESSAGING]
+My angle: [ONE LINE]
+Write 10 DM openers:
+- 150 characters max
+- One clear question per DM (not a pitch)
+- Zero emojis unless platform-native
+- Mix of curiosity, specific compliment, and useful observation</code><button class="cmd-copy-btn" onclick="copyPromptFromCard(this)" aria-label="Copy prompt">Copy</button></pre>
+      </article>
+
+      <article class="cmd-card" data-category="sales" data-keywords="follow up bounce back no response light touch">
+        <div class="cmd-card-header"><span class="cmd-card-tag">Sales</span><h3 class="cmd-card-title">/follow-up-bounce-back</h3></div>
+        <p class="cmd-card-desc">3 light follow-ups (days 2–7) plus 3 last-chance follow-ups (days 8–21) that don't sound needy.</p>
+        <pre class="cmd-card-code"><code>/follow-up-bounce-back
+Context of the original message: [PASTE]
+Offer: [ONE LINE]
+Write 6 follow-up messages:
+- 3 light follow-ups for days 2, 4, 7 (under 60 words)
+- 3 last-chance follow-ups for days 10, 14, 21
+- Each adds value or reframes — no "just checking in"
+- Final message closes the loop respectfully</code><button class="cmd-copy-btn" onclick="copyPromptFromCard(this)" aria-label="Copy prompt">Copy</button></pre>
+      </article>
+
+      <article class="cmd-card" data-category="sales" data-keywords="discovery call outline script qualification close">
+        <div class="cmd-card-header"><span class="cmd-card-tag">Sales</span><h3 class="cmd-card-title">/discovery-call-outline</h3></div>
+        <p class="cmd-card-desc">30–45 minute call script with opening, qualification, problem deepening, and close.</p>
+        <pre class="cmd-card-code"><code>/discovery-call-outline
+Offer: [ONE LINE]
+ICP: [WHO I SELL TO]
+Build a 30-45 min discovery call outline:
+1. Opening (2 min): frame + permission to ask questions
+2. Qualification (8 min): 5 questions
+3. Problem deepening (15 min): current state / cost of inaction / dream state
+4. Solution framing (8 min): how I solve it, with proof
+5. Close (5 min): next step options + calendar hold
+Include 3 questions that surface hidden objections.</code><button class="cmd-copy-btn" onclick="copyPromptFromCard(this)" aria-label="Copy prompt">Copy</button></pre>
+      </article>
+
+      <article class="cmd-card" data-category="sales" data-keywords="objection handling rebuttal reframe price timing">
+        <div class="cmd-card-header"><span class="cmd-card-tag">Sales</span><h3 class="cmd-card-title">/objection-handling</h3></div>
+        <p class="cmd-card-desc">Top 15 objections with a short response, a call-ready version, and a reframe question for each.</p>
+        <pre class="cmd-card-code"><code>/objection-handling
+Offer: [ONE LINE]
+Typical buyer: [TITLE / INDUSTRY]
+List the top 15 objections (price, timing, trust, competitor, internal).
+For each, produce:
+1. Short written response (2 sentences)
+2. Call-ready version (under 25 words, spoken)
+3. Reframe question that moves the conversation forward</code><button class="cmd-copy-btn" onclick="copyPromptFromCard(this)" aria-label="Copy prompt">Copy</button></pre>
+      </article>
+
+      <article class="cmd-card" data-category="sales" data-keywords="call debrief transcript summary signals objections follow up">
+        <div class="cmd-card-header"><span class="cmd-card-tag">Sales</span><h3 class="cmd-card-title">/call-debrief</h3></div>
+        <p class="cmd-card-desc">Turn a call transcript into situation, signals, hidden objections, follow-up, and close probability.</p>
+        <pre class="cmd-card-code"><code>/call-debrief
+Transcript or notes: [PASTE]
+Produce:
+1. Situation (3 bullets)
+2. Positive signals (what they said or did)
+3. Hidden objections (what they didn't say but implied)
+4. Recommended follow-up: channel, timing, exact message
+5. Close probability: low / medium / high + 1 reason</code><button class="cmd-copy-btn" onclick="copyPromptFromCard(this)" aria-label="Copy prompt">Copy</button></pre>
+      </article>
+
+      <article class="cmd-card" data-category="sales" data-keywords="upsell cross sell expand account script">
+        <div class="cmd-card-header"><span class="cmd-card-tag">Sales</span><h3 class="cmd-card-title">/upsell-cross-sell</h3></div>
+        <p class="cmd-card-desc">3 upsells and 3 cross-sells with email and call scripts framed as helping the client — not pushing product.</p>
+        <pre class="cmd-card-code"><code>/upsell-cross-sell
+Existing client: [SNAPSHOT + WHAT THEY BOUGHT]
+My full offer suite: [LIST]
+Produce:
+1. 3 upsells (bigger version of what they have) with reason each
+2. 3 cross-sells (adjacent offer) with reason each
+3. Email script for top pick (under 120 words)
+4. Call talk track for top pick (under 60 seconds spoken)
+Frame everything as continuing the result, not adding cost.</code><button class="cmd-copy-btn" onclick="copyPromptFromCard(this)" aria-label="Copy prompt">Copy</button></pre>
+      </article>
+
+      <article class="cmd-card" data-category="sales" data-keywords="pipeline review stage avg deal close rate bottleneck">
+        <div class="cmd-card-header"><span class="cmd-card-tag">Sales</span><h3 class="cmd-card-title">/pipeline-review</h3></div>
+        <p class="cmd-card-desc">Group pipeline by stage, calculate avg deal size, close rate, bottlenecks, and a 30-day action list.</p>
+        <pre class="cmd-card-code"><code>/pipeline-review
+Pipeline data: [PASTE CSV OR TABLE WITH DEAL, STAGE, VALUE, AGE]
+Produce:
+1. Stage-by-stage summary (count, avg value, avg age)
+2. Close rate by stage
+3. Top 3 bottlenecks with why
+4. 5 deals most likely to close in 30 days (with action)
+5. 3 deals to kill this week
+6. 30-day action list (bullets)</code><button class="cmd-copy-btn" onclick="copyPromptFromCard(this)" aria-label="Copy prompt">Copy</button></pre>
+      </article>
+
+      <article class="cmd-card" data-category="sales" data-keywords="daily sales brief priorities time blocks must send">
+        <div class="cmd-card-header"><span class="cmd-card-tag">Sales</span><h3 class="cmd-card-title">/daily-sales-brief</h3></div>
+        <p class="cmd-card-desc">7 questions + prioritized task list + time blocks + 3 must-send messages for today.</p>
+        <pre class="cmd-card-code"><code>/daily-sales-brief
+Today's context: [WHAT'S ON THE CALENDAR + TOP DEALS]
+Answer these:
+1. What one deal moves the week?
+2. Who is stalled and why?
+3. What's the highest-value 30-minute action?
+Then output:
+- Prioritized task list (top 5)
+- Time blocks for the day
+- 3 must-send messages (exact copy, under 80 words each)</code><button class="cmd-copy-btn" onclick="copyPromptFromCard(this)" aria-label="Copy prompt">Copy</button></pre>
+      </article>
+
+      <article class="cmd-card" data-category="sales" data-keywords="proposal drafter discovery notes client options scope">
+        <div class="cmd-card-header"><span class="cmd-card-tag">Sales</span><h3 class="cmd-card-title">/proposal-drafter</h3></div>
+        <p class="cmd-card-desc">From discovery notes, write a proposal that mirrors client language with 1–3 options and no pricing yet.</p>
+        <pre class="cmd-card-code"><code>/proposal-drafter
+Discovery notes: [PASTE]
+Produce a proposal draft:
+1. Situation summary (mirror their language)
+2. Goals and success metrics (quote the client)
+3. Scope with 1-3 options (starter / core / full)
+4. Deliverables per option
+5. Timeline
+6. Next steps
+Do not include pricing — leave a placeholder.</code><button class="cmd-copy-btn" onclick="copyPromptFromCard(this)" aria-label="Copy prompt">Copy</button></pre>
+      </article>
+
+      <!-- MARKER:SALES -->
+      <article class="cmd-card" data-category="ops" data-keywords="meeting notes action items owners decisions risks">
+        <div class="cmd-card-header"><span class="cmd-card-tag">Ops</span><h3 class="cmd-card-title">/meeting-notes-to-actions</h3></div>
+        <p class="cmd-card-desc">Summary + decisions + action items with owners and dates + risks flagged.</p>
+        <pre class="cmd-card-code"><code>/meeting-notes-to-actions
+Raw notes: [PASTE]
+Attendees: [NAMES + ROLES]
+Output:
+1. 1-sentence summary
+2. Decisions made (bullets)
+3. Action items table: owner | task | due date
+4. Open questions
+5. Risks or red flags worth escalating</code><button class="cmd-copy-btn" onclick="copyPromptFromCard(this)" aria-label="Copy prompt">Copy</button></pre>
+      </article>
+
+      <article class="cmd-card" data-category="ops" data-keywords="sop builder process trigger steps checklist metrics">
+        <div class="cmd-card-header"><span class="cmd-card-tag">Ops</span><h3 class="cmd-card-title">/sop-builder</h3></div>
+        <p class="cmd-card-desc">Purpose + trigger + step list + quality checklist + metrics, formatted so anyone on the team can run it.</p>
+        <pre class="cmd-card-code"><code>/sop-builder
+Process: [WHAT IS THIS SOP FOR]
+Current reality: [WHO DOES IT NOW, HOW]
+Produce an SOP:
+1. Purpose (1 sentence)
+2. Trigger (what starts this process)
+3. Steps (numbered, each starts with a verb)
+4. Quality checklist (what "done right" looks like)
+5. Metrics to track
+6. Escalation path if something goes wrong</code><button class="cmd-copy-btn" onclick="copyPromptFromCard(this)" aria-label="Copy prompt">Copy</button></pre>
+      </article>
+
+      <article class="cmd-card" data-category="ops" data-keywords="process improvement bottleneck minimal change clean sheet">
+        <div class="cmd-card-header"><span class="cmd-card-tag">Ops</span><h3 class="cmd-card-title">/process-improvement</h3></div>
+        <p class="cmd-card-desc">Identify bottlenecks + a minimal-change version + a clean-sheet redesign + 30-day plan.</p>
+        <pre class="cmd-card-code"><code>/process-improvement
+Current process: [DESCRIBE OR PASTE SOP]
+Pain points: [LIST]
+Produce:
+1. Top 3 bottlenecks with evidence
+2. Minimal-change version (2-3 tweaks that ship this week)
+3. Clean-sheet redesign (what it would look like if we started over)
+4. 30-day rollout plan
+5. Metrics to prove it worked</code><button class="cmd-copy-btn" onclick="copyPromptFromCard(this)" aria-label="Copy prompt">Copy</button></pre>
+      </article>
+
+      <article class="cmd-card" data-category="ops" data-keywords="dashboard ideas kpi marketing sales delivery finance">
+        <div class="cmd-card-header"><span class="cmd-card-tag">Ops</span><h3 class="cmd-card-title">/ops-dashboard-ideas</h3></div>
+        <p class="cmd-card-desc">Top 15 KPIs across marketing, sales, delivery, and finance — with a tracking cadence for each.</p>
+        <pre class="cmd-card-code"><code>/ops-dashboard-ideas
+Business: [ONE LINE]
+Team size: [NUMBER]
+Revenue range: [APPROX]
+Propose 15 KPIs split across:
+- Marketing (top of funnel)
+- Sales (pipeline to close)
+- Delivery (fulfillment and quality)
+- Finance (cash and margin)
+For each: definition, target, tracking cadence (daily/weekly/monthly), source.</code><button class="cmd-copy-btn" onclick="copyPromptFromCard(this)" aria-label="Copy prompt">Copy</button></pre>
+      </article>
+
+      <article class="cmd-card" data-category="ops" data-keywords="role scorecard mission outcomes competencies hire">
+        <div class="cmd-card-header"><span class="cmd-card-tag">Ops</span><h3 class="cmd-card-title">/role-scorecard</h3></div>
+        <p class="cmd-card-desc">Mission + top 5 outcomes with targets + core competencies + cultural behaviors for a role.</p>
+        <pre class="cmd-card-code"><code>/role-scorecard
+Role: [TITLE]
+What the role exists to produce: [ONE LINE]
+Produce a scorecard:
+1. Mission (one sentence)
+2. Top 5 outcomes with measurable targets
+3. Core competencies (skills required)
+4. Cultural behaviors (how they work)
+5. Red flags that disqualify a candidate</code><button class="cmd-copy-btn" onclick="copyPromptFromCard(this)" aria-label="Copy prompt">Copy</button></pre>
+      </article>
+
+      <article class="cmd-card" data-category="ops" data-keywords="job description hiring responsibilities requirements 90 day">
+        <div class="cmd-card-header"><span class="cmd-card-tag">Ops</span><h3 class="cmd-card-title">/job-description</h3></div>
+        <p class="cmd-card-desc">Non-generic JD with responsibilities, requirements, and a concrete 90-day success definition.</p>
+        <pre class="cmd-card-code"><code>/job-description
+Role: [TITLE]
+Scorecard: [PASTE OR SUMMARIZE]
+Write a job description:
+1. Hook opener (why this role matters)
+2. What you'll actually do (not "support")
+3. Required skills and experience
+4. Nice-to-have
+5. 90-day success definition (specific deliverables)
+6. How to apply
+Avoid corporate cliche ("rockstar", "ninja", "fast-paced").</code><button class="cmd-copy-btn" onclick="copyPromptFromCard(this)" aria-label="Copy prompt">Copy</button></pre>
+      </article>
+
+      <article class="cmd-card" data-category="ops" data-keywords="interview questions behavioral rubric culture coachability">
+        <div class="cmd-card-header"><span class="cmd-card-tag">Ops</span><h3 class="cmd-card-title">/interview-question-set</h3></div>
+        <p class="cmd-card-desc">Past behavior + problem-solving + culture + coachability questions with a 1–5 scoring rubric.</p>
+        <pre class="cmd-card-code"><code>/interview-question-set
+Role: [TITLE]
+Must-haves: [LIST]
+Produce 12 questions split across:
+- Past behavior (STAR format)
+- Problem-solving (scenario based)
+- Culture fit
+- Coachability / ego test
+For each: question + what a 1/3/5 answer looks like.</code><button class="cmd-copy-btn" onclick="copyPromptFromCard(this)" aria-label="Copy prompt">Copy</button></pre>
+      </article>
+
+      <article class="cmd-card" data-category="ops" data-keywords="onboarding 30 60 90 ramp training shadowing milestones">
+        <div class="cmd-card-header"><span class="cmd-card-tag">Ops</span><h3 class="cmd-card-title">/onboarding-30-60-90</h3></div>
+        <p class="cmd-card-desc">Goals, training, shadowing, and milestones for the first 30, 60, and 90 days in the role.</p>
+        <pre class="cmd-card-code"><code>/onboarding-30-60-90
+Role: [TITLE]
+Scorecard outcomes: [LIST]
+Produce a plan:
+- Days 0-30: goals, training, who they shadow, checkpoints
+- Days 31-60: owning small wins, first deliverable
+- Days 61-90: full ownership + metric to hit
+For each phase: weekly 1:1 agenda and red flags to watch.</code><button class="cmd-copy-btn" onclick="copyPromptFromCard(this)" aria-label="Copy prompt">Copy</button></pre>
+      </article>
+
+      <article class="cmd-card" data-category="ops" data-keywords="weekly planning chief of staff calendar delegate eliminate">
+        <div class="cmd-card-header"><span class="cmd-card-tag">Ops</span><h3 class="cmd-card-title">/weekly-planning</h3></div>
+        <p class="cmd-card-desc">Chief-of-staff pass: 10 questions + calendar + "if this is all I do" list + delegate/eliminate.</p>
+        <pre class="cmd-card-code"><code>/weekly-planning
+This week's context: [BIG ROCKS + CALENDAR]
+Role: chief of staff. Ask me 10 sharp questions first, then produce:
+1. The 3 outcomes that matter
+2. If this is all I do this week, the week is a win: [list]
+3. Calendar blocks recommendation
+4. Delegate list (task -> who)
+5. Eliminate list (what to kill)</code><button class="cmd-copy-btn" onclick="copyPromptFromCard(this)" aria-label="Copy prompt">Copy</button></pre>
+      </article>
+
+      <article class="cmd-card" data-category="ops" data-keywords="decision clarifier pros cons reversibility recommendation">
+        <div class="cmd-card-header"><span class="cmd-card-tag">Ops</span><h3 class="cmd-card-title">/decision-clarifier</h3></div>
+        <p class="cmd-card-desc">Objective + constraints + pros/cons + reversibility + recommendation with reasoning.</p>
+        <pre class="cmd-card-code"><code>/decision-clarifier
+Decision: [DESCRIBE]
+Options: [A, B, C]
+Produce:
+1. Objective (what we are actually optimizing)
+2. Constraints (time, money, team, risk)
+3. Pros and cons per option
+4. Reversibility (1-way or 2-way door per option)
+5. Recommendation with one-paragraph reasoning
+6. The question to ask before deciding</code><button class="cmd-copy-btn" onclick="copyPromptFromCard(this)" aria-label="Copy prompt">Copy</button></pre>
+      </article>
+
+      <article class="cmd-card" data-category="ops" data-keywords="policy drafter plain language faq examples">
+        <div class="cmd-card-header"><span class="cmd-card-tag">Ops</span><h3 class="cmd-card-title">/policy-drafter</h3></div>
+        <p class="cmd-card-desc">Under 600 words, plain language, FAQ-style "what to do if" examples.</p>
+        <pre class="cmd-card-code"><code>/policy-drafter
+Policy area: [EXAMPLE: REMOTE WORK, EXPENSES, PTO]
+What we actually want: [GOAL IN ONE LINE]
+Write a policy under 600 words:
+1. The rule (one paragraph, plain language)
+2. Why it exists
+3. What to do if... (4-6 scenarios)
+4. Who to ask if unsure
+Avoid legal-ese. Must be readable by a new hire on day one.</code><button class="cmd-copy-btn" onclick="copyPromptFromCard(this)" aria-label="Copy prompt">Copy</button></pre>
+      </article>
+
+      <!-- MARKER:OPS -->
+      <article class="cmd-card" data-category="marketing" data-keywords="offer clarity value prop benefits proof not for">
+        <div class="cmd-card-header"><span class="cmd-card-tag">Marketing</span><h3 class="cmd-card-title">/offer-clarity</h3></div>
+        <p class="cmd-card-desc">Value prop + who it's for / not for + 5 benefits + 5 proof elements to collect.</p>
+        <pre class="cmd-card-code"><code>/offer-clarity
+Offer: [NAME + PRICE]
+Rough description: [PASTE]
+Produce:
+1. Value prop (one sentence, no jargon)
+2. Who it's for (3 specific bullets)
+3. Who it's NOT for (3 specific bullets)
+4. 5 benefits (outcomes, not features)
+5. 5 proof elements to collect (testimonials, screenshots, numbers)</code><button class="cmd-copy-btn" onclick="copyPromptFromCard(this)" aria-label="Copy prompt">Copy</button></pre>
+      </article>
+
+      <article class="cmd-card" data-category="marketing" data-keywords="icp ideal client profile persona demographics psychographics">
+        <div class="cmd-card-header"><span class="cmd-card-tag">Marketing</span><h3 class="cmd-card-title">/ideal-client-profile</h3></div>
+        <p class="cmd-card-desc">3 personas with demographics, psychographics, goals, fears, and their buying journey.</p>
+        <pre class="cmd-card-code"><code>/ideal-client-profile
+Offer: [ONE LINE]
+Clients I love: [2-3 EXAMPLES]
+Produce 3 personas. For each:
+1. Name + role archetype
+2. Demographics (age, title, income, location)
+3. Psychographics (values, fears, aspirations)
+4. Top 3 goals right now
+5. Top 3 fears / objections
+6. Buying journey (trigger -> research -> decision -> purchase)</code><button class="cmd-copy-btn" onclick="copyPromptFromCard(this)" aria-label="Copy prompt">Copy</button></pre>
+      </article>
+
+      <article class="cmd-card" data-category="marketing" data-keywords="message resonance landing page copywriter critique hooks">
+        <div class="cmd-card-header"><span class="cmd-card-tag">Marketing</span><h3 class="cmd-card-title">/message-resonance-check</h3></div>
+        <p class="cmd-card-desc">Copywriter critique of a landing page: clarity, proof, friction + 3 alternate hooks.</p>
+        <pre class="cmd-card-code"><code>/message-resonance-check
+Landing page copy: [PASTE OR URL]
+Target audience: [DESCRIBE]
+Critique as a senior copywriter:
+1. Clarity (would a 5th grader understand the offer?)
+2. Proof (what's missing?)
+3. Friction (what makes someone bounce?)
+4. 3 alternate headline hooks
+5. 3 alternate CTA variations
+Rank all feedback by impact.</code><button class="cmd-copy-btn" onclick="copyPromptFromCard(this)" aria-label="Copy prompt">Copy</button></pre>
+      </article>
+
+      <article class="cmd-card" data-category="marketing" data-keywords="ad concept hooks angles copy facebook instagram">
+        <div class="cmd-card-header"><span class="cmd-card-tag">Marketing</span><h3 class="cmd-card-title">/ad-concept-pack</h3></div>
+        <p class="cmd-card-desc">10 hooks + 5 angles + example copy for the top 3 angles.</p>
+        <pre class="cmd-card-code"><code>/ad-concept-pack
+Offer: [ONE LINE]
+Audience: [DESCRIBE]
+Platform: [META / TIKTOK / LINKEDIN]
+Produce:
+1. 10 hook lines (each 1 sentence)
+2. 5 angles (problem, transformation, myth-buster, proof, us-vs-them)
+3. Full ad copy for top 3 angles: hook + body + CTA
+4. Suggested visual for each top angle</code><button class="cmd-copy-btn" onclick="copyPromptFromCard(this)" aria-label="Copy prompt">Copy</button></pre>
+      </article>
+
+      <article class="cmd-card" data-category="marketing" data-keywords="landing page structure wireframe headline proof faq">
+        <div class="cmd-card-header"><span class="cmd-card-tag">Marketing</span><h3 class="cmd-card-title">/landing-page-structure</h3></div>
+        <p class="cmd-card-desc">Wireframe with headline, proof, problem/solution, offer, FAQ, and risk reversal.</p>
+        <pre class="cmd-card-code"><code>/landing-page-structure
+Offer: [ONE LINE]
+Audience: [DESCRIBE]
+Goal: [EMAIL OPT-IN / SALES / CALL BOOK]
+Output a full landing page wireframe:
+1. Above the fold: headline + sub + CTA
+2. Proof strip (logos or numbers)
+3. Problem section (3 pain points)
+4. Solution section (3 benefits, feature-backed)
+5. Offer details + pricing
+6. FAQ (5 questions)
+7. Risk reversal
+8. Final CTA</code><button class="cmd-copy-btn" onclick="copyPromptFromCard(this)" aria-label="Copy prompt">Copy</button></pre>
+      </article>
+
+      <article class="cmd-card" data-category="marketing" data-keywords="funnel map entry pages emails metrics retargeting">
+        <div class="cmd-card-header"><span class="cmd-card-tag">Marketing</span><h3 class="cmd-card-title">/funnel-map</h3></div>
+        <p class="cmd-card-desc">Entry points + pages + emails + metrics + retargeting moments mapped end to end.</p>
+        <pre class="cmd-card-code"><code>/funnel-map
+Offer: [ONE LINE]
+Current assets: [LIST PAGES, LEAD MAGNETS, EMAIL SEQUENCES]
+Map the full funnel:
+1. Entry points (paid, organic, referral, direct)
+2. Pages in order with their job
+3. Email sequences tied to each page
+4. Metrics to track at each stage (CVR, CTR, open rate)
+5. Retargeting moments (who to catch and when)
+6. Top 3 holes to fix first</code><button class="cmd-copy-btn" onclick="copyPromptFromCard(this)" aria-label="Copy prompt">Copy</button></pre>
+      </article>
+
+      <article class="cmd-card" data-category="marketing" data-keywords="campaign postmortem analysis worked didnt tests">
+        <div class="cmd-card-header"><span class="cmd-card-tag">Marketing</span><h3 class="cmd-card-title">/campaign-postmortem</h3></div>
+        <p class="cmd-card-desc">What worked / what didn't + root cause + 5 specific tests to try next.</p>
+        <pre class="cmd-card-code"><code>/campaign-postmortem
+Campaign: [NAME + GOAL]
+Results: [PASTE NUMBERS]
+Inputs: [ASSETS + AUDIENCE + OFFER]
+Produce:
+1. What worked (with evidence)
+2. What didn't (with evidence)
+3. Root cause analysis (not symptoms)
+4. 5 specific tests for the next version (hypothesis + measurable outcome)
+5. What I'd scrap entirely</code><button class="cmd-copy-btn" onclick="copyPromptFromCard(this)" aria-label="Copy prompt">Copy</button></pre>
+      </article>
+
+      <article class="cmd-card" data-category="marketing" data-keywords="content performance review topics hooks formats times">
+        <div class="cmd-card-header"><span class="cmd-card-tag">Marketing</span><h3 class="cmd-card-title">/content-performance-review</h3></div>
+        <p class="cmd-card-desc">Best topics, hooks, formats, times + 10 new ideas based on what actually works.</p>
+        <pre class="cmd-card-code"><code>/content-performance-review
+Platform: [INSTAGRAM / LINKEDIN / YOUTUBE]
+Data: [PASTE TOP 20 POSTS WITH VIEWS / ENGAGEMENT]
+Produce:
+1. Top 5 performing topics
+2. Top 5 performing hooks (pattern)
+3. Best formats (video, carousel, single image)
+4. Best post times / days
+5. 10 new content ideas based on what works (with working titles)</code><button class="cmd-copy-btn" onclick="copyPromptFromCard(this)" aria-label="Copy prompt">Copy</button></pre>
+      </article>
+
+      <article class="cmd-card" data-category="marketing" data-keywords="offer feedback testimonials language improvements">
+        <div class="cmd-card-header"><span class="cmd-card-tag">Marketing</span><h3 class="cmd-card-title">/offer-feedback</h3></div>
+        <p class="cmd-card-desc">From testimonials: what clients value, language they repeat, and 3 specific offer improvements.</p>
+        <pre class="cmd-card-code"><code>/offer-feedback
+Testimonials and reviews: [PASTE 10-20]
+Produce:
+1. Top 3 things clients value most (with quotes)
+2. Recurring language they use (exact phrases)
+3. 3 specific improvements to the offer based on signal
+4. 3 copy updates for landing pages (before -> after)
+5. 3 testimonials to feature and where</code><button class="cmd-copy-btn" onclick="copyPromptFromCard(this)" aria-label="Copy prompt">Copy</button></pre>
+      </article>
+
+      <!-- MARKER:MARKETING -->
+      <article class="cmd-card" data-category="content" data-keywords="pillar plan 90 day strategy themes formats">
+        <div class="cmd-card-header"><span class="cmd-card-tag">Content</span><h3 class="cmd-card-title">/content-pillar-plan</h3></div>
+        <p class="cmd-card-desc">90-day content strategy with 4–6 pillars, weekly themes, formats — designed to move buyers closer.</p>
+        <pre class="cmd-card-code"><code>/content-pillar-plan
+Business: [ONE LINE]
+ICP: [WHO I SERVE]
+Offer: [WHAT I SELL]
+Produce a 90-day content plan:
+1. 4-6 content pillars (each maps to a buyer stage)
+2. Weekly themes (12-13 weeks)
+3. Formats per platform (feed post, short video, carousel, email)
+4. 3 CTAs per pillar
+5. How each pillar moves a buyer closer to purchase</code><button class="cmd-copy-btn" onclick="copyPromptFromCard(this)" aria-label="Copy prompt">Copy</button></pre>
+      </article>
+
+      <article class="cmd-card" data-category="content" data-keywords="post repurposer long form short posts email video">
+        <div class="cmd-card-header"><span class="cmd-card-tag">Content</span><h3 class="cmd-card-title">/post-repurposer</h3></div>
+        <p class="cmd-card-desc">Turn one long-form piece into 10 short posts, 5 email angles, and 3 video ideas with outlines.</p>
+        <pre class="cmd-card-code"><code>/post-repurposer
+Long-form piece: [PASTE ARTICLE, PODCAST TRANSCRIPT, OR VIDEO SCRIPT]
+Produce:
+1. 10 short-form posts (each 50-120 words) with hook + body + CTA
+2. 5 email subject/angle pairs with a one-line pitch
+3. 3 video ideas with 3-beat outlines (hook / middle / payoff)</code><button class="cmd-copy-btn" onclick="copyPromptFromCard(this)" aria-label="Copy prompt">Copy</button></pre>
+      </article>
+
+      <article class="cmd-card" data-category="content" data-keywords="scripts outline video short carousel hook slides cta">
+        <div class="cmd-card-header"><span class="cmd-card-tag">Content</span><h3 class="cmd-card-title">/scripts-from-outline</h3></div>
+        <p class="cmd-card-desc">Outline → 3–5 min video script + 60-sec short + carousel with hook/slides/CTA.</p>
+        <pre class="cmd-card-code"><code>/scripts-from-outline
+Outline: [PASTE BULLET POINTS OR IDEA]
+Produce:
+1. 3-5 minute video script with: hook (first 7 seconds), 3-part body, close + CTA
+2. 60-second short script: hook, single payoff, CTA
+3. Carousel version: cover slide + 6-8 slides + final CTA slide
+Match a conversational, confident tone.</code><button class="cmd-copy-btn" onclick="copyPromptFromCard(this)" aria-label="Copy prompt">Copy</button></pre>
+      </article>
+
+      <article class="cmd-card" data-category="content" data-keywords="content ideas problems transformations behind scenes objection">
+        <div class="cmd-card-header"><span class="cmd-card-tag">Content</span><h3 class="cmd-card-title">/content-idea-generator</h3></div>
+        <p class="cmd-card-desc">50 content ideas split across problems, transformations, behind-the-scenes, and objection-busting.</p>
+        <pre class="cmd-card-code"><code>/content-idea-generator
+ICP: [WHO I SERVE]
+Offer: [ONE LINE]
+Produce 50 content ideas, split:
+- 12 "problem the audience has" ideas
+- 12 "transformation / result" ideas
+- 13 "behind-the-scenes / process" ideas
+- 13 "objection-busting / myth" ideas
+Each idea = 1 working title + 1 hook line.</code><button class="cmd-copy-btn" onclick="copyPromptFromCard(this)" aria-label="Copy prompt">Copy</button></pre>
+      </article>
+
+      <article class="cmd-card" data-category="content" data-keywords="nurture sequence lead magnet email drip">
+        <div class="cmd-card-header"><span class="cmd-card-tag">Content</span><h3 class="cmd-card-title">/nurture-sequence</h3></div>
+        <p class="cmd-card-desc">7-email sequence for new lead-magnet subscribers (goal + subject + body per email).</p>
+        <pre class="cmd-card-code"><code>/nurture-sequence
+Lead magnet: [TITLE + FORMAT]
+Offer to promote: [ONE LINE]
+My voice: [DESCRIBE OR PASTE SAMPLE]
+Write 7 emails (days 0, 1, 2, 4, 6, 9, 12). For each:
+1. Goal of the email
+2. Subject line (under 55 chars)
+3. Preview text (under 90 chars)
+4. Body (150-250 words)
+5. Single clear CTA</code><button class="cmd-copy-btn" onclick="copyPromptFromCard(this)" aria-label="Copy prompt">Copy</button></pre>
+      </article>
+
+      <article class="cmd-card" data-category="content" data-keywords="newsletter drafter main story recommendations offer">
+        <div class="cmd-card-header"><span class="cmd-card-tag">Content</span><h3 class="cmd-card-title">/newsletter-drafter</h3></div>
+        <p class="cmd-card-desc">Main story + 2–3 recommendations + a soft transition to the offer.</p>
+        <pre class="cmd-card-code"><code>/newsletter-drafter
+Audience: [LIST DESCRIPTION]
+This week's theme: [ONE LINE]
+Main story idea: [1-2 SENTENCES]
+Write the newsletter:
+1. Subject line (3 options)
+2. Main story (250-400 words)
+3. 2-3 curated recommendations (1 sentence each + link placeholder)
+4. Soft transition to my offer (no hard pitch)
+5. Sign-off in my voice</code><button class="cmd-copy-btn" onclick="copyPromptFromCard(this)" aria-label="Copy prompt">Copy</button></pre>
+      </article>
+
+      <article class="cmd-card" data-category="content" data-keywords="re-engage cold list reactivation survey last chance sunset">
+        <div class="cmd-card-header"><span class="cmd-card-tag">Content</span><h3 class="cmd-card-title">/re-engage-cold-list</h3></div>
+        <p class="cmd-card-desc">4-email reactivation sequence: value, survey, last chance, sunset.</p>
+        <pre class="cmd-card-code"><code>/re-engage-cold-list
+List context: [SIZE, LAST ENGAGED, TOPIC FOCUS]
+Offer: [ONE LINE]
+Write a 4-email reactivation sequence:
+1. Value email (give something useful, no ask)
+2. Survey email (what do you want from me?)
+3. Last chance email (specific offer + deadline)
+4. Sunset email (confirm they want to stay)
+Each under 150 words. Respect their time.</code><button class="cmd-copy-btn" onclick="copyPromptFromCard(this)" aria-label="Copy prompt">Copy</button></pre>
+      </article>
+
+      <!-- MARKER:CONTENT -->
+      <article class="cmd-card" data-category="setup" data-keywords="reset context clear clarify start over">
+        <div class="cmd-card-header"><span class="cmd-card-tag">Claude Setup</span><h3 class="cmd-card-title">/reset-context</h3></div>
+        <p class="cmd-card-desc">Clear your context and force Claude to ask 3 clarifying questions before continuing.</p>
+        <pre class="cmd-card-code"><code>/reset-context
+Forget everything we just discussed.
+Before producing anything new, ask me 3 clarifying questions:
+1. What's the goal of this session?
+2. Who is the audience / reader?
+3. What format should the output take?
+Wait for my answers before you write anything.</code><button class="cmd-copy-btn" onclick="copyPromptFromCard(this)" aria-label="Copy prompt">Copy</button></pre>
+      </article>
+
+      <article class="cmd-card" data-category="setup" data-keywords="session setup sales role assistant crm format">
+        <div class="cmd-card-header"><span class="cmd-card-tag">Claude Setup</span><h3 class="cmd-card-title">/session-setup-sales</h3></div>
+        <p class="cmd-card-desc">Session-level role: sales assistant. Always asks about CRM context and output format first.</p>
+        <pre class="cmd-card-code"><code>/session-setup-sales
+For this session, you are my sales assistant.
+Always:
+- Ask about CRM context (tool, pipeline, current stage) before drafting
+- Ask what output format I need (email, call script, doc)
+- Keep tone direct, no fluff
+- Default to 80 words max unless I ask for more
+Start by asking: "What are we working on in the pipeline today?"</code><button class="cmd-copy-btn" onclick="copyPromptFromCard(this)" aria-label="Copy prompt">Copy</button></pre>
+      </article>
+
+      <article class="cmd-card" data-category="setup" data-keywords="session setup marketing strategist role three part">
+        <div class="cmd-card-header"><span class="cmd-card-tag">Claude Setup</span><h3 class="cmd-card-title">/session-setup-marketing</h3></div>
+        <p class="cmd-card-desc">Session-level role: marketing strategist. Always returns a 3-part response.</p>
+        <pre class="cmd-card-code"><code>/session-setup-marketing
+For this session, you are my marketing strategist.
+Every response must have 3 parts:
+1. Strategic take (what I should actually do)
+2. Tactical execution (how to ship it this week)
+3. Risk / what could go wrong
+Ask clarifying questions if the brief is vague before producing output.</code><button class="cmd-copy-btn" onclick="copyPromptFromCard(this)" aria-label="Copy prompt">Copy</button></pre>
+      </article>
+
+      <article class="cmd-card" data-category="setup" data-keywords="daily brief summary priorities tomorrow">
+        <div class="cmd-card-header"><span class="cmd-card-tag">Claude Setup</span><h3 class="cmd-card-title">/daily-brief</h3></div>
+        <p class="cmd-card-desc">Summarize today's sales, marketing, and ops + 3 priorities for tomorrow.</p>
+        <pre class="cmd-card-code"><code>/daily-brief
+Today's activity: [PASTE CALENDAR, DEALS MOVED, CONTENT SHIPPED, ISSUES]
+Produce:
+1. 3-bullet summary of today (wins, blockers, surprises)
+2. Pipeline movement (what advanced, what stalled)
+3. Marketing signal (what got traction, what didn't)
+4. Top 3 priorities for tomorrow with first action for each
+5. One question I should be asking myself</code><button class="cmd-copy-btn" onclick="copyPromptFromCard(this)" aria-label="Copy prompt">Copy</button></pre>
+      </article>
+
+      <!-- MARKER:SETUP -->
+    </div>
+
+    <div class="cmd-empty" id="cmdEmpty">
+      No commands match that filter. Try a different keyword or reset the category.
+    </div>
+
+    <!-- Final CTA -->
+    <div class="cmd-final-cta">
+      <h2>Want the Expanded Playbook?</h2>
+      <p>The PDF version includes every command plus the full context, example outputs, variations, and pro tips — everything that didn't fit on the cards. Free with name and email.</p>
+      <div class="cmd-hero-ctas">
+        <a href="#" onclick="openDlModal(); return false;" class="cmd-btn-primary">Download the PDF</a>
+        <a href="/edmunds-mastermind" class="cmd-btn-secondary">Join Edmund's Mastermind</a>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- DOWNLOAD MODAL -->
+  <div class="cmd-modal-bg" id="dlModal">
+    <div class="cmd-modal">
+      <button class="cmd-modal-close" onclick="closeDlModal()" aria-label="Close">&#10005;</button>
+      <div id="dlModalForm">
+        <h3>Get the Claude Commands Library PDF</h3>
+        <p>Enter your name and email. The PDF is yours instantly.</p>
+        <label for="dlName">First Name</label>
+        <input type="text" id="dlName" placeholder="Your first name" autocomplete="given-name">
+        <label for="dlEmail">Email Address</label>
+        <input type="email" id="dlEmail" placeholder="you@example.com" autocomplete="email">
+        <button class="cmd-modal-submit" onclick="submitDlModal()">Send Me the PDF</button>
+        <div class="cmd-modal-note">No spam. Unsubscribe anytime.</div>
+      </div>
+      <div class="cmd-modal-success" id="dlModalSuccess">
+        <h4>It's yours!</h4>
+        <p>Your download is starting now. Watch your inbox for the companion follow-up.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="footer" style="padding: var(--spacing-lg) 0;">
+    <div class="container">
+      <div class="footer-bottom" style="border-top: none; padding-top: 0;">
+        <p>&copy; 2026 Bogen.ai. All rights reserved. | Boca Raton, FL | <a href="mailto:info@bogen.ai">info@bogen.ai</a></p>
+        <p style="margin-top: 4px;"><a href="/privacy" style="color: rgba(255,255,255,0.5); font-size: 0.8rem;">Privacy Policy</a> · Updated April 18, 2026</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="/js/common.js"></script>
+  <script>
+    // ========== THEME TOGGLE ==========
+    (function() {
+      const saved = localStorage.getItem('cmd-theme');
+      if (saved) {
+        document.documentElement.setAttribute('data-theme', saved);
+      } else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) {
+        document.documentElement.setAttribute('data-theme', 'light');
+      }
+      const btn = document.getElementById('cmdThemeToggle');
+      function updateBtn() {
+        btn.textContent = document.documentElement.getAttribute('data-theme') === 'light' ? '🌙' : '☀️';
+      }
+      updateBtn();
+      btn.addEventListener('click', function() {
+        const cur = document.documentElement.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
+        document.documentElement.setAttribute('data-theme', cur);
+        localStorage.setItem('cmd-theme', cur);
+        updateBtn();
+      });
+    })();
+
+    // ========== COPY PROMPT ==========
+    function copyPromptFromCard(btn) {
+      const codeEl = btn.parentElement.querySelector('code');
+      const text = codeEl ? codeEl.textContent.trim() : '';
+      if (!text) return;
+      navigator.clipboard.writeText(text).then(() => {
+        btn.textContent = 'Copied!';
+        btn.classList.add('copied');
+        setTimeout(() => { btn.textContent = 'Copy'; btn.classList.remove('copied'); }, 2000);
+      }).catch(err => {
+        console.error('Clipboard error:', err);
+        btn.textContent = 'Error';
+        setTimeout(() => { btn.textContent = 'Copy'; }, 2000);
+      });
+    }
+
+    // ========== SEARCH + CATEGORY FILTER ==========
+    (function() {
+      const searchInput = document.getElementById('cmdSearch');
+      const chipContainer = document.getElementById('cmdChips');
+      const cards = Array.from(document.querySelectorAll('.cmd-card'));
+      const countEl = document.getElementById('cmdCount');
+      const emptyEl = document.getElementById('cmdEmpty');
+      let activeCategory = 'all';
+      let activeQuery = '';
+      let debounceId;
+
+      // Populate stats
+      const total = cards.length;
+      const cats = new Set(cards.map(c => c.dataset.category));
+      document.getElementById('cmdStatTotal').textContent = total;
+      document.getElementById('cmdStatCats').textContent = cats.size;
+
+      function applyFilter() {
+        const q = activeQuery.trim().toLowerCase();
+        let visible = 0;
+        cards.forEach(card => {
+          const cat = card.dataset.category;
+          const keywords = (card.dataset.keywords || '').toLowerCase();
+          const title = (card.querySelector('.cmd-card-title')?.textContent || '').toLowerCase();
+          const desc = (card.querySelector('.cmd-card-desc')?.textContent || '').toLowerCase();
+          const tag = (card.querySelector('.cmd-card-tag')?.textContent || '').toLowerCase();
+          const matchesCat = activeCategory === 'all' || cat === activeCategory;
+          const matchesQ = !q || keywords.includes(q) || title.includes(q) || desc.includes(q) || tag.includes(q);
+          if (matchesCat && matchesQ) {
+            card.classList.remove('hidden');
+            visible++;
+          } else {
+            card.classList.add('hidden');
+          }
+        });
+        countEl.textContent = visible === total
+          ? `Showing all ${total} commands`
+          : `Showing ${visible} of ${total} commands`;
+        emptyEl.classList.toggle('visible', visible === 0);
+      }
+
+      // Search
+      searchInput.addEventListener('input', e => {
+        clearTimeout(debounceId);
+        debounceId = setTimeout(() => {
+          activeQuery = e.target.value;
+          applyFilter();
+        }, 150);
+      });
+
+      // Chips
+      chipContainer.addEventListener('click', e => {
+        const chip = e.target.closest('.cmd-chip');
+        if (!chip) return;
+        chipContainer.querySelectorAll('.cmd-chip').forEach(c => c.classList.remove('active'));
+        chip.classList.add('active');
+        activeCategory = chip.dataset.category;
+        applyFilter();
+      });
+
+      // Initial count
+      applyFilter();
+    })();
+
+    // ========== DOWNLOAD MODAL ==========
+    function openDlModal() {
+      document.getElementById('dlModal').classList.add('open');
+      setTimeout(() => document.getElementById('dlName').focus(), 50);
+    }
+    function closeDlModal() {
+      document.getElementById('dlModal').classList.remove('open');
+      document.getElementById('dlModalForm').style.display = 'block';
+      document.getElementById('dlModalSuccess').style.display = 'none';
+    }
+    async function submitDlModal() {
+      const name = document.getElementById('dlName').value.trim();
+      const email = document.getElementById('dlEmail').value.trim();
+      if (!name || !email) { alert('Please enter your name and email.'); return; }
+      try {
+        await fetch('/api/book/capture-email', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            name,
+            email,
+            resource: 'claude-commands-library',
+            utm_source: 'resource-page',
+            utm_medium: 'download'
+          })
+        });
+      } catch (err) {
+        console.error('Email capture error:', err);
+      }
+      document.getElementById('dlModalForm').style.display = 'none';
+      document.getElementById('dlModalSuccess').style.display = 'block';
+      const a = document.createElement('a');
+      a.href = '/downloads/Claude-Commands-Library-Edmund-Bogen.pdf';
+      a.download = '';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      setTimeout(() => {
+        window.location.href = '/claude-commands-registered?email=' + encodeURIComponent(email);
+      }, 2200);
+    }
+    document.getElementById('dlModal').addEventListener('click', function(e) {
+      if (e.target === this) closeDlModal();
+    });
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') closeDlModal();
+    });
+
+    // ========== PAGE VIEW TRACKING ==========
+    fetch('/api/track/pageview', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ page: '/claude-commands', referrer: document.referrer })
+    }).catch(() => {});
+  </script>
+</body>
+</html>

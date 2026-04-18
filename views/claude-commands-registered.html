@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Your Claude Commands Library is On the Way | Edmund Bogen</title>
+  <meta name="description" content="Your Claude Commands Library PDF is downloading now. Here's what to do next — and how to go deeper with live implementation support.">
+  <meta name="robots" content="noindex,follow">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/global.css">
+
+  <style>
+    body { background: var(--dark-navy); color: #fff; }
+
+    .tx-hero {
+      padding: 160px 2rem 80px;
+      text-align: center;
+      background: linear-gradient(135deg, var(--dark-navy) 0%, var(--navy) 60%, #24527A 100%);
+    }
+    .tx-check {
+      width: 72px; height: 72px;
+      background: rgba(100,181,246,0.18);
+      border: 2px solid var(--cyan);
+      border-radius: 50%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 1.25rem;
+      color: var(--cyan);
+      font-size: 2rem;
+    }
+    .tx-hero h1 {
+      font-family: var(--font-serif);
+      color: #fff;
+      font-size: clamp(2rem, 4vw, 2.75rem);
+      font-weight: 700;
+      line-height: 1.2;
+      margin-bottom: 0.75rem;
+    }
+    .tx-hero h1 span { color: var(--cyan); }
+    .tx-hero p {
+      color: rgba(255,255,255,0.75);
+      font-size: 1.1rem;
+      max-width: 620px;
+      margin: 0 auto 1.5rem;
+      line-height: 1.65;
+    }
+    .tx-dl-again {
+      display: inline-block;
+      background: var(--cyan);
+      color: var(--dark-navy);
+      font-weight: 700;
+      padding: 0.85rem 1.75rem;
+      border-radius: 8px;
+      text-decoration: none;
+      transition: all 0.2s;
+    }
+    .tx-dl-again:hover { background: #82c8f7; transform: translateY(-2px); }
+
+    .tx-next { max-width: 900px; margin: 0 auto; padding: 3rem 2rem; }
+    .tx-next h2 {
+      font-family: var(--font-serif);
+      color: #fff;
+      font-size: 1.5rem;
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+    .tx-steps { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1.25rem; }
+    .tx-step-card {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 12px;
+      padding: 1.5rem;
+    }
+    .tx-step-card .n {
+      font-family: var(--font-serif);
+      color: var(--cyan);
+      font-size: 2rem;
+      font-weight: 700;
+      line-height: 1;
+      margin-bottom: 0.5rem;
+    }
+    .tx-step-card h3 {
+      font-family: var(--font-serif);
+      color: #fff;
+      font-size: 1.05rem;
+      margin-bottom: 0.5rem;
+    }
+    .tx-step-card p { color: rgba(255,255,255,0.65); font-size: 0.9rem; line-height: 1.6; }
+    .tx-step-card a { color: var(--cyan); text-decoration: none; font-weight: 600; }
+    .tx-step-card a:hover { text-decoration: underline; }
+    .tx-step-card code {
+      background: rgba(100,181,246,0.12);
+      color: var(--cyan);
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-family: 'SF Mono', Menlo, Consolas, monospace;
+      font-size: 0.85rem;
+    }
+
+    .tx-cta {
+      background: linear-gradient(135deg, var(--dark-navy) 0%, var(--navy) 100%);
+      border: 1px solid rgba(100,181,246,0.25);
+      border-radius: 14px;
+      padding: 2.5rem;
+      margin: 3rem auto;
+      max-width: 900px;
+      text-align: center;
+    }
+    .tx-cta h2 { font-family: var(--font-serif); color: #fff; font-size: 1.6rem; margin-bottom: 0.5rem; }
+    .tx-cta p { color: rgba(255,255,255,0.7); max-width: 600px; margin: 0 auto 1.5rem; line-height: 1.6; }
+    .tx-cta-row { display: flex; justify-content: center; gap: 0.75rem; flex-wrap: wrap; }
+    .tx-btn-primary { background: var(--cyan); color: var(--dark-navy); padding: 0.85rem 1.75rem; border-radius: 8px; text-decoration: none; font-weight: 700; }
+    .tx-btn-primary:hover { background: #82c8f7; }
+    .tx-btn-secondary { border: 1px solid rgba(255,255,255,0.25); color: #fff; padding: 0.85rem 1.75rem; border-radius: 8px; text-decoration: none; font-weight: 600; }
+    .tx-btn-secondary:hover { background: rgba(255,255,255,0.08); border-color: var(--cyan); }
+
+    @media (max-width: 760px) { .tx-steps { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header class="header">
+    <div class="container">
+      <nav class="nav">
+        <a href="/" class="logo" style="display: flex; align-items: center; margin-left: -12px;">
+          <img src="/images/eb-logo.png" alt="Bogen.ai Logo" style="height: 100px; width: auto;">
+        </a>
+        <ul class="nav-menu">
+          <li><a href="/" class="nav-link">Home</a></li>
+          <li><a href="/about-us" class="nav-link">About</a></li>
+          <li><a href="/services" class="nav-link">Services</a></li>
+          <li><a href="/edmunds-mastermind" class="nav-link">Mastermind</a></li>
+          <li><a href="/book" class="nav-link">Book</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section class="tx-hero">
+    <div class="tx-check">✓</div>
+    <h1>Your Playbook Is <span>On the Way</span></h1>
+    <p>The PDF is downloading now. If it didn't auto-start, click below.</p>
+    <a class="tx-dl-again" href="/downloads/Claude-Commands-Library-Edmund-Bogen.pdf" download>Download the PDF Again</a>
+  </section>
+
+  <!-- NEXT STEPS -->
+  <section class="tx-next">
+    <h2>What to Do in the Next 10 Minutes</h2>
+    <div class="tx-steps">
+      <div class="tx-step-card">
+        <div class="n">1</div>
+        <h3>Pick One Command to Run Today</h3>
+        <p>Don't try all of them. Pick the one command that maps to a task you were already going to do this week. Ship it once.</p>
+      </div>
+      <div class="tx-step-card">
+        <div class="n">2</div>
+        <h3>Save It as a Claude Skill</h3>
+        <p>In Claude Code, drop your favorite prompts into <code>~/.claude/skills/</code> so you can trigger them with a slash. Full setup in the PDF.</p>
+      </div>
+      <div class="tx-step-card">
+        <div class="n">3</div>
+        <h3>Bookmark the Library</h3>
+        <p>The page updates weekly with new commands. <a href="/claude-commands">bogen.ai/claude-commands</a> — pin it in your browser.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- MASTERMIND CTA -->
+  <section class="tx-cta">
+    <h2>Want to Stop Doing This Alone?</h2>
+    <p>The Claude Commands Library is one layer of a full AI operating system. Edmund's Mastermind gives realtors, executives, and entrepreneurs live weekly implementation support, every prompt library we build, and direct access to Edmund and Eytan Benzeno.</p>
+    <div class="tx-cta-row">
+      <a href="/edmunds-mastermind" class="tx-btn-primary">Join Edmund's Mastermind</a>
+      <a href="/claude-commands" class="tx-btn-secondary">Back to the Library</a>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer" style="padding: var(--spacing-lg) 0;">
+    <div class="container">
+      <div class="footer-bottom" style="border-top: none; padding-top: 0;">
+        <p>&copy; 2026 Bogen.ai. All rights reserved. | Boca Raton, FL | <a href="mailto:info@bogen.ai">info@bogen.ai</a></p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="/js/common.js"></script>
+</body>
+</html>

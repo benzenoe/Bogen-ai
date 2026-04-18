@@ -538,6 +538,14 @@ app.get('/claude-for-excel-registered', (req, res) => {
   res.sendFile(path.join(__dirname, 'views', 'claude-for-excel-registered.html'));
 });
 
+app.get('/claude-commands', (req, res) => {
+  res.sendFile(path.join(__dirname, 'views', 'claude-commands.html'));
+});
+
+app.get('/claude-commands-registered', (req, res) => {
+  res.sendFile(path.join(__dirname, 'views', 'claude-commands-registered.html'));
+});
+
 app.get('/quickstart-card', (req, res) => {
   res.sendFile(path.join(__dirname, 'views', 'quickstart-card.html'));
 });
