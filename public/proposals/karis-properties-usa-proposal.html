@@ -1002,13 +1002,29 @@
     }
 
     .footer-logo {
-      height: 65px;
+      height: 90px;
       width: auto;
       transition: opacity 0.2s ease;
       filter: brightness(1.1);
     }
 
-    .footer a:hover .footer-logo {
+    .footer-logo-dark {
+      display: none;
+    }
+
+    [data-theme="light"] .footer-logo {
+      display: none;
+    }
+
+    [data-theme="light"] .footer-logo-dark {
+      display: block;
+      height: 90px;
+      width: auto;
+      transition: opacity 0.2s ease;
+    }
+
+    .footer a:hover .footer-logo,
+    .footer a:hover .footer-logo-dark {
       opacity: 0.8;
     }
 
@@ -1553,6 +1569,7 @@
     <div class="footer-logo-container">
       <a href="https://www.bogen.ai" target="_blank" style="line-height: 0; display: inline-block;">
         <img src="https://bogen.ai/images/eb-logo.png" alt="Bogen.ai" class="footer-logo">
+        <img src="eb-logo-dark.png" alt="Bogen.ai" class="footer-logo-dark">
       </a>
     </div>
     <div class="footer-content">
