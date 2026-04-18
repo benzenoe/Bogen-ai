@@ -993,7 +993,7 @@
 
     .footer-content {
       flex: 1;
-      text-align: left;
+      text-align: right;
     }
 
     .footer-logo-container {
@@ -1550,14 +1550,14 @@
 
   <!-- Footer -->
   <div class="footer">
+    <div class="footer-logo-container">
+      <a href="https://www.bogen.ai" target="_blank" style="line-height: 0; display: inline-block;">
+        <img src="https://bogen.ai/images/eb-logo.png" alt="Bogen.ai" class="footer-logo">
+      </a>
+    </div>
     <div class="footer-content">
       <p>© 2026 Bogen.ai — A Division of Dave T Productions</p>
       <p><a href="mailto:sales@reignation.com">sales@reignation.com</a></p>
-    </div>
-    <div class="footer-logo-container">
-      <a href="https://karisdenver.com" target="_blank" style="line-height: 0; display: inline-block;">
-        <img src="karis-properties-logo-dark.png" alt="Karis Properties" class="footer-logo">
-      </a>
     </div>
   </div>
 
@@ -1622,18 +1622,39 @@
           <h2 style="color: #f0f4f8; margin: 0 0 0.5rem 0; font-size: 1.5rem;">Protected Proposal</h2>
           <p style="color: #8899aa; margin: 0; font-size: 0.9rem;">Enter password to view</p>
         </div>
-        <input type="password" id="passwordInput" placeholder="Enter password" style="
-          width: 100%;
-          padding: 0.75rem 1rem;
-          background: rgba(13, 22, 32, 0.8);
-          border: 1px solid rgba(0, 168, 225, 0.3);
-          border-radius: 8px;
-          color: #f0f4f8;
-          font-size: 1rem;
-          font-family: inherit;
-          margin-bottom: 1rem;
-          box-sizing: border-box;
-        ">
+        <div style="position: relative; margin-bottom: 1rem;">
+          <input type="password" id="passwordInput" placeholder="Enter password" style="
+            width: 100%;
+            padding: 0.75rem 3rem 0.75rem 1rem;
+            background: rgba(13, 22, 32, 0.8);
+            border: 1px solid rgba(0, 168, 225, 0.3);
+            border-radius: 8px;
+            color: #f0f4f8;
+            font-size: 1rem;
+            font-family: inherit;
+            box-sizing: border-box;
+          ">
+          <button type="button" id="togglePassword" style="
+            position: absolute;
+            right: 0.75rem;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            color: #8899aa;
+            cursor: pointer;
+            padding: 0.25rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: color 0.2s;
+          " onmouseover="this.style.color='#00a8e1'" onmouseout="this.style.color='#8899aa'">
+            <svg id="eyeIcon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+              <circle cx="12" cy="12" r="3"></circle>
+            </svg>
+          </button>
+        </div>
         <button id="submitPassword" style="
           width: 100%;
           padding: 0.75rem 1rem;
@@ -1662,6 +1683,25 @@
       const input = document.getElementById('passwordInput');
       const button = document.getElementById('submitPassword');
       const error = document.getElementById('errorMsg');
+      const toggleBtn = document.getElementById('togglePassword');
+      const eyeIcon = document.getElementById('eyeIcon');
+
+      // Toggle password visibility
+      toggleBtn.addEventListener('click', function() {
+        if (input.type === 'password') {
+          input.type = 'text';
+          eyeIcon.innerHTML = `
+            <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"></path>
+            <line x1="1" y1="1" x2="23" y2="23"></line>
+          `;
+        } else {
+          input.type = 'password';
+          eyeIcon.innerHTML = `
+            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+            <circle cx="12" cy="12" r="3"></circle>
+          `;
+        }
+      });
 
       function checkPassword() {
         if (input.value === correctPassword) {
