@@ -47,7 +47,7 @@
       top: 0;
       left: 0;
       right: 0;
-      height: 60px;
+      height: 85px;
       background: rgba(13,22,32,0.95);
       backdrop-filter: blur(12px);
       -webkit-backdrop-filter: blur(12px);
@@ -58,6 +58,11 @@
       align-items: center;
       padding: 0 2rem;
       gap: 1rem;
+      transition: background 0.3s ease;
+    }
+
+    [data-theme="light"] .nav {
+      background: rgba(255, 255, 255, 0.95);
     }
 
     .nav-left {
@@ -67,7 +72,7 @@
     }
 
     .nav-logo {
-      height: 32px;
+      height: 45px;
       width: auto;
       transition: opacity 0.2s ease;
     }
@@ -96,7 +101,7 @@
     }
 
     .nav-logo.karis {
-      height: 38px;
+      height: 55px;
       margin-left: 0.5rem;
       transition: opacity 0.2s ease;
     }
@@ -367,20 +372,9 @@
                   linear-gradient(180deg, #0d1620 0%, #1a2332 100%);
     }
 
-    /* Keep navigation dark in both themes */
-    .nav {
-      background: rgba(13,22,32,0.95) !important;
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-    }
-
     .nav-sep,
     .theme-toggle-label {
-      color: var(--blue) !important;
-    }
-
-    .nav-logo {
-      filter: brightness(1.2);
+      color: var(--blue);
     }
 
     /* Keep hero dark in both themes */
