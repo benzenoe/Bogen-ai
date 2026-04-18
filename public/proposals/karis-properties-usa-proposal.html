@@ -984,11 +984,25 @@
       background: var(--navy2);
       border-top: 1px solid var(--border);
       padding: 3rem 2rem;
-      text-align: center;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 2rem;
+    }
+
+    .footer-content {
+      flex: 1;
+      text-align: left;
+    }
+
+    .footer-logo-container {
+      display: flex;
+      align-items: center;
     }
 
     .footer-logo {
-      height: 36px;
+      height: 65px;
       width: auto;
       transition: opacity 0.2s ease;
       filter: brightness(1.1);
@@ -1007,6 +1021,21 @@
     .footer a {
       color: var(--blue);
       text-decoration: none;
+    }
+
+    @media (max-width: 768px) {
+      .footer {
+        flex-direction: column;
+        text-align: center;
+      }
+
+      .footer-content {
+        text-align: center;
+      }
+
+      .footer-logo-container {
+        order: -1;
+      }
     }
 
     /* Responsive */
@@ -1521,11 +1550,15 @@
 
   <!-- Footer -->
   <div class="footer">
-    <a href="https://www.bogen.ai" target="_blank" style="line-height: 0; display: inline-block; margin-bottom: 1rem;">
-      <img src="https://bogen.ai/images/eb-logo.png" alt="Bogen.ai" class="footer-logo">
-    </a>
-    <p>© 2026 Bogen.ai — A Division of Dave T Productions</p>
-    <p><a href="mailto:sales@reignation.com">sales@reignation.com</a></p>
+    <div class="footer-content">
+      <p>© 2026 Bogen.ai — A Division of Dave T Productions</p>
+      <p><a href="mailto:sales@reignation.com">sales@reignation.com</a></p>
+    </div>
+    <div class="footer-logo-container">
+      <a href="https://karisdenver.com" target="_blank" style="line-height: 0; display: inline-block;">
+        <img src="karis-properties-logo-dark.png" alt="Karis Properties" class="footer-logo">
+      </a>
+    </div>
   </div>
 
   <!-- PDF Preview Modal -->
@@ -1546,6 +1579,114 @@
 
   <!-- JavaScript -->
   <script>
+    // Password Protection
+    (function() {
+      const correctPassword = 'Bogen2026';
+      const sessionKey = 'karis-proposal-authenticated';
+
+      // Check if already authenticated in this session
+      if (sessionStorage.getItem(sessionKey) === 'true') {
+        return; // Already authenticated
+      }
+
+      // Hide body content initially
+      document.body.style.display = 'none';
+
+      // Create password overlay
+      const overlay = document.createElement('div');
+      overlay.style.cssText = `
+        position: fixed;
+        inset: 0;
+        background: linear-gradient(180deg, #0d1620 0%, #1a2332 100%);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 99999;
+        font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      `;
+
+      const box = document.createElement('div');
+      box.style.cssText = `
+        background: rgba(26, 35, 50, 0.95);
+        border: 1.5px solid rgba(0, 168, 225, 0.4);
+        border-radius: 16px;
+        padding: 2.5rem;
+        max-width: 400px;
+        width: 90%;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+      `;
+
+      box.innerHTML = `
+        <div style="text-align: center; margin-bottom: 2rem;">
+          <img src="https://bogen.ai/images/eb-logo.png" alt="Bogen.ai" style="height: 50px; margin-bottom: 1rem;">
+          <h2 style="color: #f0f4f8; margin: 0 0 0.5rem 0; font-size: 1.5rem;">Protected Proposal</h2>
+          <p style="color: #8899aa; margin: 0; font-size: 0.9rem;">Enter password to view</p>
+        </div>
+        <input type="password" id="passwordInput" placeholder="Enter password" style="
+          width: 100%;
+          padding: 0.75rem 1rem;
+          background: rgba(13, 22, 32, 0.8);
+          border: 1px solid rgba(0, 168, 225, 0.3);
+          border-radius: 8px;
+          color: #f0f4f8;
+          font-size: 1rem;
+          font-family: inherit;
+          margin-bottom: 1rem;
+          box-sizing: border-box;
+        ">
+        <button id="submitPassword" style="
+          width: 100%;
+          padding: 0.75rem 1rem;
+          background: #00a8e1;
+          border: none;
+          border-radius: 8px;
+          color: #fff;
+          font-size: 1rem;
+          font-weight: 600;
+          cursor: pointer;
+          font-family: inherit;
+          transition: background 0.2s;
+        ">Access Proposal</button>
+        <p id="errorMsg" style="
+          color: #ff6b6b;
+          margin: 1rem 0 0 0;
+          font-size: 0.85rem;
+          text-align: center;
+          display: none;
+        ">Incorrect password. Please try again.</p>
+      `;
+
+      overlay.appendChild(box);
+      document.body.parentElement.appendChild(overlay);
+
+      const input = document.getElementById('passwordInput');
+      const button = document.getElementById('submitPassword');
+      const error = document.getElementById('errorMsg');
+
+      function checkPassword() {
+        if (input.value === correctPassword) {
+          sessionStorage.setItem(sessionKey, 'true');
+          overlay.remove();
+          document.body.style.display = '';
+          error.style.display = 'none';
+        } else {
+          error.style.display = 'block';
+          input.value = '';
+          input.focus();
+        }
+      }
+
+      button.addEventListener('click', checkPassword);
+      input.addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') {
+          checkPassword();
+        }
+      });
+
+      // Focus input when page loads
+      setTimeout(() => input.focus(), 100);
+    })();
+
     // Pricing Calculator
     const pricing = {
       base: { setup: 1000, monthly: 200 },
