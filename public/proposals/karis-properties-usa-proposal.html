@@ -666,6 +666,98 @@
       color: var(--gray);
     }
 
+    /* Template Showcase */
+    .template-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem;
+      margin: 2rem 0;
+    }
+
+    .template-card {
+      background: var(--navy2);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      overflow: hidden;
+      transition: all 0.3s ease;
+    }
+
+    .template-card:hover {
+      border-color: var(--blue);
+      transform: translateY(-5px);
+      box-shadow: 0 8px 24px rgba(0, 168, 225, 0.2);
+    }
+
+    .template-image {
+      width: 100%;
+      aspect-ratio: 3/4;
+      overflow: hidden;
+      background: var(--navy);
+      position: relative;
+    }
+
+    .template-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: top;
+      transition: transform 0.3s ease;
+    }
+
+    .template-card:hover .template-image img {
+      transform: scale(1.05);
+    }
+
+    .template-info {
+      padding: 1.5rem;
+    }
+
+    .template-info h3 {
+      margin: 0 0 0.5rem 0;
+      color: var(--blue);
+      font-size: 1.3rem;
+    }
+
+    .template-tagline {
+      font-size: 0.9rem;
+      color: var(--white);
+      font-weight: 600;
+      margin-bottom: 1rem;
+    }
+
+    .template-features {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .template-features li {
+      position: relative;
+      padding-left: 1.5rem;
+      margin-bottom: 0.5rem;
+      font-size: 0.85rem;
+      color: var(--gray);
+      line-height: 1.5;
+    }
+
+    .template-features li::before {
+      content: '✓';
+      position: absolute;
+      left: 0;
+      color: var(--blue);
+      font-weight: 700;
+    }
+
+    @media (max-width: 768px) {
+      .template-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .template-image {
+        aspect-ratio: 3/4;
+      }
+    }
+
     /* Base Package Box */
     .base-package-box {
       background: var(--navy2);
@@ -1290,6 +1382,82 @@
         <h4>Every Step of the Way</h4>
         <p>Ongoing support and adjustments as your needs evolve</p>
       </div>
+    </div>
+  </div>
+
+  <!-- Template Showcase -->
+  <div class="section">
+    <h2>Choose Your Style</h2>
+    <p>We've created four custom design directions specifically for Karis Properties USA. Choose the style that best represents your brand, or we can combine elements from multiple templates.</p>
+
+    <div class="template-grid">
+      <div class="template-card">
+        <div class="template-image">
+          <img src="karis-template-modern.png" alt="Modern Template">
+        </div>
+        <div class="template-info">
+          <h3>1. Modern</h3>
+          <p class="template-tagline">Clean, Professional, Balanced</p>
+          <ul class="template-features">
+            <li>Great for all audiences</li>
+            <li>Contemporary color scheme</li>
+            <li>Easy-to-use property search</li>
+            <li>Perfect for first-time buyers and sellers</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="template-card">
+        <div class="template-image">
+          <img src="karis-template-luxury.png" alt="Luxury Template">
+        </div>
+        <div class="template-info">
+          <h3>2. Luxury</h3>
+          <p class="template-tagline">Sophisticated Black & Gold</p>
+          <ul class="template-features">
+            <li>Upscale luxury market focus</li>
+            <li>Showcases high-end, photo-based listings</li>
+            <li>High-end branding appeal</li>
+            <li>Perfect for emphasizing the broker's quality and expertise</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="template-card">
+        <div class="template-image">
+          <img src="karis-template-traditional.png" alt="Traditional Template">
+        </div>
+        <div class="template-info">
+          <h3>3. Traditional</h3>
+          <p class="template-tagline">Trustworthy, Timeless, Professional</p>
+          <ul class="template-features">
+            <li>Classic blue design that feels established</li>
+            <li>Appeals to a broad range including families</li>
+            <li>Simple, elegant layout with a traditional, stable font</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="template-card">
+        <div class="template-image">
+          <img src="karis-template-lead-capture.png" alt="Lead Capture Template">
+        </div>
+        <div class="template-info">
+          <h3>4. Lead Capture</h3>
+          <p class="template-tagline">Simple, Conversion-Focused</p>
+          <ul class="template-features">
+            <li>Minimalist design focused on lead generation</li>
+            <li>Prominent call-to-action forms</li>
+            <li>Clean, light colors that encourage messaging and forms</li>
+            <li>Designed for maximum lead conversion</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" style="margin-top: 2rem;">
+      <h3>Not Sure Which Style?</h3>
+      <p>We can mix and match elements from different templates, or create something entirely custom based on your preferences. During our discovery session, we'll work together to define the perfect look and feel for Karis Properties USA.</p>
     </div>
   </div>
 
