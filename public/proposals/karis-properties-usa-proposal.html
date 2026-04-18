@@ -1281,16 +1281,28 @@
               <div class="config-card-desc">Back-end comparative market analysis tool for agent use</div>
             </div>
 
-            <div class="config-card" onclick="toggleAddon('blog_social')">
+            <div class="config-card" onclick="toggleAddon('blog')">
               <div class="config-card-header">
-                <input type="checkbox" id="blog_social" onclick="event.stopPropagation()" onchange="calculateTotal(); this.closest('.config-card').classList.toggle('active', this.checked)">
-                <div class="config-card-title">Blog + Social Media Publisher</div>
+                <input type="checkbox" id="blog" onclick="event.stopPropagation()" onchange="calculateTotal(); this.closest('.config-card').classList.toggle('active', this.checked)">
+                <div class="config-card-title">Blog CMS</div>
                 <div class="config-card-prices">
-                  <span class="config-card-setup">$250</span>
-                  <span class="config-card-monthly">$25/mo</span>
+                  <span class="config-card-setup">$300</span>
+                  <span class="config-card-monthly">Included</span>
                 </div>
               </div>
-              <div class="config-card-desc">CMS with one-click publish to social platforms</div>
+              <div class="config-card-desc">Full-featured blog content management system</div>
+            </div>
+
+            <div class="config-card" onclick="toggleAddon('social_publisher')">
+              <div class="config-card-header">
+                <input type="checkbox" id="social_publisher" onclick="event.stopPropagation()" onchange="calculateTotal(); this.closest('.config-card').classList.toggle('active', this.checked)">
+                <div class="config-card-title">Social Media Publisher</div>
+                <div class="config-card-prices">
+                  <span class="config-card-setup">$150</span>
+                  <span class="config-card-monthly">$30/mo</span>
+                </div>
+              </div>
+              <div class="config-card-desc">One-click publish to social platforms (Facebook, Instagram, LinkedIn)</div>
             </div>
 
             <div class="config-card" onclick="toggleAddon('crm_integration')">
@@ -1514,7 +1526,8 @@
       idx: { setup: 800, monthly: 70 },
       investment_tool: { setup: 300, monthly: 0 },
       cma_tool: { setup: 400, monthly: 0 },
-      blog_social: { setup: 250, monthly: 25 },
+      blog: { setup: 300, monthly: 0 },
+      social_publisher: { setup: 150, monthly: 30 },
       ai_chat: { setup: 250, monthly: 50 },
       crm_integration: { setup: 400, monthly: 0 },
       ad_campaign: { setup: 450, monthly: 300 }
