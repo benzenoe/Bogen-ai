@@ -1,0 +1,1604 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Karis Properties USA — Website Development Proposal</title>
+  <link rel="icon" type="image/png" href="https://bogen.ai/images/eb-logo.png">
+  <link rel="shortcut icon" type="image/png" href="https://bogen.ai/images/eb-logo.png">
+  <style>
+    :root {
+      --navy: #0d1620;
+      --navy2: #1a2332;
+      --navy3: #243044;
+      --blue: #00a8e1;
+      --gold: #ffd93d;
+      --white: #f0f4f8;
+      --gray: #8899aa;
+      --border: rgba(255,255,255,0.08);
+      --teal: #2B6166;
+    }
+
+    [data-theme="light"] {
+      --navy: #ffffff;
+      --navy2: #f4f7f9;
+      --navy3: #e5e9ec;
+      --white: #1a2332;
+      --gray: #5a6c7d;
+      --border: rgba(0,0,0,0.08);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      line-height: 1.6;
+      color: var(--white);
+      background: var(--navy);
+    }
+
+    /* Fixed Navigation */
+    .nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 60px;
+      background: rgba(13,22,32,0.95);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      z-index: 1000;
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      align-items: center;
+      padding: 0 2rem;
+      gap: 1rem;
+    }
+
+    .nav-left {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .nav-logo {
+      height: 32px;
+      width: auto;
+      transition: opacity 0.2s ease;
+    }
+
+    .nav-left a:hover .nav-logo {
+      opacity: 0.8;
+    }
+
+    .nav-logo.karis {
+      height: 38px;
+      margin-left: 0.5rem;
+      transition: opacity 0.2s ease;
+    }
+
+    .nav-left a:hover .nav-logo.karis {
+      opacity: 0.8;
+    }
+
+    .nav-sep {
+      font-size: 1rem;
+      color: rgba(0, 168, 225, 0.4);
+      font-weight: 300;
+    }
+
+    .nav-center {
+      text-align: center;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: rgba(0, 168, 225, 0.9);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      white-space: nowrap;
+    }
+
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      justify-content: flex-end;
+    }
+
+    .theme-toggle {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(0,168,225,0.1);
+      padding: 6px 12px;
+      border-radius: 50px;
+      border: 1px solid rgba(0,168,225,0.3);
+      cursor: pointer;
+      user-select: none;
+      transition: all 0.2s;
+    }
+
+    .theme-toggle:hover {
+      background: rgba(0,168,225,0.15);
+    }
+
+    .theme-toggle-label {
+      font-size: 0.7rem;
+      font-weight: 600;
+      color: var(--blue);
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    .toggle-switch {
+      width: 36px;
+      height: 20px;
+      background: rgba(0,168,225,0.2);
+      border-radius: 10px;
+      position: relative;
+      transition: background 0.3s ease;
+    }
+
+    .toggle-switch::after {
+      content: '';
+      position: absolute;
+      top: 2px;
+      left: 2px;
+      width: 16px;
+      height: 16px;
+      background: var(--blue);
+      border-radius: 50%;
+      transition: transform 0.3s ease;
+    }
+
+    [data-theme="light"] .toggle-switch::after {
+      transform: translateX(16px);
+    }
+
+    .btn-book {
+      background: var(--blue);
+      color: #fff;
+      padding: 0.4rem 1rem;
+      border-radius: 8px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      text-decoration: none;
+      transition: opacity 0.2s;
+      display: inline-block;
+    }
+
+    .btn-book:hover {
+      opacity: 0.85;
+    }
+
+    /* PDF Download Button */
+    .pdf-download {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      z-index: 999;
+    }
+
+    .pdf-download button {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--blue);
+      color: #fff;
+      padding: 12px 24px;
+      border: none;
+      border-radius: 50px;
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      font-size: 0.85rem;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      cursor: pointer;
+      box-shadow: 0 4px 20px rgba(0,168,225,0.4);
+      transition: all 0.3s ease;
+    }
+
+    .pdf-download button:hover {
+      background: #008aba;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 24px rgba(0,168,225,0.5);
+    }
+
+    .pdf-download button svg {
+      width: 16px;
+      height: 16px;
+      fill: currentColor;
+    }
+
+    /* PDF Preview Modal */
+    .pdf-modal-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.75);
+      z-index: 10000;
+      align-items: center;
+      justify-content: center;
+      backdrop-filter: blur(4px);
+      -webkit-backdrop-filter: blur(4px);
+    }
+
+    .pdf-modal-overlay.active {
+      display: flex;
+    }
+
+    .pdf-modal {
+      width: 90vw;
+      max-width: 860px;
+      height: 88vh;
+      background: #1a2332;
+      border-radius: 12px;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 24px 64px rgba(0, 0, 0, 0.5);
+    }
+
+    .pdf-modal-header {
+      padding: 1.25rem 1.5rem;
+      background: #1a3e5c;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-radius: 12px 12px 0 0;
+    }
+
+    .pdf-modal-title {
+      font-size: 1rem;
+      font-weight: 700;
+      color: #f0f4f8;
+      letter-spacing: 0.02em;
+    }
+
+    .pdf-modal-actions {
+      display: flex;
+      gap: 0.75rem;
+    }
+
+    .btn-close-modal {
+      background: rgba(255, 255, 255, 0.1);
+      color: #f0f4f8;
+      border: none;
+      padding: 0.5rem 1rem;
+      border-radius: 6px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+      font-family: 'Segoe UI', system-ui, sans-serif;
+    }
+
+    .btn-close-modal:hover {
+      background: rgba(255, 255, 255, 0.2);
+    }
+
+    .btn-confirm-download {
+      background: #00a8e1;
+      color: #fff;
+      border: none;
+      padding: 0.5rem 1rem;
+      border-radius: 6px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+      font-family: 'Segoe UI', system-ui, sans-serif;
+    }
+
+    .btn-confirm-download:hover {
+      background: #0090c4;
+    }
+
+    .pdf-modal-body {
+      flex: 1;
+      padding: 0;
+      overflow: hidden;
+      border-radius: 0 0 12px 12px;
+    }
+
+    .pdf-modal-body iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+      background: #fff;
+    }
+
+    @media (max-width: 768px) {
+      .pdf-modal {
+        width: 95vw;
+        height: 90vh;
+      }
+
+      .pdf-modal-header {
+        flex-direction: column;
+        gap: 1rem;
+        align-items: stretch;
+      }
+
+      .pdf-modal-actions {
+        width: 100%;
+      }
+
+      .btn-close-modal,
+      .btn-confirm-download {
+        flex: 1;
+      }
+    }
+
+    /* Hero/Cover Section */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 8rem 2rem 5rem;
+      background: radial-gradient(ellipse at 20% 50%, rgba(0,168,225,0.12) 0%, transparent 50%),
+                  radial-gradient(ellipse at 80% 20%, rgba(90,45,130,0.18) 0%, transparent 50%),
+                  linear-gradient(180deg, #0d1620 0%, #1a2332 100%);
+    }
+
+    /* Keep navigation dark in both themes */
+    .nav {
+      background: rgba(13,22,32,0.95) !important;
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+    }
+
+    .nav-sep,
+    .theme-toggle-label {
+      color: var(--blue) !important;
+    }
+
+    .nav-logo {
+      filter: brightness(1.2);
+    }
+
+    /* Keep hero dark in both themes */
+    [data-theme="light"] .hero {
+      background: radial-gradient(ellipse at 20% 50%, rgba(0,168,225,0.12) 0%, transparent 50%),
+                  radial-gradient(ellipse at 80% 20%, rgba(90,45,130,0.18) 0%, transparent 50%),
+                  linear-gradient(180deg, #0d1620 0%, #1a2332 100%);
+    }
+
+    [data-theme="light"] .hero * {
+      color: #f0f4f8 !important;
+    }
+
+    [data-theme="light"] .hero .hero-badge {
+      color: var(--blue) !important;
+    }
+
+    .hero-logos {
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+      margin-bottom: 3rem;
+      justify-content: center;
+    }
+
+    .hero-logo {
+      height: 80px;
+      width: auto;
+      filter: brightness(1.1);
+      transition: opacity 0.2s ease;
+    }
+
+    .hero-logos a:hover .hero-logo {
+      opacity: 0.8;
+    }
+
+    .hero-logo-karis {
+      height: 115px;
+      transition: opacity 0.2s ease;
+    }
+
+    .hero-logos a:hover .hero-logo-karis {
+      opacity: 0.8;
+    }
+
+    .hero-logo-sep {
+      font-size: 2rem;
+      color: rgba(0, 168, 225, 0.4);
+      font-weight: 200;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.4rem 1rem;
+      background: rgba(0,168,225,0.08);
+      border: 1px solid rgba(0,168,225,0.3);
+      border-radius: 50px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--blue);
+      margin-bottom: 2rem;
+    }
+
+    .pulse-dot {
+      width: 8px;
+      height: 8px;
+      background: var(--blue);
+      border-radius: 50%;
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.5; }
+    }
+
+    h1 {
+      font-size: clamp(2.2rem, 5vw, 3.8rem);
+      font-weight: 800;
+      margin-bottom: 1rem;
+      line-height: 1.2;
+    }
+
+    .hero-subtitle {
+      font-size: 1.1rem;
+      color: var(--gray);
+      margin-bottom: 2rem;
+      max-width: 700px;
+    }
+
+    .hero-client {
+      font-size: 1.3rem;
+      font-weight: 600;
+      color: var(--blue);
+      margin-bottom: 0.5rem;
+    }
+
+    .hero-date {
+      font-size: 1rem;
+      color: var(--gray);
+      margin-bottom: 2rem;
+    }
+
+    .hero-brand {
+      font-size: 1.5rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-top: 2rem;
+    }
+
+    .hero-brand-sub {
+      font-size: 0.9rem;
+      color: var(--gray);
+      margin-top: 0.5rem;
+    }
+
+    /* Main Content Sections */
+    .section {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 5rem 2rem;
+    }
+
+    h2 {
+      font-size: clamp(1.6rem, 3vw, 2.4rem);
+      font-weight: 800;
+      color: var(--white);
+      margin-bottom: 2rem;
+    }
+
+    h3 {
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: var(--white);
+      margin: 2rem 0 1rem;
+    }
+
+    h4 {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--white);
+      margin: 1.5rem 0 1rem;
+    }
+
+    p {
+      color: var(--gray);
+      margin-bottom: 1rem;
+      line-height: 1.8;
+    }
+
+    ul, ol {
+      margin-bottom: 1.5rem;
+      padding-left: 1.5rem;
+      color: var(--gray);
+    }
+
+    li {
+      margin-bottom: 0.75rem;
+      line-height: 1.6;
+    }
+
+    strong {
+      color: var(--white);
+      font-weight: 600;
+    }
+
+    /* Card Components */
+    .card {
+      background: var(--navy2);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 1.75rem;
+      margin: 1.5rem 0;
+      transition: all 0.3s ease;
+    }
+
+    .card:hover {
+      border-color: rgba(0,168,225,0.3);
+      transform: translateY(-3px);
+    }
+
+    .card h3 {
+      margin-top: 0;
+      color: var(--blue);
+    }
+
+    .card p {
+      margin-bottom: 0.75rem;
+    }
+
+    .card ul {
+      margin-bottom: 0;
+    }
+
+    /* Feature Grid */
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+      margin: 2rem 0;
+    }
+
+    .feature-card {
+      background: var(--navy2);
+      border: 1px solid var(--border);
+      border-left: 4px solid var(--blue);
+      border-radius: 12px;
+      padding: 1.5rem;
+      transition: all 0.3s ease;
+    }
+
+    .feature-card:hover {
+      border-color: var(--blue);
+      transform: translateY(-3px);
+    }
+
+    .feature-card h4 {
+      margin: 0 0 0.5rem 0;
+      color: var(--white);
+      font-size: 1rem;
+    }
+
+    .feature-card p {
+      margin: 0;
+      font-size: 0.9rem;
+      color: var(--gray);
+    }
+
+    /* Stats Grid */
+    .stat-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1.5rem;
+      margin: 2rem 0;
+    }
+
+    .stat-card {
+      background: var(--navy2);
+      border: 1px solid var(--border);
+      border-top: 3px solid var(--blue);
+      border-radius: 12px;
+      padding: 1.5rem;
+      text-align: center;
+    }
+
+    .stat-label {
+      font-size: 0.75rem;
+      color: var(--gray);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 0.5rem;
+    }
+
+    .stat-value {
+      font-size: 2rem;
+      font-weight: 800;
+      color: var(--blue);
+      margin-bottom: 0.5rem;
+    }
+
+    .stat-desc {
+      font-size: 0.85rem;
+      color: var(--gray);
+    }
+
+    /* Base Package Box */
+    .base-package-box {
+      background: var(--navy2);
+      border: 2px solid var(--blue);
+      border-radius: 12px;
+      padding: 1.75rem;
+      margin: 1.5rem 0;
+    }
+
+    .base-package-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      cursor: pointer;
+      user-select: none;
+      margin-bottom: 1rem;
+      padding: 0.5rem;
+      margin: -0.5rem -0.5rem 1rem -0.5rem;
+      border-radius: 8px;
+      transition: background 0.2s ease;
+    }
+
+    .base-package-header:hover {
+      background: rgba(0, 168, 225, 0.05);
+    }
+
+    .base-package-header h4 {
+      margin: 0;
+      color: var(--blue);
+      flex: 1;
+    }
+
+    .base-package-toggle {
+      font-size: 1.5rem;
+      color: var(--blue);
+      transition: transform 0.3s ease;
+      margin-left: 1rem;
+    }
+
+    .base-package-box.collapsed .base-package-toggle {
+      transform: rotate(-90deg);
+    }
+
+    .base-package-box h4 {
+      margin-top: 0;
+      color: var(--blue);
+    }
+
+    .base-includes {
+      margin-top: 1rem;
+      overflow: hidden;
+      transition: max-height 0.4s ease, opacity 0.3s ease;
+      max-height: 1000px;
+      opacity: 1;
+    }
+
+    .base-package-box.collapsed .base-includes {
+      max-height: 0;
+      opacity: 0;
+      margin-top: 0;
+    }
+
+    .base-package-box.collapsed .base-package-desc {
+      display: none;
+    }
+
+    .base-includes-item {
+      position: relative;
+      padding-left: 25px;
+      margin-bottom: 8px;
+      color: var(--gray);
+      font-size: 0.9rem;
+    }
+
+    .base-includes-item::before {
+      content: '✓';
+      position: absolute;
+      left: 0;
+      color: var(--blue);
+      font-weight: 700;
+    }
+
+    /* Pricing Calculator */
+    .pricing-calculator {
+      display: grid;
+      grid-template-columns: 1fr 320px;
+      gap: 2rem;
+      margin: 3rem 0;
+    }
+
+    @media (max-width: 968px) {
+      .pricing-calculator {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .config-panel {
+      background: var(--navy2);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 2rem;
+    }
+
+    .calculator-header {
+      margin-bottom: 2rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .calculator-header h3 {
+      margin: 0 0 0.5rem 0;
+      font-size: 1.4rem;
+      color: var(--white);
+    }
+
+    .calculator-header p {
+      margin: 0;
+      font-size: 0.9rem;
+      color: var(--gray);
+    }
+
+    .pricing-section {
+      margin: 2rem 0;
+    }
+
+    .pricing-section:first-of-type {
+      margin-top: 0;
+    }
+
+    .pricing-section h4 {
+      margin-bottom: 1rem;
+      font-size: 1rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--white);
+    }
+
+    .addon-grid {
+      display: grid;
+      gap: 0.75rem;
+    }
+
+    .config-card {
+      border: 1.5px solid var(--border);
+      border-radius: 10px;
+      padding: 1rem;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      background: var(--navy);
+    }
+
+    .config-card:hover {
+      border-color: var(--blue);
+      background: rgba(0, 168, 225, 0.04);
+      transform: translateY(-1px);
+    }
+
+    .config-card.active {
+      border-color: var(--blue);
+      background: rgba(0, 168, 225, 0.08);
+      box-shadow: 0 0 0 1px var(--blue);
+    }
+
+    .config-card-header {
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      gap: 0.75rem;
+      align-items: flex-start;
+      margin-bottom: 0.5rem;
+    }
+
+    .config-card input[type="checkbox"] {
+      width: 20px;
+      height: 20px;
+      margin-top: 2px;
+      cursor: pointer;
+      accent-color: var(--blue);
+    }
+
+    .config-card-title {
+      font-weight: 600;
+      color: var(--white);
+      font-size: 0.95rem;
+    }
+
+    .config-card-prices {
+      display: flex;
+      gap: 1rem;
+      align-items: baseline;
+      justify-content: flex-end;
+      white-space: nowrap;
+    }
+
+    .config-card-setup {
+      color: var(--gray);
+      font-weight: 600;
+      font-size: 0.9rem;
+    }
+
+    .config-card-monthly {
+      color: var(--blue);
+      font-weight: 700;
+      font-size: 1rem;
+    }
+
+    .config-card-desc {
+      font-size: 0.85rem;
+      color: var(--gray);
+      line-height: 1.5;
+      margin-left: 2.5rem;
+    }
+
+    /* Sticky Live Quote */
+    .live-quote {
+      position: sticky;
+      top: 90px;
+      height: fit-content;
+      background: rgba(26, 35, 50, 0.96);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1.5px solid rgba(0, 168, 225, 0.4);
+      border-radius: 16px;
+      padding: 1.5rem;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4),
+                  0 0 0 1px rgba(0, 168, 225, 0.1);
+    }
+
+    [data-theme="light"] .live-quote {
+      background: rgba(255, 255, 255, 0.98);
+      border: 1.5px solid rgba(0, 168, 225, 0.3);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1),
+                  0 0 0 1px rgba(0, 168, 225, 0.1);
+    }
+
+    @media (max-width: 968px) {
+      .live-quote {
+        position: relative;
+        top: 0;
+      }
+    }
+
+    .live-quote h3 {
+      color: var(--white);
+      margin: 0 0 1.25rem 0;
+      text-align: center;
+      font-size: 1rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      font-weight: 600;
+    }
+
+    .lq-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      padding: 0.75rem 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    [data-theme="light"] .lq-row {
+      border-bottom: 1px solid rgba(26, 35, 50, 0.1);
+    }
+
+    .lq-row:last-of-type {
+      border-bottom: none;
+      padding-top: 1rem;
+      margin-top: 0.5rem;
+      border-top: 2px solid rgba(0, 168, 225, 0.3);
+    }
+
+    .lq-label {
+      font-size: 0.85rem;
+      color: rgba(255, 255, 255, 0.7);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      font-weight: 500;
+    }
+
+    [data-theme="light"] .lq-label {
+      color: rgba(26, 35, 50, 0.7);
+    }
+
+    .lq-amount {
+      font-size: 1.5rem;
+      font-weight: 900;
+      color: var(--white);
+      transition: all 0.3s ease;
+    }
+
+    .lq-row:last-of-type .lq-amount {
+      font-size: 2rem;
+      color: var(--blue);
+    }
+
+    /* Contact Box */
+    .contact-box {
+      background: var(--navy2);
+      border: 1px solid var(--border);
+      border-left: 4px solid var(--blue);
+      border-radius: 12px;
+      padding: 1.5rem;
+      margin: 2rem 0;
+    }
+
+    .contact-box h4 {
+      margin-top: 0;
+      color: var(--blue);
+    }
+
+    .contact-box p {
+      margin: 0.5rem 0;
+      font-size: 0.95rem;
+    }
+
+    .contact-box a {
+      color: var(--blue);
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    .contact-box a:hover {
+      text-decoration: underline;
+    }
+
+    /* Footer */
+    .footer {
+      background: var(--navy2);
+      border-top: 1px solid var(--border);
+      padding: 3rem 2rem;
+      text-align: center;
+    }
+
+    .footer-logo {
+      height: 36px;
+      width: auto;
+      transition: opacity 0.2s ease;
+      filter: brightness(1.1);
+    }
+
+    .footer a:hover .footer-logo {
+      opacity: 0.8;
+    }
+
+    .footer p {
+      font-size: 0.85rem;
+      color: var(--gray);
+      margin: 0.5rem 0;
+    }
+
+    .footer a {
+      color: var(--blue);
+      text-decoration: none;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .nav {
+        padding: 0 1rem;
+        grid-template-columns: auto 1fr auto;
+      }
+
+      .nav-center {
+        font-size: 0.65rem;
+        letter-spacing: 0.05em;
+      }
+
+      .section {
+        padding: 3rem 1rem;
+      }
+
+      .hero {
+        padding: 6rem 1rem 3rem;
+      }
+
+      .hero-logos {
+        gap: 1rem;
+      }
+
+      .hero-logo {
+        height: 55px;
+      }
+
+      .hero-logo-karis {
+        height: 80px;
+      }
+
+      .hero-logo-sep {
+        font-size: 1.5rem;
+      }
+
+      .feature-grid,
+      .stat-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .nav-sep {
+        display: none;
+      }
+
+      .nav-logo.karis {
+        display: none;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .nav-center {
+        display: none;
+      }
+
+      .nav {
+        grid-template-columns: auto 1fr;
+      }
+    }
+
+    .page-break {
+      page-break-after: always;
+    }
+
+    @media print {
+      @page {
+        size: letter;
+        margin: 0.6in 0.75in;
+      }
+
+      .nav, .btn-book, .theme-toggle, .pdf-download, .pdf-modal-overlay { display: none !important; }
+      .hero { min-height: 9.5in; page-break-after: always; }
+      .section { padding: 2rem 0; page-break-inside: avoid; }
+      .page-break { page-break-after: always; }
+      .pricing-calculator { display: block; }
+      .config-panel { margin-bottom: 2rem; }
+      .live-quote { position: relative; top: 0; page-break-inside: avoid; }
+      body {
+        background: #ffffff !important;
+        font-size: 10pt;
+      }
+      .hero {
+        background: #0d1620 !important;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+      .hero-logos, .hero-logo, .hero-logo-karis, .hero-logo-sep {
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+      .card, .feature-card, .stat-card, .base-package-box, .contact-box {
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+      * {
+        print-color-adjust: exact;
+        -webkit-print-color-adjust: exact;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Fixed Navigation -->
+  <div class="nav">
+    <div class="nav-left">
+      <a href="https://www.bogen.ai" target="_blank" style="line-height: 0;">
+        <img src="https://bogen.ai/images/eb-logo.png" alt="Bogen.ai" class="nav-logo">
+      </a>
+      <span class="nav-sep">×</span>
+      <a href="https://karisdenver.com" target="_blank" style="line-height: 0;">
+        <img src="karis-properties-logo.png" alt="Karis Properties" class="nav-logo karis">
+      </a>
+    </div>
+    <div class="nav-center">
+      Website Development Proposal
+    </div>
+    <div class="nav-right">
+      <div class="theme-toggle" onclick="toggleTheme()">
+        <span class="theme-toggle-label">Light</span>
+        <div class="toggle-switch"></div>
+        <span class="theme-toggle-label">Dark</span>
+      </div>
+      <a href="https://calendly.com/edmund-15/coaching-call-with-edmund?month=2026-04" class="btn-book" target="_blank">Book a Call</a>
+    </div>
+  </div>
+
+  <!-- PDF Download Button -->
+  <div class="pdf-download">
+    <button id="downloadBtn">
+      <svg viewBox="0 0 24 24"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
+      Download Contract
+    </button>
+  </div>
+
+  <!-- Hero/Cover Section -->
+  <div class="hero">
+    <div class="hero-logos">
+      <a href="https://www.bogen.ai" target="_blank" style="line-height: 0;">
+        <img src="https://bogen.ai/images/eb-logo.png" alt="Bogen.ai" class="hero-logo">
+      </a>
+      <span class="hero-logo-sep">×</span>
+      <a href="https://karisdenver.com" target="_blank" style="line-height: 0;">
+        <img src="karis-properties-logo.png" alt="Karis Properties" class="hero-logo hero-logo-karis">
+      </a>
+    </div>
+    <div class="hero-badge">
+      <div class="pulse-dot"></div>
+      Website Development Proposal
+    </div>
+    <h1>Karis Properties USA</h1>
+    <div class="hero-subtitle">Professional Real Estate Web Presence for the Denver Market</div>
+    <div class="hero-client">Prepared for: Mike Farr</div>
+    <div class="hero-date">April 2026</div>
+    <div class="hero-brand">Bogen.ai</div>
+    <div class="hero-brand-sub">A Division of Dave T Productions</div>
+  </div>
+
+  <!-- Executive Summary -->
+  <div class="section">
+    <h2>Executive Summary</h2>
+
+    <div class="card">
+      <h3>Your Challenge</h3>
+      <p>Your current website is in maintenance mode, leaving potential clients with no way to learn about Karis Properties USA. As you expand your digital presence and marketing efforts, you need a professional website that:</p>
+      <ul>
+        <li>Establishes Karis Properties USA as a credible, professional presence in the Denver market</li>
+        <li>Provides essential information about your services and team</li>
+        <li>Supports your upcoming marketing initiatives</li>
+        <li>Can grow with your business as your South African partners potentially join you</li>
+      </ul>
+    </div>
+
+    <h3>Our Solution</h3>
+    <p>We propose a <strong>modular approach</strong> that gets you online quickly with exactly the features you need:</p>
+
+    <div class="stat-grid">
+      <div class="stat-card">
+        <div class="stat-label">Phase 1</div>
+        <div class="stat-value">Quick</div>
+        <div class="stat-desc">Professional site live in 3-4 weeks</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Phase 2</div>
+        <div class="stat-value">Build</div>
+        <div class="stat-desc">Add features as your business grows</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Phase 3</div>
+        <div class="stat-value">Grow</div>
+        <div class="stat-desc">Optional IDX integration when ready</div>
+      </div>
+    </div>
+
+    <h3>Why Choose Bogen.ai?</h3>
+    <div class="feature-grid">
+      <div class="feature-card">
+        <h4>Practitioner-Built</h4>
+        <p>Built by real estate professionals who understand the business, not just technologists</p>
+      </div>
+      <div class="feature-card">
+        <h4>US-Based Solution</h4>
+        <p>Unlike your current South African template, we build for the US market</p>
+      </div>
+      <div class="feature-card">
+        <h4>Exceptional Value</h4>
+        <p>Significantly lower cost than competitors (Agent Image: $5,000/year) with principal-level service</p>
+      </div>
+      <div class="feature-card">
+        <h4>Every Step of the Way</h4>
+        <p>Ongoing support and adjustments as your needs evolve</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Pricing Calculator -->
+  <div class="section">
+    <h2>Build Your Custom Package</h2>
+    <p>Select the features you need below. Pricing updates automatically as you make your selections.</p>
+
+    <div class="pricing-calculator">
+      <!-- Left: Configuration Panel -->
+      <div class="config-panel">
+        <div class="calculator-header">
+          <h3>Website Development Pricing</h3>
+          <p>Choose your features and see your investment in real-time</p>
+        </div>
+
+        <!-- Base Package -->
+        <div class="base-package-box" id="basePackage">
+          <div class="base-package-header" onclick="toggleBasePackage()">
+            <h4>Foundation Website Package — $1,000 setup + $200/month</h4>
+            <span class="base-package-toggle">▼</span>
+          </div>
+          <p class="base-package-desc" style="color: var(--gray); font-size: 0.9rem; margin-bottom: 1rem;">This core package is included with every website and contains:</p>
+          <div class="base-includes">
+            <div class="base-includes-item">Professional responsive site, branded to Karis Properties USA (up to 8 pages)</div>
+            <div class="base-includes-item">Contact forms with lead capture and email notification</div>
+            <div class="base-includes-item">Social media integration</div>
+            <div class="base-includes-item">Mobile-optimized, fast load performance</div>
+            <div class="base-includes-item">Google Analytics integration</div>
+            <div class="base-includes-item">Smart SEO Optimisation (meta titles, descriptions, schema markup)</div>
+            <div class="base-includes-item">AI search engine visibility (ChatGPT, Claude, Perplexity, Google SGE)</div>
+            <div class="base-includes-item">One (1) custom landing page per month (open house, event, campaign)</div>
+            <div class="base-includes-item">Mortgage calculator widget, branded to Karis Properties USA</div>
+            <div class="base-includes-item">Closing cost estimator (configured for Colorado/RE Colorado market)</div>
+            <div class="base-includes-item">Hosting setup and domain connection assistance</div>
+            <div class="base-includes-item">Ongoing maintenance & hosting (bug fixes, updates, security, monitoring)</div>
+            <div class="base-includes-item">Email and chat support with response less than 24 hours</div>
+            <div class="base-includes-item">ADA/WCAG 2.1 Level AA accessibility compliance</div>
+          </div>
+        </div>
+
+        <!-- Add-On Modules -->
+        <div class="pricing-section">
+          <h4>Add-On Modules</h4>
+          <div class="addon-grid">
+
+            <div class="config-card" onclick="toggleAddon('idx')">
+              <div class="config-card-header">
+                <input type="checkbox" id="idx" onclick="event.stopPropagation()" onchange="calculateTotal(); this.closest('.config-card').classList.toggle('active', this.checked)">
+                <div class="config-card-title">IDX Integration — RE Colorado MLS Feed</div>
+                <div class="config-card-prices">
+                  <span class="config-card-setup">$800</span>
+                  <span class="config-card-monthly">$70/mo</span>
+                </div>
+              </div>
+              <div class="config-card-desc">Live MLS feed; property search, listing pages, saved searches. We contract and manage IDX service on your behalf.</div>
+            </div>
+
+            <div class="config-card" onclick="toggleAddon('investment_tool')">
+              <div class="config-card-header">
+                <input type="checkbox" id="investment_tool" onclick="event.stopPropagation()" onchange="calculateTotal(); this.closest('.config-card').classList.toggle('active', this.checked)">
+                <div class="config-card-title">Investment Property Analysis Tool</div>
+                <div class="config-card-prices">
+                  <span class="config-card-setup">$300</span>
+                  <span class="config-card-monthly">Included</span>
+                </div>
+              </div>
+              <div class="config-card-desc">Cap rate calculator, NOI analysis</div>
+            </div>
+
+            <div class="config-card" onclick="toggleAddon('cma_tool')">
+              <div class="config-card-header">
+                <input type="checkbox" id="cma_tool" onclick="event.stopPropagation()" onchange="calculateTotal(); this.closest('.config-card').classList.toggle('active', this.checked)">
+                <div class="config-card-title">Agent CMA Tool</div>
+                <div class="config-card-prices">
+                  <span class="config-card-setup">$400</span>
+                  <span class="config-card-monthly">Included</span>
+                </div>
+              </div>
+              <div class="config-card-desc">Back-end comparative market analysis tool for agent use</div>
+            </div>
+
+            <div class="config-card" onclick="toggleAddon('blog_social')">
+              <div class="config-card-header">
+                <input type="checkbox" id="blog_social" onclick="event.stopPropagation()" onchange="calculateTotal(); this.closest('.config-card').classList.toggle('active', this.checked)">
+                <div class="config-card-title">Blog + Social Media Publisher</div>
+                <div class="config-card-prices">
+                  <span class="config-card-setup">$300</span>
+                  <span class="config-card-monthly">Included</span>
+                </div>
+              </div>
+              <div class="config-card-desc">CMS with one-click publish to social platforms</div>
+            </div>
+
+            <div class="config-card" onclick="toggleAddon('ai_chat')">
+              <div class="config-card-header">
+                <input type="checkbox" id="ai_chat" onclick="event.stopPropagation()" onchange="calculateTotal(); this.closest('.config-card').classList.toggle('active', this.checked)">
+                <div class="config-card-title">AI-Powered Chat Widget</div>
+                <div class="config-card-prices">
+                  <span class="config-card-setup">$250</span>
+                  <span class="config-card-monthly">$50/mo</span>
+                </div>
+              </div>
+              <div class="config-card-desc">Lead capture, FAQ, scheduling chatbot</div>
+            </div>
+
+            <div class="config-card" onclick="toggleAddon('ad_campaign')">
+              <div class="config-card-header">
+                <input type="checkbox" id="ad_campaign" onclick="event.stopPropagation()" onchange="calculateTotal(); this.closest('.config-card').classList.toggle('active', this.checked)">
+                <div class="config-card-title">Ad Campaign Management</div>
+                <div class="config-card-prices">
+                  <span class="config-card-setup">$450</span>
+                  <span class="config-card-monthly">$300/mo</span>
+                </div>
+              </div>
+              <div class="config-card-desc">PPC and social media advertising management across all platforms (Google, Facebook, Instagram, LinkedIn). 10% of ad spend or $300/month, whichever is higher. Does not include ad spend.</div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <!-- Right: Live Quote (Sticky) -->
+      <div class="live-quote">
+        <h3>Your Investment</h3>
+        <div class="lq-row">
+          <span class="lq-label">Setup Fee</span>
+          <span class="lq-amount" id="totalSetup">$1,000</span>
+        </div>
+        <div class="lq-row">
+          <span class="lq-label">Monthly Fee</span>
+          <span class="lq-amount" id="totalMonthly">$200</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- About Karis Properties -->
+  <div class="section">
+    <h2>About Karis Properties USA</h2>
+
+    <h3>Current Status</h3>
+    <ul>
+      <li><strong>Broker:</strong> Mike Farr, 34 years of residential real estate experience</li>
+      <li><strong>Location:</strong> Denver, Colorado (South Metro Denver Realtor Association)</li>
+      <li><strong>MLS:</strong> RE Colorado</li>
+      <li><strong>Partnership:</strong> Karis Properties USA (partners with Andre & Betsy Stratum from Karis Properties South Africa)</li>
+      <li><strong>Structure:</strong> Currently sole US agent, with potential future growth as partners immigrate</li>
+      <li><strong>Branding:</strong> Established Karis Properties branding (logos and assets available)</li>
+    </ul>
+
+    <h3>Current Website Challenges</h3>
+    <ul>
+      <li>Website stuck in "maintenance mode" with no functional presence</li>
+      <li>Previous template site managed from South Africa wasn't optimized for US market</li>
+      <li>No platform to support upcoming digital marketing initiatives</li>
+      <li>Missing opportunity to capture leads and provide value to potential clients</li>
+    </ul>
+
+    <h3>Timeline</h3>
+    <div class="feature-grid">
+      <div class="feature-card">
+        <h4>Foundation Package (No IDX)</h4>
+        <p><strong>3-4 weeks:</strong> From signed agreement and receipt of initial payment</p>
+      </div>
+      <div class="feature-card">
+        <h4>With IDX Integration</h4>
+        <p><strong>6-8 weeks:</strong> From signed agreement, initial payment, and IDX provider onboarding completion</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Process -->
+  <div class="section">
+    <h2>Our Process</h2>
+
+    <h3>How We Work Together</h3>
+    <p>We believe in being with you <strong>every step of the way</strong>. Here's what you can expect:</p>
+
+    <div class="stat-grid">
+      <div class="stat-card">
+        <div class="stat-label">Step 1</div>
+        <div class="stat-value">Discover</div>
+        <div class="stat-desc">Review proposal, select features, approve design direction</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Step 2</div>
+        <div class="stat-value">Build</div>
+        <div class="stat-desc">Development with regular check-ins and feedback rounds</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Step 3</div>
+        <div class="stat-value">Launch</div>
+        <div class="stat-desc">Testing, acceptance, and go-live</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Step 4</div>
+        <div class="stat-value">Grow</div>
+        <div class="stat-desc">Ongoing support, updates, and feature additions</div>
+      </div>
+    </div>
+
+    <h3>What We Need From You</h3>
+    <ul>
+      <li>Final feature selection from this proposal</li>
+      <li>Karis Properties branding assets (logos, colors - you have these)</li>
+      <li>Team bios and photos (you, Andre, Betsy)</li>
+      <li>RE Colorado MLS credentials (for IDX setup, if selected)</li>
+      <li>Domain access or new domain purchase</li>
+      <li>Content and messaging you want included</li>
+    </ul>
+
+    <h3>Our Commitment to You</h3>
+    <div class="card">
+      <p><strong>We acknowledge that software will need fixes and adjustments.</strong> Unlike template-based solutions or large agencies where you're just a ticket number, you work directly with principals who understand real estate.</p>
+      <p style="margin-top: 1rem;"><strong>Our goal:</strong> Help you make more money through an effective web presence and marketing strategy.</p>
+      <p style="margin-top: 1rem;"><strong>Our promise:</strong> We'll be with you every step of the way, responsive to your needs, and committed to your success.</p>
+    </div>
+  </div>
+
+  <!-- Next Steps -->
+  <div class="section">
+    <h2>Next Steps</h2>
+
+    <div class="card">
+      <h3>Your Action Items</h3>
+      <ul style="list-style: none; padding: 0;">
+        <li style="padding-left: 0; margin-bottom: 0.75rem;">☐ Review this proposal and select your preferred features</li>
+        <li style="padding-left: 0; margin-bottom: 0.75rem;">☐ Discuss with partner Betsy (as planned) about website options</li>
+        <li style="padding-left: 0; margin-bottom: 0.75rem;">☐ Determine your budget and feature priorities</li>
+        <li style="padding-left: 0; margin-bottom: 0.75rem;">☐ Review template examples we'll send separately</li>
+      </ul>
+    </div>
+
+    <h3>How to Move Forward</h3>
+    <p>When you're ready to get started:</p>
+    <ol>
+      <li><strong>Schedule a Call:</strong> Let's chat about your selected features and answer any questions</li>
+      <li><strong>Finalize Details:</strong> We'll confirm exactly what you want and put together a simple agreement</li>
+      <li><strong>Get Started:</strong> Send half the setup fee and we'll kick things off</li>
+      <li><strong>Discovery Session:</strong> We'll gather your branding, photos, and content</li>
+      <li><strong>Go Live:</strong> Your professional website launches in 3-8 weeks</li>
+    </ol>
+
+    <h3>Questions?</h3>
+    <p>We're here to help you make the best decision for your business. Feel free to reach out with any questions about this proposal, our services, or how we can customize a solution for Karis Properties USA.</p>
+
+    <div class="contact-box">
+      <h4>Contact Us</h4>
+      <p><strong>Sales Team</strong></p>
+      <p>Email: <a href="mailto:sales@reignation.com">sales@reignation.com</a></p>
+
+      <p style="margin-top: 1rem;"><strong>Edmund Bogen</strong></p>
+      <p>Email: <a href="mailto:edmund@bogenhomes.com">edmund@bogenhomes.com</a></p>
+      <p style="color: var(--gray);">Founder & AI Strategist</p>
+
+      <p style="margin-top: 1rem;"><strong>Eytan Benzeno</strong></p>
+      <p>Email: <a href="mailto:eytan@benzeno.com">eytan@benzeno.com</a></p>
+      <p style="color: var(--gray);">Web Development & Digital Strategy</p>
+    </div>
+
+    <div class="card" style="margin-top: 2rem;">
+      <h3>Thank You</h3>
+      <p>Thank you for considering Bogen.ai for your website development needs. We're excited about the opportunity to help Karis Properties USA establish a strong digital presence in the Denver market.</p>
+      <p style="margin-top: 1rem;">We look forward to working with you!</p>
+      <p style="margin-top: 1.5rem; font-weight: 600; color: var(--white);">— Edmund & Eytan</p>
+      <p style="margin-top: 0.5rem; font-size: 0.9rem; color: var(--blue);">Bogen.ai — A Division of Dave T Productions</p>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div class="footer">
+    <a href="https://www.bogen.ai" target="_blank" style="line-height: 0; display: inline-block; margin-bottom: 1rem;">
+      <img src="https://bogen.ai/images/eb-logo.png" alt="Bogen.ai" class="footer-logo">
+    </a>
+    <p>© 2026 Bogen.ai — A Division of Dave T Productions</p>
+    <p><a href="mailto:sales@reignation.com">sales@reignation.com</a></p>
+  </div>
+
+  <!-- PDF Preview Modal -->
+  <div class="pdf-modal-overlay" id="pdfModal">
+    <div class="pdf-modal">
+      <div class="pdf-modal-header">
+        <div class="pdf-modal-title">Service Agreement — Preview</div>
+        <div class="pdf-modal-actions">
+          <button class="btn-close-modal" id="closeModal">Close</button>
+          <button class="btn-confirm-download" id="confirmDownload">Download PDF</button>
+        </div>
+      </div>
+      <div class="pdf-modal-body">
+        <iframe id="pdfPreview"></iframe>
+      </div>
+    </div>
+  </div>
+
+  <!-- JavaScript -->
+  <script>
+    // Pricing Calculator
+    const pricing = {
+      base: { setup: 1000, monthly: 200 },
+      idx: { setup: 800, monthly: 70 },
+      investment_tool: { setup: 300, monthly: 0 },
+      cma_tool: { setup: 400, monthly: 0 },
+      blog_social: { setup: 300, monthly: 0 },
+      ai_chat: { setup: 250, monthly: 50 },
+      ad_campaign: { setup: 450, monthly: 300 }
+    };
+
+    function toggleAddon(id) {
+      const checkbox = document.getElementById(id);
+      const card = checkbox.closest('.config-card');
+
+      checkbox.checked = !checkbox.checked;
+
+      if (checkbox.checked) {
+        card.classList.add('active');
+      } else {
+        card.classList.remove('active');
+      }
+
+      calculateTotal();
+    }
+
+    function calculateTotal() {
+      let totalSetup = pricing.base.setup;
+      let totalMonthly = pricing.base.monthly;
+
+      for (const [key, value] of Object.entries(pricing)) {
+        if (key === 'base') continue;
+        const checkbox = document.getElementById(key);
+        if (checkbox && checkbox.checked) {
+          totalSetup += value.setup;
+          totalMonthly += value.monthly;
+        }
+      }
+
+      document.getElementById('totalSetup').textContent = '$' + totalSetup.toLocaleString();
+      document.getElementById('totalMonthly').textContent = '$' + totalMonthly.toLocaleString();
+    }
+
+    // Theme Toggle
+    function toggleTheme() {
+      const body = document.body;
+      const current = body.getAttribute('data-theme');
+      const next = current === 'light' ? 'dark' : 'light';
+      body.setAttribute('data-theme', next);
+      localStorage.setItem('karis-proposal-theme', next);
+    }
+
+    // Restore saved theme
+    (function() {
+      const saved = localStorage.getItem('karis-proposal-theme');
+      if (saved) {
+        document.body.setAttribute('data-theme', saved);
+      }
+    })();
+
+    // PDF Modal
+    const downloadBtn = document.getElementById('downloadBtn');
+    const pdfModal = document.getElementById('pdfModal');
+    const closeModal = document.getElementById('closeModal');
+    const confirmDownload = document.getElementById('confirmDownload');
+    const pdfPreview = document.getElementById('pdfPreview');
+    const pdfPath = 'DTP_Service_Agreement_CORRECTED.pdf';
+
+    // Open modal and load preview
+    downloadBtn.addEventListener('click', function() {
+      pdfModal.classList.add('active');
+      // Load the PDF file in iframe
+      pdfPreview.src = pdfPath;
+    });
+
+    // Close modal
+    closeModal.addEventListener('click', function() {
+      pdfModal.classList.remove('active');
+      pdfPreview.src = '';
+    });
+
+    // Close on backdrop click
+    pdfModal.addEventListener('click', function(e) {
+      if (e.target === this) {
+        pdfModal.classList.remove('active');
+        pdfPreview.src = '';
+      }
+    });
+
+    // Confirm download
+    confirmDownload.addEventListener('click', function() {
+      const link = document.createElement('a');
+      link.href = pdfPath;
+      link.download = 'Karis_Properties_USA_Service_Agreement.pdf';
+      link.click();
+    });
+
+    // Toggle Base Package
+    function toggleBasePackage() {
+      const basePackage = document.getElementById('basePackage');
+      basePackage.classList.toggle('collapsed');
+    }
+  </script>
+
+</body>
+</html>
