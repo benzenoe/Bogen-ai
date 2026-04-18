@@ -694,6 +694,27 @@
       overflow: hidden;
       background: var(--navy);
       position: relative;
+      cursor: pointer;
+    }
+
+    .template-image::after {
+      content: '🔍 Click to expand';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: rgba(0, 168, 225, 0.9);
+      color: white;
+      padding: 0.75rem;
+      text-align: center;
+      font-size: 0.85rem;
+      font-weight: 600;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .template-image:hover::after {
+      opacity: 1;
     }
 
     .template-image img {
@@ -710,6 +731,101 @@
 
     .template-info {
       padding: 1.5rem;
+    }
+
+    .template-selector {
+      margin-top: 1rem;
+      padding-top: 1rem;
+      border-top: 1px solid var(--border);
+    }
+
+    .template-selector label {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 0.75rem;
+      background: rgba(0, 168, 225, 0.05);
+      border: 1px solid transparent;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      user-select: none;
+    }
+
+    .template-selector label:hover {
+      background: rgba(0, 168, 225, 0.1);
+      border-color: var(--blue);
+    }
+
+    .template-selector input[type="radio"] {
+      width: 20px;
+      height: 20px;
+      cursor: pointer;
+      accent-color: var(--blue);
+    }
+
+    .template-selector span {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--white);
+    }
+
+    .template-card.selected {
+      border-color: var(--blue);
+      box-shadow: 0 0 0 2px var(--blue);
+    }
+
+    /* Image Modal */
+    .image-modal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.9);
+      z-index: 10001;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+    }
+
+    .image-modal.active {
+      display: flex;
+    }
+
+    .image-modal-content {
+      max-width: 90vw;
+      max-height: 90vh;
+      position: relative;
+    }
+
+    .image-modal-content img {
+      max-width: 100%;
+      max-height: 90vh;
+      width: auto;
+      height: auto;
+      object-fit: contain;
+      border-radius: 8px;
+    }
+
+    .image-modal-close {
+      position: absolute;
+      top: -3rem;
+      right: 0;
+      background: rgba(255, 255, 255, 0.1);
+      color: white;
+      border: none;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      font-size: 1.5rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.2s;
+    }
+
+    .image-modal-close:hover {
+      background: rgba(255, 255, 255, 0.2);
     }
 
     .template-info h3 {
@@ -1391,8 +1507,8 @@
     <p>We've created four custom design directions specifically for Karis Properties USA. Choose the style that best represents your brand, or we can combine elements from multiple templates.</p>
 
     <div class="template-grid">
-      <div class="template-card">
-        <div class="template-image">
+      <div class="template-card" id="template-modern">
+        <div class="template-image" onclick="openImageModal('karis-template-modern.png')">
           <img src="karis-template-modern.png" alt="Modern Template">
         </div>
         <div class="template-info">
@@ -1404,11 +1520,17 @@
             <li>Easy-to-use property search</li>
             <li>Perfect for first-time buyers and sellers</li>
           </ul>
+          <div class="template-selector">
+            <label>
+              <input type="radio" name="template-choice" value="modern" onchange="selectTemplate('modern')">
+              <span>Select this style</span>
+            </label>
+          </div>
         </div>
       </div>
 
-      <div class="template-card">
-        <div class="template-image">
+      <div class="template-card" id="template-luxury">
+        <div class="template-image" onclick="openImageModal('karis-template-luxury.png')">
           <img src="karis-template-luxury.png" alt="Luxury Template">
         </div>
         <div class="template-info">
@@ -1420,11 +1542,17 @@
             <li>High-end branding appeal</li>
             <li>Perfect for emphasizing the broker's quality and expertise</li>
           </ul>
+          <div class="template-selector">
+            <label>
+              <input type="radio" name="template-choice" value="luxury" onchange="selectTemplate('luxury')">
+              <span>Select this style</span>
+            </label>
+          </div>
         </div>
       </div>
 
-      <div class="template-card">
-        <div class="template-image">
+      <div class="template-card" id="template-traditional">
+        <div class="template-image" onclick="openImageModal('karis-template-traditional.png')">
           <img src="karis-template-traditional.png" alt="Traditional Template">
         </div>
         <div class="template-info">
@@ -1435,11 +1563,17 @@
             <li>Appeals to a broad range including families</li>
             <li>Simple, elegant layout with a traditional, stable font</li>
           </ul>
+          <div class="template-selector">
+            <label>
+              <input type="radio" name="template-choice" value="traditional" onchange="selectTemplate('traditional')">
+              <span>Select this style</span>
+            </label>
+          </div>
         </div>
       </div>
 
-      <div class="template-card">
-        <div class="template-image">
+      <div class="template-card" id="template-lead-capture">
+        <div class="template-image" onclick="openImageModal('karis-template-lead-capture.png')">
           <img src="karis-template-lead-capture.png" alt="Lead Capture Template">
         </div>
         <div class="template-info">
@@ -1451,6 +1585,12 @@
             <li>Clean, light colors that encourage messaging and forms</li>
             <li>Designed for maximum lead conversion</li>
           </ul>
+          <div class="template-selector">
+            <label>
+              <input type="radio" name="template-choice" value="lead-capture" onchange="selectTemplate('lead-capture')">
+              <span>Select this style</span>
+            </label>
+          </div>
         </div>
       </div>
     </div>
@@ -1458,6 +1598,20 @@
     <div class="card" style="margin-top: 2rem;">
       <h3>Not Sure Which Style?</h3>
       <p>We can mix and match elements from different templates, or create something entirely custom based on your preferences. During our discovery session, we'll work together to define the perfect look and feel for Karis Properties USA.</p>
+      <div class="template-selector" style="margin-top: 1.5rem;">
+        <label>
+          <input type="radio" name="template-choice" value="not-sure" onchange="selectTemplate('not-sure')">
+          <span>I'm not sure yet — let's discuss during our call</span>
+        </label>
+      </div>
+    </div>
+
+    <!-- Image Modal -->
+    <div class="image-modal" id="imageModal">
+      <div class="image-modal-content">
+        <button class="image-modal-close" onclick="closeImageModal()">×</button>
+        <img id="modalImage" src="" alt="Template Preview">
+      </div>
     </div>
   </div>
 
@@ -1714,9 +1868,9 @@
       <h3>Your Action Items</h3>
       <ul style="list-style: none; padding: 0;">
         <li style="padding-left: 0; margin-bottom: 0.75rem;">☐ Review this proposal and select your preferred features</li>
+        <li style="padding-left: 0; margin-bottom: 0.75rem;">☐ Choose your preferred design style (or select "not sure")</li>
         <li style="padding-left: 0; margin-bottom: 0.75rem;">☐ Discuss with partner Betsy (as planned) about website options</li>
         <li style="padding-left: 0; margin-bottom: 0.75rem;">☐ Determine your budget and feature priorities</li>
-        <li style="padding-left: 0; margin-bottom: 0.75rem;">☐ Review template examples we'll send separately</li>
       </ul>
     </div>
 
@@ -2043,6 +2197,73 @@
       const basePackage = document.getElementById('basePackage');
       basePackage.classList.toggle('collapsed');
     }
+
+    // Template Image Modal
+    function openImageModal(imageSrc) {
+      const modal = document.getElementById('imageModal');
+      const modalImage = document.getElementById('modalImage');
+      modal.classList.add('active');
+      modalImage.src = imageSrc;
+      // Prevent body scroll when modal is open
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeImageModal() {
+      const modal = document.getElementById('imageModal');
+      const modalImage = document.getElementById('modalImage');
+      modal.classList.remove('active');
+      modalImage.src = '';
+      // Restore body scroll
+      document.body.style.overflow = '';
+    }
+
+    // Close modal on escape key
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') {
+        closeImageModal();
+      }
+    });
+
+    // Close modal on background click
+    document.getElementById('imageModal').addEventListener('click', function(e) {
+      if (e.target === this) {
+        closeImageModal();
+      }
+    });
+
+    // Template Selection
+    function selectTemplate(templateId) {
+      // Remove selected class from all template cards
+      document.querySelectorAll('.template-card').forEach(card => {
+        card.classList.remove('selected');
+      });
+
+      // Add selected class to the chosen template card
+      if (templateId !== 'not-sure') {
+        const selectedCard = document.getElementById('template-' + templateId);
+        if (selectedCard) {
+          selectedCard.classList.add('selected');
+        }
+      }
+
+      // Store selection in localStorage for persistence
+      localStorage.setItem('karis-template-choice', templateId);
+
+      // Log selection (for tracking/analytics)
+      console.log('Template selected:', templateId);
+    }
+
+    // Restore template selection on page load
+    (function() {
+      const savedChoice = localStorage.getItem('karis-template-choice');
+      if (savedChoice) {
+        const radio = document.querySelector(`input[name="template-choice"][value="${savedChoice}"]`);
+        if (radio) {
+          radio.checked = true;
+          selectTemplate(savedChoice);
+        }
+      }
+    })();
   </script>
 
 </body>
