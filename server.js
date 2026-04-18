@@ -530,6 +530,14 @@ app.get('/stacking-cheatsheet', (req, res) => {
   res.sendFile(path.join(__dirname, 'views', 'stacking-cheatsheet.html'));
 });
 
+app.get('/claude-for-excel', (req, res) => {
+  res.sendFile(path.join(__dirname, 'views', 'claude-for-excel.html'));
+});
+
+app.get('/claude-for-excel-registered', (req, res) => {
+  res.sendFile(path.join(__dirname, 'views', 'claude-for-excel-registered.html'));
+});
+
 app.get('/quickstart-card', (req, res) => {
   res.sendFile(path.join(__dirname, 'views', 'quickstart-card.html'));
 });
