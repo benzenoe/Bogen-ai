@@ -1,0 +1,844 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Claude for Excel: The Realtor & Entrepreneur Playbook | Edmund Bogen</title>
+  <meta name="description" content="Free guide. How realtors and entrepreneurs use Claude for Excel to analyze spreadsheets, build formulas, run scenarios, and close deals faster. 15 prompts + 10 realtor use cases.">
+  <meta name="keywords" content="Claude for Excel, AI Excel, realtor AI, CMA automation, Edmund Bogen, Bogen.ai, Anthropic Excel, AI spreadsheet">
+
+  <meta property="og:title" content="Claude for Excel: The Realtor & Entrepreneur Playbook | Edmund Bogen">
+  <meta property="og:description" content="The AI co-pilot living inside your spreadsheet. Install steps, 15 prompts, and 10 realtor-specific use cases.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://bogen.ai/claude-for-excel">
+  <meta property="og:image" content="https://bogen.ai/images/hero-claude-excel.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://bogen.ai/images/hero-claude-excel.jpg">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/global.css">
+
+  <style>
+    /* ========== THEME TOKENS (inherits from global.css) ========== */
+    :root {
+      --cx-bg: var(--dark-navy);
+      --cx-bg-2: var(--navy);
+      --cx-text: #fff;
+      --cx-text-muted: rgba(255,255,255,0.65);
+      --cx-text-dim: rgba(255,255,255,0.5);
+      --cx-card-bg: rgba(255,255,255,0.04);
+      --cx-card-border: rgba(255,255,255,0.10);
+      --cx-accent: var(--cyan);
+      --cx-accent-soft: rgba(100,181,246,0.15);
+      --cx-prompt-bg: rgba(15,42,63,0.6);
+    }
+    /* LIGHT MODE override */
+    :root[data-theme="light"] {
+      --cx-bg: #ffffff;
+      --cx-bg-2: #f7f9fb;
+      --cx-text: #1a1a1a;
+      --cx-text-muted: #4a5568;
+      --cx-text-dim: #718096;
+      --cx-card-bg: #ffffff;
+      --cx-card-border: #e5e9ef;
+      --cx-prompt-bg: #f7f9fb;
+    }
+
+    /* ========== THEME TOGGLE ========== */
+    .cx-theme-toggle {
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.15);
+      color: #fff;
+      width: 38px; height: 38px;
+      border-radius: 50%;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s;
+      font-size: 1rem;
+      line-height: 1;
+      margin-left: 0.5rem;
+    }
+    .cx-theme-toggle:hover { background: rgba(100,181,246,0.2); border-color: var(--cyan); }
+    :root[data-theme="light"] .cx-theme-toggle { background: rgba(0,0,0,0.06); border-color: rgba(0,0,0,0.12); color: #1a1a1a; }
+
+    /* ========== HERO ========== */
+    .cx-hero {
+      position: relative;
+      padding: 140px 0 60px;
+      background: linear-gradient(135deg, var(--dark-navy) 0%, var(--navy) 60%, #24527A 100%);
+      overflow: hidden;
+    }
+    .cx-hero::before {
+      content: '';
+      position: absolute;
+      top: -80px; right: -80px;
+      width: 380px; height: 380px;
+      background: radial-gradient(circle, rgba(100,181,246,0.14) 0%, transparent 70%);
+      border-radius: 50%;
+    }
+    .cx-hero-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 2rem;
+      display: grid;
+      grid-template-columns: 1.1fr 1fr;
+      gap: 3rem;
+      align-items: center;
+      position: relative;
+      z-index: 1;
+    }
+    .cx-hero-badge {
+      display: inline-block;
+      background: rgba(100,181,246,0.15);
+      border: 1px solid rgba(100,181,246,0.35);
+      color: var(--cyan);
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 0.3rem 0.9rem;
+      border-radius: 100px;
+      margin-bottom: 1.25rem;
+    }
+    .cx-hero h1 {
+      font-family: var(--font-serif);
+      color: #fff;
+      font-size: clamp(2rem, 4.5vw, 3rem);
+      font-weight: 700;
+      line-height: 1.15;
+      margin-bottom: 1rem;
+    }
+    .cx-hero h1 span { color: var(--cyan); }
+    .cx-hero p {
+      color: rgba(255,255,255,0.75);
+      font-size: 1.08rem;
+      line-height: 1.65;
+      margin-bottom: 1.75rem;
+      max-width: 560px;
+    }
+    .cx-hero-ctas { display: flex; flex-wrap: wrap; gap: 0.75rem; }
+    .cx-btn-primary {
+      background: var(--cyan);
+      color: var(--dark-navy);
+      font-family: var(--font-sans);
+      font-size: 1rem;
+      font-weight: 700;
+      padding: 0.85rem 1.75rem;
+      border: none;
+      border-radius: 8px;
+      text-decoration: none;
+      cursor: pointer;
+      transition: all 0.2s;
+      display: inline-block;
+      box-shadow: 0 4px 20px rgba(100,181,246,0.3);
+    }
+    .cx-btn-primary:hover { background: #82c8f7; transform: translateY(-2px); box-shadow: 0 6px 24px rgba(100,181,246,0.45); }
+    .cx-btn-secondary {
+      background: transparent;
+      color: #fff;
+      border: 1px solid rgba(255,255,255,0.25);
+      font-family: var(--font-sans);
+      font-size: 1rem;
+      font-weight: 600;
+      padding: 0.85rem 1.75rem;
+      border-radius: 8px;
+      text-decoration: none;
+      transition: all 0.2s;
+      display: inline-block;
+    }
+    .cx-btn-secondary:hover { background: rgba(255,255,255,0.08); border-color: var(--cyan); }
+
+    .cx-hero-image {
+      border-radius: 14px;
+      overflow: hidden;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+    .cx-hero-image img { display: block; width: 100%; height: auto; }
+
+    /* ========== MAIN ========== */
+    body { background: var(--cx-bg); color: var(--cx-text); transition: background 0.3s, color 0.3s; }
+    .cx-main { max-width: 900px; margin: 0 auto; padding: 3rem 2rem 4rem; }
+
+    .cx-section-title {
+      font-family: var(--font-serif);
+      color: var(--cx-text);
+      font-size: 1.6rem;
+      font-weight: 700;
+      margin: 3rem 0 0.5rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid var(--cx-card-border);
+    }
+    .cx-section-subtitle {
+      color: var(--cx-text-dim);
+      font-size: 0.92rem;
+      margin-bottom: 1.5rem;
+    }
+
+    /* Install Steps */
+    .cx-steps { display: grid; gap: 1rem; margin: 1rem 0 2rem; }
+    .cx-step {
+      background: var(--cx-card-bg);
+      border: 1px solid var(--cx-card-border);
+      border-radius: 10px;
+      padding: 1.25rem 1.5rem;
+      display: flex;
+      gap: 1rem;
+    }
+    .cx-step-num {
+      width: 36px; height: 36px; flex-shrink: 0;
+      background: var(--cx-accent-soft);
+      border: 1px solid rgba(100,181,246,0.3);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-family: var(--font-serif); font-weight: 700;
+      color: var(--cx-accent);
+    }
+    .cx-step h4 { font-family: var(--font-serif); color: var(--cx-text); font-size: 1.08rem; margin-bottom: 0.35rem; }
+    .cx-step p { color: var(--cx-text-muted); font-size: 0.92rem; line-height: 1.6; }
+    .cx-step a { color: var(--cx-accent); text-decoration: none; border-bottom: 1px solid rgba(100,181,246,0.4); }
+    .cx-step a:hover { border-bottom-color: var(--cx-accent); }
+
+    /* OS Support */
+    .cx-os-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 1rem 0 2rem;
+      font-size: 0.9rem;
+      background: var(--cx-card-bg);
+      border: 1px solid var(--cx-card-border);
+      border-radius: 10px;
+      overflow: hidden;
+    }
+    .cx-os-table th, .cx-os-table td {
+      padding: 0.75rem 1rem;
+      text-align: left;
+      border-bottom: 1px solid var(--cx-card-border);
+      color: var(--cx-text-muted);
+    }
+    .cx-os-table th { background: rgba(100,181,246,0.08); color: var(--cx-text); font-weight: 600; font-size: 0.82rem; text-transform: uppercase; letter-spacing: 0.04em; }
+    .cx-os-table tr:last-child td { border-bottom: none; }
+    .cx-os-yes { color: #5dd99a; font-weight: 600; }
+    .cx-os-no { color: #e86858; font-weight: 600; }
+
+    /* Prompt boxes */
+    .cx-prompt-box {
+      background: var(--cx-prompt-bg);
+      border: 1px solid var(--cx-card-border);
+      border-left: 3px solid var(--cx-accent);
+      border-radius: 8px;
+      padding: 1rem 1.15rem;
+      font-size: 0.88rem;
+      color: var(--cx-text);
+      line-height: 1.6;
+      white-space: pre-wrap;
+      word-break: break-word;
+      position: relative;
+      margin: 0.75rem 0;
+      font-family: 'SF Mono', Menlo, Consolas, monospace;
+    }
+    .cx-copy-btn {
+      position: absolute; top: 0.5rem; right: 0.5rem;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 6px;
+      padding: 0.25rem 0.6rem;
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: var(--cx-accent);
+      cursor: pointer;
+      transition: all 0.2s;
+      font-family: var(--font-sans);
+    }
+    .cx-copy-btn:hover { background: var(--cx-accent); color: var(--dark-navy); }
+    .cx-copy-btn.copied { background: #2D7D52; color: #fff; border-color: #2D7D52; }
+    :root[data-theme="light"] .cx-copy-btn { background: rgba(0,0,0,0.04); border-color: rgba(0,0,0,0.12); color: #2563eb; }
+    :root[data-theme="light"] .cx-copy-btn:hover { background: #2563eb; color: #fff; }
+
+    /* Pattern cards */
+    .cx-pattern {
+      background: var(--cx-card-bg);
+      border: 1px solid var(--cx-card-border);
+      border-radius: 10px;
+      padding: 1.25rem 1.5rem;
+      margin-bottom: 1rem;
+    }
+    .cx-pattern h4 {
+      font-family: var(--font-serif);
+      color: var(--cx-text);
+      font-size: 1.05rem;
+      margin-bottom: 0.4rem;
+    }
+    .cx-pattern-label {
+      display: inline-block;
+      font-size: 0.7rem;
+      font-weight: 700;
+      color: var(--cx-accent);
+      background: var(--cx-accent-soft);
+      padding: 0.2rem 0.6rem;
+      border-radius: 100px;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      margin-bottom: 0.5rem;
+    }
+    .cx-pattern p { color: var(--cx-text-muted); font-size: 0.9rem; line-height: 1.6; margin-bottom: 0.5rem; }
+
+    /* Numbered prompts list */
+    .cx-prompt-num {
+      display: inline-block;
+      width: 24px; height: 24px;
+      background: var(--cx-accent-soft);
+      color: var(--cx-accent);
+      border-radius: 50%;
+      font-family: var(--font-serif);
+      font-size: 0.78rem;
+      font-weight: 700;
+      text-align: center;
+      line-height: 24px;
+      margin-right: 0.5rem;
+    }
+
+    /* Realtor use-case card */
+    .cx-usecase {
+      background: var(--cx-card-bg);
+      border: 1px solid var(--cx-card-border);
+      border-radius: 12px;
+      padding: 1.5rem;
+      margin-bottom: 1.25rem;
+    }
+    .cx-usecase-header {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 0.75rem;
+    }
+    .cx-usecase-num {
+      width: 32px; height: 32px;
+      background: var(--cx-accent);
+      color: var(--dark-navy);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-family: var(--font-serif);
+      font-weight: 700;
+      font-size: 0.92rem;
+    }
+    .cx-usecase h3 {
+      font-family: var(--font-serif);
+      color: var(--cx-text);
+      font-size: 1.15rem;
+      margin: 0;
+    }
+    .cx-usecase-problem {
+      color: var(--cx-text-dim);
+      font-size: 0.88rem;
+      line-height: 1.6;
+      margin-bottom: 0.5rem;
+      font-style: italic;
+    }
+
+    /* Do/Don't */
+    .cx-dodont { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin: 1rem 0 2rem; }
+    .cx-do, .cx-dont {
+      background: var(--cx-card-bg);
+      border: 1px solid var(--cx-card-border);
+      border-radius: 10px;
+      padding: 1.25rem;
+    }
+    .cx-do { border-left: 3px solid #5dd99a; }
+    .cx-dont { border-left: 3px solid #e86858; }
+    .cx-do h4 { color: #5dd99a; font-family: var(--font-serif); font-size: 1rem; margin-bottom: 0.5rem; }
+    .cx-dont h4 { color: #e86858; font-family: var(--font-serif); font-size: 1rem; margin-bottom: 0.5rem; }
+    .cx-do ul, .cx-dont ul { list-style: none; padding: 0; margin: 0; }
+    .cx-do li, .cx-dont li { color: var(--cx-text-muted); font-size: 0.88rem; line-height: 1.55; padding: 0.25rem 0 0.25rem 1.25rem; position: relative; }
+    .cx-do li::before { content: '✓'; position: absolute; left: 0; color: #5dd99a; font-weight: 700; }
+    .cx-dont li::before { content: '✗'; position: absolute; left: 0; color: #e86858; font-weight: 700; }
+
+    /* Final CTA */
+    .cx-final-cta {
+      background: linear-gradient(135deg, var(--dark-navy) 0%, var(--navy) 100%);
+      border: 1px solid rgba(100,181,246,0.2);
+      border-radius: 14px;
+      padding: 2.5rem 2rem;
+      margin: 3rem 0 2rem;
+      text-align: center;
+    }
+    .cx-final-cta h2 {
+      font-family: var(--font-serif);
+      color: #fff;
+      font-size: 1.6rem;
+      margin-bottom: 0.5rem;
+    }
+    .cx-final-cta p {
+      color: rgba(255,255,255,0.7);
+      font-size: 1rem;
+      max-width: 600px;
+      margin: 0 auto 1.5rem;
+      line-height: 1.6;
+    }
+
+    /* ========== DOWNLOAD MODAL ========== */
+    .cx-modal-bg {
+      display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.75);
+      z-index: 9999; justify-content: center; align-items: center; padding: 1rem;
+    }
+    .cx-modal-bg.open { display: flex; }
+    .cx-modal {
+      background: var(--navy);
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 12px;
+      padding: 2rem;
+      max-width: 440px;
+      width: 100%;
+      position: relative;
+    }
+    .cx-modal-close {
+      position: absolute; top: 0.75rem; right: 0.75rem;
+      background: none; border: none;
+      color: rgba(255,255,255,0.5);
+      font-size: 1.25rem; cursor: pointer;
+    }
+    .cx-modal-close:hover { color: #fff; }
+    .cx-modal h3 { font-family: var(--font-serif); color: #fff; font-size: 1.3rem; margin-bottom: 0.4rem; }
+    .cx-modal p { color: rgba(255,255,255,0.65); font-size: 0.9rem; margin-bottom: 1rem; line-height: 1.5; }
+    .cx-modal label {
+      display: block; font-size: 0.8rem; font-weight: 600;
+      color: rgba(255,255,255,0.75); margin: 0.75rem 0 0.25rem;
+    }
+    .cx-modal input {
+      width: 100%; padding: 0.65rem 0.85rem; font-size: 0.95rem;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 8px;
+      color: #fff;
+      font-family: var(--font-sans);
+    }
+    .cx-modal input:focus { border-color: var(--cyan); outline: none; }
+    .cx-modal input::placeholder { color: rgba(255,255,255,0.3); }
+    .cx-modal-submit {
+      width: 100%; padding: 0.85rem; margin-top: 1rem;
+      font-size: 1rem; font-weight: 700;
+      background: var(--cyan); color: var(--dark-navy);
+      border: none; border-radius: 8px;
+      cursor: pointer;
+      font-family: var(--font-sans);
+    }
+    .cx-modal-submit:hover { background: #82c8f7; }
+    .cx-modal-note { text-align: center; font-size: 0.75rem; color: rgba(255,255,255,0.4); margin-top: 0.5rem; }
+    .cx-modal-success { display: none; text-align: center; padding: 1rem 0; }
+    .cx-modal-success h4 { color: var(--cyan); font-family: var(--font-serif); font-size: 1.3rem; margin-bottom: 0.5rem; }
+    .cx-modal-success p { font-size: 0.95rem; color: rgba(255,255,255,0.7); }
+
+    /* Responsive */
+    @media (max-width: 860px) {
+      .cx-hero-inner { grid-template-columns: 1fr; }
+      .cx-hero-image { order: -1; }
+      .cx-dodont { grid-template-columns: 1fr; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      * { animation: none !important; transition: none !important; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER (matches site pattern) -->
+  <header class="header">
+    <div class="container">
+      <nav class="nav">
+        <a href="/" class="logo" style="display: flex; align-items: center; margin-left: -12px;">
+          <img src="/images/eb-logo.png" alt="Bogen.ai Logo" style="height: 100px; width: auto;">
+        </a>
+        <ul class="nav-menu">
+          <li><a href="/" class="nav-link">Home</a></li>
+          <li><a href="/about-us" class="nav-link">About</a></li>
+          <li><a href="/services" class="nav-link">Services</a></li>
+          <li><a href="/edmunds-mastermind" class="nav-link active">Mastermind</a></li>
+          <li><a href="/book" class="nav-link">Book</a></li>
+          <li><a href="tel:+14245870840" class="nav-link" style="color: var(--cyan); white-space: nowrap;">📞 424-587-0840</a></li>
+          <li><button id="cxThemeToggle" class="cx-theme-toggle" aria-label="Toggle light / dark mode" title="Toggle light / dark">🌙</button></li>
+        </ul>
+        <button class="nav-toggle" type="button" aria-label="Toggle navigation" onclick="window.bogenAI && window.bogenAI.toggleMobileMenu()">
+          <span></span><span></span><span></span>
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section class="cx-hero">
+    <div class="cx-hero-inner">
+      <div>
+        <div class="cx-hero-badge">Free Guide &middot; April 2026</div>
+        <h1>Claude for Excel: The AI Co-Pilot <span>Living Inside Your Spreadsheet</span></h1>
+        <p>Anthropic put Claude directly into Microsoft Excel. Realtors and entrepreneurs who learn to use it properly will out-analyze, out-model, and out-close everyone still doing it manually. This is the playbook.</p>
+        <div class="cx-hero-ctas">
+          <a href="#" onclick="openDlModal(); return false;" class="cx-btn-primary">Download the Free Guide (PDF)</a>
+          <a href="#realtor-use-cases" class="cx-btn-secondary">See the 10 Realtor Use Cases</a>
+        </div>
+      </div>
+      <div class="cx-hero-image">
+        <img src="/images/hero-claude-excel.jpg" alt="Claude for Excel sidebar inside Microsoft Excel showing the AI assistant analyzing a financial model" loading="eager" width="1600" height="1000">
+      </div>
+    </div>
+  </section>
+
+  <!-- MAIN -->
+  <main class="cx-main">
+
+    <!-- What It Is -->
+    <h2 class="cx-section-title">What Claude for Excel Actually Does</h2>
+    <p class="cx-section-subtitle">Straight from Anthropic. No hype.</p>
+    <div class="cx-steps">
+      <div class="cx-step">
+        <div class="cx-step-num">1</div>
+        <div>
+          <h4>Analyzes any workbook with cell-level citations</h4>
+          <p>Ask "walk me through this model" and Claude explains every tab, formula, and dependency — and clicks you straight to the referenced cell. No more reverse-engineering someone else's spreadsheet.</p>
+        </div>
+      </div>
+      <div class="cx-step">
+        <div class="cx-step-num">2</div>
+        <div>
+          <h4>Builds and fixes formulas from plain English</h4>
+          <p>Describe what you want. Claude writes the formula, explains it, and highlights what it changed. #REF!, #VALUE!, and circular reference errors get diagnosed and fixed with the root cause explained.</p>
+        </div>
+      </div>
+      <div class="cx-step">
+        <div class="cx-step-num">3</div>
+        <div>
+          <h4>Runs scenarios across the whole model</h4>
+          <p>"What happens if rent drops 10%?" Claude updates the assumption, traces every dependent formula, and shows you before/after — across every tab.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Install -->
+    <h2 class="cx-section-title" id="install">How to Install It (5 Minutes)</h2>
+    <p class="cx-section-subtitle">You need a paid Claude plan (Pro $20/mo minimum). Free tier does not include Excel access.</p>
+    <div class="cx-steps">
+      <div class="cx-step">
+        <div class="cx-step-num">1</div>
+        <div>
+          <h4>Get a paid Claude plan</h4>
+          <p>Pro ($20/mo), Max ($100/mo), Team ($25+/seat), or Enterprise. Claude for Excel is included at no extra cost. <a href="https://claude.com/pricing" target="_blank" rel="noopener">See pricing →</a></p>
+        </div>
+      </div>
+      <div class="cx-step">
+        <div class="cx-step-num">2</div>
+        <div>
+          <h4>Install from Microsoft AppSource</h4>
+          <p>Open <a href="https://marketplace.microsoft.com/en-us/product/saas/wa200009404" target="_blank" rel="noopener">Claude by Anthropic for Excel</a> and click "Get it now."</p>
+        </div>
+      </div>
+      <div class="cx-step">
+        <div class="cx-step-num">3</div>
+        <div>
+          <h4>Activate the add-in inside Excel</h4>
+          <p>Mac: Tools → Add-ins. Windows: Home → Add-ins. Sign in with your Claude account.</p>
+        </div>
+      </div>
+      <div class="cx-step">
+        <div class="cx-step-num">4</div>
+        <div>
+          <h4>Open the sidebar</h4>
+          <p><strong>Mac:</strong> Ctrl+Option+C &nbsp; · &nbsp; <strong>Windows:</strong> Ctrl+Alt+C. The Claude pane appears on the right. Ask your first question.</p>
+        </div>
+      </div>
+    </div>
+
+    <h3 style="font-family: var(--font-serif); color: var(--cx-text); font-size: 1.1rem; margin-top: 1.5rem;">System Requirements</h3>
+    <table class="cx-os-table">
+      <thead><tr><th>Platform</th><th>Supported</th><th>Minimum Version</th></tr></thead>
+      <tbody>
+        <tr><td>Excel on the Web</td><td class="cx-os-yes">Yes</td><td>Current</td></tr>
+        <tr><td>Excel for Windows</td><td class="cx-os-yes">Yes</td><td>Microsoft 365, build 16.0.13127.20296+</td></tr>
+        <tr><td>Excel for Mac</td><td class="cx-os-yes">Yes</td><td>16.46+ (build 21011600+)</td></tr>
+        <tr><td>Excel for iPad</td><td class="cx-os-yes">Yes</td><td>2.51+</td></tr>
+        <tr><td>Excel 2016 / 2019</td><td class="cx-os-no">No</td><td>—</td></tr>
+        <tr><td>Android</td><td class="cx-os-no">No</td><td>—</td></tr>
+      </tbody>
+    </table>
+
+    <!-- Slash & Prompt Patterns -->
+    <h2 class="cx-section-title" id="prompts">5 Prompt Patterns That Separate Pros from Tourists</h2>
+    <p class="cx-section-subtitle">Typing "/" in the sidebar opens Skills (reusable workflows). Before you build custom Skills, master these five universal patterns.</p>
+
+    <div class="cx-pattern">
+      <span class="cx-pattern-label">Pattern 1 · Understand First</span>
+      <h4>Walk me through the model before I touch it</h4>
+      <p>Before changing anything, have Claude map the workbook. You get a tab-by-tab explanation and a clear view of the data flow.</p>
+      <div class="cx-prompt-box" id="p1">Walk me through this workbook. What's on each tab? How do they connect? Show me the data flow from inputs to final outputs.<button class="cx-copy-btn" onclick="copyPrompt('p1', this)">Copy</button></div>
+    </div>
+
+    <div class="cx-pattern">
+      <span class="cx-pattern-label">Pattern 2 · Constrain Scope</span>
+      <h4>Limit Claude to one area so nothing else breaks</h4>
+      <p>AI will happily edit cells you didn't ask it to. Lock the scope explicitly.</p>
+      <div class="cx-prompt-box" id="p2">Update the Forecast tab only. Do not change anything in the Assumptions tab or formulas on any other sheet. Show me each change before applying.<button class="cx-copy-btn" onclick="copyPrompt('p2', this)">Copy</button></div>
+    </div>
+
+    <div class="cx-pattern">
+      <span class="cx-pattern-label">Pattern 3 · Label Assumptions</span>
+      <h4>Force Claude to flag what it's guessing</h4>
+      <p>Perfect for audits. You get a ranked list of the assumptions most likely to wreck the output if wrong.</p>
+      <div class="cx-prompt-box" id="p3">Label every non-provided input as [ASSUMED] with your reasoning. What are the top 3 assumptions that, if wrong, would most change the output?<button class="cx-copy-btn" onclick="copyPrompt('p3', this)">Copy</button></div>
+    </div>
+
+    <div class="cx-pattern">
+      <span class="cx-pattern-label">Pattern 4 · Safe Debug</span>
+      <h4>Fix errors with the root cause, not a bandage</h4>
+      <p>Claude explains the WHY before applying the fix so you learn the spreadsheet, not just patch it.</p>
+      <div class="cx-prompt-box" id="p4">There's a #REF! error in cell E15 on the Headcount tab. What's causing it, and what's the right fix? Explain the root cause before applying.<button class="cx-copy-btn" onclick="copyPrompt('p4', this)">Copy</button></div>
+    </div>
+
+    <div class="cx-pattern">
+      <span class="cx-pattern-label">Pattern 5 · Scenario Stress Test</span>
+      <h4>See the impact across the whole model, not just one cell</h4>
+      <p>Change one input, see every downstream consequence. This is what consultants charge $500/hour for.</p>
+      <div class="cx-prompt-box" id="p5">Update the plan to assume 15% attrition instead of 10%. Show me every cell that changes, across all tabs, with before/after values.<button class="cx-copy-btn" onclick="copyPrompt('p5', this)">Copy</button></div>
+    </div>
+
+    <!-- 15 Entrepreneur Prompts -->
+    <h2 class="cx-section-title" id="entrepreneur">15 Copy-Paste Prompts for Entrepreneurs</h2>
+    <p class="cx-section-subtitle">Drop any of these into the sidebar. Adapt to your spreadsheet.</p>
+
+    <div class="cx-prompt-box" id="e1"><span class="cx-prompt-num">1</span>Explain every formula in this tab with cell-level citations.<button class="cx-copy-btn" onclick="copyPrompt('e1', this)">Copy</button></div>
+    <div class="cx-prompt-box" id="e2"><span class="cx-prompt-num">2</span>Find any circular references or broken links in this workbook and fix them.<button class="cx-copy-btn" onclick="copyPrompt('e2', this)">Copy</button></div>
+    <div class="cx-prompt-box" id="e3"><span class="cx-prompt-num">3</span>Create a sensitivity analysis showing how revenue changes if price moves ±10% and volume moves ±5%.<button class="cx-copy-btn" onclick="copyPrompt('e3', this)">Copy</button></div>
+    <div class="cx-prompt-box" id="e4"><span class="cx-prompt-num">4</span>Populate this template with the data from Sheet1 while keeping every formula intact.<button class="cx-copy-btn" onclick="copyPrompt('e4', this)">Copy</button></div>
+    <div class="cx-prompt-box" id="e5"><span class="cx-prompt-num">5</span>Build a pivot table summarizing sales by region and product. Add a chart.<button class="cx-copy-btn" onclick="copyPrompt('e5', this)">Copy</button></div>
+    <div class="cx-prompt-box" id="e6"><span class="cx-prompt-num">6</span>If we reduce costs by 20%, recalculate all dependent cells and show me the bottom-line impact.<button class="cx-copy-btn" onclick="copyPrompt('e6', this)">Copy</button></div>
+    <div class="cx-prompt-box" id="e7"><span class="cx-prompt-num">7</span>Add data validation to the Assumptions tab so users can only enter values within reasonable ranges.<button class="cx-copy-btn" onclick="copyPrompt('e7', this)">Copy</button></div>
+    <div class="cx-prompt-box" id="e8"><span class="cx-prompt-num">8</span>Apply conditional formatting to highlight every row where margin is below 20%.<button class="cx-copy-btn" onclick="copyPrompt('e8', this)">Copy</button></div>
+    <div class="cx-prompt-box" id="e9"><span class="cx-prompt-num">9</span>Create a chart visualizing [range] as a [chart type]. Make it presentation-ready.<button class="cx-copy-btn" onclick="copyPrompt('e9', this)">Copy</button></div>
+    <div class="cx-prompt-box" id="e10"><span class="cx-prompt-num">10</span>Trace every cell that depends on this assumption. What breaks if I change it?<button class="cx-copy-btn" onclick="copyPrompt('e10', this)">Copy</button></div>
+    <div class="cx-prompt-box" id="e11"><span class="cx-prompt-num">11</span>Find and fix any #VALUE!, #DIV/0!, or #N/A errors in this workbook.<button class="cx-copy-btn" onclick="copyPrompt('e11', this)">Copy</button></div>
+    <div class="cx-prompt-box" id="e12"><span class="cx-prompt-num">12</span>Generate a variance analysis comparing actual vs forecast across all 12 months.<button class="cx-copy-btn" onclick="copyPrompt('e12', this)">Copy</button></div>
+    <div class="cx-prompt-box" id="e13"><span class="cx-prompt-num">13</span>Build formulas that dynamically calculate [metric] from inputs — no hardcoded values.<button class="cx-copy-btn" onclick="copyPrompt('e13', this)">Copy</button></div>
+    <div class="cx-prompt-box" id="e14"><span class="cx-prompt-num">14</span>Clean up this dataset: normalize formatting, remove duplicates, fix inconsistent spelling.<button class="cx-copy-btn" onclick="copyPrompt('e14', this)">Copy</button></div>
+    <div class="cx-prompt-box" id="e15"><span class="cx-prompt-num">15</span>Prepare this workbook for print: adjust column widths, hide intermediate calcs, format headers.<button class="cx-copy-btn" onclick="copyPrompt('e15', this)">Copy</button></div>
+
+    <!-- 10 Realtor Use Cases -->
+    <h2 class="cx-section-title" id="realtor-use-cases">10 Realtor Use Cases (The Anchor)</h2>
+    <p class="cx-section-subtitle">Every one of these is a spreadsheet a working agent already has. Copy the prompt. Paste into the sidebar. Watch it build.</p>
+
+    <div class="cx-usecase">
+      <div class="cx-usecase-header"><div class="cx-usecase-num">1</div><h3>Comparative Market Analysis (CMA)</h3></div>
+      <p class="cx-usecase-problem">Manual comp entry, averages, and client-ready formatting eat 45 minutes per CMA.</p>
+      <div class="cx-prompt-box" id="r1">I've entered 8 comparable properties in columns A–G (address, price, sqft, beds, baths, $/sqft, DOM, list date). Build a summary section that calculates avg price, median $/sqft, median DOM, and labels the market trend (up / flat / down) based on the last 90 days. Format it for a client presentation.<button class="cx-copy-btn" onclick="copyPrompt('r1', this)">Copy</button></div>
+    </div>
+
+    <div class="cx-usecase">
+      <div class="cx-usecase-header"><div class="cx-usecase-num">2</div><h3>Commission Tracking & Splits</h3></div>
+      <p class="cx-usecase-problem">Team splits, overrides, and payouts are error-prone when done by hand.</p>
+      <div class="cx-prompt-box" id="r2">I have a transaction log with: date, property, sale price, agent, side (listing/buyer). Build formulas that: calculate gross commission at 5.5%, split listing/buyer 60/40, apply [agent]'s override at [%] above base, track paid/pending, and show MTD + YTD totals per agent.<button class="cx-copy-btn" onclick="copyPrompt('r2', this)">Copy</button></div>
+    </div>
+
+    <div class="cx-usecase">
+      <div class="cx-usecase-header"><div class="cx-usecase-num">3</div><h3>Listing Pipeline Funnel</h3></div>
+      <p class="cx-usecase-problem">Stages get updated inconsistently. Conversion rates are guesses.</p>
+      <div class="cx-prompt-box" id="r3">Build a pipeline tracker with stages: lead, contacted, showing scheduled, showing completed, offer received, offer accepted, closed. Columns: date entered, days in stage, price, agent. Add formulas that auto-calculate conversion rates at each stage and a projected close rate for the quarter.<button class="cx-copy-btn" onclick="copyPrompt('r3', this)">Copy</button></div>
+    </div>
+
+    <div class="cx-usecase">
+      <div class="cx-usecase-header"><div class="cx-usecase-num">4</div><h3>Lease vs. Buy Analysis</h3></div>
+      <p class="cx-usecase-problem">Buyers want the math. Most agents fake it with rules of thumb.</p>
+      <div class="cx-prompt-box" id="r4">Build a lease vs. buy calculator for a $500K condo. Inputs: down payment %, mortgage rate, closing costs, annual HOA, taxes, insurance, maintenance; vs. annual rent with rent-growth %. Calculate 5-year NPV of each path, show the breakeven year, and recommend lease or buy with the reasoning.<button class="cx-copy-btn" onclick="copyPrompt('r4', this)">Copy</button></div>
+    </div>
+
+    <div class="cx-usecase">
+      <div class="cx-usecase-header"><div class="cx-usecase-num">5</div><h3>Investment Property ROI</h3></div>
+      <p class="cx-usecase-problem">Cap rate, cash-on-cash, break-even occupancy: all spreadsheet math.</p>
+      <div class="cx-prompt-box" id="r5">Set up an investment property analyzer. Inputs: purchase price, down payment, loan terms, monthly rent, vacancy rate, property mgmt fee %, capex reserve, insurance, taxes. Output: cap rate, cash-on-cash ROI, 5-year projected appreciation, break-even occupancy, and a ±10% rent sensitivity band.<button class="cx-copy-btn" onclick="copyPrompt('r5', this)">Copy</button></div>
+    </div>
+
+    <div class="cx-usecase">
+      <div class="cx-usecase-header"><div class="cx-usecase-num">6</div><h3>Rent Roll Analysis</h3></div>
+      <p class="cx-usecase-problem">Multi-unit owners need a clear view of expirations and risk.</p>
+      <div class="cx-prompt-box" id="r6">I have a 12-unit building with lease data (unit, tenant, rent, lease start, lease end, notice date). Build a rent roll showing upcoming expirations, notice deadlines, total monthly income, and a chart of lease-maturity profile by quarter. Flag any leases expiring in the next 60 days.<button class="cx-copy-btn" onclick="copyPrompt('r6', this)">Copy</button></div>
+    </div>
+
+    <div class="cx-usecase">
+      <div class="cx-usecase-header"><div class="cx-usecase-num">7</div><h3>Transaction Coordination Tracker</h3></div>
+      <p class="cx-usecase-problem">Inspection, appraisal, underwriting, title, closing — one missed date = one dead deal.</p>
+      <div class="cx-prompt-box" id="r7">Build a transaction tracker for 8 concurrent deals. Columns: property, buyer/seller, offer date, inspection due, appraisal due, clear-to-close date, closing date. Conditional formatting: red if due date − today ≤ 3, yellow if ≤ 7. Calculate days-to-close for each deal and identify the critical path.<button class="cx-copy-btn" onclick="copyPrompt('r7', this)">Copy</button></div>
+    </div>
+
+    <div class="cx-usecase">
+      <div class="cx-usecase-header"><div class="cx-usecase-num">8</div><h3>Database Segmentation for Drip Campaigns</h3></div>
+      <p class="cx-usecase-problem">Hand-tagging 500 contacts is how weekends die.</p>
+      <div class="cx-prompt-box" id="r8">I have a 500-contact database (name, email, phone, last contact, property interest, price range, neighborhood). Build a segmentation column that auto-tags: "expired-listing" if listed >180 days ago, "hot-prospect" if contacted within 30 days, "cold-lead" if >1 year. Add a pivot table with counts by segment.<button class="cx-copy-btn" onclick="copyPrompt('r8', this)">Copy</button></div>
+    </div>
+
+    <div class="cx-usecase">
+      <div class="cx-usecase-header"><div class="cx-usecase-num">9</div><h3>Schedule C Expense Tracker</h3></div>
+      <p class="cx-usecase-problem">Agents leave thousands on the table every April because nothing's categorized.</p>
+      <div class="cx-prompt-box" id="r9">Build an expense tracker with categories: advertising, car/mileage, office supplies, continuing education, meals (50% deductible), professional fees, technology. Auto-calculate subtotals by category and monthly/quarterly totals. Flag any meal expense &gt; $50 for review. Output the total deductible amount.<button class="cx-copy-btn" onclick="copyPrompt('r9', this)">Copy</button></div>
+    </div>
+
+    <div class="cx-usecase">
+      <div class="cx-usecase-header"><div class="cx-usecase-num">10</div><h3>Lead Scoring / Conversion Propensity</h3></div>
+      <p class="cx-usecase-problem">Calling leads in random order is a tax on your income.</p>
+      <div class="cx-prompt-box" id="r10">My lead database has: last contact date, email open rate, click rate, meetings scheduled, response time, price range, timeline, prior transaction. Build a 1–100 lead score weighting recency 20%, engagement 30%, readiness 50%. Segment into hot / warm / cold and sort so I call the hottest first.<button class="cx-copy-btn" onclick="copyPrompt('r10', this)">Copy</button></div>
+    </div>
+
+    <!-- Safety -->
+    <h2 class="cx-section-title" id="safety">Safety & Privacy: Know the Rules</h2>
+    <p class="cx-section-subtitle">Anthropic is explicit. Read this before you put a client's data into Claude for Excel.</p>
+    <div class="cx-dodont">
+      <div class="cx-do">
+        <h4>Do</h4>
+        <ul>
+          <li>Review every change Claude proposes before accepting it</li>
+          <li>Use range names and consistent tab naming (Input_, Calc_, Output_)</li>
+          <li>Copy the file first on risky edits — keep a rollback</li>
+          <li>Validate AI-generated numbers against reality checks</li>
+          <li>Turn off model training in Settings → Privacy if required</li>
+        </ul>
+      </div>
+      <div class="cx-dont">
+        <h4>Don't</h4>
+        <ul>
+          <li>Upload spreadsheets from untrusted senders (prompt-injection risk)</li>
+          <li>Paste full SSNs, DOBs, or raw PII unless your plan allows it</li>
+          <li>Rely on Claude's numbers without spot-checking</li>
+          <li>Edit a live model — always work on a copy for scenarios</li>
+          <li>Use the Free tier — Claude for Excel requires a paid plan</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Official Sources -->
+    <h2 class="cx-section-title">Official Sources</h2>
+    <p class="cx-section-subtitle">Everything on this page is verified against Anthropic's own documentation.</p>
+    <ul style="color: var(--cx-text-muted); font-size: 0.92rem; line-height: 1.9; padding-left: 1.25rem;">
+      <li>Product page: <a href="https://claude.com/claude-for-excel" target="_blank" rel="noopener" style="color: var(--cx-accent);">claude.com/claude-for-excel</a></li>
+      <li>Help docs: <a href="https://support.claude.com/en/articles/12650343-use-claude-for-excel" target="_blank" rel="noopener" style="color: var(--cx-accent);">support.claude.com/articles/12650343</a></li>
+      <li>Best-practices webinar: <a href="https://www.anthropic.com/webinars/best-practices-for-claude-in-excel-and-powerpoint" target="_blank" rel="noopener" style="color: var(--cx-accent);">anthropic.com/webinars</a></li>
+      <li>Plans &amp; pricing: <a href="https://claude.com/pricing" target="_blank" rel="noopener" style="color: var(--cx-accent);">claude.com/pricing</a></li>
+      <li>Install (Microsoft AppSource): <a href="https://marketplace.microsoft.com/en-us/product/saas/wa200009404" target="_blank" rel="noopener" style="color: var(--cx-accent);">marketplace.microsoft.com</a></li>
+    </ul>
+
+    <!-- Final CTA -->
+    <div class="cx-final-cta">
+      <h2>Want to Implement This With Live Help?</h2>
+      <p>Claude for Excel is one tool. Edmund's Mastermind gives realtors and entrepreneurs the full AI operating system: weekly implementation sessions, every prompt library, and direct access to Edmund and Eytan Benzeno. That's how the top 1% are compounding their advantage.</p>
+      <div class="cx-hero-ctas" style="justify-content: center;">
+        <a href="/edmunds-mastermind" class="cx-btn-primary">Join Edmund's Mastermind</a>
+        <a href="#" onclick="openDlModal(); return false;" class="cx-btn-secondary">Get the Free PDF First</a>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- DOWNLOAD MODAL -->
+  <div class="cx-modal-bg" id="dlModal">
+    <div class="cx-modal">
+      <button class="cx-modal-close" onclick="closeDlModal()" aria-label="Close">&#10005;</button>
+      <div id="dlModalForm">
+        <h3>Download the Claude for Excel Guide</h3>
+        <p>Enter your name and email. The PDF is yours instantly.</p>
+        <label for="dlName">First Name</label>
+        <input type="text" id="dlName" placeholder="Your first name" autocomplete="given-name">
+        <label for="dlEmail">Email Address</label>
+        <input type="email" id="dlEmail" placeholder="you@example.com" autocomplete="email">
+        <button class="cx-modal-submit" onclick="submitDlModal()">Send Me the PDF</button>
+        <div class="cx-modal-note">No spam. Unsubscribe anytime.</div>
+      </div>
+      <div class="cx-modal-success" id="dlModalSuccess">
+        <h4>It's yours!</h4>
+        <p>Your download is starting now. Check your inbox for a link to the companion landing page.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="footer" style="padding: var(--spacing-lg) 0;">
+    <div class="container">
+      <div class="footer-bottom" style="border-top: none; padding-top: 0;">
+        <p>&copy; 2026 Bogen.ai. All rights reserved. | Boca Raton, FL | <a href="mailto:info@bogen.ai">info@bogen.ai</a></p>
+        <p style="margin-top: 4px;"><a href="/privacy" style="color: rgba(255,255,255,0.5); font-size: 0.8rem;">Privacy Policy</a> · Updated April 18, 2026</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="/js/common.js"></script>
+  <script>
+    // ===== Theme toggle =====
+    (function() {
+      const saved = localStorage.getItem('cx-theme');
+      if (saved) document.documentElement.setAttribute('data-theme', saved);
+      else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) {
+        document.documentElement.setAttribute('data-theme', 'light');
+      }
+      const btn = document.getElementById('cxThemeToggle');
+      function updateBtn() { btn.textContent = document.documentElement.getAttribute('data-theme') === 'light' ? '🌙' : '☀️'; }
+      updateBtn();
+      btn.addEventListener('click', function() {
+        const cur = document.documentElement.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
+        document.documentElement.setAttribute('data-theme', cur);
+        localStorage.setItem('cx-theme', cur);
+        updateBtn();
+      });
+    })();
+
+    // ===== Copy prompt =====
+    function copyPrompt(id, btn) {
+      const el = document.getElementById(id);
+      const text = Array.from(el.childNodes)
+        .filter(n => n.nodeType === 3 || (n.nodeName !== 'BUTTON' && !n.classList?.contains('cx-prompt-num')))
+        .map(n => n.textContent)
+        .join('')
+        .trim();
+      navigator.clipboard.writeText(text).then(() => {
+        btn.textContent = 'Copied!';
+        btn.classList.add('copied');
+        setTimeout(() => { btn.textContent = 'Copy'; btn.classList.remove('copied'); }, 2000);
+      });
+    }
+
+    // ===== Download modal =====
+    function openDlModal() { document.getElementById('dlModal').classList.add('open'); }
+    function closeDlModal() {
+      document.getElementById('dlModal').classList.remove('open');
+      document.getElementById('dlModalForm').style.display = 'block';
+      document.getElementById('dlModalSuccess').style.display = 'none';
+    }
+    async function submitDlModal() {
+      const name = document.getElementById('dlName').value.trim();
+      const email = document.getElementById('dlEmail').value.trim();
+      if (!name || !email) { alert('Please enter your name and email.'); return; }
+      try {
+        await fetch('/api/book/capture-email', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ name, email, resource: 'claude-for-excel-guide', utm_source: 'resource-page', utm_medium: 'download' })
+        });
+      } catch (err) { console.error('Email capture error:', err); }
+      document.getElementById('dlModalForm').style.display = 'none';
+      document.getElementById('dlModalSuccess').style.display = 'block';
+      const a = document.createElement('a');
+      a.href = '/downloads/Claude-For-Excel-Guide-Edmund-Bogen.pdf';
+      a.download = '';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      // Redirect after short delay to thank-you page
+      setTimeout(() => { window.location.href = '/claude-for-excel-registered?email=' + encodeURIComponent(email); }, 2200);
+    }
+    document.getElementById('dlModal').addEventListener('click', function(e) { if (e.target === this) closeDlModal(); });
+    document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closeDlModal(); });
+
+    // Track page view
+    fetch('/api/track/pageview', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ page: '/claude-for-excel', referrer: document.referrer })
+    }).catch(() => {});
+  </script>
+</body>
+</html>

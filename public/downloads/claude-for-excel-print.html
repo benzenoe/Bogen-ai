@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Claude for Excel: The Realtor & Entrepreneur Playbook - Edmund Bogen</title>
+  <style>
+    @page {
+      size: letter;
+      margin: 0.75in 0.75in 1in 0.75in;
+      @bottom-center {
+        content: "bogen.ai  |  Edmund Bogen  |  (424) 587-0840  |  edmund@bogenhomes.com";
+        font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        font-size: 8pt;
+        color: #999;
+      }
+      @bottom-right {
+        content: counter(page);
+        font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        font-size: 9pt;
+        color: #666;
+      }
+    }
+    @page :first { margin: 0; @bottom-center { content: none; } @bottom-right { content: none; } }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      font-size: 10.5pt;
+      line-height: 1.55;
+      color: #2a2a2a;
+    }
+
+    /* COVER */
+    .cover {
+      page-break-after: always;
+      width: 100%; height: 100vh;
+      background: linear-gradient(135deg, #0f2a3f 0%, #1a3a52 60%, #24527A 100%);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 1.5in;
+      color: #fff;
+    }
+    .cover-badge {
+      display: inline-block;
+      border: 1px solid rgba(100,181,246,0.5);
+      color: #64b5f6;
+      font-size: 9pt;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 4pt 14pt;
+      border-radius: 50pt;
+      margin-bottom: 22pt;
+    }
+    .cover h1 {
+      font-size: 30pt;
+      font-weight: 700;
+      line-height: 1.15;
+      margin-bottom: 10pt;
+      max-width: 480pt;
+    }
+    .cover h1 span { color: #64b5f6; }
+    .cover-sub {
+      font-size: 13pt;
+      color: rgba(255,255,255,0.75);
+      max-width: 420pt;
+      margin-bottom: 30pt;
+      line-height: 1.5;
+    }
+    .cover-tagline {
+      font-size: 11pt;
+      font-weight: 600;
+      color: #64b5f6;
+      margin-bottom: 40pt;
+      letter-spacing: 0.04em;
+    }
+    .cover-author {
+      margin-top: 40pt;
+      font-size: 10pt;
+      color: rgba(255,255,255,0.55);
+    }
+    .cover-author strong { color: #64b5f6; font-weight: 700; }
+
+    /* PAGE HEADER */
+    .page-header {
+      border-bottom: 2px solid #1a3a52;
+      padding-bottom: 8pt;
+      margin-bottom: 18pt;
+    }
+    .page-header .eyebrow {
+      font-size: 8pt;
+      color: #64b5f6;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 4pt;
+    }
+    .page-header h2 {
+      font-size: 18pt;
+      color: #0f2a3f;
+      font-weight: 700;
+      line-height: 1.2;
+    }
+
+    /* TYPOGRAPHY */
+    h3 {
+      font-size: 12pt;
+      color: #0f2a3f;
+      font-weight: 700;
+      margin: 14pt 0 6pt;
+    }
+    h4 { font-size: 10.5pt; color: #1a3a52; font-weight: 700; margin: 10pt 0 4pt; }
+    p { margin-bottom: 8pt; }
+    strong { color: #0f2a3f; }
+
+    /* SECTION */
+    .section { page-break-before: always; padding-top: 0.2in; }
+    .section:first-of-type { page-break-before: auto; }
+
+    /* PROMPT BOX */
+    .prompt-box {
+      background: #f4f7fb;
+      border-left: 3pt solid #64b5f6;
+      padding: 10pt 14pt;
+      margin: 8pt 0;
+      font-family: 'SF Mono', Menlo, Consolas, monospace;
+      font-size: 9.5pt;
+      line-height: 1.5;
+      color: #1a3a52;
+      page-break-inside: avoid;
+    }
+
+    /* STEP */
+    .step {
+      display: table;
+      width: 100%;
+      margin: 8pt 0;
+      page-break-inside: avoid;
+    }
+    .step-num {
+      display: table-cell;
+      width: 30pt;
+      vertical-align: top;
+      font-size: 14pt;
+      font-weight: 700;
+      color: #64b5f6;
+      font-family: Georgia, serif;
+    }
+    .step-body {
+      display: table-cell;
+      vertical-align: top;
+      padding-left: 6pt;
+    }
+
+    /* CALLOUT */
+    .callout {
+      background: #f4f7fb;
+      border: 1pt solid #d8e3ee;
+      border-left: 3pt solid #1a3a52;
+      padding: 10pt 14pt;
+      margin: 12pt 0;
+      font-size: 9.5pt;
+      page-break-inside: avoid;
+    }
+    .callout-warn {
+      background: #fef7f6;
+      border-color: #f0c9c3;
+      border-left-color: #c94a3a;
+    }
+    .callout-tip {
+      background: #f3f9f4;
+      border-color: #c7e4cd;
+      border-left-color: #3a8c50;
+    }
+    .callout h4 { color: inherit; font-size: 9.5pt; margin-top: 0; margin-bottom: 4pt; }
+    .callout-warn h4 { color: #c94a3a; }
+    .callout-tip h4 { color: #3a8c50; }
+
+    /* TABLE */
+    table.os {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 8pt 0;
+      font-size: 9.5pt;
+    }
+    table.os th, table.os td {
+      padding: 6pt 8pt;
+      text-align: left;
+      border-bottom: 1pt solid #e0e6ed;
+    }
+    table.os th {
+      background: #1a3a52;
+      color: #fff;
+      font-weight: 600;
+      font-size: 8pt;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+    .os-yes { color: #3a8c50; font-weight: 700; }
+    .os-no { color: #c94a3a; font-weight: 700; }
+
+    /* USE CASE */
+    .usecase {
+      margin: 14pt 0;
+      padding: 10pt 14pt;
+      background: #f8fafc;
+      border: 1pt solid #e0e6ed;
+      border-radius: 4pt;
+      page-break-inside: avoid;
+    }
+    .usecase-head {
+      display: table;
+      width: 100%;
+      margin-bottom: 5pt;
+    }
+    .usecase-num {
+      display: table-cell;
+      width: 28pt;
+      background: #64b5f6;
+      color: #0f2a3f;
+      font-weight: 700;
+      font-family: Georgia, serif;
+      text-align: center;
+      font-size: 11pt;
+      border-radius: 50%;
+      line-height: 24pt;
+      height: 24pt;
+      vertical-align: middle;
+    }
+    .usecase-title {
+      display: table-cell;
+      vertical-align: middle;
+      padding-left: 10pt;
+      font-size: 11.5pt;
+      font-weight: 700;
+      color: #0f2a3f;
+    }
+    .usecase-problem {
+      font-style: italic;
+      color: #555;
+      font-size: 9.5pt;
+      margin-bottom: 6pt;
+    }
+
+    /* 2-col */
+    .two-col {
+      display: table;
+      width: 100%;
+      margin: 10pt 0;
+    }
+    .two-col > div {
+      display: table-cell;
+      width: 50%;
+      padding: 10pt 12pt;
+      vertical-align: top;
+      font-size: 9.5pt;
+    }
+    .col-do { background: #f3f9f4; border-left: 3pt solid #3a8c50; }
+    .col-dont { background: #fef7f6; border-left: 3pt solid #c94a3a; }
+    .col-do h4 { color: #3a8c50; margin-top: 0; }
+    .col-dont h4 { color: #c94a3a; margin-top: 0; }
+    .col-do ul, .col-dont ul { list-style: none; padding-left: 0; }
+    .col-do li, .col-dont li { margin: 3pt 0; padding-left: 12pt; position: relative; }
+    .col-do li::before { content: "✓"; position: absolute; left: 0; color: #3a8c50; font-weight: 700; }
+    .col-dont li::before { content: "✗"; position: absolute; left: 0; color: #c94a3a; font-weight: 700; }
+
+    ol.prompts { padding-left: 18pt; }
+    ol.prompts li { margin-bottom: 8pt; }
+
+    /* BACK COVER */
+    .back-cover {
+      page-break-before: always;
+      background: linear-gradient(135deg, #0f2a3f 0%, #1a3a52 60%, #24527A 100%);
+      color: #fff;
+      padding: 1.5in 1in;
+      min-height: 100vh;
+      text-align: center;
+    }
+    .back-cover h2 { font-size: 24pt; color: #fff; margin-bottom: 12pt; line-height: 1.2; }
+    .back-cover h2 span { color: #64b5f6; }
+    .back-cover p { color: rgba(255,255,255,0.75); font-size: 11pt; max-width: 440pt; margin: 0 auto 12pt; line-height: 1.55; }
+    .back-cta {
+      display: inline-block;
+      background: #64b5f6;
+      color: #0f2a3f;
+      font-weight: 700;
+      padding: 10pt 22pt;
+      border-radius: 6pt;
+      text-decoration: none;
+      font-size: 11pt;
+      margin-top: 20pt;
+    }
+    .back-cover .url {
+      font-size: 10pt;
+      color: #64b5f6;
+      margin-top: 16pt;
+      letter-spacing: 0.04em;
+    }
+    .back-footer {
+      margin-top: 50pt;
+      font-size: 9pt;
+      color: rgba(255,255,255,0.5);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ============ COVER ============ -->
+  <div class="cover">
+    <div class="cover-badge">The Playbook · April 2026</div>
+    <h1>Claude for Excel: <span>The Realtor &amp; Entrepreneur Playbook</span></h1>
+    <div class="cover-sub">Install it. Prompt it right. Put it to work on the spreadsheets you already own.</div>
+    <div class="cover-tagline">15 prompts · 10 realtor use cases · 7-day plan</div>
+    <div class="cover-author">
+      A Bogen.ai Guide by <strong>Edmund Bogen</strong><br>
+      bogen.ai &nbsp;·&nbsp; Edmund's Mastermind
+    </div>
+  </div>
+
+  <!-- ============ PAGE 1 — WHAT IT IS ============ -->
+  <div class="section">
+    <div class="page-header">
+      <div class="eyebrow">Chapter 1</div>
+      <h2>What Claude for Excel Is (and Who It's For)</h2>
+    </div>
+
+    <p>Anthropic released <strong>Claude for Excel</strong> — a native Microsoft Excel add-in that runs Claude inside a sidebar. You press a shortcut, ask a question about your spreadsheet, and Claude responds with analysis, formulas, new tabs, pivot tables, or scenario runs. Every change is highlighted before it's applied, and every answer is cited back to the exact cell.</p>
+
+    <p>It went generally available on <strong>January 24, 2026</strong> and is included at no extra cost on every paid Claude plan. The Free tier does not include it.</p>
+
+    <h3>Who this guide is for</h3>
+    <p><strong>Realtors</strong> — if you run CMAs, track commission splits, model investment properties, or keep a rent roll in Excel, this tool replaces ~60% of the manual lift.</p>
+    <p><strong>Entrepreneurs</strong> — if you live inside financial models, forecasts, or analytics dashboards, it shortens a half-day of cleanup into 20 minutes of review.</p>
+
+    <div class="callout callout-tip">
+      <h4>The mindset shift</h4>
+      <p>Treat Claude like a brilliant junior analyst who has no context. You supply the business logic. It supplies the speed. Every output gets reviewed before you accept it.</p>
+    </div>
+  </div>
+
+  <!-- ============ PAGE 2 — PLAN REQUIREMENTS + INSTALL ============ -->
+  <div class="section">
+    <div class="page-header">
+      <div class="eyebrow">Chapter 2</div>
+      <h2>Plan Requirements &amp; 5-Minute Install</h2>
+    </div>
+
+    <h3>What you need</h3>
+    <p>Claude for Excel is included with every paid plan. Pick one:</p>
+    <ul style="padding-left: 18pt; margin-bottom: 10pt;">
+      <li><strong>Pro · $20/month</strong> — for individuals</li>
+      <li><strong>Max · $100/month</strong> — for heavy users (larger usage limits)</li>
+      <li><strong>Team · $25+/seat/month</strong> — for brokerages and small companies</li>
+      <li><strong>Enterprise · custom</strong> — for compliance and admin controls</li>
+    </ul>
+
+    <h3>Install steps</h3>
+    <div class="step"><div class="step-num">1</div><div class="step-body"><strong>Get a paid Claude plan</strong> at claude.com/pricing.</div></div>
+    <div class="step"><div class="step-num">2</div><div class="step-body"><strong>Open Microsoft AppSource</strong> → search "Claude by Anthropic for Excel" → click Get it now.<br><span style="color:#666; font-size:9pt;">Direct link: marketplace.microsoft.com/en-us/product/saas/wa200009404</span></div></div>
+    <div class="step"><div class="step-num">3</div><div class="step-body"><strong>Activate the add-in inside Excel</strong> — Mac: Tools → Add-ins. Windows: Home → Add-ins. Sign in with your Claude account.</div></div>
+    <div class="step"><div class="step-num">4</div><div class="step-body"><strong>Open the sidebar</strong> — Mac: <strong>Ctrl + Option + C</strong>. Windows: <strong>Ctrl + Alt + C</strong>.</div></div>
+
+    <h3>Supported platforms</h3>
+    <table class="os">
+      <thead><tr><th>Platform</th><th>Supported</th><th>Minimum Version</th></tr></thead>
+      <tbody>
+        <tr><td>Excel on the Web</td><td class="os-yes">Yes</td><td>Current</td></tr>
+        <tr><td>Excel for Windows</td><td class="os-yes">Yes</td><td>Microsoft 365, build 16.0.13127.20296+</td></tr>
+        <tr><td>Excel for Mac</td><td class="os-yes">Yes</td><td>16.46+ (build 21011600+)</td></tr>
+        <tr><td>Excel for iPad</td><td class="os-yes">Yes</td><td>2.51+</td></tr>
+        <tr><td>Excel 2016 / 2019</td><td class="os-no">No</td><td>—</td></tr>
+        <tr><td>Android</td><td class="os-no">No</td><td>—</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- ============ PAGE 3 — SIDEBAR ANATOMY ============ -->
+  <div class="section">
+    <div class="page-header">
+      <div class="eyebrow">Chapter 3</div>
+      <h2>Sidebar Anatomy: What You're Looking At</h2>
+    </div>
+
+    <p>When you press the shortcut, a pane slides in on the right side of Excel. Four things matter:</p>
+
+    <h4>1. The chat input</h4>
+    <p>Type natural-language requests. No formulas, no syntax. Plain English.</p>
+
+    <h4>2. The slash menu ("/")</h4>
+    <p>Type "/" in the input box to see <strong>Skills</strong> — reusable, one-click workflows. Your organization can build custom Skills for common tasks (see Chapter 7).</p>
+
+    <h4>3. The change preview</h4>
+    <p>Before Claude modifies your workbook, every change is highlighted. You review, then accept or reject.</p>
+
+    <h4>4. Cell-level citations</h4>
+    <p>When Claude answers, the answer links directly to the cells it referenced. Click the citation — Excel jumps to that cell.</p>
+
+    <div class="callout">
+      <h4>The shortcut to memorize</h4>
+      <p><strong>Mac:</strong> Control + Option + C &nbsp;·&nbsp; <strong>Windows:</strong> Control + Alt + C</p>
+      <p style="margin-bottom:0;">Use it the way you use Command+S. Make it reflex.</p>
+    </div>
+  </div>
+
+  <!-- ============ PAGE 4 — 5 CORE PATTERNS ============ -->
+  <div class="section">
+    <div class="page-header">
+      <div class="eyebrow">Chapter 4</div>
+      <h2>Five Prompt Patterns That Separate Pros From Tourists</h2>
+    </div>
+
+    <h4>Pattern 1 · Understand First</h4>
+    <p>Before changing anything, have Claude map the workbook.</p>
+    <div class="prompt-box">Walk me through this workbook. What's on each tab? How do they connect? Show me the data flow from inputs to final outputs.</div>
+
+    <h4>Pattern 2 · Constrain Scope</h4>
+    <p>Lock the edit zone so Claude doesn't touch what you didn't ask it to.</p>
+    <div class="prompt-box">Update the Forecast tab only. Do not change anything in the Assumptions tab or formulas on any other sheet. Show me each change before applying.</div>
+
+    <h4>Pattern 3 · Label Assumptions</h4>
+    <p>Force Claude to flag what it's guessing.</p>
+    <div class="prompt-box">Label every non-provided input as [ASSUMED] with your reasoning. What are the top 3 assumptions that, if wrong, would most change the output?</div>
+
+    <h4>Pattern 4 · Safe Debug</h4>
+    <p>Fix the root cause, not just the symptom.</p>
+    <div class="prompt-box">There's a #REF! error in cell E15 on the Headcount tab. What's causing it, and what's the right fix? Explain the root cause before applying.</div>
+
+    <h4>Pattern 5 · Scenario Stress Test</h4>
+    <p>See the impact across the whole model, not just one cell.</p>
+    <div class="prompt-box">Update the plan to assume 15% attrition instead of 10%. Show me every cell that changes, across all tabs, with before/after values.</div>
+  </div>
+
+  <!-- ============ PAGE 5-6 — 15 PROMPTS FOR ENTREPRENEURS ============ -->
+  <div class="section">
+    <div class="page-header">
+      <div class="eyebrow">Chapter 5</div>
+      <h2>15 Copy-Paste Prompts for Entrepreneurs</h2>
+    </div>
+
+    <p>Drop any of these into the sidebar. Tweak the bracketed placeholders to your spreadsheet.</p>
+
+    <div class="prompt-box"><strong>1.</strong> Explain every formula in this tab with cell-level citations.</div>
+    <div class="prompt-box"><strong>2.</strong> Find any circular references or broken links in this workbook and fix them.</div>
+    <div class="prompt-box"><strong>3.</strong> Create a sensitivity analysis showing how revenue changes if price moves ±10% and volume moves ±5%.</div>
+    <div class="prompt-box"><strong>4.</strong> Populate this template with the data from Sheet1 while keeping every formula intact.</div>
+    <div class="prompt-box"><strong>5.</strong> Build a pivot table summarizing sales by region and product. Add a chart.</div>
+    <div class="prompt-box"><strong>6.</strong> If we reduce costs by 20%, recalculate all dependent cells and show me the bottom-line impact.</div>
+    <div class="prompt-box"><strong>7.</strong> Add data validation to the Assumptions tab so users can only enter values within reasonable ranges.</div>
+    <div class="prompt-box"><strong>8.</strong> Apply conditional formatting to highlight every row where margin is below 20%.</div>
+    <div class="prompt-box"><strong>9.</strong> Create a chart visualizing [range] as a [chart type]. Make it presentation-ready.</div>
+    <div class="prompt-box"><strong>10.</strong> Trace every cell that depends on this assumption. What breaks if I change it?</div>
+    <div class="prompt-box"><strong>11.</strong> Find and fix any #VALUE!, #DIV/0!, or #N/A errors in this workbook.</div>
+    <div class="prompt-box"><strong>12.</strong> Generate a variance analysis comparing actual vs forecast across all 12 months.</div>
+    <div class="prompt-box"><strong>13.</strong> Build formulas that dynamically calculate [metric] from inputs — no hardcoded values.</div>
+    <div class="prompt-box"><strong>14.</strong> Clean up this dataset: normalize formatting, remove duplicates, fix inconsistent spelling.</div>
+    <div class="prompt-box"><strong>15.</strong> Prepare this workbook for print: adjust column widths, hide intermediate calcs, format headers.</div>
+  </div>
+
+  <!-- ============ PAGES 7-16 — 10 REALTOR USE CASES ============ -->
+  <div class="section">
+    <div class="page-header">
+      <div class="eyebrow">Chapter 6</div>
+      <h2>10 Realtor Use Cases (The Anchor of This Guide)</h2>
+    </div>
+    <p>Every use case below is a spreadsheet a working agent already has. Copy the prompt. Paste into the sidebar. Watch it build.</p>
+
+    <div class="usecase">
+      <div class="usecase-head"><div class="usecase-num">1</div><div class="usecase-title">Comparative Market Analysis (CMA)</div></div>
+      <div class="usecase-problem">Manual comp entry, averages, and client-ready formatting eat 45 minutes per CMA.</div>
+      <div class="prompt-box">I've entered 8 comparable properties in columns A–G (address, price, sqft, beds, baths, $/sqft, DOM, list date). Build a summary section that calculates avg price, median $/sqft, median DOM, and labels the market trend (up / flat / down) based on the last 90 days. Format it for a client presentation.</div>
+    </div>
+
+    <div class="usecase">
+      <div class="usecase-head"><div class="usecase-num">2</div><div class="usecase-title">Commission Tracking &amp; Splits</div></div>
+      <div class="usecase-problem">Team splits, overrides, and payouts are error-prone when done by hand.</div>
+      <div class="prompt-box">I have a transaction log with: date, property, sale price, agent, side (listing/buyer). Build formulas that: calculate gross commission at 5.5%, split listing/buyer 60/40, apply [agent]'s override at [%] above base, track paid/pending, and show MTD + YTD totals per agent.</div>
+    </div>
+
+    <div class="usecase">
+      <div class="usecase-head"><div class="usecase-num">3</div><div class="usecase-title">Listing Pipeline Funnel</div></div>
+      <div class="usecase-problem">Stages get updated inconsistently. Conversion rates are guesses.</div>
+      <div class="prompt-box">Build a pipeline tracker with stages: lead, contacted, showing scheduled, showing completed, offer received, offer accepted, closed. Columns: date entered, days in stage, price, agent. Add formulas that auto-calculate conversion rates at each stage and a projected close rate for the quarter.</div>
+    </div>
+
+    <div class="usecase">
+      <div class="usecase-head"><div class="usecase-num">4</div><div class="usecase-title">Lease vs. Buy Analysis</div></div>
+      <div class="usecase-problem">Buyers want the math. Most agents fake it with rules of thumb.</div>
+      <div class="prompt-box">Build a lease vs. buy calculator for a $500K condo. Inputs: down payment %, mortgage rate, closing costs, annual HOA, taxes, insurance, maintenance; vs. annual rent with rent-growth %. Calculate 5-year NPV of each path, show the breakeven year, and recommend lease or buy with the reasoning.</div>
+    </div>
+
+    <div class="usecase">
+      <div class="usecase-head"><div class="usecase-num">5</div><div class="usecase-title">Investment Property ROI</div></div>
+      <div class="usecase-problem">Cap rate, cash-on-cash, break-even occupancy: all spreadsheet math.</div>
+      <div class="prompt-box">Set up an investment property analyzer. Inputs: purchase price, down payment, loan terms, monthly rent, vacancy rate, property mgmt fee %, capex reserve, insurance, taxes. Output: cap rate, cash-on-cash ROI, 5-year projected appreciation, break-even occupancy, and a ±10% rent sensitivity band.</div>
+    </div>
+
+    <div class="usecase">
+      <div class="usecase-head"><div class="usecase-num">6</div><div class="usecase-title">Rent Roll Analysis</div></div>
+      <div class="usecase-problem">Multi-unit owners need a clear view of expirations and risk.</div>
+      <div class="prompt-box">I have a 12-unit building with lease data (unit, tenant, rent, lease start, lease end, notice date). Build a rent roll showing upcoming expirations, notice deadlines, total monthly income, and a chart of lease-maturity profile by quarter. Flag any leases expiring in the next 60 days.</div>
+    </div>
+
+    <div class="usecase">
+      <div class="usecase-head"><div class="usecase-num">7</div><div class="usecase-title">Transaction Coordination Tracker</div></div>
+      <div class="usecase-problem">Inspection, appraisal, underwriting, title, closing — one missed date = one dead deal.</div>
+      <div class="prompt-box">Build a transaction tracker for 8 concurrent deals. Columns: property, buyer/seller, offer date, inspection due, appraisal due, clear-to-close date, closing date. Conditional formatting: red if due date − today ≤ 3, yellow if ≤ 7. Calculate days-to-close and identify the critical path.</div>
+    </div>
+
+    <div class="usecase">
+      <div class="usecase-head"><div class="usecase-num">8</div><div class="usecase-title">Database Segmentation for Drip Campaigns</div></div>
+      <div class="usecase-problem">Hand-tagging 500 contacts is how weekends die.</div>
+      <div class="prompt-box">I have a 500-contact database (name, email, phone, last contact, property interest, price range, neighborhood). Build a segmentation column that auto-tags: "expired-listing" if listed &gt;180 days ago, "hot-prospect" if contacted within 30 days, "cold-lead" if &gt;1 year. Add a pivot table with counts by segment.</div>
+    </div>
+
+    <div class="usecase">
+      <div class="usecase-head"><div class="usecase-num">9</div><div class="usecase-title">Schedule C Expense Tracker</div></div>
+      <div class="usecase-problem">Agents leave thousands on the table every April because nothing's categorized.</div>
+      <div class="prompt-box">Build an expense tracker with categories: advertising, car/mileage, office supplies, continuing education, meals (50% deductible), professional fees, technology. Auto-calculate subtotals by category and monthly/quarterly totals. Flag any meal expense &gt; $50 for review. Output the total deductible amount.</div>
+    </div>
+
+    <div class="usecase">
+      <div class="usecase-head"><div class="usecase-num">10</div><div class="usecase-title">Lead Scoring / Conversion Propensity</div></div>
+      <div class="usecase-problem">Calling leads in random order is a tax on your income.</div>
+      <div class="prompt-box">My lead database has: last contact date, email open rate, click rate, meetings scheduled, response time, price range, timeline, prior transaction. Build a 1–100 lead score weighting recency 20%, engagement 30%, readiness 50%. Segment into hot / warm / cold and sort so I call the hottest first.</div>
+    </div>
+  </div>
+
+  <!-- ============ SAFETY ============ -->
+  <div class="section">
+    <div class="page-header">
+      <div class="eyebrow">Chapter 7</div>
+      <h2>Safety &amp; Privacy: Know the Rules</h2>
+    </div>
+    <p>Anthropic is explicit about what Claude for Excel can and can't safely process. Read this once, then follow it always.</p>
+
+    <div class="two-col">
+      <div class="col-do">
+        <h4>Do</h4>
+        <ul>
+          <li>Review every change before accepting</li>
+          <li>Use consistent tab naming (Input_, Calc_, Output_)</li>
+          <li>Work on a copy for risky edits — keep a rollback</li>
+          <li>Validate AI-generated numbers against reality checks</li>
+          <li>Turn off model training in Settings → Privacy</li>
+          <li>Use range names for recurring inputs</li>
+        </ul>
+      </div>
+      <div class="col-dont">
+        <h4>Don't</h4>
+        <ul>
+          <li>Upload spreadsheets from untrusted senders</li>
+          <li>Paste full SSNs, DOBs, or raw PII unless compliant</li>
+          <li>Rely on Claude's numbers without spot-checking</li>
+          <li>Edit a live model — always work on a copy</li>
+          <li>Use the Free tier (no Excel access)</li>
+          <li>Assume confidentiality on Free/Pro for regulated data</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="callout callout-warn">
+      <h4>Prompt injection risk</h4>
+      <p style="margin-bottom:0;">A malicious spreadsheet can hide instructions inside cell content that try to manipulate Claude's behavior. If a file came from outside your trusted network, treat it as suspicious. Strip or copy the data you need into a clean workbook before prompting.</p>
+    </div>
+  </div>
+
+  <!-- ============ 7-DAY PLAN ============ -->
+  <div class="section">
+    <div class="page-header">
+      <div class="eyebrow">Chapter 8</div>
+      <h2>Your 7-Day Claude-for-Excel Implementation Plan</h2>
+    </div>
+
+    <p>Don't try to learn everything at once. Run this seven-day sequence. By Sunday, you'll have replaced your five worst manual spreadsheet tasks.</p>
+
+    <h4>Day 1 (Monday) — Install &amp; first prompt</h4>
+    <p>Install the add-in. Open any active spreadsheet. Run Pattern 1 ("Walk me through this workbook"). Note what Claude misses — that tells you how to document your files better.</p>
+
+    <h4>Day 2 (Tuesday) — Your worst formula</h4>
+    <p>Find the formula in one of your files that you've been afraid to touch. Ask Claude to explain it. Then ask Claude to rewrite it more cleanly, with comments.</p>
+
+    <h4>Day 3 (Wednesday) — Your highest-impact realtor use case</h4>
+    <p>Pick one use case from Chapter 6 that maps to your current week's work. Run the prompt. Save the output as a template you reuse.</p>
+
+    <h4>Day 4 (Thursday) — Clean something ugly</h4>
+    <p>Take a messy dataset — a list export, a CSV from Showingtime, your contact database. Run Prompt #14 (data cleanup). Compare before and after.</p>
+
+    <h4>Day 5 (Friday) — A scenario test</h4>
+    <p>In any financial model you rely on, run Pattern 5 (stress test). Try three scenarios. See what breaks.</p>
+
+    <h4>Day 6 (Saturday) — Your Schedule C</h4>
+    <p>Run Use Case #9. Categorize the year's expenses so far. This is the day that pays for the subscription.</p>
+
+    <h4>Day 7 (Sunday) — Pick your Skill</h4>
+    <p>From your week's work, identify the one prompt you typed more than once. That's your first custom Skill candidate. Save it.</p>
+  </div>
+
+  <!-- ============ BACK COVER ============ -->
+  <div class="back-cover">
+    <h2>Ready to Implement This <span>With Live Help?</span></h2>
+    <p>Claude for Excel is one tool. <strong style="color:#fff;">Edmund's Mastermind</strong> is the full operating system: weekly implementation sessions, every prompt library, and direct access to Edmund and Eytan Benzeno.</p>
+    <p>Realtors and entrepreneurs who move first win the decade. You're holding the starting line.</p>
+
+    <a class="back-cta" href="https://bogen.ai/edmunds-mastermind">Join Edmund's Mastermind →</a>
+
+    <div class="url">bogen.ai/claude-for-excel</div>
+
+    <div class="back-footer">
+      <strong>Edmund Bogen</strong> · Bogen.ai · Boca Raton, FL<br>
+      (424) 587-0840 · edmund@bogenhomes.com<br>
+      Updated April 18, 2026
+    </div>
+  </div>
+
+</body>
+</html>

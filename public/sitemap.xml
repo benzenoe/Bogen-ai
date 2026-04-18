@@ -109,4 +109,12 @@
     <priority>0.4</priority>
   </url>
 
+  <!-- Claude for Excel - Lead Magnet -->
+  <url>
+    <loc>https://bogen.ai/claude-for-excel</loc>
+    <lastmod>2026-04-18</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
 </urlset>
