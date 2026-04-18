@@ -153,11 +153,10 @@
       background: var(--blue);
       border-radius: 50%;
       transition: transform 0.3s ease;
-      transform: translateX(16px);
     }
 
-    [data-theme="dark"] .toggle-switch::after {
-      transform: translateX(0);
+    [data-theme="light"] .toggle-switch::after {
+      transform: translateX(16px);
     }
 
     .btn-book {
@@ -1107,9 +1106,9 @@
     </div>
     <div class="nav-right">
       <div class="theme-toggle" onclick="toggleTheme()">
-        <span class="theme-toggle-label">Light</span>
-        <div class="toggle-switch"></div>
         <span class="theme-toggle-label">Dark</span>
+        <div class="toggle-switch"></div>
+        <span class="theme-toggle-label">Light</span>
       </div>
       <a href="https://calendly.com/edmund-15/coaching-call-with-edmund?month=2026-04" class="btn-book" target="_blank">Book a Call</a>
     </div>
