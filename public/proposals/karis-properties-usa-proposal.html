@@ -1542,17 +1542,20 @@
     // Theme Toggle
     function toggleTheme() {
       const body = document.body;
-      const current = body.getAttribute('data-theme');
-      const next = current === 'light' ? 'dark' : 'light';
+      const current = body.getAttribute('data-theme') || 'light';
+      const next = current === 'dark' ? 'light' : 'dark';
       body.setAttribute('data-theme', next);
       localStorage.setItem('karis-proposal-theme', next);
     }
 
-    // Restore saved theme
+    // Restore saved theme or default to light
     (function() {
       const saved = localStorage.getItem('karis-proposal-theme');
       if (saved) {
         document.body.setAttribute('data-theme', saved);
+      } else {
+        // Default to light mode
+        document.body.setAttribute('data-theme', 'light');
       }
     })();
 
