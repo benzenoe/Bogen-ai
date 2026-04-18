@@ -72,6 +72,25 @@
       transition: opacity 0.2s ease;
     }
 
+    .nav-logo-bogen {
+      display: block;
+    }
+
+    .nav-logo-bogen-dark {
+      display: none;
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
+
+    [data-theme="light"] .nav-logo-bogen {
+      display: none;
+    }
+
+    [data-theme="light"] .nav-logo-bogen-dark {
+      display: block;
+    }
+
     .nav-left a:hover .nav-logo {
       opacity: 0.8;
     }
@@ -1149,8 +1168,9 @@
   <!-- Fixed Navigation -->
   <div class="nav">
     <div class="nav-left">
-      <a href="https://www.bogen.ai" target="_blank" style="line-height: 0;">
-        <img src="https://bogen.ai/images/eb-logo.png" alt="Bogen.ai" class="nav-logo">
+      <a href="https://www.bogen.ai" target="_blank" style="line-height: 0; position: relative;">
+        <img src="../images/eb-logo.png" alt="Bogen.ai" class="nav-logo nav-logo-bogen">
+        <img src="../images/eb-logo-old.png" alt="Bogen.ai" class="nav-logo nav-logo-bogen-dark">
       </a>
       <span class="nav-sep">×</span>
       <a href="https://karisdenver.com" target="_blank" style="line-height: 0;">
