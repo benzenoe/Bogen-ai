@@ -153,10 +153,11 @@
       background: var(--blue);
       border-radius: 50%;
       transition: transform 0.3s ease;
+      transform: translateX(16px);
     }
 
-    [data-theme="light"] .toggle-switch::after {
-      transform: translateX(16px);
+    [data-theme="dark"] .toggle-switch::after {
+      transform: translateX(0);
     }
 
     .btn-book {
