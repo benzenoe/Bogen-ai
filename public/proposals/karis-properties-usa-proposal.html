@@ -1286,11 +1286,23 @@
                 <input type="checkbox" id="blog_social" onclick="event.stopPropagation()" onchange="calculateTotal(); this.closest('.config-card').classList.toggle('active', this.checked)">
                 <div class="config-card-title">Blog + Social Media Publisher</div>
                 <div class="config-card-prices">
-                  <span class="config-card-setup">$300</span>
-                  <span class="config-card-monthly">Included</span>
+                  <span class="config-card-setup">$250</span>
+                  <span class="config-card-monthly">$25/mo</span>
                 </div>
               </div>
               <div class="config-card-desc">CMS with one-click publish to social platforms</div>
+            </div>
+
+            <div class="config-card" onclick="toggleAddon('crm_integration')">
+              <div class="config-card-header">
+                <input type="checkbox" id="crm_integration" onclick="event.stopPropagation()" onchange="calculateTotal(); this.closest('.config-card').classList.toggle('active', this.checked)">
+                <div class="config-card-title">Live CRM Integration</div>
+                <div class="config-card-prices">
+                  <span class="config-card-setup">$400</span>
+                  <span class="config-card-monthly">Included</span>
+                </div>
+              </div>
+              <div class="config-card-desc">Real-time synchronization with your existing CRM system</div>
             </div>
 
             <div class="config-card" onclick="toggleAddon('ai_chat')">
@@ -1502,8 +1514,9 @@
       idx: { setup: 800, monthly: 70 },
       investment_tool: { setup: 300, monthly: 0 },
       cma_tool: { setup: 400, monthly: 0 },
-      blog_social: { setup: 300, monthly: 0 },
+      blog_social: { setup: 250, monthly: 25 },
       ai_chat: { setup: 250, monthly: 50 },
+      crm_integration: { setup: 400, monthly: 0 },
       ad_campaign: { setup: 450, monthly: 300 }
     };
 
