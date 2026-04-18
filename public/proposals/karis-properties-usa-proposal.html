@@ -867,6 +867,28 @@
                   0 0 0 1px rgba(0, 168, 225, 0.1);
     }
 
+    .payment-terms {
+      margin-top: 1.5rem;
+      padding-top: 1rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      font-size: 0.8rem;
+      color: rgba(255, 255, 255, 0.6);
+      line-height: 1.6;
+    }
+
+    [data-theme="light"] .payment-terms {
+      border-top: 1px solid rgba(26, 35, 50, 0.1);
+      color: rgba(26, 35, 50, 0.6);
+    }
+
+    .payment-terms p {
+      margin: 0 0 0.5rem 0;
+    }
+
+    .payment-terms p:last-child {
+      margin: 0;
+    }
+
     @media (max-width: 968px) {
       .live-quote {
         position: relative;
@@ -1355,6 +1377,10 @@
         <div class="lq-row">
           <span class="lq-label">Monthly Fee</span>
           <span class="lq-amount" id="totalMonthly">$200</span>
+        </div>
+        <div class="payment-terms">
+          <p>Setup fee due upfront</p>
+          <p>Monthly fee begins when website launches</p>
         </div>
       </div>
     </div>
