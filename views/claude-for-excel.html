@@ -563,6 +563,76 @@
       </tbody>
     </table>
 
+    <!-- How to Actually Use It -->
+    <h2 class="cx-section-title" id="how-to-use">How to Actually Use It — Your First 10 Minutes</h2>
+    <p class="cx-section-subtitle">Installed. Sidebar open. Now what? Here's exactly what to do with a real spreadsheet open in front of you.</p>
+
+    <div class="cx-steps">
+      <div class="cx-step">
+        <div class="cx-step-num">1</div>
+        <div>
+          <h4>Open a spreadsheet you already know cold</h4>
+          <p>Don't test Claude on a workbook you've never seen. Open one you built or use daily — a CMA, a commission tracker, a pipeline. You'll be able to spot when Claude is right and when it's guessing. That's how you build trust fast.</p>
+        </div>
+      </div>
+
+      <div class="cx-step">
+        <div class="cx-step-num">2</div>
+        <div>
+          <h4>Open the sidebar and orient yourself</h4>
+          <p>Press <strong>Ctrl+Alt+C</strong> (Windows) or <strong>Ctrl+Option+C</strong> (Mac). The Claude pane appears on the right. Three things to notice: the prompt box at the bottom, the "/" menu that opens Skills (reusable workflows), and the output area where Claude's responses and cell citations appear.</p>
+        </div>
+      </div>
+
+      <div class="cx-step">
+        <div class="cx-step-num">3</div>
+        <div>
+          <h4>Start with "understand," not "change"</h4>
+          <p>Your first prompt should never be "fix this" or "build this." Start with: <em>"Walk me through this workbook. What's on each tab? How do they connect? Show me the data flow from inputs to final outputs."</em> Claude will map the model and click you into the cells it's referencing. Now you know what it sees.</p>
+        </div>
+      </div>
+
+      <div class="cx-step">
+        <div class="cx-step-num">4</div>
+        <div>
+          <h4>Ask a question you already know the answer to</h4>
+          <p>Before you trust Claude on something you don't know, test it on something you do. "What's the average $/sqft across my comps?" or "Which lead in column C has the highest score?" Verify the answer matches what you'd get manually. If it's right, move on. If it's off, rephrase — the data layout probably needs clearer labels.</p>
+        </div>
+      </div>
+
+      <div class="cx-step">
+        <div class="cx-step-num">5</div>
+        <div>
+          <h4>Now ask it to do something useful</h4>
+          <p>Pick ONE small task. A formula fix. A summary row. A conditional format. Give Claude the narrowest possible scope: <em>"On the Forecast tab only, add a column that flags any row where commission &lt; 2.5%. Don't change anything else. Show me each edit before applying."</em> Review the proposed changes cell by cell. Apply. Save.</p>
+        </div>
+      </div>
+
+      <div class="cx-step">
+        <div class="cx-step-num">6</div>
+        <div>
+          <h4>Review every change before accepting</h4>
+          <p>Claude highlights every cell it wants to change and cites its reasoning. <strong>Never bulk-accept.</strong> Click each edit, read the citation, and approve one at a time until you have a feel for how it thinks. This is the single biggest separator between pros and tourists — the tourists auto-approve.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="cx-pattern" style="margin-top: 1.5rem;">
+      <span class="cx-pattern-label">The Daily Workflow</span>
+      <h4>What using Claude for Excel actually looks like after the first week</h4>
+      <p>By day 5, you'll stop writing formulas by hand for anything non-trivial. Your workflow becomes: <strong>(1)</strong> open the workbook, <strong>(2)</strong> describe what you want in plain English, <strong>(3)</strong> review the cell-level edits Claude proposes, <strong>(4)</strong> apply or reject. You're not replacing your judgment — you're offloading the keystroke work and keeping the decisions.</p>
+    </div>
+
+    <div class="cx-pattern">
+      <span class="cx-pattern-label">What NOT to do on Day One</span>
+      <h4>Three rookie mistakes that blow up trust fast</h4>
+      <ul style="color: var(--cx-text-muted); line-height: 1.7; padding-left: 1.25rem; margin: 0.5rem 0 0;">
+        <li><strong>Don't point Claude at a workbook you've never seen.</strong> You need to be able to sanity-check its output. Start on familiar terrain.</li>
+        <li><strong>Don't ask for "a better version" of anything.</strong> Vague prompts produce vague edits across cells you didn't want touched. Always constrain scope to a single tab, column, or range.</li>
+        <li><strong>Don't paste in client PII or private financials until you've read the Safety section below.</strong> Sensitive data has rules. Know them before you upload.</li>
+      </ul>
+    </div>
+
     <!-- Slash & Prompt Patterns -->
     <h2 class="cx-section-title" id="prompts">5 Prompt Patterns That Separate Pros from Tourists</h2>
     <p class="cx-section-subtitle">Typing "/" in the sidebar opens Skills (reusable workflows). Before you build custom Skills, master these five universal patterns.</p>
