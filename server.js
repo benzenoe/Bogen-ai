@@ -538,6 +538,14 @@ app.get('/claude-for-excel-registered', (req, res) => {
   res.sendFile(path.join(__dirname, 'views', 'claude-for-excel-registered.html'));
 });
 
+app.get('/dream-team', (req, res) => {
+  res.sendFile(path.join(__dirname, 'views', 'dream-team.html'));
+});
+
+app.get('/dream-team-registered', (req, res) => {
+  res.sendFile(path.join(__dirname, 'views', 'dream-team-registered.html'));
+});
+
 app.get('/claude-commands', (req, res) => {
   res.sendFile(path.join(__dirname, 'views', 'claude-commands.html'));
 });
