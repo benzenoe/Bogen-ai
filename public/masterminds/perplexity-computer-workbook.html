@@ -981,6 +981,171 @@ footer {
     font-size: 13px;
   }
 }
+
+/* ============================================
+   PDF PREVIEW MODAL
+   ============================================ */
+.pdf-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.85);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10000;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+  padding: 20px;
+}
+
+.pdf-modal-overlay.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.pdf-modal {
+  background: var(--card-bg);
+  border-radius: 16px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+  max-width: 1100px;
+  width: 100%;
+  height: 90vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  transform: scale(0.9);
+  transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+.pdf-modal-overlay.active .pdf-modal {
+  transform: scale(1);
+}
+
+.pdf-modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 30px;
+  border-bottom: 1px solid var(--card-border);
+  background: var(--card-bg);
+}
+
+.pdf-modal-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--heading);
+}
+
+.pdf-modal-actions {
+  display: flex;
+  gap: 12px;
+}
+
+.btn-close-modal,
+.btn-confirm-download {
+  padding: 10px 20px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 14px;
+  transition: all 0.2s ease;
+  font-family: 'Montserrat', 'Helvetica Neue', Arial, sans-serif;
+}
+
+.btn-close-modal {
+  background: var(--bg-alt);
+  color: var(--heading);
+}
+
+.btn-close-modal:hover {
+  background: var(--card-border);
+  transform: translateY(-1px);
+}
+
+.btn-confirm-download {
+  background: var(--accent);
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.btn-confirm-download:hover {
+  background: var(--accent-hover);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 168, 225, 0.4);
+}
+
+[data-theme="dark"] .btn-confirm-download:hover {
+  box-shadow: 0 4px 12px rgba(0, 168, 225, 0.6);
+}
+
+.btn-confirm-download svg {
+  width: 16px;
+  height: 16px;
+}
+
+.pdf-modal-body {
+  flex: 1;
+  overflow: hidden;
+  background: var(--bg-alt);
+}
+
+.pdf-modal-body iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+@media (max-width: 768px) {
+  .pdf-modal {
+    height: 95vh;
+    border-radius: 12px;
+  }
+
+  .pdf-modal-header {
+    padding: 16px 20px;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  .pdf-modal-title {
+    font-size: 1rem;
+    width: 100%;
+  }
+
+  .pdf-modal-actions {
+    width: 100%;
+    justify-content: flex-end;
+  }
+}
+
+@media (max-width: 480px) {
+  .pdf-modal-overlay {
+    padding: 10px;
+  }
+
+  .pdf-modal {
+    height: 98vh;
+  }
+
+  .pdf-modal-header {
+    padding: 12px 16px;
+  }
+
+  .btn-close-modal,
+  .btn-confirm-download {
+    padding: 8px 16px;
+    font-size: 13px;
+  }
+}
 </style>
 </head>
 <body>
@@ -1817,11 +1982,84 @@ function showCopied(btn) {
      FLOATING DOWNLOAD BUTTON
      ============================================ -->
 <div class="floating-download">
-  <a href="Perplexity-Computer-Domination-Workbook.pdf" class="cta-btn" download>
+  <button class="cta-btn" id="openPdfPreview" style="border: none; cursor: pointer;">
     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
     Download the Workbook (PDF)
-  </a>
+  </button>
 </div>
+
+<!-- ============================================
+     PDF PREVIEW MODAL
+     ============================================ -->
+<div class="pdf-modal-overlay" id="pdfModal">
+  <div class="pdf-modal">
+    <div class="pdf-modal-header">
+      <div class="pdf-modal-title">Perplexity Computer for Real Estate — Workbook Preview</div>
+      <div class="pdf-modal-actions">
+        <button class="btn-close-modal" id="closeModal">Close</button>
+        <button class="btn-confirm-download" id="confirmDownload">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          Download PDF
+        </button>
+      </div>
+    </div>
+    <div class="pdf-modal-body">
+      <iframe id="pdfFrame"></iframe>
+    </div>
+  </div>
+</div>
+
+<script>
+// PDF Modal Functionality
+(function() {
+  const pdfModal = document.getElementById('pdfModal');
+  const openBtn = document.getElementById('openPdfPreview');
+  const closeModalBtn = document.getElementById('closeModal');
+  const confirmDownloadBtn = document.getElementById('confirmDownload');
+  const pdfFrame = document.getElementById('pdfFrame');
+  const pdfUrl = 'Perplexity-Computer-Domination-Workbook.pdf';
+
+  // Open modal and load PDF
+  openBtn && openBtn.addEventListener('click', function() {
+    pdfFrame.src = pdfUrl;
+    pdfModal.classList.add('active');
+    document.body.style.overflow = 'hidden';
+  });
+
+  // Close modal
+  function closePdfModal() {
+    pdfModal.classList.remove('active');
+    document.body.style.overflow = '';
+    setTimeout(function() {
+      pdfFrame.src = '';
+    }, 300);
+  }
+
+  closeModalBtn && closeModalBtn.addEventListener('click', closePdfModal);
+
+  // Close on background click
+  pdfModal && pdfModal.addEventListener('click', function(e) {
+    if (e.target === pdfModal) {
+      closePdfModal();
+    }
+  });
+
+  // Close on Escape key
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape' && pdfModal.classList.contains('active')) {
+      closePdfModal();
+    }
+  });
+
+  // Download PDF
+  confirmDownloadBtn && confirmDownloadBtn.addEventListener('click', function() {
+    const link = document.createElement('a');
+    link.href = pdfUrl;
+    link.download = 'Perplexity-Computer-Domination-Workbook.pdf';
+    link.click();
+  });
+})();
+</script>
 
 </body>
 </html>
