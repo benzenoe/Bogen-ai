@@ -1994,7 +1994,7 @@ function showCopied(btn) {
 <div class="pdf-modal-overlay" id="pdfModal">
   <div class="pdf-modal">
     <div class="pdf-modal-header">
-      <div class="pdf-modal-title">Perplexity Computer for Real Estate — Workbook Preview</div>
+      <div class="pdf-modal-title">Listing Killer Workbook — Preview</div>
       <div class="pdf-modal-actions">
         <button class="btn-close-modal" id="closeModal">Close</button>
         <button class="btn-confirm-download" id="confirmDownload">
@@ -2017,7 +2017,7 @@ function showCopied(btn) {
   const closeModalBtn = document.getElementById('closeModal');
   const confirmDownloadBtn = document.getElementById('confirmDownload');
   const pdfFrame = document.getElementById('pdfFrame');
-  const pdfUrl = 'Perplexity-Computer-Domination-Workbook.pdf';
+  const pdfUrl = 'listing-killer-workbook.pdf';
 
   // Open modal and load PDF
   openBtn && openBtn.addEventListener('click', function() {
@@ -2055,7 +2055,7 @@ function showCopied(btn) {
   confirmDownloadBtn && confirmDownloadBtn.addEventListener('click', function() {
     const link = document.createElement('a');
     link.href = pdfUrl;
-    link.download = 'Perplexity-Computer-Domination-Workbook.pdf';
+    link.download = 'listing-killer-workbook.pdf';
     link.click();
   });
 })();
