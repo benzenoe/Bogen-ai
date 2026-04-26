@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Karis Properties USA — Website Development Proposal</title>
+  <title>Karis Properties USA — Founding Partner Invitation</title>
   <link rel="icon" type="image/png" href="../images/eb-logo.png">
   <link rel="shortcut icon" type="image/png" href="../images/eb-logo.png">
   <style>
@@ -220,165 +220,6 @@
       opacity: 0.85;
     }
 
-    /* PDF Download Button */
-    .pdf-download {
-      position: fixed;
-      bottom: 30px;
-      right: 30px;
-      z-index: 999;
-    }
-
-    .pdf-download button {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      background: var(--blue);
-      color: #fff;
-      padding: 12px 24px;
-      border: none;
-      border-radius: 50px;
-      font-family: 'Segoe UI', system-ui, sans-serif;
-      font-size: 0.85rem;
-      font-weight: 600;
-      letter-spacing: 0.05em;
-      text-transform: uppercase;
-      cursor: pointer;
-      box-shadow: 0 4px 20px rgba(0,168,225,0.4);
-      transition: all 0.3s ease;
-    }
-
-    .pdf-download button:hover {
-      background: #008aba;
-      transform: translateY(-2px);
-      box-shadow: 0 6px 24px rgba(0,168,225,0.5);
-    }
-
-    .pdf-download button svg {
-      width: 16px;
-      height: 16px;
-      fill: currentColor;
-    }
-
-    /* PDF Preview Modal */
-    .pdf-modal-overlay {
-      display: none;
-      position: fixed;
-      inset: 0;
-      background: rgba(0, 0, 0, 0.75);
-      z-index: 10000;
-      align-items: center;
-      justify-content: center;
-      backdrop-filter: blur(4px);
-      -webkit-backdrop-filter: blur(4px);
-    }
-
-    .pdf-modal-overlay.active {
-      display: flex;
-    }
-
-    .pdf-modal {
-      width: 90vw;
-      max-width: 860px;
-      height: 88vh;
-      background: #1a2332;
-      border-radius: 12px;
-      display: flex;
-      flex-direction: column;
-      box-shadow: 0 24px 64px rgba(0, 0, 0, 0.5);
-    }
-
-    .pdf-modal-header {
-      padding: 1.25rem 1.5rem;
-      background: #1a3e5c;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      border-radius: 12px 12px 0 0;
-    }
-
-    .pdf-modal-title {
-      font-size: 1rem;
-      font-weight: 700;
-      color: #f0f4f8;
-      letter-spacing: 0.02em;
-    }
-
-    .pdf-modal-actions {
-      display: flex;
-      gap: 0.75rem;
-    }
-
-    .btn-close-modal {
-      background: rgba(255, 255, 255, 0.1);
-      color: #f0f4f8;
-      border: none;
-      padding: 0.5rem 1rem;
-      border-radius: 6px;
-      font-size: 0.85rem;
-      font-weight: 600;
-      cursor: pointer;
-      transition: all 0.2s;
-      font-family: 'Segoe UI', system-ui, sans-serif;
-    }
-
-    .btn-close-modal:hover {
-      background: rgba(255, 255, 255, 0.2);
-    }
-
-    .btn-confirm-download {
-      background: #00a8e1;
-      color: #fff;
-      border: none;
-      padding: 0.5rem 1rem;
-      border-radius: 6px;
-      font-size: 0.85rem;
-      font-weight: 600;
-      cursor: pointer;
-      transition: all 0.2s;
-      font-family: 'Segoe UI', system-ui, sans-serif;
-    }
-
-    .btn-confirm-download:hover {
-      background: #0090c4;
-    }
-
-    .pdf-modal-body {
-      flex: 1;
-      padding: 0;
-      overflow: hidden;
-      border-radius: 0 0 12px 12px;
-    }
-
-    .pdf-modal-body iframe {
-      width: 100%;
-      height: 100%;
-      border: none;
-      background: #fff;
-    }
-
-    @media (max-width: 768px) {
-      .pdf-modal {
-        width: 95vw;
-        height: 90vh;
-      }
-
-      .pdf-modal-header {
-        flex-direction: column;
-        gap: 1rem;
-        align-items: stretch;
-      }
-
-      .pdf-modal-actions {
-        width: 100%;
-      }
-
-      .btn-close-modal,
-      .btn-confirm-download {
-        flex: 1;
-      }
-    }
-
     /* Hero/Cover Section */
     .hero {
       min-height: 100vh;
@@ -503,6 +344,12 @@
       margin-bottom: 2rem;
     }
 
+    .hero-proposal-meta {
+      font-size: 0.9rem;
+      color: var(--gray);
+      margin-top: 1rem;
+    }
+
     .hero-brand {
       font-size: 1.5rem;
       font-weight: 700;
@@ -515,6 +362,18 @@
       font-size: 0.9rem;
       color: var(--gray);
       margin-top: 0.5rem;
+    }
+
+    .expiration-warning {
+      display: inline-block;
+      background: rgba(255, 93, 93, 0.1);
+      border: 1px solid rgba(255, 93, 93, 0.3);
+      padding: 0.5rem 1rem;
+      border-radius: 8px;
+      font-size: 0.85rem;
+      color: #ff6b6b;
+      font-weight: 600;
+      margin-top: 1rem;
     }
 
     /* Main Content Sections */
@@ -593,6 +452,31 @@
 
     .card ul {
       margin-bottom: 0;
+    }
+
+    /* Bonus Card */
+    .bonus-card {
+      background: linear-gradient(135deg, rgba(0,168,225,0.1) 0%, rgba(90,45,130,0.1) 100%);
+      border: 2px solid var(--blue);
+      border-radius: 16px;
+      padding: 1.75rem;
+      margin: 1.5rem 0;
+    }
+
+    .bonus-card h3 {
+      color: var(--blue);
+      margin-top: 0;
+    }
+
+    .bonus-value {
+      display: inline-block;
+      background: rgba(0,168,225,0.2);
+      color: var(--blue);
+      padding: 0.25rem 0.75rem;
+      border-radius: 6px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      margin-left: 0.5rem;
     }
 
     /* Feature Grid */
@@ -1191,6 +1075,52 @@
       font-size: 2rem;
     }
 
+    /* Signature Section */
+    .signature-section {
+      background: var(--navy2);
+      border: 2px solid var(--blue);
+      border-radius: 16px;
+      padding: 2rem;
+      margin: 3rem 0;
+    }
+
+    .signature-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+      margin-top: 2rem;
+    }
+
+    @media (max-width: 768px) {
+      .signature-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .signature-box {
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 1.5rem;
+      background: var(--navy);
+    }
+
+    .signature-box h4 {
+      margin: 0 0 1rem 0;
+      color: var(--blue);
+    }
+
+    .signature-line {
+      border-bottom: 2px solid var(--border);
+      margin: 1.5rem 0 0.5rem 0;
+      height: 50px;
+    }
+
+    .signature-label {
+      font-size: 0.85rem;
+      color: var(--gray);
+      margin-top: 0.5rem;
+    }
+
     /* Contact Box */
     .contact-box {
       background: var(--navy2);
@@ -1350,12 +1280,64 @@
     }
 
     @media print {
-      @page {
+      /* Cover page - no margins, no headers/footers */
+      @page :first {
         size: letter;
-        margin: 0.5in 0.65in;
+        margin: 0;
       }
 
-      .nav, .btn-book, .theme-toggle, .pdf-download, .pdf-modal-overlay { display: none !important; }
+      /* All other pages - with headers and footers */
+      @page {
+        size: letter;
+        margin: 1in 0.75in 0.85in 0.75in;
+
+        @top-left {
+          content: url(https://bogen.ai/images/eb-logo.png);
+          vertical-align: middle;
+          padding-bottom: 0.15in;
+          border-bottom: 0.5pt solid #e5e9ec;
+        }
+
+        @top-center {
+          content: "Founding Partner Invitation";
+          font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+          font-size: 9pt;
+          color: #8899aa;
+          font-weight: 500;
+          letter-spacing: 0.02em;
+          padding-bottom: 0.15in;
+          border-bottom: 0.5pt solid #e5e9ec;
+        }
+
+        @bottom-left {
+          content: "Bogen.ai — A Division of Dave T Productions";
+          font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+          font-size: 8pt;
+          color: #8899aa;
+          padding-top: 0.15in;
+          border-top: 0.5pt solid #e5e9ec;
+        }
+
+        @bottom-center {
+          content: "support@reignation.com";
+          font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+          font-size: 8pt;
+          color: #00a8e1;
+          padding-top: 0.15in;
+          border-top: 0.5pt solid #e5e9ec;
+        }
+
+        @bottom-right {
+          content: "Page " counter(page);
+          font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+          font-size: 8pt;
+          color: #8899aa;
+          padding-top: 0.15in;
+          border-top: 0.5pt solid #e5e9ec;
+        }
+      }
+
+      .nav, .btn-book, .theme-toggle { display: none !important; }
       .hero {
         min-height: 9in;
         page-break-after: always;
@@ -1438,7 +1420,7 @@
       </a>
     </div>
     <div class="nav-center">
-      Website Development Proposal
+      Founding Partner Invitation
     </div>
     <div class="nav-right">
       <div class="theme-toggle" onclick="toggleTheme()">
@@ -1448,14 +1430,6 @@
       </div>
       <a href="https://calendly.com/edmund-15/coaching-call-with-edmund?month=2026-04" class="btn-book" target="_blank">Book a Call</a>
     </div>
-  </div>
-
-  <!-- PDF Download Button -->
-  <div class="pdf-download">
-    <button id="downloadBtn">
-      <svg viewBox="0 0 24 24"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
-      Download Contract
-    </button>
   </div>
 
   <!-- Hero/Cover Section -->
@@ -1471,49 +1445,51 @@
     </div>
     <div class="hero-badge">
       <div class="pulse-dot"></div>
-      Website Development Proposal
+      Founding Partner Invitation
     </div>
     <h1>Karis Properties USA</h1>
     <div class="hero-subtitle">Professional Real Estate Web Presence for the Denver Market</div>
     <div class="hero-client">Prepared for: Mike Farr</div>
-    <div class="hero-date">April 2026</div>
+    <div class="hero-date">April 20, 2026</div>
+    <div class="hero-proposal-meta">Proposal #DTP-2026-001</div>
+    <div class="expiration-warning">⏰ This offer expires April 27, 2026</div>
     <div class="hero-brand">Bogen.ai</div>
     <div class="hero-brand-sub">A Division of Dave T Productions</div>
   </div>
 
   <!-- Executive Summary -->
   <div class="section">
-    <h2>Executive Summary</h2>
+    <h2>The Opportunity</h2>
 
     <div class="card">
-      <h3>Your Challenge</h3>
-      <p>Your current website is in maintenance mode, leaving potential clients with no way to learn about Karis Properties USA. As you expand your digital presence and marketing efforts, you need a professional website that:</p>
-      <ul>
-        <li>Establishes Karis Properties USA as a credible, professional presence in the Denver market</li>
-        <li>Provides essential information about your services and team</li>
-        <li>Supports your upcoming marketing initiatives</li>
-        <li>Can grow with your business as your South African partners potentially join you</li>
-      </ul>
+      <h3>The Reality of Today's Market</h3>
+      <p><strong>97% of home buyers begin their search online.</strong> Your current website is in maintenance mode, which means you're missing out on capturing these leads at the most critical moment of their journey.</p>
+      <p style="margin-top: 1rem;">As you expand your digital presence and marketing efforts, you need more than just a website—you need a complete digital partner that understands real estate.</p>
     </div>
 
-    <h3>Our Solution</h3>
-    <p>We propose a <strong>modular approach</strong> that gets you online quickly with exactly the features you need:</p>
+    <h3>Our Solution: Built by Practitioners, For Practitioners</h3>
+    <p>We propose a <strong>modular approach</strong> that gets you online quickly with exactly the features you need, then grows with your business.</p>
 
     <div class="stat-grid">
       <div class="stat-card">
-        <div class="stat-label">Phase 1</div>
-        <div class="stat-value">Quick</div>
-        <div class="stat-desc">Professional site live in 3-4 weeks</div>
+        <div class="stat-label">Launch</div>
+        <div class="stat-value">14 Days</div>
+        <div class="stat-desc">Professional site live in 14 business days</div>
       </div>
       <div class="stat-card">
-        <div class="stat-label">Phase 2</div>
-        <div class="stat-value">Build</div>
-        <div class="stat-desc">Add features as your business grows</div>
+        <div class="stat-label">ROI</div>
+        <div class="stat-value">1 Deal</div>
+        <div class="stat-desc">One closing covers 2+ years of service</div>
       </div>
       <div class="stat-card">
-        <div class="stat-label">Phase 3</div>
-        <div class="stat-value">Grow</div>
-        <div class="stat-desc">Optional IDX integration when ready</div>
+        <div class="stat-label">Support</div>
+        <div class="stat-value">Direct</div>
+        <div class="stat-desc">Principal-level access, not ticket systems</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Market</div>
+        <div class="stat-value">US-Built</div>
+        <div class="stat-desc">For Denver market, not overseas templates</div>
       </div>
     </div>
 
@@ -1525,16 +1501,50 @@
       </div>
       <div class="feature-card">
         <h4>US-Based Solution</h4>
-        <p>Unlike your current South African template, we build for the US market</p>
+        <p>Unlike your current South African template, we build specifically for the US market</p>
       </div>
       <div class="feature-card">
         <h4>Exceptional Value</h4>
-        <p>Significantly lower cost than competitors (Agent Image: $5,000/year) with principal-level service</p>
+        <p>Significantly lower cost than competitors like Agent Image ($5,000/year) with better service</p>
       </div>
       <div class="feature-card">
         <h4>Every Step of the Way</h4>
-        <p>Ongoing support and adjustments as your needs evolve</p>
+        <p>Direct access to founders with ongoing support as your business evolves</p>
       </div>
+    </div>
+  </div>
+
+  <!-- Founding Partner Benefits -->
+  <div class="section">
+    <h2>Exclusive Founding Partner Benefits</h2>
+    <p>As one of our first Denver market partners, you receive special benefits not available to future clients:</p>
+
+    <div class="bonus-card">
+      <h3>1. Denver Market Intelligence Report <span class="bonus-value">$500 VALUE</span></h3>
+      <p>Comprehensive analysis of Denver real estate digital trends, competitor positioning, and market opportunities specifically for Karis Properties USA.</p>
+    </div>
+
+    <div class="bonus-card">
+      <h3>2. First Month Ad Management Free <span class="bonus-value">$300 VALUE</span></h3>
+      <p>If you select ad campaign management, your first month of campaign strategy, setup, and optimization is complimentary (ad spend not included).</p>
+    </div>
+
+    <div class="bonus-card">
+      <h3>3. 24-Month Rate Lock Certificate <span class="bonus-value">PRICELESS</span></h3>
+      <p>Your founding partner pricing is locked for 24 months, protecting you from any future rate increases. Standard clients will pay our full rate card.</p>
+    </div>
+
+    <div class="card" style="margin-top: 2rem;">
+      <h3>Founding Partner Requirements</h3>
+      <p>To maintain your exclusive founding partner rates, we ask for your partnership in helping us grow. Within 90 days of launch, you agree to provide:</p>
+      <ul>
+        <li><strong>90-second video testimonial</strong> about your experience working with us</li>
+        <li><strong>Permission to create a case study</strong> featuring Karis Properties USA</li>
+        <li><strong>Google review</strong> of our services</li>
+        <li><strong>Three warm introductions</strong> to other real estate professionals who could benefit from our services</li>
+        <li><strong>Permission to use Karis Properties</strong> name in our marketing materials</li>
+      </ul>
+      <p style="margin-top: 1rem; font-size: 0.9rem; color: var(--gray);"><em>Note: Failure to fulfill these commitments within 90 days will convert pricing to our standard rate card (capped at 150% of founding partner rates).</em></p>
     </div>
   </div>
 
@@ -1577,7 +1587,7 @@
             <li>Upscale luxury market focus</li>
             <li>Showcases high-end, photo-based listings</li>
             <li>High-end branding appeal</li>
-            <li>Perfect for emphasizing the broker's quality and expertise</li>
+            <li>Perfect for emphasizing quality and expertise</li>
           </ul>
           <div class="template-selector">
             <label>
@@ -1597,8 +1607,9 @@
           <p class="template-tagline">Trustworthy, Timeless, Professional</p>
           <ul class="template-features">
             <li>Classic blue design that feels established</li>
-            <li>Appeals to a broad range including families</li>
-            <li>Simple, elegant layout with a traditional, stable font</li>
+            <li>Appeals to broad range including families</li>
+            <li>Simple, elegant layout</li>
+            <li>Emphasizes stability and trust</li>
           </ul>
           <div class="template-selector">
             <label>
@@ -1619,8 +1630,8 @@
           <ul class="template-features">
             <li>Minimalist design focused on lead generation</li>
             <li>Prominent call-to-action forms</li>
-            <li>Clean, light colors that encourage messaging and forms</li>
-            <li>Designed for maximum lead conversion</li>
+            <li>Clean colors that encourage action</li>
+            <li>Designed for maximum conversion</li>
           </ul>
           <div class="template-selector">
             <label>
@@ -1678,14 +1689,14 @@
             <div class="base-includes-item">Social media integration</div>
             <div class="base-includes-item"><strong>Mobile-optimized</strong>, fast load performance</div>
             <div class="base-includes-item"><strong>Google Analytics</strong> integration</div>
-            <div class="base-includes-item"><strong>Smart SEO Optimisation</strong> (meta titles, descriptions, schema markup)</div>
+            <div class="base-includes-item"><strong>Smart SEO Optimization</strong> (meta titles, descriptions, schema markup)</div>
             <div class="base-includes-item"><strong>AI search engine visibility</strong> (ChatGPT, Claude, Perplexity, Google SGE)</div>
             <div class="base-includes-item"><strong>One (1) custom landing page per month</strong> (open house, event, campaign)</div>
             <div class="base-includes-item"><strong>Mortgage calculator widget</strong>, branded to Karis Properties USA</div>
             <div class="base-includes-item"><strong>Closing cost estimator</strong> (configured for Colorado/RE Colorado market)</div>
             <div class="base-includes-item"><strong>Hosting</strong> setup and domain connection assistance</div>
             <div class="base-includes-item">Ongoing <strong>maintenance & hosting</strong> (bug fixes, updates, security, monitoring)</div>
-            <div class="base-includes-item">Email and chat <strong>support</strong> with response less than 24 hours</div>
+            <div class="base-includes-item">Email and chat <strong>support</strong> with response within 24 hours</div>
             <div class="base-includes-item">ADA/WCAG 2.1 Level AA accessibility compliance</div>
           </div>
         </div>
@@ -1704,7 +1715,7 @@
                   <span class="config-card-monthly">$70/mo</span>
                 </div>
               </div>
-              <div class="config-card-desc">Live MLS feed; property search, listing pages, saved searches. We contract and manage IDX service on your behalf.</div>
+              <div class="config-card-desc">Live MLS feed with property search, listing pages, saved searches. We contract and manage IDX service on your behalf.</div>
             </div>
 
             <div class="config-card" onclick="toggleAddon('investment_tool')">
@@ -1716,7 +1727,7 @@
                   <span class="config-card-monthly">Included</span>
                 </div>
               </div>
-              <div class="config-card-desc">Cap rate calculator, NOI analysis</div>
+              <div class="config-card-desc">Cap rate calculator, NOI analysis for investment properties</div>
             </div>
 
             <div class="config-card" onclick="toggleAddon('cma_tool')">
@@ -1788,7 +1799,7 @@
                   <span class="config-card-monthly">$300/mo</span>
                 </div>
               </div>
-              <div class="config-card-desc">PPC and social media advertising management across all platforms (Google, Facebook, Instagram, LinkedIn). 10% of ad spend or $300/month, whichever is higher. Does not include ad spend.</div>
+              <div class="config-card-desc">PPC and social media advertising management. 10% of ad spend or $300/month, whichever is higher. Does not include ad spend.</div>
             </div>
 
           </div>
@@ -1807,8 +1818,10 @@
           <span class="lq-amount" id="totalMonthly">$200</span>
         </div>
         <div class="payment-terms">
-          <p>Setup fee due upfront</p>
+          <p><strong>50% setup fee due upon signing</strong></p>
+          <p>Remaining 50% setup due at launch</p>
           <p>Monthly fee begins when website launches</p>
+          <p style="margin-top: 0.75rem; font-weight: 600; color: rgba(255,255,255,0.9);">🎁 Founding Partner Rate Locked for 24 Months</p>
         </div>
       </div>
     </div>
@@ -1840,7 +1853,7 @@
     <div class="feature-grid">
       <div class="feature-card">
         <h4>Foundation Package (No IDX)</h4>
-        <p><strong>3-4 weeks:</strong> From signed agreement and receipt of initial payment</p>
+        <p><strong>14 business days:</strong> From signed agreement and receipt of initial payment</p>
       </div>
       <div class="feature-card">
         <h4>With IDX Integration</h4>
@@ -1860,12 +1873,12 @@
       <div class="stat-card">
         <div class="stat-label">Step 1</div>
         <div class="stat-value">Discover</div>
-        <div class="stat-desc">Review proposal, select features, approve design direction</div>
+        <div class="stat-desc">Review, feature selection, design approval</div>
       </div>
       <div class="stat-card">
         <div class="stat-label">Step 2</div>
         <div class="stat-value">Build</div>
-        <div class="stat-desc">Development with regular check-ins and feedback rounds</div>
+        <div class="stat-desc">Development with regular check-ins</div>
       </div>
       <div class="stat-card">
         <div class="stat-label">Step 3</div>
@@ -1875,7 +1888,7 @@
       <div class="stat-card">
         <div class="stat-label">Step 4</div>
         <div class="stat-value">Grow</div>
-        <div class="stat-desc">Ongoing support, updates, and feature additions</div>
+        <div class="stat-desc">Ongoing support and feature additions</div>
       </div>
     </div>
 
@@ -1889,11 +1902,111 @@
       <li>Content and messaging you want included</li>
     </ul>
 
+    <h3>Design Revisions</h3>
+    <div class="card">
+      <p><strong>Two design revision rounds included</strong> in the base package. Additional revisions available at $150/hour.</p>
+    </div>
+
     <h3>Our Commitment to You</h3>
     <div class="card">
       <p><strong>We acknowledge that software will need fixes and adjustments.</strong> Unlike template-based solutions or large agencies where you're just a ticket number, you work directly with principals who understand real estate.</p>
       <p style="margin-top: 1rem;"><strong>Our goal:</strong> Help you make more money through an effective web presence and marketing strategy.</p>
       <p style="margin-top: 1rem;"><strong>Our promise:</strong> We'll be with you every step of the way, responsive to your needs, and committed to your success.</p>
+    </div>
+
+    <h3>Warranty & Support</h3>
+    <div class="card">
+      <p><strong>60-day post-launch warranty</strong> covers all bugs and functionality issues discovered after launch.</p>
+      <p style="margin-top: 1rem;"><strong>Ongoing support</strong> includes security updates, hosting maintenance, and technical assistance. Contact via email, text, or client portal with responses within 24 hours for standard requests.</p>
+    </div>
+  </div>
+
+  <!-- Legal Terms -->
+  <div class="section">
+    <h2>Agreement Terms</h2>
+
+    <h3>§1. Service Term</h3>
+    <div class="card">
+      <p><strong>Initial term:</strong> 6 months from launch date</p>
+      <p><strong>Renewal:</strong> Automatically converts to month-to-month after initial term</p>
+      <p><strong>Termination:</strong> Either party may terminate with 30 days' written notice after initial 6-month term</p>
+    </div>
+
+    <h3>§2. Payment Terms</h3>
+    <div class="card">
+      <p><strong>Setup fee:</strong> 50% due upon signing, remaining 50% due at launch</p>
+      <p><strong>Monthly retainer:</strong> Invoiced on the 1st of each month, due within 10 days</p>
+      <p><strong>Late payments:</strong> 1.5% interest per month on overdue amounts</p>
+    </div>
+
+    <h3>§3. Intellectual Property</h3>
+    <div class="card">
+      <p><strong>Works made for hire:</strong> All custom work created specifically for Karis Properties USA becomes your property upon final payment</p>
+      <p><strong>Third-party components:</strong> Some features use licensed third-party software which remains property of respective vendors</p>
+      <p><strong>Portfolio rights:</strong> We retain the right to showcase the website in our portfolio and marketing materials</p>
+    </div>
+
+    <h3>§4. Liability & Indemnification</h3>
+    <div class="card">
+      <p><strong>Liability cap:</strong> Our total liability is limited to the lesser of (a) 12 months of fees paid, or (b) $10,000</p>
+      <p><strong>Mutual indemnification:</strong> Each party indemnifies the other against third-party claims arising from their own actions</p>
+      <p><strong>No warranties:</strong> Services provided "as is" except for express warranties in this agreement</p>
+    </div>
+
+    <h3>§5. Dispute Resolution</h3>
+    <div class="card">
+      <p><strong>Governing law:</strong> Florida law applies to this agreement</p>
+      <p><strong>Arbitration:</strong> Any disputes will be resolved through binding arbitration in Florida</p>
+      <p><strong>Attorney fees:</strong> Prevailing party entitled to reasonable attorney fees</p>
+    </div>
+
+    <h3>§24. Founding Partner Terms</h3>
+    <div class="card">
+      <p><strong>Rate lock:</strong> Founding partner pricing guaranteed for 24 months from launch</p>
+      <p><strong>Partner commitments:</strong> As outlined in the Founding Partner Benefits section, you agree to provide testimonial, case study participation, review, referrals, and marketing permissions within 90 days of launch</p>
+      <p><strong>Non-compliance:</strong> Failure to fulfill founding partner commitments converts pricing to standard rate card, capped at 150% of founding rates</p>
+    </div>
+  </div>
+
+  <!-- Signature Section -->
+  <div class="section">
+    <h2>Acceptance & Signature</h2>
+
+    <div class="signature-section">
+      <h3>I accept this proposal and authorize Bogen.ai / Dave T Productions to begin work:</h3>
+
+      <div class="signature-grid">
+        <div class="signature-box">
+          <h4>Client Signature</h4>
+          <div class="signature-line"></div>
+          <p class="signature-label">Mike Farr, Karis Properties USA</p>
+          <div class="signature-line" style="height: 30px; margin-top: 1rem;"></div>
+          <p class="signature-label">Date</p>
+        </div>
+
+        <div class="signature-box">
+          <h4>Service Provider</h4>
+          <div class="signature-line"></div>
+          <p class="signature-label">Edmund Bogen, Cofounder<br>Dave T Productions / Bogen.ai</p>
+          <div class="signature-line" style="height: 30px; margin-top: 1rem;"></div>
+          <p class="signature-label">Date</p>
+        </div>
+      </div>
+
+      <div class="card" style="margin-top: 2rem;">
+        <h4>Selected Features (check all that apply):</h4>
+        <p style="margin-bottom: 1rem; font-size: 0.9rem; color: var(--gray);">Please indicate which add-on features you'd like to include:</p>
+        <ul style="list-style: none; padding: 0;">
+          <li style="padding-left: 0; margin-bottom: 0.5rem;">☐ IDX Integration ($800 setup + $70/mo)</li>
+          <li style="padding-left: 0; margin-bottom: 0.5rem;">☐ Investment Property Analysis Tool ($300 setup)</li>
+          <li style="padding-left: 0; margin-bottom: 0.5rem;">☐ Agent CMA Tool ($400 setup)</li>
+          <li style="padding-left: 0; margin-bottom: 0.5rem;">☐ Blog CMS ($300 setup)</li>
+          <li style="padding-left: 0; margin-bottom: 0.5rem;">☐ Social Media Publisher ($150 setup + $30/mo)</li>
+          <li style="padding-left: 0; margin-bottom: 0.5rem;">☐ CRM Integration ($400 setup)</li>
+          <li style="padding-left: 0; margin-bottom: 0.5rem;">☐ AI-Powered Chat Widget ($250 setup + $50/mo)</li>
+          <li style="padding-left: 0; margin-bottom: 0.5rem;">☐ Ad Campaign Management ($450 setup + $300/mo)</li>
+        </ul>
+      </div>
     </div>
   </div>
 
@@ -1902,24 +2015,16 @@
     <h2>Next Steps</h2>
 
     <div class="card">
-      <h3>Your Action Items</h3>
-      <ul style="list-style: none; padding: 0;">
-        <li style="padding-left: 0; margin-bottom: 0.75rem;">☐ Review this proposal and select your preferred features</li>
-        <li style="padding-left: 0; margin-bottom: 0.75rem;">☐ Choose your preferred design style (or select "not sure")</li>
-        <li style="padding-left: 0; margin-bottom: 0.75rem;">☐ Discuss with partner Betsy (as planned) about website options</li>
-        <li style="padding-left: 0; margin-bottom: 0.75rem;">☐ Determine your budget and feature priorities</li>
-      </ul>
+      <h3>How to Move Forward</h3>
+      <p>When you're ready to get started:</p>
+      <ol>
+        <li><strong>Review & Sign:</strong> Review this proposal and sign the acceptance section above</li>
+        <li><strong>Initial Payment:</strong> Submit 50% of the setup fee to begin</li>
+        <li><strong>Discovery Session:</strong> We'll schedule a call to gather branding, photos, and content</li>
+        <li><strong>Design Approval:</strong> Review and approve your chosen design direction</li>
+        <li><strong>Launch:</strong> Your professional website goes live in 14 business days (or 6-8 weeks with IDX)</li>
+      </ol>
     </div>
-
-    <h3>How to Move Forward</h3>
-    <p>When you're ready to get started:</p>
-    <ol>
-      <li><strong>Schedule a Call:</strong> Let's chat about your selected features and answer any questions</li>
-      <li><strong>Finalize Details:</strong> We'll confirm exactly what you want and put together a simple agreement</li>
-      <li><strong>Get Started:</strong> Send half the setup fee and we'll kick things off</li>
-      <li><strong>Discovery Session:</strong> We'll gather your branding, photos, and content</li>
-      <li><strong>Go Live:</strong> Your professional website launches in 3-8 weeks</li>
-    </ol>
 
     <h3>Questions?</h3>
     <p>We're here to help you make the best decision for your business. Feel free to reach out with any questions about this proposal, our services, or how we can customize a solution for Karis Properties USA.</p>
@@ -1931,7 +2036,7 @@
 
       <p style="margin-top: 1rem;"><strong>Edmund Bogen</strong></p>
       <p>Email: <a href="mailto:edmund@bogenhomes.com">edmund@bogenhomes.com</a></p>
-      <p style="color: var(--gray);">Founder & AI Strategist</p>
+      <p style="color: var(--gray);">Cofounder & AI Strategist</p>
 
       <p style="margin-top: 1rem;"><strong>Eytan Benzeno</strong></p>
       <p>Email: <a href="mailto:eytan@benzeno.com">eytan@benzeno.com</a></p>
@@ -1939,9 +2044,10 @@
     </div>
 
     <div class="card" style="margin-top: 2rem;">
-      <h3>Thank You</h3>
-      <p>Thank you for considering Bogen.ai for your website development needs. We're excited about the opportunity to help Karis Properties USA establish a strong digital presence in the Denver market.</p>
-      <p style="margin-top: 1rem;">We look forward to working with you!</p>
+      <h3>Thank You, Mike</h3>
+      <p>Thank you for considering Bogen.ai as your founding partner for website development. We're genuinely excited about the opportunity to help Karis Properties USA establish a strong digital presence in the Denver market.</p>
+      <p style="margin-top: 1rem;"><strong>Remember:</strong> This founding partner invitation expires <strong>April 27, 2026</strong>. After this date, standard rate card pricing applies and founding partner benefits are no longer available.</p>
+      <p style="margin-top: 1rem;">We believe this partnership will be transformational for your business. Let's build something great together.</p>
       <p style="margin-top: 1.5rem; font-weight: 600; color: var(--white);">— Edmund & Eytan</p>
       <p style="margin-top: 0.5rem; font-size: 0.9rem; color: var(--blue);">Bogen.ai — A Division of Dave T Productions</p>
     </div>
@@ -1958,22 +2064,6 @@
     <div class="footer-content">
       <p>© 2026 Bogen.ai — A Division of Dave T Productions</p>
       <p><a href="mailto:sales@reignation.com">sales@reignation.com</a></p>
-    </div>
-  </div>
-
-  <!-- PDF Preview Modal -->
-  <div class="pdf-modal-overlay" id="pdfModal">
-    <div class="pdf-modal">
-      <div class="pdf-modal-header">
-        <div class="pdf-modal-title">Service Agreement — Preview</div>
-        <div class="pdf-modal-actions">
-          <button class="btn-close-modal" id="closeModal">Close</button>
-          <button class="btn-confirm-download" id="confirmDownload">Download PDF</button>
-        </div>
-      </div>
-      <div class="pdf-modal-body">
-        <iframe id="pdfPreview"></iframe>
-      </div>
     </div>
   </div>
 
@@ -2043,43 +2133,6 @@
         document.body.setAttribute('data-theme', 'light');
       }
     })();
-
-    // PDF Modal
-    const downloadBtn = document.getElementById('downloadBtn');
-    const pdfModal = document.getElementById('pdfModal');
-    const closeModal = document.getElementById('closeModal');
-    const confirmDownload = document.getElementById('confirmDownload');
-    const pdfPreview = document.getElementById('pdfPreview');
-    const pdfPath = 'DTP_Service_Agreement_CORRECTED.pdf';
-
-    // Open modal and load preview
-    downloadBtn.addEventListener('click', function() {
-      pdfModal.classList.add('active');
-      // Load the PDF file in iframe
-      pdfPreview.src = pdfPath;
-    });
-
-    // Close modal
-    closeModal.addEventListener('click', function() {
-      pdfModal.classList.remove('active');
-      pdfPreview.src = '';
-    });
-
-    // Close on backdrop click
-    pdfModal.addEventListener('click', function(e) {
-      if (e.target === this) {
-        pdfModal.classList.remove('active');
-        pdfPreview.src = '';
-      }
-    });
-
-    // Confirm download
-    confirmDownload.addEventListener('click', function() {
-      const link = document.createElement('a');
-      link.href = pdfPath;
-      link.download = 'Karis_Properties_USA_Service_Agreement.pdf';
-      link.click();
-    });
 
     // Toggle Base Package
     function toggleBasePackage() {

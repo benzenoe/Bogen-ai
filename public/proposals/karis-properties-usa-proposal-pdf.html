@@ -1,0 +1,819 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Karis Properties USA — Website Development Proposal</title>
+  <style>
+    /* CSS Variables for theming */
+    :root {
+      --primary: #00a8e1;
+      --navy: #0d1620;
+      --teal: #2B6166;
+      --gold: #ffd93d;
+      --white: #f0f4f8;
+      --bg: #ffffff;
+      --text: #1a1a1a;
+      --border: rgba(0,0,0,0.1);
+    }
+
+    [data-theme="dark"] {
+      --bg: #0d1620;
+      --text: #f0f4f8;
+      --border: rgba(255,255,255,0.08);
+      --navy: #0d1620;
+      --white: #f0f4f8;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      transition: background 0.3s, color 0.3s;
+    }
+
+    /* Theme Toggle */
+    .theme-toggle {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(0,168,225,0.1);
+      padding: 6px 12px;
+      border-radius: 50px;
+      border: 1px solid rgba(0,168,225,0.3);
+      cursor: pointer;
+      user-select: none;
+      transition: all 0.2s;
+    }
+
+    .theme-toggle:hover {
+      background: rgba(0,168,225,0.15);
+    }
+
+    .theme-toggle-label {
+      font-size: 0.7rem;
+      font-weight: 600;
+      color: var(--primary);
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    .toggle-switch {
+      width: 36px;
+      height: 20px;
+      background: rgba(0,168,225,0.2);
+      border-radius: 10px;
+      position: relative;
+      transition: background 0.3s ease;
+    }
+
+    .toggle-switch::after {
+      content: '';
+      position: absolute;
+      top: 2px;
+      left: 2px;
+      width: 16px;
+      height: 16px;
+      background: var(--primary);
+      border-radius: 50%;
+      transition: transform 0.3s ease;
+    }
+
+    [data-theme="dark"] .toggle-switch::after {
+      transform: translateX(16px);
+    }
+
+    /* PDF Download Button */
+    .pdf-download {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      z-index: 1000;
+    }
+
+    .pdf-download button {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--primary);
+      color: white;
+      border: none;
+      padding: 14px 24px;
+      border-radius: 50px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      cursor: pointer;
+      box-shadow: 0 4px 20px rgba(0,168,225,0.3);
+      transition: all 0.3s;
+    }
+
+    .pdf-download button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 25px rgba(0,168,225,0.4);
+    }
+
+    .pdf-download svg {
+      width: 20px;
+      height: 20px;
+      fill: white;
+    }
+
+    /* Container */
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+
+    /* Hero Section */
+    .hero {
+      background: linear-gradient(135deg, var(--navy) 0%, #1a2332 100%);
+      color: white;
+      text-align: center;
+      padding: 5rem 2rem;
+      margin-bottom: 0;
+      position: relative;
+    }
+
+    .hero-logos {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1.5rem;
+      margin-bottom: 2.5rem;
+    }
+
+    .hero-logos img {
+      height: 50px;
+    }
+
+    .hero-logo-sep {
+      font-size: 2rem;
+      color: rgba(0, 168, 225, 0.5);
+      font-weight: 300;
+    }
+
+    .hero-badge {
+      display: inline-block;
+      background: rgba(0, 168, 225, 0.15);
+      border: 1px solid rgba(0, 168, 225, 0.4);
+      color: var(--primary);
+      padding: 0.5rem 1.5rem;
+      border-radius: 50px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 1.5rem;
+    }
+
+    .hero h1 {
+      font-size: clamp(2.5rem, 5vw, 4rem);
+      font-weight: 300;
+      letter-spacing: -0.02em;
+      margin-bottom: 1rem;
+    }
+
+    .hero-subtitle {
+      font-size: clamp(1.1rem, 2vw, 1.3rem);
+      color: rgba(255,255,255,0.7);
+      margin-bottom: 2.5rem;
+      font-weight: 300;
+    }
+
+    .hero-client {
+      font-size: 1.1rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .hero-date {
+      font-size: 1rem;
+      color: rgba(255,255,255,0.6);
+      margin-bottom: 2rem;
+    }
+
+    .hero-brand {
+      font-size: 1.2rem;
+      font-weight: 600;
+      margin-bottom: 0.25rem;
+    }
+
+    .hero-brand-sub {
+      font-size: 0.9rem;
+      color: rgba(255,255,255,0.6);
+    }
+
+    /* Sections */
+    section {
+      padding: 4rem 0;
+    }
+
+    section h2 {
+      font-size: clamp(1.8rem, 3vw, 2.5rem);
+      font-weight: 600;
+      color: var(--navy);
+      margin-bottom: 1.5rem;
+      padding-top: 0.5rem;
+      border-top: 3px solid var(--primary);
+    }
+
+    section h3 {
+      font-size: clamp(1.3rem, 2vw, 1.6rem);
+      font-weight: 600;
+      color: var(--primary);
+      margin: 2rem 0 1rem 0;
+    }
+
+    section h4 {
+      font-size: 1.15rem;
+      font-weight: 600;
+      color: var(--text);
+      margin: 1.5rem 0 0.75rem 0;
+    }
+
+    section p {
+      margin-bottom: 1rem;
+      text-align: justify;
+    }
+
+    section ul, section ol {
+      margin: 1rem 0 1.5rem 0;
+      padding-left: 1.5rem;
+    }
+
+    section li {
+      margin-bottom: 0.5rem;
+    }
+
+    /* Cards */
+    .card {
+      background: rgba(0,168,225,0.05);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.5rem;
+      margin: 1.5rem 0;
+    }
+
+    .card h3 {
+      margin-top: 0;
+    }
+
+    /* Stats Grid */
+    .stat-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.5rem;
+      margin: 2rem 0;
+    }
+
+    .stat-card {
+      background: rgba(0,168,225,0.05);
+      border-left: 4px solid var(--primary);
+      padding: 1.5rem;
+      border-radius: 8px;
+    }
+
+    .stat-label {
+      font-size: 0.85rem;
+      color: var(--primary);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 0.5rem;
+    }
+
+    .stat-value {
+      font-size: 2.5rem;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 0.25rem;
+    }
+
+    .stat-desc {
+      font-size: 0.9rem;
+      color: rgba(var(--text), 0.7);
+    }
+
+    /* Features Grid */
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.5rem;
+      margin: 2rem 0;
+    }
+
+    .feature-card {
+      background: rgba(0,168,225,0.05);
+      border: 1px solid var(--border);
+      padding: 1.5rem;
+      border-radius: 12px;
+    }
+
+    .feature-card h4 {
+      margin-top: 0;
+      color: var(--primary);
+    }
+
+    /* Pricing */
+    .pricing-summary {
+      background: var(--navy);
+      color: white;
+      padding: 2rem;
+      border-radius: 12px;
+      margin: 2rem 0;
+    }
+
+    .pricing-summary h3 {
+      color: white;
+      margin-top: 0;
+    }
+
+    .pricing-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 0.75rem 0;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .pricing-row:last-child {
+      border-bottom: none;
+    }
+
+    .pricing-total {
+      font-size: 1.5rem;
+      font-weight: 600;
+      padding-top: 1rem;
+      margin-top: 1rem;
+      border-top: 2px solid var(--primary);
+    }
+
+    /* Tables */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 1.5rem 0;
+    }
+
+    table thead {
+      background: var(--navy);
+      color: white;
+    }
+
+    table th {
+      padding: 1rem;
+      text-align: left;
+      font-weight: 600;
+    }
+
+    table td {
+      padding: 1rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    table tbody tr:nth-child(even) {
+      background: rgba(0,168,225,0.03);
+    }
+
+    .td-amount {
+      text-align: right;
+      font-weight: 600;
+      color: var(--primary);
+    }
+
+    /* CTA Button */
+    .cta-button {
+      display: inline-block;
+      background: var(--primary);
+      color: white;
+      padding: 1rem 2rem;
+      border-radius: 50px;
+      text-decoration: none;
+      font-weight: 600;
+      transition: all 0.3s;
+      border: none;
+      cursor: pointer;
+      font-size: 1rem;
+    }
+
+    .cta-button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(0,168,225,0.3);
+    }
+
+    /* Page Breaks */
+    .page-break {
+      page-break-after: always;
+    }
+
+    .no-break {
+      page-break-inside: avoid;
+    }
+
+    /* Print CSS */
+    @media print {
+      .theme-toggle,
+      .pdf-download {
+        display: none !important;
+      }
+
+      @page {
+        size: letter;
+        margin: 0.75in;
+      }
+
+      @page :first {
+        margin: 0;
+      }
+
+      body {
+        background: white;
+        color: #1a1a1a;
+        font-size: 10pt;
+        line-height: 1.5;
+      }
+
+      .hero {
+        padding: 3rem 1.5rem;
+        min-height: 9in;
+        page-break-after: always;
+      }
+
+      section {
+        padding: 1.5rem 0;
+        page-break-inside: avoid;
+      }
+
+      section h2 {
+        margin-top: 0.5rem;
+        margin-bottom: 1rem;
+        font-size: 14pt;
+      }
+
+      section h3 {
+        margin-top: 1rem;
+        margin-bottom: 0.75rem;
+        font-size: 11pt;
+      }
+
+      section p {
+        margin-bottom: 0.75rem;
+      }
+
+      section ul, section ol {
+        margin: 0.75rem 0;
+      }
+
+      section li {
+        margin-bottom: 0.4rem;
+      }
+
+      .card, .stat-card, .feature-card {
+        page-break-inside: avoid;
+        margin: 1rem 0;
+        padding: 1rem;
+      }
+
+      .pricing-summary {
+        page-break-inside: avoid;
+      }
+
+      * {
+        print-color-adjust: exact;
+        -webkit-print-color-adjust: exact;
+      }
+    }
+
+    /* Responsive */
+    @media (max-width: 900px) {
+      .stat-grid,
+      .features-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-logos {
+        flex-direction: column;
+        gap: 1rem;
+      }
+
+      .hero-logo-sep {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body data-theme="light">
+
+  <!-- Theme Toggle -->
+  <div class="theme-toggle" onclick="toggleTheme()">
+    <span class="theme-toggle-label">Light</span>
+    <div class="toggle-switch"></div>
+    <span class="theme-toggle-label">Dark</span>
+  </div>
+
+  <!-- PDF Download Button -->
+  <div class="pdf-download">
+    <button onclick="window.print()">
+      <svg viewBox="0 0 24 24"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
+      Download PDF
+    </button>
+  </div>
+
+  <!-- Hero/Cover Section -->
+  <div class="hero">
+    <div class="hero-logos">
+      <img src="https://bogen.ai/images/eb-logo.png" alt="Bogen.ai">
+      <span class="hero-logo-sep">×</span>
+      <img src="karis-properties-logo.png" alt="Karis Properties">
+    </div>
+    <div class="hero-badge">Website Development Proposal</div>
+    <h1>Karis Properties USA</h1>
+    <div class="hero-subtitle">Professional Real Estate Web Presence for the Denver Market</div>
+    <div class="hero-client">Prepared for: Mike Farr</div>
+    <div class="hero-date">April 2026</div>
+    <div class="hero-brand">Bogen.ai</div>
+    <div class="hero-brand-sub">A Division of Dave T Productions</div>
+  </div>
+
+  <!-- Executive Summary -->
+  <section class="container">
+    <h2>Executive Summary</h2>
+
+    <div class="card">
+      <h3>Your Challenge</h3>
+      <p>As a real estate professional in Denver's competitive market, you need a powerful digital presence that works as hard as you do. Your current online presence may not be fully leveraging the tools and automation available to modern real estate professionals.</p>
+    </div>
+
+    <div class="card">
+      <h3>Our Solution</h3>
+      <p>A comprehensive, professional website built specifically for real estate professionals, featuring:</p>
+      <ul>
+        <li><strong>IDX Integration</strong> with REColorado MLS for automatic property listings</li>
+        <li><strong>Custom Domain</strong> (KarisDenver.com) with professional email</li>
+        <li><strong>Lead Generation Tools</strong> including contact forms and property inquiries</li>
+        <li><strong>Mobile-Responsive Design</strong> that looks perfect on all devices</li>
+        <li><strong>Optional Add-Ons</strong> like CMA tools, investment calculators, and AI chatbots</li>
+      </ul>
+    </div>
+
+    <div class="stat-grid">
+      <div class="stat-card">
+        <div class="stat-label">Quick Setup</div>
+        <div class="stat-value">2-3 Weeks</div>
+        <div class="stat-desc">From kickoff to launch</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Investment</div>
+        <div class="stat-value">$2,950+</div>
+        <div class="stat-desc">Setup + Monthly hosting</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">ROI Potential</div>
+        <div class="stat-value">High</div>
+        <div class="stat-desc">Pay for itself with 1-2 deals</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- What's Included -->
+  <section class="container">
+    <h2>What's Included</h2>
+
+    <h3>Base Package — Professional Real Estate Website</h3>
+
+    <div class="features-grid">
+      <div class="feature-card">
+        <h4>🏠 IDX Integration</h4>
+        <p>Automatic property listings from REColorado MLS with search, filters, and property detail pages. Your listings are always up-to-date.</p>
+      </div>
+
+      <div class="feature-card">
+        <h4>🌐 Custom Domain & Hosting</h4>
+        <p>Professional domain (KarisDenver.com) with premium hosting, SSL security, and professional email setup.</p>
+      </div>
+
+      <div class="feature-card">
+        <h4>📱 Mobile-Responsive Design</h4>
+        <p>Beautiful, modern design that works flawlessly on desktop, tablet, and mobile devices.</p>
+      </div>
+
+      <div class="feature-card">
+        <h4>📧 Lead Generation Forms</h4>
+        <p>Contact forms, property inquiry forms, and email integration to capture and manage leads.</p>
+      </div>
+
+      <div class="feature-card">
+        <h4>🎨 Professional Branding</h4>
+        <p>Custom color scheme, logo integration, and professional imagery that represents your brand.</p>
+      </div>
+
+      <div class="feature-card">
+        <h4>⚡ Performance Optimized</h4>
+        <p>Fast loading speeds, SEO optimization, and Google Analytics integration for tracking visitors.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Optional Add-Ons -->
+  <section class="container">
+    <h2>Optional Add-Ons</h2>
+
+    <p>Enhance your website with these powerful tools:</p>
+
+    <div class="features-grid">
+      <div class="feature-card">
+        <h4>📊 Investment Property Calculator</h4>
+        <p><strong>$300 setup</strong> • One-time fee<br>Interactive tool for investors to analyze potential returns, cash flow, and ROI.</p>
+      </div>
+
+      <div class="feature-card">
+        <h4>📈 CMA (Market Analysis) Tool</h4>
+        <p><strong>$400 setup</strong> • One-time fee<br>Generate professional comparative market analyses for clients instantly.</p>
+      </div>
+
+      <div class="feature-card">
+        <h4>✍️ Blog System</h4>
+        <p><strong>$300 setup</strong> • One-time fee<br>Share market insights, neighborhood guides, and establish yourself as a local expert.</p>
+      </div>
+
+      <div class="feature-card">
+        <h4>📱 Social Media Publisher</h4>
+        <p><strong>$150 setup + $30/mo</strong><br>Auto-publish new listings to Facebook, Instagram, and LinkedIn.</p>
+      </div>
+
+      <div class="feature-card">
+        <h4>🤖 AI Chat Assistant</h4>
+        <p><strong>$250 setup + $50/mo</strong><br>24/7 AI chatbot to answer visitor questions and capture leads.</p>
+      </div>
+
+      <div class="feature-card">
+        <h4>🔗 CRM Integration</h4>
+        <p><strong>$400 setup</strong> • One-time fee<br>Connect to your existing CRM (Follow Up Boss, LionDesk, etc.)</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pricing -->
+  <section class="container">
+    <h2>Investment</h2>
+
+    <div class="pricing-summary">
+      <h3>Base Package Pricing</h3>
+      <div class="pricing-row">
+        <span>Website Setup & Development</span>
+        <span><strong>$1,000</strong></span>
+      </div>
+      <div class="pricing-row">
+        <span>IDX Integration (REColorado)</span>
+        <span><strong>$800</strong></span>
+      </div>
+      <div class="pricing-row">
+        <span>Domain, Hosting & Email Setup</span>
+        <span><strong>$150</strong></span>
+      </div>
+      <div class="pricing-row">
+        <span>Training & Documentation</span>
+        <span><strong>Included</strong></span>
+      </div>
+      <div class="pricing-row pricing-total">
+        <span>Total Setup Investment</span>
+        <span><strong>$2,950</strong></span>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>Monthly Costs</h3>
+      <ul>
+        <li><strong>$70/month</strong> — IDX feed subscription (paid to MLS provider)</li>
+        <li><strong>$50/month</strong> — Premium hosting, domain, email, and security</li>
+        <li><strong>Additional costs</strong> for optional add-ons as selected</li>
+      </ul>
+    </div>
+
+    <p style="margin-top: 2rem; text-align: center;">
+      <a href="https://calendly.com/edmund-15/coaching-call-with-edmund?month=2026-04" class="cta-button">Schedule a Call to Get Started</a>
+    </p>
+  </section>
+
+  <!-- Timeline -->
+  <section class="container">
+    <h2>Timeline & Milestones</h2>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Phase</th>
+          <th>Deliverable</th>
+          <th>Timeline</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Phase 1: Discovery</strong></td>
+          <td>Kickoff call, requirements gathering, branding review</td>
+          <td>Week 1</td>
+        </tr>
+        <tr>
+          <td><strong>Phase 2: Design</strong></td>
+          <td>Initial design mockups, color scheme, layout approval</td>
+          <td>Week 1-2</td>
+        </tr>
+        <tr>
+          <td><strong>Phase 3: Development</strong></td>
+          <td>Website build, IDX integration, forms setup</td>
+          <td>Week 2-3</td>
+        </tr>
+        <tr>
+          <td><strong>Phase 4: Testing</strong></td>
+          <td>Quality assurance, mobile testing, client review</td>
+          <td>Week 3</td>
+        </tr>
+        <tr>
+          <td><strong>Phase 5: Launch</strong></td>
+          <td>Domain setup, go-live, training session</td>
+          <td>Week 3-4</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- Why Choose Us -->
+  <section class="container">
+    <h2>Why Choose Bogen.ai</h2>
+
+    <div class="features-grid">
+      <div class="feature-card">
+        <h4>✅ Real Estate Expertise</h4>
+        <p>We specialize in real estate websites and understand the unique needs of agents and brokers.</p>
+      </div>
+
+      <div class="feature-card">
+        <h4>✅ Modern Technology</h4>
+        <p>Built with the latest web technologies for speed, security, and reliability.</p>
+      </div>
+
+      <div class="feature-card">
+        <h4>✅ Ongoing Support</h4>
+        <p>We're here to help with updates, questions, and technical support.</p>
+      </div>
+
+      <div class="feature-card">
+        <h4>✅ Transparent Pricing</h4>
+        <p>No hidden fees or surprises. You know exactly what you're getting and what it costs.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Next Steps -->
+  <section class="container">
+    <h2>Next Steps</h2>
+
+    <div class="card">
+      <h3>Ready to Get Started?</h3>
+      <ol>
+        <li><strong>Schedule a call</strong> to discuss your specific needs and goals</li>
+        <li><strong>Review and sign</strong> the service agreement (we'll provide this)</li>
+        <li><strong>Initial payment</strong> of 50% to begin development</li>
+        <li><strong>Kickoff meeting</strong> to start the project</li>
+      </ol>
+      <p style="margin-top: 1.5rem;">
+        <a href="https://calendly.com/edmund-15/coaching-call-with-edmund?month=2026-04" class="cta-button">Book Your Discovery Call</a>
+      </p>
+    </div>
+
+    <div class="card" style="margin-top: 2rem;">
+      <h3>Questions?</h3>
+      <p><strong>Email:</strong> bogen@davetproductions.com<br>
+      <strong>Phone:</strong> Available during consultation<br>
+      <strong>Website:</strong> <a href="https://www.bogen.ai" style="color: var(--primary);">www.bogen.ai</a></p>
+    </div>
+  </section>
+
+  <script>
+    // Theme toggle functionality
+    function toggleTheme() {
+      const body = document.body;
+      const current = body.getAttribute('data-theme');
+      const next = current === 'dark' ? 'light' : 'dark';
+      body.setAttribute('data-theme', next);
+      localStorage.setItem('karis-proposal-theme', next);
+    }
+
+    // Restore theme on load
+    const savedTheme = localStorage.getItem('karis-proposal-theme');
+    if (savedTheme) {
+      document.body.setAttribute('data-theme', savedTheme);
+    }
+  </script>
+</body>
+</html>
