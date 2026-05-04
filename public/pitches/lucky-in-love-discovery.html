@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Lucky in Love × Bogen.ai — Discovery & Growth Brief</title>
-<meta name="description" content="A discovery brief and AI-automation roadmap for Lucky in Love, prepared by Bogen.ai ahead of the kickoff conversation.">
+<title>Lucky in Love × Bogen.ai — Three Things We'd Build First</title>
+<meta name="description" content="Bogen.ai follow-up brief for Lucky in Love after the May 4, 2026 introductory call. The three modules we'd ship first, ranked against the pain points Brad named.">
 <style>
 :root {
   --teal: #2B6166;
@@ -100,7 +100,7 @@ nav {
 .hero h1 { font-size: clamp(2rem, 5vw, 3.4rem); font-weight: 800; line-height: 1.12; margin-bottom: 1rem; color: #fff; }
 .hero h1 span { color: var(--blue); }
 .hero h1 .pink { color: var(--pink); }
-.hero p { font-size: 1.1rem; color: #c0ccd8; max-width: 680px; margin: 0 auto 2.5rem; }
+.hero p { font-size: 1.1rem; color: #c0ccd8; max-width: 720px; margin: 0 auto 2.5rem; }
 .hero-eyebrow { font-size: 0.85rem; color: var(--gray); margin-bottom: 1.25rem; letter-spacing: 0.04em; }
 
 .hero-stats {
@@ -161,79 +161,84 @@ h3 { font-size: 1.1rem; font-weight: 700; margin-bottom: 0.5rem; color: var(--te
 .snap-item .snap-val { font-size: 1.05rem; font-weight: 700; color: var(--text); line-height: 1.3; }
 .snap-item .snap-sub { font-size: 0.8rem; color: var(--text3); margin-top: 0.25rem; }
 
-/* OPPORTUNITY ROWS */
-.opp-row {
+/* PAIN POINT ROWS — ranked */
+.pain-row {
   display: grid; grid-template-columns: 80px 1fr auto;
-  gap: 1.25rem; padding: 1.2rem 0;
+  gap: 1.25rem; padding: 1.4rem 0;
   border-bottom: 1px solid var(--border);
   align-items: center;
 }
-.opp-row:last-child { border-bottom: none; }
-.opp-num {
+.pain-row:last-child { border-bottom: none; }
+.pain-num {
   font-size: 1.4rem; font-weight: 800; color: var(--blue);
   font-variant-numeric: tabular-nums;
 }
-.opp-row h4 { font-size: 1rem; font-weight: 700; color: var(--text); margin-bottom: 0.2rem; }
-.opp-row p { font-size: 0.88rem; color: var(--text3); }
-.opp-impact {
+.pain-row h4 { font-size: 1.05rem; font-weight: 700; color: var(--text); margin-bottom: 0.25rem; }
+.pain-row p { font-size: 0.9rem; color: var(--text3); }
+.pain-row blockquote {
+  font-style: italic; color: var(--text2);
+  border-left: 2px solid var(--blue); padding-left: 0.85rem;
+  margin-top: 0.5rem; font-size: 0.88rem;
+}
+.pain-impact {
   font-size: 0.74rem; text-transform: uppercase; letter-spacing: 0.07em;
   background: rgba(0,196,140,0.12); color: var(--green);
   padding: 0.3rem 0.7rem; border-radius: 20px; white-space: nowrap;
 }
-
-/* DISCOVERY QUESTIONS */
-.q-section {
-  background: var(--surface); border: 1px solid var(--border);
-  border-radius: 14px; margin-bottom: 1rem; overflow: hidden;
-}
-.q-section summary {
-  list-style: none; cursor: pointer; padding: 1.2rem 1.5rem;
-  display: flex; align-items: center; justify-content: space-between; gap: 1rem;
-  font-weight: 700; font-size: 1rem; color: var(--text);
-  transition: background 0.2s;
-}
-.q-section summary::-webkit-details-marker { display: none; }
-.q-section summary:hover { background: rgba(0,168,225,0.04); }
-.q-section[open] summary { border-bottom: 1px solid var(--border); background: rgba(0,168,225,0.04); }
-.q-num {
-  display: inline-flex; align-items: center; justify-content: center;
-  width: 28px; height: 28px; border-radius: 8px;
-  background: rgba(0,168,225,0.15); color: var(--blue);
-  font-size: 0.8rem; font-weight: 800; flex-shrink: 0;
-}
-.q-arrow { color: var(--gray); font-size: 0.85rem; transition: transform 0.2s; }
-.q-section[open] .q-arrow { transform: rotate(180deg); }
-.q-body { padding: 1rem 1.5rem 1.5rem 4.25rem; }
-.q-body ul { list-style: none; }
-.q-body li {
-  padding: 0.55rem 0; border-bottom: 1px dashed var(--border);
-  font-size: 0.92rem; color: var(--text2); line-height: 1.55;
-}
-.q-body li:last-child { border-bottom: none; }
-.q-body li::before { content: '→ '; color: var(--blue); font-weight: 700; }
-.q-meta {
-  font-size: 0.78rem; color: var(--text3); font-weight: 500;
-  margin-bottom: 0.75rem; font-style: italic;
+.pain-skip {
+  background: rgba(255,107,107,0.10); color: var(--red);
 }
 
-/* OFFERS */
-.offer-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.25rem; margin-top: 1.5rem; }
-.offer {
+/* OFFERS — three modules */
+.module-grid {
+  display: grid; grid-template-columns: 1fr; gap: 1.25rem; margin-top: 1.5rem;
+}
+.module {
   background: var(--surface); border: 1px solid var(--border);
-  border-radius: 14px; padding: 1.75rem; display: flex; flex-direction: column;
+  border-radius: 16px; padding: 2rem;
   position: relative; overflow: hidden;
 }
-.offer::before {
+.module::before {
   content: ''; position: absolute; top: 0; left: 0; right: 0;
-  height: 3px; background: linear-gradient(90deg, var(--blue), var(--pink));
+  height: 4px; background: linear-gradient(90deg, var(--blue), var(--pink));
 }
-.offer-name { font-size: 1.05rem; font-weight: 700; color: var(--text); margin-bottom: 0.4rem; }
-.offer-pricing { font-size: 1.1rem; font-weight: 800; color: var(--gold); margin-bottom: 0.75rem; }
-.offer-pricing .small { font-size: 0.8rem; color: var(--text3); font-weight: 500; display: block; margin-top: 0.15rem; }
-.offer-scope { font-size: 0.88rem; color: var(--text2); line-height: 1.5; margin-bottom: 1rem; flex: 1; }
-.offer-roi {
-  font-size: 0.8rem; color: var(--green); font-weight: 600;
-  border-top: 1px solid var(--border); padding-top: 0.85rem;
+.module-header {
+  display: flex; justify-content: space-between; align-items: baseline; gap: 1rem;
+  flex-wrap: wrap; margin-bottom: 0.6rem;
+}
+.module-rank {
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.08em;
+  color: var(--blue); font-weight: 700;
+}
+.module-name { font-size: 1.4rem; font-weight: 800; color: var(--text); margin-bottom: 0.3rem; }
+.module-tag { font-size: 0.85rem; color: var(--text3); margin-bottom: 1rem; }
+.module-body { display: grid; grid-template-columns: 1.2fr 1fr; gap: 1.5rem; align-items: start; }
+.module-scope p { font-size: 0.95rem; color: var(--text2); line-height: 1.6; }
+.module-scope ul { list-style: none; margin-top: 0.75rem; }
+.module-scope li {
+  font-size: 0.88rem; color: var(--text2);
+  padding: 0.35rem 0; padding-left: 1.2rem; position: relative;
+}
+.module-scope li::before {
+  content: '→'; position: absolute; left: 0; color: var(--blue); font-weight: 700;
+}
+.module-side {
+  background: rgba(0,168,225,0.05); border: 1px solid rgba(0,168,225,0.15);
+  border-radius: 12px; padding: 1.25rem;
+}
+.module-side .label { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--gray); margin-bottom: 0.35rem; }
+.module-side .val { font-size: 1rem; font-weight: 700; color: var(--text); margin-bottom: 0.85rem; }
+.module-side .val:last-child { margin-bottom: 0; }
+.module-side .roi { color: var(--green); font-size: 0.85rem; line-height: 1.5; }
+.module-quote {
+  margin-top: 1rem; padding-top: 1rem;
+  border-top: 1px dashed var(--border);
+  font-style: italic; font-size: 0.85rem; color: var(--text3);
+}
+.module-quote strong { color: var(--text2); font-style: normal; }
+@media (max-width: 720px) {
+  .module-body { grid-template-columns: 1fr; }
 }
 
 /* HIGHLIGHTS */
@@ -245,9 +250,13 @@ h3 { font-size: 1.1rem; font-weight: 700; margin-bottom: 0.5rem; color: var(--te
   background: rgba(255,217,61,0.07); border: 1px solid rgba(255,217,61,0.2);
   border-radius: 14px; padding: 1.5rem 1.75rem; margin-top: 1.5rem;
 }
-.highlight-blue p, .highlight-gold p { font-size: 0.93rem; color: var(--text2); margin-top: 0.4rem; }
+.highlight-red {
+  background: rgba(255,107,107,0.05); border: 1px solid rgba(255,107,107,0.15);
+  border-radius: 14px; padding: 1.5rem 1.75rem; margin-top: 1.5rem;
+}
+.highlight-blue p, .highlight-gold p, .highlight-red p { font-size: 0.93rem; color: var(--text2); margin-top: 0.4rem; }
 
-/* TACTICAL TIP */
+/* TIP BOX */
 .tip-box {
   background: linear-gradient(135deg, rgba(0,168,225,0.08), rgba(255,126,182,0.08));
   border: 1px solid rgba(0,168,225,0.25);
@@ -283,9 +292,8 @@ footer p { font-size: 0.85rem; color: var(--gray); }
   .hero-stats { gap: 1.5rem; }
   .nav-links { gap: 0.5rem; }
   .nav-links a:not(.nav-cta) { display: none; }
-  .opp-row { grid-template-columns: 50px 1fr; }
-  .opp-impact { grid-column: 2; justify-self: start; }
-  .q-body { padding-left: 1.5rem; }
+  .pain-row { grid-template-columns: 50px 1fr; }
+  .pain-impact { grid-column: 2; justify-self: start; }
 }
 
 /* LIGHT MODE OVERRIDES */
@@ -294,8 +302,7 @@ footer p { font-size: 0.85rem; color: var(--gray); }
 [data-theme="light"] footer { background: #0d1620; }
 [data-theme="light"] .card { box-shadow: 0 2px 12px rgba(0,0,0,0.05); }
 [data-theme="light"] .snap-item { box-shadow: 0 1px 6px rgba(0,0,0,0.04); }
-[data-theme="light"] .q-section { box-shadow: 0 1px 6px rgba(0,0,0,0.04); }
-[data-theme="light"] .offer { box-shadow: 0 2px 12px rgba(0,0,0,0.05); }
+[data-theme="light"] .module { box-shadow: 0 2px 14px rgba(0,0,0,0.06); }
 [data-theme="light"] .highlight-blue { background: rgba(0,168,225,0.06); border-color: rgba(0,168,225,0.2); }
 [data-theme="light"] .tip-box { background: linear-gradient(135deg, rgba(0,168,225,0.06), rgba(255,126,182,0.06)); }
 
@@ -313,10 +320,9 @@ footer p { font-size: 0.85rem; color: var(--gray); }
     --border: rgba(0,0,0,0.12);
   }
   body { background: #fff !important; color: #0d1620 !important; }
-  h2, h3, .opp-row h4, .offer-name, .snap-item .snap-val { color: #0d1620 !important; }
-  .lede, .card p, .opp-row p, .q-body li, .offer-scope { color: #1e2e3e !important; }
-  .card-meta, .snap-item .snap-sub { color: #3a4e60 !important; }
-  /* Footer keeps its dark background — force light text inside it */
+  h2, h3, .pain-row h4, .module-name, .snap-item .snap-val, .module-side .val { color: #0d1620 !important; }
+  .lede, .card p, .pain-row p, .module-scope p, .module-scope li { color: #1e2e3e !important; }
+  .card-meta, .snap-item .snap-sub, .module-tag { color: #3a4e60 !important; }
   footer { background: #0d1620 !important; color: #f0f4f8 !important; }
   footer p, footer strong, footer p strong { color: #f0f4f8 !important; }
   footer a { color: #00a8e1 !important; }
@@ -329,15 +335,9 @@ footer p { font-size: 0.85rem; color: var(--gray); }
   }
   .hero-inner { max-width: 7in; }
   section { padding: 1.5rem 1rem; max-width: 100%; page-break-inside: avoid; }
-  .q-section { page-break-inside: avoid; }
-  .q-section summary { background: #f0f4f8 !important; }
-  .q-section[open] .q-arrow { display: none; }
-  .q-body { display: block !important; }
-  .card, .offer, .snap-item { box-shadow: none; border: 1px solid #d0d8e0; }
+  .module { page-break-inside: avoid; }
+  .card, .module, .snap-item { box-shadow: none; border: 1px solid #d0d8e0; }
   * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
-  details > summary { list-style: none; }
-  details:not([open]) > *:not(summary) { display: block !important; }
-  details > .q-body { display: block !important; }
 }
 </style>
 </head>
@@ -346,13 +346,13 @@ footer p { font-size: 0.85rem; color: var(--gray); }
 <nav>
   <div class="nav-logo">Bogen<span>.ai</span></div>
   <div class="nav-links">
+    <a href="#heard">What you told us</a>
+    <a href="#build">What we'd build</a>
     <a href="#snapshot">Snapshot</a>
-    <a href="#opportunity">Opportunity</a>
-    <a href="#discovery">Discovery</a>
-    <a href="#offers">Offers</a>
+    <a href="#next">Next</a>
     <button class="theme-toggle" onclick="toggleTheme()">☀ Light / ☾ Dark</button>
     <button onclick="openPdfModal()" class="nav-cta" style="background:#2B6166;border:none;cursor:pointer;">⬇ PDF</button>
-    <a href="mailto:eytan@bogen.ai?subject=Lucky%20in%20Love%20%E2%80%94%20Discovery%20Follow-up" class="nav-cta">Book Discovery</a>
+    <a href="mailto:eytan@bogen.ai?subject=Lucky%20in%20Love%20%E2%80%94%20Next%20step" class="nav-cta">Reply</a>
   </div>
 </nav>
 
@@ -361,365 +361,326 @@ footer p { font-size: 0.85rem; color: var(--gray); }
   <div class="hero-inner">
     <div class="hero-badge">
       <span class="badge-dot"></span>
-      Discovery Brief — Pre-Meeting Read
+      Follow-up Brief — May 5, 2026
     </div>
     <div class="hero-eyebrow">Bogen.ai × Lucky in Love</div>
-    <h1>A focused growth plan for<br><span>Lucky in Love</span> — built around <span class="pink">AI, ops, and the channels you already have</span></h1>
-    <p>You've built a real brand: women-first racquet and golf apparel with deep catalog, real community, and credible collaborations. The opportunity is operational. Tighten the back-end with AI and lifecycle automation, and a $1.2M DTC base credibly becomes a $2M+ branded platform.</p>
+    <h1>Three things we'd build for<br><span>Lucky in Love</span> — and why <span class="pink">these three first</span></h1>
+    <p>Brad — thanks for the conversation on May 4. You named the pain points yourself. Here's our read of where AI gives Lucky in Love the most leverage in the next 12 months, ranked against what you said, with the two things we'd <em>skip</em> so you know we listened.</p>
     <div class="hero-stats">
       <div>
-        <span class="stat-val">~$1.2M</span>
-        <span class="stat-lbl">Modeled DTC Base</span>
+        <span class="stat-val">~$5M</span>
+        <span class="stat-lbl">Modeled Revenue</span>
       </div>
       <div>
-        <span class="stat-val">2,176+</span>
-        <span class="stat-lbl">Active SKUs</span>
+        <span class="stat-val">60% / 40%</span>
+        <span class="stat-lbl">Wholesale / DTC</span>
       </div>
       <div>
-        <span class="stat-val">+31%</span>
-        <span class="stat-lbl">MoM Traffic Growth</span>
+        <span class="stat-val">2,500+</span>
+        <span class="stat-lbl">Wholesale Accounts</span>
       </div>
       <div>
-        <span class="stat-val">43%</span>
-        <span class="stat-lbl">Organic Channel Mix</span>
+        <span class="stat-val">7–9×</span>
+        <span class="stat-lbl">Annual Inv. Turns</span>
       </div>
     </div>
   </div>
 </div>
 
-<!-- SNAPSHOT -->
-<section id="snapshot">
-  <div class="section-label">What we already know</div>
-  <h2>Brand Snapshot — going in</h2>
-  <p class="lede">Public web intelligence, Similarweb signals, and Lucky in Love's own surfaces give us a strong working picture of the operating shape. We're walking in with this context so the meeting can focus on the parts only you can answer.</p>
+<!-- WHAT YOU TOLD US -->
+<section id="heard">
+  <div class="section-label">What you told us</div>
+  <h2>The five pain points you named — ranked</h2>
+  <p class="lede">These are your words from the call, not our hypothesis. The order is your order: planning was named first and most emphatically. Everything we propose ladders into this list.</p>
 
-  <div class="snapshot-grid">
-    <div class="snap-item">
-      <div class="snap-label">Stack</div>
-      <div class="snap-val">Shopify Plus</div>
-      <div class="snap-sub">Loyalty, returns portal, Collabs, multi-currency</div>
+  <div class="pain-row">
+    <div class="pain-num">01</div>
+    <div>
+      <h4>Planning &amp; forecasting — the single biggest gap</h4>
+      <p>SKU planning, wholesale demand, e-comm demand, production lead times. You + ops + a salesperson are doing this manually.</p>
+      <blockquote>"One of the biggest pain points the company has is planning and forecasting… we don't have a planner."</blockquote>
     </div>
-    <div class="snap-item">
-      <div class="snap-label">Catalog Scale</div>
-      <div class="snap-val">2,176+ products</div>
-      <div class="snap-sub">22 paginated all-products pages; 7 tennis pages</div>
-    </div>
-    <div class="snap-item">
-      <div class="snap-label">Avg. Item Price</div>
-      <div class="snap-val">$47.28</div>
-      <div class="snap-sub">Range $10–$160; tops/skirts $58–$97</div>
-    </div>
-    <div class="snap-item">
-      <div class="snap-label">Web Traffic</div>
-      <div class="snap-val">~65K visits/mo</div>
-      <div class="snap-sub">2:41 avg duration · 5.24 pages/visit · 28.7% bounce</div>
-    </div>
-    <div class="snap-item">
-      <div class="snap-label">Channel Mix (modeled)</div>
-      <div class="snap-val">43% organic / 10–15% display / 10–15% direct</div>
-      <div class="snap-sub">Plus creator/ambassador, leagues, wholesale spillover</div>
-    </div>
-    <div class="snap-item">
-      <div class="snap-label">Distribution</div>
-      <div class="snap-val">DTC + Specialty + Teams</div>
-      <div class="snap-sub">K-Swiss, Simone Jardim, USTA wheelchair team, leagues</div>
-    </div>
-    <div class="snap-item">
-      <div class="snap-label">Returns</div>
-      <div class="snap-val">Loop Returns</div>
-      <div class="snap-sub">15-day full refund / 30-day exchange (split policy)</div>
-    </div>
-    <div class="snap-item">
-      <div class="snap-label">Modeled DTC Range</div>
-      <div class="snap-val">$0.7M – $2.0M</div>
-      <div class="snap-sub">Base $1.2M; full company likely $2.6M+ with wholesale/teams</div>
-    </div>
+    <div class="pain-impact">$$$ Margin + Cash</div>
   </div>
 
-  <div class="highlight-blue">
-    <h3 style="color:var(--blue);">The shape of the problem</h3>
-    <p>The brand looks <strong>commercially real but not yet operator-tight</strong>. Three different free-shipping thresholds publicly visible ($100 / $149 / $150). An empty men's collection while men's pickleball is in nav. A split returns policy. A massive seasonal-drop SKU matrix without (yet) visible forecasting discipline. None of this is a brand problem — it's exactly the kind of operational surface that AI + lifecycle automation can professionalize fast.</p>
+  <div class="pain-row">
+    <div class="pain-num">02</div>
+    <div>
+      <h4>SKU sprawl &amp; the liquidation funnel</h4>
+      <p>50–70 new styles a month is your secret sauce — but the volume is over-skewed for the business and the wholesale-discount → site-discount → TJ Maxx funnel bleeds margin every cycle.</p>
+      <blockquote>"We're over-skewed… well over-skewed for the size of the volume of the business."</blockquote>
+    </div>
+    <div class="pain-impact">+Gross Margin</div>
+  </div>
+
+  <div class="pain-row">
+    <div class="pain-num">03</div>
+    <div>
+      <h4>Marketing-data overload</h4>
+      <p>$700K/yr managed by the agency on Google + Meta. The data comes back, but the volume defeats the point.</p>
+      <blockquote>"They give us all the analytics, all the data. It's too much data. It's too much to look at."</blockquote>
+    </div>
+    <div class="pain-impact">+ROAS</div>
+  </div>
+
+  <div class="pain-row">
+    <div class="pain-num">04</div>
+    <div>
+      <h4>Wholesale follow-up — 2,500 accounts on hope</h4>
+      <p>Markdown flyers go to reps, reps forward to customers, "probably gets lost in the mail." There is no systematic touch on accounts that dip, lapse, or under-order vs. season prior.</p>
+      <blockquote>"If you pulled out from my A2000 system… accounts that dipped 10%, automatically generate an email and do a follow-up."</blockquote>
+    </div>
+    <div class="pain-impact">+Wholesale Rev</div>
+  </div>
+
+  <div class="pain-row">
+    <div class="pain-num">05</div>
+    <div>
+      <h4>The AI-COO vision (the long game)</h4>
+      <p>Calendar-driven across sales / production / design / marketing, accountability tracked, integrated. Your stated 12-month ambition.</p>
+      <blockquote>"I want this agent to be the COO… every date in the company driven, every person accountable, managed by the AI."</blockquote>
+    </div>
+    <div class="pain-impact">12-MONTH ARC</div>
+  </div>
+
+  <div class="highlight-red">
+    <h3 style="color:var(--red);">What you said you don't need (so we won't pitch it)</h3>
+    <p><strong>Voice AI for returns / sizing recommender</strong> — you said fashion sizing is too complex and 20% returns is industry standard, not a pain. <strong>Touching the A2000 ERP</strong> — you said it's #4–5 on your list and the swap risk isn't worth it. We'll work <em>around</em> the ERP via API/screen-read patterns, not through it.</p>
   </div>
 </section>
 
-<!-- OPPORTUNITY -->
-<section id="opportunity">
-  <div class="section-label">Where the leverage lives</div>
-  <h2>Six AI-leveraged levers we'd validate in discovery</h2>
-  <p class="lede">High-variant apparel + frequent drops + real community = a near-perfect surface for AI automation. These are the levers we'll test against the live numbers in the meeting.</p>
+<!-- THREE THINGS WE'D BUILD FIRST -->
+<section id="build">
+  <div class="section-label">What we'd build first</div>
+  <h2>Three modules. In this order.</h2>
+  <p class="lede">Each ladders into the next. Module 1 earns the right to Module 2 with a quick, measurable win. Module 3 is where the wholesale wedge becomes a real channel. All three feed the AI-COO endgame.</p>
 
-  <div class="opp-row">
-    <div class="opp-num">01</div>
-    <div>
-      <h4>Returns &amp; sizing intelligence</h4>
-      <p>Apparel default is high return rates. AI sizing recommender + return-reason classifier on Loop data typically cuts return rate 15–25% and recovers 2–4 pts of margin.</p>
+  <div class="module-grid">
+
+    <!-- MODULE 1 -->
+    <div class="module">
+      <div class="module-header">
+        <div>
+          <div class="module-rank">Module 01 · Lead with this</div>
+          <div class="module-name">AI Planner Agent</div>
+          <div class="module-tag">Demand &amp; inventory forecasting across wholesale + e-comm</div>
+        </div>
+      </div>
+      <div class="module-body">
+        <div class="module-scope">
+          <p>The dedicated planner you said you need — built as software, not a hire. Trained on your A2000 sales history, season cadence, and SKU-velocity patterns.</p>
+          <ul>
+            <li>SKU-level demand forecast for wholesale + DTC channels</li>
+            <li>Production lead-time orchestration (CA fabric → El Salvador → Miami)</li>
+            <li>Markdown-risk model on prints &amp; capsules — flag at-risk SKUs <em>before</em> they hit the liquidation funnel</li>
+            <li>Core-vs-seasonal SKU classifier so reorders flow only to the right tier</li>
+            <li>Weekly forecast pack: confidence-banded, drift-flagged, exception-only</li>
+          </ul>
+        </div>
+        <div class="module-side">
+          <div>
+            <div class="label">Indicative Investment</div>
+            <div class="val">$30–50K diagnostic + build<br><span style="font-size:0.78rem;color:var(--text3);font-weight:500;">+ $8–15K/mo ongoing</span></div>
+          </div>
+          <div>
+            <div class="label">Target Outcome (12 wks)</div>
+            <div class="roi">↓ markdown depth 15–25%<br>↓ dead-stock units 20%+<br>+1–2 turns added on selected SKU groups</div>
+          </div>
+        </div>
+      </div>
+      <div class="module-quote"><strong>Why first:</strong> highest pain, fastest measurable result, lowest integration risk. Doesn't touch the ERP — reads from it.</div>
     </div>
-    <div class="opp-impact">$$$ Margin</div>
-  </div>
-  <div class="opp-row">
-    <div class="opp-num">02</div>
-    <div>
-      <h4>Catalog &amp; PDP automation</h4>
-      <p>2,000+ SKUs, monthly drops, color/sport/size matrix. AI-generated descriptions, alt text, complete-the-look bundles, and cross-sport merchandising ship in days, not months.</p>
+
+    <!-- MODULE 2 -->
+    <div class="module">
+      <div class="module-header">
+        <div>
+          <div class="module-rank">Module 02 · You said yes to this on the call</div>
+          <div class="module-name">Marketing Intelligence Dashboard</div>
+          <div class="module-tag">$700K/yr ad spend, one screen, one morning report</div>
+        </div>
+      </div>
+      <div class="module-body">
+        <div class="module-scope">
+          <p>Aggregates the data your agency already produces and adds the synthesis layer they don't. The "screenshot the A2000 → AI tells you what's actionable" idea you described — productized across every system you have.</p>
+          <ul>
+            <li>Single dashboard: Google Ads + Meta Ads + Shopify + A2000 wholesale</li>
+            <li>Daily morning report — <em>what changed, what to do today</em>, not raw analytics</li>
+            <li>Spend-waste detector by audience / creative / SKU</li>
+            <li>Margin-aware ROAS — accounts for actual landed cost &amp; markdown drag</li>
+            <li>Competitor monitor — Lululemon, Free People, Aloe pricing &amp; assortment</li>
+          </ul>
+        </div>
+        <div class="module-side">
+          <div>
+            <div class="label">Indicative Investment</div>
+            <div class="val">$20–35K build<br><span style="font-size:0.78rem;color:var(--text3);font-weight:500;">+ $4–8K/mo data + hosting</span></div>
+          </div>
+          <div>
+            <div class="label">Target Outcome (8 wks)</div>
+            <div class="roi">+10–15% effective ROAS via reallocation<br>5–10 hrs/wk recovered for you<br>Agency held accountable to one number</div>
+          </div>
+        </div>
+      </div>
+      <div class="module-quote"><strong>Why second:</strong> you already said yes to this concept on the call ("yes, that's what I'm saying"). Fastest to demo. Builds trust before the bigger swing.</div>
     </div>
-    <div class="opp-impact">+8% AOV</div>
-  </div>
-  <div class="opp-row">
-    <div class="opp-num">03</div>
-    <div>
-      <h4>Lifecycle CRM rebuild</h4>
-      <p>Welcome / browse-abandon / cart / post-purchase / win-back, segmented by sport (tennis / pickleball / golf) and by core-vs-fashion buyer. Email/SMS to 18–25% of DTC revenue.</p>
+
+    <!-- MODULE 3 -->
+    <div class="module">
+      <div class="module-header">
+        <div>
+          <div class="module-rank">Module 03 · The wholesale wedge</div>
+          <div class="module-name">Wholesale Account Intelligence Engine</div>
+          <div class="module-tag">2,500–3,000 accounts. 30 reps. Zero systematic follow-up — until now.</div>
+        </div>
+      </div>
+      <div class="module-body">
+        <div class="module-scope">
+          <p>Your exact example, productized: <em>"accounts that dipped 10% in January, auto-email them."</em> Reads A2000 + RepSpark order data, scores every account weekly, routes the right action to the right human.</p>
+          <ul>
+            <li>Account-health score by buyer (dip, lapse, growth, opportunity)</li>
+            <li>Auto-drafted rep outreach, captain &amp; club-pro motions</li>
+            <li>Pickleball league program: captain dashboards + AI-recommended team-color SKUs</li>
+            <li>Markdown-flyer distribution that <em>tracks open + click</em> — no more "lost in the mail"</li>
+            <li>US Open Naples / event-pipeline playbook (10×20 = $100K once; what does the second &amp; third look like?)</li>
+          </ul>
+        </div>
+        <div class="module-side">
+          <div>
+            <div class="label">Indicative Investment</div>
+            <div class="val">$25–50K setup<br><span style="font-size:0.78rem;color:var(--text3);font-weight:500;">+ retainer or 6–10% rev share on recovered accounts</span></div>
+          </div>
+          <div>
+            <div class="label">Target Outcome (6 mo)</div>
+            <div class="roi">10–20% wholesale revenue recovery on dipping accounts<br>Captain program scales without rep burden<br>Foundation for the AI-COO calendar layer</div>
+          </div>
+        </div>
+      </div>
+      <div class="module-quote"><strong>Why third:</strong> requires the planner's data + the dashboard's pipes already in place. Once it's running, this is the wedge that turns "Lucky in Love is well-run" into "Lucky in Love is uncatchable."</div>
     </div>
-    <div class="opp-impact">+15% Repeat</div>
-  </div>
-  <div class="opp-row">
-    <div class="opp-num">04</div>
-    <div>
-      <h4>CX agent on Shopify + Gorgias data</h4>
-      <p>AI first-line response on tickets — order status, sizing, returns, league orders. Drains 50–70% of volume so humans handle high-empathy and B2B.</p>
-    </div>
-    <div class="opp-impact">-Hours/Wk</div>
-  </div>
-  <div class="opp-row">
-    <div class="opp-num">05</div>
-    <div>
-      <h4>Team / league / ambassador engine</h4>
-      <p>Captain dashboards, AI-generated team-color recos, ambassador code economics, club-pro outreach automation. Turns the existing leagues offer into a real B2B wedge.</p>
-    </div>
-    <div class="opp-impact">Lower CAC</div>
-  </div>
-  <div class="opp-row">
-    <div class="opp-num">06</div>
-    <div>
-      <h4>Demand &amp; markdown forecasting</h4>
-      <p>Core vs. seasonal SKU classifier; markdown-risk model on prints/capsules; replenishment cadence. Reduces dead stock and raises blended gross margin.</p>
-    </div>
-    <div class="opp-impact">+Cash</div>
+
   </div>
 
   <div class="highlight-gold">
-    <h3 style="color:var(--gold);">Why this fits Bogen.ai</h3>
-    <p>Bogen.ai isn't a generic agency. We build operator-first AI systems for owner-operated brands — the kind of work that lives inside Shopify, Klaviyo, Gorgias, Loop, and the data warehouse. Founder-friendly, creative DNA preserved, operating system professionalized.</p>
+    <h3 style="color:var(--gold);">The 12-month picture: AI COO</h3>
+    <p>The three modules above produce the <em>foundation</em> — clean forecasts, unified marketing data, scored accounts. Layered on top in months 9–12: a calendar-driven orchestration agent that holds sales, production, design, and marketing accountable to dates and exceptions. Brad's vision, but earned through measurable wins first — not promised on day one.</p>
   </div>
 </section>
 
-<!-- DISCOVERY QUESTIONS -->
-<section id="discovery" style="max-width:1000px;">
-  <div class="section-label">The conversation</div>
-  <h2>Discovery framework — nine sections we'll work through together</h2>
-  <p class="lede">Tactical advice for the meeting itself: lead with sections 1 and 3. Most discovery calls die because the consultant front-loads stack questions before earning the right with strategic ones. Get them talking about pain in their own words first, then pivot to stack to map solutions. Save pricing/timeline for the last 5 minutes.</p>
+<!-- BRAND SNAPSHOT — REFRESHED -->
+<section id="snapshot">
+  <div class="section-label">Snapshot — refreshed after the call</div>
+  <h2>Operator pedigree we didn't fully appreciate going in</h2>
+  <p class="lede">The prep brief had you as a 16-year-old DTC brand. The reality is sharper: 18 years on Lucky in Love, on top of 35 years running Tail before that. Five generations in apparel. We're calibrating accordingly.</p>
 
-  <details class="q-section" open>
-    <summary><span style="display:flex;align-items:center;gap:0.85rem;"><span class="q-num">1</span>Business context &amp; strategic priorities</span><span class="q-arrow">▼</span></summary>
-    <div class="q-body">
-      <ul>
-        <li>What's the #1 commercial goal for the next 12 months — top-line growth, margin, retention, international expansion, wholesale, or something else?</li>
-        <li>Where do you make most of your money today — DTC, wholesale, leagues/teams programs, or licensing collabs (K-Swiss, Simone Jardim)?</li>
-        <li>What's been your biggest growth lever in the last 24 months, and what's plateauing?</li>
-        <li>Who do you see as your top 3 competitors, and where are you losing share?</li>
-      </ul>
+  <div class="snapshot-grid">
+    <div class="snap-item">
+      <div class="snap-label">Pedigree</div>
+      <div class="snap-val">5 generations · 53 yrs combined</div>
+      <div class="snap-sub">Tail (35 yrs, sold 2008) → Lucky in Love (18 yrs)</div>
     </div>
-  </details>
-
-  <details class="q-section">
-    <summary><span style="display:flex;align-items:center;gap:0.85rem;"><span class="q-num">2</span>Current stack &amp; data</span><span class="q-arrow">▼</span></summary>
-    <div class="q-body">
-      <ul>
-        <li>Full stack confirmation — Shopify Plus, Klaviyo, Gorgias/Zendesk, Loop Returns: what else? PIM, ERP, returns analytics?</li>
-        <li>Where does customer data live, and is it unified anywhere (CDP, warehouse)?</li>
-        <li>Do you have a data team, or is it agency / contractor-driven?</li>
-        <li>What's already automated vs. still manual?</li>
-      </ul>
+    <div class="snap-item">
+      <div class="snap-label">Headcount</div>
+      <div class="snap-val">30 employees</div>
+      <div class="snap-sub">Warehouse, design, accounting all under one roof</div>
     </div>
-  </details>
-
-  <details class="q-section">
-    <summary><span style="display:flex;align-items:center;gap:0.85rem;"><span class="q-num">3</span>Pain points — the real ones</span><span class="q-arrow">▼</span></summary>
-    <div class="q-body">
-      <ul>
-        <li>What three things eat the most hours of your team every week that shouldn't?</li>
-        <li>Where do you lose the most money to inefficiency — returns, customer service tickets, ad waste, dead inventory, content production?</li>
-        <li>What's the return rate by category, and what are the top 3 stated reasons? (Apparel sizing is usually the silent killer.)</li>
-        <li>Customer service ticket volume per week and top 5 ticket categories?</li>
-      </ul>
+    <div class="snap-item">
+      <div class="snap-label">Channel split</div>
+      <div class="snap-val">60% wholesale · 40% DTC</div>
+      <div class="snap-sub">Wholesale-led — counter to the prep-brief assumption</div>
     </div>
-  </details>
-
-  <details class="q-section">
-    <summary><span style="display:flex;align-items:center;gap:0.85rem;"><span class="q-num">4</span>Customer experience &amp; merchandising</span><span class="q-arrow">▼</span></summary>
-    <div class="q-body">
-      <ul>
-        <li>How is product discovery handled today — manual collection curation, search, recommendations? Conversion rate on PDP vs. search vs. collection pages?</li>
-        <li>Any size recommendation tool in place? What's the size-related return %?</li>
-        <li>How personalized is the homepage / email / SMS today, and what tools drive it?</li>
-        <li>How do you handle the multi-sport buyer (tennis + pickleball + golf overlap)?</li>
-      </ul>
+    <div class="snap-item">
+      <div class="snap-label">Wholesale footprint</div>
+      <div class="snap-val">2,500–3,000 accounts</div>
+      <div class="snap-sub">30 independent reps · Bloomingdale's, Nordstrom, Dick's, soon Dillard's &amp; Macy's drop-ship</div>
     </div>
-  </details>
-
-  <details class="q-section">
-    <summary><span style="display:flex;align-items:center;gap:0.85rem;"><span class="q-num">5</span>Content &amp; marketing</span><span class="q-arrow">▼</span></summary>
-    <div class="q-body">
-      <ul>
-        <li>Who writes product descriptions, email copy, social captions today? How long does a new collection launch take from sample to live?</li>
-        <li>How many SKUs launch per quarter, and what's the bottleneck — photography, copy, merchandising?</li>
-        <li>Are you using AI-generated imagery, video, or copy anywhere yet? What's worked, what hasn't?</li>
-        <li>Paid acquisition: CAC trend, blended ROAS, channel mix?</li>
-      </ul>
+    <div class="snap-item">
+      <div class="snap-label">Manufacturing</div>
+      <div class="snap-val">Owned factory · 300 workers · El Salvador</div>
+      <div class="snap-sub">Fabric ex-California · CAFTA-compliant · zero duty</div>
     </div>
-  </details>
-
-  <details class="q-section">
-    <summary><span style="display:flex;align-items:center;gap:0.85rem;"><span class="q-num">6</span>B2B / wholesale / community</span><span class="q-arrow">▼</span></summary>
-    <div class="q-body">
-      <ul>
-        <li>How are leagues, teams, and brand ambassadors managed operationally — portal, email, spreadsheets?</li>
-        <li>Bulk orders, custom team colors — how much of that is manual?</li>
-        <li>Wholesale order volume relative to DTC?</li>
-      </ul>
+    <div class="snap-item">
+      <div class="snap-label">Inventory velocity</div>
+      <div class="snap-val">7–9× turns/yr</div>
+      <div class="snap-sub">vs. industry standard 4–5 — exceptional ops</div>
     </div>
-  </details>
-
-  <details class="q-section">
-    <summary><span style="display:flex;align-items:center;gap:0.85rem;"><span class="q-num">7</span>Returns &amp; operations</span><span class="q-arrow">▼</span></summary>
-    <div class="q-body">
-      <ul>
-        <li>Loop Returns is in — what's the return rate, and how much of returns processing is automated end-to-end?</li>
-        <li>Inventory planning: how do you forecast demand for new collections vs. core/essentials?</li>
-        <li>Any chronic dead-stock problem on prints/seasonal vs. core colors?</li>
-      </ul>
+    <div class="snap-item">
+      <div class="snap-label">Drop cadence</div>
+      <div class="snap-val">50–70 unique styles/mo</div>
+      <div class="snap-sub">True fast fashion · K-Swiss licensee (M+W)</div>
     </div>
-  </details>
-
-  <details class="q-section">
-    <summary><span style="display:flex;align-items:center;gap:0.85rem;"><span class="q-num">8</span>Decision-making &amp; engagement fit</span><span class="q-arrow">▼</span></summary>
-    <div class="q-body">
-      <ul>
-        <li>Who owns the AI/automation conversation internally — CEO, COO, CMO, CTO/Head of Digital?</li>
-        <li>Have you evaluated AI vendors or consultants before? What worked or didn't?</li>
-        <li>Budget posture for the next 12 months — exploratory pilot, defined initiative, or open?</li>
-        <li>What does success look like 90 days after we start working together?</li>
-        <li>Decision timeline and process — who else needs to be in the room?</li>
-      </ul>
+    <div class="snap-item">
+      <div class="snap-label">Marketing</div>
+      <div class="snap-val">~$700K/yr · agency-managed</div>
+      <div class="snap-sub">Google + Meta · in-house graphics support</div>
     </div>
-  </details>
-
-  <details class="q-section">
-    <summary><span style="display:flex;align-items:center;gap:0.85rem;"><span class="q-num">9</span>Close-the-meeting questions</span><span class="q-arrow">▼</span></summary>
-    <div class="q-body">
-      <ul>
-        <li>If we could solve only one problem for you in Q1, what would it be?</li>
-        <li>What would make this engagement a "hell yes" for you?</li>
-        <li>What would make it a "no"?</li>
-      </ul>
+    <div class="snap-item">
+      <div class="snap-label">Pickleball wedge</div>
+      <div class="snap-val">$100K / 5 days @ Naples</div>
+      <div class="snap-sub">10×20 booth · league program just launched</div>
     </div>
-  </details>
-
-  <div class="tip-box">
-    <div class="tip-label">Meeting Posture</div>
-    <p>Respectful, specific, and operationally sharp. Lucky in Love does not need a vague compliment — they need to see that we understand where value is already present, where money is being left on the table, and how a partnership raises enterprise value <strong>without flattening the brand</strong>.</p>
-  </div>
-</section>
-
-<!-- 90-DAY PLAN -->
-<section id="plan">
-  <div class="section-label">If we said yes today</div>
-  <h2>What the first 90 days could look like</h2>
-  <p class="lede">A working frame, not a commitment. The exact sequence depends on what we learn in discovery — but this is the shape of how Bogen.ai delivers value fast on a brand like Lucky in Love.</p>
-
-  <div class="card-grid-2">
-    <div class="card">
-      <div class="card-icon">🧭</div>
-      <h3>Days 1–14 — Diagnostic</h3>
-      <p>Audit traffic, SKU economics, channel mix, site friction, return reasons, and lifecycle gaps. Output: a written diagnostic with sized opportunities.</p>
-      <div class="card-meta">Read-only. No platform changes yet.</div>
-      <span class="tag">Diagnostic Sprint</span>
-    </div>
-    <div class="card">
-      <div class="card-icon">🛠</div>
-      <h3>Days 15–45 — Quick wins</h3>
-      <p>Ship copy fixes, threshold consistency, hero-SKU bundles, nav cleanup. AI sizing pilot on top 20 hero SKUs. Email/SMS welcome + abandon flows live.</p>
-      <div class="card-meta">Targets: +0.3–0.5 pts conversion, +8% AOV.</div>
-      <span class="tag tag-gold">Conversion + CRM</span>
-    </div>
-    <div class="card">
-      <div class="card-icon">🤖</div>
-      <h3>Days 46–75 — AI in production</h3>
-      <p>CX agent live on top ticket categories. Catalog content automation pipeline. Cross-sport recommendation logic. Returns/sizing model in shadow mode.</p>
-      <div class="card-meta">Targets: -50–70% ticket volume, sizing return rate down 10–20%.</div>
-      <span class="tag tag-pink">Automation Layer</span>
-    </div>
-    <div class="card">
-      <div class="card-icon">📈</div>
-      <h3>Days 76–90 — KPI cadence + roadmap</h3>
-      <p>Monthly KPI pack and forecast model. SKU-margin ranking and markdown discipline. Decision: scale up, narrow focus, or layer in B2B/teams engine.</p>
-      <div class="card-meta">Output: 12-month roadmap and steady operating rhythm.</div>
-      <span class="tag tag-green">Operating Rhythm</span>
-    </div>
-  </div>
-</section>
-
-<!-- OFFERS -->
-<section id="offers">
-  <div class="section-label">If you want a number to react to</div>
-  <h2>Five concrete ways we can engage</h2>
-  <p class="lede">Pricing here is indicative — the right shape depends on what discovery surfaces. Most engagements start with a fixed-fee diagnostic and earn the right to the larger work.</p>
-
-  <div class="offer-grid">
-    <div class="offer">
-      <div class="offer-name">Growth Diagnostic Sprint</div>
-      <div class="offer-pricing">$18K–$35K <span class="small">3 weeks · fixed fee</span></div>
-      <div class="offer-scope">Audit of traffic, SKU economics, channel mix, site friction, and retention flows. Written diagnostic + sized opportunity list.</div>
-      <div class="offer-roi">Typical output: 10–25% near-term revenue upside identified, plus a clean investment memo.</div>
-    </div>
-    <div class="offer">
-      <div class="offer-name">90-Day CRO + Merchandising</div>
-      <div class="offer-pricing">$25K–$45K / mo <span class="small">3 months</span></div>
-      <div class="offer-scope">Ship copy fixes, hero-SKU bundles, nav cleanup, PDP testing, and creative merchandising — with weekly KPI reads.</div>
-      <div class="offer-roi">Target: +15–30% DTC revenue uplift from conversion + AOV gains.</div>
-    </div>
-    <div class="offer">
-      <div class="offer-name">Lifecycle CRM Rebuild</div>
-      <div class="offer-pricing">$20K–$40K setup + $6K–$12K / mo</div>
-      <div class="offer-scope">Email/SMS architecture, sport-segmentation, post-purchase cross-sell, win-back, and loyalty logic — built on Klaviyo + Loop.</div>
-      <div class="offer-roi">Target: +15–25% repeat revenue and lower blended CAC.</div>
-    </div>
-    <div class="offer">
-      <div class="offer-name">Team + Creator Engine</div>
-      <div class="offer-pricing">$15K–$30K setup<br><span class="small" style="color:var(--text2);">+ 8–12% managed commissions / revenue share</span></div>
-      <div class="offer-scope">Ambassador tiers, club-captain program, affiliate codes, sport-specific landing pages, reporting, and creator recruiting.</div>
-      <div class="offer-roi">Target: 1.5x–3.0x return on channel spend inside 6–9 months.</div>
-    </div>
-    <div class="offer">
-      <div class="offer-name">AI Automation Layer</div>
-      <div class="offer-pricing">Custom <span class="small">scoped after diagnostic</span></div>
-      <div class="offer-scope">CX agent on Gorgias/Shopify, AI sizing &amp; returns intelligence on Loop, catalog content automation, demand forecasting model.</div>
-      <div class="offer-roi">Best fit when discovery confirms returns, ticket volume, or content production are top-three pain points.</div>
+    <div class="snap-item">
+      <div class="snap-label">Position</div>
+      <div class="snap-val">#2 vendor in tennis specialty</div>
+      <div class="snap-sub">Lost 40% share post-COVID, still strong; Lulu, Free People, Aloe entering</div>
     </div>
   </div>
 
   <div class="highlight-blue">
-    <h3 style="color:var(--blue);">Founder-friendly bias</h3>
-    <p>Lucky in Love is founder-led and family-owned. Bogen.ai's posture: <strong>preserve the creative DNA, professionalize the operating system, and expand the channels that naturally fit the brand</strong>. We're not here to flatten what works — we're here to free up the team's time and make the back-end as sharp as the design.</p>
+    <h3 style="color:var(--blue);">What this means for the engagement</h3>
+    <p>You're not a brand that needs a tech transformation. You're a brand with <strong>elite operational fundamentals</strong> and a software gap. The right partner doesn't tell you how to run a garment business — you've forgotten more about that than most consultants will ever know. The right partner builds the AI scaffolding around what you already do brilliantly. That's the posture.</p>
   </div>
 </section>
 
-<!-- CTA -->
-<section id="cta" style="padding-bottom:6rem;">
-  <div class="section-label">Next step</div>
-  <h2>Let's run the discovery</h2>
-  <p class="lede">Goal of the next conversation: confirm or correct the picture above, surface the real pain points, and agree whether a paid diagnostic sprint is the right entry point. ~60 minutes, no commitment.</p>
+<!-- NEXT STEPS -->
+<section id="next">
+  <div class="section-label">Next</div>
+  <h2>From here</h2>
+  <p class="lede">No commitment, no pressure. The next two touches give you data to decide on.</p>
 
-  <div style="display:flex;gap:1rem;flex-wrap:wrap;margin-top:1.5rem;">
-    <a href="mailto:eytan@bogen.ai?subject=Lucky%20in%20Love%20%E2%80%94%20Discovery%20Follow-up&body=Brad%20and%20team%20%E2%80%94%20following%20up%20on%20our%20conversation..." style="display:inline-flex;align-items:center;gap:0.6rem;background:var(--blue);color:#fff;text-decoration:none;padding:0.85rem 1.85rem;border-radius:10px;font-weight:700;font-size:0.95rem;transition:opacity 0.2s;" onmouseover="this.style.opacity='0.85'" onmouseout="this.style.opacity='1'">📧 Email Eytan @ Bogen.ai</a>
-    <button onclick="openPdfModal()" style="display:inline-flex;align-items:center;gap:0.6rem;background:transparent;color:var(--blue);border:1px solid var(--blue);cursor:pointer;padding:0.85rem 1.85rem;border-radius:10px;font-weight:700;font-size:0.95rem;transition:all 0.2s;" onmouseover="this.style.background='rgba(0,168,225,0.08)'" onmouseout="this.style.background='transparent'">⬇ Preview &amp; Download Brief (PDF)</button>
+  <div class="card-grid-2">
+    <div class="card">
+      <div class="card-icon">🍷</div>
+      <h3>Wine + working session — Miami</h3>
+      <p>Eitan is in Surfside through ~mid-May. Drinks + 30-minute hands-on demo: we run the <em>"screenshot the A2000 → AI tells you what's actionable"</em> idea live with your real screens. Brenda to coordinate.</p>
+      <span class="tag">This week or next</span>
+    </div>
+    <div class="card">
+      <div class="card-icon">🧠</div>
+      <h3>Mastermind guest seat</h3>
+      <p>AI search optimization with Christopher Ulrich. Wednesday 9 AM ET or Friday 12 PM ET — same topic. Sit and listen, or jump in. Worth it for the AI-search angle alone (Perplexity, ChatGPT, Claude product discovery).</p>
+      <span class="tag tag-gold">Wed 9am · Fri 12pm</span>
+    </div>
+    <div class="card">
+      <div class="card-icon">📋</div>
+      <h3>Module 1 diagnostic proposal</h3>
+      <p>If the demo lands, we scope a 3-week paid Planner diagnostic — read-only, no platform changes, written output sized to your numbers. That's the entry point. Modules 2 + 3 only on the strength of Module 1.</p>
+      <span class="tag tag-pink">After demo</span>
+    </div>
+    <div class="card">
+      <div class="card-icon">🤝</div>
+      <h3>If none of this fits</h3>
+      <p>That's fine too. Part as friends. The AI search optimization guest seat is yours either way — there's value in the room regardless.</p>
+      <span class="tag tag-green">No pressure</span>
+    </div>
+  </div>
+
+  <div class="tip-box">
+    <div class="tip-label">Our posture</div>
+    <p>Founder-friendly. Operator-respectful. We're not here to flatten what works — Lucky in Love works. We're here to free up the time you and your team are spending on planning, data sorting, and wholesale follow-up so you can do what only you can do: design the next collection, manage the factory, ride the next wave.</p>
+  </div>
+
+  <div style="display:flex;gap:1rem;flex-wrap:wrap;margin-top:2rem;">
+    <a href="mailto:eytan@bogen.ai?subject=Lucky%20in%20Love%20%E2%80%94%20Next%20step&body=Hey%20Eytan%20%E2%80%94%20" style="display:inline-flex;align-items:center;gap:0.6rem;background:var(--blue);color:#fff;text-decoration:none;padding:0.85rem 1.85rem;border-radius:10px;font-weight:700;font-size:0.95rem;transition:opacity 0.2s;" onmouseover="this.style.opacity='0.85'" onmouseout="this.style.opacity='1'">📧 Reply to Eitan</a>
+    <a href="mailto:edmund@bogenhomes.com?subject=Lucky%20in%20Love%20%E2%80%94%20Mastermind%20%2B%20wine&body=Hey%20Edmund%20%E2%80%94%20" style="display:inline-flex;align-items:center;gap:0.6rem;background:transparent;color:var(--blue);border:1px solid var(--blue);text-decoration:none;padding:0.85rem 1.85rem;border-radius:10px;font-weight:700;font-size:0.95rem;transition:all 0.2s;" onmouseover="this.style.background='rgba(0,168,225,0.08)'" onmouseout="this.style.background='transparent'">📧 Reply to Edmund</a>
+    <button onclick="openPdfModal()" style="display:inline-flex;align-items:center;gap:0.6rem;background:transparent;color:var(--text2);border:1px solid var(--border);cursor:pointer;padding:0.85rem 1.85rem;border-radius:10px;font-weight:700;font-size:0.95rem;transition:all 0.2s;" onmouseover="this.style.borderColor='var(--blue)';this.style.color='var(--blue)'" onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--text2)'">⬇ Preview &amp; Download Brief (PDF)</button>
   </div>
 </section>
 
 <footer>
   <p><strong style="color:var(--white);">Bogen.ai</strong> — AI &amp; automation for owner-operated brands</p>
-  <p style="margin-top:0.4rem;"><a href="https://bogen.ai" style="color:var(--blue); text-decoration:none;">bogen.ai</a> &nbsp;·&nbsp; <a href="mailto:eytan@bogen.ai" style="color:var(--blue); text-decoration:none;">eytan@bogen.ai</a></p>
-  <div class="confidential-bar">Confidential — Prepared for Lucky in Love Discovery Conversation</div>
+  <p style="margin-top:0.4rem;"><a href="https://bogen.ai" style="color:var(--blue); text-decoration:none;">bogen.ai</a> &nbsp;·&nbsp; <a href="mailto:eytan@bogen.ai" style="color:var(--blue); text-decoration:none;">eytan@bogen.ai</a> &nbsp;·&nbsp; <a href="mailto:edmund@bogenhomes.com" style="color:var(--blue); text-decoration:none;">edmund@bogenhomes.com</a></p>
+  <div class="confidential-bar">Confidential — Prepared for Brad Singer / Lucky in Love after the May 4, 2026 conversation</div>
 </footer>
 
 <!-- PDF PREVIEW MODAL -->
@@ -744,7 +705,7 @@ footer p { font-size: 0.85rem; color: var(--gray); }
         <span style="font-size:1.1rem;">📄</span>
         <div>
           <div style="font-weight:700;font-size:0.95rem;color:#f0f4f8;">Lucky-in-Love-Discovery.pdf</div>
-          <div style="font-size:0.75rem;color:#8899aa;">Bogen.ai Discovery Brief — Preview</div>
+          <div style="font-size:0.75rem;color:#8899aa;">Bogen.ai Follow-up Brief — Preview</div>
         </div>
       </div>
       <div style="display:flex;align-items:center;gap:0.75rem;">
@@ -766,7 +727,7 @@ footer p { font-size: 0.85rem; color: var(--gray); }
       id="pdf-iframe"
       src=""
       style="flex:1;width:100%;border:none;background:#fff;"
-      title="Lucky in Love Discovery Brief Preview"
+      title="Lucky in Love Follow-up Brief Preview"
     ></iframe>
   </div>
 </div>
