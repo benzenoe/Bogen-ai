@@ -1,0 +1,1014 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Be Discovered. Be Trusted. Be Chosen. — Implementation Workbook | Edmund's Mastermind</title>
+<meta name="description" content="The complete implementation workbook for Edmund's Mastermind session with Christopher Ulrich on AI search, SEO, and getting cited by ChatGPT, Perplexity, and Google AI Overviews.">
+<style>
+  :root {
+    --bg: #ffffff;
+    --bg-alt: #f4f4f4;
+    --bg-deep: #1a3e5c;
+    --text: #1a1a1a;
+    --text-muted: #555555;
+    --text-on-deep: #ffffff;
+    --accent: #00a8e1;
+    --accent-hover: #0089b8;
+    --border: #e8e8e8;
+    --code-bg: #1a3e5c;
+    --code-text: #f4f4f4;
+    --shadow: 0 2px 12px rgba(26, 62, 92, 0.08);
+  }
+  [data-theme="dark"] {
+    --bg: #0d1f2d;
+    --bg-alt: #15314a;
+    --bg-deep: #00a8e1;
+    --text: #f0f4f8;
+    --text-muted: #b0c0d0;
+    --text-on-deep: #0d1f2d;
+    --accent: #00a8e1;
+    --accent-hover: #4cc4ee;
+    --border: #2a4a64;
+    --code-bg: #050d15;
+    --code-text: #00a8e1;
+    --shadow: 0 2px 12px rgba(0, 0, 0, 0.4);
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    padding: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+    line-height: 1.65;
+    transition: background 0.3s ease, color 0.3s ease;
+  }
+  .container { max-width: 920px; margin: 0 auto; padding: 0 24px; }
+
+  /* Sticky Toolbar */
+  .toolbar {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: var(--bg);
+    border-bottom: 1px solid var(--border);
+    padding: 12px 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    backdrop-filter: blur(10px);
+  }
+  .toolbar-brand {
+    font-size: 13px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    font-weight: 600;
+  }
+  .toolbar-actions { display: flex; gap: 10px; }
+  .btn {
+    background: var(--accent);
+    color: #ffffff;
+    border: none;
+    padding: 9px 18px;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background 0.2s ease;
+  }
+  .btn:hover { background: var(--accent-hover); }
+  .btn-ghost {
+    background: transparent;
+    color: var(--text);
+    border: 1px solid var(--border);
+  }
+  .btn-ghost:hover { background: var(--bg-alt); }
+
+  /* Hero */
+  .hero {
+    text-align: center;
+    padding: 50px 0 40px;
+  }
+  .hero img {
+    width: 100%;
+    max-width: 880px;
+    height: auto;
+    border-radius: 8px;
+    box-shadow: var(--shadow);
+  }
+  .hero h1 {
+    font-size: 38px;
+    font-weight: 300;
+    letter-spacing: 0.05em;
+    margin: 35px 0 12px;
+    color: var(--text);
+  }
+  .hero .subtitle {
+    font-size: 17px;
+    color: var(--accent);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin: 0 0 20px;
+  }
+  .hero .meta {
+    color: var(--text-muted);
+    font-size: 15px;
+    line-height: 1.8;
+  }
+  .hero .meta strong { color: var(--text); }
+
+  /* Sections */
+  section {
+    padding: 50px 0;
+    border-top: 1px solid var(--border);
+  }
+  section:first-of-type { border-top: none; }
+  .section-label {
+    font-size: 13px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--accent);
+    font-weight: 700;
+    margin-bottom: 12px;
+  }
+  h2 {
+    font-size: 32px;
+    font-weight: 600;
+    margin: 0 0 25px;
+    letter-spacing: 0.02em;
+    color: var(--text);
+  }
+  h3 {
+    font-size: 22px;
+    font-weight: 600;
+    margin: 35px 0 15px;
+    color: var(--text);
+  }
+  h4 {
+    font-size: 17px;
+    font-weight: 600;
+    margin: 25px 0 10px;
+    color: var(--accent);
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+  p { margin: 0 0 16px; font-size: 17px; }
+
+  /* Mission/Overview cards */
+  .grid-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    margin: 25px 0;
+  }
+  @media (max-width: 720px) { .grid-2 { grid-template-columns: 1fr; } }
+  .card {
+    background: var(--bg-alt);
+    border-left: 4px solid var(--accent);
+    padding: 28px;
+    border-radius: 0 6px 6px 0;
+  }
+  .card h3 { margin-top: 0; font-size: 18px; color: var(--accent); letter-spacing: 0.05em; text-transform: uppercase; }
+  .card p:last-child { margin-bottom: 0; }
+
+  /* System sections */
+  .system-block {
+    background: var(--bg-alt);
+    border-left: 5px solid var(--accent);
+    padding: 35px 35px 30px;
+    border-radius: 0 8px 8px 0;
+    margin: 25px 0;
+  }
+  .system-block .system-tag {
+    display: inline-block;
+    background: var(--accent);
+    color: #ffffff;
+    padding: 4px 14px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    border-radius: 3px;
+    margin-bottom: 14px;
+  }
+  .system-block h2 { margin-top: 0; }
+
+  /* Bank account / opportunity callout */
+  .callout {
+    background: var(--bg-deep);
+    color: var(--text-on-deep);
+    padding: 24px 28px;
+    border-radius: 6px;
+    margin: 22px 0;
+  }
+  .callout strong { color: var(--accent); }
+  [data-theme="dark"] .callout { background: var(--bg-alt); }
+  [data-theme="dark"] .callout strong { color: var(--accent); }
+
+  /* Code blocks for prompts */
+  pre {
+    background: var(--code-bg);
+    color: var(--code-text);
+    padding: 22px;
+    border-radius: 6px;
+    overflow-x: auto;
+    font-size: 13.5px;
+    line-height: 1.6;
+    font-family: 'SF Mono', 'Monaco', 'Menlo', 'Consolas', monospace;
+    border-left: 4px solid var(--accent);
+    margin: 18px 0;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+  }
+  .prompt-label {
+    font-size: 12px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--accent);
+    font-weight: 700;
+    margin: 30px 0 8px;
+  }
+
+  /* Worksheet */
+  .worksheet {
+    background: var(--bg-alt);
+    padding: 30px;
+    border-radius: 6px;
+    margin: 25px 0;
+  }
+  .worksheet h3 { margin-top: 0; color: var(--accent); }
+  .fill-line {
+    border-bottom: 1px solid var(--text-muted);
+    height: 24px;
+    margin: 8px 0;
+  }
+  .checkbox {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    margin: 8px 0;
+    font-size: 16px;
+  }
+  .checkbox::before {
+    content: '☐';
+    font-size: 20px;
+    color: var(--accent);
+    line-height: 1;
+    flex-shrink: 0;
+  }
+
+  /* Implementation table */
+  .impl-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 18px;
+    margin: 20px 0;
+  }
+  @media (max-width: 720px) { .impl-grid { grid-template-columns: 1fr; } }
+  .week-card {
+    background: var(--bg-alt);
+    padding: 22px;
+    border-radius: 6px;
+    border-top: 3px solid var(--accent);
+  }
+  .week-card h4 { margin: 0 0 12px; color: var(--accent); }
+  .week-card .checkbox { font-size: 14.5px; margin: 6px 0; }
+
+  /* Contract */
+  .contract {
+    background: var(--bg);
+    border: 2px solid var(--accent);
+    padding: 30px;
+    border-radius: 6px;
+    margin: 25px 0;
+  }
+  .contract p { margin-bottom: 18px; }
+
+  /* Manifesto */
+  .manifesto {
+    background: var(--bg-deep);
+    color: var(--text-on-deep);
+    padding: 40px;
+    border-radius: 8px;
+    text-align: center;
+    font-style: italic;
+    font-size: 18px;
+    line-height: 1.7;
+    margin: 30px 0;
+  }
+  [data-theme="dark"] .manifesto { background: var(--bg-alt); }
+
+  /* Footer */
+  footer {
+    background: var(--bg-deep);
+    color: var(--text-on-deep);
+    padding: 40px 24px;
+    text-align: center;
+    margin-top: 60px;
+  }
+  [data-theme="dark"] footer { background: var(--bg-alt); }
+  footer .brand { font-size: 13px; letter-spacing: 0.15em; text-transform: uppercase; opacity: 0.8; }
+  footer .tagline { color: var(--accent); font-style: italic; margin-top: 16px; font-size: 14px; }
+
+  /* Print Styles */
+  @media print {
+    .toolbar { display: none; }
+    body { background: #ffffff; color: #000000; }
+    section { page-break-inside: avoid; padding: 30px 0; }
+    h2 { page-break-after: avoid; }
+    .system-block, .worksheet, .week-card, .contract, .manifesto, .callout, pre, .card { page-break-inside: avoid; }
+    .hero img { max-width: 100%; }
+    pre { background: #f4f4f4 !important; color: #1a3e5c !important; border: 1px solid #1a3e5c; }
+    a { color: #1a3e5c; text-decoration: underline; }
+    @page { margin: 0.6in 0.7in; size: letter; }
+  }
+</style>
+</head>
+<body>
+
+<div class="toolbar">
+  <div class="toolbar-brand">Edmund's Mastermind · Implementation Workbook</div>
+  <div class="toolbar-actions">
+    <button class="btn btn-ghost" id="theme-toggle" aria-label="Toggle light/dark mode">🌓 Theme</button>
+    <button class="btn" id="print-btn" aria-label="Download as PDF">⬇ PDF</button>
+  </div>
+</div>
+
+<div class="container">
+
+<!-- HERO -->
+<div class="hero">
+  <img src="./hero.png" alt="Be Discovered. Be Trusted. Be Chosen. The New Rules of Influence in the Age of AI. Edmund's Mastermind with special guest Christopher Ulrich.">
+  <h1>BE DISCOVERED. BE TRUSTED. BE CHOSEN.</h1>
+  <div class="subtitle">The New Rules of Influence in the Age of AI</div>
+  <div class="meta">
+    <strong>Edmund's Mastermind</strong> with special guest <strong>Christopher Ulrich</strong><br>
+    Wednesday, May 6, 2026 · 9:00 AM ET &nbsp;|&nbsp; Friday, May 8, 2026 · 12:00 PM ET<br>
+    Complete Implementation Workbook
+  </div>
+</div>
+
+<!-- MISSION & OVERVIEW -->
+<section id="mission">
+  <div class="section-label">Section 01</div>
+  <h2>Your Money-Making Mission</h2>
+
+  <div class="grid-2">
+    <div class="card">
+      <h3>Why You're Here</h3>
+      <p>To stop fighting for a Google rank that 65% of buyers never click — and start being the realtor ChatGPT, Perplexity, Gemini, and Google AI Overviews recommend <em>by name</em>.</p>
+    </div>
+    <div class="card">
+      <h3>Your Goal Today</h3>
+      <p>Walk out with one community page, one bio, and one FAQ stack rewritten for AI citation. Have your first AI-citable asset live within 7 days.</p>
+    </div>
+    <div class="card">
+      <h3>Your Success Metric</h3>
+      <p>Within 30 days: at least 1 page formatted with FAQPage schema and 20+ Q&amp;A blocks. Within 90 days: at least 1 verified citation in a ChatGPT, Perplexity, or Google AI Overview answer.</p>
+    </div>
+    <div class="card">
+      <h3>The Bigger Game</h3>
+      <p>This is the new "page one." The realtors who format their content to be cited will own the next decade of AI-driven buyer search. The realtors who don't will quietly disappear.</p>
+    </div>
+  </div>
+
+  <h3>The Profit-Generating Toolkit</h3>
+  <p>The 3 systems you'll master today:</p>
+  <ol style="font-size: 17px; line-height: 2;">
+    <li><strong>The Authority Answer Engine</strong> — Become discoverable by becoming the answer.</li>
+    <li><strong>The Concept Cluster</strong> — Build community pages that win on Google AND ChatGPT simultaneously.</li>
+    <li><strong>The AI Citation Format</strong> — Structure content so AI quotes you by name.</li>
+  </ol>
+</section>
+
+<!-- SYSTEM 1 -->
+<section id="system-1">
+  <div class="section-label">Section 02</div>
+  <div class="system-block">
+    <span class="system-tag">System 1 · BE DISCOVERED</span>
+    <h2>The Authority Answer Engine</h2>
+    <p style="font-size:18px; color: var(--text-muted); margin-top:-10px;"><em>The Question That Sells The House</em></p>
+
+    <h4>What It Is</h4>
+    <p>The Authority Answer Engine is a content strategy that flips the realtor playbook on its head. Instead of writing pages that <em>announce</em> ("I'm the best agent in Boca!"), you write pages that <em>answer</em> ("What are the most popular gated communities in Boca Raton, and what's the median price in each?").</p>
+
+    <p>This works because Google and AI assistants no longer reward keyword density — they reward <strong>question coverage</strong>. When a buyer types a question into ChatGPT or Perplexity, the AI scans the web for the most authoritative, complete, well-structured <em>answer</em> to that exact question. Whoever wrote that answer gets cited.</p>
+
+    <h4>Why This Changes Everything in Real Estate</h4>
+    <p>Buyers don't search "realtor Delray Beach" anymore. They ask: <em>"What's it like to live in Delray Dunes?"</em> · <em>"How much are HOA fees in Polo Club?"</em> · <em>"Is St Andrews Country Club worth the membership?"</em> · <em>"What's the difference between living in a country club versus a regular gated community in Boca?"</em></p>
+    <p>If your website doesn't answer those questions in depth, you don't exist in the AI's recommendation set. Period.</p>
+
+    <h4>The Early Adopter Advantage</h4>
+    <p>99% of realtors are still writing the same vanilla "About Me" page they wrote in 2018. The first 100 realtors in your market who restructure their content around buyer questions will own the AI citation slots for the next 5–10 years. After that, the slots are taken.</p>
+
+    <div class="callout">
+      <strong>Real Revenue Applications:</strong>
+      <ul>
+        <li>Community FAQ pages that capture 50+ long-tail questions per neighborhood</li>
+        <li>"What's it like" lifestyle guides for each community you farm</li>
+        <li>Comparison pages (Country Club A vs Country Club B) — high-intent traffic</li>
+        <li>Pre-listing seller education that earns the listing before the appointment</li>
+        <li>Buyer relocation guides that pull warm out-of-state leads on autopilot</li>
+      </ul>
+    </div>
+  </div>
+
+  <h3>System 1: Profit-Generating Prompts</h3>
+  <p>Copy these directly into ChatGPT, Claude, Perplexity, or Gemini. Replace the <code>[bracketed]</code> sections with your specifics.</p>
+
+  <div class="prompt-label">Prompt 1.1 — The Buyer Question Mining Prompt</div>
+<pre>Act as a real estate buyer about to spend $1M to $5M in [city/community name]. List the 30 questions you would type into ChatGPT, Perplexity, or Google before deciding to tour or buy a home there.
+
+Group the questions into these categories:
+- Lifestyle &amp; daily life
+- Financial (HOA fees, taxes, special assessments)
+- Neighborhood/community specifics
+- Schools (public AND private)
+- Country club / amenities (if applicable)
+- The buying process &amp; closing costs
+- Resale &amp; long-term value
+
+For each question, also note WHICH stage of the funnel it represents (research, comparison, decision).
+
+Output as a clean numbered list.</pre>
+
+  <div class="prompt-label">Prompt 1.2 — The FAQ Block Writer</div>
+<pre>I'm a realtor focused on [city/community]. Take these 30 buyer questions and rewrite each as an SEO + AI-optimized FAQ block.
+
+For each:
+- Question (exactly as a buyer would ask it)
+- Answer in 120-180 words, in my voice (helpful, expert, specific, no fluff)
+- Include at least one specific data point (price, fee, amenity name, neighborhood name)
+- End with a soft transition to me as the local expert
+
+My background: [paste your About page or 3-line bio]
+My voice: confident, knowledgeable, warm, never pushy.
+
+Output as clean HTML I can paste into WordPress, with each Q in &lt;h3&gt; tags and each A in &lt;p&gt; tags.</pre>
+
+  <div class="prompt-label">Prompt 1.3 — The Authority Audit</div>
+<pre>Audit this realtor website page against the "Authority Answer Engine" framework: [paste page URL or full text].
+
+Score it 1-10 on each of:
+1. Buyer-question coverage (does it answer the questions buyers actually ask?)
+2. Depth per answer (is each answer 100+ words with specifics?)
+3. Expertise signals (named expert, credentials, dates, citations)
+4. Internal linking (does it link to deeper pages?)
+5. FAQ structure (is content in clear Q&amp;A blocks?)
+6. Schema readiness (would FAQPage JSON-LD work here?)
+
+Then list the top 10 SPECIFIC fixes — what to add, remove, or rewrite — in priority order.</pre>
+
+  <div class="prompt-label">Prompt 1.4 — The Zero-Click Blog Topics</div>
+<pre>Generate 15 blog post titles that target zero-click AI searches buyers in [city/community] would ask Perplexity or ChatGPT.
+
+Each title MUST be a question a real buyer would type. Examples to model on:
+- "What are the highest-end gated communities in Delray Beach?"
+- "Is St Andrews Country Club worth the equity buy-in?"
+
+For each title, output:
+- Primary question (the title)
+- 3 sub-questions the post will also answer
+- 250-word outline with H2 structure
+- 5 internal linking opportunities
+- 1 named expert quote suggestion (from me, as the local agent)
+
+Goal: rank in AI Overviews + get cited by ChatGPT.</pre>
+
+  <div class="prompt-label">Prompt 1.5 — The Community Comparison Engine</div>
+<pre>Write a 1,500-word comparison page: "Living in [Community A] vs [Community B] in [city]: A [Year] Buyer's Guide."
+
+Cover these 10 dimensions:
+1. Price range &amp; recent sales data
+2. HOA fees &amp; what they include
+3. Equity / membership buy-ins
+4. Amenities (golf, tennis, pickleball, fitness, dining)
+5. Demographics &amp; community vibe
+6. Top floor plans / home styles
+7. Resale trends over last 3 years
+8. Schools (if relevant)
+9. Distance to airports, beach, dining
+10. "Who is this community right for?"
+
+Format with H2 for each dimension, include a 12-question FAQ at the bottom, and use specific numbers wherever possible. End with a clear next-step CTA.</pre>
+
+  <div class="prompt-label">Prompt 1.6 — The "Why ChatGPT Should Pick Me" Reverse-Engineer</div>
+<pre>I want to be the realtor ChatGPT, Perplexity, and Google AI Overview recommend BY NAME when someone asks "who is the best realtor in [city]?"
+
+Reverse-engineer this. List the 10 specific things that need to be true on my website AND across the web for AI assistants to confidently cite me as the answer:
+
+- On-page signals (content, structure, schema)
+- Off-page signals (mentions, links, citations from authoritative sources)
+- Personal authority signals (named expert, credentials, press, reviews)
+- Freshness signals (publication dates, update cadence)
+- Trust signals (E-E-A-T, Google's framework)
+
+For each, give me a SPECIFIC tactical action I can take this month.</pre>
+
+  <div class="worksheet">
+    <h3>System 1: Your Success Notes</h3>
+    <p><strong>During the demo, write down:</strong></p>
+
+    <p>The 5 buyer questions I'm currently NOT answering on my website:</p>
+    <div class="fill-line"></div>
+    <div class="fill-line"></div>
+    <div class="fill-line"></div>
+    <div class="fill-line"></div>
+    <div class="fill-line"></div>
+
+    <p>The community I'll target first (be specific):</p>
+    <div class="fill-line"></div>
+
+    <p>My estimated value if I capture 1 extra deal/year from this strategy:</p>
+    <p>Avg commission: $___________ × 1 = $___________ in annual upside.</p>
+
+    <p>My first 3 actions this week:</p>
+    <p>1. ____________________________________________________________</p>
+    <p>2. ____________________________________________________________</p>
+    <p>3. ____________________________________________________________</p>
+  </div>
+</section>
+
+<!-- SYSTEM 2 -->
+<section id="system-2">
+  <div class="section-label">Section 03</div>
+  <div class="system-block">
+    <span class="system-tag">System 2 · BE TRUSTED</span>
+    <h2>The Concept Cluster</h2>
+    <p style="font-size:18px; color: var(--text-muted); margin-top:-10px;"><em>The 20-Question Community Page Stack</em></p>
+
+    <h4>What It Is</h4>
+    <p>A Concept Cluster is a content architecture: one deep "pillar" community page surrounded by 8–12 supporting blog posts, all internally linked, all answering related buyer questions about the same neighborhood. Together they signal to Google (and to AI) that <em>you are the topical authority</em> on that community.</p>
+
+    <h4>Why This Changes Everything</h4>
+    <p>Google moved from keyword-based indexing to <strong>concept-based indexing</strong> years ago. AI assistants do the same thing. They don't ask "does this page mention the keyword?" — they ask "is this site a comprehensive, trustworthy authority on this concept?"</p>
+    <p>One thin community page = invisible. One pillar page + 10 supporting articles + 200 FAQs = topical authority. The same content stack wins on <strong>both</strong> traditional Google search AND AI search. You build it once. It pays you forever.</p>
+
+    <h4>The Trust Stack</h4>
+    <p>Google's E-E-A-T framework (Experience, Expertise, Authoritativeness, Trust) is now also AI's framework. Concept Clusters check every box: experience (you've sold homes there), expertise (depth of content), authoritativeness (named expert, internal links from many pages), and trust (consistent, current, accurate).</p>
+
+    <div class="callout">
+      <strong>Real Revenue Applications:</strong>
+      <ul>
+        <li>One pillar community page per farm — your highest-ROI asset</li>
+        <li>Supporting "what's it like" + "should I move" + "comparison" + "amenity deep-dive" articles</li>
+        <li>Internal linking that compounds authority across your entire site</li>
+        <li>Newsletter content pulled directly from cluster posts (zero extra writing)</li>
+        <li>Ranks for hundreds of long-tail queries per cluster, not just the head term</li>
+      </ul>
+    </div>
+  </div>
+
+  <h3>System 2: Profit-Generating Prompts</h3>
+
+  <div class="prompt-label">Prompt 2.1 — The Topical Cluster Architect</div>
+<pre>Build me a complete topical content cluster for [community name] in [city].
+
+Output:
+1. PILLAR PAGE — outline a 3,000-word community guide with 12 H2 sections. Topics must include: lifestyle, demographics, HOA/amenities, schools, recent sales trends, top floor plans, "who lives here", and a 20-question FAQ.
+
+2. SUPPORTING ARTICLES — 12 blog post titles, each a buyer question, each ~1,200 words. Title + 3 sub-questions + 200-word outline.
+
+3. INTERNAL LINKING MAP — show me which articles should link to which using exact anchor text. The pillar page should be linked from every supporting article.
+
+4. PUBLISHING CADENCE — what order to publish in over 12 weeks for maximum SEO/AIO compounding.</pre>
+
+  <div class="prompt-label">Prompt 2.2 — The Cluster Gap Analyzer</div>
+<pre>Here is my current community page for [community]: [paste URL or content].
+
+Audit this against the "Concept Cluster" framework:
+- What buyer questions are MISSING?
+- What sub-topics are missing supporting articles?
+- What internal linking opportunities am I missing?
+- Where is my content thin (under 200 words on a topic that deserves 1,000)?
+
+Then propose 8 NEW supporting articles I should write, each with: title, primary buyer question, target word count, and exact internal-link anchor text from the pillar page.</pre>
+
+  <div class="prompt-label">Prompt 2.3 — The Long-Tail Question Generator</div>
+<pre>Generate 50 long-tail question keywords a buyer in [community] would type into Google AND ChatGPT/Perplexity.
+
+Categorize by funnel stage:
+- TOP (research): "What is...", "How does...", "Is it true that..."
+- MIDDLE (comparison): "Is X better than Y...", "Should I buy in X or Y..."
+- BOTTOM (decision): "Best realtor in...", "How to buy in [community]..."
+
+For each, note: estimated monthly search volume guess, AI-friendly score (1-10), and the supporting article it would belong to.</pre>
+
+  <div class="prompt-label">Prompt 2.4 — The Pillar Page Writer</div>
+<pre>Write the 3,000-word pillar community guide for [community name] in [city].
+
+Structure:
+- H1: [Community Name]: The Complete [Year] Guide for Buyers
+- 12 H2 sections (lifestyle, demographics, HOA, amenities, schools, sales trends, floor plans, who lives here, pros, cons, neighborhoods within, FAQ)
+- 20-question FAQ at the bottom
+- Specific data wherever possible (prices, fees, distances, square footage ranges)
+- Named expert quotes from me, the local realtor
+- Internal links to (placeholder) supporting articles
+- A clear "what to do next" CTA — schedule a community tour with me
+
+Voice: authoritative, warm, specific. Never generic.</pre>
+
+  <div class="prompt-label">Prompt 2.5 — The Cluster Strength Scorecard</div>
+<pre>Audit my entire content cluster strength for [community/topic].
+
+Inputs: [paste my pillar page URL + list of supporting articles].
+
+Score 1-10 on:
+- Topical depth (how complete is the coverage?)
+- Internal linking density
+- Question coverage (are buyer questions answered?)
+- Content freshness (last updated dates)
+- Author/expert signals
+- Schema implementation
+- Mobile + Core Web Vitals readiness
+
+Output: a one-page report card with the 5 highest-impact fixes I should make THIS WEEK, ranked by ROI.</pre>
+
+  <div class="worksheet">
+    <h3>System 2: Your Success Notes</h3>
+
+    <p>The community I'll cluster first:</p>
+    <div class="fill-line"></div>
+
+    <p>My current page word count: ___________ &nbsp;&nbsp;&nbsp; Target: 3,000+</p>
+
+    <p>Supporting articles I commit to writing in 90 days (list 8):</p>
+    <p>1. _______________________________ &nbsp;&nbsp; 5. _______________________________</p>
+    <p>2. _______________________________ &nbsp;&nbsp; 6. _______________________________</p>
+    <p>3. _______________________________ &nbsp;&nbsp; 7. _______________________________</p>
+    <p>4. _______________________________ &nbsp;&nbsp; 8. _______________________________</p>
+
+    <p>Estimated monthly search volume across the cluster: ___________</p>
+    <p>Estimated value of one buyer/seller from this cluster: $ ___________</p>
+  </div>
+</section>
+
+<!-- SYSTEM 3 -->
+<section id="system-3">
+  <div class="section-label">Section 04</div>
+  <div class="system-block">
+    <span class="system-tag">System 3 · BE CHOSEN</span>
+    <h2>The AI Citation Format</h2>
+    <p style="font-size:18px; color: var(--text-muted); margin-top:-10px;"><em>Quote Me By Name</em></p>
+
+    <h4>What It Is</h4>
+    <p>The AI Citation Format is a specific way of structuring web content so that AI assistants — ChatGPT, Perplexity, Gemini, Claude, Google AI Overviews — can extract, attribute, and quote your content cleanly. It's the difference between content the AI "reads" and content the AI <strong>cites with your name attached</strong>.</p>
+
+    <h4>The Five Pillars of AI Citability</h4>
+    <p><strong>1. Q&amp;A Block Structure.</strong> Every key point as a question + a clear, complete answer. AI assistants are answer engines — they prefer pages structured like answer books.</p>
+    <p><strong>2. FAQPage JSON-LD Schema.</strong> Machine-readable data tags that explicitly tell AI: "this is a question, this is its answer, this is who said it, this is when." Drop-in HTML you paste into your page <code>&lt;head&gt;</code>.</p>
+    <p><strong>3. Named Expert Bylines.</strong> "By Edmund Bogen, Luxury Realtor, The Edmund Bogen Team at Douglas Elliman." With credentials, location, photo, and a link to a robust author page. AI uses this to attribute citations.</p>
+    <p><strong>4. Fresh Date Stamps.</strong> "Last updated: April 28, 2026." AI prefers fresh content. Update dates monthly on key pages.</p>
+    <p><strong>5. Authoritative Citations.</strong> Cite real data sources (MLS, county records, GNAR, your team's recent sales). AI trusts content that itself trusts trustworthy sources.</p>
+
+    <div class="callout">
+      <strong>Real Revenue Applications:</strong>
+      <ul>
+        <li>Your bio reformatted so ChatGPT quotes you when buyers ask "who is the best realtor in [city]?"</li>
+        <li>Listing pages that AI surfaces in answers to "best homes in [community] under $X"</li>
+        <li>FAQ schema on every community page → eligibility for AI Overview citations</li>
+        <li>Press releases on listings, formatted as citable assets</li>
+        <li>Q&amp;A formatted blog posts that get surfaced in Perplexity and ChatGPT search</li>
+      </ul>
+    </div>
+  </div>
+
+  <h3>System 3: Profit-Generating Prompts</h3>
+
+  <div class="prompt-label">Prompt 3.1 — The AI Citability Reformatter</div>
+<pre>Reformat this article so ChatGPT, Perplexity, and Google AI Overviews are MAXIMALLY likely to cite it.
+
+Apply all of:
+1. Convert key sections into clear Q&amp;A blocks
+2. Add FAQPage JSON-LD schema (output ready to paste into &lt;head&gt;)
+3. Add a named expert byline with credentials
+4. Add a "Last updated: [today's date]" line
+5. Add 3-5 authoritative citations to real data sources
+6. Add a 50-word author bio at the bottom with my photo URL placeholder
+
+Original article: [paste]
+
+Output the rewritten article as clean HTML, plus the JSON-LD schema as a separate code block.</pre>
+
+  <div class="prompt-label">Prompt 3.2 — The FAQPage Schema Generator</div>
+<pre>Generate FAQPage JSON-LD schema for these 20 questions and answers about [community/topic].
+
+Q1: ____ &nbsp; A1: ____
+Q2: ____ &nbsp; A2: ____
+[paste all 20]
+
+Output as a single &lt;script type="application/ld+json"&gt; block ready to paste into the page &lt;head&gt;. Use proper escaping for any special characters.
+
+Also include the Person schema for the answering author: [my name, title, sameAs URLs for LinkedIn/website].</pre>
+
+  <div class="prompt-label">Prompt 3.3 — The AI-Citable Bio</div>
+<pre>Write the AI-citable bio for [my name] that ChatGPT, Perplexity, and Google AI Overview will quote when someone asks "who is the best realtor in [city]?"
+
+Constraints:
+- Exactly 200 words
+- Lead with named geographic specialty
+- Include 5 SPECIFIC authority signals (years experience, total sales volume, awards, designations, communities I specialize in)
+- Include 2 verifiable accomplishments with numbers
+- Include 1 unique credential or angle that differentiates me
+- Written in third person (so AI can quote it directly)
+- End with a clear contact CTA
+
+Inputs: [paste your current bio + key stats]
+Output: a clean 200-word bio + a Person schema JSON-LD block.</pre>
+
+  <div class="prompt-label">Prompt 3.4 — The Citability Score</div>
+<pre>Score this content for AI citability on a 1-10 scale: [paste content].
+
+Specific criteria:
+1. Question-first structure (is it answer-shaped?)
+2. Specificity (named entities, real numbers, real places, real dates)
+3. Author/expert signals (who wrote this? what credentials?)
+4. Freshness signals (when was it last updated?)
+5. Citation worthiness (would an AI confidently quote this?)
+6. Schema readiness
+7. Internal authority (linked from authoritative pages?)
+8. External trust (citations to real sources?)
+
+Total score: __/80
+
+Then list the EXACT rewrites needed to push the score above 70.</pre>
+
+  <div class="prompt-label">Prompt 3.5 — The Listing Press Release as AI Asset</div>
+<pre>Convert my new listing into a "press release as AI citable asset" for [address, community, city].
+
+Format for AI scrapers:
+- Headline (60 chars max, news-style)
+- Dateline (city, date)
+- Lead paragraph (who, what, where, when, why) — 60 words
+- Body: 3 paragraphs with specific data (sq ft, beds, baths, price, key features, community context, recent comp data)
+- Named expert quote from me (with credentials)
+- Boilerplate "About The Edmund Bogen Team"
+- Contact block
+
+Length: 600 words. Voice: factual, authoritative, citable. The kind of thing the AI quotes word-for-word.
+
+Inputs: [paste listing details]</pre>
+
+  <div class="worksheet">
+    <h3>System 3: Your Success Notes</h3>
+
+    <p>The 3 pages on my site I'll reformat for AI citation FIRST:</p>
+    <div class="fill-line"></div>
+    <div class="fill-line"></div>
+    <div class="fill-line"></div>
+
+    <p>My author bio currently: __________ words &nbsp;&nbsp; Target: 200 words AI-citable</p>
+
+    <p>FAQPage schema implemented on my site? &nbsp;&nbsp; ☐ Yes &nbsp; ☐ No &nbsp; ☐ I have no idea</p>
+
+    <p>The 5 questions I MUST be cited as the answer to in my market:</p>
+    <p>1. _____________________________________________________</p>
+    <p>2. _____________________________________________________</p>
+    <p>3. _____________________________________________________</p>
+    <p>4. _____________________________________________________</p>
+    <p>5. _____________________________________________________</p>
+  </div>
+</section>
+
+<!-- LIVE AUDIT CHECKLIST -->
+<section id="audit">
+  <div class="section-label">Section 05 · Bonus</div>
+  <h2>The Live Site Audit Scorecard</h2>
+  <p>Christopher will audit a real attendee's site live during the session. Use this scorecard to follow along — and audit your own site.</p>
+
+  <div class="grid-2">
+    <div class="card">
+      <h3>On-Page (50 pts)</h3>
+      <div class="checkbox">Q&amp;A block structure on key pages (10)</div>
+      <div class="checkbox">FAQPage JSON-LD schema implemented (10)</div>
+      <div class="checkbox">Named expert byline + author page (5)</div>
+      <div class="checkbox">"Last updated" dates on every page (5)</div>
+      <div class="checkbox">Community pages 2,000+ words with FAQ (10)</div>
+      <div class="checkbox">Internal linking density adequate (5)</div>
+      <div class="checkbox">Mobile + Core Web Vitals pass (5)</div>
+    </div>
+    <div class="card">
+      <h3>Off-Page (30 pts)</h3>
+      <div class="checkbox">Active GMB / Google Business Profile (5)</div>
+      <div class="checkbox">Consistent NAP citations across 20+ sites (5)</div>
+      <div class="checkbox">LinkedIn, Realtor.com, Zillow profiles complete (5)</div>
+      <div class="checkbox">Press mentions / news citations (5)</div>
+      <div class="checkbox">Authoritative inbound links (5)</div>
+      <div class="checkbox">Reviews on Google, Zillow, Realtor (5)</div>
+    </div>
+    <div class="card">
+      <h3>AI-Specific (20 pts)</h3>
+      <div class="checkbox">Bio appears in ChatGPT when searched (5)</div>
+      <div class="checkbox">Pages cited in Perplexity for community queries (5)</div>
+      <div class="checkbox">Listed in AI Overviews for any term (5)</div>
+      <div class="checkbox">Schema validates in Google Rich Results Test (5)</div>
+    </div>
+    <div class="card">
+      <h3>My Total Score</h3>
+      <p style="font-size: 28px; color: var(--accent); font-weight: 700;">______ / 100</p>
+      <p>Below 30: invisible to AI. <br>30-60: getting indexed but not cited. <br>60-85: in the citation pool. <br>85+: top 1%, cited regularly.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 30-DAY IMPLEMENTATION PLAN -->
+<section id="plan">
+  <div class="section-label">Section 06</div>
+  <h2>Your 30-Day Implementation Plan</h2>
+  <p>This is the exact sequence. Execute it week by week. Don't skip ahead.</p>
+
+  <div class="impl-grid">
+    <div class="week-card">
+      <h4>Week 1 · Foundation</h4>
+      <div class="checkbox">Run Prompt 1.1 — generate 30 buyer questions for your top community</div>
+      <div class="checkbox">Run Prompt 1.3 — audit your current community page</div>
+      <div class="checkbox">Pick ONE community to focus on for 90 days</div>
+      <div class="checkbox">Set up your AI Citability Scorecard baseline</div>
+      <div class="checkbox">Block 3 hours of "deep work" time per week on calendar</div>
+    </div>
+
+    <div class="week-card">
+      <h4>Week 2 · Pillar Page Build</h4>
+      <div class="checkbox">Run Prompt 2.1 — build the cluster architecture</div>
+      <div class="checkbox">Run Prompt 2.4 — write the 3,000-word pillar page</div>
+      <div class="checkbox">Edit, fact-check, add real data</div>
+      <div class="checkbox">Add 20-question FAQ at the bottom</div>
+      <div class="checkbox">Publish the pillar page on your website</div>
+    </div>
+
+    <div class="week-card">
+      <h4>Week 3 · AI Citation Format</h4>
+      <div class="checkbox">Run Prompt 3.2 — generate FAQPage JSON-LD for the pillar</div>
+      <div class="checkbox">Add schema to page &lt;head&gt;; validate in Google Rich Results Test</div>
+      <div class="checkbox">Run Prompt 3.3 — rewrite your bio as AI-citable</div>
+      <div class="checkbox">Update your author page + add Person schema</div>
+      <div class="checkbox">Add "Last updated" date stamps to all key pages</div>
+    </div>
+
+    <div class="week-card">
+      <h4>Week 4 · Distribute &amp; Measure</h4>
+      <div class="checkbox">Write 2 supporting articles (Prompts 1.4 + 2.3)</div>
+      <div class="checkbox">Internal-link supporting articles to pillar</div>
+      <div class="checkbox">Submit URLs to Google Search Console</div>
+      <div class="checkbox">Test: ask ChatGPT/Perplexity buyer questions, log if cited</div>
+      <div class="checkbox">Score your site against the audit scorecard. Compare to Week 1.</div>
+    </div>
+  </div>
+
+  <h3>Days 30-90: Compound</h3>
+  <p>One pillar page + 8 supporting articles + FAQ schema across all. By day 90, you should have a fully built cluster, multiple AI citations, and warm inbound leads from buyers who found you through ChatGPT/Perplexity. <strong>Track everything in the ROI table below.</strong></p>
+</section>
+
+<!-- COMMITMENT CONTRACT -->
+<section id="contract">
+  <div class="section-label">Section 07</div>
+  <h2>Your Profit Commitment Contract</h2>
+
+  <div class="contract">
+    <p><strong>Based on today's session, I commit to the following:</strong></p>
+
+    <p>Primary community focus: ____________________________________</p>
+
+    <p>I will master the Authority Answer Engine first because it will save me an estimated _____ hours per week and put me in front of an estimated _____ additional qualified buyers per month within 90 days.</p>
+
+    <p>Time investment: I will block _____ hours per week of focused work on this strategy.</p>
+
+    <p><strong>My Success Metrics (90 Days):</strong></p>
+    <p>• AI citations earned: _____</p>
+    <p>• Pillar pages published: _____</p>
+    <p>• Supporting articles published: _____</p>
+    <p>• New leads attributed to AI/organic: _____</p>
+    <p>• Revenue attributed: $ _____</p>
+
+    <p>Accountability partner: _____________________________</p>
+    <p>Weekly check-in: every _________ at _________ AM/PM</p>
+    <p>30-day review date: _________________________________</p>
+
+    <p style="margin-top: 30px;">Signature: _____________________________ &nbsp;&nbsp; Date: ___________</p>
+  </div>
+</section>
+
+<!-- ROI TRACKER -->
+<section id="roi">
+  <div class="section-label">Section 08</div>
+  <h2>Your ROI &amp; Tracking System</h2>
+
+  <h3>Weekly Progress Scorecard</h3>
+  <div class="worksheet">
+    <p>Week of: __________________________</p>
+    <p>☐ Pillar / supporting article published this week: _________________________</p>
+    <p>☐ AI citation tests run (ChatGPT, Perplexity, Gemini): _____ checks, _____ hits</p>
+    <p>☐ Schema added to: _____ pages this week</p>
+    <p>☐ Inbound leads attributed to organic/AI: _____</p>
+    <p>☐ Hours invested: _____</p>
+    <p>Next week's #1 priority: ___________________________________________</p>
+  </div>
+
+  <h3>Monthly ROI Assessment</h3>
+  <div class="worksheet">
+    <p>Month: __________________________</p>
+    <p>Total time invested: _____ hours × hourly value $_____ = $ _____ time cost</p>
+    <p>Pillar pages published: _____</p>
+    <p>Supporting articles published: _____</p>
+    <p>Verified AI citations (screenshot proof): _____</p>
+    <p>Inbound leads from organic/AI search: _____</p>
+    <p>Closed deals attributable to this strategy: _____</p>
+    <p>Revenue attributed: $ _____</p>
+    <p>Net ROI for the month: $ _____</p>
+    <p>Competitive advantages gained: ____________________________________</p>
+    <p>______________________________________________________________________</p>
+  </div>
+</section>
+
+<!-- RESOURCES & CLOSING -->
+<section id="closing">
+  <div class="section-label">Section 09</div>
+  <h2>Resources &amp; Final Checklist</h2>
+
+  <h3>Tools You'll Need</h3>
+  <div class="grid-2">
+    <div class="card">
+      <h3>AI Engines</h3>
+      <p>ChatGPT (Plus or Pro) · Claude · Perplexity · Gemini · For prompt execution and content drafting.</p>
+    </div>
+    <div class="card">
+      <h3>Validation</h3>
+      <p>Google Rich Results Test · Schema.org Validator · Google Search Console · Bing Webmaster Tools.</p>
+    </div>
+    <div class="card">
+      <h3>Tracking</h3>
+      <p>Google Analytics 4 · Google Search Console · Manual ChatGPT/Perplexity citation testing weekly.</p>
+    </div>
+    <div class="card">
+      <h3>Mastermind Support</h3>
+      <p>Edmund's Mastermind member portal · Weekly group coaching call · Submit your audit results for review.</p>
+    </div>
+  </div>
+
+  <h3>Final Pre-Launch Checklist</h3>
+  <div class="worksheet">
+    <div class="checkbox">All AI tool accounts active (ChatGPT, Perplexity, Gemini)</div>
+    <div class="checkbox">Accountability partner identified, contact exchanged</div>
+    <div class="checkbox">Week 1 plan written and on calendar</div>
+    <div class="checkbox">AI Citability Scorecard baseline scored</div>
+    <div class="checkbox">30-day review meeting scheduled with self or accountability partner</div>
+    <div class="checkbox">First pillar community chosen and committed to</div>
+    <div class="checkbox">Bio rewrite drafted</div>
+    <div class="checkbox">First FAQPage schema generated and ready to deploy</div>
+  </div>
+
+  <h3>Closing Manifesto</h3>
+  <div class="manifesto">
+    "While my competitors fight for a Google rank that nobody clicks anymore, I'm building the only asset that matters in the age of AI search: <strong>the answer.</strong> Every page on my site is a citation waiting to happen. Every buyer question is a door I open. Every AI assistant becomes a sales rep working for me, 24 hours a day, recommending me by name. I am no longer optimizing for an algorithm. I am being discovered. I am being trusted. I am being chosen."
+  </div>
+
+  <div class="worksheet">
+    <p><strong>My Personal Success Statement:</strong></p>
+    <div class="fill-line"></div>
+    <div class="fill-line"></div>
+    <div class="fill-line"></div>
+    <div class="fill-line"></div>
+  </div>
+</section>
+
+</div>
+
+<footer>
+  <p class="brand">Edmund's Mastermind &amp; Group Coaching</p>
+  <p style="margin: 12px 0;">© 2026 Edmund Bogen · The New Rules of Influence in the Age of AI</p>
+  <p class="tagline">Because Being Invisible to AI is NOT an Option!</p>
+</footer>
+
+<script>
+  (function() {
+    var html = document.documentElement;
+    var stored = localStorage.getItem('mastermind-theme');
+    if (stored === 'dark' || (!stored && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+      html.setAttribute('data-theme', 'dark');
+    }
+    document.getElementById('theme-toggle').addEventListener('click', function() {
+      var current = html.getAttribute('data-theme');
+      var next = current === 'dark' ? 'light' : 'dark';
+      html.setAttribute('data-theme', next);
+      localStorage.setItem('mastermind-theme', next);
+    });
+    document.getElementById('print-btn').addEventListener('click', function() {
+      // Force light theme for clean PDF
+      var prevTheme = html.getAttribute('data-theme');
+      html.setAttribute('data-theme', 'light');
+      setTimeout(function() {
+        window.print();
+        setTimeout(function() {
+          html.setAttribute('data-theme', prevTheme);
+        }, 500);
+      }, 100);
+    });
+  })();
+</script>
+</body>
+</html>
