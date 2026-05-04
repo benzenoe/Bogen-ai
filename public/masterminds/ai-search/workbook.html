@@ -315,9 +315,85 @@
   footer .brand { font-size: 13px; letter-spacing: 0.15em; text-transform: uppercase; opacity: 0.8; }
   footer .tagline { color: var(--accent); font-style: italic; margin-top: 16px; font-size: 14px; }
 
+  /* PDF Preview Modal */
+  .pdf-modal-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.85);
+    z-index: 9999;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+  }
+  .pdf-modal-overlay.active { display: flex; }
+  .pdf-modal {
+    background: var(--bg);
+    border-radius: 8px;
+    width: 100%;
+    max-width: 1200px;
+    height: 90vh;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 10px 50px rgba(0, 0, 0, 0.5);
+    overflow: hidden;
+  }
+  .pdf-modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    padding: 16px 24px;
+    border-bottom: 1px solid var(--border);
+    flex-wrap: wrap;
+  }
+  .pdf-modal-title {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+  .pdf-modal-actions { display: flex; gap: 10px; }
+  .pdf-modal-actions button {
+    padding: 9px 18px;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    cursor: pointer;
+    border: none;
+    transition: all 0.2s ease;
+  }
+  .btn-close-modal {
+    background: transparent;
+    color: var(--text-muted);
+    border: 1px solid var(--border);
+  }
+  .btn-close-modal:hover { background: var(--bg-alt); color: var(--text); }
+  .btn-confirm-download { background: var(--accent); color: #ffffff; }
+  .btn-confirm-download:hover { background: var(--accent-hover); }
+  .pdf-modal-body {
+    flex: 1;
+    overflow: hidden;
+    background: #525659;
+  }
+  .pdf-modal-body iframe { width: 100%; height: 100%; border: none; }
+  .pdf-modal-fallback {
+    display: none;
+    padding: 24px;
+    color: var(--text);
+    font-size: 14px;
+    line-height: 1.6;
+  }
+  .pdf-modal-body.no-pdf { background: var(--bg-alt); display: flex; align-items: center; justify-content: center; }
+  .pdf-modal-body.no-pdf iframe { display: none; }
+  .pdf-modal-body.no-pdf .pdf-modal-fallback { display: block; max-width: 480px; text-align: center; }
+
   /* Print Styles */
   @media print {
-    .toolbar { display: none; }
+    .toolbar, .pdf-modal-overlay { display: none !important; }
     body { background: #ffffff; color: #000000; }
     section { page-break-inside: avoid; padding: 30px 0; }
     h2 { page-break-after: avoid; }
@@ -978,6 +1054,25 @@ Inputs: [paste listing details]</pre>
 
 </div>
 
+<div class="pdf-modal-overlay" id="pdfModal" role="dialog" aria-modal="true" aria-labelledby="pdfModalTitle">
+  <div class="pdf-modal">
+    <div class="pdf-modal-header">
+      <div class="pdf-modal-title" id="pdfModalTitle">Workbook — PDF Preview</div>
+      <div class="pdf-modal-actions">
+        <button class="btn-close-modal" id="closeModal" type="button">Close</button>
+        <button class="btn-confirm-download" id="confirmDownload" type="button">Download PDF</button>
+      </div>
+    </div>
+    <div class="pdf-modal-body" id="pdfModalBody">
+      <iframe id="pdfFrame" title="Workbook PDF preview"></iframe>
+      <div class="pdf-modal-fallback">
+        <p><strong>PDF not available yet.</strong></p>
+        <p>Use your browser's print dialog (Cmd/Ctrl + P) and choose <em>Save as PDF</em> to generate one. The PDF will live alongside this page once published.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
 <footer>
   <p class="brand">Edmund's Mastermind &amp; Group Coaching</p>
   <p style="margin: 12px 0;">© 2026 Edmund Bogen · The New Rules of Influence in the Age of AI</p>
@@ -997,16 +1092,48 @@ Inputs: [paste listing details]</pre>
       html.setAttribute('data-theme', next);
       localStorage.setItem('mastermind-theme', next);
     });
-    document.getElementById('print-btn').addEventListener('click', function() {
-      // Force light theme for clean PDF
-      var prevTheme = html.getAttribute('data-theme');
-      html.setAttribute('data-theme', 'light');
-      setTimeout(function() {
-        window.print();
-        setTimeout(function() {
-          html.setAttribute('data-theme', prevTheme);
-        }, 500);
-      }, 100);
+    var pdfUrl = './workbook.pdf';
+    var modal = document.getElementById('pdfModal');
+    var modalBody = document.getElementById('pdfModalBody');
+    var pdfFrame = document.getElementById('pdfFrame');
+    var openBtn = document.getElementById('print-btn');
+    var closeBtn = document.getElementById('closeModal');
+    var dlBtn = document.getElementById('confirmDownload');
+
+    function openModal() {
+      fetch(pdfUrl, { method: 'HEAD' }).then(function(r) {
+        if (r.ok) {
+          modalBody.classList.remove('no-pdf');
+          pdfFrame.src = pdfUrl + '#toolbar=1&view=FitH';
+        } else {
+          modalBody.classList.add('no-pdf');
+          pdfFrame.removeAttribute('src');
+        }
+      }).catch(function() {
+        modalBody.classList.add('no-pdf');
+        pdfFrame.removeAttribute('src');
+      });
+      modal.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeModal() {
+      modal.classList.remove('active');
+      pdfFrame.removeAttribute('src');
+      document.body.style.overflow = '';
+    }
+    openBtn.addEventListener('click', openModal);
+    closeBtn.addEventListener('click', closeModal);
+    dlBtn.addEventListener('click', function() {
+      var a = document.createElement('a');
+      a.href = pdfUrl;
+      a.download = 'ai-search-workbook.pdf';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+    });
+    modal.addEventListener('click', function(e) { if (e.target === modal) closeModal(); });
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape' && modal.classList.contains('active')) closeModal();
     });
   })();
 </script>
