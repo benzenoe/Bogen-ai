@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mutual Non-Disclosure Agreement — Lucky in Love &amp; Bogen.ai</title>
+<meta name="description" content="Mutual confidentiality agreement between Lucky in Love and Bogen.ai (Dave T Productions) covering exploratory discussions, recordings, transcripts, and proprietary information.">
+<style>
+:root {
+  --teal: #2B6166;
+  --navy: #0d1620;
+  --navy2: #1a2332;
+  --blue: #00a8e1;
+  --gold: #ffd93d;
+  --green: #00c48c;
+  --red: #ff6b6b;
+  --paper: #ffffff;
+  --paper-2: #fafbfc;
+  --ink: #0d1620;
+  --ink-2: #1e2e3e;
+  --ink-3: #4a5a6c;
+  --ink-4: #8899aa;
+  --rule: #d8dee5;
+  --rule-strong: #b0bbc8;
+  --bg: var(--paper-2);
+  --surface: var(--paper);
+}
+
+[data-theme="dark"] {
+  --paper: #1a2332;
+  --paper-2: #0d1620;
+  --ink: #f0f4f8;
+  --ink-2: #c0ccd8;
+  --ink-3: #8899aa;
+  --ink-4: #6a7888;
+  --rule: rgba(255,255,255,0.10);
+  --rule-strong: rgba(255,255,255,0.18);
+  --bg: var(--paper-2);
+  --surface: var(--paper);
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'Georgia', 'Times New Roman', serif;
+  background: var(--bg);
+  color: var(--ink);
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+}
+
+.sans {
+  font-family: 'Segoe UI', system-ui, sans-serif;
+}
+
+/* NAV */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  height: 56px;
+  background: rgba(13,22,32,0.97);
+  backdrop-filter: blur(12px);
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 2rem;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+  font-family: 'Segoe UI', system-ui, sans-serif;
+}
+.nav-logo { font-weight: 800; letter-spacing: 0.04em; color: #fff; font-size: 0.95rem; }
+.nav-logo span { color: var(--blue); }
+.nav-links { display: flex; align-items: center; gap: 0.85rem; }
+.nav-links a { color: #8899aa; text-decoration: none; font-size: 0.85rem; transition: color 0.2s; }
+.nav-links a:hover { color: #fff; }
+.nav-cta {
+  background: var(--blue); color: #fff !important;
+  padding: 0.4rem 1rem; border-radius: 8px; font-size: 0.82rem; font-weight: 600;
+}
+.theme-toggle {
+  background: transparent; border: 1px solid rgba(255,255,255,0.15);
+  color: #8899aa; cursor: pointer; padding: 0.3rem 0.75rem;
+  border-radius: 6px; font-size: 0.78rem; transition: all 0.2s;
+}
+.theme-toggle:hover { border-color: var(--blue); color: var(--blue); }
+
+/* DOCUMENT */
+.doc {
+  max-width: 760px; margin: 0 auto;
+  padding: 7rem 2.5rem 4rem;
+}
+
+.doc-header {
+  text-align: center;
+  border-bottom: 2px solid var(--ink); padding-bottom: 1.5rem; margin-bottom: 2.5rem;
+}
+.doc-eyebrow {
+  font-family: 'Segoe UI', system-ui, sans-serif;
+  font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.18em;
+  color: var(--ink-3); margin-bottom: 0.85rem;
+}
+.doc-title {
+  font-size: 1.85rem; font-weight: 700; line-height: 1.25;
+  color: var(--ink); letter-spacing: -0.01em;
+}
+.doc-sub {
+  font-family: 'Segoe UI', system-ui, sans-serif;
+  font-size: 0.88rem; color: var(--ink-3); margin-top: 0.85rem;
+}
+
+.parties {
+  background: var(--surface); border: 1px solid var(--rule);
+  border-radius: 10px; padding: 1.5rem 1.75rem;
+  margin: 0 0 2rem;
+  font-family: 'Segoe UI', system-ui, sans-serif;
+  font-size: 0.93rem;
+}
+.parties .row { display: grid; grid-template-columns: 130px 1fr; gap: 0.75rem; padding: 0.5rem 0; border-bottom: 1px dashed var(--rule); }
+.parties .row:last-child { border-bottom: none; }
+.parties .row .lbl { color: var(--ink-3); font-weight: 600; text-transform: uppercase; font-size: 0.72rem; letter-spacing: 0.07em; padding-top: 0.18rem; }
+.parties .row .val { color: var(--ink); }
+.parties .row .val small { color: var(--ink-3); font-size: 0.82rem; display: block; margin-top: 0.15rem; }
+
+.todo-note {
+  display: inline-block; padding: 0.1rem 0.45rem; margin-left: 0.4rem;
+  background: rgba(255,217,61,0.18); color: #8a6b00;
+  border: 1px solid rgba(255,217,61,0.5);
+  border-radius: 4px; font-size: 0.7rem; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 0.05em;
+}
+[data-theme="dark"] .todo-note { background: rgba(255,217,61,0.10); color: var(--gold); border-color: rgba(255,217,61,0.3); }
+
+.recital {
+  font-style: italic; color: var(--ink-2);
+  border-left: 3px solid var(--rule-strong); padding-left: 1rem;
+  margin: 0 0 2rem;
+  font-size: 0.95rem;
+}
+.recital p + p { margin-top: 0.85rem; }
+
+h2.section-title {
+  font-family: 'Segoe UI', system-ui, sans-serif;
+  font-size: 1rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em;
+  color: var(--ink); margin-top: 2rem; margin-bottom: 0.85rem;
+  padding-bottom: 0.4rem; border-bottom: 1px solid var(--rule);
+}
+h2.section-title .num { color: var(--blue); margin-right: 0.5rem; }
+
+.clause { margin-bottom: 1rem; font-size: 0.95rem; color: var(--ink-2); }
+.clause p + p { margin-top: 0.85rem; }
+.clause ul, .clause ol { margin-left: 1.5rem; margin-top: 0.5rem; }
+.clause li { margin: 0.4rem 0; }
+.clause strong { color: var(--ink); }
+
+.callout {
+  background: rgba(0,168,225,0.06); border: 1px solid rgba(0,168,225,0.2);
+  border-radius: 10px; padding: 1.1rem 1.4rem; margin: 1rem 0;
+  font-family: 'Segoe UI', system-ui, sans-serif; font-size: 0.9rem;
+  color: var(--ink-2);
+}
+.callout strong { color: var(--blue); }
+
+/* SIGNATURE PAGE */
+.sig-page {
+  margin-top: 3rem; padding-top: 2rem; border-top: 2px solid var(--ink);
+}
+.sig-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 2.5rem;
+  margin-top: 1.5rem;
+  font-family: 'Segoe UI', system-ui, sans-serif;
+}
+.sig-block {
+  display: flex; flex-direction: column; gap: 1rem;
+}
+.sig-party-name { font-weight: 700; font-size: 1rem; color: var(--ink); }
+.sig-party-name small { display: block; font-weight: 400; color: var(--ink-3); margin-top: 0.15rem; font-size: 0.78rem; }
+.sig-line {
+  border-bottom: 1px solid var(--ink); height: 2.5rem;
+}
+.sig-label { font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--ink-3); margin-top: -0.55rem; }
+.sig-fields {
+  display: grid; gap: 0.85rem; margin-top: 0.5rem;
+  font-size: 0.85rem;
+}
+.sig-fields .field { display: grid; grid-template-columns: 75px 1fr; gap: 0.5rem; align-items: end; }
+.sig-fields .field .k { color: var(--ink-3); font-weight: 600; padding-bottom: 0.2rem; }
+.sig-fields .field .v { border-bottom: 1px solid var(--rule-strong); min-height: 1.4rem; padding-bottom: 0.15rem; color: var(--ink); }
+
+@media (max-width: 720px) {
+  .sig-grid { grid-template-columns: 1fr; }
+  .doc { padding: 6rem 1.25rem 3rem; }
+  .doc-title { font-size: 1.45rem; }
+}
+
+/* FOOTER */
+footer {
+  background: var(--navy); border-top: 1px solid rgba(255,255,255,0.08);
+  padding: 2.5rem 2rem; text-align: center;
+  font-family: 'Segoe UI', system-ui, sans-serif;
+}
+footer p { font-size: 0.82rem; color: #8899aa; }
+footer a { color: var(--blue); text-decoration: none; }
+.confidential-bar {
+  margin-top: 1.25rem; padding: 0.55rem 1rem;
+  background: rgba(255,217,61,0.05); border: 1px solid rgba(255,217,61,0.15);
+  border-radius: 8px; display: inline-block;
+  font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.08em; color: rgba(255,217,61,0.6);
+}
+
+/* PDF MODAL */
+#pdf-modal { display:none; position:fixed; inset:0; z-index:1000; background:rgba(0,0,0,0.85); backdrop-filter:blur(6px); flex-direction:column; align-items:center; justify-content:center; padding:1rem; font-family: 'Segoe UI', system-ui, sans-serif; }
+
+/* PRINT */
+@media print {
+  nav, .theme-toggle, #pdf-modal, .nav-links { display: none !important; }
+  body { background: #fff !important; color: #0d1620 !important; }
+  .doc { padding: 0.5in 0.65in; max-width: 100%; }
+  footer { background: #0d1620 !important; color: #f0f4f8 !important; }
+  footer p, footer strong { color: #f0f4f8 !important; }
+  footer a { color: #00a8e1 !important; }
+  h2.section-title, .clause, .callout, .parties, .recital { page-break-inside: avoid; }
+  .sig-page { page-break-before: always; }
+  * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">Bogen<span>.ai</span></div>
+  <div class="nav-links">
+    <a href="lucky-in-love-discovery.html">Pitch Brief</a>
+    <button class="theme-toggle" onclick="toggleTheme()">☀ Light / ☾ Dark</button>
+    <button onclick="openPdfModal()" class="nav-cta" style="background:#2B6166;border:none;cursor:pointer;">⬇ PDF</button>
+    <a href="mailto:eytan@bogen.ai?subject=Lucky%20in%20Love%20%E2%80%94%20NDA%20signed" class="nav-cta">Sign &amp; Return</a>
+  </div>
+</nav>
+
+<div class="doc">
+
+  <div class="doc-header">
+    <div class="doc-eyebrow">Bogen.ai × Lucky in Love</div>
+    <div class="doc-title">Mutual Non-Disclosure &amp; Confidentiality Agreement</div>
+    <div class="doc-sub">Effective Date: <strong>May 5, 2026</strong></div>
+  </div>
+
+  <div class="parties">
+    <div class="row">
+      <div class="lbl">Party A</div>
+      <div class="val">
+        <strong>Dave T Productions, Inc. d/b/a Bogen.ai</strong> <span class="todo-note">confirm entity</span>
+        <small>Represented by: Edmund Bogen &amp; Eytan Benzeno · Florida, United States</small>
+      </div>
+    </div>
+    <div class="row">
+      <div class="lbl">Party B</div>
+      <div class="val">
+        <strong>Lucky in Love</strong> <span class="todo-note">confirm legal entity</span>
+        <small>Represented by: Brad Singer · Miami-Dade County, Florida, United States</small>
+      </div>
+    </div>
+    <div class="row">
+      <div class="lbl">Purpose</div>
+      <div class="val">Evaluating a potential business relationship in which Party A would provide AI &amp; automation advisory, technology, and implementation services to Party B (the "<strong>Purpose</strong>").</div>
+    </div>
+    <div class="row">
+      <div class="lbl">Effective Date</div>
+      <div class="val">May 5, 2026 — extending retroactively to cover the parties' May 4, 2026 conversation, including any audio recording and AI-generated transcript thereof.</div>
+    </div>
+  </div>
+
+  <div class="recital">
+    <p>The parties met on May 4, 2026 to explore a potential collaboration. Party B disclosed proprietary information regarding its operations, financials, supply chain, customer base, and strategy. The conversation was recorded and transcribed via an AI meeting-notes tool (Otter.ai / Notion AI). The parties wish to continue the conversation and to do so candidly, but only under written confidentiality protections that explicitly address modern AI-related risks.</p>
+    <p>The parties therefore agree as follows:</p>
+  </div>
+
+  <!-- 1 -->
+  <h2 class="section-title"><span class="num">1.</span>Definition of Confidential Information</h2>
+  <div class="clause">
+    <p>"<strong>Confidential Information</strong>" means any non-public information disclosed by one party (the "<strong>Discloser</strong>") to the other (the "<strong>Recipient</strong>"), in any form (oral, written, visual, electronic, recorded, or transcribed), that is either marked or identified as confidential at the time of disclosure or that a reasonable person would understand to be confidential given the nature of the information and circumstances of disclosure. Confidential Information includes, without limitation:</p>
+    <ul>
+      <li>Business plans, strategies, financial information, revenue figures, customer and supplier lists, vendor relationships, pricing, margins, and channel economics;</li>
+      <li>Product designs, SKU architecture, manufacturing processes, factory operations, lead-time and inventory data, sourcing and fabric specifications;</li>
+      <li>Marketing data, ad spend allocation, campaign performance, customer acquisition and lifecycle metrics, returns and replenishment data;</li>
+      <li>Technology stacks, ERP / Shopify / RepSpark configurations, account structures, internal dashboards, and system credentials;</li>
+      <li>Methodologies, AI workflows, prompt designs, agent architectures, source code, model configurations, and proposal structures of Party A;</li>
+      <li>The audio recording and AI-generated transcript of the May 4, 2026 conversation, and any subsequent recordings, transcripts, summaries, or derivative analyses created from the parties' interactions;</li>
+      <li>The fact and substance of the discussions between the parties, including the existence of this Agreement and any term sheets, proposals, or pricing exchanged.</li>
+    </ul>
+  </div>
+
+  <!-- 2 -->
+  <h2 class="section-title"><span class="num">2.</span>Exclusions</h2>
+  <div class="clause">
+    <p>Confidential Information does not include information that the Recipient can demonstrate by written records: (a) was lawfully in the Recipient's possession without confidentiality obligation prior to disclosure by the Discloser; (b) is or becomes publicly available through no act or omission of the Recipient; (c) was lawfully received from a third party without breach of any confidentiality obligation; or (d) was independently developed by the Recipient without use of or reference to the Discloser's Confidential Information.</p>
+  </div>
+
+  <!-- 3 -->
+  <h2 class="section-title"><span class="num">3.</span>Obligations of the Recipient</h2>
+  <div class="clause">
+    <p>The Recipient shall:</p>
+    <ul>
+      <li>Hold the Discloser's Confidential Information in strict confidence, using at minimum the same degree of care it uses to protect its own most sensitive confidential information, and in no event less than a reasonable standard of care;</li>
+      <li>Use the Confidential Information solely for the Purpose, and for no other purpose;</li>
+      <li>Limit disclosure of Confidential Information to its employees, contractors, attorneys, accountants, and advisors who have a bona-fide need to know for the Purpose, and who are bound by confidentiality obligations at least as protective as those in this Agreement;</li>
+      <li>Not disclose, publish, post, share, or distribute the Confidential Information to any third party (including any social media, public website, podcast, panel, or AI service that does not meet the requirements of Section 5) without the Discloser's prior written consent;</li>
+      <li>Promptly notify the Discloser of any unauthorized use or disclosure of Confidential Information of which the Recipient becomes aware, and reasonably cooperate with the Discloser in mitigating its effects.</li>
+    </ul>
+  </div>
+
+  <!-- 4 -->
+  <h2 class="section-title"><span class="num">4.</span>Recordings &amp; Transcripts</h2>
+  <div class="clause">
+    <p>The parties acknowledge that the May 4, 2026 conversation was recorded and transcribed using AI meeting-notes software, and that future conversations may be similarly recorded with both parties' explicit consent. With respect to all such recordings, transcripts, and any summaries, action items, or analyses generated therefrom (collectively, "<strong>Conversation Records</strong>"):</p>
+    <ul>
+      <li>Conversation Records shall be treated as Confidential Information of <strong>both</strong> parties, regardless of which party initiated or controls the recording;</li>
+      <li>Conversation Records shall be stored only in access-controlled systems under the recording party's direct control, and shall not be made publicly accessible (including via shareable links, public Notion pages, or unsecured cloud folders);</li>
+      <li>Upon written request by either party, the other party will (i) furnish a current inventory of all Conversation Records held, (ii) restrict access to a named list of individuals, or (iii) permanently delete the Conversation Records, at the requesting party's election;</li>
+      <li>No Conversation Record may be quoted, paraphrased, screenshot, or otherwise excerpted in any external communication without the prior written consent of the party to whom the quoted statement is attributable.</li>
+    </ul>
+  </div>
+
+  <!-- 5 -->
+  <h2 class="section-title"><span class="num">5.</span>Use of AI &amp; Machine-Learning Systems</h2>
+  <div class="clause">
+    <p>This is the section the parties most care about, and so it is set out explicitly:</p>
+    <ul>
+      <li><strong>No model training.</strong> Neither party shall use the other's Confidential Information (including any Conversation Record) to train, fine-tune, or otherwise improve any artificial-intelligence or machine-learning model that is offered to third parties, or that is intended to be offered to third parties, whether commercially or otherwise.</li>
+      <li><strong>Permitted internal use.</strong> Each party may use AI systems internally to summarize, analyze, draft responses to, or otherwise work with the other's Confidential Information for the Purpose, <em>provided that</em> all such use occurs through AI services with contractual zero-data-retention or no-training guarantees (e.g., enterprise OpenAI / Anthropic / Google deployments with appropriate data-handling terms), or through models running locally under the using party's direct control.</li>
+      <li><strong>No public-AI exposure.</strong> Confidential Information shall not be entered into any consumer-grade AI service, public chatbot, or third-party prompt-sharing platform that does not contractually exclude the input from training and from third-party access.</li>
+      <li><strong>Vendor flow-down.</strong> If a party engages a third-party AI vendor in connection with the Purpose, that vendor must be bound by data-handling and confidentiality terms at least as protective as those in this Agreement.</li>
+    </ul>
+    <div class="callout">
+      <strong>Plain-English version:</strong> nothing Brad says — in voice, text, transcript, or summary — gets fed into ChatGPT-the-public-app, Gemini-the-consumer-app, or any AI training pipeline. Internal AI work happens on accounts with no-training, no-retention contracts. If you're not sure, ask first.
+    </div>
+  </div>
+
+  <!-- 6 -->
+  <h2 class="section-title"><span class="num">6.</span>Term &amp; Survival</h2>
+  <div class="clause">
+    <p>This Agreement is effective as of the Effective Date and continues for <strong>three (3) years</strong>, unless earlier terminated by mutual written consent or extended by written agreement of the parties. The confidentiality obligations set forth herein shall survive termination or expiration of this Agreement for an additional <strong>three (3) years</strong>; provided that with respect to information constituting a trade secret under applicable law, confidentiality obligations shall continue for so long as such information remains a trade secret.</p>
+  </div>
+
+  <!-- 7 -->
+  <h2 class="section-title"><span class="num">7.</span>Return or Destruction</h2>
+  <div class="clause">
+    <p>Upon written request by the Discloser, or upon termination or expiration of this Agreement, the Recipient shall, at the Discloser's election, promptly (and in no event later than thirty (30) days) either (i) return all tangible and intangible Confidential Information of the Discloser, including all copies, notes, summaries, recordings, and transcripts derived therefrom, or (ii) permanently destroy the same and certify such destruction in writing. The Recipient may retain one archival copy in secure legal counsel files solely for the purpose of evidencing compliance with this Agreement and applicable law; such retained copy remains subject to the obligations of this Agreement indefinitely.</p>
+  </div>
+
+  <!-- 8 -->
+  <h2 class="section-title"><span class="num">8.</span>No License; No Obligation</h2>
+  <div class="clause">
+    <p>Nothing in this Agreement grants the Recipient any right, title, license, or interest in or to the Discloser's Confidential Information or any intellectual property of the Discloser, except the limited right to use such information for the Purpose. Neither party is obligated by this Agreement to enter into any further business relationship; either party may terminate the discussions at any time, with or without cause.</p>
+  </div>
+
+  <!-- 9 -->
+  <h2 class="section-title"><span class="num">9.</span>Compelled Disclosure</h2>
+  <div class="clause">
+    <p>If the Recipient is required by law, regulation, subpoena, or court order to disclose any Confidential Information, the Recipient shall (where legally permissible) give the Discloser prompt prior written notice and reasonable cooperation so that the Discloser may seek a protective order or other appropriate remedy. The Recipient shall disclose only that portion of the Confidential Information that is legally required and shall use reasonable efforts to obtain confidential treatment for the disclosed material.</p>
+  </div>
+
+  <!-- 10 -->
+  <h2 class="section-title"><span class="num">10.</span>Remedies</h2>
+  <div class="clause">
+    <p>The parties acknowledge that monetary damages may be insufficient to remedy a breach of this Agreement and that the non-breaching party shall be entitled to seek equitable relief, including injunction and specific performance, in addition to any other remedies available at law or in equity, without the requirement of posting bond.</p>
+  </div>
+
+  <!-- 11 -->
+  <h2 class="section-title"><span class="num">11.</span>Governing Law &amp; Venue</h2>
+  <div class="clause">
+    <p>This Agreement shall be governed by and construed in accordance with the laws of the <strong>State of Florida</strong>, without regard to its conflict-of-laws principles. The parties consent to the exclusive jurisdiction and venue of the state and federal courts located in <strong>Miami-Dade County, Florida</strong> for any disputes arising from or relating to this Agreement.</p>
+  </div>
+
+  <!-- 12 -->
+  <h2 class="section-title"><span class="num">12.</span>Miscellaneous</h2>
+  <div class="clause">
+    <p><strong>Entire Agreement.</strong> This Agreement constitutes the entire understanding between the parties regarding the subject matter hereof and supersedes all prior or contemporaneous discussions, representations, or agreements, whether oral or written, regarding the same subject matter.</p>
+    <p><strong>Amendment.</strong> This Agreement may be amended only by a writing signed by authorized representatives of both parties.</p>
+    <p><strong>Counterparts &amp; Electronic Signatures.</strong> This Agreement may be executed in counterparts, each of which shall be deemed an original and all of which together shall constitute one instrument. Signatures delivered by electronic means (including DocuSign, scanned PDF, or photograph of a wet signature) shall have the same legal effect as original signatures.</p>
+    <p><strong>Severability.</strong> If any provision of this Agreement is held unenforceable, the remaining provisions shall continue in full force and effect.</p>
+    <p><strong>No Waiver.</strong> The failure of either party to enforce any right under this Agreement shall not constitute a waiver of such right.</p>
+    <p><strong>Assignment.</strong> Neither party may assign this Agreement without the prior written consent of the other party, except in connection with a merger, acquisition, or sale of substantially all of its assets.</p>
+    <p><strong>Not Legal Advice.</strong> The parties acknowledge that this Agreement was prepared as a working document for the convenience of both parties and that each party has had, or has been advised to have, the opportunity to obtain independent legal counsel before signing. Neither Bogen.ai nor any of its representatives is acting as legal counsel to Lucky in Love or to Brad Singer.</p>
+  </div>
+
+  <!-- SIGNATURE PAGE -->
+  <div class="sig-page">
+    <h2 class="section-title" style="border:none; margin-bottom: 0.5rem;"><span class="num">✍</span>Signatures</h2>
+    <p class="clause" style="font-family: 'Segoe UI', system-ui, sans-serif; font-size: 0.92rem; color: var(--ink-3); margin-bottom: 1rem;">By signing below, the undersigned represent that they are duly authorized to bind their respective parties to this Agreement.</p>
+
+    <div class="sig-grid">
+
+      <div class="sig-block">
+        <div class="sig-party-name">
+          Dave T Productions, Inc. d/b/a Bogen.ai
+          <small>Party A</small>
+        </div>
+        <div>
+          <div class="sig-line"></div>
+          <div class="sig-label">Signature</div>
+        </div>
+        <div class="sig-fields">
+          <div class="field"><span class="k">Name:</span><span class="v">Edmund Bogen</span></div>
+          <div class="field"><span class="k">Title:</span><span class="v">Co-Founder</span></div>
+          <div class="field"><span class="k">Email:</span><span class="v">edmund@bogenhomes.com</span></div>
+          <div class="field"><span class="k">Date:</span><span class="v">&nbsp;</span></div>
+        </div>
+      </div>
+
+      <div class="sig-block">
+        <div class="sig-party-name">
+          Lucky in Love
+          <small>Party B</small>
+        </div>
+        <div>
+          <div class="sig-line"></div>
+          <div class="sig-label">Signature</div>
+        </div>
+        <div class="sig-fields">
+          <div class="field"><span class="k">Name:</span><span class="v">Brad Singer</span></div>
+          <div class="field"><span class="k">Title:</span><span class="v">Founder &amp; CEO</span></div>
+          <div class="field"><span class="k">Email:</span><span class="v">brad@shopluckyinlove.com</span></div>
+          <div class="field"><span class="k">Date:</span><span class="v">&nbsp;</span></div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="sig-grid" style="margin-top: 2.5rem;">
+      <div class="sig-block">
+        <div class="sig-party-name">
+          Eytan Benzeno
+          <small>Party A — second signatory (acknowledgment)</small>
+        </div>
+        <div>
+          <div class="sig-line"></div>
+          <div class="sig-label">Signature</div>
+        </div>
+        <div class="sig-fields">
+          <div class="field"><span class="k">Name:</span><span class="v">Eytan Benzeno</span></div>
+          <div class="field"><span class="k">Title:</span><span class="v">Co-Founder</span></div>
+          <div class="field"><span class="k">Email:</span><span class="v">eytan@bogen.ai</span></div>
+          <div class="field"><span class="k">Date:</span><span class="v">&nbsp;</span></div>
+        </div>
+      </div>
+      <div class="sig-block"></div>
+    </div>
+
+  </div>
+
+</div>
+
+<footer>
+  <p><strong style="color:#fff;">Bogen.ai</strong> — AI &amp; automation for owner-operated brands</p>
+  <p style="margin-top:0.4rem;"><a href="https://bogen.ai">bogen.ai</a> · <a href="mailto:eytan@bogen.ai">eytan@bogen.ai</a> · <a href="mailto:edmund@bogenhomes.com">edmund@bogenhomes.com</a></p>
+  <div class="confidential-bar">Confidential — Mutual NDA prepared for Lucky in Love · Brad Singer · May 5, 2026</div>
+</footer>
+
+<!-- PDF MODAL -->
+<div id="pdf-modal">
+  <div style="background:#1a2332; border:1px solid rgba(255,255,255,0.1); border-radius:16px; width:100%; max-width:920px; height:90vh; display:flex; flex-direction:column; overflow:hidden; box-shadow:0 24px 80px rgba(0,0,0,0.6);">
+    <div style="display:flex; align-items:center; justify-content:space-between; padding:1rem 1.5rem; border-bottom:1px solid rgba(255,255,255,0.08); background:#0d1620; flex-shrink:0;">
+      <div style="display:flex;align-items:center;gap:0.75rem;">
+        <span style="font-size:1.1rem;">📄</span>
+        <div>
+          <div style="font-weight:700;font-size:0.95rem;color:#f0f4f8;">Lucky-in-Love-Mutual-NDA.pdf</div>
+          <div style="font-size:0.75rem;color:#8899aa;">Mutual Confidentiality Agreement — Preview</div>
+        </div>
+      </div>
+      <div style="display:flex;align-items:center;gap:0.75rem;">
+        <a href="Lucky-in-Love-Mutual-NDA.pdf" download style="display:inline-flex;align-items:center;gap:0.5rem; background:#00a8e1;color:#fff;text-decoration:none; padding:0.5rem 1.1rem;border-radius:8px; font-weight:600;font-size:0.85rem;">⬇ Download</a>
+        <button onclick="closePdfModal()" style="background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.12); color:#8899aa;cursor:pointer;width:36px;height:36px;border-radius:8px; font-size:1.1rem;display:flex;align-items:center;justify-content:center;">✕</button>
+      </div>
+    </div>
+    <iframe id="pdf-iframe" src="" style="flex:1;width:100%;border:none;background:#fff;" title="Lucky in Love NDA Preview"></iframe>
+  </div>
+</div>
+
+<script>
+function toggleTheme() {
+  const html = document.documentElement;
+  const current = html.getAttribute('data-theme');
+  const next = current === 'dark' ? 'light' : 'dark';
+  html.setAttribute('data-theme', next);
+  localStorage.setItem('lucky-in-love-nda-theme', next);
+}
+(function() {
+  const saved = localStorage.getItem('lucky-in-love-nda-theme');
+  if (saved) document.documentElement.setAttribute('data-theme', saved);
+})();
+
+function openPdfModal() {
+  const modal = document.getElementById('pdf-modal');
+  const iframe = document.getElementById('pdf-iframe');
+  if (!iframe.src || iframe.src === window.location.href) iframe.src = 'Lucky-in-Love-Mutual-NDA.pdf';
+  modal.style.display = 'flex';
+  document.body.style.overflow = 'hidden';
+}
+function closePdfModal() {
+  document.getElementById('pdf-modal').style.display = 'none';
+  document.body.style.overflow = '';
+}
+document.getElementById('pdf-modal').addEventListener('click', function(e) { if (e.target === this) closePdfModal(); });
+document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closePdfModal(); });
+</script>
+</body>
+</html>
