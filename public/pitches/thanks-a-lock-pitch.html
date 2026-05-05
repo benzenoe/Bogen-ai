@@ -1,0 +1,723 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Thanks A Lock × Bogen.ai — The AI Modernization Pitch</title>
+<link rel="icon" type="image/png" href="/images/eb-logo-dark.png">
+<style>
+:root {
+  --teal: #2B6166;
+  --navy: #0d1620;
+  --navy2: #1a2332;
+  --navy3: #243044;
+  --blue: #00a8e1;
+  --gold: #ffd93d;
+  --green: #00c48c;
+  --red: #ff6b6b;
+  --orange: #ff9f43;
+  --white: #f0f4f8;
+  --gray: #8899aa;
+  --border: rgba(255,255,255,0.08);
+  --bg: var(--navy);
+  --surface: var(--navy2);
+  --text: var(--white);
+  --text2: #c0ccd8;
+  --text3: var(--gray);
+}
+
+[data-theme="light"] {
+  --white: #0d1620;
+  --gray: #3a4e60;
+  --bg: #f0f4f7;
+  --surface: #ffffff;
+  --text: #0d1620;
+  --text2: #1e2e3e;
+  --text3: #3a4e60;
+  --border: rgba(0,0,0,0.08);
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'Segoe UI', system-ui, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* NAV */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  height: 60px;
+  background: rgba(13,22,32,0.97);
+  backdrop-filter: blur(12px);
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 2rem;
+  border-bottom: 1px solid var(--border);
+}
+.nav-logo { display: flex; align-items: center; gap: 0.6rem; color: #f0f4f8; font-weight: 800; font-size: 0.95rem; letter-spacing: 0.02em; }
+.nav-logo .lock { color: var(--blue); }
+.nav-links { display: flex; align-items: center; gap: 1rem; }
+.nav-links a { color: var(--gray); text-decoration: none; font-size: 0.9rem; transition: color 0.2s; }
+.nav-links a:hover { color: #f0f4f8; }
+.nav-cta {
+  background: var(--blue); color: #fff !important;
+  padding: 0.4rem 1rem; border-radius: 8px; font-size: 0.85rem; font-weight: 600;
+}
+.theme-toggle {
+  background: transparent; border: 1px solid var(--border);
+  color: var(--gray); cursor: pointer; padding: 0.3rem 0.75rem;
+  border-radius: 6px; font-size: 0.8rem; transition: all 0.2s;
+}
+.theme-toggle:hover { border-color: var(--blue); color: var(--blue); }
+
+/* HERO */
+.hero {
+  min-height: 75vh;
+  background: linear-gradient(180deg, #0d1620 0%, #1a2332 100%) !important;
+  display: flex; align-items: center; justify-content: center;
+  text-align: center;
+  padding: 8rem 2rem 5rem;
+  position: relative; overflow: hidden;
+}
+.hero::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(0,168,225,0.12) 0%, transparent 70%),
+              radial-gradient(ellipse 60% 40% at 80% 80%, rgba(43,97,102,0.18) 0%, transparent 60%);
+}
+.hero-inner { position: relative; z-index: 1; max-width: 820px; }
+.hero-badge {
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  border: 1px solid rgba(0,168,225,0.3); border-radius: 20px;
+  padding: 0.3rem 1rem; font-size: 0.78rem; color: var(--blue);
+  text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 1.5rem;
+}
+.badge-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--blue); animation: pulse 2s infinite; }
+.hero-brand { font-size: 0.95rem; color: var(--gray); letter-spacing: 0.18em; text-transform: uppercase; margin-bottom: 1.25rem; }
+.hero-brand strong { color: #fff; letter-spacing: 0.15em; }
+.hero h1 { font-size: clamp(2.1rem, 5vw, 3.4rem); font-weight: 800; line-height: 1.12; margin-bottom: 1rem; color: #fff; }
+.hero h1 span { color: var(--blue); }
+.hero p { font-size: 1.1rem; color: #8899aa; max-width: 620px; margin: 0 auto 2.5rem; }
+
+.hero-stats {
+  display: flex; justify-content: center; gap: 2.5rem; flex-wrap: wrap;
+  margin-top: 2rem; padding-top: 2rem;
+  border-top: 1px solid rgba(255,255,255,0.08);
+}
+.stat-val { font-size: 1.8rem; font-weight: 800; color: var(--blue); display: block; }
+.stat-lbl { font-size: 0.78rem; color: var(--gray); text-transform: uppercase; letter-spacing: 0.06em; }
+
+/* SECTIONS */
+section { padding: 5rem 2rem; max-width: 960px; margin: 0 auto; }
+section.full { max-width: 100%; padding-left: 2rem; padding-right: 2rem; }
+
+.section-label {
+  display: inline-flex; align-items: center; gap: 0.6rem;
+  font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em;
+  color: var(--blue); margin-bottom: 0.75rem;
+}
+.section-label::before { content: ''; display: block; width: 24px; height: 2px; background: var(--blue); }
+
+h2 { font-size: clamp(1.6rem, 3vw, 2.3rem); font-weight: 800; margin-bottom: 1rem; color: var(--text); }
+h3 { font-size: 1.15rem; font-weight: 700; margin-bottom: 0.5rem; color: var(--text); }
+
+/* TWO-COLUMN COMPARE */
+.compare-grid {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 1.25rem; margin-top: 1.5rem;
+}
+.compare-col {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: 14px; padding: 1.75rem;
+}
+.compare-col.bad { border-left: 3px solid var(--red); }
+.compare-col.good { border-left: 3px solid var(--green); }
+.compare-col h4 { font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 1rem; color: var(--gray); }
+.compare-col.bad h4 { color: var(--red); }
+.compare-col.good h4 { color: var(--green); }
+.compare-col ul { list-style: none; }
+.compare-col ul li {
+  padding: 0.55rem 0; border-bottom: 1px solid var(--border);
+  font-size: 0.92rem; color: var(--text2);
+  display: flex; align-items: flex-start; gap: 0.6rem;
+}
+.compare-col ul li:last-child { border-bottom: none; }
+.compare-col.bad li::before { content: '✕'; color: var(--red); font-weight: 700; flex-shrink: 0; }
+.compare-col.good li::before { content: '✓'; color: var(--green); font-weight: 700; flex-shrink: 0; }
+
+/* CARDS */
+.card-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.25rem; }
+.card {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: 14px; padding: 1.75rem;
+  transition: border-color 0.2s, transform 0.2s;
+}
+.card:hover { border-color: rgba(0,168,225,0.3); transform: translateY(-3px); }
+.card-icon { font-size: 1.6rem; margin-bottom: 1rem; }
+.card p { font-size: 0.9rem; color: var(--text3); margin-top: 0.4rem; }
+.tag {
+  display: inline-block; font-size: 0.72rem; text-transform: uppercase;
+  letter-spacing: 0.06em; padding: 0.2rem 0.6rem; border-radius: 20px;
+  background: rgba(0,168,225,0.12); color: var(--blue); margin-top: 0.75rem;
+}
+
+/* MATH BOX */
+.math-box {
+  background: linear-gradient(135deg, rgba(0,168,225,0.08) 0%, rgba(43,97,102,0.08) 100%);
+  border: 1px solid rgba(0,168,225,0.2);
+  border-radius: 16px; padding: 2rem;
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 1.5rem;
+  margin-top: 1.5rem;
+}
+.math-cell { text-align: center; }
+.math-cell .math-num {
+  font-size: 2rem; font-weight: 800; color: var(--blue); display: block; line-height: 1;
+}
+.math-cell .math-lbl { font-size: 0.78rem; color: var(--gray); text-transform: uppercase; letter-spacing: 0.06em; margin-top: 0.5rem; display: block; }
+.math-cell .math-equation { font-size: 0.85rem; color: var(--text3); margin-top: 0.4rem; display: block; }
+
+/* PRICING TABLE */
+.pricing-box {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: 16px; overflow: hidden; margin-top: 1.5rem;
+}
+.pricing-box table { width: 100%; border-collapse: collapse; }
+.pricing-box thead th {
+  background: var(--navy3); padding: 0.85rem 1.25rem;
+  text-align: left; font-size: 0.78rem; text-transform: uppercase;
+  letter-spacing: 0.08em; color: var(--gray);
+}
+.pricing-box tbody td {
+  padding: 1rem 1.25rem; border-top: 1px solid var(--border);
+  font-size: 0.95rem; color: var(--text2);
+}
+.pricing-box tbody tr:hover td { background: rgba(0,168,225,0.03); }
+.pricing-box .amount { color: var(--blue); font-weight: 700; text-align: right; white-space: nowrap; }
+.pricing-box .divider td {
+  background: rgba(0,168,225,0.05); color: var(--blue);
+  font-weight: 700; font-size: 0.8rem; text-transform: uppercase;
+  letter-spacing: 0.06em; padding: 0.5rem 1.25rem;
+}
+.pricing-box .total td {
+  background: var(--navy3); font-weight: 700; font-size: 1rem; color: var(--text);
+}
+.pricing-box .total .amount { color: var(--gold); font-size: 1.1rem; }
+
+/* HIGHLIGHT BOXES */
+.highlight-blue {
+  background: rgba(0,168,225,0.07); border: 1px solid rgba(0,168,225,0.2);
+  border-radius: 14px; padding: 1.5rem 1.75rem; margin-top: 1.5rem;
+}
+.highlight-gold {
+  background: rgba(255,217,61,0.07); border: 1px solid rgba(255,217,61,0.2);
+  border-radius: 14px; padding: 1.5rem 1.75rem; margin-top: 1.5rem;
+}
+.highlight-green {
+  background: rgba(0,196,140,0.06); border: 1px solid rgba(0,196,140,0.2);
+  border-radius: 14px; padding: 1.5rem 1.75rem; margin-top: 1.5rem;
+}
+.highlight-blue p, .highlight-gold p, .highlight-green p { font-size: 0.92rem; color: var(--text2); margin-top: 0.4rem; }
+
+/* DELIVERABLES LIST */
+.deliverable-list { list-style: none; margin-top: 1rem; }
+.deliverable-list li {
+  display: flex; align-items: flex-start; gap: 0.75rem;
+  padding: 0.6rem 0; border-bottom: 1px solid var(--border);
+  font-size: 0.95rem; color: var(--text2);
+}
+.deliverable-list li:last-child { border-bottom: none; }
+.deliverable-list li::before { content: '✓'; color: var(--green); font-weight: 700; flex-shrink: 0; }
+
+/* TIMELINE */
+.timeline { margin-top: 1.5rem; }
+.timeline-item {
+  display: grid; grid-template-columns: 100px 1fr;
+  gap: 1.25rem; padding: 1.25rem 0;
+  border-bottom: 1px solid var(--border);
+}
+.timeline-item:last-child { border-bottom: none; }
+.timeline-month {
+  font-size: 0.75rem; font-weight: 700; text-transform: uppercase;
+  letter-spacing: 0.08em; color: var(--blue); padding-top: 0.2rem;
+}
+.timeline-item h4 { font-size: 0.95rem; font-weight: 700; color: var(--text); margin-bottom: 0.25rem; }
+.timeline-item p { font-size: 0.87rem; color: var(--text3); }
+
+/* TERMS */
+.terms-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1rem; margin-top: 1.5rem; }
+.term-item {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: 12px; padding: 1.25rem 1.5rem;
+}
+.term-item .term-label { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.07em; color: var(--gray); margin-bottom: 0.4rem; }
+.term-item .term-val { font-size: 0.95rem; font-weight: 600; color: var(--text); }
+
+/* DISTRIBUTOR ROW */
+.distrib-row {
+  display: flex; flex-wrap: wrap; gap: 0.75rem; margin-top: 1rem;
+}
+.distrib-chip {
+  background: var(--surface); border: 1px solid var(--border);
+  padding: 0.6rem 1.1rem; border-radius: 10px;
+  font-size: 0.88rem; color: var(--text2); font-weight: 600;
+}
+
+/* SIGNATURE */
+.signature-box {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: 14px; padding: 2rem;
+  display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;
+  margin-top: 1.5rem;
+}
+.sig-party h4 { font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.07em; color: var(--gray); margin-bottom: 1.5rem; }
+.sig-line { border-top: 1px solid var(--border); padding-top: 0.5rem; font-size: 0.85rem; color: var(--text3); }
+.sig-line + .sig-line { margin-top: 1rem; }
+
+/* FOOTER */
+footer {
+  background: var(--navy); border-top: 1px solid var(--border);
+  padding: 3rem 2rem; text-align: center;
+}
+footer p { font-size: 0.85rem; color: var(--gray); }
+.confidential-bar {
+  margin-top: 1.5rem; padding: 0.6rem 1rem;
+  background: rgba(255,217,61,0.05); border: 1px solid rgba(255,217,61,0.15);
+  border-radius: 8px; display: inline-block;
+  font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.08em; color: rgba(255,217,61,0.5);
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(1.3); }
+}
+
+@media (max-width: 768px) {
+  section { padding: 4rem 1.25rem; }
+  .hero { padding: 7rem 1.25rem 4rem; }
+  .hero-stats { gap: 1.5rem; }
+  .compare-grid { grid-template-columns: 1fr; }
+  .signature-box { grid-template-columns: 1fr; }
+  .nav-links { gap: 0.5rem; }
+  .nav-links a:not(.nav-cta) { display: none; }
+}
+@media (max-width: 600px) {
+  .timeline-item { grid-template-columns: 1fr; gap: 0.3rem; }
+}
+
+/* LIGHT MODE OVERRIDES */
+[data-theme="light"] nav { background: rgba(13,22,32,0.98); }
+[data-theme="light"] .hero { background: linear-gradient(180deg,#0d1620 0%,#1a2332 100%) !important; }
+[data-theme="light"] footer { background: #0d1620; }
+[data-theme="light"] .card { box-shadow: 0 2px 12px rgba(0,0,0,0.06); }
+[data-theme="light"] .compare-col { box-shadow: 0 2px 12px rgba(0,0,0,0.06); }
+[data-theme="light"] .pricing-box thead th { background: #e8edf2; color: #3a4e60; }
+[data-theme="light"] .pricing-box .divider td { background: rgba(43,97,102,0.08); color: var(--teal); }
+[data-theme="light"] .pricing-box .total td { background: #e8edf2; }
+[data-theme="light"] .term-item { box-shadow: 0 1px 6px rgba(0,0,0,0.05); }
+[data-theme="light"] .tag { background: rgba(43,97,102,0.1); color: var(--teal); }
+[data-theme="light"] .section-label { color: var(--teal); }
+[data-theme="light"] .section-label::before { background: var(--teal); }
+[data-theme="light"] .highlight-blue { background: rgba(43,97,102,0.06); border-color: rgba(43,97,102,0.2); }
+[data-theme="light"] .nav-cta { background: var(--teal) !important; }
+[data-theme="light"] .distrib-chip { box-shadow: 0 1px 4px rgba(0,0,0,0.05); }
+[data-theme="light"] thead th { color: #fff; }
+
+/* PRINT */
+@media print {
+  nav, .theme-toggle, #pdf-modal { display: none !important; }
+  body { background: #fff; color: #000; }
+  section { page-break-inside: avoid; }
+  @page { size: letter; margin: 0.5in; }
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">🔐 Thanks A Lock <span class="lock">×</span> Bogen.ai</div>
+  <div class="nav-links">
+    <a href="#today">Today</a>
+    <a href="#vision">Vision</a>
+    <a href="#scope">Scope</a>
+    <a href="#math">The Math</a>
+    <a href="#investment">Investment</a>
+    <button class="theme-toggle" onclick="toggleTheme()">☀ Light / ☾ Dark</button>
+    <a href="mailto:sales@reignation.com?subject=Thanks%20A%20Lock%20%E2%80%94%20Let%27s%20Start" class="nav-cta">Let&rsquo;s Build It</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-inner">
+    <div class="hero-brand">PROPOSAL FOR <strong>JOHN BEHM &middot; THANKS A LOCK</strong></div>
+    <div class="hero-badge">
+      <span class="badge-dot"></span>
+      AI-Powered Modernization &mdash; Boca Raton, FL
+    </div>
+    <h1>30 Years of Trust.<br><span>Now Working 24/7.</span></h1>
+    <p>A new website, an AI chatbot, an AI receptionist that answers your phones around the clock, online booking, and an e-commerce store that lets customers buy your safes from their couch &mdash; without you adding a single SKU to your floor.</p>
+    <div class="hero-stats">
+      <div>
+        <span class="stat-val">30+</span>
+        <span class="stat-lbl">Years of Reputation</span>
+      </div>
+      <div>
+        <span class="stat-val">24/7</span>
+        <span class="stat-lbl">AI Agents Online</span>
+      </div>
+      <div>
+        <span class="stat-val">$0</span>
+        <span class="stat-lbl">Inventory Risk (Dropship)</span>
+      </div>
+      <div>
+        <span class="stat-val">1 Safe</span>
+        <span class="stat-lbl">Pays for Year One</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- TODAY -->
+<section id="today">
+  <div class="section-label">Where Thanks A Lock Stands Today</div>
+  <h2>The Reputation Is Solid. The Storefront Is Working. The Internet Is Not.</h2>
+  <p style="color:var(--text3); margin-bottom:1.25rem;">After visiting the showroom and reviewing the digital footprint, here's the honest gap analysis. The business is excellent. The way it shows up online &mdash; and the customers it could be capturing &mdash; is leaving real money on the table every week.</p>
+
+  <div class="compare-grid">
+    <div class="compare-col bad">
+      <h4>What's Working Against You</h4>
+      <ul>
+        <li>Website is dated and likely turning prospects away before they call</li>
+        <li>No way to browse safes online &mdash; customers can't research before walking in</li>
+        <li>After-hours calls go to voicemail (or to competitors)</li>
+        <li>Zero social media presence &mdash; invisible on Instagram, Facebook, Google for new buyers</li>
+        <li>Marketing is 100% word-of-mouth &mdash; no leverage, no compounding</li>
+        <li>Walk-ins drive the business &mdash; but you can't scale walk-ins</li>
+        <li>Showroom inventory is the only inventory &mdash; floor space caps revenue</li>
+      </ul>
+    </div>
+    <div class="compare-col good">
+      <h4>What's Working For You</h4>
+      <ul>
+        <li>30+ years of trust and a real, established storefront on Glades Rd</li>
+        <li>A-rated on Angie's List, ALOA member, strong Yelp reviews</li>
+        <li>Strong distributor relationships (Amsec, Emtek/Assa Abloy, Gardall)</li>
+        <li>~50% margins on safes &mdash; an $11K safe = $5,500 gross profit</li>
+        <li>Property management division gives you recurring B2B</li>
+        <li>Boca/Delray/Broward coverage &mdash; a wide affluent service area</li>
+        <li>Positioned as the trusted local alternative to scam locksmiths</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- VISION -->
+<section id="vision" style="padding-top:0;">
+  <div class="section-label">Where We Take You</div>
+  <h2>Same Trust. Same Showroom. New Reach.</h2>
+  <p style="color:var(--text3); margin-bottom:1.5rem;">We don't change what's working. We bolt the AI age onto the trust you already built. Customers who Google "buy a safe in Boca Raton" at 9pm on a Tuesday should land on <em>your</em> site, get answers from <em>your</em> AI, schedule a delivery, and pay a deposit &mdash; all before you even open the next morning.</p>
+
+  <div class="highlight-blue">
+    <h3 style="color:var(--blue);">The 90-Second Pitch</h3>
+    <p>You currently sell safes one at a time, to whoever walks through the door. We're going to give you a digital storefront that's open 24/7, an AI receptionist that answers every call, an AI chatbot that walks customers through your full catalog, and a dropship pipeline that lets you sell <em>any</em> safe Amsec or Gardall makes &mdash; without it ever touching your floor. Your reputation does the marketing. The AI does the closing.</p>
+  </div>
+</section>
+
+<!-- SCOPE -->
+<section id="scope" style="padding-top:0;">
+  <div class="section-label">What We Build</div>
+  <h2>Scope of Work</h2>
+  <p style="color:var(--text3); margin-bottom:2rem;">A complete digital modernization, delivered in three phases over six months. Each phase pays for itself before the next one starts.</p>
+
+  <div class="card-grid">
+    <div class="card">
+      <div class="card-icon">🌐</div>
+      <h3>Modern Website</h3>
+      <p>Complete rebuild &mdash; fast, mobile-first, SEO-optimized. Showcases the showroom, the safes, the property management division, and the 30-year reputation. Built to actually convert.</p>
+      <span class="tag">Phase 1 &middot; Foundation</span>
+    </div>
+    <div class="card">
+      <div class="card-icon">🤖</div>
+      <h3>AI Chatbot</h3>
+      <p>Embedded on every page. Answers product questions, quotes rekey jobs, explains the difference between a B-rate and a TL-30 safe, books service calls, and captures leads &mdash; in English or Spanish, around the clock.</p>
+      <span class="tag">Phase 1 &middot; 24/7 Capture</span>
+    </div>
+    <div class="card">
+      <div class="card-icon">📞</div>
+      <h3>AI Receptionist</h3>
+      <p>Answers your inbound calls with full knowledge of your products, services, hours, and pricing. Books appointments, takes deposits, escalates real lockout emergencies to your tech, and sends you a transcript of every call.</p>
+      <span class="tag">Phase 2 &middot; Phone Capture</span>
+    </div>
+    <div class="card">
+      <div class="card-icon">📅</div>
+      <h3>Online Booking System</h3>
+      <p>Customers self-schedule rekeys, lock installs, safe deliveries, and consultations. Calendar syncs with your team. Deposits collected up front. No more phone tag.</p>
+      <span class="tag">Phase 2 &middot; Self-Serve</span>
+    </div>
+    <div class="card">
+      <div class="card-icon">🛒</div>
+      <h3>E-Commerce Storefront</h3>
+      <p>Your full safe and lock inventory online. Filter by size, fire rating, price. Configure, pay a deposit or in full, schedule white-glove delivery and install. Stripe checkout, secure payments.</p>
+      <span class="tag">Phase 3 &middot; Online Sales</span>
+    </div>
+    <div class="card">
+      <div class="card-icon">📦</div>
+      <h3>Dropship Integration</h3>
+      <p>Wire your storefront directly to Amsec, Emtek/Assa Abloy, and Gardall catalogs. Sell hundreds of safes that never touch your floor &mdash; the distributor ships, you keep the margin.</p>
+      <span class="tag">Phase 3 &middot; Zero-Inventory Sales</span>
+    </div>
+    <div class="card">
+      <div class="card-icon">🧠</div>
+      <h3>Unified Knowledge Base</h3>
+      <p>One source of truth for every product, service, FAQ, hours, location detail, and pricing rule. Powers the chatbot, the AI receptionist, the website &mdash; update it once, everything updates.</p>
+      <span class="tag">Phase 1 &middot; Brain</span>
+    </div>
+    <div class="card">
+      <div class="card-icon">🔍</div>
+      <h3>Local SEO &amp; Google Profile</h3>
+      <p>Rank for "Boca Raton locksmith," "buy safe Florida," "rekey Delray Beach." Optimize the Google Business Profile, refresh the photos, harvest more reviews from happy customers.</p>
+      <span class="tag">Phase 1 &middot; Visibility</span>
+    </div>
+    <div class="card">
+      <div class="card-icon">📊</div>
+      <h3>Monthly Performance Report</h3>
+      <p>Every month: how many calls the AI answered, how many bookings came in online, what your top-selling SKUs are, where the leads are coming from, and what to double down on next.</p>
+      <span class="tag">Ongoing</span>
+    </div>
+  </div>
+
+  <div style="margin-top:2rem;">
+    <h3 style="font-size:0.95rem;text-transform:uppercase;letter-spacing:0.07em;color:var(--gray);margin-bottom:0.5rem;">Distributor Catalogs Integrated</h3>
+    <div class="distrib-row">
+      <div class="distrib-chip">Amsec</div>
+      <div class="distrib-chip">Emtek / Assa Abloy</div>
+      <div class="distrib-chip">Gardall</div>
+      <div class="distrib-chip">+ any vendor with an API or CSV feed</div>
+    </div>
+  </div>
+</section>
+
+<!-- THE MATH -->
+<section id="math" style="padding-top:0;">
+  <div class="section-label">Why This Pencils Out</div>
+  <h2>The Math</h2>
+  <p style="color:var(--text3); margin-bottom:1.5rem;">You sell safes from $500 to $11,000+ at roughly 50% gross margin. The investment to modernize the entire business is recovered with a small handful of incremental sales &mdash; sales you're currently leaving on the table because there's no website, no online checkout, and no one answering the phone after 6pm.</p>
+
+  <div class="math-box">
+    <div class="math-cell">
+      <span class="math-num">$11,000</span>
+      <span class="math-lbl">High-End Safe</span>
+      <span class="math-equation">Showroom inventory</span>
+    </div>
+    <div class="math-cell">
+      <span class="math-num">50%</span>
+      <span class="math-lbl">Gross Margin</span>
+      <span class="math-equation">Industry standard</span>
+    </div>
+    <div class="math-cell">
+      <span class="math-num">$5,500</span>
+      <span class="math-lbl">GP / Safe</span>
+      <span class="math-equation">$11K × 50%</span>
+    </div>
+    <div class="math-cell">
+      <span class="math-num">2&ndash;3</span>
+      <span class="math-lbl">Safes to Break Even</span>
+      <span class="math-equation">Year 1 Total</span>
+    </div>
+  </div>
+
+  <div class="highlight-green">
+    <h3 style="color:var(--green);">Where the New Sales Come From</h3>
+    <p>1) <strong>After-hours calls</strong> &mdash; the AI receptionist answers calls when the showroom is closed (currently lost to voicemail or competitors). 2) <strong>Online safe browsers</strong> &mdash; the customer who Googles "buy gun safe Boca Raton" at 10pm now lands on your store and checks out before bed. 3) <strong>Dropship catalog</strong> &mdash; your store now lists hundreds of safes you don't stock; the distributor ships, you keep the margin. 4) <strong>Property management referrals</strong> &mdash; bookings flow in 24/7 instead of being throttled by office hours.</p>
+  </div>
+</section>
+
+<!-- INVESTMENT -->
+<section id="investment" style="padding-top:0;">
+  <div class="section-label">Pricing</div>
+  <h2>Investment</h2>
+  <p style="color:var(--text3); margin-bottom:1rem;">Phased rollout. Each phase is a defined deliverable with a fixed price. Cancel after any phase if you don't see results.</p>
+
+  <div class="pricing-box">
+    <table>
+      <thead>
+        <tr>
+          <th>Phase</th>
+          <th>What You Get</th>
+          <th style="text-align:right;">Investment</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="divider"><td colspan="3">Phase 1 &middot; Foundation (Months 1&ndash;2)</td></tr>
+        <tr>
+          <td><strong>Website + Chatbot + Knowledge Base + Local SEO</strong></td>
+          <td style="color:var(--text3);">New site, embedded AI chatbot, knowledge base build, Google Business optimization, on-page SEO, photography refresh, mobile-first launch.</td>
+          <td class="amount">$5,000 setup</td>
+        </tr>
+        <tr class="divider"><td colspan="3">Phase 2 &middot; Automation (Months 3&ndash;4)</td></tr>
+        <tr>
+          <td><strong>AI Receptionist + Online Booking</strong></td>
+          <td style="color:var(--text3);">AI phone agent trained on your knowledge base, call routing, deposit-taking flow, online booking system, calendar sync, deposit capture via Stripe.</td>
+          <td class="amount">$3,500 setup</td>
+        </tr>
+        <tr class="divider"><td colspan="3">Phase 3 &middot; Commerce (Months 5&ndash;6)</td></tr>
+        <tr>
+          <td><strong>E-Commerce + Dropship Integration</strong></td>
+          <td style="color:var(--text3);">Full storefront, product catalog, Stripe checkout, distributor catalog integration (Amsec, Emtek, Gardall), order routing, white-glove delivery options.</td>
+          <td class="amount">$4,500 setup</td>
+        </tr>
+        <tr class="divider"><td colspan="3">Ongoing &middot; Operations</td></tr>
+        <tr>
+          <td><strong>Monthly Retainer</strong></td>
+          <td style="color:var(--text3);">Hosting, AI agent operation (chat + phone), security, support, content updates, monthly reporting, distributor catalog sync, SEO monitoring.</td>
+          <td class="amount">$497 / mo</td>
+        </tr>
+        <tr class="total">
+          <td colspan="2"><strong>Year 1 Total &mdash; All 3 Phases + 12 Months Operations</strong></td>
+          <td class="amount">$18,964</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="highlight-gold">
+    <h3 style="color:var(--gold);">Pay-As-You-Go &mdash; You're In Control</h3>
+    <p>Each phase is independent. Phase 1 launches and runs by itself if you want to stop there. Phase 2 layers on top. Phase 3 only makes sense once the first two are working. We don't ask for the full $18,964 up front &mdash; you pay each phase's setup as it kicks off, and the monthly only starts once Phase 1 is live. <strong>2&ndash;3 incremental safe sales over 12 months covers the entire program.</strong></p>
+  </div>
+
+  <div class="highlight-blue">
+    <h3 style="color:var(--blue);">Optional Add-On &mdash; Paid Marketing</h3>
+    <p>Once the storefront is live, a small Google Ads + Meta budget ($300&ndash;500/mo) targeting "Boca Raton safes" and "South Florida locksmith" multiplies the impact. Ad spend billed directly to Thanks A Lock, fully transparent, fully optional &mdash; not included in retainer.</p>
+  </div>
+</section>
+
+<!-- TIMELINE -->
+<section id="timeline" style="padding-top:0;">
+  <div class="section-label">Roadmap</div>
+  <h2>6-Month Build Timeline</h2>
+  <div class="timeline">
+    <div class="timeline-item">
+      <div class="timeline-month">Month 1</div>
+      <div>
+        <h4>Knowledge Base &amp; Design</h4>
+        <p>Sit-down interview with John to capture every product, service, FAQ, hour, policy, and pricing rule. Showroom photography. Website wireframes and brand approval. Knowledge base v1 deployed.</p>
+      </div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-month">Month 2</div>
+      <div>
+        <h4>Website &amp; Chatbot Launch</h4>
+        <p>New thanksalock.com goes live. AI chatbot embedded. Google Business Profile optimized. Local SEO foundation set. Phase 1 complete &mdash; the new digital front door is open.</p>
+      </div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-month">Month 3</div>
+      <div>
+        <h4>AI Receptionist Trained</h4>
+        <p>AI phone agent trained on the knowledge base. Forward inbound numbers, A/B test against the current handling, refine until John approves the script and tone.</p>
+      </div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-month">Month 4</div>
+      <div>
+        <h4>Booking System Live</h4>
+        <p>Online booking goes live for rekeys, installs, consultations, and safe deliveries. Calendar synced to staff. Deposit collection enabled. Phase 2 complete.</p>
+      </div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-month">Month 5</div>
+      <div>
+        <h4>E-Commerce Soft Launch</h4>
+        <p>First 25&ndash;40 SKUs from the showroom live online with photos, specs, and delivery options. Stripe checkout active. First test orders processed end-to-end.</p>
+      </div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-month">Month 6</div>
+      <div>
+        <h4>Dropship + Full Catalog Live</h4>
+        <p>Distributor catalog integrations complete. Hundreds of dropshippable safes added. First order routed to Amsec / Gardall ships directly to customer. Six-month performance review.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHY US -->
+<section id="why" style="padding-top:0;">
+  <div class="section-label">Who's Building This</div>
+  <h2>Why Bogen.ai</h2>
+  <p style="color:var(--text3); margin-bottom:1.5rem;">Bogen.ai is the AI &amp; marketing automation practice run by Eytan Benzeno (technologist, e-commerce pioneer) and Edmund Bogen (operator, real estate). We build production-grade AI agents and modern websites for service businesses that want the upside of the AI age without the noise. Local to South Florida. Skin in the game. Available for in-person sit-downs.</p>
+
+  <div class="terms-grid">
+    <div class="term-item">
+      <div class="term-label">Practice Lead</div>
+      <div class="term-val">Eytan Benzeno &mdash; technologist, AI specialist</div>
+    </div>
+    <div class="term-item">
+      <div class="term-label">Co-Principal</div>
+      <div class="term-val">Edmund Bogen &mdash; operator, real estate</div>
+    </div>
+    <div class="term-item">
+      <div class="term-label">Location</div>
+      <div class="term-val">South Florida &mdash; in-person available</div>
+    </div>
+    <div class="term-item">
+      <div class="term-label">Specialty</div>
+      <div class="term-val">AI agents, e-commerce, modern websites for service SMBs</div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section id="cta" style="padding-top:0; padding-bottom: 6rem;">
+  <div class="section-label">Next Step</div>
+  <h2>Let's Get Phase 1 on the Calendar</h2>
+  <p style="color:var(--text3); margin-bottom:1.5rem;">A 30-minute follow-up at the showroom or by phone. We finalize Phase 1 scope, lock the kickoff date, and start the knowledge base interview the same week. No long contracts, no lock-in, kill switch after any phase.</p>
+
+  <div style="display:flex; flex-wrap:wrap; gap:1rem; margin-bottom:1.5rem;">
+    <a href="mailto:sales@reignation.com?subject=Thanks%20A%20Lock%20%E2%80%94%20Phase%201%20Kickoff&body=Hi%20Bogen.ai%20Team%2C%0A%0AReady%20to%20get%20Phase%201%20started.%20Best%20time%20to%20meet%20at%20the%20showroom%20is%3A%0A%0A%E2%80%94%20John" style="display:inline-flex;align-items:center;gap:0.6rem;background:var(--blue);color:#fff;text-decoration:none;padding:0.85rem 1.75rem;border-radius:10px;font-weight:700;font-size:0.95rem;">📧 Email Sales to Kick Off</a>
+    <a href="tel:+15618520433" style="display:inline-flex;align-items:center;gap:0.6rem;background:var(--surface);border:1px solid var(--border);color:var(--text);text-decoration:none;padding:0.85rem 1.75rem;border-radius:10px;font-weight:700;font-size:0.95rem;">📞 Call the Showroom</a>
+  </div>
+
+  <div class="signature-box">
+    <div class="sig-party">
+      <h4>Service Provider</h4>
+      <div class="sig-line">Eytan Benzeno &mdash; Bogen.ai</div>
+      <div class="sig-line">AI &amp; Digital Modernization</div>
+      <div class="sig-line" style="margin-top:2rem; color:transparent;">__________________________</div>
+      <div class="sig-line">Signature &nbsp;&nbsp;&nbsp; Date</div>
+    </div>
+    <div class="sig-party">
+      <h4>Client</h4>
+      <div class="sig-line">John Behm &mdash; President</div>
+      <div class="sig-line">Thanks A Lock &middot; Boca Raton, FL</div>
+      <div class="sig-line" style="margin-top:2rem; color:transparent;">__________________________</div>
+      <div class="sig-line">Signature &nbsp;&nbsp;&nbsp; Date</div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p><strong style="color:#f0f4f8;">Bogen.ai</strong> &mdash; AI &amp; Marketing Automation for Service Businesses</p>
+  <p style="margin-top:0.4rem;"><a href="https://bogen.ai" style="color:var(--blue); text-decoration:none;">bogen.ai</a> &nbsp;&middot;&nbsp; <a href="mailto:sales@reignation.com" style="color:var(--blue); text-decoration:none;">sales@reignation.com</a></p>
+  <div class="confidential-bar">Confidential &mdash; Prepared exclusively for John Behm &middot; Thanks A Lock</div>
+</footer>
+
+<script>
+function toggleTheme() {
+  const html = document.documentElement;
+  const current = html.getAttribute('data-theme');
+  const next = current === 'light' ? 'dark' : 'light';
+  html.setAttribute('data-theme', next);
+  localStorage.setItem('thanksalock-theme', next);
+}
+(function() {
+  const saved = localStorage.getItem('thanksalock-theme');
+  if (saved) document.documentElement.setAttribute('data-theme', saved);
+})();
+</script>
+</body>
+</html>
