@@ -326,6 +326,77 @@ footer p { font-size: 0.85rem; color: var(--gray); }
 [data-theme="light"] .distrib-chip { box-shadow: 0 1px 4px rgba(0,0,0,0.05); }
 [data-theme="light"] thead th { color: #fff; }
 
+/* PACKAGE CARDS */
+.package-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1.25rem;
+  margin-bottom: 1rem;
+}
+.package-card {
+  position: relative;
+  background: var(--surface);
+  border: 2px solid var(--border);
+  border-radius: 16px;
+  padding: 1.75rem 1.5rem;
+  text-align: left;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  font-family: inherit;
+  color: var(--text);
+}
+.package-card:hover {
+  border-color: rgba(0,168,225,0.5);
+  transform: translateY(-3px);
+  box-shadow: 0 12px 32px rgba(0,0,0,0.25);
+}
+.package-card.is-recommended {
+  border-color: var(--gold);
+  background: linear-gradient(180deg, rgba(255,217,61,0.05) 0%, var(--surface) 100%);
+  box-shadow: 0 8px 24px rgba(255,217,61,0.15);
+}
+.package-card.is-recommended:hover {
+  border-color: var(--gold);
+  box-shadow: 0 16px 40px rgba(255,217,61,0.25);
+}
+.package-ribbon {
+  position: absolute; top: -10px; left: 50%; transform: translateX(-50%);
+  background: linear-gradient(135deg, var(--gold) 0%, #ffb700 100%);
+  color: #1a1100;
+  font-size: 0.72rem; font-weight: 800; letter-spacing: 0.08em;
+  padding: 0.3rem 1rem; border-radius: 20px;
+  white-space: nowrap;
+}
+.package-tag {
+  font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.1em;
+  color: var(--text3); font-weight: 700; margin-bottom: 0.6rem;
+}
+.package-card.is-recommended .package-tag { color: var(--gold); }
+.package-price {
+  font-size: 2.25rem; font-weight: 800; color: var(--blue);
+  display: flex; align-items: baseline; gap: 0.5rem; margin-bottom: 1.1rem;
+  line-height: 1;
+}
+.package-card.is-recommended .package-price { color: var(--gold); }
+.package-price-sub { font-size: 0.78rem; color: var(--text3); font-weight: 500; }
+.package-list { list-style: none; padding: 0; margin: 0 0 1.25rem; }
+.package-list li {
+  font-size: 0.92rem; color: var(--text2);
+  padding: 0.45rem 0; border-bottom: 1px solid var(--border);
+  display: flex; align-items: flex-start; gap: 0.5rem;
+}
+.package-list li:last-child { border-bottom: none; }
+.package-list li::before { content: '✓'; color: var(--green); font-weight: 700; flex-shrink: 0; }
+.package-cta {
+  font-size: 0.85rem; font-weight: 700;
+  color: var(--blue); text-transform: uppercase; letter-spacing: 0.06em;
+  display: inline-flex; align-items: center; gap: 0.4rem;
+}
+.package-card.is-recommended .package-cta { color: var(--gold); }
+.package-cta::after { content: '→'; transition: transform 0.2s; }
+.package-card:hover .package-cta::after { transform: translateX(4px); }
+@media print { .package-card { break-inside: avoid; } }
+
 /* CONFIGURATOR */
 .config-intro {
   display: flex; align-items: center; gap: 0.6rem;
@@ -557,6 +628,7 @@ footer p { font-size: 0.85rem; color: var(--gray); }
     <a href="#scope">Scope</a>
     <a href="#math">The Math</a>
     <a href="#investment">Investment</a>
+    <a href="#terms">Terms</a>
     <button class="theme-toggle" onclick="toggleTheme()">☀ Light / ☾ Dark</button>
     <a href="mailto:sales@reignation.com?subject=Thanks%20A%20Lock%20%E2%80%94%20Let%27s%20Start" class="nav-cta">Let&rsquo;s Build It</a>
   </div>
@@ -662,7 +734,7 @@ footer p { font-size: 0.85rem; color: var(--gray); }
       <ul>
         <li><strong>$13,000 one-time</strong> &mdash; complete build, all 3 phases, no recurring fee from us</li>
         <li>Code delivered to <em>your</em> GitHub repo &mdash; you own every line</li>
-        <li>Hosted on <em>your existing GoDaddy account</em> &mdash; we deploy directly to it; no new hosting bill from us</li>
+        <li>Domain stays on your GoDaddy. App runs on modern infrastructure (Vercel + Neon Postgres) in <em>your name</em>, set up by us, hand-off any time</li>
         <li>AI APIs (OpenAI, Twilio) on <em>your</em> keys &mdash; pay providers directly, no markup</li>
         <li>Domain, content, customer database, product catalog &mdash; all yours, transferable any time</li>
         <li>If we part ways tomorrow, the site keeps running. Hire any developer to maintain it.</li>
@@ -695,7 +767,7 @@ footer p { font-size: 0.85rem; color: var(--gray); }
 
   <div class="highlight-gold" style="margin-top:1.5rem;">
     <h3 style="color:var(--gold);">Written Into the Contract</h3>
-    <p>On day one, you receive: (1) the GitHub repository with all source code, transferred to your account; (2) the live site deployed onto <em>your existing GoDaddy hosting</em>, with admin credentials in your name; (3) a documented runbook for every system; (4) ownership of every API key, domain, and customer record. <strong>If our relationship ever ends, nothing about your website changes.</strong> That's the deal.</p>
+    <p>On day one, you receive: (1) all source code, in a private repository owned by you; (2) admin access to every hosting and infrastructure account, set up in your name with your billing card; (3) your existing GoDaddy domain stays on GoDaddy &mdash; we just point DNS, your email and current setup don't move; (4) a documented runbook for every system; (5) ownership of every API key, customer record, and content asset. <strong>If our relationship ever ends, nothing about your website changes &mdash; you can hire any developer to maintain it the next day.</strong> That's the deal.</p>
   </div>
 </section>
 
@@ -810,9 +882,51 @@ footer p { font-size: 0.85rem; color: var(--gray); }
 
 <!-- INVESTMENT -->
 <section id="investment" style="padding-top:0;">
-  <div class="section-label">Build Your Package</div>
-  <h2>Investment &mdash; Pick What You Want</h2>
-  <p style="color:var(--text3); margin-bottom:0.5rem;">Three core phases plus optional support blocks. Tap any card to add or remove it &mdash; the running total tracks you down the page.</p>
+  <div class="section-label">Pick a Package or Build Your Own</div>
+  <h2>Investment</h2>
+  <p style="color:var(--text3); margin-bottom:1.5rem;">Three pre-built packages for the most common scenarios. Or scroll down and build your own from the full menu.</p>
+
+  <!-- ANCHORED PACKAGES -->
+  <div class="package-grid">
+    <button type="button" class="package-card" onclick="applyPackage('foundation')">
+      <div class="package-tag">Foundation</div>
+      <div class="package-price">$8,500<span class="package-price-sub">one-time</span></div>
+      <ul class="package-list">
+        <li>Basic Site + Service Booking</li>
+        <li>AI Chatbot</li>
+        <li>Knowledge Base Power Build</li>
+      </ul>
+      <div class="package-cta">Apply this package</div>
+    </button>
+
+    <button type="button" class="package-card is-recommended" onclick="applyPackage('operator')">
+      <div class="package-ribbon">★ Recommended</div>
+      <div class="package-tag">Operator</div>
+      <div class="package-price">$18,500<span class="package-price-sub">one-time</span></div>
+      <ul class="package-list">
+        <li>Everything in Foundation</li>
+        <li>+ AI Phone Receptionist</li>
+        <li>+ E-Commerce + Dropship</li>
+        <li>+ Integration Layer</li>
+      </ul>
+      <div class="package-cta">Apply this package</div>
+    </button>
+
+    <button type="button" class="package-card" onclick="applyPackage('complete')">
+      <div class="package-tag">Complete</div>
+      <div class="package-price">$26,500<span class="package-price-sub">one-time</span></div>
+      <ul class="package-list">
+        <li>Everything in Operator</li>
+        <li>+ Showroom Photography</li>
+        <li>+ Marketing Launch Pack</li>
+        <li>+ Inventory AI Agent</li>
+        <li>+ Accounting AI Agent</li>
+      </ul>
+      <div class="package-cta">Apply this package</div>
+    </button>
+  </div>
+
+  <div style="text-align:center; margin: 1.75rem 0 1rem; font-size:0.85rem; color:var(--text3); text-transform:uppercase; letter-spacing:0.1em;">— or build your own from the full menu —</div>
 
   <div class="config-intro">
     <span style="font-size:1.1rem;">🥡</span>
@@ -997,13 +1111,13 @@ footer p { font-size: 0.85rem; color: var(--gray); }
       <div class="config-price" style="color:var(--gray);">As needed<span class="config-price-suffix">no commitment</span></div>
     </label>
 
-    <label class="config-card is-locked" data-key="hosting" data-price="0" data-name="Hosting on Your GoDaddy + AI APIs (passthrough)">
+    <label class="config-card is-locked" data-key="hosting" data-price="0" data-name="Infrastructure (passthrough, your accounts)">
       <input type="checkbox" disabled>
       <div class="config-checkbox" style="opacity:0;"></div>
       <span class="config-card-tag">On Your Accounts</span>
-      <h4>GoDaddy Hosting + AI APIs</h4>
-      <p>Deployed onto <strong>your existing GoDaddy hosting</strong> &mdash; no new hosting bill from us. AI APIs (OpenAI for chatbot, Twilio for the phone agent) on your keys, paid directly to providers, never marked up. Total: ~$30&ndash;100/mo depending on call volume.</p>
-      <div class="config-price" style="color:var(--gray);">your GoDaddy<span class="config-price-suffix">+ ~$30&ndash;100/mo APIs</span></div>
+      <h4>Infrastructure &mdash; All In Your Name</h4>
+      <p>Your domain stays on <strong>GoDaddy</strong> (no change). The app runs on modern infrastructure set up <em>in your name, on your card</em>: app hosting (~$0&ndash;20/mo), database (~$0&ndash;25/mo), call/messaging APIs (~$30&ndash;80/mo). You see every bill, we never touch the money. Total: ~$50&ndash;120/mo all-in based on volume.</p>
+      <div class="config-price" style="color:var(--gray);">~$50&ndash;120<span class="config-price-suffix">/ mo passthrough</span></div>
     </label>
 
     <label class="config-card is-locked" data-key="warranty" data-price="0" data-name="30-Day Post-Launch Warranty (included)">
@@ -1041,7 +1155,7 @@ footer p { font-size: 0.85rem; color: var(--gray); }
 
   <div class="highlight-gold">
     <h3 style="color:var(--gold);">vs The SaaS Vendor &mdash; The 5-Year Picture</h3>
-    <p><strong>SaaS Vendor:</strong> $560 &times; 60 months = <strong>$33,600</strong>, you own nothing, can't move the site, locked in. &nbsp;<strong>Bogen.ai (recommended $18,500 build):</strong> one-time $18,500 + your existing GoDaddy + ~$50/mo AI APIs ($3,000 over 5 years) = <strong>~$21,500 total, you own everything</strong>. <strong style="color:var(--gold);">Five-year savings: ~$12,100. Plus you walk away with a real asset that runs on hosting you already pay for.</strong></p>
+    <p><strong>SaaS Vendor:</strong> $560 &times; 60 months = <strong>$33,600</strong>, you own nothing, can't move the site, locked in. &nbsp;<strong>Bogen.ai (recommended Operator package):</strong> one-time $18,500 + ~$80/mo infra passthrough on your accounts ($4,800 over 5 years) = <strong>~$23,300 total, you own everything</strong>. <strong style="color:var(--gold);">Five-year savings: ~$10,300. Plus you walk away with a real asset and admin access to every system.</strong></p>
   </div>
 
   <div class="highlight-blue">
@@ -1051,50 +1165,89 @@ footer p { font-size: 0.85rem; color: var(--gray); }
 </section>
 
 <!-- TIMELINE -->
+<!-- PAYMENT TERMS -->
+<section id="terms" style="padding-top:0;">
+  <div class="section-label">Payment Terms</div>
+  <h2>How You Pay</h2>
+  <p style="color:var(--text3); margin-bottom:1.5rem;">Three milestones, no surprise bills. No big check on signature.</p>
+
+  <div class="terms-grid">
+    <div class="term-item">
+      <div class="term-label">On Signature</div>
+      <div class="term-val">40% deposit &mdash; kicks off Month 1 work</div>
+    </div>
+    <div class="term-item">
+      <div class="term-label">Midpoint</div>
+      <div class="term-val">30% &mdash; when AI receptionist is live and capturing calls</div>
+    </div>
+    <div class="term-item">
+      <div class="term-label">Final Launch</div>
+      <div class="term-val">30% &mdash; on go-live and handover</div>
+    </div>
+    <div class="term-item">
+      <div class="term-label">Pay-In-Full Discount</div>
+      <div class="term-val">3% off if paid 100% on signature</div>
+    </div>
+    <div class="term-item">
+      <div class="term-label">Methods</div>
+      <div class="term-val">ACH, wire, or check &mdash; no card surcharge</div>
+    </div>
+    <div class="term-item">
+      <div class="term-label">Monthly Services</div>
+      <div class="term-val">Invoiced 1st of month, net-14, cancel anytime (30-day notice)</div>
+    </div>
+  </div>
+
+  <div class="highlight-blue" style="margin-top:1.5rem;">
+    <h3 style="color:var(--blue);">Dropship Operations &amp; Returns Policy</h3>
+    <p>If E-Commerce + Dropship is in your build: damaged-on-arrival items are returned to the distributor under their existing RMA terms (Amsec, Emtek, Gardall all have 30-day damaged-goods replacement programs). Customer service is yours &mdash; you own the customer relationship. Bogen.ai builds the tooling that flags damage claims, drafts the RMA paperwork, and routes the replacement, but the conversation with the unhappy customer is run from your phone or your tech's. We document this in a one-page operations runbook delivered with the e-commerce phase.</p>
+  </div>
+</section>
+
 <section id="timeline" style="padding-top:0;">
   <div class="section-label">Roadmap</div>
-  <h2>6-Month Build Timeline</h2>
+  <h2>6-Month Build Timeline &mdash; Phone First</h2>
   <div class="timeline">
     <div class="timeline-item">
       <div class="timeline-month">Month 1</div>
       <div>
-        <h4>Knowledge Base &amp; Design</h4>
-        <p>Sit-down interview with John to capture every product, service, FAQ, hour, policy, and pricing rule. Showroom photography. Website wireframes and brand approval. Knowledge base v1 deployed.</p>
+        <h4>Knowledge Base + AI Receptionist (After-Hours)</h4>
+        <p>Capture every product, service, FAQ, hour, and pricing rule in a knowledge base. AI phone agent goes live <strong>after-hours only</strong> (nights + weekends), forwarding to John's phone for emergencies. Daily transcript review with kill switch on John's phone. <strong>Goal: stop losing the after-hours safe inquiries by Day 30.</strong></p>
       </div>
     </div>
     <div class="timeline-item">
       <div class="timeline-month">Month 2</div>
       <div>
-        <h4>Website &amp; Chatbot Launch</h4>
-        <p>New thanksalock.com goes live. AI chatbot embedded. Google Business Profile optimized. Local SEO foundation set. Phase 1 complete &mdash; the new digital front door is open.</p>
+        <h4>Booking System + Phone Goes 24/7</h4>
+        <p>If Month 1 transcripts are clean and John approves, AI receptionist expands to business-hours overflow (no more "all techs busy" voicemail). Online booking launches for rekeys, installs, safe deliveries. Deposit capture enabled.</p>
       </div>
     </div>
     <div class="timeline-item">
       <div class="timeline-month">Month 3</div>
       <div>
-        <h4>AI Receptionist Trained</h4>
-        <p>AI phone agent trained on the knowledge base. Forward inbound numbers, A/B test against the current handling, refine until John approves the script and tone.</p>
+        <h4>New Website + Chatbot Launch</h4>
+        <p>New thanksalock.com replaces the old site. AI chatbot embedded on every page. Google Business Profile optimized. Local SEO foundation set. The digital front door matches the showroom.</p>
       </div>
     </div>
     <div class="timeline-item">
       <div class="timeline-month">Month 4</div>
       <div>
-        <h4>Booking System Live</h4>
-        <p>Online booking goes live for rekeys, installs, consultations, and safe deliveries. Calendar synced to staff. Deposit collection enabled. Phase 2 complete.</p>
+        <h4>E-Commerce Soft Launch</h4>
+        <p>First 25&ndash;40 SKUs from the showroom live online with photos, specs, delivery options, and checkout. First test orders run end-to-end. Integration Layer carries Stripe payments and confirmation flows.</p>
       </div>
     </div>
     <div class="timeline-item">
       <div class="timeline-month">Month 5</div>
       <div>
-        <h4>E-Commerce Soft Launch</h4>
-        <p>First 25&ndash;40 SKUs from the showroom live online with photos, specs, and delivery options. Stripe checkout active. First test orders processed end-to-end.</p>
+        <h4>Dropship Catalog Integrations</h4>
+        <p>Distributor APIs wired (Amsec / Emtek / Gardall). Hundreds of dropshippable safes added to the store. First order routed directly to distributor for shipment. Operations runbook delivered.</p>
       </div>
     </div>
     <div class="timeline-item">
       <div class="timeline-month">Month 6</div>
       <div>
-        <h4>Dropship + Full Catalog Live</h4>
-        <p>Distributor catalog integrations complete. Hundreds of dropshippable safes added. First order routed to Amsec / Gardall ships directly to customer. Six-month performance review.</p>
+        <h4>Optimization + Marketing Launch</h4>
+        <p>If Marketing Launch Pack is in your build: Google Ads + Meta campaigns live, retargeting funnel active, first creatives running. AI Maintenance Agents (if selected) brought online. Six-month performance review and what-to-do-next plan.</p>
       </div>
     </div>
   </div>
@@ -1490,6 +1643,40 @@ document.querySelectorAll('.config-card').forEach(card => {
     recalcBuild({ animate: true });
   });
 });
+
+// Apply one of the three anchored packages
+const PACKAGES = {
+  foundation: ['basic', 'chatbot', 'kb'],
+  operator: ['basic', 'chatbot', 'kb', 'phone', 'ecom', 'integration'],
+  complete: ['basic', 'chatbot', 'kb', 'phone', 'ecom', 'integration', 'photo', 'marketing', 'ai-inv', 'ai-acct'],
+};
+
+function applyPackage(name) {
+  const keys = PACKAGES[name];
+  if (!keys) return;
+  document.querySelectorAll('.config-card').forEach(card => {
+    const key = card.dataset.key;
+    if (card.classList.contains('is-locked')) return;
+    if (card.dataset.qty === 'true') return;
+    if (card.dataset.monthly === 'true') return;
+    const cb = card.querySelector('input[type="checkbox"]');
+    const shouldBeOn = keys.includes(key) || card.dataset.required === 'true';
+    cb.checked = shouldBeOn;
+    card.classList.toggle('is-selected', shouldBeOn);
+  });
+  recalcBuild({ animate: true });
+  // Smooth-scroll to the configurator so John sees the result
+  const grid = document.getElementById('config-grid');
+  if (grid) grid.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  // Pulse the bar
+  const bar = document.getElementById('quote-bar');
+  if (bar) {
+    bar.classList.add('visible');
+    bar.classList.remove('is-pulsing');
+    void bar.offsetWidth;
+    bar.classList.add('is-pulsing');
+  }
+}
 
 function emailMyBuild() {
   const state = window.__buildState || {
