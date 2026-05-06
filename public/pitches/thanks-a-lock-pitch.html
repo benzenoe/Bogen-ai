@@ -700,11 +700,100 @@ footer p { font-size: 0.85rem; color: var(--gray); }
   </div>
 </section>
 
+<!-- FLOATING PDF DOWNLOAD BUTTON -->
+<button id="pdf-fab" onclick="openPdfModal()" aria-label="Preview &amp; download PDF" style="
+  position: fixed;
+  bottom: 28px;
+  right: 28px;
+  z-index: 90;
+  display: inline-flex; align-items: center; gap: 0.6rem;
+  background: linear-gradient(135deg, #00a8e1 0%, #0088bb 100%);
+  color: #fff; border: none; cursor: pointer;
+  padding: 0.95rem 1.5rem;
+  border-radius: 50px;
+  font-weight: 700; font-size: 0.92rem;
+  letter-spacing: 0.02em;
+  box-shadow: 0 8px 24px rgba(0,168,225,0.45), 0 2px 6px rgba(0,0,0,0.25);
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+  font-family: 'Segoe UI', system-ui, sans-serif;
+">
+  <svg width="18" height="18" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" style="display:block;">
+    <path d="M10 13L5 8L6.41 6.59L9 9.17V2H11V9.17L13.59 6.59L15 8L10 13Z" fill="currentColor"/>
+    <path d="M18 16V18H2V16H18Z" fill="currentColor"/>
+  </svg>
+  <span>Download PDF</span>
+</button>
+
+<style>
+#pdf-fab:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 32px rgba(0,168,225,0.55), 0 4px 10px rgba(0,0,0,0.3);
+  background: linear-gradient(135deg, #0088bb 0%, #006a99 100%);
+}
+#pdf-fab:active { transform: translateY(0); }
+@media (max-width: 600px) {
+  #pdf-fab { bottom: 16px; right: 16px; padding: 0.75rem 1.15rem; font-size: 0.82rem; }
+}
+@media print { #pdf-fab, #pdf-modal { display: none !important; } }
+</style>
+
 <footer>
   <p><strong style="color:#f0f4f8;">Bogen.ai</strong> &mdash; AI &amp; Marketing Automation for Service Businesses</p>
   <p style="margin-top:0.4rem;"><a href="https://bogen.ai" style="color:var(--blue); text-decoration:none;">bogen.ai</a> &nbsp;&middot;&nbsp; <a href="mailto:sales@reignation.com" style="color:var(--blue); text-decoration:none;">sales@reignation.com</a></p>
   <div class="confidential-bar">Confidential &mdash; Prepared exclusively for John Behm &middot; Thanks A Lock</div>
 </footer>
+
+<!-- PDF PREVIEW MODAL -->
+<div id="pdf-modal" style="
+  display:none; position:fixed; inset:0; z-index:1000;
+  background:rgba(0,0,0,0.85); backdrop-filter:blur(6px);
+  flex-direction:column; align-items:center; justify-content:center;
+  padding:1rem;
+">
+  <div style="
+    background:#1a2332; border:1px solid rgba(255,255,255,0.1);
+    border-radius:16px; width:100%; max-width:920px;
+    height:90vh; display:flex; flex-direction:column; overflow:hidden;
+    box-shadow:0 24px 80px rgba(0,0,0,0.6);
+  ">
+    <div style="
+      display:flex; align-items:center; justify-content:space-between;
+      padding:1rem 1.5rem; border-bottom:1px solid rgba(255,255,255,0.08);
+      background:#0d1620; flex-shrink:0;
+    ">
+      <div style="display:flex;align-items:center;gap:0.75rem;">
+        <span style="font-size:1.1rem;">📄</span>
+        <div>
+          <div style="font-weight:700;font-size:0.95rem;color:#f0f4f8;">Thanks-A-Lock-Pitch.pdf</div>
+          <div style="font-size:0.75rem;color:#8899aa;">AI Modernization Proposal &mdash; Preview</div>
+        </div>
+      </div>
+      <div style="display:flex;align-items:center;gap:0.75rem;">
+        <a href="Thanks-A-Lock-Pitch.pdf" download style="
+          display:inline-flex;align-items:center;gap:0.5rem;
+          background:#00a8e1;color:#fff;text-decoration:none;
+          padding:0.5rem 1.1rem;border-radius:8px;
+          font-weight:700;font-size:0.85rem;transition:opacity 0.2s;
+        " onmouseover="this.style.opacity='0.85'" onmouseout="this.style.opacity='1'">
+          ⬇ Download
+        </a>
+        <button onclick="closePdfModal()" aria-label="Close preview" style="
+          background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.12);
+          color:#8899aa;cursor:pointer;width:36px;height:36px;border-radius:8px;
+          font-size:1.1rem;display:flex;align-items:center;justify-content:center;
+          transition:all 0.2s;
+        " onmouseover="this.style.color='#f0f4f8';this.style.borderColor='rgba(255,255,255,0.3)'"
+           onmouseout="this.style.color='#8899aa';this.style.borderColor='rgba(255,255,255,0.12)'">✕</button>
+      </div>
+    </div>
+    <iframe
+      id="pdf-iframe"
+      src=""
+      style="flex:1;width:100%;border:none;background:#fff;"
+      title="Thanks A Lock Pitch Preview"
+    ></iframe>
+  </div>
+</div>
 
 <script>
 function toggleTheme() {
@@ -718,6 +807,26 @@ function toggleTheme() {
   const saved = localStorage.getItem('thanksalock-theme');
   if (saved) document.documentElement.setAttribute('data-theme', saved);
 })();
+
+function openPdfModal() {
+  const modal = document.getElementById('pdf-modal');
+  const iframe = document.getElementById('pdf-iframe');
+  if (!iframe.src || iframe.src === window.location.href) {
+    iframe.src = 'Thanks-A-Lock-Pitch.pdf';
+  }
+  modal.style.display = 'flex';
+  document.body.style.overflow = 'hidden';
+}
+function closePdfModal() {
+  document.getElementById('pdf-modal').style.display = 'none';
+  document.body.style.overflow = '';
+}
+document.getElementById('pdf-modal').addEventListener('click', function(e) {
+  if (e.target === this) closePdfModal();
+});
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') closePdfModal();
+});
 </script>
 </body>
 </html>
