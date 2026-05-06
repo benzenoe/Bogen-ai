@@ -342,6 +342,19 @@ footer p { font-size: 0.85rem; color: var(--gray); }
   gap: 1rem;
   margin-top: 1rem;
 }
+.config-group-header {
+  grid-column: 1 / -1;
+  display: flex; align-items: center; gap: 0.7rem;
+  font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em;
+  color: var(--gray); font-weight: 700;
+  margin-top: 0.75rem;
+}
+.config-group-header:first-child { margin-top: 0; }
+.config-group-header .cgh-emoji { font-size: 1rem; }
+.config-group-header::after {
+  content: ''; flex: 1; height: 1px;
+  background: linear-gradient(to right, var(--border), transparent);
+}
 .config-card {
   display: block;
   position: relative;
@@ -479,6 +492,43 @@ footer p { font-size: 0.85rem; color: var(--gray); }
 #quote-bar { transform: translateX(-50%) translateY(20px); }
 #quote-bar.visible { transform: translateX(-50%) translateY(0); }
 
+/* DYNAMIC FEEDBACK */
+@keyframes card-tick {
+  0% { transform: translateY(-2px) scale(1); }
+  40% { transform: translateY(-2px) scale(1.025); box-shadow: 0 12px 32px rgba(0,168,225,0.45), 0 0 0 4px rgba(0,168,225,0.15); }
+  100% { transform: translateY(-2px) scale(1); }
+}
+.config-card.just-toggled { animation: card-tick 0.45s ease; }
+
+/* Floating delta chip */
+.delta-chip {
+  position: fixed;
+  z-index: 9999;
+  pointer-events: none;
+  font-weight: 800;
+  font-size: 1.1rem;
+  letter-spacing: 0.02em;
+  padding: 0.4rem 0.85rem;
+  border-radius: 999px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.35);
+  animation: delta-fly 1.0s cubic-bezier(0.2,0.7,0.2,1) forwards;
+}
+.delta-chip.add { background: linear-gradient(135deg, #00c48c 0%, #00a070 100%); color: #fff; }
+.delta-chip.remove { background: linear-gradient(135deg, #ff6b6b 0%, #d04545 100%); color: #fff; }
+@keyframes delta-fly {
+  0% { opacity: 0; transform: translate(-50%, 0) scale(0.6); }
+  20% { opacity: 1; transform: translate(-50%, -8px) scale(1.05); }
+  100% { opacity: 0; transform: translate(-50%, -68px) scale(0.95); }
+}
+
+/* Number counter animation */
+.num-bump { animation: num-bump 0.45s ease; display: inline-block; }
+@keyframes num-bump {
+  0% { transform: scale(1); }
+  40% { transform: scale(1.12); color: #ffe680; }
+  100% { transform: scale(1); }
+}
+
 /* PRINT */
 @media print {
   nav, .theme-toggle, #pdf-modal, #quote-bar, #pdf-fab { display: none !important; }
@@ -531,8 +581,8 @@ footer p { font-size: 0.85rem; color: var(--gray); }
         <span class="stat-lbl">Vendor Lock-In</span>
       </div>
       <div>
-        <span class="stat-val">$13K</span>
-        <span class="stat-lbl">One-Time, Yours Forever</span>
+        <span class="stat-val">From $5,500</span>
+        <span class="stat-lbl">Pick Your Modules &mdash; Yours Forever</span>
       </div>
     </div>
   </div>
@@ -765,38 +815,164 @@ footer p { font-size: 0.85rem; color: var(--gray); }
   </div>
 
   <div class="config-grid" id="config-grid">
-    <!-- PHASE 1 -->
-    <label class="config-card is-required is-selected" data-key="p1" data-price="5000" data-name="Phase 1 — Foundation (Website + Chatbot + KB + Local SEO)" data-required="true">
+
+    <!-- ===== GROUP: CORE BUILD ===== -->
+    <div class="config-group-header"><span class="cgh-emoji">🏗</span><span>Core Build &middot; Owned Tools</span></div>
+
+    <label class="config-card is-required is-selected" data-key="basic" data-price="5500" data-name="Basic Site + Service Booking" data-required="true">
       <input type="checkbox" checked>
       <div class="config-checkbox"></div>
-      <span class="config-card-tag gold">Phase 1 &middot; Required Foundation</span>
-      <h4>Website + Chatbot + Knowledge Base + Local SEO</h4>
-      <p>New site, embedded AI chatbot, knowledge base build, Google Business optimization, on-page SEO, photography refresh, mobile-first launch. Code delivered to your GitHub.</p>
-      <div class="config-price">$5,000<span class="config-price-suffix">one-time</span></div>
-      <div class="config-meta">Required &mdash; everything else builds on this foundation.</div>
+      <span class="config-card-tag gold">Required Foundation</span>
+      <h4>Basic Site + Service Booking</h4>
+      <p>Modern, mobile-first website with on-page SEO, Google Business optimization, and a built-in booking system for rekeys, lock installs, safe deliveries, and consultations. Calendar sync, deposit capture via Stripe.</p>
+      <div class="config-price">$5,500<span class="config-price-suffix">one-time</span></div>
+      <div class="config-meta">Required &mdash; everything else plugs into this.</div>
     </label>
 
-    <!-- PHASE 2 -->
-    <label class="config-card is-selected" data-key="p2" data-price="3500" data-name="Phase 2 — AI Receptionist + Online Booking" data-requires="p1">
+    <label class="config-card is-selected" data-key="ecom" data-price="4500" data-name="E-Commerce Store + Dropship Integration" data-requires="basic">
       <input type="checkbox" checked>
       <div class="config-checkbox"></div>
-      <span class="config-card-tag">Phase 2 &middot; Automation</span>
-      <h4>AI Receptionist + Online Booking</h4>
-      <p>AI phone agent trained on your knowledge base, call routing, deposit-taking flow, online booking system, calendar sync, deposit capture via Stripe. All on your accounts.</p>
-      <div class="config-price">$3,500<span class="config-price-suffix">one-time</span></div>
-      <div class="config-meta">Tap to toggle. Requires Phase 1.</div>
-    </label>
-
-    <!-- PHASE 3 -->
-    <label class="config-card is-selected" data-key="p3" data-price="4500" data-name="Phase 3 — E-Commerce + Dropship Integration" data-requires="p1">
-      <input type="checkbox" checked>
-      <div class="config-checkbox"></div>
-      <span class="config-card-tag">Phase 3 &middot; Commerce</span>
-      <h4>E-Commerce + Dropship Integration</h4>
-      <p>Full storefront, product catalog, Stripe checkout, distributor catalog integration (Amsec, Emtek, Gardall), order routing, white-glove delivery options.</p>
+      <span class="config-card-tag">Owned Tool</span>
+      <h4>E-Commerce Store + Dropship</h4>
+      <p>Full storefront, product catalog, Stripe checkout, distributor catalog integration (Amsec, Emtek, Gardall), order routing, white-glove delivery options. Sell safes that never touch your floor.</p>
       <div class="config-price">$4,500<span class="config-price-suffix">one-time</span></div>
-      <div class="config-meta">Tap to toggle. Requires Phase 1.</div>
+      <div class="config-meta">Tap to toggle.</div>
     </label>
+
+    <label class="config-card is-selected" data-key="phone" data-price="3000" data-name="Inbound AI Phone Receptionist" data-requires="basic">
+      <input type="checkbox" checked>
+      <div class="config-checkbox"></div>
+      <span class="config-card-tag">Owned Tool</span>
+      <h4>Inbound AI Phone Receptionist</h4>
+      <p>AI phone agent answers calls 24/7 with your voice, products, hours, and pricing. Books appointments, takes deposits, escalates real lockout emergencies to your tech. Sends transcripts of every call.</p>
+      <div class="config-price">$3,000<span class="config-price-suffix">one-time</span></div>
+      <div class="config-meta">Tap to toggle.</div>
+    </label>
+
+    <label class="config-card is-selected" data-key="chatbot" data-price="1500" data-name="AI Chatbot (Embedded on Site)" data-requires="basic">
+      <input type="checkbox" checked>
+      <div class="config-checkbox"></div>
+      <span class="config-card-tag">Owned Tool</span>
+      <h4>AI Chatbot</h4>
+      <p>Embedded on every page of your site. Answers product questions, quotes rekey jobs, explains the difference between a B-rate and a TL-30 safe, books service calls. Bilingual EN/ES. Powered by your knowledge base.</p>
+      <div class="config-price">$1,500<span class="config-price-suffix">one-time</span></div>
+      <div class="config-meta">Tap to toggle.</div>
+    </label>
+
+    <!-- ===== GROUP: CONTENT & MARKETING ===== -->
+    <div class="config-group-header"><span class="cgh-emoji">📝</span><span>Content &amp; Marketing Tools &middot; Owned</span></div>
+
+    <label class="config-card is-selected" data-key="blog" data-price="2000" data-name="Blog + Content Management System" data-requires="basic">
+      <input type="checkbox" checked>
+      <div class="config-checkbox"></div>
+      <span class="config-card-tag">Owned Tool</span>
+      <h4>Blog + Content Management System</h4>
+      <p>Full admin panel where you (or your team) write, edit, and schedule blog posts. AI-assisted drafting, SEO-friendly templates, image library, draft/publish workflow. Drives organic traffic for "Boca Raton locksmith," "gun safe Florida," etc.</p>
+      <div class="config-price">$2,000<span class="config-price-suffix">one-time</span></div>
+      <div class="config-meta">Tap to toggle.</div>
+    </label>
+
+    <label class="config-card is-selected" data-key="social" data-price="2000" data-name="Social Media Publishing Tool" data-requires="basic">
+      <input type="checkbox" checked>
+      <div class="config-checkbox"></div>
+      <span class="config-card-tag">Owned Tool</span>
+      <h4>Social Media Publishing</h4>
+      <p>Schedule and post to Facebook, Instagram, and Google Business Profile from one dashboard. AI-assisted captions, image cropping per platform, post calendar, content recycling. You own the tool &mdash; no per-seat SaaS fee.</p>
+      <div class="config-price">$2,000<span class="config-price-suffix">one-time</span></div>
+      <div class="config-meta">Tap to toggle.</div>
+    </label>
+
+    <label class="config-card" data-key="adspend" data-price="2500" data-name="Ad Spend Manager (Dashboard + AI Bid Assistant)" data-requires="basic">
+      <input type="checkbox">
+      <div class="config-checkbox"></div>
+      <span class="config-card-tag">Owned Tool</span>
+      <h4>Ad Spend Manager</h4>
+      <p>Custom dashboard that pulls Google Ads + Meta Ads performance into one view. AI-suggested bid adjustments, budget pacing alerts, ROI per campaign, waste detection ("you're spending $X/day on a keyword with no conversions"). Built once, yours forever.</p>
+      <div class="config-price">$2,500<span class="config-price-suffix">one-time</span></div>
+      <div class="config-meta">Tap to toggle. Pairs with the Marketing Launch Pack.</div>
+    </label>
+
+    <!-- ===== GROUP: INTEGRATION ===== -->
+    <div class="config-group-header"><span class="cgh-emoji">🔌</span><span>Integration Layer</span></div>
+
+    <label class="config-card is-selected" data-key="integration" data-price="2500" data-name="Integration Layer (Stripe + Distributors + Calendar + Accounting Export)" data-requires="basic">
+      <input type="checkbox" checked>
+      <div class="config-checkbox"></div>
+      <span class="config-card-tag">Owned Tool</span>
+      <h4>Integration Layer</h4>
+      <p>The plumbing between your site and the outside world: Stripe payments, distributor APIs (Amsec / Emtek / Gardall) for live catalog + orders, Google/Outlook calendar sync, QuickBooks/Xero export, email + SMS notifications. Built modular so you can swap providers later.</p>
+      <div class="config-price">$2,500<span class="config-price-suffix">one-time</span></div>
+      <div class="config-meta">Tap to toggle. Strongly recommended if e-commerce is on.</div>
+    </label>
+
+    <!-- ===== GROUP: BACKEND AI AGENTS ===== -->
+    <div class="config-group-header"><span class="cgh-emoji">🤖</span><span>Backend AI Maintenance Agents &middot; Always-On</span></div>
+
+    <label class="config-card" data-key="ai-acct" data-price="2500" data-name="Accounting AI Agent" data-requires="basic">
+      <input type="checkbox">
+      <div class="config-checkbox"></div>
+      <span class="config-card-tag">AI Agent</span>
+      <h4>Accounting AI Agent</h4>
+      <p>Watches your transactions across Stripe, bank, and distributors. Auto-categorizes expenses, reconciles invoices to deposits, flags weird transactions, exports clean monthly P&amp;L to QuickBooks. Saves hours per month at the books.</p>
+      <div class="config-price">$2,500<span class="config-price-suffix">one-time</span></div>
+      <div class="config-meta">Tap to toggle. Optional ongoing automation.</div>
+    </label>
+
+    <label class="config-card" data-key="ai-inv" data-price="2500" data-name="Inventory AI Agent" data-requires="basic">
+      <input type="checkbox">
+      <div class="config-checkbox"></div>
+      <span class="config-card-tag">AI Agent</span>
+      <h4>Inventory AI Agent</h4>
+      <p>Watches stock levels across your showroom and the dropship catalogs. Auto-reorders when below threshold, alerts on low stock, syncs prices when distributors update, removes discontinued items from the site automatically.</p>
+      <div class="config-price">$2,500<span class="config-price-suffix">one-time</span></div>
+      <div class="config-meta">Tap to toggle. Pairs with E-Commerce + Integration.</div>
+    </label>
+
+    <label class="config-card" data-key="ai-upload" data-price="2000" data-name="Product Upload AI Agent" data-requires="basic">
+      <input type="checkbox">
+      <div class="config-checkbox"></div>
+      <span class="config-card-tag">AI Agent</span>
+      <h4>Product Upload AI Agent</h4>
+      <p>Drop a distributor spec sheet (PDF, CSV, image) into a folder &mdash; the agent reads it, generates SEO product copy, picks the right category, uploads images, sets pricing rules, and publishes. New SKUs go live without a human touching the admin.</p>
+      <div class="config-price">$2,000<span class="config-price-suffix">one-time</span></div>
+      <div class="config-meta">Tap to toggle. Pairs with E-Commerce.</div>
+    </label>
+
+    <!-- ===== GROUP: LAUNCH SERVICES ===== -->
+    <div class="config-group-header"><span class="cgh-emoji">🚀</span><span>Launch Services &middot; One-Time</span></div>
+
+    <label class="config-card is-selected" data-key="kb" data-price="1500" data-name="Knowledge Base Power Build" data-requires="basic">
+      <input type="checkbox" checked>
+      <div class="config-checkbox"></div>
+      <span class="config-card-tag green">Recommended</span>
+      <h4>Knowledge Base Power Build</h4>
+      <p>Full-day interview with you and your lead tech. Capture every safe spec, lock type, scenario, FAQ, pricing rule, and edge case. The depth here is what makes the AI agents actually <em>helpful</em>. Powers chatbot + phone + site copy.</p>
+      <div class="config-price">$1,500<span class="config-price-suffix">one-time</span></div>
+      <div class="config-meta">Tap to toggle.</div>
+    </label>
+
+    <label class="config-card is-selected" data-key="photo" data-price="1500" data-name="Showroom Photography &amp; Asset Library" data-requires="basic">
+      <input type="checkbox" checked>
+      <div class="config-checkbox"></div>
+      <span class="config-card-tag green">Recommended</span>
+      <h4>Showroom Photography</h4>
+      <p>Half-day pro photo session at the showroom &mdash; safes, locks, storefront, team, "behind the counter" trust shots. Edited high-res images delivered for site, social, and Google Business.</p>
+      <div class="config-price">$1,500<span class="config-price-suffix">one-time</span></div>
+      <div class="config-meta">Tap to toggle.</div>
+    </label>
+
+    <label class="config-card is-selected" data-key="marketing" data-price="2000" data-name="Marketing Launch Pack — Google Ads + Meta Setup" data-requires="basic">
+      <input type="checkbox" checked>
+      <div class="config-checkbox"></div>
+      <span class="config-card-tag green">Recommended</span>
+      <h4>Marketing Launch Pack</h4>
+      <p>Google Ads + Meta Business Manager setup, audience research, pixel install, retargeting funnel, first 3 ad creatives ("Boca Raton safes," "rekey my locks," "gun safe Florida"). Ad spend billed directly to you, never marked up.</p>
+      <div class="config-price">$2,000<span class="config-price-suffix">one-time setup</span></div>
+      <div class="config-meta">Tap to toggle.</div>
+    </label>
+
+    <!-- ===== GROUP: ONGOING SUPPORT ===== -->
+    <div class="config-group-header"><span class="cgh-emoji">⏱</span><span>Optional Ongoing Support</span></div>
 
     <!-- SUPPORT BLOCK (quantity) -->
     <label class="config-card" data-key="support" data-price="675" data-name="5-Hour Pre-Paid Support Block" data-qty="true">
@@ -849,11 +1025,11 @@ footer p { font-size: 0.85rem; color: var(--gray); }
     <div style="display:flex; justify-content:space-between; align-items:baseline; flex-wrap:wrap; gap:1rem;">
       <div>
         <div style="font-size:0.78rem; text-transform:uppercase; letter-spacing:0.07em; color:var(--gray); font-weight:700;">Your Build</div>
-        <div id="summary-items" style="font-size:0.92rem; color:var(--text2); margin-top:0.4rem;">Phase 1 + Phase 2 + Phase 3</div>
+        <div id="summary-items" style="font-size:0.92rem; color:var(--text2); margin-top:0.4rem;">Core Build + Content &amp; Marketing + Integration + Launch Pack</div>
       </div>
       <div style="text-align:right;">
         <div style="font-size:0.78rem; text-transform:uppercase; letter-spacing:0.07em; color:var(--gray); font-weight:700;">Total</div>
-        <div id="summary-total" style="font-size:2rem; font-weight:800; color:var(--gold); line-height:1;">$13,000</div>
+        <div id="summary-total" style="font-size:2rem; font-weight:800; color:var(--gold); line-height:1;">$26,000</div>
       </div>
     </div>
   </div>
@@ -977,8 +1153,8 @@ footer p { font-size: 0.85rem; color: var(--gray); }
 <!-- STICKY QUOTE BAR -->
 <div id="quote-bar" role="status" aria-live="polite">
   <div class="quote-bar-summary">
-    <span class="quote-bar-count" id="quote-bar-count">3 phases selected</span>
-    <span class="quote-bar-total" id="quote-bar-total">$13,000</span>
+    <span class="quote-bar-count" id="quote-bar-count">10 items selected</span>
+    <span class="quote-bar-total" id="quote-bar-total">$26,000</span>
   </div>
   <div class="quote-bar-divider"></div>
   <button type="button" class="quote-bar-secondary" onclick="document.getElementById('investment').scrollIntoView({behavior:'smooth', block:'start'});">Edit</button>
@@ -1095,12 +1271,40 @@ function toggleTheme() {
 
 // ===== CONFIGURATOR =====
 const qtyState = { support: 0 };
+let lastTotal = 0;
 
 function fmtMoney(n) {
   return '$' + n.toLocaleString('en-US');
 }
 
-function recalcBuild() {
+// Animate a numeric element from `from` to `to` over `duration` ms
+function animateNumber(el, from, to, duration = 450) {
+  if (!el || from === to) { if (el) el.textContent = fmtMoney(to); return; }
+  const start = performance.now();
+  const ease = (t) => 1 - Math.pow(1 - t, 3);
+  function step(now) {
+    const t = Math.min(1, (now - start) / duration);
+    const v = Math.round(from + (to - from) * ease(t));
+    el.textContent = fmtMoney(v);
+    if (t < 1) requestAnimationFrame(step);
+    else el.textContent = fmtMoney(to);
+  }
+  requestAnimationFrame(step);
+}
+
+// Fly a +/- delta chip from a position
+function flyDelta(amount, x, y) {
+  if (!amount) return;
+  const chip = document.createElement('div');
+  chip.className = 'delta-chip ' + (amount > 0 ? 'add' : 'remove');
+  chip.textContent = (amount > 0 ? '+' : '−') + fmtMoney(Math.abs(amount));
+  chip.style.left = x + 'px';
+  chip.style.top = y + 'px';
+  document.body.appendChild(chip);
+  setTimeout(() => chip.remove(), 1100);
+}
+
+function recalcBuild(opts = {}) {
   const cards = document.querySelectorAll('.config-card');
   let total = 0;
   const selectedNames = [];
@@ -1132,43 +1336,63 @@ function recalcBuild() {
   const summaryItemsEl = document.getElementById('summary-items');
   const summaryTotalEl = document.getElementById('summary-total');
   if (summaryItemsEl) summaryItemsEl.textContent = selectedNames.length ? selectedNames.join(' + ') : 'Nothing selected yet';
-  if (summaryTotalEl) summaryTotalEl.textContent = fmtMoney(total);
+  if (summaryTotalEl) animateNumber(summaryTotalEl, lastTotal, total);
 
   // Update sticky bar
   const barCountEl = document.getElementById('quote-bar-count');
   const barTotalEl = document.getElementById('quote-bar-total');
   const itemCount = selectedNames.length;
   if (barCountEl) barCountEl.textContent = itemCount === 0 ? 'Nothing selected' : (itemCount === 1 ? '1 item selected' : `${itemCount} items selected`);
-  if (barTotalEl) barTotalEl.textContent = fmtMoney(total);
+  if (barTotalEl) animateNumber(barTotalEl, lastTotal, total);
 
-  // Pulse animation on change
-  const bar = document.getElementById('quote-bar');
-  if (bar && bar.classList.contains('visible')) {
-    bar.classList.remove('is-pulsing');
-    void bar.offsetWidth;
-    bar.classList.add('is-pulsing');
+  // Pulse animation + bump number color
+  if (opts.animate) {
+    const bar = document.getElementById('quote-bar');
+    if (bar && bar.classList.contains('visible')) {
+      bar.classList.remove('is-pulsing');
+      void bar.offsetWidth;
+      bar.classList.add('is-pulsing');
+    }
+    [summaryTotalEl, barTotalEl].forEach(el => {
+      if (!el) return;
+      el.classList.remove('num-bump');
+      void el.offsetWidth;
+      el.classList.add('num-bump');
+    });
   }
 
   // Stash for email
   window.__buildState = { total, selectedNames, lineItems };
+  lastTotal = total;
 }
 
 function changeQty(key, delta) {
-  qtyState[key] = Math.max(0, (qtyState[key] || 0) + delta);
+  const prev = qtyState[key] || 0;
+  qtyState[key] = Math.max(0, prev + delta);
   const valEl = document.getElementById('qty-' + key);
   if (valEl) valEl.textContent = qtyState[key];
 
-  // Reflect quantity into card selected state
   const card = document.querySelector(`.config-card[data-key="${key}"]`);
   if (card) {
     const cb = card.querySelector('input[type="checkbox"]');
     cb.checked = qtyState[key] > 0;
     card.classList.toggle('is-selected', qtyState[key] > 0);
+    card.classList.remove('just-toggled');
+    void card.offsetWidth;
+    card.classList.add('just-toggled');
+
+    // Fly chip on real change
+    if (qtyState[key] !== prev) {
+      const price = parseInt(card.dataset.price, 10) || 0;
+      const sign = qtyState[key] > prev ? 1 : -1;
+      const rect = card.getBoundingClientRect();
+      flyDelta(sign * price, rect.left + rect.width/2, rect.top + 40);
+    }
   }
-  recalcBuild();
+  recalcBuild({ animate: true });
 }
 
-// Card click handler — toggle, enforce required + dependencies
+// Card click handler — toggle, enforce required + dependencies, fire animation
 document.querySelectorAll('.config-card').forEach(card => {
   card.addEventListener('click', function(e) {
     if (e.target.closest('.config-qty')) return;
@@ -1178,14 +1402,29 @@ document.querySelectorAll('.config-card').forEach(card => {
 
     e.preventDefault();
     const cb = this.querySelector('input[type="checkbox"]');
+    const wasChecked = cb.checked;
     cb.checked = !cb.checked;
     this.classList.toggle('is-selected', cb.checked);
 
+    // Card pulse
+    this.classList.remove('just-toggled');
+    void this.offsetWidth;
+    this.classList.add('just-toggled');
+
+    // Delta chip near click position
+    const price = parseInt(this.dataset.price, 10) || 0;
+    const delta = cb.checked ? price : -price;
+    if (price > 0) {
+      const x = e.clientX || (this.getBoundingClientRect().left + this.offsetWidth / 2);
+      const y = (e.clientY || this.getBoundingClientRect().top + 40) - 10;
+      flyDelta(delta, x, y);
+    }
+
     const key = this.dataset.key;
 
-    // If we just unchecked phase 1 (it's required, so this won't happen), or any prerequisite logic
-    // If this card has dependents, when unchecking, also uncheck them
+    // Cascading dependency logic
     if (!cb.checked) {
+      // Unchecking a card → uncheck dependents
       document.querySelectorAll(`.config-card[data-requires="${key}"]`).forEach(dep => {
         const depCb = dep.querySelector('input[type="checkbox"]');
         if (depCb && depCb.checked) {
@@ -1194,7 +1433,7 @@ document.querySelectorAll('.config-card').forEach(card => {
         }
       });
     } else {
-      // If this requires another, enable it too
+      // Checking a card → ensure prerequisites are checked
       const reqKey = this.dataset.requires;
       if (reqKey) {
         const reqCard = document.querySelector(`.config-card[data-key="${reqKey}"]`);
@@ -1206,7 +1445,7 @@ document.querySelectorAll('.config-card').forEach(card => {
       }
     }
 
-    recalcBuild();
+    recalcBuild({ animate: true });
   });
 });
 
