@@ -816,13 +816,13 @@ footer p { font-size: 0.85rem; color: var(--gray); }
 
   <div class="config-intro">
     <span style="font-size:1.1rem;">🥡</span>
-    <span>Like a Chinese menu: pick the items, watch the total update live. <strong>One-time items</strong> in cyan = you build it, you own it. <strong>Monthly services</strong> in amber = no lock-in, cancel anytime. The bar follows you as you scroll &mdash; email your selection straight to us when ready.</span>
+    <span>Three buckets, one menu. <strong style="color:var(--blue);">Software you'll own forever</strong> (cyan) &middot; <strong style="color:var(--green);">one-time services we deliver</strong> (green) &middot; <strong style="color:var(--orange);">monthly services with no lock-in</strong> (amber). Pick what you want &mdash; the bar follows you down the page and you can email your selection straight to us when ready.</span>
   </div>
 
   <div class="config-grid" id="config-grid">
 
-    <!-- ===== GROUP: CORE BUILD ===== -->
-    <div class="config-group-header"><span class="cgh-emoji">🏗</span><span>Core Build &middot; Owned Tools</span></div>
+    <!-- ===== GROUP 1: SOFTWARE YOU OWN ===== -->
+    <div class="config-group-header"><span class="cgh-emoji">🏗</span><span>Software You Own &middot; Buy Once, Yours Forever</span></div>
 
     <label class="config-card is-required is-selected" data-key="basic" data-price="5500" data-name="Basic Site + Service Booking" data-required="true">
       <input type="checkbox" checked>
@@ -834,43 +834,50 @@ footer p { font-size: 0.85rem; color: var(--gray); }
       <div class="config-meta">Required &mdash; everything else plugs into this.</div>
     </label>
 
-    <label class="config-card is-selected" data-key="ecom" data-price="4500" data-name="E-Commerce Store + Dropship Integration" data-requires="basic">
-      <input type="checkbox" checked>
-      <div class="config-checkbox"></div>
-      <span class="config-card-tag">Owned Tool</span>
-      <h4>E-Commerce Store + Dropship</h4>
-      <p>Full storefront, product catalog, Stripe checkout, distributor catalog integration (Amsec, Emtek, Gardall), order routing, white-glove delivery options. Sell safes that never touch your floor.</p>
-      <div class="config-price">$4,500<span class="config-price-suffix">one-time</span></div>
-      <div class="config-meta">Tap to toggle.</div>
-    </label>
-
-    <label class="config-card is-selected" data-key="phone" data-price="3000" data-name="Inbound AI Phone Receptionist" data-requires="basic">
-      <input type="checkbox" checked>
-      <div class="config-checkbox"></div>
-      <span class="config-card-tag">Owned Tool</span>
-      <h4>Inbound AI Phone Receptionist</h4>
-      <p>AI phone agent answers calls 24/7 with your voice, products, hours, and pricing. Books appointments, takes deposits, escalates real lockout emergencies to your tech. Sends transcripts of every call.</p>
-      <div class="config-price">$3,000<span class="config-price-suffix">one-time</span></div>
-      <div class="config-meta">Tap to toggle.</div>
-    </label>
-
     <label class="config-card is-selected" data-key="chatbot" data-price="1500" data-name="AI Chatbot (Embedded on Site)" data-requires="basic">
       <input type="checkbox" checked>
       <div class="config-checkbox"></div>
-      <span class="config-card-tag">Owned Tool</span>
+      <span class="config-card-tag">Own It</span>
       <h4>AI Chatbot</h4>
       <p>Embedded on every page of your site. Answers product questions, quotes rekey jobs, explains the difference between a B-rate and a TL-30 safe, books service calls. Bilingual EN/ES. Powered by your knowledge base.</p>
       <div class="config-price">$1,500<span class="config-price-suffix">one-time</span></div>
       <div class="config-meta">Tap to toggle.</div>
     </label>
 
-    <!-- ===== GROUP: CONTENT & MARKETING ===== -->
-    <div class="config-group-header"><span class="cgh-emoji">📝</span><span>Content &amp; Marketing Tools &middot; Owned</span></div>
+    <label class="config-card is-selected" data-key="phone" data-price="3000" data-name="Inbound AI Phone Receptionist" data-requires="basic">
+      <input type="checkbox" checked>
+      <div class="config-checkbox"></div>
+      <span class="config-card-tag">Own It</span>
+      <h4>Inbound AI Phone Receptionist</h4>
+      <p>AI phone agent answers calls 24/7 with your voice, products, hours, and pricing. Books appointments, takes deposits, escalates real lockout emergencies to your tech. Sends transcripts of every call.</p>
+      <div class="config-price">$3,000<span class="config-price-suffix">one-time</span></div>
+      <div class="config-meta">Tap to toggle.</div>
+    </label>
+
+    <label class="config-card is-selected" data-key="ecom" data-price="4500" data-name="E-Commerce Store + Dropship Integration" data-requires="basic">
+      <input type="checkbox" checked>
+      <div class="config-checkbox"></div>
+      <span class="config-card-tag">Own It</span>
+      <h4>E-Commerce Store + Dropship</h4>
+      <p>Full storefront, product catalog, Stripe checkout, distributor catalog integration (Amsec, Emtek, Gardall), order routing, white-glove delivery options. Sell safes that never touch your floor.</p>
+      <div class="config-price">$4,500<span class="config-price-suffix">one-time</span></div>
+      <div class="config-meta">Tap to toggle.</div>
+    </label>
+
+    <label class="config-card is-selected" data-key="integration" data-price="2500" data-name="Integration Layer (Stripe + Distributors + Calendar + Accounting Export)" data-requires="basic">
+      <input type="checkbox" checked>
+      <div class="config-checkbox"></div>
+      <span class="config-card-tag">Own It</span>
+      <h4>Integration Layer</h4>
+      <p>The plumbing between your site and the outside world: Stripe payments, distributor APIs (Amsec / Emtek / Gardall) for live catalog + orders, Google/Outlook calendar sync, QuickBooks/Xero export, email + SMS notifications. Built modular so you can swap providers later.</p>
+      <div class="config-price">$2,500<span class="config-price-suffix">one-time</span></div>
+      <div class="config-meta">Tap to toggle. Strongly recommended if e-commerce is on.</div>
+    </label>
 
     <label class="config-card" data-key="blog" data-price="2000" data-name="Blog + Content Management System" data-requires="basic">
       <input type="checkbox">
       <div class="config-checkbox"></div>
-      <span class="config-card-tag">Owned Tool</span>
+      <span class="config-card-tag">Own It</span>
       <h4>Blog + Content Management System</h4>
       <p>Full admin panel where you (or your team) write, edit, and schedule blog posts. AI-assisted drafting, SEO-friendly templates, image library, draft/publish workflow. Drives organic traffic for "Boca Raton locksmith," "gun safe Florida," etc.</p>
       <div class="config-price">$2,000<span class="config-price-suffix">one-time</span></div>
@@ -880,43 +887,27 @@ footer p { font-size: 0.85rem; color: var(--gray); }
     <label class="config-card" data-key="social" data-price="2000" data-name="Social Media Publishing Tool" data-requires="basic">
       <input type="checkbox">
       <div class="config-checkbox"></div>
-      <span class="config-card-tag">Owned Tool</span>
+      <span class="config-card-tag">Own It</span>
       <h4>Social Media Publishing</h4>
       <p>Schedule and post to Facebook, Instagram, and Google Business Profile from one dashboard. AI-assisted captions, image cropping per platform, post calendar, content recycling. You own the tool &mdash; no per-seat SaaS fee.</p>
       <div class="config-price">$2,000<span class="config-price-suffix">one-time</span></div>
       <div class="config-meta">Tap to toggle.</div>
     </label>
 
-    <!-- ===== GROUP: INTEGRATION ===== -->
-    <div class="config-group-header"><span class="cgh-emoji">🔌</span><span>Integration Layer</span></div>
-
-    <label class="config-card is-selected" data-key="integration" data-price="2500" data-name="Integration Layer (Stripe + Distributors + Calendar + Accounting Export)" data-requires="basic">
-      <input type="checkbox" checked>
-      <div class="config-checkbox"></div>
-      <span class="config-card-tag">Owned Tool</span>
-      <h4>Integration Layer</h4>
-      <p>The plumbing between your site and the outside world: Stripe payments, distributor APIs (Amsec / Emtek / Gardall) for live catalog + orders, Google/Outlook calendar sync, QuickBooks/Xero export, email + SMS notifications. Built modular so you can swap providers later.</p>
-      <div class="config-price">$2,500<span class="config-price-suffix">one-time</span></div>
-      <div class="config-meta">Tap to toggle. Strongly recommended if e-commerce is on.</div>
-    </label>
-
-    <!-- ===== GROUP: BACKEND AI AGENTS ===== -->
-    <div class="config-group-header"><span class="cgh-emoji">🤖</span><span>Backend AI Maintenance Agents &middot; Always-On</span></div>
-
     <label class="config-card" data-key="ai-acct" data-price="2500" data-name="Accounting AI Agent" data-requires="basic">
       <input type="checkbox">
       <div class="config-checkbox"></div>
-      <span class="config-card-tag">AI Agent</span>
+      <span class="config-card-tag">Own It &middot; AI Agent</span>
       <h4>Accounting AI Agent</h4>
       <p>Watches your transactions across Stripe, bank, and distributors. Auto-categorizes expenses, reconciles invoices to deposits, flags weird transactions, exports clean monthly P&amp;L to QuickBooks. Saves hours per month at the books.</p>
       <div class="config-price">$2,500<span class="config-price-suffix">one-time</span></div>
-      <div class="config-meta">Tap to toggle. Optional ongoing automation.</div>
+      <div class="config-meta">Tap to toggle.</div>
     </label>
 
     <label class="config-card" data-key="ai-inv" data-price="2500" data-name="Inventory AI Agent" data-requires="basic">
       <input type="checkbox">
       <div class="config-checkbox"></div>
-      <span class="config-card-tag">AI Agent</span>
+      <span class="config-card-tag">Own It &middot; AI Agent</span>
       <h4>Inventory AI Agent</h4>
       <p>Watches stock levels across your showroom and the dropship catalogs. Auto-reorders when below threshold, alerts on low stock, syncs prices when distributors update, removes discontinued items from the site automatically.</p>
       <div class="config-price">$2,500<span class="config-price-suffix">one-time</span></div>
@@ -926,43 +917,30 @@ footer p { font-size: 0.85rem; color: var(--gray); }
     <label class="config-card" data-key="ai-upload" data-price="2000" data-name="Product Upload AI Agent" data-requires="basic">
       <input type="checkbox">
       <div class="config-checkbox"></div>
-      <span class="config-card-tag">AI Agent</span>
+      <span class="config-card-tag">Own It &middot; AI Agent</span>
       <h4>Product Upload AI Agent</h4>
       <p>Drop a distributor spec sheet (PDF, CSV, image) into a folder &mdash; the agent reads it, generates SEO product copy, picks the right category, uploads images, sets pricing rules, and publishes. New SKUs go live without a human touching the admin.</p>
       <div class="config-price">$2,000<span class="config-price-suffix">one-time</span></div>
       <div class="config-meta">Tap to toggle. Pairs with E-Commerce.</div>
     </label>
 
-    <!-- ===== GROUP: OPTIONAL MONTHLY SERVICES ===== -->
-    <div class="config-group-header"><span class="cgh-emoji">💼</span><span>Optional Monthly Services &middot; No Lock-In, Cancel Anytime</span></div>
-
-    <label class="config-card is-monthly" data-key="adspend" data-price="200" data-monthly="true" data-name="Ad Spend Management Service ($200/mo or 10% of spend, whichever higher)" data-requires="basic">
-      <input type="checkbox">
-      <div class="config-checkbox"></div>
-      <span class="config-card-tag amber">Monthly Service &middot; No Lock-In</span>
-      <h4>Ad Spend Management Service</h4>
-      <p>We run your Google &amp; Meta ad accounts week-to-week: bid optimization, budget pacing, A/B testing creatives, killing wasted keywords, monthly performance report. Pairs with the Marketing Launch Pack (one-time setup). The accounts and creatives stay yours &mdash; if you cancel, you keep them.</p>
-      <div class="config-price">$200<span class="config-price-suffix">/ mo minimum &nbsp;or&nbsp; 10% of ad spend</span></div>
-      <div class="config-meta">Whichever is higher. Cancel anytime, 30-day notice. Ad spend itself billed directly to you, never marked up.</div>
-    </label>
-
-    <!-- ===== GROUP: LAUNCH SERVICES ===== -->
-    <div class="config-group-header"><span class="cgh-emoji">🚀</span><span>Launch Services &middot; One-Time</span></div>
+    <!-- ===== GROUP 2: ONE-TIME SETUP SERVICES ===== -->
+    <div class="config-group-header"><span class="cgh-emoji">🎬</span><span>One-Time Setup Services &middot; We Deliver, You Hand Off</span></div>
 
     <label class="config-card is-selected" data-key="kb" data-price="1500" data-name="Knowledge Base Power Build" data-requires="basic">
       <input type="checkbox" checked>
       <div class="config-checkbox"></div>
-      <span class="config-card-tag green">Recommended</span>
+      <span class="config-card-tag green">One-Time Service</span>
       <h4>Knowledge Base Power Build</h4>
       <p>Full-day interview with you and your lead tech. Capture every safe spec, lock type, scenario, FAQ, pricing rule, and edge case. The depth here is what makes the AI agents actually <em>helpful</em>. Powers chatbot + phone + site copy.</p>
       <div class="config-price">$1,500<span class="config-price-suffix">one-time</span></div>
-      <div class="config-meta">Tap to toggle.</div>
+      <div class="config-meta">Tap to toggle. Strongly recommended.</div>
     </label>
 
     <label class="config-card" data-key="photo" data-price="1500" data-name="Showroom Photography &amp; Asset Library" data-requires="basic">
       <input type="checkbox">
       <div class="config-checkbox"></div>
-      <span class="config-card-tag green">Recommended</span>
+      <span class="config-card-tag green">One-Time Service</span>
       <h4>Showroom Photography</h4>
       <p>Half-day pro photo session at the showroom &mdash; safes, locks, storefront, team, "behind the counter" trust shots. Edited high-res images delivered for site, social, and Google Business.</p>
       <div class="config-price">$1,500<span class="config-price-suffix">one-time</span></div>
@@ -972,21 +950,33 @@ footer p { font-size: 0.85rem; color: var(--gray); }
     <label class="config-card" data-key="marketing" data-price="2000" data-name="Marketing Launch Pack — Google Ads + Meta Setup" data-requires="basic">
       <input type="checkbox">
       <div class="config-checkbox"></div>
-      <span class="config-card-tag green">Recommended</span>
+      <span class="config-card-tag green">One-Time Service</span>
       <h4>Marketing Launch Pack</h4>
       <p>Google Ads + Meta Business Manager setup, audience research, pixel install, retargeting funnel, first 3 ad creatives ("Boca Raton safes," "rekey my locks," "gun safe Florida"). Ad spend billed directly to you, never marked up.</p>
       <div class="config-price">$2,000<span class="config-price-suffix">one-time setup</span></div>
-      <div class="config-meta">Tap to toggle.</div>
+      <div class="config-meta">Tap to toggle. Pairs with Ad Spend Management below.</div>
     </label>
 
-    <!-- ===== GROUP: ONGOING SUPPORT ===== -->
-    <div class="config-group-header"><span class="cgh-emoji">⏱</span><span>Optional Ongoing Support</span></div>
+    <!-- ===== GROUP 3: MONTHLY SERVICES ===== -->
+    <div class="config-group-header"><span class="cgh-emoji">🔁</span><span>Monthly Services &middot; No Lock-In, Cancel Anytime</span></div>
 
-    <!-- SUPPORT BLOCK (quantity) -->
+    <label class="config-card is-monthly" data-key="adspend" data-price="200" data-monthly="true" data-name="Ad Spend Management Service ($200/mo or 10% of spend, whichever higher)" data-requires="basic">
+      <input type="checkbox">
+      <div class="config-checkbox"></div>
+      <span class="config-card-tag amber">Monthly &middot; No Lock-In</span>
+      <h4>Ad Spend Management Service</h4>
+      <p>We run your Google &amp; Meta ad accounts week-to-week: bid optimization, budget pacing, A/B testing creatives, killing wasted keywords, monthly performance report. Pairs with the Marketing Launch Pack (one-time setup). The accounts and creatives stay yours &mdash; if you cancel, you keep them.</p>
+      <div class="config-price">$200<span class="config-price-suffix">/ mo minimum &nbsp;or&nbsp; 10% of ad spend</span></div>
+      <div class="config-meta">Whichever is higher. Cancel anytime, 30-day notice. Ad spend itself billed directly to you, never marked up.</div>
+    </label>
+
+    <!-- ===== GROUP 4: PAY-AS-YOU-GO SUPPORT ===== -->
+    <div class="config-group-header"><span class="cgh-emoji">🆘</span><span>Pay-As-You-Go Support &middot; Use Only When Needed</span></div>
+
     <label class="config-card" data-key="support" data-price="675" data-name="5-Hour Pre-Paid Support Block" data-qty="true">
       <input type="checkbox">
       <div class="config-checkbox"></div>
-      <span class="config-card-tag green">Optional &middot; À La Carte Support</span>
+      <span class="config-card-tag green">Pre-Paid Block</span>
       <h4>5-Hour Pre-Paid Support Block</h4>
       <p>10% off the $150/hr rate. Hours never expire. Use them for content updates, new features, AI tuning, or whatever you want.</p>
       <div class="config-price">$675<span class="config-price-suffix">per block</span></div>
@@ -998,33 +988,30 @@ footer p { font-size: 0.85rem; color: var(--gray); }
       </div>
     </label>
 
-    <!-- HOURLY (info only) -->
     <label class="config-card is-locked" data-key="hourly" data-price="0" data-name="Hourly Support (info only)">
       <input type="checkbox" disabled>
       <div class="config-checkbox" style="opacity:0;"></div>
-      <span class="config-card-tag green">Reference</span>
+      <span class="config-card-tag">As Needed</span>
       <h4>Hourly Support &mdash; $150 / hr</h4>
       <p>If you don't pre-pay a block, hourly support is available at $150/hr. Pay only when you use it. Quoted before any work begins.</p>
       <div class="config-price" style="color:var(--gray);">As needed<span class="config-price-suffix">no commitment</span></div>
     </label>
 
-    <!-- HOSTING (info only) -->
     <label class="config-card is-locked" data-key="hosting" data-price="0" data-name="Hosting on Your GoDaddy + AI APIs (passthrough)">
       <input type="checkbox" disabled>
       <div class="config-checkbox" style="opacity:0;"></div>
-      <span class="config-card-tag green">On Your Accounts</span>
+      <span class="config-card-tag">On Your Accounts</span>
       <h4>GoDaddy Hosting + AI APIs</h4>
       <p>Deployed onto <strong>your existing GoDaddy hosting</strong> &mdash; no new hosting bill from us. AI APIs (OpenAI for chatbot, Twilio for the phone agent) on your keys, paid directly to providers, never marked up. Total: ~$30&ndash;100/mo depending on call volume.</p>
       <div class="config-price" style="color:var(--gray);">your GoDaddy<span class="config-price-suffix">+ ~$30&ndash;100/mo APIs</span></div>
     </label>
 
-    <!-- WARRANTY (info only) -->
     <label class="config-card is-locked" data-key="warranty" data-price="0" data-name="30-Day Post-Launch Warranty (included)">
       <input type="checkbox" disabled>
       <div class="config-checkbox" style="opacity:0;"></div>
       <span class="config-card-tag green">Included Free</span>
       <h4>30-Day Post-Launch Warranty</h4>
-      <p>First 30 days after each phase ships, all bug fixes are free. No clock running. We stand behind the build.</p>
+      <p>First 30 days after launch, all bug fixes are free. No clock running. We stand behind the build.</p>
       <div class="config-price" style="color:var(--green);">$0<span class="config-price-suffix">always included</span></div>
     </label>
   </div>
