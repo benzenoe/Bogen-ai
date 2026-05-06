@@ -326,12 +326,168 @@ footer p { font-size: 0.85rem; color: var(--gray); }
 [data-theme="light"] .distrib-chip { box-shadow: 0 1px 4px rgba(0,0,0,0.05); }
 [data-theme="light"] thead th { color: #fff; }
 
+/* CONFIGURATOR */
+.config-intro {
+  display: flex; align-items: center; gap: 0.6rem;
+  background: rgba(255,217,61,0.08);
+  border: 1px solid rgba(255,217,61,0.25);
+  border-radius: 10px;
+  padding: 0.75rem 1.1rem;
+  margin: 0.5rem 0 1.25rem;
+  font-size: 0.88rem; color: var(--text2);
+}
+.config-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1rem;
+  margin-top: 1rem;
+}
+.config-card {
+  display: block;
+  position: relative;
+  background: var(--surface);
+  border: 2px solid var(--border);
+  border-radius: 14px;
+  padding: 1.5rem 1.5rem 1.5rem 3.25rem;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  user-select: none;
+}
+.config-card:hover { border-color: rgba(0,168,225,0.4); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.18); }
+.config-card input[type="checkbox"] { position: absolute; opacity: 0; pointer-events: none; }
+.config-card .config-checkbox {
+  position: absolute; top: 1.5rem; left: 1.1rem;
+  width: 22px; height: 22px;
+  border-radius: 6px;
+  border: 2px solid var(--border);
+  background: var(--bg);
+  display: flex; align-items: center; justify-content: center;
+  transition: all 0.2s ease;
+}
+.config-card .config-checkbox::after {
+  content: '✓';
+  color: #fff; font-weight: 800; font-size: 0.9rem;
+  opacity: 0; transform: scale(0.5);
+  transition: all 0.2s ease;
+}
+.config-card.is-selected { border-color: var(--blue); background: rgba(0,168,225,0.04); box-shadow: 0 4px 16px rgba(0,168,225,0.15); }
+.config-card.is-selected .config-checkbox { background: var(--blue); border-color: var(--blue); }
+.config-card.is-selected .config-checkbox::after { opacity: 1; transform: scale(1); }
+.config-card.is-required { opacity: 0.85; }
+.config-card.is-required:hover { transform: none; }
+.config-card.is-locked { opacity: 0.55; cursor: not-allowed; }
+.config-card.is-locked:hover { transform: none; border-color: var(--border); box-shadow: none; }
+
+.config-card-tag {
+  display: inline-block;
+  font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.08em;
+  padding: 0.2rem 0.55rem; border-radius: 20px;
+  background: rgba(0,168,225,0.12); color: var(--blue);
+  margin-bottom: 0.6rem; font-weight: 700;
+}
+.config-card-tag.gold { background: rgba(255,217,61,0.12); color: var(--gold); }
+.config-card-tag.green { background: rgba(0,196,140,0.12); color: var(--green); }
+.config-card h4 { font-size: 1rem; font-weight: 700; color: var(--text); margin-bottom: 0.4rem; }
+.config-card p { font-size: 0.85rem; color: var(--text3); margin-bottom: 0.85rem; }
+.config-card .config-price {
+  font-size: 1.4rem; font-weight: 800; color: var(--blue);
+  display: flex; align-items: baseline; gap: 0.4rem;
+}
+.config-card .config-price .config-price-suffix { font-size: 0.78rem; color: var(--text3); font-weight: 500; }
+.config-card .config-meta { font-size: 0.78rem; color: var(--text3); margin-top: 0.4rem; }
+.config-card .config-qty {
+  display: flex; align-items: center; gap: 0.6rem; margin-top: 0.85rem;
+}
+.config-qty-btn {
+  width: 28px; height: 28px; border-radius: 6px;
+  border: 1px solid var(--border); background: var(--bg);
+  color: var(--text); font-weight: 700; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  transition: all 0.15s ease;
+}
+.config-qty-btn:hover:not(:disabled) { border-color: var(--blue); color: var(--blue); }
+.config-qty-btn:disabled { opacity: 0.3; cursor: not-allowed; }
+.config-qty-val { min-width: 1.25rem; text-align: center; font-weight: 700; color: var(--text); }
+.config-qty-label { font-size: 0.75rem; color: var(--text3); margin-left: 0.25rem; }
+
+/* STICKY QUOTE BAR */
+#quote-bar {
+  position: fixed;
+  left: 50%; transform: translateX(-50%);
+  bottom: 16px; z-index: 95;
+  background: linear-gradient(135deg, #0d1620 0%, #1a2332 100%);
+  border: 1px solid rgba(0,168,225,0.3);
+  border-radius: 16px;
+  box-shadow: 0 16px 48px rgba(0,0,0,0.5), 0 4px 12px rgba(0,168,225,0.2);
+  padding: 0.85rem 1.25rem;
+  display: flex; align-items: center; gap: 1.25rem;
+  max-width: calc(100vw - 32px);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s ease, transform 0.4s ease;
+}
+#quote-bar.visible { opacity: 1; pointer-events: auto; }
+#quote-bar.is-pulsing { animation: bar-pulse 0.6s ease; }
+@keyframes bar-pulse {
+  0% { transform: translateX(-50%) scale(1); }
+  50% { transform: translateX(-50%) scale(1.04); box-shadow: 0 16px 48px rgba(0,168,225,0.5), 0 0 0 4px rgba(0,168,225,0.15); }
+  100% { transform: translateX(-50%) scale(1); }
+}
+.quote-bar-summary { display: flex; flex-direction: column; gap: 0.15rem; }
+.quote-bar-count { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.07em; color: #8899aa; font-weight: 600; }
+.quote-bar-total { font-size: 1.4rem; font-weight: 800; color: var(--gold); line-height: 1; }
+.quote-bar-divider { width: 1px; height: 32px; background: rgba(255,255,255,0.1); }
+.quote-bar-cta {
+  background: linear-gradient(135deg, #00a8e1 0%, #0088bb 100%);
+  color: #fff; text-decoration: none;
+  padding: 0.7rem 1.2rem;
+  border-radius: 10px;
+  font-weight: 700; font-size: 0.88rem;
+  display: inline-flex; align-items: center; gap: 0.45rem;
+  border: none; cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+.quote-bar-cta:hover { transform: translateY(-1px); box-shadow: 0 6px 16px rgba(0,168,225,0.5); background: linear-gradient(135deg, #0088bb 0%, #006a99 100%); }
+.quote-bar-secondary {
+  background: rgba(255,255,255,0.06);
+  color: #f0f4f8; border: 1px solid rgba(255,255,255,0.12);
+  padding: 0.65rem 0.9rem; border-radius: 10px;
+  font-weight: 600; font-size: 0.82rem;
+  cursor: pointer; transition: all 0.2s ease;
+}
+.quote-bar-secondary:hover { background: rgba(255,255,255,0.1); border-color: rgba(0,168,225,0.4); }
+
+@media (max-width: 600px) {
+  #quote-bar { left: 8px; right: 8px; transform: none; bottom: 8px; padding: 0.7rem 0.85rem; gap: 0.6rem; }
+  #quote-bar.is-pulsing { animation: bar-pulse-mobile 0.6s ease; }
+  @keyframes bar-pulse-mobile {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.02); }
+    100% { transform: scale(1); }
+  }
+  .quote-bar-divider { display: none; }
+  .quote-bar-summary { gap: 0; }
+  .quote-bar-count { font-size: 0.62rem; }
+  .quote-bar-total { font-size: 1.05rem; }
+  .quote-bar-cta { padding: 0.55rem 0.85rem; font-size: 0.78rem; }
+  .quote-bar-secondary { padding: 0.55rem 0.7rem; font-size: 0.74rem; }
+  #pdf-fab { left: 8px; right: auto; bottom: 70px; }
+}
+
+/* Hide quote bar before user scrolls past hero */
+#quote-bar { transform: translateX(-50%) translateY(20px); }
+#quote-bar.visible { transform: translateX(-50%) translateY(0); }
+
 /* PRINT */
 @media print {
-  nav, .theme-toggle, #pdf-modal { display: none !important; }
+  nav, .theme-toggle, #pdf-modal, #quote-bar, #pdf-fab { display: none !important; }
   body { background: #fff; color: #000; }
   section { page-break-inside: avoid; }
   @page { size: letter; margin: 0.5in; }
+  .config-card { border: 1px solid #ccc !important; opacity: 1 !important; }
+  .config-card .config-checkbox { display: none; }
+  .config-card { padding-left: 1.5rem !important; }
 }
 </style>
 </head>
@@ -599,81 +755,107 @@ footer p { font-size: 0.85rem; color: var(--gray); }
 
 <!-- INVESTMENT -->
 <section id="investment" style="padding-top:0;">
-  <div class="section-label">Pricing</div>
-  <h2>Investment &mdash; One-Time, No Subscription</h2>
-  <p style="color:var(--text3); margin-bottom:1rem;">Three phases, three fixed prices, paid as each phase kicks off. When the build is done, the bill is done. Support after launch is à-la-carte and only when you actually need it.</p>
+  <div class="section-label">Build Your Package</div>
+  <h2>Investment &mdash; Pick What You Want</h2>
+  <p style="color:var(--text3); margin-bottom:0.5rem;">Three core phases plus optional support blocks. Tap any card to add or remove it &mdash; the running total tracks you down the page.</p>
 
-  <div class="pricing-box">
-    <table>
-      <thead>
-        <tr>
-          <th>Phase</th>
-          <th>What You Get</th>
-          <th style="text-align:right;">Investment</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr class="divider"><td colspan="3">Phase 1 &middot; Foundation (Months 1&ndash;2)</td></tr>
-        <tr>
-          <td><strong>Website + Chatbot + Knowledge Base + Local SEO</strong></td>
-          <td style="color:var(--text3);">New site, embedded AI chatbot, knowledge base build, Google Business optimization, on-page SEO, photography refresh, mobile-first launch. Code delivered to your GitHub.</td>
-          <td class="amount">$5,000</td>
-        </tr>
-        <tr class="divider"><td colspan="3">Phase 2 &middot; Automation (Months 3&ndash;4)</td></tr>
-        <tr>
-          <td><strong>AI Receptionist + Online Booking</strong></td>
-          <td style="color:var(--text3);">AI phone agent trained on your knowledge base, call routing, deposit-taking flow, online booking system, calendar sync, deposit capture via Stripe. All on your accounts.</td>
-          <td class="amount">$3,500</td>
-        </tr>
-        <tr class="divider"><td colspan="3">Phase 3 &middot; Commerce (Months 5&ndash;6)</td></tr>
-        <tr>
-          <td><strong>E-Commerce + Dropship Integration</strong></td>
-          <td style="color:var(--text3);">Full storefront, product catalog, Stripe checkout, distributor catalog integration (Amsec, Emtek, Gardall), order routing, white-glove delivery options.</td>
-          <td class="amount">$4,500</td>
-        </tr>
-        <tr class="total">
-          <td colspan="2"><strong>Total Build &mdash; Yours Forever, No Recurring Bill</strong></td>
-          <td class="amount">$13,000</td>
-        </tr>
-      </tbody>
-    </table>
+  <div class="config-intro">
+    <span style="font-size:1.1rem;">🥡</span>
+    <span>Like a Chinese menu: pick the items, watch the total update live. The bottom bar follows you as you scroll. Email your selection straight to us when you're ready.</span>
   </div>
 
-  <h3 style="margin-top:2.5rem; font-size:1.05rem;">Optional Post-Launch Support &mdash; À La Carte</h3>
-  <p style="color:var(--text3); margin-bottom:1rem; font-size:0.92rem;">Once the build is done, you're not locked in. Use us when you want, skip us when you don't. Most clients use 5&ndash;10 hours per quarter for content updates, new features, or strategy.</p>
+  <div class="config-grid" id="config-grid">
+    <!-- PHASE 1 -->
+    <label class="config-card is-required is-selected" data-key="p1" data-price="5000" data-name="Phase 1 — Foundation (Website + Chatbot + KB + Local SEO)" data-required="true">
+      <input type="checkbox" checked>
+      <div class="config-checkbox"></div>
+      <span class="config-card-tag gold">Phase 1 &middot; Required Foundation</span>
+      <h4>Website + Chatbot + Knowledge Base + Local SEO</h4>
+      <p>New site, embedded AI chatbot, knowledge base build, Google Business optimization, on-page SEO, photography refresh, mobile-first launch. Code delivered to your GitHub.</p>
+      <div class="config-price">$5,000<span class="config-price-suffix">one-time</span></div>
+      <div class="config-meta">Required &mdash; everything else builds on this foundation.</div>
+    </label>
 
-  <div class="pricing-box">
-    <table>
-      <thead>
-        <tr>
-          <th>Option</th>
-          <th>What's Included</th>
-          <th style="text-align:right;">Rate</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td><strong>Hourly Support</strong></td>
-          <td style="color:var(--text3);">Pay only when you need us &mdash; bug fixes, content tweaks, new pages, AI tuning. No retainer.</td>
-          <td class="amount">$150 / hr</td>
-        </tr>
-        <tr>
-          <td><strong>5-Hour Pre-Paid Block</strong></td>
-          <td style="color:var(--text3);">10% off the hourly rate. Hours never expire. Use them for whatever you want.</td>
-          <td class="amount">$675</td>
-        </tr>
-        <tr>
-          <td><strong>Hosting + AI APIs</strong></td>
-          <td style="color:var(--text3);">Vercel/AWS hosting, OpenAI, Twilio &mdash; all on your accounts. Pay providers directly. We don't markup. Estimated $30&ndash;$120 / mo total based on usage.</td>
-          <td class="amount" style="color:var(--gray);">passthrough</td>
-        </tr>
-        <tr>
-          <td><strong>30-Day Post-Launch Warranty</strong></td>
-          <td style="color:var(--text3);">First 30 days after each phase ships, all bug fixes are free. No clock running.</td>
-          <td class="amount" style="color:var(--green);">included</td>
-        </tr>
-      </tbody>
-    </table>
+    <!-- PHASE 2 -->
+    <label class="config-card is-selected" data-key="p2" data-price="3500" data-name="Phase 2 — AI Receptionist + Online Booking" data-requires="p1">
+      <input type="checkbox" checked>
+      <div class="config-checkbox"></div>
+      <span class="config-card-tag">Phase 2 &middot; Automation</span>
+      <h4>AI Receptionist + Online Booking</h4>
+      <p>AI phone agent trained on your knowledge base, call routing, deposit-taking flow, online booking system, calendar sync, deposit capture via Stripe. All on your accounts.</p>
+      <div class="config-price">$3,500<span class="config-price-suffix">one-time</span></div>
+      <div class="config-meta">Tap to toggle. Requires Phase 1.</div>
+    </label>
+
+    <!-- PHASE 3 -->
+    <label class="config-card is-selected" data-key="p3" data-price="4500" data-name="Phase 3 — E-Commerce + Dropship Integration" data-requires="p1">
+      <input type="checkbox" checked>
+      <div class="config-checkbox"></div>
+      <span class="config-card-tag">Phase 3 &middot; Commerce</span>
+      <h4>E-Commerce + Dropship Integration</h4>
+      <p>Full storefront, product catalog, Stripe checkout, distributor catalog integration (Amsec, Emtek, Gardall), order routing, white-glove delivery options.</p>
+      <div class="config-price">$4,500<span class="config-price-suffix">one-time</span></div>
+      <div class="config-meta">Tap to toggle. Requires Phase 1.</div>
+    </label>
+
+    <!-- SUPPORT BLOCK (quantity) -->
+    <label class="config-card" data-key="support" data-price="675" data-name="5-Hour Pre-Paid Support Block" data-qty="true">
+      <input type="checkbox">
+      <div class="config-checkbox"></div>
+      <span class="config-card-tag green">Optional &middot; À La Carte Support</span>
+      <h4>5-Hour Pre-Paid Support Block</h4>
+      <p>10% off the $150/hr rate. Hours never expire. Use them for content updates, new features, AI tuning, or whatever you want.</p>
+      <div class="config-price">$675<span class="config-price-suffix">per block</span></div>
+      <div class="config-qty" onclick="event.preventDefault(); event.stopPropagation();">
+        <button type="button" class="config-qty-btn" onclick="changeQty('support', -1)">&minus;</button>
+        <span class="config-qty-val" id="qty-support">0</span>
+        <button type="button" class="config-qty-btn" onclick="changeQty('support', 1)">+</button>
+        <span class="config-qty-label">blocks (5 hrs each)</span>
+      </div>
+    </label>
+
+    <!-- HOURLY (info only) -->
+    <label class="config-card is-locked" data-key="hourly" data-price="0" data-name="Hourly Support (info only)">
+      <input type="checkbox" disabled>
+      <div class="config-checkbox" style="opacity:0;"></div>
+      <span class="config-card-tag green">Reference</span>
+      <h4>Hourly Support &mdash; $150 / hr</h4>
+      <p>If you don't pre-pay a block, hourly support is available at $150/hr. Pay only when you use it. Quoted before any work begins.</p>
+      <div class="config-price" style="color:var(--gray);">As needed<span class="config-price-suffix">no commitment</span></div>
+    </label>
+
+    <!-- HOSTING (info only) -->
+    <label class="config-card is-locked" data-key="hosting" data-price="0" data-name="Hosting + AI APIs (passthrough)">
+      <input type="checkbox" disabled>
+      <div class="config-checkbox" style="opacity:0;"></div>
+      <span class="config-card-tag green">Passthrough</span>
+      <h4>Hosting + AI APIs &mdash; Paid to Providers</h4>
+      <p>Vercel/AWS hosting, OpenAI, Twilio &mdash; all on your accounts, paid directly to providers. We don't mark up. Estimated $30&ndash;$120/mo total based on usage.</p>
+      <div class="config-price" style="color:var(--gray);">~$30&ndash;120<span class="config-price-suffix">/ mo passthrough</span></div>
+    </label>
+
+    <!-- WARRANTY (info only) -->
+    <label class="config-card is-locked" data-key="warranty" data-price="0" data-name="30-Day Post-Launch Warranty (included)">
+      <input type="checkbox" disabled>
+      <div class="config-checkbox" style="opacity:0;"></div>
+      <span class="config-card-tag green">Included Free</span>
+      <h4>30-Day Post-Launch Warranty</h4>
+      <p>First 30 days after each phase ships, all bug fixes are free. No clock running. We stand behind the build.</p>
+      <div class="config-price" style="color:var(--green);">$0<span class="config-price-suffix">always included</span></div>
+    </label>
+  </div>
+
+  <div id="config-summary" style="margin-top:2rem; padding:1.5rem; background:var(--surface); border:1px solid var(--border); border-radius:14px;">
+    <div style="display:flex; justify-content:space-between; align-items:baseline; flex-wrap:wrap; gap:1rem;">
+      <div>
+        <div style="font-size:0.78rem; text-transform:uppercase; letter-spacing:0.07em; color:var(--gray); font-weight:700;">Your Build</div>
+        <div id="summary-items" style="font-size:0.92rem; color:var(--text2); margin-top:0.4rem;">Phase 1 + Phase 2 + Phase 3</div>
+      </div>
+      <div style="text-align:right;">
+        <div style="font-size:0.78rem; text-transform:uppercase; letter-spacing:0.07em; color:var(--gray); font-weight:700;">Total</div>
+        <div id="summary-total" style="font-size:2rem; font-weight:800; color:var(--gold); line-height:1;">$13,000</div>
+      </div>
+    </div>
   </div>
 
   <div class="highlight-gold">
@@ -792,6 +974,17 @@ footer p { font-size: 0.85rem; color: var(--gray); }
   </div>
 </section>
 
+<!-- STICKY QUOTE BAR -->
+<div id="quote-bar" role="status" aria-live="polite">
+  <div class="quote-bar-summary">
+    <span class="quote-bar-count" id="quote-bar-count">3 phases selected</span>
+    <span class="quote-bar-total" id="quote-bar-total">$13,000</span>
+  </div>
+  <div class="quote-bar-divider"></div>
+  <button type="button" class="quote-bar-secondary" onclick="document.getElementById('investment').scrollIntoView({behavior:'smooth', block:'start'});">Edit</button>
+  <button type="button" class="quote-bar-cta" onclick="emailMyBuild()">📧 Email My Build</button>
+</div>
+
 <!-- FLOATING PDF DOWNLOAD BUTTON -->
 <button id="pdf-fab" onclick="openPdfModal()" aria-label="Preview &amp; download PDF" style="
   position: fixed;
@@ -899,6 +1092,156 @@ function toggleTheme() {
   const saved = localStorage.getItem('thanksalock-theme');
   if (saved) document.documentElement.setAttribute('data-theme', saved);
 })();
+
+// ===== CONFIGURATOR =====
+const qtyState = { support: 0 };
+
+function fmtMoney(n) {
+  return '$' + n.toLocaleString('en-US');
+}
+
+function recalcBuild() {
+  const cards = document.querySelectorAll('.config-card');
+  let total = 0;
+  const selectedNames = [];
+  const lineItems = [];
+
+  cards.forEach(card => {
+    const key = card.dataset.key;
+    const price = parseInt(card.dataset.price, 10) || 0;
+    const checkbox = card.querySelector('input[type="checkbox"]');
+
+    if (card.dataset.qty === 'true') {
+      const q = qtyState[key] || 0;
+      if (q > 0) {
+        const subtotal = price * q;
+        total += subtotal;
+        const label = key === 'support' ? `${q} × 5-Hour Support Block` : `${q} × ${card.dataset.name}`;
+        selectedNames.push(label);
+        lineItems.push(`• ${label} — ${fmtMoney(subtotal)}`);
+      }
+    } else if (checkbox && checkbox.checked && !card.classList.contains('is-locked')) {
+      total += price;
+      const shortName = card.dataset.name.split('—')[0].trim();
+      selectedNames.push(shortName);
+      lineItems.push(`• ${card.dataset.name} — ${fmtMoney(price)}`);
+    }
+  });
+
+  // Update inline summary
+  const summaryItemsEl = document.getElementById('summary-items');
+  const summaryTotalEl = document.getElementById('summary-total');
+  if (summaryItemsEl) summaryItemsEl.textContent = selectedNames.length ? selectedNames.join(' + ') : 'Nothing selected yet';
+  if (summaryTotalEl) summaryTotalEl.textContent = fmtMoney(total);
+
+  // Update sticky bar
+  const barCountEl = document.getElementById('quote-bar-count');
+  const barTotalEl = document.getElementById('quote-bar-total');
+  const itemCount = selectedNames.length;
+  if (barCountEl) barCountEl.textContent = itemCount === 0 ? 'Nothing selected' : (itemCount === 1 ? '1 item selected' : `${itemCount} items selected`);
+  if (barTotalEl) barTotalEl.textContent = fmtMoney(total);
+
+  // Pulse animation on change
+  const bar = document.getElementById('quote-bar');
+  if (bar && bar.classList.contains('visible')) {
+    bar.classList.remove('is-pulsing');
+    void bar.offsetWidth;
+    bar.classList.add('is-pulsing');
+  }
+
+  // Stash for email
+  window.__buildState = { total, selectedNames, lineItems };
+}
+
+function changeQty(key, delta) {
+  qtyState[key] = Math.max(0, (qtyState[key] || 0) + delta);
+  const valEl = document.getElementById('qty-' + key);
+  if (valEl) valEl.textContent = qtyState[key];
+
+  // Reflect quantity into card selected state
+  const card = document.querySelector(`.config-card[data-key="${key}"]`);
+  if (card) {
+    const cb = card.querySelector('input[type="checkbox"]');
+    cb.checked = qtyState[key] > 0;
+    card.classList.toggle('is-selected', qtyState[key] > 0);
+  }
+  recalcBuild();
+}
+
+// Card click handler — toggle, enforce required + dependencies
+document.querySelectorAll('.config-card').forEach(card => {
+  card.addEventListener('click', function(e) {
+    if (e.target.closest('.config-qty')) return;
+    if (this.classList.contains('is-locked')) { e.preventDefault(); return; }
+    if (this.classList.contains('is-required')) { e.preventDefault(); return; }
+    if (this.dataset.qty === 'true') { e.preventDefault(); return; }
+
+    e.preventDefault();
+    const cb = this.querySelector('input[type="checkbox"]');
+    cb.checked = !cb.checked;
+    this.classList.toggle('is-selected', cb.checked);
+
+    const key = this.dataset.key;
+
+    // If we just unchecked phase 1 (it's required, so this won't happen), or any prerequisite logic
+    // If this card has dependents, when unchecking, also uncheck them
+    if (!cb.checked) {
+      document.querySelectorAll(`.config-card[data-requires="${key}"]`).forEach(dep => {
+        const depCb = dep.querySelector('input[type="checkbox"]');
+        if (depCb && depCb.checked) {
+          depCb.checked = false;
+          dep.classList.remove('is-selected');
+        }
+      });
+    } else {
+      // If this requires another, enable it too
+      const reqKey = this.dataset.requires;
+      if (reqKey) {
+        const reqCard = document.querySelector(`.config-card[data-key="${reqKey}"]`);
+        if (reqCard) {
+          const reqCb = reqCard.querySelector('input[type="checkbox"]');
+          reqCb.checked = true;
+          reqCard.classList.add('is-selected');
+        }
+      }
+    }
+
+    recalcBuild();
+  });
+});
+
+function emailMyBuild() {
+  const state = window.__buildState || { total: 0, selectedNames: [], lineItems: [] };
+  const subject = `Thanks A Lock — My Build Selection (${fmtMoney(state.total)})`;
+  const body =
+`Hi Bogen.ai team,
+
+Here is the package I'd like to move forward with:
+
+${state.lineItems.join('\n') || '(no items selected yet)'}
+
+— — —
+TOTAL: ${fmtMoney(state.total)}
+— — —
+
+Best time to meet at the showroom is:
+
+— John Behm, Thanks A Lock`;
+
+  window.location.href = `mailto:sales@reignation.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+}
+
+// Reveal sticky bar after scroll past hero
+function updateBarVisibility() {
+  const bar = document.getElementById('quote-bar');
+  if (!bar) return;
+  const trigger = window.innerHeight * 0.6;
+  if (window.scrollY > trigger) bar.classList.add('visible');
+  else bar.classList.remove('visible');
+}
+window.addEventListener('scroll', updateBarVisibility, { passive: true });
+window.addEventListener('load', () => { updateBarVisibility(); recalcBuild(); });
+recalcBuild();
 
 function openPdfModal() {
   const modal = document.getElementById('pdf-modal');
