@@ -732,7 +732,7 @@ footer p { font-size: 0.85rem; color: var(--gray); }
     <div class="compare-col good">
       <h4>The Bogen.ai Ownership Model</h4>
       <ul>
-        <li><strong>$13,000 one-time</strong> &mdash; complete build, all 3 phases, no recurring fee from us</li>
+        <li><strong>From $7,000 (Foundation) to $24,000 (Complete) one-time</strong> &mdash; pick a package, no recurring fee from us</li>
         <li>Code delivered to <em>your</em> GitHub repo &mdash; you own every line</li>
         <li>Domain stays on your GoDaddy. App runs on modern infrastructure (Vercel + Neon Postgres) in <em>your name</em>, set up by us, hand-off any time</li>
         <li>AI APIs (OpenAI, Twilio) on <em>your</em> keys &mdash; pay providers directly, no markup</li>
@@ -744,9 +744,9 @@ footer p { font-size: 0.85rem; color: var(--gray); }
 
   <div class="math-box" style="margin-top:2rem;">
     <div class="math-cell">
-      <span class="math-num">$13,000</span>
-      <span class="math-lbl">One-Time Build (Us)</span>
-      <span class="math-equation">All 3 phases, code is yours</span>
+      <span class="math-num">$15,500</span>
+      <span class="math-lbl">Operator Build (Us)</span>
+      <span class="math-equation">One-time, code is yours</span>
     </div>
     <div class="math-cell">
       <span class="math-num">$33,600</span>
@@ -754,14 +754,14 @@ footer p { font-size: 0.85rem; color: var(--gray); }
       <span class="math-equation">$560 &times; 60 months</span>
     </div>
     <div class="math-cell">
-      <span class="math-num">$20,600</span>
+      <span class="math-num">$13,300</span>
       <span class="math-lbl">5-Year Savings</span>
-      <span class="math-equation">vs the lock-in vendor</span>
+      <span class="math-equation">+ ~$80/mo infra passthrough</span>
     </div>
     <div class="math-cell">
-      <span class="math-num">Mo. 24</span>
-      <span class="math-lbl">Crossover Point</span>
-      <span class="math-equation">Where you've already saved money</span>
+      <span class="math-num">Yours</span>
+      <span class="math-lbl">Asset at Year 5</span>
+      <span class="math-equation">SaaS: still $0, still rented</span>
     </div>
   </div>
 
@@ -868,9 +868,9 @@ footer p { font-size: 0.85rem; color: var(--gray); }
       <span class="math-equation">$11K × 50%</span>
     </div>
     <div class="math-cell">
-      <span class="math-num">2&ndash;3</span>
+      <span class="math-num">3</span>
       <span class="math-lbl">Safes to Break Even</span>
-      <span class="math-equation">$13K build &divide; $5,500 GP</span>
+      <span class="math-equation">$15.5K Operator &divide; $5,500 GP</span>
     </div>
   </div>
 
@@ -890,11 +890,10 @@ footer p { font-size: 0.85rem; color: var(--gray); }
   <div class="package-grid">
     <button type="button" class="package-card" onclick="applyPackage('foundation')">
       <div class="package-tag">Foundation</div>
-      <div class="package-price">$8,500<span class="package-price-sub">one-time</span></div>
+      <div class="package-price">$7,000<span class="package-price-sub">one-time</span></div>
       <ul class="package-list">
-        <li>Basic Site + Service Booking</li>
+        <li>Modern Site + Booking</li>
         <li>AI Chatbot</li>
-        <li>Knowledge Base Power Build</li>
       </ul>
       <div class="package-cta">Apply this package</div>
     </button>
@@ -902,25 +901,26 @@ footer p { font-size: 0.85rem; color: var(--gray); }
     <button type="button" class="package-card is-recommended" onclick="applyPackage('operator')">
       <div class="package-ribbon">★ Recommended</div>
       <div class="package-tag">Operator</div>
-      <div class="package-price">$18,500<span class="package-price-sub">one-time</span></div>
+      <div class="package-price">$15,500<span class="package-price-sub">one-time</span></div>
       <ul class="package-list">
         <li>Everything in Foundation</li>
         <li>+ AI Phone Receptionist</li>
-        <li>+ E-Commerce + Dropship</li>
-        <li>+ Integration Layer</li>
+        <li>+ SMS Quote &amp; Deposit Flow</li>
+        <li>+ Marketing Launch Pack</li>
+        <li>+ Inventory Sync Agent</li>
       </ul>
       <div class="package-cta">Apply this package</div>
     </button>
 
     <button type="button" class="package-card" onclick="applyPackage('complete')">
       <div class="package-tag">Complete</div>
-      <div class="package-price">$26,500<span class="package-price-sub">one-time</span></div>
+      <div class="package-price">$24,000<span class="package-price-sub">one-time</span></div>
       <ul class="package-list">
         <li>Everything in Operator</li>
-        <li>+ Showroom Photography</li>
-        <li>+ Marketing Launch Pack</li>
-        <li>+ Inventory AI Agent</li>
-        <li>+ Accounting AI Agent</li>
+        <li>+ E-Commerce Storefront</li>
+        <li>+ Distributor Catalog Sync</li>
+        <li>&nbsp;&nbsp;(AMSEC / Emtek / Gardall)</li>
+        <li>+ Accounting Reconciliation Agent</li>
       </ul>
       <div class="package-cta">Apply this package</div>
     </button>
@@ -935,157 +935,153 @@ footer p { font-size: 0.85rem; color: var(--gray); }
 
   <div class="config-grid" id="config-grid">
 
-    <!-- ===== GROUP 1: SOFTWARE YOU OWN ===== -->
-    <div class="config-group-header"><span class="cgh-emoji">🏗</span><span>Software You Own &middot; Buy Once, Yours Forever</span></div>
+    <!-- ===== GROUP 1: CORE STOREFRONT ===== -->
+    <div class="config-group-header"><span class="cgh-emoji">🏗</span><span>Core Storefront &middot; Required</span></div>
 
-    <label class="config-card is-required is-selected" data-key="basic" data-price="5500" data-name="Basic Site + Service Booking" data-required="true">
+    <label class="config-card is-required is-selected" data-key="basic" data-price="5500" data-name="Modern Site + Booking System" data-required="true">
       <input type="checkbox" checked>
       <div class="config-checkbox"></div>
       <span class="config-card-tag gold">Required Foundation</span>
-      <h4>Basic Site + Service Booking</h4>
-      <p>Modern, mobile-first website with on-page SEO, Google Business optimization, and a built-in booking system for rekeys, lock installs, safe deliveries, and consultations. Calendar sync, deposit capture via Stripe.</p>
+      <h4>Modern Site + Booking System</h4>
+      <p>Mobile-first website built directly onto <strong>your GoDaddy account</strong>. Showroom showcase, service booking (rekeys, lock installs, safe deliveries, consultations), Stripe deposits, calendar sync, on-page SEO, Google Business optimization.</p>
       <div class="config-price">$5,500<span class="config-price-suffix">one-time</span></div>
-      <div class="config-meta">Required &mdash; everything else plugs into this.</div>
+      <div class="config-meta">Required &mdash; everything plugs into this.</div>
     </label>
 
-    <label class="config-card is-selected" data-key="chatbot" data-price="1500" data-name="AI Chatbot (Embedded on Site)" data-requires="basic">
+    <!-- ===== GROUP 2: AI CUSTOMER CAPTURE ===== -->
+    <div class="config-group-header"><span class="cgh-emoji">📞</span><span>AI Customer Capture &middot; Stop Missing Calls</span></div>
+
+    <label class="config-card is-selected" data-key="chatbot" data-price="1500" data-name="AI Chatbot" data-requires="basic">
       <input type="checkbox" checked>
       <div class="config-checkbox"></div>
       <span class="config-card-tag">Own It</span>
       <h4>AI Chatbot</h4>
-      <p>Embedded on every page of your site. Answers product questions, quotes rekey jobs, explains the difference between a B-rate and a TL-30 safe, books service calls. Bilingual EN/ES. Powered by your knowledge base.</p>
+      <p>Embedded on every page. Answers product questions, quotes rekeys, explains the difference between a B-rate and a TL-30 safe, books service calls. Bilingual EN/ES. Powered by your knowledge base.</p>
       <div class="config-price">$1,500<span class="config-price-suffix">one-time</span></div>
       <div class="config-meta">Tap to toggle.</div>
     </label>
 
-    <label class="config-card is-selected" data-key="phone" data-price="3000" data-name="Inbound AI Phone Receptionist" data-requires="basic">
+    <label class="config-card is-selected" data-key="phone" data-price="3000" data-name="AI Phone Receptionist" data-requires="basic">
       <input type="checkbox" checked>
       <div class="config-checkbox"></div>
       <span class="config-card-tag">Own It</span>
-      <h4>Inbound AI Phone Receptionist</h4>
-      <p>AI phone agent answers calls 24/7 with your voice, products, hours, and pricing. Books appointments, takes deposits, escalates real lockout emergencies to your tech. Sends transcripts of every call.</p>
+      <h4>AI Phone Receptionist</h4>
+      <p>Answers your calls 24/7 with full knowledge of your products, hours, and pricing. Books appointments, takes deposits, escalates real lockout emergencies to your tech, sends a transcript of every call.</p>
       <div class="config-price">$3,000<span class="config-price-suffix">one-time</span></div>
-      <div class="config-meta">Tap to toggle.</div>
+      <div class="config-meta">Tap to toggle. Recovers after-hours revenue from day one.</div>
     </label>
 
-    <label class="config-card is-selected" data-key="ecom" data-price="4500" data-name="E-Commerce Store + Dropship Integration" data-requires="basic">
+    <label class="config-card is-selected" data-key="sms" data-price="1500" data-name="SMS Quote &amp; Deposit Flow" data-requires="basic">
       <input type="checkbox" checked>
       <div class="config-checkbox"></div>
       <span class="config-card-tag">Own It</span>
-      <h4>E-Commerce Store + Dropship</h4>
-      <p>Full storefront, product catalog, Stripe checkout, distributor catalog integration (Amsec, Emtek, Gardall), order routing, white-glove delivery options. Sell safes that never touch your floor.</p>
+      <h4>SMS Quote &amp; Deposit Flow</h4>
+      <p>Locksmith customers convert by text, not web forms. Send pricing, photos, and deposit links over SMS &mdash; close jobs from a parking lot or while you're on the road. Two-way messaging tied into your booking calendar.</p>
+      <div class="config-price">$1,500<span class="config-price-suffix">one-time</span></div>
+      <div class="config-meta">Tap to toggle. Pairs with the phone receptionist.</div>
+    </label>
+
+    <!-- ===== GROUP 3: ONLINE SALES ===== -->
+    <div class="config-group-header"><span class="cgh-emoji">🛒</span><span>Online Sales &middot; Free Your Floor Space (Emtek &amp; AMSEC)</span></div>
+
+    <label class="config-card" data-key="ecom" data-price="4500" data-name="E-Commerce Storefront" data-requires="basic">
+      <input type="checkbox">
+      <div class="config-checkbox"></div>
+      <span class="config-card-tag">Own It</span>
+      <h4>E-Commerce Storefront</h4>
+      <p>Full Emtek hardware showroom + AMSEC safe storefront online. Filter by size, fire rating, finish, price. Configure, pay deposit or in full, schedule white-glove delivery. Stripe checkout. Lets contractors and designers spec hardware without walking in.</p>
       <div class="config-price">$4,500<span class="config-price-suffix">one-time</span></div>
-      <div class="config-meta">Tap to toggle.</div>
+      <div class="config-meta">Tap to toggle. The Emtek scaling play.</div>
     </label>
 
-    <label class="config-card is-selected" data-key="integration" data-price="2500" data-name="Integration Layer (Stripe + Distributors + Calendar + Accounting Export)" data-requires="basic">
-      <input type="checkbox" checked>
-      <div class="config-checkbox"></div>
-      <span class="config-card-tag">Own It</span>
-      <h4>Integration Layer</h4>
-      <p>The plumbing between your site and the outside world: Stripe payments, distributor APIs (Amsec / Emtek / Gardall) for live catalog + orders, Google/Outlook calendar sync, QuickBooks/Xero export, email + SMS notifications. Built modular so you can swap providers later.</p>
-      <div class="config-price">$2,500<span class="config-price-suffix">one-time</span></div>
-      <div class="config-meta">Tap to toggle. Strongly recommended if e-commerce is on.</div>
-    </label>
-
-    <label class="config-card" data-key="blog" data-price="2000" data-name="Blog + Content Management System" data-requires="basic">
+    <label class="config-card" data-key="catalog" data-price="2500" data-name="Distributor Catalog Sync (AMSEC / Emtek / Gardall)" data-requires="basic">
       <input type="checkbox">
       <div class="config-checkbox"></div>
       <span class="config-card-tag">Own It</span>
-      <h4>Blog + Content Management System</h4>
-      <p>Full admin panel where you (or your team) write, edit, and schedule blog posts. AI-assisted drafting, SEO-friendly templates, image library, draft/publish workflow. Drives organic traffic for "Boca Raton locksmith," "gun safe Florida," etc.</p>
-      <div class="config-price">$2,000<span class="config-price-suffix">one-time</span></div>
-      <div class="config-meta">Tap to toggle.</div>
-    </label>
-
-    <label class="config-card" data-key="social" data-price="2000" data-name="Social Media Publishing Tool" data-requires="basic">
-      <input type="checkbox">
-      <div class="config-checkbox"></div>
-      <span class="config-card-tag">Own It</span>
-      <h4>Social Media Publishing</h4>
-      <p>Schedule and post to Facebook, Instagram, and Google Business Profile from one dashboard. AI-assisted captions, image cropping per platform, post calendar, content recycling. You own the tool &mdash; no per-seat SaaS fee.</p>
-      <div class="config-price">$2,000<span class="config-price-suffix">one-time</span></div>
-      <div class="config-meta">Tap to toggle.</div>
-    </label>
-
-    <label class="config-card" data-key="ai-acct" data-price="2500" data-name="Accounting AI Agent" data-requires="basic">
-      <input type="checkbox">
-      <div class="config-checkbox"></div>
-      <span class="config-card-tag">Own It &middot; AI Agent</span>
-      <h4>Accounting AI Agent</h4>
-      <p>Watches your transactions across Stripe, bank, and distributors. Auto-categorizes expenses, reconciles invoices to deposits, flags weird transactions, exports clean monthly P&amp;L to QuickBooks. Saves hours per month at the books.</p>
+      <h4>Distributor Catalog Sync</h4>
+      <p>Pulls AMSEC, Emtek/Assa Abloy, and Gardall catalogs into your store via dealer-portal feeds, CSVs, and PDF spec sheets &mdash; with manual approval gates. Sell hundreds of safes that never touch your floor; the distributor ships, you keep the margin.</p>
       <div class="config-price">$2,500<span class="config-price-suffix">one-time</span></div>
-      <div class="config-meta">Tap to toggle.</div>
-    </label>
-
-    <label class="config-card" data-key="ai-inv" data-price="2500" data-name="Inventory AI Agent" data-requires="basic">
-      <input type="checkbox">
-      <div class="config-checkbox"></div>
-      <span class="config-card-tag">Own It &middot; AI Agent</span>
-      <h4>Inventory AI Agent</h4>
-      <p>Watches stock levels across your showroom and the dropship catalogs. Auto-reorders when below threshold, alerts on low stock, syncs prices when distributors update, removes discontinued items from the site automatically.</p>
-      <div class="config-price">$2,500<span class="config-price-suffix">one-time</span></div>
-      <div class="config-meta">Tap to toggle. Pairs with E-Commerce + Integration.</div>
-    </label>
-
-    <label class="config-card" data-key="ai-upload" data-price="2000" data-name="Product Upload AI Agent" data-requires="basic">
-      <input type="checkbox">
-      <div class="config-checkbox"></div>
-      <span class="config-card-tag">Own It &middot; AI Agent</span>
-      <h4>Product Upload AI Agent</h4>
-      <p>Drop a distributor spec sheet (PDF, CSV, image) into a folder &mdash; the agent reads it, generates SEO product copy, picks the right category, uploads images, sets pricing rules, and publishes. New SKUs go live without a human touching the admin.</p>
-      <div class="config-price">$2,000<span class="config-price-suffix">one-time</span></div>
       <div class="config-meta">Tap to toggle. Pairs with E-Commerce.</div>
     </label>
 
-    <!-- ===== GROUP 2: ONE-TIME SETUP SERVICES ===== -->
-    <div class="config-group-header"><span class="cgh-emoji">🎬</span><span>One-Time Setup Services &middot; We Deliver, You Hand Off</span></div>
+    <!-- ===== GROUP 4: OPERATIONS AUTOMATION ===== -->
+    <div class="config-group-header"><span class="cgh-emoji">⚙</span><span>Operations Automation &middot; Run Quieter (pick any)</span></div>
 
-    <label class="config-card is-selected" data-key="kb" data-price="1500" data-name="Knowledge Base Power Build" data-requires="basic">
+    <label class="config-card is-selected" data-key="ai-inv" data-price="2000" data-name="Inventory Sync Agent" data-requires="basic">
       <input type="checkbox" checked>
       <div class="config-checkbox"></div>
-      <span class="config-card-tag green">One-Time Service</span>
-      <h4>Knowledge Base Power Build</h4>
-      <p>Full-day interview with you and your lead tech. Capture every safe spec, lock type, scenario, FAQ, pricing rule, and edge case. The depth here is what makes the AI agents actually <em>helpful</em>. Powers chatbot + phone + site copy.</p>
-      <div class="config-price">$1,500<span class="config-price-suffix">one-time</span></div>
-      <div class="config-meta">Tap to toggle. Strongly recommended.</div>
+      <span class="config-card-tag">Own It &middot; AI Agent</span>
+      <h4>Inventory Sync Agent</h4>
+      <p>Watches stock levels across your showroom and the dropship catalogs. Flags low stock, syncs prices when distributors update, removes discontinued items from the site, queues reorders for your approval.</p>
+      <div class="config-price">$2,000<span class="config-price-suffix">one-time</span></div>
+      <div class="config-meta">Tap to toggle.</div>
     </label>
 
-    <label class="config-card" data-key="photo" data-price="1500" data-name="Showroom Photography &amp; Asset Library" data-requires="basic">
+    <label class="config-card" data-key="ai-acct" data-price="1500" data-name="Accounting Reconciliation Agent" data-requires="basic">
       <input type="checkbox">
       <div class="config-checkbox"></div>
-      <span class="config-card-tag green">One-Time Service</span>
-      <h4>Showroom Photography</h4>
-      <p>Half-day pro photo session at the showroom &mdash; safes, locks, storefront, team, "behind the counter" trust shots. Edited high-res images delivered for site, social, and Google Business.</p>
+      <span class="config-card-tag">Own It &middot; AI Agent</span>
+      <h4>Accounting Reconciliation Agent</h4>
+      <p>Watches transactions across Stripe, your bank, and distributor invoices. Auto-categorizes, reconciles deposits to invoices, flags weird transactions, exports a clean monthly P&amp;L to QuickBooks. Saves hours at the books.</p>
       <div class="config-price">$1,500<span class="config-price-suffix">one-time</span></div>
       <div class="config-meta">Tap to toggle.</div>
     </label>
 
-    <label class="config-card" data-key="marketing" data-price="2000" data-name="Marketing Launch Pack — Google Ads + Meta Setup" data-requires="basic">
+    <label class="config-card" data-key="ai-upload" data-price="1500" data-name="Product Upload Agent" data-requires="basic">
       <input type="checkbox">
+      <div class="config-checkbox"></div>
+      <span class="config-card-tag">Own It &middot; AI Agent</span>
+      <h4>Product Upload Agent</h4>
+      <p>Drop a distributor spec sheet (PDF, CSV, image) into a folder &mdash; the agent reads it, generates SEO product copy, picks the right category, uploads images, sets pricing rules, and publishes. New SKUs go live without touching the admin.</p>
+      <div class="config-price">$1,500<span class="config-price-suffix">one-time</span></div>
+      <div class="config-meta">Tap to toggle. Pairs with E-Commerce.</div>
+    </label>
+
+    <!-- ===== GROUP 5: CONTENT TOOLS ===== -->
+    <div class="config-group-header"><span class="cgh-emoji">📝</span><span>Content Tools</span></div>
+
+    <label class="config-card" data-key="blog" data-price="2000" data-name="Blog + CMS" data-requires="basic">
+      <input type="checkbox">
+      <div class="config-checkbox"></div>
+      <span class="config-card-tag">Own It</span>
+      <h4>Blog + CMS</h4>
+      <p>Admin panel where you (or your team) write, edit, and schedule blog posts. AI-assisted drafting, SEO templates, image library. Drives organic traffic for "Boca Raton locksmith," "Emtek hardware Florida," "gun safe Boca," etc.</p>
+      <div class="config-price">$2,000<span class="config-price-suffix">one-time</span></div>
+      <div class="config-meta">Tap to toggle.</div>
+    </label>
+
+    <label class="config-card" data-key="social" data-price="2000" data-name="Social Publishing Tool" data-requires="basic">
+      <input type="checkbox">
+      <div class="config-checkbox"></div>
+      <span class="config-card-tag">Own It</span>
+      <h4>Social Publishing Tool</h4>
+      <p>Schedule posts to Facebook, Instagram, and Google Business from one dashboard. AI-assisted captions, image cropping per platform, post calendar, content recycling. You own the tool &mdash; no per-seat SaaS fee.</p>
+      <div class="config-price">$2,000<span class="config-price-suffix">one-time</span></div>
+      <div class="config-meta">Tap to toggle.</div>
+    </label>
+
+    <!-- ===== GROUP 6: LAUNCH & ONGOING ===== -->
+    <div class="config-group-header"><span class="cgh-emoji">🚀</span><span>Launch &amp; Ongoing</span></div>
+
+    <label class="config-card is-selected" data-key="marketing" data-price="2000" data-name="Marketing Launch Pack" data-requires="basic">
+      <input type="checkbox" checked>
       <div class="config-checkbox"></div>
       <span class="config-card-tag green">One-Time Service</span>
       <h4>Marketing Launch Pack</h4>
-      <p>Google Ads + Meta Business Manager setup, audience research, pixel install, retargeting funnel, first 3 ad creatives ("Boca Raton safes," "rekey my locks," "gun safe Florida"). Ad spend billed directly to you, never marked up.</p>
+      <p>Google Ads + Meta Business Manager setup, audience research, pixel install, retargeting funnel, first 3 ad creatives ("Boca Raton safes," "rekey my locks," "Emtek hardware Florida"). Ad spend billed directly to you, never marked up.</p>
       <div class="config-price">$2,000<span class="config-price-suffix">one-time setup</span></div>
-      <div class="config-meta">Tap to toggle. Pairs with Ad Spend Management below.</div>
+      <div class="config-meta">Tap to toggle. Pairs with Ad Management below.</div>
     </label>
 
-    <!-- ===== GROUP 3: MONTHLY SERVICES ===== -->
-    <div class="config-group-header"><span class="cgh-emoji">🔁</span><span>Monthly Services &middot; No Lock-In, Cancel Anytime</span></div>
-
-    <label class="config-card is-monthly" data-key="adspend" data-price="200" data-monthly="true" data-name="Ad Spend Management Service ($200/mo or 10% of spend, whichever higher)" data-requires="basic">
+    <label class="config-card is-monthly" data-key="adspend" data-price="300" data-monthly="true" data-name="Ad Management Service" data-requires="basic">
       <input type="checkbox">
       <div class="config-checkbox"></div>
       <span class="config-card-tag amber">Monthly &middot; No Lock-In</span>
-      <h4>Ad Spend Management Service</h4>
-      <p>We run your Google &amp; Meta ad accounts week-to-week: bid optimization, budget pacing, A/B testing creatives, killing wasted keywords, monthly performance report. Pairs with the Marketing Launch Pack (one-time setup). The accounts and creatives stay yours &mdash; if you cancel, you keep them.</p>
-      <div class="config-price">$200<span class="config-price-suffix">/ mo minimum &nbsp;or&nbsp; 10% of ad spend</span></div>
-      <div class="config-meta">Whichever is higher. Cancel anytime, 30-day notice. Ad spend itself billed directly to you, never marked up.</div>
+      <h4>Ad Management Service</h4>
+      <p>We run your Google &amp; Meta accounts week-to-week: bid optimization, budget pacing, A/B testing, killing wasted keywords, monthly performance report. Accounts and creatives stay yours &mdash; cancel anytime, you keep them.</p>
+      <div class="config-price">$300<span class="config-price-suffix">/ mo flat</span></div>
+      <div class="config-meta">Cancel anytime, 30-day notice. Recommended ad budget: $1,000+/mo, billed directly to you.</div>
     </label>
-
-    <!-- ===== GROUP 4: PAY-AS-YOU-GO SUPPORT ===== -->
-    <div class="config-group-header"><span class="cgh-emoji">🆘</span><span>Pay-As-You-Go Support &middot; Use Only When Needed</span></div>
 
     <label class="config-card" data-key="support" data-price="675" data-name="5-Hour Pre-Paid Support Block" data-qty="true">
       <input type="checkbox">
@@ -1116,7 +1112,7 @@ footer p { font-size: 0.85rem; color: var(--gray); }
       <div class="config-checkbox" style="opacity:0;"></div>
       <span class="config-card-tag">On Your Accounts</span>
       <h4>Infrastructure &mdash; All In Your Name</h4>
-      <p>Your domain stays on <strong>GoDaddy</strong> (no change). The app runs on modern infrastructure set up <em>in your name, on your card</em>: app hosting (~$0&ndash;20/mo), database (~$0&ndash;25/mo), call/messaging APIs (~$30&ndash;80/mo). You see every bill, we never touch the money. Total: ~$50&ndash;120/mo all-in based on volume.</p>
+      <p>Your domain stays on <strong>GoDaddy</strong>, no change. The website itself ships to your GoDaddy hosting. The real-time AI services (phone agent, SMS) need a runtime GoDaddy doesn't provide &mdash; we set those up on a Vercel account in <em>your</em> name, on <em>your</em> card. You see every bill. Total: ~$50&ndash;120/mo all-in based on call volume.</p>
       <div class="config-price" style="color:var(--gray);">~$50&ndash;120<span class="config-price-suffix">/ mo passthrough</span></div>
     </label>
 
@@ -1134,11 +1130,11 @@ footer p { font-size: 0.85rem; color: var(--gray); }
     <div style="display:flex; justify-content:space-between; align-items:baseline; flex-wrap:wrap; gap:1rem;">
       <div>
         <div style="font-size:0.78rem; text-transform:uppercase; letter-spacing:0.07em; color:var(--gray); font-weight:700;">Your One-Time Build</div>
-        <div id="summary-items" style="font-size:0.92rem; color:var(--text2); margin-top:0.4rem;">Core Build + Integration + Knowledge Base</div>
+        <div id="summary-items" style="font-size:0.92rem; color:var(--text2); margin-top:0.4rem;">Operator package &mdash; tap to customize</div>
       </div>
       <div style="text-align:right;">
         <div style="font-size:0.78rem; text-transform:uppercase; letter-spacing:0.07em; color:var(--gray); font-weight:700;">Total</div>
-        <div id="summary-total" style="font-size:2rem; font-weight:800; color:var(--gold); line-height:1;">$18,500</div>
+        <div id="summary-total" style="font-size:2rem; font-weight:800; color:var(--gold); line-height:1;">$15,500</div>
       </div>
     </div>
     <div id="summary-monthly-row" style="display:none; margin-top:1.25rem; padding-top:1.25rem; border-top:1px solid var(--border); justify-content:space-between; align-items:baseline; flex-wrap:wrap; gap:1rem;">
@@ -1154,13 +1150,8 @@ footer p { font-size: 0.85rem; color: var(--gray); }
   </div>
 
   <div class="highlight-gold">
-    <h3 style="color:var(--gold);">vs The SaaS Vendor &mdash; The 5-Year Picture</h3>
-    <p><strong>SaaS Vendor:</strong> $560 &times; 60 months = <strong>$33,600</strong>, you own nothing, can't move the site, locked in. &nbsp;<strong>Bogen.ai (recommended Operator package):</strong> one-time $18,500 + ~$80/mo infra passthrough on your accounts ($4,800 over 5 years) = <strong>~$23,300 total, you own everything</strong>. <strong style="color:var(--gold);">Five-year savings: ~$10,300. Plus you walk away with a real asset and admin access to every system.</strong></p>
-  </div>
-
-  <div class="highlight-blue">
-    <h3 style="color:var(--blue);">Optional Add-On &mdash; Paid Marketing</h3>
-    <p>Once the storefront is live, a small Google Ads + Meta budget ($300&ndash;500/mo) targeting "Boca Raton safes" and "South Florida locksmith" multiplies the impact. Ad spend billed directly to Thanks A Lock, fully transparent, never marked up.</p>
+    <h3 style="color:var(--gold);">vs The SaaS Quote You Got &mdash; The Honest Math</h3>
+    <p>The SaaS vendor offered <strong>$560/mo on a 24-month contract = $13,440 locked in</strong>, with another 24 months almost certainly to follow. The Operator package is <strong>$15,500 one-time + ~$80/mo infrastructure on your accounts</strong>. <strong style="color:var(--gold);">Year 1: SaaS $6,720 (rented) &middot; Bogen.ai $16,460 (asset owned). Year 5: SaaS $33,600 (still renting) &middot; Bogen.ai $20,300 total &mdash; saving $13,300 AND owning the build.</strong> You spend marginally more cash in year 1 to OWN the business asset instead of RENT it forever.</p>
   </div>
 </section>
 
@@ -1312,7 +1303,7 @@ footer p { font-size: 0.85rem; color: var(--gray); }
 <div id="quote-bar" role="status" aria-live="polite">
   <div class="quote-bar-summary">
     <span class="quote-bar-count" id="quote-bar-count">6 items selected</span>
-    <span class="quote-bar-total" id="quote-bar-total">$18,500</span>
+    <span class="quote-bar-total" id="quote-bar-total">$15,500</span>
   </div>
   <div class="quote-bar-monthly" id="quote-bar-monthly-wrap" style="display:none;">
     <span class="quote-bar-count">+ Monthly</span>
@@ -1646,9 +1637,9 @@ document.querySelectorAll('.config-card').forEach(card => {
 
 // Apply one of the three anchored packages
 const PACKAGES = {
-  foundation: ['basic', 'chatbot', 'kb'],
-  operator: ['basic', 'chatbot', 'kb', 'phone', 'ecom', 'integration'],
-  complete: ['basic', 'chatbot', 'kb', 'phone', 'ecom', 'integration', 'photo', 'marketing', 'ai-inv', 'ai-acct'],
+  foundation: ['basic', 'chatbot'],
+  operator: ['basic', 'chatbot', 'phone', 'sms', 'marketing', 'ai-inv'],
+  complete: ['basic', 'chatbot', 'phone', 'sms', 'marketing', 'ai-inv', 'ecom', 'catalog', 'ai-acct'],
 };
 
 function applyPackage(name) {
