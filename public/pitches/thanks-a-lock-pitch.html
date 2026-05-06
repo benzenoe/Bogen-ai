@@ -400,6 +400,9 @@ footer p { font-size: 0.85rem; color: var(--gray); }
 }
 .config-card-tag.gold { background: rgba(255,217,61,0.12); color: var(--gold); }
 .config-card-tag.green { background: rgba(0,196,140,0.12); color: var(--green); }
+.config-card-tag.amber { background: rgba(255,159,67,0.12); color: var(--orange); }
+.config-card.is-monthly.is-selected { border-color: var(--orange); background: rgba(255,159,67,0.05); box-shadow: 0 4px 16px rgba(255,159,67,0.15); }
+.config-card.is-monthly.is-selected .config-checkbox { background: var(--orange); border-color: var(--orange); }
 .config-card h4 { font-size: 1rem; font-weight: 700; color: var(--text); margin-bottom: 0.4rem; }
 .config-card p { font-size: 0.85rem; color: var(--text3); margin-bottom: 0.85rem; }
 .config-card .config-price {
@@ -449,6 +452,8 @@ footer p { font-size: 0.85rem; color: var(--gray); }
 .quote-bar-summary { display: flex; flex-direction: column; gap: 0.15rem; }
 .quote-bar-count { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.07em; color: #8899aa; font-weight: 600; }
 .quote-bar-total { font-size: 1.4rem; font-weight: 800; color: var(--gold); line-height: 1; }
+.quote-bar-monthly { display: flex; flex-direction: column; gap: 0.15rem; padding-left: 1rem; border-left: 1px solid rgba(255,255,255,0.1); }
+.quote-bar-monthly-val { font-size: 1.05rem; font-weight: 800; color: var(--orange); line-height: 1; }
 .quote-bar-divider { width: 1px; height: 32px; background: rgba(255,255,255,0.1); }
 .quote-bar-cta {
   background: linear-gradient(135deg, #00a8e1 0%, #0088bb 100%);
@@ -811,7 +816,7 @@ footer p { font-size: 0.85rem; color: var(--gray); }
 
   <div class="config-intro">
     <span style="font-size:1.1rem;">🥡</span>
-    <span>Like a Chinese menu: pick the items, watch the total update live. The bottom bar follows you as you scroll. Email your selection straight to us when you're ready.</span>
+    <span>Like a Chinese menu: pick the items, watch the total update live. <strong>One-time items</strong> in cyan = you build it, you own it. <strong>Monthly services</strong> in amber = no lock-in, cancel anytime. The bar follows you as you scroll &mdash; email your selection straight to us when ready.</span>
   </div>
 
   <div class="config-grid" id="config-grid">
@@ -882,16 +887,6 @@ footer p { font-size: 0.85rem; color: var(--gray); }
       <div class="config-meta">Tap to toggle.</div>
     </label>
 
-    <label class="config-card" data-key="adspend" data-price="2500" data-name="Ad Spend Manager (Dashboard + AI Bid Assistant)" data-requires="basic">
-      <input type="checkbox">
-      <div class="config-checkbox"></div>
-      <span class="config-card-tag">Owned Tool</span>
-      <h4>Ad Spend Manager</h4>
-      <p>Custom dashboard that pulls Google Ads + Meta Ads performance into one view. AI-suggested bid adjustments, budget pacing alerts, ROI per campaign, waste detection ("you're spending $X/day on a keyword with no conversions"). Built once, yours forever.</p>
-      <div class="config-price">$2,500<span class="config-price-suffix">one-time</span></div>
-      <div class="config-meta">Tap to toggle. Pairs with the Marketing Launch Pack.</div>
-    </label>
-
     <!-- ===== GROUP: INTEGRATION ===== -->
     <div class="config-group-header"><span class="cgh-emoji">🔌</span><span>Integration Layer</span></div>
 
@@ -936,6 +931,19 @@ footer p { font-size: 0.85rem; color: var(--gray); }
       <p>Drop a distributor spec sheet (PDF, CSV, image) into a folder &mdash; the agent reads it, generates SEO product copy, picks the right category, uploads images, sets pricing rules, and publishes. New SKUs go live without a human touching the admin.</p>
       <div class="config-price">$2,000<span class="config-price-suffix">one-time</span></div>
       <div class="config-meta">Tap to toggle. Pairs with E-Commerce.</div>
+    </label>
+
+    <!-- ===== GROUP: OPTIONAL MONTHLY SERVICES ===== -->
+    <div class="config-group-header"><span class="cgh-emoji">💼</span><span>Optional Monthly Services &middot; No Lock-In, Cancel Anytime</span></div>
+
+    <label class="config-card is-monthly" data-key="adspend" data-price="200" data-monthly="true" data-name="Ad Spend Management Service ($200/mo or 10% of spend, whichever higher)" data-requires="basic">
+      <input type="checkbox">
+      <div class="config-checkbox"></div>
+      <span class="config-card-tag amber">Monthly Service &middot; No Lock-In</span>
+      <h4>Ad Spend Management Service</h4>
+      <p>We run your Google &amp; Meta ad accounts week-to-week: bid optimization, budget pacing, A/B testing creatives, killing wasted keywords, monthly performance report. Pairs with the Marketing Launch Pack (one-time setup). The accounts and creatives stay yours &mdash; if you cancel, you keep them.</p>
+      <div class="config-price">$200<span class="config-price-suffix">/ mo minimum &nbsp;or&nbsp; 10% of ad spend</span></div>
+      <div class="config-meta">Whichever is higher. Cancel anytime, 30-day notice. Ad spend itself billed directly to you, never marked up.</div>
     </label>
 
     <!-- ===== GROUP: LAUNCH SERVICES ===== -->
@@ -1024,12 +1032,22 @@ footer p { font-size: 0.85rem; color: var(--gray); }
   <div id="config-summary" style="margin-top:2rem; padding:1.5rem; background:var(--surface); border:1px solid var(--border); border-radius:14px;">
     <div style="display:flex; justify-content:space-between; align-items:baseline; flex-wrap:wrap; gap:1rem;">
       <div>
-        <div style="font-size:0.78rem; text-transform:uppercase; letter-spacing:0.07em; color:var(--gray); font-weight:700;">Your Build</div>
+        <div style="font-size:0.78rem; text-transform:uppercase; letter-spacing:0.07em; color:var(--gray); font-weight:700;">Your One-Time Build</div>
         <div id="summary-items" style="font-size:0.92rem; color:var(--text2); margin-top:0.4rem;">Core Build + Integration + Knowledge Base</div>
       </div>
       <div style="text-align:right;">
         <div style="font-size:0.78rem; text-transform:uppercase; letter-spacing:0.07em; color:var(--gray); font-weight:700;">Total</div>
         <div id="summary-total" style="font-size:2rem; font-weight:800; color:var(--gold); line-height:1;">$18,500</div>
+      </div>
+    </div>
+    <div id="summary-monthly-row" style="display:none; margin-top:1.25rem; padding-top:1.25rem; border-top:1px solid var(--border); justify-content:space-between; align-items:baseline; flex-wrap:wrap; gap:1rem;">
+      <div>
+        <div style="font-size:0.78rem; text-transform:uppercase; letter-spacing:0.07em; color:var(--orange); font-weight:700;">Monthly Services</div>
+        <div id="summary-monthly-items" style="font-size:0.92rem; color:var(--text2); margin-top:0.4rem;">&mdash;</div>
+      </div>
+      <div style="text-align:right;">
+        <div style="font-size:0.78rem; text-transform:uppercase; letter-spacing:0.07em; color:var(--gray); font-weight:700;">Per Month</div>
+        <div id="summary-monthly-total" style="font-size:1.5rem; font-weight:800; color:var(--orange); line-height:1;">$0/mo</div>
       </div>
     </div>
   </div>
@@ -1156,6 +1174,10 @@ footer p { font-size: 0.85rem; color: var(--gray); }
     <span class="quote-bar-count" id="quote-bar-count">6 items selected</span>
     <span class="quote-bar-total" id="quote-bar-total">$18,500</span>
   </div>
+  <div class="quote-bar-monthly" id="quote-bar-monthly-wrap" style="display:none;">
+    <span class="quote-bar-count">+ Monthly</span>
+    <span class="quote-bar-monthly-val" id="quote-bar-monthly">$0/mo</span>
+  </div>
   <div class="quote-bar-divider"></div>
   <button type="button" class="quote-bar-secondary" onclick="document.getElementById('investment').scrollIntoView({behavior:'smooth', block:'start'});">Edit</button>
   <button type="button" class="quote-bar-cta" onclick="emailMyBuild()">📧 Email My Build</button>
@@ -1277,75 +1299,102 @@ function fmtMoney(n) {
   return '$' + n.toLocaleString('en-US');
 }
 
-// Animate a numeric element from `from` to `to` over `duration` ms
-function animateNumber(el, from, to, duration = 450) {
-  if (!el || from === to) { if (el) el.textContent = fmtMoney(to); return; }
+// Animate a numeric element from `from` to `to` over `duration` ms (with optional suffix)
+function animateNumber(el, from, to, duration = 450, suffix = '') {
+  if (!el || from === to) { if (el) el.textContent = fmtMoney(to) + suffix; return; }
   const start = performance.now();
   const ease = (t) => 1 - Math.pow(1 - t, 3);
   function step(now) {
     const t = Math.min(1, (now - start) / duration);
     const v = Math.round(from + (to - from) * ease(t));
-    el.textContent = fmtMoney(v);
+    el.textContent = fmtMoney(v) + suffix;
     if (t < 1) requestAnimationFrame(step);
-    else el.textContent = fmtMoney(to);
+    else el.textContent = fmtMoney(to) + suffix;
   }
   requestAnimationFrame(step);
 }
 
 // Fly a +/- delta chip from a position
-function flyDelta(amount, x, y) {
+function flyDelta(amount, x, y, suffix = '') {
   if (!amount) return;
   const chip = document.createElement('div');
   chip.className = 'delta-chip ' + (amount > 0 ? 'add' : 'remove');
-  chip.textContent = (amount > 0 ? '+' : '−') + fmtMoney(Math.abs(amount));
+  chip.textContent = (amount > 0 ? '+' : '−') + fmtMoney(Math.abs(amount)) + suffix;
   chip.style.left = x + 'px';
   chip.style.top = y + 'px';
   document.body.appendChild(chip);
   setTimeout(() => chip.remove(), 1100);
 }
 
+let lastMonthly = 0;
+
 function recalcBuild(opts = {}) {
   const cards = document.querySelectorAll('.config-card');
-  let total = 0;
-  const selectedNames = [];
-  const lineItems = [];
+  let oneTimeTotal = 0;
+  let monthlyTotal = 0;
+  const oneTimeNames = [];
+  const monthlyNames = [];
+  const oneTimeItems = [];
+  const monthlyItems = [];
 
   cards.forEach(card => {
     const key = card.dataset.key;
     const price = parseInt(card.dataset.price, 10) || 0;
     const checkbox = card.querySelector('input[type="checkbox"]');
+    const isMonthly = card.dataset.monthly === 'true';
 
     if (card.dataset.qty === 'true') {
       const q = qtyState[key] || 0;
       if (q > 0) {
         const subtotal = price * q;
-        total += subtotal;
+        oneTimeTotal += subtotal;
         const label = key === 'support' ? `${q} × 5-Hour Support Block` : `${q} × ${card.dataset.name}`;
-        selectedNames.push(label);
-        lineItems.push(`• ${label} — ${fmtMoney(subtotal)}`);
+        oneTimeNames.push(label);
+        oneTimeItems.push(`• ${label} — ${fmtMoney(subtotal)}`);
       }
     } else if (checkbox && checkbox.checked && !card.classList.contains('is-locked')) {
-      total += price;
       const shortName = card.dataset.name.split('—')[0].trim();
-      selectedNames.push(shortName);
-      lineItems.push(`• ${card.dataset.name} — ${fmtMoney(price)}`);
+      if (isMonthly) {
+        monthlyTotal += price;
+        monthlyNames.push(shortName);
+        monthlyItems.push(`• ${card.dataset.name} — ${fmtMoney(price)}/mo`);
+      } else {
+        oneTimeTotal += price;
+        oneTimeNames.push(shortName);
+        oneTimeItems.push(`• ${card.dataset.name} — ${fmtMoney(price)}`);
+      }
     }
   });
 
-  // Update inline summary
+  // Update inline summary (one-time)
   const summaryItemsEl = document.getElementById('summary-items');
   const summaryTotalEl = document.getElementById('summary-total');
-  if (summaryItemsEl) summaryItemsEl.textContent = selectedNames.length ? selectedNames.join(' + ') : 'Nothing selected yet';
-  if (summaryTotalEl) animateNumber(summaryTotalEl, lastTotal, total);
+  if (summaryItemsEl) summaryItemsEl.textContent = oneTimeNames.length ? oneTimeNames.join(' + ') : 'Nothing selected yet';
+  if (summaryTotalEl) animateNumber(summaryTotalEl, lastTotal, oneTimeTotal);
+
+  // Update inline summary (monthly row — show only if any)
+  const monthlyRow = document.getElementById('summary-monthly-row');
+  const monthlyItemsEl = document.getElementById('summary-monthly-items');
+  const monthlyTotalEl = document.getElementById('summary-monthly-total');
+  if (monthlyRow) monthlyRow.style.display = monthlyTotal > 0 ? 'flex' : 'none';
+  if (monthlyItemsEl) monthlyItemsEl.textContent = monthlyNames.length ? monthlyNames.join(' + ') : '—';
+  if (monthlyTotalEl) {
+    if (monthlyTotal > 0) animateNumber(monthlyTotalEl, lastMonthly, monthlyTotal, 450, '/mo');
+    else monthlyTotalEl.textContent = '$0/mo';
+  }
 
   // Update sticky bar
   const barCountEl = document.getElementById('quote-bar-count');
   const barTotalEl = document.getElementById('quote-bar-total');
-  const itemCount = selectedNames.length;
+  const barMonthlyWrap = document.getElementById('quote-bar-monthly-wrap');
+  const barMonthlyEl = document.getElementById('quote-bar-monthly');
+  const itemCount = oneTimeNames.length + monthlyNames.length;
   if (barCountEl) barCountEl.textContent = itemCount === 0 ? 'Nothing selected' : (itemCount === 1 ? '1 item selected' : `${itemCount} items selected`);
-  if (barTotalEl) animateNumber(barTotalEl, lastTotal, total);
+  if (barTotalEl) animateNumber(barTotalEl, lastTotal, oneTimeTotal);
+  if (barMonthlyWrap) barMonthlyWrap.style.display = monthlyTotal > 0 ? 'flex' : 'none';
+  if (barMonthlyEl && monthlyTotal > 0) animateNumber(barMonthlyEl, lastMonthly, monthlyTotal, 450, '/mo');
 
-  // Pulse animation + bump number color
+  // Pulse + bump on change
   if (opts.animate) {
     const bar = document.getElementById('quote-bar');
     if (bar && bar.classList.contains('visible')) {
@@ -1353,7 +1402,7 @@ function recalcBuild(opts = {}) {
       void bar.offsetWidth;
       bar.classList.add('is-pulsing');
     }
-    [summaryTotalEl, barTotalEl].forEach(el => {
+    [summaryTotalEl, barTotalEl, monthlyTotalEl, barMonthlyEl].forEach(el => {
       if (!el) return;
       el.classList.remove('num-bump');
       void el.offsetWidth;
@@ -1362,8 +1411,13 @@ function recalcBuild(opts = {}) {
   }
 
   // Stash for email
-  window.__buildState = { total, selectedNames, lineItems };
-  lastTotal = total;
+  window.__buildState = {
+    oneTimeTotal, monthlyTotal,
+    oneTimeNames, monthlyNames,
+    oneTimeItems, monthlyItems
+  };
+  lastTotal = oneTimeTotal;
+  lastMonthly = monthlyTotal;
 }
 
 function changeQty(key, delta) {
@@ -1414,10 +1468,11 @@ document.querySelectorAll('.config-card').forEach(card => {
     // Delta chip near click position
     const price = parseInt(this.dataset.price, 10) || 0;
     const delta = cb.checked ? price : -price;
+    const isMonthly = this.dataset.monthly === 'true';
     if (price > 0) {
       const x = e.clientX || (this.getBoundingClientRect().left + this.offsetWidth / 2);
       const y = (e.clientY || this.getBoundingClientRect().top + 40) - 10;
-      flyDelta(delta, x, y);
+      flyDelta(delta, x, y, isMonthly ? '/mo' : '');
     }
 
     const key = this.dataset.key;
@@ -1450,18 +1505,33 @@ document.querySelectorAll('.config-card').forEach(card => {
 });
 
 function emailMyBuild() {
-  const state = window.__buildState || { total: 0, selectedNames: [], lineItems: [] };
-  const subject = `Thanks A Lock — My Build Selection (${fmtMoney(state.total)})`;
+  const state = window.__buildState || {
+    oneTimeTotal: 0, monthlyTotal: 0,
+    oneTimeItems: [], monthlyItems: []
+  };
+
+  const monthlyLine = state.monthlyTotal > 0
+    ? ` + ${fmtMoney(state.monthlyTotal)}/mo`
+    : '';
+  const subject = `Thanks A Lock — My Build (${fmtMoney(state.oneTimeTotal)}${monthlyLine})`;
+
+  const buildSection = state.oneTimeItems.length
+    ? state.oneTimeItems.join('\n')
+    : '(no one-time items selected yet)';
+
+  const monthlySection = state.monthlyItems.length
+    ? `\n\nMONTHLY SERVICES (no lock-in, cancel anytime):\n${state.monthlyItems.join('\n')}\n— — —\nMONTHLY TOTAL: ${fmtMoney(state.monthlyTotal)}/mo`
+    : '';
+
   const body =
 `Hi Bogen.ai team,
 
 Here is the package I'd like to move forward with:
 
-${state.lineItems.join('\n') || '(no items selected yet)'}
-
+ONE-TIME BUILD (yours forever, hosted on my GoDaddy):
+${buildSection}
 — — —
-TOTAL: ${fmtMoney(state.total)}
-— — —
+ONE-TIME TOTAL: ${fmtMoney(state.oneTimeTotal)}${monthlySection}
 
 Best time to meet at the showroom is:
 
