@@ -1,0 +1,809 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Prospecting in the AI Age | Edmund's Mastermind</title>
+<meta name="description" content="The Prospecting Domination Session — three AI prospecting machines that fill your pipeline on autopilot. Live mastermind Wednesday May 13, 2026 at 9 AM ET.">
+<meta property="og:title" content="Prospecting in the AI Age — Edmund's Mastermind">
+<meta property="og:description" content="Three AI prospecting machines. 18+ copy-paste prompts. Full implementation workbook. Wednesday May 13 at 9 AM ET.">
+<meta property="og:image" content="https://bogen.ai/masterminds/prospecting-ai-age/hero.png">
+<meta property="og:url" content="https://bogen.ai/masterminds/prospecting-ai-age/">
+<style>
+:root {
+    --navy: #1a3e5c;
+    --navy-deep: #0d2436;
+    --cyan: #00a8e1;
+    --cyan-deep: #0089b8;
+    --bg: #ffffff;
+    --bg-alt: #f6f8fa;
+    --surface: #ffffff;
+    --text-color: #2a2a2a;
+    --text-muted: #5a6470;
+    --heading: #1a3e5c;
+    --border: #e3e8ec;
+    --tile-bg: #f4f7fa;
+    --code-bg: #1a3e5c;
+    --code-text: #ffffff;
+    --shadow: 0 4px 24px rgba(26, 62, 92, 0.06);
+    --shadow-lg: 0 12px 48px rgba(26, 62, 92, 0.12);
+}
+[data-theme="dark"] {
+    --bg: #0d2436;
+    --bg-alt: #0a1c2a;
+    --surface: #14304a;
+    --text-color: #d9e1ea;
+    --text-muted: #8da3b8;
+    --heading: #ffffff;
+    --border: #1f4565;
+    --tile-bg: #14304a;
+    --code-bg: #061421;
+    --code-text: #d9e1ea;
+    --shadow: 0 4px 24px rgba(0, 0, 0, 0.4);
+    --shadow-lg: 0 12px 48px rgba(0, 0, 0, 0.6);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+    font-family: 'Helvetica Neue', 'Lato', 'Montserrat', Arial, sans-serif;
+    background: var(--bg);
+    color: var(--text-color);
+    line-height: 1.7;
+    font-size: 17px;
+    transition: background 0.3s ease, color 0.3s ease;
+}
+
+/* NAV */
+.nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: var(--bg);
+    border-bottom: 1px solid var(--border);
+    padding: 14px 32px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    backdrop-filter: blur(10px);
+    transition: background 0.3s ease, border-color 0.3s ease;
+}
+.brand { display: flex; align-items: center; gap: 12px; }
+.brand-mark {
+    width: 38px; height: 38px;
+    border-radius: 50%;
+    background: var(--navy);
+    color: white;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 700; letter-spacing: 0.05em; font-size: 13px;
+}
+[data-theme="dark"] .brand-mark { background: var(--cyan); color: var(--navy-deep); }
+.brand-text {
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--heading);
+    font-weight: 500;
+}
+.brand-text small {
+    display: block;
+    color: var(--text-muted);
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    margin-top: 2px;
+}
+.nav-actions { display: flex; align-items: center; gap: 14px; }
+.theme-toggle {
+    background: var(--tile-bg);
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    padding: 8px 16px;
+    color: var(--text-color);
+    cursor: pointer;
+    font-size: 12px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    font-weight: 600;
+    transition: all 0.2s ease;
+}
+.theme-toggle:hover { background: var(--cyan); color: white; border-color: var(--cyan); }
+.nav-cta {
+    background: var(--cyan);
+    color: white;
+    text-decoration: none;
+    padding: 10px 22px;
+    border-radius: 4px;
+    font-size: 12px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    font-weight: 600;
+    transition: background 0.2s ease;
+}
+.nav-cta:hover { background: var(--cyan-deep); }
+
+/* HERO */
+.hero {
+    padding: 60px 32px 40px;
+    max-width: 1200px;
+    margin: 0 auto;
+    text-align: center;
+}
+.hero-image {
+    width: 100%;
+    max-width: 1100px;
+    border-radius: 12px;
+    box-shadow: var(--shadow-lg);
+    margin: 0 auto 40px;
+    display: block;
+}
+.eyebrow {
+    color: var(--cyan);
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    font-size: 12px;
+    font-weight: 700;
+    margin-bottom: 12px;
+}
+.hero h1 {
+    font-size: clamp(32px, 5vw, 56px);
+    font-weight: 300;
+    color: var(--heading);
+    letter-spacing: 0.02em;
+    margin-bottom: 20px;
+    line-height: 1.15;
+}
+.hero h1 strong { font-weight: 700; color: var(--cyan); }
+.hero-subtitle {
+    color: var(--text-muted);
+    font-size: 19px;
+    max-width: 720px;
+    margin: 0 auto 28px;
+}
+.hero-meta {
+    display: inline-flex;
+    flex-wrap: wrap;
+    gap: 24px;
+    background: var(--tile-bg);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 16px 28px;
+    margin-bottom: 32px;
+    font-size: 14px;
+}
+.hero-meta-item { color: var(--text-color); }
+.hero-meta-item strong { color: var(--heading); display: block; font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 2px; }
+.hero-cta-row { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; margin-top: 8px; }
+.btn-primary {
+    background: var(--cyan);
+    color: white;
+    text-decoration: none;
+    padding: 16px 40px;
+    border-radius: 4px;
+    font-size: 14px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    font-weight: 600;
+    transition: all 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+}
+.btn-primary:hover { background: var(--cyan-deep); transform: translateY(-2px); box-shadow: var(--shadow); }
+.btn-secondary {
+    background: transparent;
+    color: var(--heading);
+    text-decoration: none;
+    padding: 16px 40px;
+    border-radius: 4px;
+    font-size: 14px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    font-weight: 600;
+    border: 2px solid var(--heading);
+    transition: all 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+}
+.btn-secondary:hover { background: var(--heading); color: var(--bg); }
+[data-theme="dark"] .btn-secondary { color: var(--cyan); border-color: var(--cyan); }
+[data-theme="dark"] .btn-secondary:hover { background: var(--cyan); color: var(--navy-deep); }
+
+/* SECTIONS */
+section {
+    padding: 60px 32px;
+    max-width: 1100px;
+    margin: 0 auto;
+}
+section h2 {
+    font-size: clamp(26px, 3.5vw, 36px);
+    color: var(--heading);
+    font-weight: 400;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    border-left: 4px solid var(--cyan);
+    padding-left: 18px;
+    margin-bottom: 28px;
+}
+section h3 {
+    font-size: 22px;
+    color: var(--heading);
+    font-weight: 600;
+    margin-top: 32px;
+    margin-bottom: 12px;
+}
+section h4 {
+    color: var(--cyan);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-size: 13px;
+    font-weight: 700;
+    margin-top: 24px;
+    margin-bottom: 8px;
+}
+section p { margin-bottom: 14px; color: var(--text-color); }
+section ul, section ol { padding-left: 24px; margin-bottom: 14px; }
+section li { margin-bottom: 8px; }
+section strong { color: var(--heading); }
+[data-theme="dark"] section strong { color: var(--cyan); }
+
+.divider {
+    border: 0;
+    border-top: 1px solid var(--border);
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+/* TILES */
+.tile {
+    background: var(--tile-bg);
+    border: 1px solid var(--border);
+    border-left: 4px solid var(--cyan);
+    border-radius: 6px;
+    padding: 24px 28px;
+    margin: 16px 0;
+}
+.tile-navy {
+    background: var(--navy);
+    color: #ffffff;
+    padding: 24px 28px;
+    border-radius: 6px;
+    margin: 16px 0;
+}
+[data-theme="dark"] .tile-navy { background: var(--surface); border: 1px solid var(--cyan); }
+.tile-navy h3, .tile-navy h4 { color: #ffffff; }
+.tile-navy h4 { color: var(--cyan); }
+.tile-navy strong { color: var(--cyan); }
+.tile-navy p, .tile-navy li { color: #d9e1ea; }
+.tile-navy ul li::marker { color: var(--cyan); }
+
+.two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin: 16px 0; }
+@media (max-width: 768px) { .two-col { grid-template-columns: 1fr; } }
+
+/* PROMPT CODE BLOCKS */
+.prompt-label {
+    color: var(--cyan);
+    text-transform: uppercase;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    margin-top: 24px;
+    margin-bottom: 6px;
+}
+.prompt {
+    background: var(--code-bg);
+    color: var(--code-text);
+    font-family: 'SF Mono', 'Monaco', 'Courier New', monospace;
+    padding: 18px 22px;
+    border-radius: 6px;
+    font-size: 13px;
+    line-height: 1.6;
+    overflow-x: auto;
+    white-space: pre-wrap;
+    margin: 6px 0 16px;
+    position: relative;
+    border: 1px solid var(--border);
+}
+.copy-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: var(--cyan);
+    color: white;
+    border: 0;
+    padding: 6px 12px;
+    border-radius: 4px;
+    font-size: 10px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background 0.2s ease;
+}
+.copy-btn:hover { background: var(--cyan-deep); }
+.copy-btn.copied { background: #2ecc71; }
+
+/* TABLES */
+table { width: 100%; border-collapse: collapse; margin: 16px 0; font-size: 14px; }
+table th, table td { border: 1px solid var(--border); padding: 10px 14px; text-align: left; }
+table th { background: var(--navy); color: #fff; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; font-size: 11px; }
+
+/* SECTION ANCHORS / TOC */
+.toc {
+    background: var(--tile-bg);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 20px 24px;
+    margin: 24px 0 40px;
+}
+.toc-title {
+    color: var(--cyan);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    font-size: 11px;
+    font-weight: 700;
+    margin-bottom: 12px;
+}
+.toc ul { list-style: none; padding: 0; columns: 2; column-gap: 30px; }
+@media (max-width: 600px) { .toc ul { columns: 1; } }
+.toc li { margin-bottom: 6px; }
+.toc a {
+    color: var(--text-color);
+    text-decoration: none;
+    font-size: 14px;
+    border-bottom: 1px solid transparent;
+    transition: border-color 0.2s ease, color 0.2s ease;
+}
+.toc a:hover { color: var(--cyan); border-bottom-color: var(--cyan); }
+
+/* DOWNLOAD BANNER */
+.download-banner {
+    background: linear-gradient(135deg, var(--navy) 0%, var(--navy-deep) 100%);
+    color: white;
+    padding: 50px 32px;
+    text-align: center;
+    margin: 60px 0 0;
+}
+.download-banner h2 {
+    color: white;
+    border: 0;
+    padding: 0;
+    margin-bottom: 12px;
+}
+.download-banner p { color: #b8c6d4; max-width: 600px; margin: 0 auto 24px; }
+
+/* MANIFESTO */
+.manifesto {
+    background: var(--navy);
+    color: white;
+    padding: 36px 40px;
+    border-radius: 8px;
+    font-style: italic;
+    font-size: 19px;
+    line-height: 1.7;
+    margin: 24px 0;
+    position: relative;
+}
+.manifesto::before {
+    content: '"';
+    font-family: Georgia, serif;
+    font-size: 90px;
+    color: var(--cyan);
+    position: absolute;
+    top: 10px;
+    left: 18px;
+    line-height: 1;
+}
+.manifesto p { color: white; padding-left: 50px; }
+
+/* FOOTER */
+footer {
+    background: var(--bg-alt);
+    border-top: 1px solid var(--border);
+    padding: 40px 32px;
+    text-align: center;
+    color: var(--text-muted);
+    font-size: 14px;
+    margin-top: 60px;
+}
+footer .tagline {
+    color: var(--cyan);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    font-size: 12px;
+    font-weight: 700;
+    margin-top: 12px;
+}
+
+/* CTA inline */
+.inline-cta {
+    text-align: center;
+    padding: 30px;
+    background: var(--tile-bg);
+    border: 1px dashed var(--cyan);
+    border-radius: 8px;
+    margin: 32px 0;
+}
+.inline-cta p {
+    color: var(--heading);
+    font-size: 18px;
+    font-weight: 500;
+    margin-bottom: 16px;
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav">
+    <div class="brand">
+        <div class="brand-mark">EB</div>
+        <div class="brand-text">
+            Edmund's Mastermind
+            <small>&amp; Group Coaching</small>
+        </div>
+    </div>
+    <div class="nav-actions">
+        <button class="theme-toggle" onclick="toggleTheme()" id="themeToggle">☾ Dark</button>
+        <a href="https://www.reignation.com/prospecting-ai-age" class="nav-cta">Register Free</a>
+    </div>
+</nav>
+
+<!-- HERO -->
+<header class="hero">
+    <img src="hero.png" alt="Prospecting in the AI Age — Edmund Bogen" class="hero-image">
+    <div class="eyebrow">Complete Implementation Workbook</div>
+    <h1>Prospecting in the <strong>AI Age</strong></h1>
+    <p class="hero-subtitle">Three AI prospecting machines that fill your pipeline on autopilot. 18+ copy-paste prompts, a 30-day plan, and the exact systems running in my own business — built live in 90 minutes.</p>
+    <div class="hero-meta">
+        <div class="hero-meta-item"><strong>Date</strong>Wednesday, May 13, 2026</div>
+        <div class="hero-meta-item"><strong>Time</strong>9:00 AM ET</div>
+        <div class="hero-meta-item"><strong>Format</strong>Live Mastermind on Zoom</div>
+        <div class="hero-meta-item"><strong>Cost</strong>Free for Members</div>
+    </div>
+    <div class="hero-cta-row">
+        <a href="https://www.reignation.com/prospecting-ai-age" class="btn-primary">Register Free →</a>
+        <a href="workbook.pdf" download class="btn-secondary">⬇ Download PDF</a>
+    </div>
+</header>
+
+<hr class="divider">
+
+<!-- TOC -->
+<section>
+    <div class="toc">
+        <div class="toc-title">Workbook Contents</div>
+        <ul>
+            <li><a href="#mission">Your Money-Making Mission</a></li>
+            <li><a href="#system-1">System 1: Cold-to-Closing Script Stack</a></li>
+            <li><a href="#system-2">System 2: Dormant Database Money Magnet</a></li>
+            <li><a href="#system-3">System 3: Neighborhood Domination Grid</a></li>
+            <li><a href="#plan">30-Day Implementation Plan</a></li>
+            <li><a href="#commitment">Profit Commitment Contract</a></li>
+            <li><a href="#manifesto">Closing Manifesto</a></li>
+        </ul>
+    </div>
+</section>
+
+<!-- MISSION -->
+<section id="mission">
+    <h2>Your Money-Making Mission</h2>
+    <div class="two-col">
+        <div class="tile">
+            <h4>Why You're Here</h4>
+            <p>Empty pipelines are not a market problem. They're a prospecting problem. You'll leave this session with three AI-powered prospecting machines that fill your pipeline on autopilot — so the next 90 days never look like the last 90.</p>
+        </div>
+        <div class="tile-navy">
+            <h4>Your Goal Today</h4>
+            <p>Walk away with 18+ live prompts, a 30-day prospecting plan, and a clear path to <strong>3-5x more booked appointments</strong> within 30 days — without adding a single hour to your calendar.</p>
+        </div>
+    </div>
+
+    <h3>Success Metric</h3>
+    <p>Within 30 days, you will: book 10+ qualified appointments from sources you weren't touching last month, reactivate at least 5 dormant sphere contacts, and have a hyperlocal farming system running in your target zip code.</p>
+
+    <h3>Workshop Overview</h3>
+    <p>The 3 Prospecting Systems You'll Master Today:</p>
+    <ol>
+        <li><strong>The Cold-to-Closing Script Stack</strong> — AI-generated cold outreach that books appointments instead of getting hung up on.</li>
+        <li><strong>The Dormant Database Money Magnet</strong> — AI scans your CRM, identifies who's about to move, and writes outreach in YOUR voice.</li>
+        <li><strong>The Neighborhood Domination Grid</strong> — Hyperlocal farming on AI steroids. Own a zip code in 60 days.</li>
+    </ol>
+</section>
+
+<!-- SYSTEM 1 -->
+<section id="system-1">
+    <h2>System 1: The Cold-to-Closing Script Stack</h2>
+    <h3>The $50K Cold Outreach Killer</h3>
+
+    <div class="tile-navy">
+        <h4>What This Means for Your Bank Account</h4>
+        <ul>
+            <li><strong>Bookings up 3-5x:</strong> Hyper-personalized openers convert at 18-25% vs. industry 4-6%.</li>
+            <li><strong>Time down 80%:</strong> 60 personalized messages in the time it took to send 5 generic ones.</li>
+            <li><strong>Pipeline always full:</strong> Even on a 3-day cold streak, the machine keeps prospecting.</li>
+        </ul>
+    </div>
+
+    <h3>The Behavioral Psychology Behind This</h3>
+    <p>Cold outreach fails for one reason: it sounds cold. The recipient's brain pattern-matches it to spam in 0.8 seconds and deletes. AI changes the math. By feeding the model the prospect's LinkedIn, recent home value changes, neighborhood news, and life triggers, you generate openers that read like a thoughtful human reached out — because the system did the research a human couldn't justify spending 20 minutes on.</p>
+
+    <h3>The Early Adopter Advantage</h3>
+    <p>Most agents won't touch this for 6-12 months — they're still arguing about whether AI "feels weird." That's your window. Right now, you can outreach 10x the volume at 5x the conversion, in a market where your competition is still hand-typing "Hi {firstname}." This advantage compounds every month.</p>
+
+    <h3>System 1 Prompts</h3>
+
+    <div class="prompt-label">For FSBO Cold Outreach (Text or DM)</div>
+    <div class="prompt"><button class="copy-btn" onclick="copyPrompt(this)">Copy</button>You are a top-producing real estate agent in [CITY/NEIGHBORHOOD]. Write a 3-sentence text message to a FSBO seller at [ADDRESS] who listed their home for $[PRICE] [DAYS] days ago. The message must: (1) reference one specific detail about the home or neighborhood, (2) acknowledge they chose to sell on their own, (3) offer one specific piece of value (recent comp, buyer pool data, exposure tip) without asking for the listing. Tone: respectful peer, not desperate agent. No "just checking in." No emojis.</div>
+
+    <div class="prompt-label">For Expired Listing Reactivation</div>
+    <div class="prompt"><button class="copy-btn" onclick="copyPrompt(this)">Copy</button>Write a voicemail script (under 25 seconds when read aloud) for an expired listing at [ADDRESS] that was on the market [DAYS] days at $[PRICE]. The script should: open with one specific reason this property likely didn't sell (pricing, exposure, timing), name one thing I would do differently in the first 14 days, and end with a low-pressure ask for a 10-minute conversation. My name is [YOUR NAME] with [BROKERAGE].</div>
+
+    <div class="prompt-label">For Cold Email to a Neighborhood Mover</div>
+    <div class="prompt"><button class="copy-btn" onclick="copyPrompt(this)">Copy</button>I'm a luxury real estate agent in [ZIP CODE]. Write a cold email to [PROSPECT NAME], who recently [TRIGGER EVENT — e.g., became CEO, got promoted, sold a company, moved to the area]. Subject line under 7 words. Email under 100 words. Reference the trigger event in the first sentence. Offer one specific piece of value (off-market inventory, neighborhood report, school data). No pitch. End with a soft ask for a 15-minute call.</div>
+
+    <div class="prompt-label">For Probate / Divorce Approach (Sensitive Tone)</div>
+    <div class="prompt"><button class="copy-btn" onclick="copyPrompt(this)">Copy</button>Write a hand-written-style note (under 75 words) to a homeowner navigating [probate / divorce / estate] at [ADDRESS]. Tone: human, calm, no urgency. Acknowledge the situation without naming it. Offer one resource (referral list, no-pressure consultation, neighborhood pricing snapshot). Do not ask for the listing. End with my name, phone, and the line: "Whenever you're ready — no rush." My name is [YOUR NAME].</div>
+
+    <div class="prompt-label">For Investor Cold Outreach (LinkedIn)</div>
+    <div class="prompt"><button class="copy-btn" onclick="copyPrompt(this)">Copy</button>Write a LinkedIn DM (under 60 words) to a real estate investor whose profile shows [INVESTMENT FOCUS]. Reference one specific deal type they've done. Offer one off-market or pre-MLS opportunity I have in [MARKET] at [PRICE RANGE] with [CAP RATE / ROI]. End with: "Worth a quick look?" My name is [YOUR NAME].</div>
+
+    <div class="prompt-label">For Out-of-State Buyer Approach</div>
+    <div class="prompt"><button class="copy-btn" onclick="copyPrompt(this)">Copy</button>Write a 3-sentence text to a prospect who recently moved or is moving from [ORIGIN CITY] to [DESTINATION CITY/ZIP]. Reference one specific lifestyle difference they'll experience (weather, schools, commute, taxes). Offer to send a "first 30 days" relocation guide. End with a low-pressure ask. My name is [YOUR NAME].</div>
+</section>
+
+<hr class="divider">
+
+<!-- SYSTEM 2 -->
+<section id="system-2">
+    <h2>System 2: The Dormant Database Money Magnet</h2>
+    <h3>The Sphere You Forgot Is Worth $250K This Year</h3>
+
+    <div class="tile-navy">
+        <h4>What This Means for Your Bank Account</h4>
+        <ul>
+            <li><strong>Reactivate 5-15 dormant contacts/month:</strong> People who already know, like, and trust you.</li>
+            <li><strong>Zero acquisition cost:</strong> These are paid-for leads sitting in your CRM right now.</li>
+            <li><strong>Highest-margin business you'll ever do:</strong> Sphere closes at 3x the rate of cold leads.</li>
+        </ul>
+    </div>
+
+    <h3>The Behavioral Truth Most Agents Miss</h3>
+    <p>The average database has 500-2,000 contacts. Of those, 8-12% will move in any 12-month window. That's 40-240 deals sitting in your CRM that you've already paid the marketing cost to acquire — and you're letting them get listed by some other agent because you forgot they existed. AI fixes this in two ways: it identifies WHO is most likely to move, and it writes outreach that doesn't sound like a mass blast.</p>
+
+    <h3>Why This Changes Everything</h3>
+    <p>The myth: "I need more leads." The truth: you need to work the leads you already have. AI sphere reactivation flips the entire economics of your business — instead of buying more attention, you're mining the attention you already own. The agents doing this are quietly closing 40-60% of their volume from sphere, while everyone else grinds Zillow leads at 1-2% conversion.</p>
+
+    <h3>System 2 Prompts</h3>
+
+    <div class="prompt-label">For Sphere Segmentation (Run on a CSV Export)</div>
+    <div class="prompt"><button class="copy-btn" onclick="copyPrompt(this)">Copy</button>I'm a real estate agent. Below is a list of contacts from my CRM with [columns: name, last contact date, source, notes]. Sort them into 5 buckets: (1) Hot — likely to move in 90 days based on signals, (2) Warm — past clients 18-36 months out (equity-rich, likely upsizing/downsizing), (3) Referral sources, (4) Re-engagement needed — no contact in 18+ months, (5) Remove — dead contacts. For each "Hot" and "Warm" contact, write one sentence on WHY they're in that bucket.
+
+[PASTE CSV DATA HERE]</div>
+
+    <div class="prompt-label">For Past-Client Equity Check-In Text</div>
+    <div class="prompt"><button class="copy-btn" onclick="copyPrompt(this)">Copy</button>Write a 2-sentence text to [PAST CLIENT NAME] who bought [ADDRESS] [YEARS] years ago for $[PURCHASE PRICE]. Their estimated current value is $[CURRENT VALUE], meaning they have approximately $[EQUITY] in equity. Tone: friendly, no-pressure. Don't pitch. Just mention the equity number casually and ask how they're doing. End with: "No reason — just thought you'd want to know."</div>
+
+    <div class="prompt-label">For Anniversary Outreach Email</div>
+    <div class="prompt"><button class="copy-btn" onclick="copyPrompt(this)">Copy</button>Write a 4-sentence email to a past client celebrating the [X]-year anniversary of buying their home at [ADDRESS]. Include: (1) one specific memory or detail from the transaction, (2) their estimated current home value, (3) one piece of neighborhood data, (4) a soft "if you ever want to talk options" close. Sign-off should feel personal. Plain text style.</div>
+
+    <div class="prompt-label">For Reactivating a Cold Sphere Contact (Voice Memo Script)</div>
+    <div class="prompt"><button class="copy-btn" onclick="copyPrompt(this)">Copy</button>Write a 30-second voice memo script I can send via text to [CONTACT NAME], who I haven't talked to in [MONTHS] months. They [CONTEXT — bought from me / referred a client / are a friend of friend]. The memo should: (1) acknowledge it's been a while without making it weird, (2) reference one specific thing about them I remember, (3) ask how they're doing with genuine curiosity, (4) end with "no agenda, just thinking of you." Tone: warm, human, not salesy.</div>
+
+    <div class="prompt-label">For Sphere-of-Sphere Referral Mining</div>
+    <div class="prompt"><button class="copy-btn" onclick="copyPrompt(this)">Copy</button>I'm a real estate agent in [MARKET]. Write a 3-sentence message to my top 25 sphere contacts asking for a referral — but in a way that doesn't feel like the typical "do you know anyone..." ask. The message should: (1) reference our specific relationship, (2) name a specific TYPE of person I help best, (3) make it easy to say "actually, you should talk to ___." End with: "Even if it's a no, I appreciate you reading this."</div>
+
+    <div class="prompt-label">For Life-Event Trigger Outreach</div>
+    <div class="prompt"><button class="copy-btn" onclick="copyPrompt(this)">Copy</button>[CONTACT NAME] from my sphere just [LIFE EVENT — got engaged / had a baby / got promoted / changed jobs / parent passed]. Write a short, human message acknowledging the event with zero real estate angle. Tone: friend, not agent. Two sentences max. End with a genuine offer of help unrelated to a home transaction.</div>
+</section>
+
+<div class="inline-cta">
+    <p>Ready to lock in your seat for the live build?</p>
+    <a href="https://www.reignation.com/prospecting-ai-age" class="btn-primary">Register Free →</a>
+</div>
+
+<hr class="divider">
+
+<!-- SYSTEM 3 -->
+<section id="system-3">
+    <h2>System 3: The Neighborhood Domination Grid</h2>
+    <h3>Own a Zip Code in 60 Days, Not 6 Years</h3>
+
+    <div class="tile-navy">
+        <h4>What This Means for Your Bank Account</h4>
+        <ul>
+            <li><strong>3-5 listings/year from one zip code:</strong> Geographic farming with AI personalization beats traditional farming 10:1.</li>
+            <li><strong>Lower cost per acquisition:</strong> Hyper-targeted content beats spray-and-pray mailers at 1/5 the cost.</li>
+            <li><strong>Compounding authority:</strong> 60 days of AI content = the rest of the year on autopilot.</li>
+        </ul>
+    </div>
+
+    <h3>The Strategy Behind Hyperlocal Domination</h3>
+    <p>Geographic farming used to require 18-36 months of consistent mailers, door knocks, and community presence to build the "name recognition flywheel." AI collapses that timeline because you can now produce hyper-relevant content for a specific zip code at scale — neighborhood market reports, school updates, sold comps, even commentary on city council decisions affecting property values. The neighbors stop seeing you as "an agent" and start seeing you as "the person who actually knows what's happening here."</p>
+
+    <h3>The Early Adopter Advantage</h3>
+    <p>Most agents are still mailing generic "just sold" postcards. Meanwhile, you can publish a weekly hyperlocal report with actual insights, distribute it across email, social, and direct mail, and become the de facto neighborhood expert in 8-10 weeks. By the time competitors figure this out, you'll have the listings, the testimonials, and the data flywheel. They'll be playing catch-up forever.</p>
+
+    <h3>System 3 Prompts</h3>
+
+    <div class="prompt-label">For a Weekly Neighborhood Market Report</div>
+    <div class="prompt"><button class="copy-btn" onclick="copyPrompt(this)">Copy</button>Write a 250-word weekly market update for [NEIGHBORHOOD/ZIP CODE]. Include: (1) homes sold this week + average sale price, (2) one notable transaction with brief context, (3) current active inventory + average days on market, (4) one short observation about market trend, (5) one piece of local color (new business, school news, community event). Tone: helpful neighbor, not salesperson. End with: "Questions about your home's value? Just hit reply." Sign-off: [YOUR NAME], [YEAR] [NEIGHBORHOOD] resident expert.</div>
+
+    <div class="prompt-label">For a Sold-Comp Breakdown Post (Instagram/Facebook)</div>
+    <div class="prompt"><button class="copy-btn" onclick="copyPrompt(this)">Copy</button>Write a social post (under 150 words) about a recent sale at [ADDRESS] in [NEIGHBORHOOD] that closed for $[PRICE]. Include: (1) what made this property notable, (2) what the price tells us about the market, (3) what nearby homeowners should know about their own home's value. End with: "Curious what your home is worth in this market? DM me 'value' and I'll send a free report."</div>
+
+    <div class="prompt-label">For a Door-Knock Script for a Specific Street</div>
+    <div class="prompt"><button class="copy-btn" onclick="copyPrompt(this)">Copy</button>Write a 45-second door-knock script for [STREET NAME] in [NEIGHBORHOOD]. Include: (1) reference to a recent sale on the street with the actual address and price, (2) acknowledgment that I'm not asking for their listing, (3) offer of a one-page neighborhood report I'll drop in their mailbox, (4) one open-ended question that's NOT "are you thinking of selling?" Tone: confident neighbor, not pitchy salesperson.</div>
+
+    <div class="prompt-label">For a 30-Second Hyperlocal Video Script</div>
+    <div class="prompt"><button class="copy-btn" onclick="copyPrompt(this)">Copy</button>Write a 30-second video script for [NEIGHBORHOOD] about [LOCAL TOPIC — new development, school ranking change, restaurant opening, market shift]. Format: HOOK (0-3s, pattern interrupt or surprising stat), CONTEXT (3-15s, what's actually happening), IMPLICATION (15-25s, what it means for property values or lifestyle), CTA (25-30s, "If you want my full take on [topic], DM 'report' and I'll send it"). Speak directly to camera. Casual authority.</div>
+
+    <div class="prompt-label">For a Direct-Mail Variant Test</div>
+    <div class="prompt"><button class="copy-btn" onclick="copyPrompt(this)">Copy</button>Write 3 different versions of a direct-mail postcard for [NEIGHBORHOOD]. Each version should be under 75 words. Test these angles: (1) Data-driven — lead with a market stat, (2) Service-driven — lead with a free resource, (3) Story-driven — lead with a recent transaction story. Each should end with the same CTA: "Text [PHONE] for a free home value report — no pressure, no follow-up unless you want it."</div>
+
+    <div class="prompt-label">For an Annual Neighborhood Authority Report (Lead Magnet)</div>
+    <div class="prompt"><button class="copy-btn" onclick="copyPrompt(this)">Copy</button>Outline a 6-page "[YEAR] [NEIGHBORHOOD] Real Estate Report" PDF I can use as a lead magnet. Pages: (1) Cover + executive summary, (2) Year in review — sales volume, average price, days on market, (3) Top 10 sales of the year, (4) Neighborhood developments, (5) [YEAR+1] outlook, (6) About me + how to get a free home value estimate. For each page, list the 3-5 specific data points or content elements I need to populate.</div>
+</section>
+
+<hr class="divider">
+
+<!-- 30-DAY PLAN -->
+<section id="plan">
+    <h2>Your 30-Day Prospecting Domination Plan</h2>
+    <p>The difference between agents who book this session and agents who close deals from it: execution. Use this checklist as your weekly battle plan.</p>
+
+    <div class="two-col">
+        <div class="tile">
+            <h4>Week 1 — Foundation Setup</h4>
+            <ul>
+                <li>Pick AI tool (ChatGPT, Claude) and set up paid account</li>
+                <li>Export CRM to CSV</li>
+                <li>Run sphere segmentation prompt</li>
+                <li>Identify top 25 "Hot" + "Warm" contacts</li>
+                <li>Pick target farm zip code</li>
+                <li>Save all 18+ workshop prompts to one doc</li>
+                <li>Block 30 mins/day for prospecting</li>
+            </ul>
+        </div>
+        <div class="tile-navy">
+            <h4>Week 2 — Cold Outreach Launch</h4>
+            <ul>
+                <li>Send 25 personalized cold messages</li>
+                <li>Reactivate 10 dormant sphere contacts</li>
+                <li>Publish first hyperlocal market update</li>
+                <li>Track every reply, appointment, lead</li>
+                <li>Refine prompts based on what's converting</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="two-col">
+        <div class="tile">
+            <h4>Week 3 — Scaling &amp; Optimization</h4>
+            <ul>
+                <li>Double cold outreach volume (50 messages)</li>
+                <li>Reactivate 15 more sphere contacts</li>
+                <li>Publish second hyperlocal update + first sold-comp post</li>
+                <li>Record first 30-second hyperlocal video</li>
+                <li>Schedule first door-knock session</li>
+            </ul>
+        </div>
+        <div class="tile-navy">
+            <h4>Week 4 — ROI Measurement</h4>
+            <ul>
+                <li>Total messages, replies, appointments booked</li>
+                <li>Calculate conversion vs. last 30 days pre-AI</li>
+                <li>Identify single highest-ROI prompt and double down</li>
+                <li>Publish 30-day case study as social proof</li>
+                <li>Plan next 30 days based on data</li>
+            </ul>
+        </div>
+    </div>
+
+    <h3>Weekly Tracking Scorecard</h3>
+    <table>
+        <thead>
+            <tr><th>Week</th><th>Cold Sent</th><th>Replies</th><th>Sphere Reactivated</th><th>Hyperlocal Posts</th><th>Appts</th><th>Listings</th></tr>
+        </thead>
+        <tbody>
+            <tr><td>Week 1</td><td>___</td><td>___</td><td>___</td><td>___</td><td>___</td><td>___</td></tr>
+            <tr><td>Week 2</td><td>___</td><td>___</td><td>___</td><td>___</td><td>___</td><td>___</td></tr>
+            <tr><td>Week 3</td><td>___</td><td>___</td><td>___</td><td>___</td><td>___</td><td>___</td></tr>
+            <tr><td>Week 4</td><td>___</td><td>___</td><td>___</td><td>___</td><td>___</td><td>___</td></tr>
+        </tbody>
+    </table>
+</section>
+
+<hr class="divider">
+
+<!-- COMMITMENT -->
+<section id="commitment">
+    <h2>Your Profit Commitment Contract</h2>
+    <p>The single thing that separates agents who get results from agents who get knowledge: a signed commitment. Print the PDF, fill this out, and tape it to your monitor.</p>
+
+    <div class="tile-navy">
+        <h4>Primary System Focus</h4>
+        <p>I will master ___________________ first because it will generate ___ appointments per week and add an estimated <strong>$_______</strong> in monthly GCI.</p>
+    </div>
+
+    <div class="tile">
+        <h4>Time Investment</h4>
+        <p>I will invest <strong>___ minutes per day</strong> and <strong>___ hours per week</strong> on AI-powered prospecting work for the next 30 days — non-negotiable, blocked on my calendar.</p>
+    </div>
+
+    <h3>30-Day Targets</h3>
+    <table>
+        <thead><tr><th>Metric</th><th>Target</th></tr></thead>
+        <tbody>
+            <tr><td>Cold outreach messages sent</td><td>______</td></tr>
+            <tr><td>Sphere contacts reactivated</td><td>______</td></tr>
+            <tr><td>Hyperlocal content pieces published</td><td>______</td></tr>
+            <tr><td>Qualified appointments booked</td><td>______</td></tr>
+            <tr><td>Listings or buyers signed</td><td>______</td></tr>
+            <tr><td>GCI generated</td><td>$______</td></tr>
+        </tbody>
+    </table>
+</section>
+
+<hr class="divider">
+
+<!-- MANIFESTO -->
+<section id="manifesto">
+    <h2>Closing Manifesto</h2>
+    <div class="manifesto">
+        <p>While my competitors debate whether AI will replace agents, I'm using it to replace their market share. These tools don't make me lazy — they make me unstoppable. Every prospecting hour I save is an hour I spend closing deals, building relationships, and growing my income. AI is my unfair advantage, and I will master it before they wake up to what's happening.</p>
+    </div>
+</section>
+
+<!-- DOWNLOAD BANNER -->
+<div class="download-banner">
+    <h2>Take the Workbook With You</h2>
+    <p>15-page printable PDF with all prompts, worksheets, ROI tracker, and the commitment contract. Print it, fill it out, work the plan.</p>
+    <a href="workbook.pdf" download class="btn-primary" style="background: var(--cyan);">⬇ Download PDF Workbook</a>
+</div>
+
+<!-- FOOTER -->
+<footer>
+    <div>© 2026 Edmund's Mastermind &amp; Group Coaching · The Edmund Bogen Team at Douglas Elliman</div>
+    <div class="tagline">Because Empty Pipelines are NOT an Option!</div>
+</footer>
+
+<script>
+// THEME TOGGLE
+function toggleTheme() {
+    const html = document.documentElement;
+    const current = html.getAttribute('data-theme');
+    const next = current === 'light' ? 'dark' : 'light';
+    html.setAttribute('data-theme', next);
+    localStorage.setItem('theme', next);
+    updateToggleLabel(next);
+}
+function updateToggleLabel(theme) {
+    const btn = document.getElementById('themeToggle');
+    btn.textContent = theme === 'light' ? '☾ Dark' : '☀ Light';
+}
+// Load saved theme
+(function() {
+    const saved = localStorage.getItem('theme') || 'light';
+    document.documentElement.setAttribute('data-theme', saved);
+    updateToggleLabel(saved);
+})();
+
+// COPY PROMPT
+function copyPrompt(btn) {
+    const prompt = btn.parentElement;
+    const text = prompt.innerText.replace('Copy', '').trim();
+    navigator.clipboard.writeText(text).then(() => {
+        const original = btn.textContent;
+        btn.textContent = 'Copied!';
+        btn.classList.add('copied');
+        setTimeout(() => {
+            btn.textContent = original;
+            btn.classList.remove('copied');
+        }, 1500);
+    });
+}
+</script>
+
+</body>
+</html>
