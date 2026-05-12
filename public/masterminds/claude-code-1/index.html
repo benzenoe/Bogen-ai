@@ -374,36 +374,38 @@
   }
   .footer a { color: var(--cyan); text-decoration: none; }
 
-  /* ====== FLOATING CTA BAR ====== */
+  /* ====== FLOATING CTAS ====== */
   .floating-cta {
     position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
+    bottom: 24px;
+    right: 24px;
     z-index: 150;
     display: flex;
-    justify-content: center;
-    gap: 14px;
-    padding: 14px 20px;
-    background: var(--card-bg);
-    border-top: 1px solid var(--card-border);
-    box-shadow: 0 -8px 28px rgba(0,0,0,0.12);
-    transition: background 0.3s ease, border-color 0.3s ease, transform 0.3s ease, opacity 0.3s ease;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 12px;
   }
-  [data-theme="dark"] .floating-cta { box-shadow: 0 -8px 28px rgba(0,0,0,0.5); }
-  .floating-cta.hidden { transform: translateY(110%); opacity: 0; pointer-events: none; }
-  .floating-cta .cta { padding: 14px 32px; font-size: 13px; box-shadow: 0 4px 14px rgba(0, 168, 225, 0.3); }
-  .floating-cta .cta.secondary { box-shadow: none; }
-  body { padding-bottom: 90px; }
+  .floating-cta .cta {
+    padding: 14px 28px;
+    font-size: 13px;
+    box-shadow: 0 10px 28px rgba(0, 168, 225, 0.45);
+  }
+  .floating-cta .cta.secondary {
+    background: var(--card-bg);
+    color: var(--fg-heading) !important;
+    border: 1px solid var(--card-border);
+    box-shadow: 0 10px 28px rgba(0,0,0,0.18);
+  }
+  [data-theme="dark"] .floating-cta .cta.secondary { box-shadow: 0 10px 28px rgba(0,0,0,0.55); }
+  .floating-cta .cta.secondary:hover { background: var(--fg-heading); color: var(--bg-hero-from) !important; }
 
   @media (max-width: 600px) {
     .hero { padding: 40px 18px 60px; }
     .promise, .systems, .takeaways, .logistics { padding: 60px 18px; }
     .cta { padding: 16px 30px; font-size: 13px; }
     .system-card { padding: 24px 20px; }
-    .floating-cta { padding: 10px 12px; gap: 8px; }
-    .floating-cta .cta { padding: 12px 14px; font-size: 11px; letter-spacing: 0.06em; flex: 1; text-align: center; }
-    body { padding-bottom: 76px; }
+    .floating-cta { bottom: 16px; right: 16px; left: 16px; align-items: stretch; gap: 10px; }
+    .floating-cta .cta { padding: 13px 18px; font-size: 12px; letter-spacing: 0.08em; text-align: center; }
   }
 </style>
 </head>
