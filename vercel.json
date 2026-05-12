@@ -32,6 +32,10 @@
       "dest": "/public/pitches/$1"
     },
     {
+      "src": "/clientsites/(.*)",
+      "dest": "/public/clientsites/$1"
+    },
+    {
       "src": "/api/(.*)",
       "dest": "/server.js"
     },
