@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Claude Code Foundations — Edmund's Mastermind | Episode 1</title>
+<meta name="description" content="Live mastermind session — Thursday, May 14, 2026 at 11:00 AM ET. Install Claude Code on your laptop and turn it into a 24/7 AI staff. Episode 1 of 3.">
+<meta property="og:title" content="Claude Code Foundations — Edmund's Mastermind">
+<meta property="og:description" content="How realtors run their business from the terminal. Live, on-screen, May 14 at 11 AM ET.">
+<meta property="og:image" content="https://bogen.ai/masterminds/claude-code-1/hero.png">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://bogen.ai/masterminds/claude-code-1/">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #1a3e5c;
+    --navy-deep: #0a1a28;
+    --cyan: #00a8e1;
+    --cyan-bright: #00c2ff;
+    --white: #ffffff;
+    --gray-50: #f8f9fb;
+    --gray-100: #f1f4f8;
+    --gray-200: #e4e9ef;
+    --gray-500: #6b7280;
+    --gray-700: #374151;
+
+    /* Themed tokens — light defaults */
+    --bg-hero-from: #ffffff;
+    --bg-hero-to: var(--gray-50);
+    --bg-promise: var(--gray-50);
+    --bg-systems-from: var(--gray-50);
+    --bg-systems-to: var(--gray-100);
+    --bg-takeaways-from: var(--gray-100);
+    --bg-takeaways-mid: #5a7591;
+    --bg-takeaways-to: var(--navy);
+    --bg-logistics: var(--navy);
+    --bg-footer: var(--navy-deep);
+    --fg-body: #222;
+    --fg-muted: var(--gray-700);
+    --fg-heading: var(--navy);
+    --card-bg: #ffffff;
+    --card-border: var(--gray-200);
+    --code-bg: #f4f4f4;
+    --hero-shadow: 0 30px 80px rgba(26, 62, 92, 0.18);
+    --card-shadow: 0 4px 20px rgba(26, 62, 92, 0.06);
+  }
+
+  [data-theme="dark"] {
+    --bg-hero-from: #0a1a28;
+    --bg-hero-to: #102234;
+    --bg-promise: #102234;
+    --bg-systems-from: #102234;
+    --bg-systems-to: #0e1d2c;
+    --bg-takeaways-from: #0e1d2c;
+    --bg-takeaways-mid: #061320;
+    --bg-takeaways-to: #03080f;
+    --bg-logistics: #03080f;
+    --bg-footer: #000000;
+    --fg-body: #e6edf3;
+    --fg-muted: #9fb4c8;
+    --fg-heading: #ffffff;
+    --card-bg: #14283c;
+    --card-border: #1e4060;
+    --code-bg: #0a1a28;
+    --hero-shadow: 0 30px 80px rgba(0, 0, 0, 0.5);
+    --card-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    color: var(--fg-body);
+    line-height: 1.7;
+    font-size: 17px;
+    background: var(--bg-hero-from);
+    transition: background 0.3s ease, color 0.3s ease;
+  }
+  h1, h2, h3, h4 { font-family: 'Montserrat', sans-serif; }
+
+  /* ====== THEME TOGGLE ====== */
+  .theme-toggle {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 200;
+    background: var(--card-bg);
+    color: var(--fg-heading);
+    border: 1px solid var(--card-border);
+    border-radius: 999px;
+    padding: 10px 16px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+    font-size: 12px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.12);
+    transition: transform 0.2s, background 0.2s, color 0.2s;
+  }
+  .theme-toggle:hover { transform: translateY(-1px); }
+  .theme-toggle .icon { font-size: 14px; line-height: 1; }
+  [data-theme="light"] .theme-toggle .dark-label,
+  [data-theme="light"] .theme-toggle .dark-icon { display: inline; }
+  [data-theme="light"] .theme-toggle .light-label,
+  [data-theme="light"] .theme-toggle .light-icon { display: none; }
+  [data-theme="dark"] .theme-toggle .dark-label,
+  [data-theme="dark"] .theme-toggle .dark-icon { display: none; }
+  [data-theme="dark"] .theme-toggle .light-label,
+  [data-theme="dark"] .theme-toggle .light-icon { display: inline; }
+
+  /* ====== SECTION 1: HERO (LIGHT) ====== */
+  .hero {
+    background: linear-gradient(180deg, var(--bg-hero-from) 0%, var(--bg-hero-to) 100%);
+    padding: 60px 24px 80px;
+    text-align: center;
+    border-bottom: 1px solid var(--card-border);
+    transition: background 0.3s ease;
+  }
+  .hero-inner { max-width: 1100px; margin: 0 auto; }
+  .eyebrow {
+    color: var(--cyan);
+    font-family: 'Montserrat', sans-serif;
+    font-size: 13px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    font-weight: 600;
+    margin-bottom: 18px;
+  }
+  .hero h1 {
+    color: var(--fg-heading);
+    font-size: clamp(34px, 5.5vw, 56px);
+    font-weight: 300;
+    line-height: 1.1;
+    letter-spacing: -0.01em;
+    margin-bottom: 20px;
+    max-width: 900px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .hero h1 strong { font-weight: 800; }
+  .hero-tagline {
+    color: var(--fg-muted);
+    font-size: clamp(17px, 2vw, 21px);
+    max-width: 720px;
+    margin: 0 auto 32px;
+  }
+  .hero-meta {
+    display: inline-flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 16px 28px;
+    color: var(--fg-heading);
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+    font-size: 14px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-bottom: 38px;
+  }
+  .hero-meta span { display: inline-flex; align-items: center; gap: 8px; }
+  .hero-meta .dot { color: var(--cyan); }
+  .hero-img {
+    width: 100%;
+    max-width: 1000px;
+    margin: 0 auto 40px;
+    display: block;
+    border-radius: 8px;
+    box-shadow: var(--hero-shadow);
+  }
+  .cta-row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 14px;
+    margin-top: 8px;
+  }
+  .cta {
+    display: inline-block;
+    background: var(--cyan);
+    color: #fff !important;
+    padding: 18px 44px;
+    text-decoration: none;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    font-size: 14px;
+    border-radius: 4px;
+    transition: transform 0.2s, box-shadow 0.2s, background 0.2s;
+    box-shadow: 0 8px 24px rgba(0, 168, 225, 0.3);
+  }
+  .cta:hover { transform: translateY(-2px); background: #0094c8; box-shadow: 0 14px 30px rgba(0, 168, 225, 0.4); }
+  .cta.secondary {
+    background: transparent;
+    color: var(--fg-heading) !important;
+    border: 2px solid var(--fg-heading);
+    box-shadow: none;
+  }
+  .cta.secondary:hover { background: var(--fg-heading); color: var(--bg-hero-from) !important; }
+
+  /* ====== SECTION 2: PROMISE (LIGHT-MID) ====== */
+  .promise {
+    background: var(--bg-promise);
+    padding: 80px 24px;
+    transition: background 0.3s ease;
+  }
+  .promise-inner { max-width: 920px; margin: 0 auto; text-align: center; }
+  .section-title {
+    color: var(--fg-heading);
+    font-size: clamp(28px, 4vw, 40px);
+    font-weight: 700;
+    line-height: 1.2;
+    margin-bottom: 22px;
+  }
+  .lead {
+    font-size: 19px;
+    color: var(--fg-muted);
+    margin-bottom: 18px;
+  }
+  .lead strong { color: var(--fg-heading); }
+
+  /* ====== SECTION 3: 3 SYSTEMS (MID) ====== */
+  .systems {
+    background: linear-gradient(180deg, var(--bg-systems-from) 0%, var(--bg-systems-to) 100%);
+    padding: 80px 24px;
+    transition: background 0.3s ease;
+  }
+  .systems-inner { max-width: 1100px; margin: 0 auto; }
+  .systems h2 { text-align: center; margin-bottom: 48px; }
+  .system-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 24px;
+  }
+  .system-card {
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-left: 4px solid var(--cyan);
+    padding: 32px 28px;
+    border-radius: 4px;
+    box-shadow: var(--card-shadow);
+    transition: background 0.3s ease, border-color 0.3s ease;
+  }
+  .system-num {
+    color: var(--cyan);
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 800;
+    font-size: 28px;
+    line-height: 1;
+    margin-bottom: 8px;
+  }
+  .system-card h3 {
+    color: var(--fg-heading);
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 14px;
+    line-height: 1.3;
+  }
+  .system-card p { font-size: 15.5px; color: var(--fg-muted); margin-bottom: 14px; }
+  .system-card .opp {
+    background: var(--navy);
+    color: #fff;
+    padding: 12px 16px;
+    margin-top: 12px;
+    font-size: 14px;
+    border-radius: 3px;
+  }
+  .system-card .opp strong { color: var(--cyan); }
+
+  /* ====== SECTION 4: TAKEAWAYS (DARKENING) ====== */
+  .takeaways {
+    background: linear-gradient(180deg, var(--bg-takeaways-from) 0%, var(--bg-takeaways-mid) 50%, var(--bg-takeaways-to) 100%);
+    padding: 90px 24px;
+    color: #fff;
+    transition: background 0.3s ease;
+  }
+  .takeaways-inner { max-width: 920px; margin: 0 auto; }
+  .takeaways h2 { color: #fff; text-align: center; margin-bottom: 14px; }
+  .takeaways .sub { text-align: center; color: rgba(255,255,255,0.85); margin-bottom: 40px; font-size: 17px; }
+  .takeaway-list {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 14px 28px;
+  }
+  .takeaway-list li {
+    padding: 14px 18px 14px 44px;
+    background: rgba(255,255,255,0.08);
+    border-left: 3px solid var(--cyan);
+    border-radius: 3px;
+    position: relative;
+    font-size: 15.5px;
+  }
+  .takeaway-list li::before {
+    content: "✓";
+    position: absolute;
+    left: 16px;
+    top: 14px;
+    color: var(--cyan);
+    font-weight: 700;
+    font-size: 18px;
+  }
+  .takeaway-list li strong { color: #fff; }
+
+  /* ====== SECTION 5: LOGISTICS + CTA (DARK) ====== */
+  .logistics {
+    background: var(--bg-logistics);
+    color: #fff;
+    padding: 80px 24px;
+    border-top: 1px solid rgba(255,255,255,0.08);
+    transition: background 0.3s ease;
+  }
+  .logistics-inner {
+    max-width: 720px;
+    margin: 0 auto;
+    text-align: center;
+  }
+  .logistics h2 {
+    color: #fff;
+    font-size: clamp(28px, 4vw, 40px);
+    font-weight: 700;
+    margin-bottom: 14px;
+  }
+  .logistics .accent { color: var(--cyan); }
+  .logistics-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 18px;
+    margin: 36px 0;
+    text-align: left;
+  }
+  .logistics-item {
+    background: rgba(255,255,255,0.05);
+    padding: 18px 20px;
+    border-left: 3px solid var(--cyan);
+    border-radius: 3px;
+  }
+  .logistics-item .label {
+    color: var(--cyan);
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+  .logistics-item .value { color: #fff; font-size: 16px; font-weight: 500; }
+
+  /* ====== SECTION 6: FOOTER (DARKEST) ====== */
+  .footer {
+    background: var(--bg-footer);
+    color: rgba(255,255,255,0.7);
+    padding: 50px 24px 40px;
+    text-align: center;
+    border-top: 1px solid rgba(255,255,255,0.08);
+    transition: background 0.3s ease;
+  }
+  .footer p { margin-bottom: 8px; font-size: 14px; }
+  .footer .tagline {
+    color: var(--cyan);
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    font-size: 12px;
+    margin-top: 18px;
+  }
+  .footer a { color: var(--cyan); text-decoration: none; }
+
+  @media (max-width: 600px) {
+    .hero { padding: 40px 18px 60px; }
+    .promise, .systems, .takeaways, .logistics { padding: 60px 18px; }
+    .cta { padding: 16px 30px; font-size: 13px; }
+    .system-card { padding: 24px 20px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ====== THEME TOGGLE ====== -->
+<button class="theme-toggle" id="themeToggle" aria-label="Toggle light/dark mode">
+  <span class="icon dark-icon">🌙</span>
+  <span class="icon light-icon">☀️</span>
+  <span class="dark-label">Dark</span>
+  <span class="light-label">Light</span>
+</button>
+
+<!-- ====== HERO (LIGHT) ====== -->
+<section class="hero">
+  <div class="hero-inner">
+    <div class="eyebrow">Edmund's Mastermind &nbsp;•&nbsp; Episode 1 of 3</div>
+    <h1>Claude Code Foundations<br><strong>How Realtors Run Their Business From the Terminal</strong></h1>
+    <p class="hero-tagline">While you're still copy-pasting into ChatGPT, the top 1% have moved past the chat window. They've installed an AI that lives on their laptop, reads their files, and works while they sleep. This is where you start.</p>
+    <div class="hero-meta">
+      <span><span class="dot">●</span> Thursday, May 14, 2026</span>
+      <span><span class="dot">●</span> 11:00 AM ET</span>
+      <span><span class="dot">●</span> Live on Zoom</span>
+    </div>
+    <img class="hero-img" src="./hero.png" alt="Claude Code Foundations — Edmund Bogen">
+    <div class="cta-row">
+      <a class="cta" href="#register">Register Free</a>
+      <a class="cta secondary" href="./workbook.pdf" target="_blank">Download Workbook</a>
+    </div>
+  </div>
+</section>
+
+<!-- ====== PROMISE ====== -->
+<section class="promise">
+  <div class="promise-inner">
+    <h2 class="section-title">The Real Estate Game Just Changed Again — And Most Agents Don't Even Know It</h2>
+    <p class="lead">AI is no longer something you "use." It's something you <strong>install</strong>. The agents who get this in 2026 will out-produce the ones who don't by <strong>10x within 12 months</strong>. That's not hyperbole. That's math.</p>
+    <p class="lead">Right now, fewer than 1 in 1,000 realtors has even <em>heard</em> of Claude Code. The advantage window is wide open. The agents who walk through it this quarter own the next decade.</p>
+    <p class="lead"><strong>This session is where you walk through it.</strong></p>
+  </div>
+</section>
+
+<!-- ====== 3 SYSTEMS ====== -->
+<section class="systems">
+  <div class="systems-inner">
+    <h2 class="section-title">The 3 Systems You'll Master</h2>
+    <div class="system-grid">
+      <div class="system-card">
+        <div class="system-num">01</div>
+        <h3>The 60-Minute Install Engine</h3>
+        <p>Zero-to-running setup. Terminal, Node.js, Claude Code, your first prompt — done in under an hour. We're not watching slides. You're installing alongside me.</p>
+        <p>By minute 60, you have a working AI on your laptop that reads your files and writes back.</p>
+        <div class="opp"><strong>Your opportunity:</strong> Eliminate the $200–$500/month you spend on AI tools that all do less than what's free on your machine.</div>
+      </div>
+      <div class="system-card">
+        <div class="system-num">02</div>
+        <h3>The First Conversation Framework</h3>
+        <p>How to actually talk to Claude Code so it does what you want — the first time. Most agents will install AI and never get past "write me a listing description." We go five layers deeper.</p>
+        <p>You'll learn how Claude Code reads your files, edits them, runs commands, and remembers what you taught it last week.</p>
+        <div class="opp"><strong>Your opportunity:</strong> Replace 10–15 hours of weekly admin work with a tool that costs less than your morning Starbucks.</div>
+      </div>
+      <div class="system-card">
+        <div class="system-num">03</div>
+        <h3>The Daily Driver Setup</h3>
+        <p>The configuration that turns Claude Code from a tool into a <em>system</em>. Set up <code style="background:#f4f4f4;padding:2px 6px;border-radius:3px;font-size:14px;">CLAUDE.md</code>, your first slash commands, and the directory structure that scales as your business grows.</p>
+        <p>This is the foundation Episodes 2 and 3 build on.</p>
+        <div class="opp"><strong>Your opportunity:</strong> Build your <em>personal</em> AI assistant — one that knows your brand, your market, your clients, and your voice. Not a generic chatbot. Yours.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ====== TAKEAWAYS ====== -->
+<section class="takeaways">
+  <div class="takeaways-inner">
+    <h2 class="section-title">What You'll Leave With</h2>
+    <p class="sub">Not theory. Not slides. A working system on your machine before you log off.</p>
+    <ul class="takeaway-list">
+      <li><strong>Claude Code installed and running</strong> on your machine</li>
+      <li>A working <strong>CLAUDE.md</strong> file that turns Claude into <em>your</em> assistant</li>
+      <li>Your first <strong>5 slash commands</strong> customized for real estate workflow</li>
+      <li>The exact <strong>directory structure</strong> top producers use</li>
+      <li>A <strong>30-day implementation roadmap</strong> so you don't lose momentum</li>
+      <li>The complete <strong>prompt library</strong> — every demo prompt, copy-paste ready</li>
+      <li><strong>Recording access for life</strong> — review anytime, share with team</li>
+      <li><strong>15-page implementation workbook</strong> — your playbook, not a PDF that gathers dust</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ====== LOGISTICS + REGISTER ====== -->
+<section class="logistics" id="register">
+  <div class="logistics-inner">
+    <h2>Reserve Your <span class="accent">Seat</span></h2>
+    <p style="opacity: 0.85; font-size: 17px;">Free for Mastermind members. Drop your email, get the Zoom link 24 hours before the session.</p>
+    <div class="logistics-grid">
+      <div class="logistics-item">
+        <div class="label">Date</div>
+        <div class="value">Thursday, May 14, 2026</div>
+      </div>
+      <div class="logistics-item">
+        <div class="label">Time</div>
+        <div class="value">11:00 AM ET</div>
+      </div>
+      <div class="logistics-item">
+        <div class="label">Format</div>
+        <div class="value">Live on Zoom + recording</div>
+      </div>
+      <div class="logistics-item">
+        <div class="label">Workbook</div>
+        <div class="value"><a href="./workbook.pdf" style="color:#fff;text-decoration:underline;" target="_blank">Download (PDF)</a></div>
+      </div>
+    </div>
+    <a class="cta" href="https://www.reignation.com/claude-code-1">Register Free Now</a>
+    <p style="margin-top: 28px; opacity: 0.7; font-size: 14px;">Episodes 2 and 3 (Daily Real Estate Work + Power Plays) build on this foundation, but each is fully standalone. The series recycles every quarter.</p>
+  </div>
+</section>
+
+<!-- ====== FOOTER ====== -->
+<footer class="footer">
+  <p><strong style="color:#fff;">Edmund Bogen &amp; Team</strong></p>
+  <p>Edmund's Mastermind &amp; Group Coaching</p>
+  <p style="margin-top: 14px;"><a href="https://www.reignation.com">www.reignation.com</a></p>
+  <p class="tagline">Because Falling Behind is NOT an Option</p>
+</footer>
+
+<script>
+  (function () {
+    var html = document.documentElement;
+    var btn = document.getElementById('themeToggle');
+    var stored = localStorage.getItem('cc1-theme');
+    if (stored === 'dark' || stored === 'light') {
+      html.setAttribute('data-theme', stored);
+    } else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+      html.setAttribute('data-theme', 'dark');
+    }
+    btn.addEventListener('click', function () {
+      var next = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+      html.setAttribute('data-theme', next);
+      localStorage.setItem('cc1-theme', next);
+    });
+  })();
+</script>
+
+</body>
+</html>
