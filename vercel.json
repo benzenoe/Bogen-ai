@@ -36,6 +36,10 @@
       "dest": "/public/clientsites/$1"
     },
     {
+      "src": "/masterminds/(.*)",
+      "dest": "/public/masterminds/$1"
+    },
+    {
       "src": "/api/(.*)",
       "dest": "/server.js"
     },
