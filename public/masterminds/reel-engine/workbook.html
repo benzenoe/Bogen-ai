@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>The 60/25/15 Reel Engine — Implementation Workbook | Edmund's Mastermind</title>
+<style>
+@page { size: letter; margin: 0.6in 0.75in; }
+* { box-sizing: border-box; }
+body {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    color: #1a3e5c;
+    margin: 0; padding: 0;
+    line-height: 1.5;
+    font-size: 11pt;
+}
+.page {
+    page-break-after: always;
+    max-height: 10.5in;
+    overflow: hidden;
+    padding: 0;
+}
+.page:last-child { page-break-after: auto; }
+.no-break { page-break-inside: avoid; }
+
+h1, h2, h3, h4 { color: #1a3e5c; margin: 0 0 12px 0; }
+h1 { font-size: 28pt; font-weight: 300; letter-spacing: 0.06em; text-transform: uppercase; }
+h2 { font-size: 18pt; font-weight: 400; letter-spacing: 0.04em; text-transform: uppercase; border-left: 4px solid #00a8e1; padding-left: 12px; margin-top: 18px; }
+h3 { font-size: 13pt; font-weight: 600; letter-spacing: 0.02em; color: #00a8e1; text-transform: uppercase; margin-top: 14px; }
+h4 { font-size: 11pt; font-weight: 700; color: #1a3e5c; margin-top: 10px; }
+
+p { margin: 6px 0 10px 0; }
+ul, ol { margin: 6px 0 10px 20px; padding: 0; }
+li { margin-bottom: 4px; }
+
+.cover {
+    text-align: center;
+    padding-top: 0.4in;
+}
+.cover .hero-placeholder {
+    width: 100%;
+    border-radius: 8px;
+    overflow: hidden;
+    margin-bottom: 0.3in;
+}
+.cover .hero-placeholder img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+.cover h1 { font-size: 32pt; margin-top: 0.3in; }
+.cover .subtitle { font-size: 14pt; color: #00a8e1; letter-spacing: 0.06em; text-transform: uppercase; margin: 0.15in 0; }
+.cover .meta { font-size: 11pt; color: #333; margin-top: 0.4in; }
+.cover .brand { margin-top: 0.6in; font-size: 10pt; color: #1a3e5c; letter-spacing: 0.1em; text-transform: uppercase; }
+
+.box {
+    background: #f4f4f4;
+    border-left: 4px solid #00a8e1;
+    padding: 12px 16px;
+    margin: 10px 0;
+    border-radius: 0 4px 4px 0;
+}
+.box-dark {
+    background: #1a3e5c;
+    color: #fff;
+    padding: 14px 18px;
+    margin: 10px 0;
+    border-radius: 4px;
+}
+.box-dark h3, .box-dark h4 { color: #00a8e1; }
+
+.prompt {
+    background: #1a3e5c;
+    color: #e8f4fa;
+    padding: 10px 14px;
+    margin: 8px 0;
+    border-radius: 4px;
+    font-family: 'Menlo', 'Courier New', monospace;
+    font-size: 8.5pt;
+    line-height: 1.45;
+    white-space: pre-wrap;
+}
+.prompt-label {
+    display: inline-block;
+    background: #00a8e1;
+    color: #fff;
+    padding: 3px 10px;
+    font-size: 8pt;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    border-radius: 2px;
+    margin-bottom: 4px;
+}
+
+.fill-line { border-bottom: 1px solid #1a3e5c; display: inline-block; min-width: 200px; height: 14px; margin: 0 4px; }
+.fill-full { display: block; border-bottom: 1px solid #1a3e5c; height: 18px; margin: 6px 0; }
+
+.checkbox { display: inline-block; width: 11px; height: 11px; border: 1.5px solid #1a3e5c; margin-right: 6px; vertical-align: middle; border-radius: 2px; }
+
+.two-col { display: flex; gap: 16px; }
+.two-col > div { flex: 1; }
+
+table { width: 100%; border-collapse: collapse; margin: 8px 0; font-size: 10pt; }
+th { background: #1a3e5c; color: #fff; padding: 6px 8px; text-align: left; font-weight: 600; }
+td { border-bottom: 1px solid #ccc; padding: 6px 8px; }
+
+.footer {
+    position: relative;
+    margin-top: 20px;
+    padding-top: 8px;
+    border-top: 1px solid #00a8e1;
+    font-size: 8pt;
+    color: #1a3e5c;
+    letter-spacing: 0.04em;
+    display: flex;
+    justify-content: space-between;
+}
+
+.tag { display: inline-block; background: #00a8e1; color: #fff; padding: 2px 8px; font-size: 8pt; border-radius: 2px; margin-right: 4px; font-weight: 600; letter-spacing: 0.05em; }
+</style>
+</head>
+<body>
+
+<!-- ============ PAGE 1: COVER ============ -->
+<div class="page cover">
+    <div class="hero-placeholder"><img src="assets/hero.png" alt="Attention Is The New Commission — Edmund Bogen"></div>
+    <div class="subtitle">Complete Implementation Workbook</div>
+    <h1>The 60/25/15<br>Reel Engine</h1>
+    <p style="font-size: 13pt; color: #333; margin-top: 12px;">One Listing Into a Week of Short-Form Video</p>
+    <div class="meta">
+        Edmund's Mastermind &amp; Group Coaching<br>
+        Wednesday, June 3, 2026 · 9:00 AM ET
+    </div>
+    <div class="brand">Edmund Bogen &amp; Team · Edmund's Mastermind</div>
+</div>
+
+<!-- ============ PAGE 2: MISSION + OVERVIEW ============ -->
+<div class="page">
+    <h2>Your Money-Making Mission</h2>
+    <div class="two-col">
+        <div class="box">
+            <h4>Why You're Here</h4>
+            <p>Instagram now pushes Reels to non-followers while photo posts stay locked inside your existing audience. Every photo carousel you post is invisible to the buyers and sellers you don't already know.</p>
+            <h4>Your Goal Today</h4>
+            <p>Walk out with <strong>5 finished Reels</strong> generated from a single listing, the Amplifiles + AutoReel workflows in your phone, and the 60/25/15 distribution frame mapped for the next 30 days.</p>
+            <h4>Success Metric (30 Days)</h4>
+            <p>3x your average non-follower reach. 1 inbound listing inquiry attributable to Reels.</p>
+        </div>
+        <div class="box-dark">
+            <h4>Workshop Overview: Your Profit-Generating Toolkit</h4>
+            <p style="font-size: 10pt;">The 3 Revenue-Boosting Systems You'll Master:</p>
+            <p style="font-size: 10pt; margin: 6px 0;"><strong style="color:#00a8e1;">1. Amplifiles Photo-to-Reel Machine</strong><br>MLS photos → 1080p vertical Reels in ~5 min at $1.50/image.</p>
+            <p style="font-size: 10pt; margin: 6px 0;"><strong style="color:#00a8e1;">2. AutoReel Listing Engine</strong><br>Real-estate-specific Reel generator. Zero filming, zero editing.</p>
+            <p style="font-size: 10pt; margin: 6px 0;"><strong style="color:#00a8e1;">3. The 60/25/15 Distribution Frame</strong><br>60% Reels (reach), 25% Carousels (depth), 15% Stories (trust).</p>
+        </div>
+    </div>
+
+    <h2>The Algorithm Truth You Must Internalize</h2>
+    <p>Instagram's 2024–2026 algorithm pivot rewards short-form vertical video with non-follower distribution. A typical Reel reaches 8–10x more accounts that don't follow you than any photo carousel will. That cold reach is the entire top of your real estate sales funnel. You are not in the "content business." You are in the <strong>distribution business</strong>. Every Reel = a paid ad you didn't pay for.</p>
+
+    <div class="footer"><span>The 60/25/15 Reel Engine · Edmund's Mastermind</span><span>Page 2</span></div>
+</div>
+
+<!-- ============ PAGE 3: SYSTEM 1 OPENING + TEACHING ============ -->
+<div class="page">
+    <span class="tag">SYSTEM 1</span>
+    <h2>The Amplifiles Photo-to-Reel Machine</h2>
+    <p style="font-size: 12pt; color: #00a8e1; font-weight: 600;">The $1.50 Photo-Carousel-Killer</p>
+
+    <div class="box">
+        <h4>What This Means for Your Bank Account</h4>
+        <ul>
+            <li><strong>Cost per Reel:</strong> ~$7.50 for a 5-photo Reel (vs. $150–500 hiring a videographer)</li>
+            <li><strong>Turnaround:</strong> ~5 minutes per Reel (vs. 2–3 hour shoot + edit cycle)</li>
+            <li><strong>Advantage:</strong> Every active listing becomes a week of feed-dominating short-form content instead of a one-time photo post</li>
+        </ul>
+    </div>
+
+    <h3>The Technology Behind Your Reach Advantage</h3>
+    <p>Amplifiles is an AI image-to-video pipeline purpose-built for real estate. Drop in MLS-quality stills and the system generates motion: subtle parallax, cinematic Ken Burns pans, camera dolly simulation, and aspect ratio remapping from 4:3 horizontal to 9:16 vertical — the format Instagram's algorithm prioritizes. Output: 1080p vertical Reels in roughly 5 minutes per image, $1.50 per image.</p>
+
+    <h3>Why This Changes Everything in Real Estate</h3>
+    <p>Until now, the agent who wanted Reels had two options: film themselves on camera (high friction, exposes the agents who don't love being on video) or hire a videographer per listing ($150–$1,500). Both kill consistency. Amplifiles collapses the cost curve. The agent who can post 5 listing Reels per week now spends $37.50 in tools, not $2,500 in production.</p>
+
+    <h3>The Early Adopter Advantage</h3>
+    <p>Most agents won't discover this for 6–12 months. The ones who run it now will have built a 6-month head start of Reel-driven non-follower reach by the time their market catches up. That gap compounds. By Q4 2026, you will look like the only agent in your market who is "everywhere on Instagram."</p>
+
+    <h3>Real Revenue Applications</h3>
+    <ul>
+        <li>Every new listing → 5 Reels over the first week (drives both buyer leads and seller social proof)</li>
+        <li>Just-sold posts → motion Reels with "Sold over ask" overlays</li>
+        <li>Open house promotion → Reel teaser 48 hours before, Reel recap 24 hours after</li>
+        <li>Listing presentation marketing plan → screenshot your Reels metrics into the pitch deck</li>
+    </ul>
+
+    <div class="footer"><span>System 1 · Amplifiles</span><span>Page 3</span></div>
+</div>
+
+<!-- ============ PAGE 4: SYSTEM 1 PROMPTS ============ -->
+<div class="page">
+    <span class="tag">SYSTEM 1</span>
+    <h2>Amplifiles: Profit-Generating Prompts</h2>
+    <p>Copy these directly into the Amplifiles caption / scene description field for each Reel. Replace bracketed details with the listing specifics.</p>
+
+    <span class="prompt-label">Reel #1 — Exterior Reveal</span>
+    <div class="prompt">Cinematic slow dolly-in on the front exterior of [ADDRESS]. Golden hour lighting. Camera glides from street level toward the front entry. Add subtle palm-tree sway in the breeze. Text overlay frame 1: "Just Listed in [NEIGHBORHOOD]." Text overlay frame 2: "[BEDS] BR · [BATHS] BA · [SQFT] sqft · [PRICE]." Style: luxury real estate, magazine cover quality, 9:16 vertical.</div>
+
+    <span class="prompt-label">Reel #2 — Interior Living Spaces</span>
+    <div class="prompt">Smooth gimbal-style walk-through of the main living areas of [ADDRESS]. Open with kitchen, transition to great room, end on dining area. Subtle warm white interior lighting. No text on first 1.5 seconds (let the space breathe). Text overlay at 2 seconds: "Designed for the way you actually live." Pace: slow-medium. 9:16 vertical, 15 seconds.</div>
+
+    <span class="prompt-label">Reel #3 — Primary Suite + Spa Bath</span>
+    <div class="prompt">Sequence: bedroom wide → bedroom detail (window view) → spa bathroom wide → soaking tub close-up. Soft morning light. Ken Burns pan on each frame. Text overlay sequence: "Wake up here" → "Unwind here" → "Every. Single. Day." 9:16 vertical, 12–15 seconds, calm cinematic mood.</div>
+
+    <span class="prompt-label">Reel #4 — Outdoor / Pool / Lifestyle</span>
+    <div class="prompt">Outdoor flythrough of [ADDRESS]: covered loggia → pool deck → pool with subtle water shimmer → outdoor dining. Tropical, vibrant. Slight warm grade. Music cue: upbeat lifestyle. Text overlay: "[NEIGHBORHOOD] living, redefined." Closing frame: "Tour available. DM 'TOUR'." 9:16 vertical, 15–20 seconds.</div>
+
+    <span class="prompt-label">Reel #5 — Just Listed Hook (Highest-Reach)</span>
+    <div class="prompt">Fast-cut montage: 5 best photos of [ADDRESS] with quick punchy transitions. Beat-synced motion. Bold text overlay frame 1: "STOP." Frame 2: "This just hit the market." Frame 3: "[PRICE] · [BEDS] BR · [SQFT] sqft." Frame 4: "DM 'TOUR' before it's gone." High energy, scroll-stopping. 9:16 vertical, 10–12 seconds, music: trending upbeat.</div>
+
+    <span class="prompt-label">Bonus — Sold Reel Template</span>
+    <div class="prompt">5-photo montage of [ADDRESS] with "SOLD" stamp overlay appearing on frame 2. Closing frame: large text "Sold for $[PRICE] · [DAYS] days on market · Represented [BUYER/SELLER]." Music: confident/celebratory. 9:16 vertical, 12 seconds.</div>
+
+    <div class="footer"><span>System 1 · Amplifiles Prompts</span><span>Page 4</span></div>
+</div>
+
+<!-- ============ PAGE 5: SYSTEM 1 WORKSHEET ============ -->
+<div class="page">
+    <span class="tag">SYSTEM 1</span>
+    <h2>Amplifiles: Your Success Notes</h2>
+
+    <h3>During the Demo, Write Down:</h3>
+    <p><strong>Specific listings I'll run through Amplifiles this week:</strong></p>
+    <div class="fill-full"></div>
+    <div class="fill-full"></div>
+    <div class="fill-full"></div>
+
+    <p><strong>Photo sources I have ready (MLS / photographer files / phone):</strong></p>
+    <div class="fill-full"></div>
+    <div class="fill-full"></div>
+
+    <h3>The Math (Run It Yourself)</h3>
+    <table>
+        <tr><th>Inputs</th><th>Your Number</th></tr>
+        <tr><td>Active listings I represent right now</td><td>_____________</td></tr>
+        <tr><td>Reels I want per listing (target: 5)</td><td>_____________</td></tr>
+        <tr><td>Total Reels this week</td><td>_____________</td></tr>
+        <tr><td>Estimated cost (Reels × ~$7.50)</td><td>$ ___________</td></tr>
+        <tr><td>Time to produce (Reels × ~5 min)</td><td>_____________ min</td></tr>
+    </table>
+
+    <h3>What I'd Have Paid Before</h3>
+    <p>Cost of comparable videographer-produced Reels: $ <span class="fill-line"></span> per listing<br>
+    Monthly savings if I shift to Amplifiles: $ <span class="fill-line"></span> per month</p>
+
+    <h3>First 3 Listings I'll Process This Week</h3>
+    <p>1. <span class="fill-line" style="min-width: 380px;"></span></p>
+    <p>2. <span class="fill-line" style="min-width: 380px;"></span></p>
+    <p>3. <span class="fill-line" style="min-width: 380px;"></span></p>
+
+    <h3>Questions for Q&amp;A</h3>
+    <div class="fill-full"></div>
+    <div class="fill-full"></div>
+    <div class="fill-full"></div>
+
+    <div class="footer"><span>System 1 · Worksheet</span><span>Page 5</span></div>
+</div>
+
+<!-- ============ PAGE 6: SYSTEM 2 OPENING + TEACHING ============ -->
+<div class="page">
+    <span class="tag">SYSTEM 2</span>
+    <h2>The AutoReel Listing Engine</h2>
+    <p style="font-size: 12pt; color: #00a8e1; font-weight: 600;">The Zero-Filming, Zero-Editing Reel Factory</p>
+
+    <div class="box">
+        <h4>What This Means for Your Bank Account</h4>
+        <ul>
+            <li><strong>Time recovered:</strong> ~6–10 hours per week previously spent filming, editing, captioning, sourcing music</li>
+            <li><strong>Consistency unlock:</strong> Daily Reels without you ever appearing on camera</li>
+            <li><strong>Advantage:</strong> You become an "always on" listing marketer regardless of your schedule, mood, or hair</li>
+        </ul>
+    </div>
+
+    <h3>The Automation Behind Your New Output</h3>
+    <p>AutoReel is built specifically for real estate workflows. It ingests a listing (MLS link, address, or uploaded photo set) and outputs ready-to-publish Reels with on-brand captions, snap-to-beat transitions, license-cleared music, branded intro/outro frames, and an auto-generated caption + hashtag set tuned to the property type and location.</p>
+
+    <h3>Why This Changes Everything for Solo Agents and Small Teams</h3>
+    <p>The agents who beat you on Instagram aren't smarter — they're either younger and unafraid of camera, or they have a content team. AutoReel removes both moats. A solo agent in Boca with two listings can now output the volume of a 6-person social team in Miami. That's not a "nice tool" — that's a structural change in who gets the listing in 2026.</p>
+
+    <h3>The Early Adopter Advantage</h3>
+    <p>Tools like AutoReel become commoditized within 18–24 months. The agents who adopt now and build the muscle of daily posting will have a body of work, audience growth, and saved-search retargeting data that compounds for years. The agents who wait will be starting from zero in a saturated feed.</p>
+
+    <h3>Real Revenue Applications</h3>
+    <ul>
+        <li>Daily Reel calendar — published on autopilot for every active listing</li>
+        <li>Neighborhood / "areas I serve" Reels generated from any address in your market</li>
+        <li>Buyer journey Reels: "What $1M buys in [neighborhood]" comparison content</li>
+        <li>Listing presentation asset: "Here's the 21-Reel marketing campaign I'll run for your home"</li>
+    </ul>
+
+    <div class="footer"><span>System 2 · AutoReel</span><span>Page 6</span></div>
+</div>
+
+<!-- ============ PAGE 7: SYSTEM 2 PROMPTS ============ -->
+<div class="page">
+    <span class="tag">SYSTEM 2</span>
+    <h2>AutoReel: Profit-Generating Prompts</h2>
+    <p>Use these directly in AutoReel's caption / scene / brief field. Replace bracketed details.</p>
+
+    <span class="prompt-label">Brief #1 — New Listing Announcement</span>
+    <div class="prompt">Generate a 15-second Reel announcing a new luxury listing at [ADDRESS] in [NEIGHBORHOOD]. Property: [BEDS] BR, [BATHS] BA, [SQFT] sqft, [PRICE]. Voice: confident, premium, scroll-stopping. Opening hook: "Just listed in [NEIGHBORHOOD] —". Closing CTA: "DM 'TOUR' for a private showing." Music: trending real estate. Branding: include "Edmund Bogen Team · Douglas Elliman" outro frame.</div>
+
+    <span class="prompt-label">Brief #2 — Lifestyle / Neighborhood</span>
+    <div class="prompt">Generate a 20-second neighborhood Reel for [NEIGHBORHOOD]. Mix listing photos with stock-style B-roll cues (golf course, marina, restaurants). Caption hook: "Why everyone wants to live in [NEIGHBORHOOD]." Include 3 specific lifestyle reasons. Closing CTA: "Want in? DM me." Music: warm, aspirational. Output 9:16 vertical.</div>
+
+    <span class="prompt-label">Brief #3 — Price Drop / Just Reduced</span>
+    <div class="prompt">Generate a 12-second urgent Reel announcing a price reduction at [ADDRESS]. Opening text: "PRICE JUST DROPPED." Show 4 best photos with quick-cut pace. Display new price prominently. CTA: "Was $[OLD]. Now $[NEW]. DM before it moves." High-energy music. 9:16 vertical.</div>
+
+    <span class="prompt-label">Brief #4 — Buyer Education / What $X Gets You</span>
+    <div class="prompt">Create a 25-second comparison Reel titled "What $[PRICE] buys in [NEIGHBORHOOD] right now." Show 3 active listings at that price point (use my uploaded photos). For each: address bar, key stats, one differentiator. Closing: "Want the full list of $[PRICE] options? DM 'LIST'." Music: clean, informative. 9:16 vertical.</div>
+
+    <span class="prompt-label">Brief #5 — Open House Promo</span>
+    <div class="prompt">Generate a 10-second open house promo Reel for [ADDRESS]. Punchy, urgent. Display: date, time, address. Hook: "Open House This Saturday." Display top 3 photos. Closing CTA: "Bring your buyers. Bring your offers." Music: upbeat, weekend energy. 9:16 vertical.</div>
+
+    <span class="prompt-label">Brief #6 — Sold / Social Proof</span>
+    <div class="prompt">Generate a 12-second "Sold" Reel for [ADDRESS]. Open with "SOLD" stamp animation. Show 4 hero photos. Display: sold price, days on market, list-to-sale ratio. Closing CTA: "Thinking of selling? Let's talk." Music: confident, celebratory. Outro frame: contact info. 9:16 vertical.</div>
+
+    <div class="footer"><span>System 2 · AutoReel Prompts</span><span>Page 7</span></div>
+</div>
+
+<!-- ============ PAGE 8: SYSTEM 2 WORKSHEET ============ -->
+<div class="page">
+    <span class="tag">SYSTEM 2</span>
+    <h2>AutoReel: Your Success Notes</h2>
+
+    <h3>During the Demo, Write Down:</h3>
+    <p><strong>Which AutoReel template I'll run first:</strong></p>
+    <div class="fill-full"></div>
+
+    <p><strong>Brand assets I need to upload (logo, fonts, contact info, headshot):</strong></p>
+    <div class="fill-full"></div>
+    <div class="fill-full"></div>
+
+    <h3>Time-Recovery Math</h3>
+    <table>
+        <tr><th>Activity</th><th>Hours/Week Before</th><th>Hours/Week After AutoReel</th></tr>
+        <tr><td>Filming Reels</td><td>______</td><td>______</td></tr>
+        <tr><td>Editing / cutting</td><td>______</td><td>______</td></tr>
+        <tr><td>Caption writing</td><td>______</td><td>______</td></tr>
+        <tr><td>Music sourcing</td><td>______</td><td>______</td></tr>
+        <tr><td><strong>TOTAL</strong></td><td>______</td><td>______</td></tr>
+    </table>
+
+    <p><strong>Hours saved per week:</strong> <span class="fill-line"></span> &nbsp;&nbsp; <strong>× my hourly value $</strong><span class="fill-line"></span> <strong>= $</strong><span class="fill-line"></span> per week recovered</p>
+
+    <h3>First 3 Reels I'll Generate With AutoReel This Week</h3>
+    <p>1. <span class="fill-line" style="min-width: 380px;"></span></p>
+    <p>2. <span class="fill-line" style="min-width: 380px;"></span></p>
+    <p>3. <span class="fill-line" style="min-width: 380px;"></span></p>
+
+    <h3>Questions for Q&amp;A</h3>
+    <div class="fill-full"></div>
+    <div class="fill-full"></div>
+
+    <div class="footer"><span>System 2 · Worksheet</span><span>Page 8</span></div>
+</div>
+
+<!-- ============ PAGE 9: SYSTEM 3 OPENING + TEACHING ============ -->
+<div class="page">
+    <span class="tag">SYSTEM 3</span>
+    <h2>The 60/25/15 Distribution Frame</h2>
+    <p style="font-size: 12pt; color: #00a8e1; font-weight: 600;">The Weekly Content Map Top Agents Are Actually Running</p>
+
+    <div class="box">
+        <h4>What This Means for Your Bank Account</h4>
+        <ul>
+            <li><strong>Predictability:</strong> Stop guessing what to post. Run the frame.</li>
+            <li><strong>Compound reach:</strong> Each format does a different job — together they cover cold, warm, and hot audiences</li>
+            <li><strong>Advantage:</strong> A repeatable weekly content operation a VA, team member, or your future self can run</li>
+        </ul>
+    </div>
+
+    <h3>The Psychology Behind the 60/25/15 Split</h3>
+    <p>Instagram doesn't have one audience — it has three. <strong>Cold</strong> (people who don't know you yet): only reached through Reels. <strong>Warm</strong> (people who follow you but aren't ready to act): consume carousels because they get depth. <strong>Hot</strong> (people who already trust you): tap Stories for the daily, intimate, behind-the-scenes signal. If you post only one format, you're talking to one third of your potential pipeline.</p>
+
+    <h3>Why This Changes Everything in Your Weekly Operation</h3>
+    <p>Most agents accidentally over-index on one format and wonder why growth feels flat. The 60/25/15 frame forces balance: 60% Reels for the cold-audience reach that becomes new pipeline, 25% Carousels for the storytelling depth that converts warm followers into clients, 15% Stories for the daily presence that keeps existing relationships alive. The frame is the difference between "I post on Instagram" and "I run an Instagram listing engine."</p>
+
+    <h3>The Early Adopter Advantage</h3>
+    <p>The agents who adopt this frame in mid-2026 will spend the next 6 months training the Instagram algorithm to recognize them as a Reel-first creator — which earns them dramatically more non-follower distribution. The agents still posting random photo carousels are training the algorithm to treat them as a closed-loop creator and will be capped at their existing follower base for the foreseeable future.</p>
+
+    <h3>Weekly Frame at a Glance</h3>
+    <table>
+        <tr><th>Format</th><th>% of Posts</th><th>Audience</th><th>Job It Does</th></tr>
+        <tr><td><strong>Reels</strong></td><td>60%</td><td>Cold (non-followers)</td><td>Top-of-funnel reach</td></tr>
+        <tr><td><strong>Carousels</strong></td><td>25%</td><td>Warm (followers)</td><td>Depth, education, conversion</td></tr>
+        <tr><td><strong>Stories</strong></td><td>15%</td><td>Hot (engaged + sphere)</td><td>Daily presence, trust, DMs</td></tr>
+    </table>
+
+    <div class="footer"><span>System 3 · 60/25/15 Frame</span><span>Page 9</span></div>
+</div>
+
+<!-- ============ PAGE 10: SYSTEM 3 PROMPTS + WEEKLY MAP ============ -->
+<div class="page">
+    <span class="tag">SYSTEM 3</span>
+    <h2>The 60/25/15 Weekly Map (Plug-and-Play)</h2>
+
+    <h3>One Listing → A Full Week of Content</h3>
+    <table>
+        <tr><th>Day</th><th>Format</th><th>Content</th></tr>
+        <tr><td>Mon</td><td>Reel</td><td>"Just Listed" hook (Amplifiles Reel #5)</td></tr>
+        <tr><td>Tue</td><td>Reel</td><td>Exterior reveal (Amplifiles Reel #1)</td></tr>
+        <tr><td>Wed</td><td>Carousel</td><td>"5 things you'd love about this home" — 5 photo carousel with copy</td></tr>
+        <tr><td>Thu</td><td>Reel</td><td>Interior walkthrough (Amplifiles Reel #2)</td></tr>
+        <tr><td>Fri</td><td>Reel</td><td>Outdoor / lifestyle (Amplifiles Reel #4)</td></tr>
+        <tr><td>Sat</td><td>Carousel</td><td>Open house promo + neighborhood mini-guide</td></tr>
+        <tr><td>Sun</td><td>Reel</td><td>Primary suite spa moment (Amplifiles Reel #3)</td></tr>
+        <tr><td>Daily</td><td>Stories</td><td>2–4 Stories: behind-the-scenes, polls, "guess the price," DM prompts</td></tr>
+    </table>
+    <p style="font-size: 9.5pt; color: #555;"><em>Result: 5 Reels (60%) + 2 Carousels (25%) + ~21 Story slides (15% of post weight) = the 60/25/15 split, run cleanly off a single listing.</em></p>
+
+    <h3>Caption Hook Swipe File</h3>
+    <span class="prompt-label">Reel Hook — Just Listed</span>
+    <div class="prompt">STOP scrolling. This just hit the market in [NEIGHBORHOOD] and it won't last.</div>
+    <span class="prompt-label">Reel Hook — Lifestyle</span>
+    <div class="prompt">If you've ever wondered what living in [NEIGHBORHOOD] actually feels like — watch this.</div>
+    <span class="prompt-label">Carousel Hook — Education</span>
+    <div class="prompt">5 things every buyer underestimates about [NEIGHBORHOOD]. Save this before you tour.</div>
+    <span class="prompt-label">Carousel Hook — Listing Showcase</span>
+    <div class="prompt">Swipe to see why this [PRICE] listing in [NEIGHBORHOOD] is the best buy on the market right now.</div>
+    <span class="prompt-label">Story Hook — DM Driver</span>
+    <div class="prompt">Want the full price + sqft on this one? Reply with the word TOUR and I'll send it.</div>
+
+    <div class="footer"><span>System 3 · Weekly Map</span><span>Page 10</span></div>
+</div>
+
+<!-- ============ PAGE 11: SYSTEM 3 WORKSHEET ============ -->
+<div class="page">
+    <span class="tag">SYSTEM 3</span>
+    <h2>60/25/15: Your Weekly Map Worksheet</h2>
+
+    <h3>Build Your Next 7 Days</h3>
+    <table>
+        <tr><th>Day</th><th>Format (R/C/S)</th><th>Topic / Hook</th></tr>
+        <tr><td>Mon</td><td>______</td><td><span class="fill-line" style="min-width: 360px;"></span></td></tr>
+        <tr><td>Tue</td><td>______</td><td><span class="fill-line" style="min-width: 360px;"></span></td></tr>
+        <tr><td>Wed</td><td>______</td><td><span class="fill-line" style="min-width: 360px;"></span></td></tr>
+        <tr><td>Thu</td><td>______</td><td><span class="fill-line" style="min-width: 360px;"></span></td></tr>
+        <tr><td>Fri</td><td>______</td><td><span class="fill-line" style="min-width: 360px;"></span></td></tr>
+        <tr><td>Sat</td><td>______</td><td><span class="fill-line" style="min-width: 360px;"></span></td></tr>
+        <tr><td>Sun</td><td>______</td><td><span class="fill-line" style="min-width: 360px;"></span></td></tr>
+    </table>
+
+    <h3>The 60/25/15 Check</h3>
+    <p>Count your week:</p>
+    <p>Reels this week: <span class="fill-line" style="min-width: 60px;"></span> &nbsp;&nbsp; Should be ≥ 60% &nbsp; <span class="checkbox"></span> On target</p>
+    <p>Carousels this week: <span class="fill-line" style="min-width: 60px;"></span> &nbsp; Should be ~25% &nbsp; <span class="checkbox"></span> On target</p>
+    <p>Story sets this week: <span class="fill-line" style="min-width: 60px;"></span> &nbsp; Should be ~15% post weight &nbsp; <span class="checkbox"></span> On target</p>
+
+    <h3>Listings Available to Feed the Frame</h3>
+    <p>1. <span class="fill-line" style="min-width: 380px;"></span></p>
+    <p>2. <span class="fill-line" style="min-width: 380px;"></span></p>
+    <p>3. <span class="fill-line" style="min-width: 380px;"></span></p>
+
+    <h3>Estimated Weekly Non-Follower Reach (Before vs. After)</h3>
+    <p>Avg weekly non-follower reach now: <span class="fill-line"></span></p>
+    <p>Target weekly non-follower reach in 30 days: <span class="fill-line"></span></p>
+    <p>Target weekly inbound DMs from Reels in 30 days: <span class="fill-line"></span></p>
+
+    <div class="footer"><span>System 3 · Worksheet</span><span>Page 11</span></div>
+</div>
+
+<!-- ============ PAGE 12: 30-DAY IMPLEMENTATION PLAN ============ -->
+<div class="page">
+    <h2>Your 30-Day Profit Plan</h2>
+
+    <div class="two-col">
+        <div>
+            <h3>Week 1 — Foundation Setup</h3>
+            <p><span class="checkbox"></span> Create Amplifiles account, run first listing through pipeline</p>
+            <p><span class="checkbox"></span> Create AutoReel account, upload brand assets (logo, fonts, contact)</p>
+            <p><span class="checkbox"></span> Audit current Instagram: count last 30 posts by format</p>
+            <p><span class="checkbox"></span> Block 90 min twice this week for content production</p>
+            <p><span class="checkbox"></span> Publish 5 Reels from 1 active listing</p>
+
+            <h3>Week 2 — Business Integration</h3>
+            <p><span class="checkbox"></span> Map the next 14 days using the 60/25/15 frame</p>
+            <p><span class="checkbox"></span> Add a Reel screenshot section to your listing presentation</p>
+            <p><span class="checkbox"></span> Train your VA or team member on the Amplifiles workflow</p>
+            <p><span class="checkbox"></span> Set up a content tracker (Notion / Google Sheet)</p>
+            <p><span class="checkbox"></span> Hit ≥ 10 Reels published</p>
+        </div>
+        <div>
+            <h3>Week 3 — Optimization &amp; Scaling</h3>
+            <p><span class="checkbox"></span> Review which Reels drove the most non-follower reach</p>
+            <p><span class="checkbox"></span> Double down on the top 2 Reel formats</p>
+            <p><span class="checkbox"></span> Add neighborhood / lifestyle Reels beyond listings</p>
+            <p><span class="checkbox"></span> Test 1 paid boost on the highest-performing Reel ($25–50)</p>
+            <p><span class="checkbox"></span> Hit ≥ 18 Reels published cumulative</p>
+
+            <h3>Week 4 — ROI Measurement</h3>
+            <p><span class="checkbox"></span> Pull Instagram Insights: 30-day non-follower reach</p>
+            <p><span class="checkbox"></span> Document new follower count + DM volume</p>
+            <p><span class="checkbox"></span> Tag any inbound lead or showing request to Reels</p>
+            <p><span class="checkbox"></span> Calculate cost per Reel and cost per inbound DM</p>
+            <p><span class="checkbox"></span> Decide: scale up, optimize, or hire help</p>
+        </div>
+    </div>
+
+    <div class="box-dark" style="margin-top: 14px;">
+        <h4>30-Day Targets</h4>
+        <p style="font-size: 10pt; margin: 4px 0;">→ <strong>25+ Reels</strong> published</p>
+        <p style="font-size: 10pt; margin: 4px 0;">→ <strong>3x</strong> baseline non-follower reach</p>
+        <p style="font-size: 10pt; margin: 4px 0;">→ <strong>1+ inbound</strong> listing inquiry or showing request attributable to Reels</p>
+        <p style="font-size: 10pt; margin: 4px 0;">→ <strong>&lt; $200/month</strong> total tool spend (Amplifiles + AutoReel combined)</p>
+    </div>
+
+    <div class="footer"><span>30-Day Implementation Plan</span><span>Page 12</span></div>
+</div>
+
+<!-- ============ PAGE 13: COMMITMENT CONTRACT ============ -->
+<div class="page">
+    <h2>Your Profit Commitment Contract</h2>
+
+    <div class="box" style="padding: 18px;">
+        <p style="font-size: 11pt;">Based on today's session, I commit to:</p>
+
+        <p><strong>Primary Tool Focus:</strong> I will master <span class="fill-line" style="min-width: 220px;"></span> first because it will save me <span class="fill-line"></span> hours per week and add approximately $<span class="fill-line"></span> in monthly listing-marketing value.</p>
+
+        <p><strong>Time Investment:</strong> I will invest <span class="fill-line"></span> hours per week running the 60/25/15 frame for the next 30 days.</p>
+
+        <p><strong>Volume Commitment:</strong> I will publish <span class="fill-line"></span> Reels in the next 30 days, minimum.</p>
+
+        <p><strong>Success Metrics (30 days from today):</strong></p>
+        <p>→ Non-follower reach increase: <span class="fill-line"></span> %</p>
+        <p>→ New followers added: <span class="fill-line"></span></p>
+        <p>→ Inbound DMs from Reels: <span class="fill-line"></span></p>
+        <p>→ Showing requests / inquiries tied to Reels: <span class="fill-line"></span></p>
+
+        <p><strong>Accountability Partner:</strong> <span class="fill-line" style="min-width: 280px;"></span></p>
+        <p><strong>Weekly Check-in Day &amp; Time:</strong> Every <span class="fill-line"></span> at <span class="fill-line"></span></p>
+        <p><strong>30-Day Review Date:</strong> <span class="fill-line"></span></p>
+
+        <p style="margin-top: 24px;"><strong>Signature:</strong> <span class="fill-line" style="min-width: 280px;"></span> &nbsp;&nbsp; <strong>Date:</strong> <span class="fill-line"></span></p>
+    </div>
+
+    <div class="footer"><span>Profit Commitment Contract</span><span>Page 13</span></div>
+</div>
+
+<!-- ============ PAGE 14: ROI TRACKER + NOTES ============ -->
+<div class="page">
+    <h2>Weekly Progress Scorecard</h2>
+    <p>Week of: <span class="fill-line"></span></p>
+    <table>
+        <tr><th>Metric</th><th>Target</th><th>Actual</th></tr>
+        <tr><td>Reels published</td><td>5+</td><td>______</td></tr>
+        <tr><td>Carousels published</td><td>2</td><td>______</td></tr>
+        <tr><td>Story sets published</td><td>5–7</td><td>______</td></tr>
+        <tr><td>Non-follower reach (Insights)</td><td>+ baseline</td><td>______</td></tr>
+        <tr><td>New followers</td><td>+______</td><td>______</td></tr>
+        <tr><td>Inbound DMs from Reels</td><td>+______</td><td>______</td></tr>
+        <tr><td>Showing / listing inquiries tied to Reels</td><td>+______</td><td>______</td></tr>
+        <tr><td>Total tool spend this week</td><td>$______</td><td>$______</td></tr>
+    </table>
+
+    <h2>Monthly ROI Assessment</h2>
+    <p>Month: <span class="fill-line"></span></p>
+    <div class="two-col">
+        <div class="box">
+            <h4>Quantifiable Results</h4>
+            <p>Hours saved: <span class="fill-line" style="min-width: 80px;"></span></p>
+            <p>× hourly value $<span class="fill-line" style="min-width: 60px;"></span></p>
+            <p>= $<span class="fill-line" style="min-width: 80px;"></span> recovered</p>
+            <p>Direct inquiries from Reels: <span class="fill-line" style="min-width: 80px;"></span></p>
+            <p>Tool spend: $<span class="fill-line" style="min-width: 80px;"></span></p>
+            <p>Cost vs. videographer (alternative): $<span class="fill-line" style="min-width: 80px;"></span></p>
+        </div>
+        <div class="box">
+            <h4>Quality &amp; Brand</h4>
+            <p>Top-performing Reel: <span class="fill-line"></span></p>
+            <p>Why it worked: <span class="fill-line" style="min-width: 200px;"></span></p>
+            <p>Biggest unlock this month: <span class="fill-line" style="min-width: 200px;"></span></p>
+            <p>Next month's priority: <span class="fill-line" style="min-width: 200px;"></span></p>
+        </div>
+    </div>
+
+    <h3>Workshop Notes</h3>
+    <div class="fill-full"></div>
+    <div class="fill-full"></div>
+    <div class="fill-full"></div>
+
+    <div class="footer"><span>ROI Tracker · Notes</span><span>Page 14</span></div>
+</div>
+
+<!-- ============ PAGE 15: CLOSING ============ -->
+<div class="page">
+    <h2>Closing Manifesto</h2>
+
+    <div class="box-dark">
+        <p style="font-style: italic; font-size: 11pt; line-height: 1.6;">"While my competitors debate whether short-form video is a fad, I'm using it to take their market share. These tools don't make me lazy — they make me unstoppable. Every hour I save in production is an hour I spend in front of buyers, sellers, and the people who matter most. Instagram is not a hobby. It's my listing engine. And I will run it like one."</p>
+    </div>
+
+    <h3>Personal Success Statement</h3>
+    <p>Write your own commitment, in your own words. Read it every Monday for the next 30 days.</p>
+    <div class="fill-full"></div>
+    <div class="fill-full"></div>
+    <div class="fill-full"></div>
+    <div class="fill-full"></div>
+
+    <h2>Support &amp; Resources</h2>
+    <div class="two-col">
+        <div class="box">
+            <h4>When You Need Help</h4>
+            <p style="font-size: 9.5pt;"><strong>Mastermind Support:</strong> the member portal + #help channel</p>
+            <p style="font-size: 9.5pt;"><strong>Weekly office hours:</strong> see member calendar</p>
+            <p style="font-size: 9.5pt;"><strong>Recording of this session:</strong> posted within 24 hours</p>
+        </div>
+        <div class="box">
+            <h4>Final Checklist</h4>
+            <p style="font-size: 9.5pt;"><span class="checkbox"></span> Amplifiles account created &amp; tested</p>
+            <p style="font-size: 9.5pt;"><span class="checkbox"></span> AutoReel account created &amp; branded</p>
+            <p style="font-size: 9.5pt;"><span class="checkbox"></span> 30-day plan in calendar</p>
+            <p style="font-size: 9.5pt;"><span class="checkbox"></span> Accountability partner confirmed</p>
+            <p style="font-size: 9.5pt;"><span class="checkbox"></span> First 5 Reels scheduled to publish this week</p>
+        </div>
+    </div>
+
+    <div style="text-align: center; margin-top: 30px; padding-top: 20px; border-top: 2px solid #00a8e1;">
+        <p style="font-size: 9pt; letter-spacing: 0.08em; color: #1a3e5c;">© 2026 Edmund's Mastermind — Your Reel-Powered Profit System</p>
+        <p style="font-size: 10pt; color: #00a8e1; font-weight: 600; letter-spacing: 0.05em;">"Because getting outreached on social is NOT an option."</p>
+        <p style="font-size: 9pt; color: #1a3e5c; margin-top: 14px; letter-spacing: 0.08em;">EDMUND BOGEN &amp; TEAM · EDMUND'S MASTERMIND &amp; GROUP COACHING</p>
+    </div>
+
+    <div class="footer"><span>Closing</span><span>Page 15</span></div>
+</div>
+
+</body>
+</html>

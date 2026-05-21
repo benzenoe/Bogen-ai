@@ -1,0 +1,879 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>The 10-Minute Listing Appointment Killer - Implementation Workbook</title>
+<style>
+    @page {
+        size: letter;
+        margin: 0.6in 0.75in;
+    }
+    @media print {
+        .page-break { page-break-after: always; }
+        .no-break { page-break-inside: avoid; }
+        body { font-size: 10pt; }
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+        font-family: 'Helvetica Neue', 'Lato', 'Montserrat', Arial, sans-serif;
+        color: #333333;
+        line-height: 1.5;
+        font-size: 10.5pt;
+    }
+    .page {
+        padding: 0.2in 0;
+        max-height: 10.5in;
+        overflow: hidden;
+    }
+    h1 {
+        color: #1a3e5c;
+        font-size: 24pt;
+        font-weight: 300;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        line-height: 1.2;
+    }
+    h2 {
+        color: #1a3e5c;
+        font-size: 16pt;
+        font-weight: 600;
+        letter-spacing: 0.04em;
+        margin: 12pt 0 8pt 0;
+        border-bottom: 2px solid #00a8e1;
+        padding-bottom: 4pt;
+    }
+    h3 {
+        color: #1a3e5c;
+        font-size: 12pt;
+        font-weight: 600;
+        margin: 10pt 0 4pt 0;
+        letter-spacing: 0.02em;
+    }
+    h4 {
+        color: #00a8e1;
+        font-size: 10pt;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        margin: 10pt 0 4pt 0;
+    }
+    p { margin-bottom: 6pt; }
+    ul, ol { margin: 6pt 0 6pt 20pt; }
+    li { margin-bottom: 3pt; }
+
+    /* COVER PAGE */
+    .cover {
+        text-align: center;
+        padding-top: 0.3in;
+    }
+    .cover .hero-placeholder {
+        width: 100%;
+        height: 3.5in;
+        background: linear-gradient(135deg, #1a3e5c 0%, #0d2436 100%);
+        border-left: 8px solid #00a8e1;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        color: #ffffff;
+        margin-bottom: 0.3in;
+    }
+    .cover .hero-placeholder .label {
+        color: #00a8e1;
+        font-size: 10pt;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        margin-bottom: 10pt;
+    }
+    .cover .hero-placeholder h1 {
+        color: #ffffff;
+        font-size: 28pt;
+        font-weight: 300;
+        letter-spacing: 0.08em;
+        padding: 0 30pt;
+    }
+    .cover .subtitle {
+        color: #1a3e5c;
+        font-size: 13pt;
+        font-weight: 500;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        margin: 8pt 0;
+    }
+    .cover .divider-line {
+        width: 60pt;
+        height: 3px;
+        background: #00a8e1;
+        margin: 18pt auto;
+    }
+    .cover .brand {
+        color: #1a3e5c;
+        font-size: 11pt;
+        margin-top: 30pt;
+    }
+    .cover .brand strong {
+        font-size: 14pt;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+    }
+
+    /* BOXES */
+    .box {
+        background: #f4f4f4;
+        border-left: 5px solid #00a8e1;
+        padding: 10pt 14pt;
+        margin: 8pt 0;
+    }
+    .box-dark {
+        background: #1a3e5c;
+        color: #ffffff;
+        padding: 10pt 14pt;
+        margin: 8pt 0;
+    }
+    .box-dark h3 { color: #00a8e1; }
+
+    .two-col {
+        display: flex;
+        gap: 12pt;
+        margin: 8pt 0;
+    }
+    .two-col > div {
+        flex: 1;
+        background: #f4f4f4;
+        border-left: 4px solid #00a8e1;
+        padding: 10pt 12pt;
+    }
+
+    /* CODE BLOCKS FOR PROMPTS */
+    .prompt {
+        background: #f8f8f8;
+        border: 1px solid #dddddd;
+        border-left: 4px solid #00a8e1;
+        padding: 8pt 10pt;
+        margin: 6pt 0;
+        font-family: 'Consolas', 'Monaco', monospace;
+        font-size: 8pt;
+        line-height: 1.5;
+        white-space: pre-wrap;
+    }
+    .prompt-label {
+        color: #1a3e5c;
+        font-weight: 700;
+        font-size: 9pt;
+        letter-spacing: 0.05em;
+        text-transform: uppercase;
+        margin-top: 8pt;
+        margin-bottom: 2pt;
+    }
+
+    /* WORKSHEET FIELDS */
+    .worksheet-line {
+        border-bottom: 1px solid #999999;
+        height: 18pt;
+        margin: 4pt 0;
+    }
+    .checkbox-item {
+        margin: 4pt 0;
+        padding-left: 18pt;
+        text-indent: -18pt;
+    }
+    .checkbox-item::before {
+        content: "☐ ";
+        font-size: 12pt;
+        color: #1a3e5c;
+    }
+
+    /* TABLES */
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 8pt 0;
+        font-size: 9pt;
+    }
+    th {
+        background: #1a3e5c;
+        color: #ffffff;
+        padding: 5pt 8pt;
+        text-align: left;
+        font-size: 9pt;
+        letter-spacing: 0.05em;
+        text-transform: uppercase;
+    }
+    td {
+        padding: 5pt 8pt;
+        border-bottom: 1px solid #e0e0e0;
+    }
+    td.fill { border-bottom: 1px solid #999999; height: 18pt; }
+
+    /* FOOTER */
+    .footer {
+        position: running(footer);
+        text-align: center;
+        font-size: 8pt;
+        color: #888888;
+        border-top: 1px solid #e0e0e0;
+        padding-top: 4pt;
+    }
+
+    .emphasis { color: #00a8e1; font-weight: 600; }
+    .small { font-size: 9pt; }
+    .tag {
+        display: inline-block;
+        background: #00a8e1;
+        color: #ffffff;
+        font-size: 8pt;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        padding: 2pt 8pt;
+        font-weight: 700;
+    }
+
+    .manifesto {
+        background: #1a3e5c;
+        color: #ffffff;
+        padding: 20pt;
+        margin: 12pt 0;
+        border-left: 8px solid #00a8e1;
+        font-style: italic;
+        font-size: 11pt;
+        line-height: 1.6;
+    }
+</style>
+</head>
+<body>
+
+<!-- ======================== PAGE 1: COVER ======================== -->
+<div class="page cover">
+    <img src="listing-killer-hero.png" alt="The 10-Minute Listing Appointment Killer" style="width:100%; display:block; margin-bottom:0.25in; border-radius:4px;">
+    <div class="subtitle">Complete Implementation Workbook</div>
+    <div class="divider-line"></div>
+    <p style="color:#1a3e5c; font-size:11pt; letter-spacing:0.1em; text-transform:uppercase;">Edmund's Mastermind Live Session</p>
+    <p style="color:#333; font-size:11pt; margin-top:8pt;">Wednesday, April 29, 2026 &nbsp;|&nbsp; 9:00 AM ET</p>
+    <div class="brand">
+        <p><strong>Edmund's Mastermind</strong></p>
+        <p style="margin-top:4pt;">Group Coaching for Elite Realtors</p>
+    </div>
+</div>
+<div class="page-break"></div>
+
+<!-- ======================== PAGE 2: MISSION & OVERVIEW ======================== -->
+<div class="page">
+<h2>Your Money-Making Mission</h2>
+
+<div class="two-col">
+    <div>
+        <h4>Why You're Here</h4>
+        <p>To install a 10-minute intelligence system that turns every listing appointment into a signed contract — by walking in more prepared than any agent you'll ever compete against.</p>
+    </div>
+    <div>
+        <h4>Your Goal Today</h4>
+        <p>Master the Property X-Ray, Neighborhood Dossier, and Seller Psychology Profile — and run your first live research cycle during the session.</p>
+    </div>
+</div>
+
+<div class="box-dark">
+    <h4 style="color:#00a8e1;">Success Metric (30 Days)</h4>
+    <p>Win <strong>at least 2 additional listings</strong> this month using your new intelligence system — conservatively worth <strong>$15,000–$40,000+</strong> in commission.</p>
+</div>
+
+<h2>Workshop Overview: Your Listing-Winning Toolkit</h2>
+
+<p>The 3 Intelligence Systems You'll Master:</p>
+
+<div class="box">
+    <p><strong>1. The Property X-Ray</strong> — Know the property better than the seller. Purchase history, permits, liens, ownership chain, and market positioning in 10 minutes.</p>
+</div>
+<div class="box">
+    <p><strong>2. The Neighborhood Dossier</strong> — Build a 12-page hyper-local market intelligence report that makes every other agent's CMA look like a grocery receipt.</p>
+</div>
+<div class="box">
+    <p><strong>3. The Seller Psychology Profile</strong> — Decode motivation before you knock. Know their "why," their pressure points, and the exact number that gets the signature.</p>
+</div>
+
+<h3>The Tool Stack</h3>
+<table>
+    <tr><th>Tool</th><th>Best For</th><th>Cost</th></tr>
+    <tr><td><strong>ChatGPT Deep Research</strong></td><td>Full-property dossiers, multi-source synthesis</td><td>$20/mo (Plus)</td></tr>
+    <tr><td><strong>Perplexity Pro</strong></td><td>Real-time web data, recent listings, local news</td><td>$20/mo</td></tr>
+    <tr><td><strong>Claude</strong></td><td>Seller psychology, motivation analysis, scripting</td><td>$20/mo</td></tr>
+</table>
+<p class="small" style="font-style:italic; margin-top:6pt;">You don't need all three to start. Pick one and run the system today.</p>
+
+</div>
+<div class="page-break"></div>
+
+<!-- ======================== PAGE 3: SYSTEM 1 - PROPERTY X-RAY (Opening + Teaching) ======================== -->
+<div class="page">
+<div class="tag">System 01</div>
+<h1 style="font-size:22pt; margin-top:6pt;">The Property X-Ray</h1>
+<p class="emphasis" style="font-size:12pt; font-weight:600;">The $40,000 Preparation Gap Killer</p>
+
+<h3>What This Means for Your Bank Account</h3>
+<ul>
+    <li><strong>Win more listings:</strong> Every appointment you out-prepare is a commission you capture.</li>
+    <li><strong>Win at higher prices:</strong> Sellers sign faster when they believe you understand the asset better than they do.</li>
+    <li><strong>Win against local "veterans":</strong> Neutralize 20-year market experience with 10 minutes of AI-powered intelligence.</li>
+</ul>
+
+<h3>The Intelligence Technology Behind Your Advantage</h3>
+
+<h4>What Deep Research Actually Does</h4>
+<p>Deep research tools don't "search" — they investigate. ChatGPT Deep Research, Perplexity Pro, and Claude can spend 5-15 minutes reading 30-50 web sources on your behalf, cross-referencing public records, tax data, MLS history, news, and permit filings, then synthesize it all into a single intelligence brief. This is the equivalent of handing an unpaid junior analyst a full research assignment — except it's done before you finish your coffee.</p>
+
+<h4>Why This Changes Everything in Listings</h4>
+<p>The listing appointment has always been decided in the first 90 seconds. It's a competence test. The agent who sounds most prepared wins. Historically, "most prepared" meant "most experienced." Now it means "most intelligent" — and intelligence is now on-demand. A 30-year veteran is still guessing at the permit history. You'll quote the dates.</p>
+
+<h4>The Early Adopter Advantage</h4>
+<p>In six months this will be table stakes. Right now, fewer than 3% of agents are running deep research before listing appointments. That gap is your moat — but only if you act before your market catches up. The top producers in every major market are already doing this quietly.</p>
+
+<h4>Real Revenue Applications</h4>
+<ul>
+    <li>Pre-appointment briefing (10 min before you walk in the door)</li>
+    <li>Pricing confidence — knowing permit investments justifies your number</li>
+    <li>Objection preemption — you address the seller's concern before they raise it</li>
+    <li>Marketing angle generation — the renovation history IS the listing's story</li>
+    <li>Due diligence warnings — flag title issues before they kill a deal</li>
+</ul>
+
+</div>
+<div class="page-break"></div>
+
+<!-- ======================== PAGE 4: SYSTEM 1 - PROMPTS ======================== -->
+<div class="page">
+<div class="tag">System 01 &nbsp;—&nbsp; Copy-Paste Prompts</div>
+<h2>The Property X-Ray: Profit-Generating Prompts</h2>
+<p class="small">Copy these directly into <strong>ChatGPT Deep Research</strong>, <strong>Perplexity Pro</strong>, or <strong>Claude</strong>. Replace bracketed text with the listing details.</p>
+
+<div class="prompt-label">Prompt 1 — Full Property Intelligence Dossier</div>
+<div class="prompt">You are a senior real estate research analyst preparing a listing appointment brief. Build a complete intelligence dossier on the property at [FULL ADDRESS, CITY, STATE, ZIP].
+
+Include: (1) purchase history with dates and prices, (2) tax assessment history for the last 5 years, (3) permit filings and recorded renovations, (4) any recorded liens, judgments, or encumbrances, (5) prior listing attempts with dates, list prices, DOM, and withdrawal/sale outcomes, (6) estimated current mortgage balance based on public records, (7) any news mentions or public records about the property or its owners.
+
+Cite every source. Flag anything unverifiable. End with a "Listing Appointment Briefing" section summarizing the 5 things I must know before I walk in the door.</div>
+
+<div class="prompt-label">Prompt 2 — Ownership Chain & Owner Profile</div>
+<div class="prompt">Research the current owners of [ADDRESS]. I need: (1) full ownership history including prior owners, (2) how long current owners have held the property, (3) any LLC or trust ownership structures, (4) the owners' business affiliations and professional backgrounds (LinkedIn, business filings, news), (5) any other properties they own in [COUNTY/STATE], (6) recent life-event signals — job changes, relocations, divorces, deaths, business sales — that might be motivating the sale.
+
+Be thorough but only use public sources. Flag anything speculative.</div>
+
+<div class="prompt-label">Prompt 3 — Renovation & Permit Archaeology</div>
+<div class="prompt">Pull the complete permit history for [ADDRESS]. For each permit: date filed, type of work, estimated value, contractor on record, and whether it was closed/finalized. Then calculate the total documented capital investment in the property and identify any major systems that have NOT been updated (roof, HVAC, electrical, plumbing, impact windows if Florida).
+
+End with a one-paragraph summary of the "renovation story" I can use to justify my listing price.</div>
+
+<div class="prompt-label">Prompt 4 — Prior Listing Attempts & Market History</div>
+<div class="prompt">Has [ADDRESS] been listed for sale before? If so, for each prior listing: the list agent, brokerage, list date, original price, final price, days on market, whether it sold or was withdrawn, and any price reductions with dates. If it was withdrawn, investigate why (news, owner changes, refinance events). Include any rental listings as well.
+
+Conclude with: what this listing history tells me about the owner's expectations and past disappointments.</div>
+
+<div class="prompt-label">Prompt 5 — The "What the Seller Doesn't Want You to Know" Audit</div>
+<div class="prompt">Investigate [ADDRESS] for any issues a seller might not volunteer: open permits, code violations, unpaid HOA dues, pending litigation, insurance claims, flood zone or sinkhole risk changes, boundary disputes, environmental concerns, or adverse proximity issues (new development, zoning changes, infrastructure projects). Check local news, municipal records, and public databases.
+
+Flag everything as "Confirmed" or "Signal — verify before listing."</div>
+
+<div class="prompt-label">Prompt 6 — The 10-Minute Appointment Briefing Summary</div>
+<div class="prompt">Take everything you've gathered on [ADDRESS] and the owners and compress it into a 1-page listing appointment briefing. Structure:
+
+1. THE 3 THINGS I MUST KNOW before I walk in
+2. THE SELLER'S LIKELY MOTIVATION (best guess based on signals)
+3. 3 TALKING POINTS that will demonstrate I've done my homework
+4. 2 POTENTIAL OBJECTIONS and how to preempt them
+5. MY CONFIDENCE PRICE RANGE with rationale
+
+Keep it tight. I'm reading this in the car 10 minutes before I knock.</div>
+
+</div>
+<div class="page-break"></div>
+
+<!-- ======================== PAGE 5: SYSTEM 1 - WORKSHEET ======================== -->
+<div class="page">
+<div class="tag">System 01 &nbsp;—&nbsp; Live Demo Worksheet</div>
+<h2>The Property X-Ray: Your Success Notes</h2>
+
+<p>During the live demo, capture the following:</p>
+
+<h3>Specific ways I can use this for my business:</h3>
+<div class="worksheet-line"></div>
+<div class="worksheet-line"></div>
+<div class="worksheet-line"></div>
+<div class="worksheet-line"></div>
+
+<h3>My first target address to run this on (after the session):</h3>
+<div class="worksheet-line"></div>
+<p class="small">Tip: Pick an upcoming listing appointment, a FSBO you're chasing, or an expired listing.</p>
+
+<h3>Estimated impact on my business:</h3>
+<div class="two-col">
+    <div>
+        <h4>Current prep time per appointment</h4>
+        <div class="worksheet-line"></div>
+        <p class="small">hours</p>
+    </div>
+    <div>
+        <h4>New prep time with Property X-Ray</h4>
+        <div class="worksheet-line"></div>
+        <p class="small">hours (target: 10 min)</p>
+    </div>
+</div>
+
+<h3>Projected commission impact (next 90 days):</h3>
+<p>If I win <strong>1 additional listing per month</strong> using this system, at my average commission of $<span style="display:inline-block; border-bottom:1px solid #999; width:80pt;">&nbsp;</span>, that equals:</p>
+<p style="font-size:14pt; color:#1a3e5c; font-weight:700; margin-top:8pt;">$<span style="display:inline-block; border-bottom:2px solid #00a8e1; width:120pt;">&nbsp;</span> in new commission over the next 90 days</p>
+
+<h3>First 3 addresses I'll run the Property X-Ray on this week:</h3>
+<p>1. <span style="display:inline-block; border-bottom:1px solid #999; width:400pt;">&nbsp;</span></p>
+<p>2. <span style="display:inline-block; border-bottom:1px solid #999; width:400pt;">&nbsp;</span></p>
+<p>3. <span style="display:inline-block; border-bottom:1px solid #999; width:400pt;">&nbsp;</span></p>
+
+<h3>Questions I want to ask Edmund during Q&A:</h3>
+<div class="worksheet-line"></div>
+<div class="worksheet-line"></div>
+<div class="worksheet-line"></div>
+
+</div>
+<div class="page-break"></div>
+
+<!-- ======================== PAGE 6: SYSTEM 2 - NEIGHBORHOOD DOSSIER (Opening + Teaching) ======================== -->
+<div class="page">
+<div class="tag">System 02</div>
+<h1 style="font-size:22pt; margin-top:6pt;">The Neighborhood Dossier</h1>
+<p class="emphasis" style="font-size:12pt; font-weight:600;">The CMA-Killer That Wins Luxury Listings</p>
+
+<h3>What This Means for Your Bank Account</h3>
+<ul>
+    <li><strong>Higher list prices accepted:</strong> Sellers sign at YOUR number when you document the market story.</li>
+    <li><strong>Luxury listings won:</strong> High-end sellers demand institutional-grade analysis. Now you can deliver it.</li>
+    <li><strong>Referrals multiplied:</strong> The Neighborhood Dossier becomes a leave-behind that ends up on neighbors' coffee tables.</li>
+</ul>
+
+<h3>The Market Intelligence Layer Above The MLS</h3>
+
+<h4>Why A CMA Is No Longer Enough</h4>
+<p>Every agent pulls the same comps. The MLS is a commoditized data source. The Neighborhood Dossier adds the layers the MLS doesn't capture: new development pipelines, zoning shifts, school boundary changes, tax increment districts, luxury amenity openings, and — critically — what the other agents in this zip code are doing right now. Sellers don't sign because of comps. They sign because they believe you understand the market's future, not just its past.</p>
+
+<h4>Why This Changes Everything</h4>
+<p>For 40 years, the agent with the thickest CMA won. Now the agent with the best <em>market narrative</em> wins. Deep research tools can build that narrative in minutes — pulling news, permits, municipal planning docs, real estate industry reports, and competitive agent activity into a single cohesive story about where this specific neighborhood is headed.</p>
+
+<h4>The Early Adopter Advantage</h4>
+<p>Most agents are still copying Zillow's "market trends" graph into a listing presentation. That's embarrassing. You'll deliver a 12-page branded intelligence brief that reads like something a private wealth firm would produce. That's the gap. It's wide right now. It will close.</p>
+
+<h4>Real Revenue Applications</h4>
+<ul>
+    <li>Listing presentation leave-behind (sellers show it to neighbors — free referrals)</li>
+    <li>Pre-listing seller education (softens them to your pricing)</li>
+    <li>Buyer presentation at a new price point ("why this neighborhood is underpriced")</li>
+    <li>Open house lead magnet (emails for the full report)</li>
+    <li>Social media content engine (pull quotes, charts, insights for weeks)</li>
+</ul>
+
+</div>
+<div class="page-break"></div>
+
+<!-- ======================== PAGE 7: SYSTEM 2 - PROMPTS ======================== -->
+<div class="page">
+<div class="tag">System 02 &nbsp;—&nbsp; Copy-Paste Prompts</div>
+<h2>The Neighborhood Dossier: Profit-Generating Prompts</h2>
+
+<div class="prompt-label">Prompt 1 — The Hyper-Local Market Intelligence Report</div>
+<div class="prompt">Build a comprehensive market intelligence report on [NEIGHBORHOOD/COMMUNITY NAME], [CITY, STATE, ZIP].
+
+Cover: (1) 5-year price-per-square-foot trend, (2) average days-on-market trend by year, (3) inventory levels and absorption rate, (4) list-to-sale price ratios, (5) recent notable sales above $[PRICE POINT], (6) active and upcoming new construction projects, (7) infrastructure or zoning changes in the last 24 months, (8) school rating changes, (9) any news about luxury amenities opening nearby, (10) demographic shifts.
+
+End with a "Where This Market Is Heading" section — 3 paragraphs of narrative about the next 18 months. Cite every source.</div>
+
+<div class="prompt-label">Prompt 2 — Days-On-Market Pattern Analysis By Street / Micro-Market</div>
+<div class="prompt">Within [NEIGHBORHOOD / ZIP CODE], analyze DOM patterns at the street level or sub-section level. Identify which streets or sections sell fastest, which sit longest, and why. Factor in: lot size, proximity to amenities, street noise, flood zone, school assignment, view, and recent renovations.
+
+Give me a ranked "fastest-moving sub-markets" list within this neighborhood.</div>
+
+<div class="prompt-label">Prompt 3 — Competing Agent Activity Audit</div>
+<div class="prompt">Who are the top-producing listing agents in [ZIP CODE / NEIGHBORHOOD] over the last 12 months?
+
+For each of the top 5: (1) agent name and brokerage, (2) number of listings taken, (3) list-to-sale ratio, (4) average DOM, (5) average sale price, (6) notable listings, (7) their public marketing/social media angle, (8) any weaknesses I can identify (slow social presence, dated listing photos, weak video, etc.).
+
+End with: "How I can position against these agents in a listing appointment."</div>
+
+<div class="prompt-label">Prompt 4 — New Development Pipeline & Zoning Shift Report</div>
+<div class="prompt">What new construction, redevelopment, or zoning changes are planned, approved, or rumored within 2 miles of [ADDRESS / NEIGHBORHOOD]?
+
+Include: (1) approved projects with timelines, (2) rezoning applications, (3) infrastructure upgrades (roads, utilities, transit), (4) school construction, (5) commercial development, (6) any luxury brand openings (restaurants, hotels, retail).
+
+For each, explain how it could impact property values in [NEIGHBORHOOD] — positive or negative.</div>
+
+<div class="prompt-label">Prompt 5 — The Luxury Amenity & Lifestyle Narrative</div>
+<div class="prompt">Write the luxury lifestyle narrative for [NEIGHBORHOOD] as if I'm pitching a high-net-worth seller on why now is the right time to list at a premium.
+
+Pull from: local dining scene, country club activity, private school prestige, marina/golf/beach access, celebrity or executive residents, recent high-profile sales, recognition in luxury publications, and any "brand in-migration" (new luxury retailers, fitness brands, wellness concepts).
+
+Keep it narrative and aspirational — 3-4 paragraphs.</div>
+
+<div class="prompt-label">Prompt 6 — The Neighborhood Dossier Executive Summary</div>
+<div class="prompt">Compress everything you've gathered into a 1-page Neighborhood Executive Summary formatted as a listing presentation leave-behind.
+
+Structure: (1) The Headline (one sentence on what's happening in this market), (2) The Numbers (5 bullet stats), (3) The Story (2 paragraphs), (4) The Outlook (3 bullet forecasts), (5) Why List Now.
+
+Tone: Private wealth / institutional research. Confident. Data-backed. Not salesy.</div>
+
+</div>
+<div class="page-break"></div>
+
+<!-- ======================== PAGE 8: SYSTEM 2 - WORKSHEET ======================== -->
+<div class="page">
+<div class="tag">System 02 &nbsp;—&nbsp; Live Demo Worksheet</div>
+<h2>The Neighborhood Dossier: Your Success Notes</h2>
+
+<h3>My target neighborhood to run this on first:</h3>
+<div class="worksheet-line"></div>
+
+<h3>Why this neighborhood (upcoming listing? farming area? price-point focus?):</h3>
+<div class="worksheet-line"></div>
+<div class="worksheet-line"></div>
+
+<h3>Competing agents I need to out-position:</h3>
+<p>1. <span style="display:inline-block; border-bottom:1px solid #999; width:400pt;">&nbsp;</span></p>
+<p>2. <span style="display:inline-block; border-bottom:1px solid #999; width:400pt;">&nbsp;</span></p>
+<p>3. <span style="display:inline-block; border-bottom:1px solid #999; width:400pt;">&nbsp;</span></p>
+
+<h3>The listing presentation angle I'll build around the dossier:</h3>
+<div class="worksheet-line"></div>
+<div class="worksheet-line"></div>
+<div class="worksheet-line"></div>
+
+<h3>How I'll use the Dossier beyond listing appointments:</h3>
+<div class="checkbox-item">Leave-behind on listing presentations</div>
+<div class="checkbox-item">Lead magnet at open houses</div>
+<div class="checkbox-item">Email newsletter content (monthly)</div>
+<div class="checkbox-item">Social media content engine (weekly posts)</div>
+<div class="checkbox-item">Buyer presentations to justify price point</div>
+<div class="checkbox-item">Geographic farming mailer</div>
+
+<h3>Revenue Impact — Projected Additional Listings Won (next 90 days):</h3>
+<div class="two-col">
+    <div>
+        <h4>Additional listings</h4>
+        <div class="worksheet-line"></div>
+        <p class="small">Count</p>
+    </div>
+    <div>
+        <h4>At avg commission of $</h4>
+        <div class="worksheet-line"></div>
+        <p class="small">Per listing</p>
+    </div>
+</div>
+<p style="font-size:14pt; color:#1a3e5c; font-weight:700; margin-top:8pt;">= $<span style="display:inline-block; border-bottom:2px solid #00a8e1; width:120pt;">&nbsp;</span> in new 90-day commission</p>
+
+</div>
+<div class="page-break"></div>
+
+<!-- ======================== PAGE 9: SYSTEM 3 - SELLER PSYCHOLOGY (Opening + Teaching) ======================== -->
+<div class="page">
+<div class="tag">System 03</div>
+<h1 style="font-size:22pt; margin-top:6pt;">The Seller Psychology Profile</h1>
+<p class="emphasis" style="font-size:12pt; font-weight:600;">The Motivation Decoder That Closes Signatures</p>
+
+<h3>What This Means for Your Bank Account</h3>
+<ul>
+    <li><strong>Faster signatures:</strong> When you speak to their real motivation, the contract gets signed at the kitchen table.</li>
+    <li><strong>Better pricing conversations:</strong> Knowing their urgency level tells you exactly where to price.</li>
+    <li><strong>Fewer wasted appointments:</strong> Know before you drive over whether this seller is actually selling.</li>
+</ul>
+
+<h3>The Psychology of Why People Really Sell</h3>
+
+<h4>The "Why" Hides In The Public Record</h4>
+<p>Sellers rarely tell you the real reason they're selling. They say "thinking about downsizing" when they mean "going through a divorce." They say "relocating for work" when they mean "carrying two mortgages since the new baby." The real motivation is almost always a life event — and life events leave a trail in public records, business filings, social media, and local news.</p>
+
+<h4>Why Motivation Changes The Entire Appointment</h4>
+<p>A seller motivated by <em>upgrade</em> wants to maximize price and will wait. A seller motivated by <em>urgency</em> (divorce, estate, relocation, financial pressure) wants speed and certainty. A seller motivated by <em>legacy</em> (downsizing late in life) wants to feel heard and respected. Each requires a completely different listing presentation, pricing strategy, and follow-up cadence. Getting this wrong is why good agents lose "easy" listings.</p>
+
+<h4>The Early Adopter Advantage</h4>
+<p>No one is doing this. The agents who do this feel like mind-readers. Sellers describe them as "the agent who just got it." That's not charisma — it's 15 minutes of AI-assisted research before the appointment.</p>
+
+<h4>Ethical Note (Read This)</h4>
+<p>This system uses <em>only public information</em>. You're not spying. You're preparing. The same information would take a sharp analyst 4 hours to compile manually. You're just doing it in 15 minutes. Never reference the research directly in the appointment — use it to inform your questions, your pacing, and your positioning. The seller should feel understood, not investigated.</p>
+
+</div>
+<div class="page-break"></div>
+
+<!-- ======================== PAGE 10: SYSTEM 3 - PROMPTS ======================== -->
+<div class="page">
+<div class="tag">System 03 &nbsp;—&nbsp; Copy-Paste Prompts</div>
+<h2>The Seller Psychology Profile: Profit-Generating Prompts</h2>
+
+<div class="prompt-label">Prompt 1 — Full Seller Profile (Public Sources Only)</div>
+<div class="prompt">Build a public-information profile on [SELLER FULL NAME], homeowner at [ADDRESS], [CITY, STATE].
+
+Use only public sources: LinkedIn, business filings, news, public records, social media set to public, professional profiles, press releases. Do NOT speculate. Cite every source.
+
+Capture: (1) professional background and current role, (2) business ownership or board positions, (3) other real estate holdings, (4) any recent life events reflected in public records — marriage, divorce, death in family, business sale, job change, relocation, retirement, (5) philanthropic or community involvement, (6) any news mentions in the last 24 months.
+
+End with: "Likely Motivation for Selling — Best Guess With Rationale."</div>
+
+<div class="prompt-label">Prompt 2 — The Life-Event Trigger Scan</div>
+<div class="prompt">Investigate whether [SELLER NAME] at [ADDRESS] has experienced any of the following life events in the last 18 months, using only public sources:
+
+- Divorce filing
+- Death of spouse or parent
+- Business sale or liquidity event
+- Corporate relocation announcement
+- Retirement announcement
+- Major health event (if publicly disclosed)
+- New child / growing family signals
+- Bankruptcy or financial distress signals
+- Estate probate
+
+For each: "Confirmed" / "Signal — weak" / "Signal — strong" / "No evidence." Cite sources. This is for preparing a listing appointment — not for confronting the seller.</div>
+
+<div class="prompt-label">Prompt 3 — The Motivation Spectrum Placement</div>
+<div class="prompt">Based on everything you know about [SELLER NAME] and the property at [ADDRESS], place them on the Motivation Spectrum:
+
+URGENT (must sell fast, price-sensitive down) ←→ FLEXIBLE (wants best price, will wait) ←→ LEGACY (wants respectful transaction, emotional)
+
+Explain your placement with 3-5 specific signals. Then give me: (1) the pricing strategy this seller will respond to, (2) the listing timeline to propose, (3) the tone to use in the appointment (transactional / warm / reverent), (4) the 2 things to AVOID saying.</div>
+
+<div class="prompt-label">Prompt 4 — The Custom Talking-Points Generator</div>
+<div class="prompt">Given what you know about [SELLER NAME]'s background, business, community involvement, and likely motivation, generate 5 specific conversation opening lines I can use in the first 5 minutes of the listing appointment.
+
+These should NOT reference the research directly. They should feel like natural observations a well-prepared agent would make about the neighborhood, the home, the market, or timing — that happen to land exactly where their motivation lives.
+
+Tone: Warm, confident, respectful, zero sales pressure.</div>
+
+<div class="prompt-label">Prompt 5 — The Objection Pre-Emption Map</div>
+<div class="prompt">Based on the profile you've built on [SELLER NAME], what are the 3 most likely objections they'll raise during the listing appointment?
+
+For each: (1) the likely wording of the objection, (2) the real concern underneath, (3) my ideal response, (4) a question I can ask to surface the concern BEFORE they have to voice it.</div>
+
+<div class="prompt-label">Prompt 6 — The Seller Psychology Briefing Card</div>
+<div class="prompt">Compress everything into a 1-page Seller Psychology Briefing I can read in the car before the appointment.
+
+Structure: (1) WHO THEY ARE (3 bullets), (2) WHY THEY'RE LIKELY SELLING (one sentence), (3) THEIR POSITION ON THE MOTIVATION SPECTRUM, (4) 3 OPENING LINES, (5) 3 THINGS TO AVOID, (6) MY IDEAL PACING (aggressive / measured / patient).
+
+Keep it under 250 words. This is my pre-appointment cheat sheet.</div>
+
+</div>
+<div class="page-break"></div>
+
+<!-- ======================== PAGE 11: SYSTEM 3 - WORKSHEET ======================== -->
+<div class="page">
+<div class="tag">System 03 &nbsp;—&nbsp; Live Demo Worksheet</div>
+<h2>The Seller Psychology Profile: Your Success Notes</h2>
+
+<h3>The seller I'll run this on first:</h3>
+<div class="worksheet-line"></div>
+<p class="small">Name, address, and appointment date if known</p>
+
+<h3>What I think I know about this seller (before the research):</h3>
+<div class="worksheet-line"></div>
+<div class="worksheet-line"></div>
+<div class="worksheet-line"></div>
+
+<h3>What I learned during the live demo that I did NOT know before:</h3>
+<div class="worksheet-line"></div>
+<div class="worksheet-line"></div>
+<div class="worksheet-line"></div>
+
+<h3>Their likely placement on the Motivation Spectrum:</h3>
+<div class="checkbox-item">URGENT — needs speed and certainty</div>
+<div class="checkbox-item">FLEXIBLE — wants price, will wait</div>
+<div class="checkbox-item">LEGACY — wants respect and a smooth process</div>
+
+<h3>My 3 opening lines for this appointment:</h3>
+<p>1. <span style="display:inline-block; border-bottom:1px solid #999; width:400pt;">&nbsp;</span></p>
+<p>2. <span style="display:inline-block; border-bottom:1px solid #999; width:400pt;">&nbsp;</span></p>
+<p>3. <span style="display:inline-block; border-bottom:1px solid #999; width:400pt;">&nbsp;</span></p>
+
+<h3>The 2 things I WILL NOT say during this appointment:</h3>
+<p>1. <span style="display:inline-block; border-bottom:1px solid #999; width:400pt;">&nbsp;</span></p>
+<p>2. <span style="display:inline-block; border-bottom:1px solid #999; width:400pt;">&nbsp;</span></p>
+
+<h3>My confidence level walking in (1-10):</h3>
+<div class="two-col">
+    <div>
+        <h4>Before using this system</h4>
+        <div class="worksheet-line"></div>
+    </div>
+    <div>
+        <h4>With the Profile in hand</h4>
+        <div class="worksheet-line"></div>
+    </div>
+</div>
+
+</div>
+<div class="page-break"></div>
+
+<!-- ======================== PAGE 12: 30-DAY IMPLEMENTATION PLAN ======================== -->
+<div class="page">
+<h2>Your 30-Day Listing Killer Implementation Plan</h2>
+
+<div class="two-col">
+    <div>
+        <h4>Week 1 &nbsp;—&nbsp; Foundation</h4>
+        <div class="checkbox-item">Subscribe to ChatGPT Plus, Perplexity Pro, OR Claude (pick at least one)</div>
+        <div class="checkbox-item">Save all 18 prompts from this workbook in a Notes doc</div>
+        <div class="checkbox-item">Run Property X-Ray on 3 real addresses from your pipeline</div>
+        <div class="checkbox-item">Run Neighborhood Dossier on your primary farm area</div>
+        <div class="checkbox-item">Share one insight with a client to test the system</div>
+    </div>
+    <div>
+        <h4>Week 2 &nbsp;—&nbsp; Integration</h4>
+        <div class="checkbox-item">Use the Property X-Ray before your next listing appointment</div>
+        <div class="checkbox-item">Build Seller Psychology Profile for your next 2 appointments</div>
+        <div class="checkbox-item">Create a branded Neighborhood Dossier template</div>
+        <div class="checkbox-item">Measure appointment-to-signature conversion rate</div>
+        <div class="checkbox-item">Debrief: what worked, what didn't</div>
+    </div>
+</div>
+<div class="two-col">
+    <div>
+        <h4>Week 3 &nbsp;—&nbsp; Optimization</h4>
+        <div class="checkbox-item">Refine your 3 favorite prompts based on real results</div>
+        <div class="checkbox-item">Turn the Neighborhood Dossier into a monthly email asset</div>
+        <div class="checkbox-item">Train your assistant on the full workflow (if applicable)</div>
+        <div class="checkbox-item">Use dossier insights in 2 social media posts</div>
+        <div class="checkbox-item">Pull dossier data into an open house lead magnet</div>
+    </div>
+    <div>
+        <h4>Week 4 &nbsp;—&nbsp; ROI Measurement</h4>
+        <div class="checkbox-item">Count new appointments booked this month</div>
+        <div class="checkbox-item">Count new listings signed</div>
+        <div class="checkbox-item">Calculate GCI attributable to this system</div>
+        <div class="checkbox-item">Identify your "signature prompt" (the one that works best)</div>
+        <div class="checkbox-item">Commit to the 90-day scaling plan</div>
+    </div>
+</div>
+
+<div class="box-dark" style="margin-top:16pt;">
+    <h4 style="color:#00a8e1;">Your 90-Day Revenue Target</h4>
+    <p style="margin-top:6pt;">Additional listings won: <span style="display:inline-block; border-bottom:2px solid #00a8e1; width:60pt; color:#fff;">&nbsp;</span> &nbsp;&nbsp; × &nbsp;&nbsp; Avg commission: $<span style="display:inline-block; border-bottom:2px solid #00a8e1; width:100pt; color:#fff;">&nbsp;</span></p>
+    <p style="margin-top:10pt; font-size:13pt;"><strong>= $<span style="display:inline-block; border-bottom:2px solid #00a8e1; width:150pt;">&nbsp;</span> incremental GCI</strong></p>
+</div>
+
+</div>
+<div class="page-break"></div>
+
+<!-- ======================== PAGE 13: PROFIT COMMITMENT CONTRACT ======================== -->
+<div class="page">
+<h2>Your Profit Commitment Contract</h2>
+
+<p>Based on today's session, I commit to:</p>
+
+<div class="box">
+<p><strong>Primary System Focus:</strong> I will master <span style="display:inline-block; border-bottom:1px solid #1a3e5c; width:280pt;">&nbsp;</span> first because it will <span style="display:inline-block; border-bottom:1px solid #1a3e5c; width:260pt;">&nbsp;</span>.</p>
+</div>
+
+<div class="box">
+<p><strong>Time Investment:</strong> I will invest <span style="display:inline-block; border-bottom:1px solid #1a3e5c; width:50pt;">&nbsp;</span> hours per week learning and implementing these systems for the next 30 days.</p>
+</div>
+
+<h3>Success Metrics I Commit To:</h3>
+<p>• Additional listing appointments booked this month: <span style="display:inline-block; border-bottom:1px solid #1a3e5c; width:60pt;">&nbsp;</span></p>
+<p>• Appointment-to-signature conversion rate target: <span style="display:inline-block; border-bottom:1px solid #1a3e5c; width:60pt;">&nbsp;</span>%</p>
+<p>• Additional listings signed this month: <span style="display:inline-block; border-bottom:1px solid #1a3e5c; width:60pt;">&nbsp;</span></p>
+<p>• Incremental GCI target this month: $<span style="display:inline-block; border-bottom:1px solid #1a3e5c; width:100pt;">&nbsp;</span></p>
+<p>• Incremental GCI target this quarter: $<span style="display:inline-block; border-bottom:1px solid #1a3e5c; width:100pt;">&nbsp;</span></p>
+
+<h3>Accountability</h3>
+<p>Accountability Partner: <span style="display:inline-block; border-bottom:1px solid #1a3e5c; width:260pt;">&nbsp;</span></p>
+<p>Check-in Schedule: Every <span style="display:inline-block; border-bottom:1px solid #1a3e5c; width:120pt;">&nbsp;</span> at <span style="display:inline-block; border-bottom:1px solid #1a3e5c; width:80pt;">&nbsp;</span></p>
+<p>30-Day Review Date: <span style="display:inline-block; border-bottom:1px solid #1a3e5c; width:200pt;">&nbsp;</span></p>
+
+<div style="margin-top:30pt;">
+    <p>My Signature: <span style="display:inline-block; border-bottom:2px solid #1a3e5c; width:300pt;">&nbsp;</span></p>
+    <p style="margin-top:20pt;">Date: <span style="display:inline-block; border-bottom:2px solid #1a3e5c; width:200pt;">&nbsp;</span></p>
+</div>
+
+</div>
+<div class="page-break"></div>
+
+<!-- ======================== PAGE 14: SESSION NOTES + ROI TRACKER ======================== -->
+<div class="page">
+<h2>Session Notes &amp; Workshop Interaction</h2>
+
+<h3>Live Demo Notes</h3>
+
+<h4>System 1 — Property X-Ray Live Demo</h4>
+<p>Address used: <span style="display:inline-block; border-bottom:1px solid #999; width:300pt;">&nbsp;</span></p>
+<p>Biggest surprise from the research:</p>
+<div class="worksheet-line"></div>
+<div class="worksheet-line"></div>
+
+<h4>System 2 — Neighborhood Dossier Live Demo</h4>
+<p>Neighborhood used: <span style="display:inline-block; border-bottom:1px solid #999; width:300pt;">&nbsp;</span></p>
+<p>Biggest takeaway for my market:</p>
+<div class="worksheet-line"></div>
+<div class="worksheet-line"></div>
+
+<h4>System 3 — Seller Psychology Live Demo</h4>
+<p>Seller profile used: <span style="display:inline-block; border-bottom:1px solid #999; width:300pt;">&nbsp;</span></p>
+<p>Insight I'll use in my next appointment:</p>
+<div class="worksheet-line"></div>
+<div class="worksheet-line"></div>
+
+<h2>Monthly ROI Tracker</h2>
+
+<table>
+    <tr>
+        <th>Month</th>
+        <th>Appts Prepped</th>
+        <th>Listings Signed</th>
+        <th>GCI</th>
+        <th>Time Saved</th>
+    </tr>
+    <tr><td class="fill">&nbsp;</td><td class="fill">&nbsp;</td><td class="fill">&nbsp;</td><td class="fill">&nbsp;</td><td class="fill">&nbsp;</td></tr>
+    <tr><td class="fill">&nbsp;</td><td class="fill">&nbsp;</td><td class="fill">&nbsp;</td><td class="fill">&nbsp;</td><td class="fill">&nbsp;</td></tr>
+    <tr><td class="fill">&nbsp;</td><td class="fill">&nbsp;</td><td class="fill">&nbsp;</td><td class="fill">&nbsp;</td><td class="fill">&nbsp;</td></tr>
+    <tr><td class="fill">&nbsp;</td><td class="fill">&nbsp;</td><td class="fill">&nbsp;</td><td class="fill">&nbsp;</td><td class="fill">&nbsp;</td></tr>
+</table>
+
+<p style="margin-top:10pt;"><strong>Competitive Advantages Gained:</strong></p>
+<div class="worksheet-line"></div>
+<div class="worksheet-line"></div>
+
+</div>
+<div class="page-break"></div>
+
+<!-- ======================== PAGE 15: CLOSING MANIFESTO ======================== -->
+<div class="page">
+<h2>Your Closing Manifesto</h2>
+
+<div class="manifesto">
+"While my competitors show up to listing appointments with the same generic CMA every agent has been pulling for 30 years, I walk in with battlefield-grade intelligence on the property, the neighborhood, and the seller. I don't guess. I don't wing it. I don't hope. I know more than the seller about their own house — because I did the work they didn't know was possible.<br><br>
+AI doesn't replace me. It arms me. Every minute I save on research is a minute I spend building relationships, winning trust, and closing signatures. This is my competitive weapon, and I will master it."
+</div>
+
+<h3>My Personal Success Statement</h3>
+<div class="worksheet-line"></div>
+<div class="worksheet-line"></div>
+<div class="worksheet-line"></div>
+<div class="worksheet-line"></div>
+
+<h3>Final Success Checklist</h3>
+
+<h4>Before you close this workbook today:</h4>
+<div class="checkbox-item">My primary AI tool subscription is active</div>
+<div class="checkbox-item">All 18 prompts are saved somewhere I can access fast</div>
+<div class="checkbox-item">My first target address for Property X-Ray is identified</div>
+<div class="checkbox-item">My target neighborhood for the Dossier is identified</div>
+<div class="checkbox-item">My next listing appointment is on the calendar</div>
+<div class="checkbox-item">My accountability partner has my number</div>
+<div class="checkbox-item">My 30-day review date is in my calendar</div>
+
+<h4>This week:</h4>
+<div class="checkbox-item">Complete my first full Listing Killer cycle on one appointment</div>
+<div class="checkbox-item">Document time saved vs. my old prep method</div>
+<div class="checkbox-item">Share one result with Edmund's Mastermind community</div>
+
+<div class="box-dark" style="margin-top:20pt;">
+    <p style="text-align:center; font-size:11pt; letter-spacing:0.05em; text-transform:uppercase; color:#00a8e1; font-weight:700; margin-bottom:6pt;">Remember</p>
+    <p style="text-align:center; color:#ffffff; font-size:11pt;">Your success with these systems is directly proportional to your commitment to implementation. The difference between those who win listings and those who get left behind is <strong style="color:#00a8e1;">action</strong>, not knowledge.</p>
+</div>
+
+<div style="text-align:center; margin-top:30pt; color:#1a3e5c;">
+    <p style="font-size:9pt;">&copy; 2026 Edmund's Mastermind &nbsp;|&nbsp; Your AI-Powered Listing Domination System</p>
+    <p style="color:#00a8e1; font-weight:700; font-size:10pt; letter-spacing:0.08em; text-transform:uppercase; margin-top:6pt;">Because Showing Up Unprepared is NOT an Option!</p>
+</div>
+
+</div>
+
+</body>
+</html>

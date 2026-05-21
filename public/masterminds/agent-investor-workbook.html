@@ -1,0 +1,1192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Agent-Investor Wealth DOMINATION — Complete Implementation Workbook</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap');
+
+  @page {
+    size: letter;
+    margin: 0.6in 0.75in;
+  }
+
+  @media print {
+    .page-break { page-break-after: always; }
+    .no-break { page-break-inside: avoid; }
+    body { font-size: 10pt; }
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Montserrat', sans-serif;
+    color: #333333;
+    line-height: 1.6;
+    font-size: 11pt;
+    background: #ffffff;
+  }
+
+  /* Page Container */
+  .page {
+    max-width: 7.5in;
+    margin: 0 auto;
+    padding: 0.5in 0;
+    position: relative;
+  }
+
+  /* Cover Page */
+  .cover {
+    text-align: center;
+    padding: 1in 0.5in;
+    background: #1a3e5c;
+    color: #ffffff;
+    min-height: 9.5in;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .cover-image-placeholder {
+    width: 100%;
+    max-width: 5.5in;
+    height: 2.8in;
+    background: linear-gradient(135deg, #1a3e5c 0%, #00a8e1 50%, #1a3e5c 100%);
+    border: 2px dashed rgba(255,255,255,0.4);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: rgba(255,255,255,0.5);
+    font-size: 11pt;
+    margin-bottom: 0.4in;
+  }
+
+  .cover h1 {
+    font-size: 28pt;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 0.15in;
+    line-height: 1.2;
+  }
+
+  .cover .cover-subtitle {
+    font-size: 14pt;
+    font-weight: 300;
+    color: #00a8e1;
+    letter-spacing: 0.05em;
+    margin-bottom: 0.5in;
+  }
+
+  .cover .cover-type {
+    font-size: 12pt;
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    border-top: 2px solid #00a8e1;
+    border-bottom: 2px solid #00a8e1;
+    padding: 0.1in 0.4in;
+    margin-bottom: 0.4in;
+  }
+
+  .cover .cover-date {
+    font-size: 11pt;
+    color: rgba(255,255,255,0.7);
+    margin-bottom: 0.5in;
+  }
+
+  .cover .cover-brand {
+    font-size: 10pt;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.5);
+  }
+
+  /* Headers */
+  h1 {
+    font-size: 20pt;
+    font-weight: 700;
+    color: #1a3e5c;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 0.15in;
+  }
+
+  h2 {
+    font-size: 15pt;
+    font-weight: 700;
+    color: #1a3e5c;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin-bottom: 0.12in;
+    margin-top: 0.25in;
+  }
+
+  h3 {
+    font-size: 12pt;
+    font-weight: 600;
+    color: #1a3e5c;
+    margin-bottom: 0.08in;
+    margin-top: 0.15in;
+  }
+
+  h4 {
+    font-size: 10.5pt;
+    font-weight: 600;
+    color: #00a8e1;
+    margin-bottom: 0.06in;
+    margin-top: 0.1in;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+
+  p {
+    margin-bottom: 0.1in;
+    font-size: 10.5pt;
+    line-height: 1.55;
+  }
+
+  /* Accent Elements */
+  .accent-bar-section {
+    border-left: 4px solid #00a8e1;
+    padding-left: 0.2in;
+    margin: 0.15in 0;
+  }
+
+  .navy-box {
+    background: #1a3e5c;
+    color: #ffffff;
+    padding: 0.2in 0.25in;
+    border-radius: 4px;
+    margin: 0.15in 0;
+  }
+
+  .navy-box h2, .navy-box h3 {
+    color: #00a8e1;
+  }
+
+  .navy-box p, .navy-box li {
+    color: #ffffff;
+  }
+
+  .light-box {
+    background: #f4f4f4;
+    padding: 0.2in 0.25in;
+    border-radius: 4px;
+    margin: 0.15in 0;
+  }
+
+  .cyan-highlight {
+    color: #00a8e1;
+    font-weight: 600;
+  }
+
+  /* Lists */
+  ul, ol {
+    margin: 0.08in 0;
+    padding-left: 0.3in;
+  }
+
+  li {
+    margin-bottom: 0.04in;
+    font-size: 10.5pt;
+    line-height: 1.5;
+  }
+
+  /* Prompt Blocks */
+  .prompt-block {
+    background: #f4f4f4;
+    border: 1px solid #e0e0e0;
+    border-left: 4px solid #00a8e1;
+    padding: 0.15in 0.2in;
+    margin: 0.1in 0;
+    font-family: 'Courier New', monospace;
+    font-size: 8.5pt;
+    line-height: 1.5;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+  }
+
+  .prompt-label {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+    color: #00a8e1;
+    font-size: 9pt;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    margin-bottom: 0.06in;
+    display: block;
+  }
+
+  /* Worksheet Lines */
+  .write-line {
+    border-bottom: 1px solid #cccccc;
+    height: 0.32in;
+    margin: 0.04in 0;
+    width: 100%;
+  }
+
+  .write-line-short {
+    border-bottom: 1px solid #cccccc;
+    height: 0.32in;
+    margin: 0.04in 0;
+    width: 3in;
+    display: inline-block;
+  }
+
+  .dollar-line {
+    display: inline-flex;
+    align-items: flex-end;
+  }
+
+  .dollar-line::before {
+    content: "$";
+    font-weight: 600;
+    margin-right: 4px;
+    font-size: 10.5pt;
+  }
+
+  /* Checkbox lists */
+  .check-list {
+    list-style: none;
+    padding-left: 0;
+  }
+
+  .check-list li {
+    padding: 0.03in 0;
+    padding-left: 0.25in;
+    position: relative;
+    font-size: 10.5pt;
+  }
+
+  .check-list li::before {
+    content: "☐";
+    position: absolute;
+    left: 0;
+    font-size: 11pt;
+  }
+
+  /* Two Column Layout */
+  .two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.2in;
+  }
+
+  /* Page Footer */
+  .page-footer {
+    text-align: center;
+    font-size: 8pt;
+    color: #999999;
+    padding-top: 0.15in;
+    margin-top: 0.3in;
+    border-top: 1px solid #e8e8e8;
+  }
+
+  .page-footer .brand {
+    font-weight: 600;
+    color: #1a3e5c;
+    letter-spacing: 0.05em;
+  }
+
+  /* Section Divider */
+  .section-divider {
+    text-align: center;
+    margin: 0.2in 0;
+    color: #00a8e1;
+    font-size: 10pt;
+    letter-spacing: 0.3em;
+  }
+
+  /* Signature box */
+  .sig-box {
+    border: 1px solid #cccccc;
+    padding: 0.2in;
+    margin-top: 0.15in;
+    border-radius: 4px;
+  }
+
+  .sig-line {
+    border-bottom: 1px solid #333333;
+    height: 0.4in;
+    margin-top: 0.2in;
+    width: 60%;
+  }
+
+  /* Table */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 0.1in 0;
+    font-size: 10pt;
+  }
+
+  th {
+    background: #1a3e5c;
+    color: #ffffff;
+    padding: 0.08in 0.12in;
+    text-align: left;
+    font-size: 9pt;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+
+  td {
+    padding: 0.08in 0.12in;
+    border-bottom: 1px solid #e8e8e8;
+  }
+
+  tr:nth-child(even) td {
+    background: #f9f9f9;
+  }
+</style>
+</head>
+<body>
+
+<!-- ============================================ -->
+<!-- PAGE 1: COVER -->
+<!-- ============================================ -->
+<div class="cover">
+  <img src="https://edmundbogen.github.io/agent-investor-hero.png" alt="Edmund Bogen - Agent Investor Wealth Session" style="width:100%; max-width:5.5in; border-radius:8px; margin-bottom:0.4in;">
+
+  <h1>The Agent-Investor<br>Wealth DOMINATION<br>Session</h1>
+  <p class="cover-subtitle">Why the Smartest Realtors Are Building Portfolios, Not Just Closing Deals</p>
+
+  <div class="cover-type">Complete Implementation Workbook</div>
+
+  <p class="cover-date">Edmund's Mastermind Panel Session<br>Wednesday, March 25, 2026</p>
+
+  <p class="cover-brand">Edmund's Mastermind &amp; Group Coaching</p>
+</div>
+
+<div class="page-break"></div>
+
+<!-- ============================================ -->
+<!-- PAGE 2: MISSION & OVERVIEW -->
+<!-- ============================================ -->
+<div class="page">
+
+  <div class="navy-box">
+    <h2>Your Wealth-Building Mission</h2>
+    <p><strong>Why You're Here:</strong> To stop building everyone else's equity and start building your own. Every deal you close can fund your next acquisition — if you know the system.</p>
+    <p><strong>Your Goal Today:</strong> Leave with a concrete plan to acquire your first (or next) investment property within 30 days using advantages you already have as a licensed agent.</p>
+    <p><strong>Success Metric:</strong> One property under contract or LOI within 30 days of this session.</p>
+  </div>
+
+  <h2>Workshop Overview: Your Profit-Generating Toolkit</h2>
+
+  <p>Today's panel of agent-investors who built portfolios of 50+ units will walk you through three wealth-building frameworks:</p>
+
+  <div class="accent-bar-section">
+    <h3>Framework 1: "The Insider Advantage" Deal Sourcing System</h3>
+    <p>How to leverage off-market deals, pre-foreclosures, expired listings, and pocket listings to acquire properties at 15-30% below market.</p>
+  </div>
+
+  <div class="accent-bar-section">
+    <h3>Framework 2: "The Commission-to-Capital" Acquisition Strategy</h3>
+    <p>Convert commission income into rental units using creative financing — seller financing, house hacking, BRRRR, and partnerships — often with little or no cash down.</p>
+  </div>
+
+  <div class="accent-bar-section">
+    <h3>Framework 3: "The Passive Income Machine" Scaling Playbook</h3>
+    <p>Operational systems, property management tools, and AI automation that let you scale from 5 to 50 units without quitting your sales business.</p>
+  </div>
+
+  <div class="section-divider">* * *</div>
+
+  <h3>Your Panel Today</h3>
+  <p>You'll hear from agent-investors who have successfully and simultaneously built an investor business by buying investment properties — scaling from zero to 50+ doors while still running active sales businesses. They'll share real numbers, real financing structures, and the mistakes that almost cost them everything.</p>
+
+  <div class="page-footer">
+    <span class="brand">Edmund's Mastermind</span> &bull; Agent-Investor Wealth DOMINATION Workbook &bull; Page 2
+  </div>
+</div>
+
+<div class="page-break"></div>
+
+<!-- ============================================ -->
+<!-- PAGES 3-5: FRAMEWORK 1 — DEAL SOURCING -->
+<!-- ============================================ -->
+<div class="page">
+
+  <div class="navy-box" style="padding: 0.15in 0.25in;">
+    <h2 style="margin-top:0;">Framework 1: "The Insider Advantage" Deal Sourcing System</h2>
+    <p style="margin-bottom:0;"><em>The $100K+ Acquisition Advantage You're Sitting On</em></p>
+  </div>
+
+  <h4>What This Means for Your Bank Account</h4>
+  <ul>
+    <li>Acquire properties 15-30% below what civilian investors pay</li>
+    <li>See inventory 30-90 days before it hits public markets</li>
+    <li>Represent yourself on every transaction, saving 2.5-3% on commissions</li>
+  </ul>
+
+  <h3>The Psychology Behind the Insider Advantage</h3>
+
+  <p>As a licensed agent, you sit at the intersection of information, relationships, and deal flow in ways that no civilian investor can replicate. You see properties before they're listed. You know which sellers are motivated before the price drops. You have relationships with other agents who call you first with pocket listings.</p>
+
+  <p>Research from the National Association of Realtors shows that agent-owned investments outperform civilian-purchased investments by 12-18% on acquisition cost alone. The reason is simple: you're not competing in the open market. You're sourcing from a pipeline that doesn't exist for anyone without a license.</p>
+
+  <h4>Why This Changes Everything</h4>
+
+  <p>Most agents treat their deal flow as a one-dimensional revenue stream: find a buyer, earn a commission, repeat. Agent-investors treat that same deal flow as a two-dimensional opportunity: earn commissions AND acquire assets. The same pipeline, but exponentially more valuable.</p>
+
+  <p>Agents like Nazz Wang built portfolios exceeding 50 units by systematically filtering their deal flow for investment-grade properties. She described the advantage as "being at the front of the line for every deal in the market" — seeing distressed properties, estates, and motivated sellers months before they appeared on public platforms.</p>
+
+  <h4>The Early Adopter Advantage</h4>
+
+  <p>Only 12-15% of licensed agents own investment properties beyond their primary residence. That means 85%+ of agents are ignoring the single greatest wealth-building advantage their license provides. As more agents discover this, competition for off-market deals will increase. Right now, you have first-mover advantage.</p>
+
+  <h4>Your Deal Sourcing Channels</h4>
+  <ul>
+    <li><strong>Pocket listings</strong> from your agent network</li>
+    <li><strong>Pre-foreclosures</strong> — you see NODs before investors</li>
+    <li><strong>Expired and withdrawn listings</strong> — motivated sellers, no competition</li>
+    <li><strong>Estate sales</strong> — often priced for speed, not max value</li>
+    <li><strong>FSBO conversions</strong> — represent yourself, negotiate directly</li>
+    <li><strong>Builder closeouts and developer distress</strong> — bulk discounts</li>
+    <li><strong>Divorce and relocation referrals</strong> — motivation-driven pricing</li>
+  </ul>
+
+  <div class="page-footer">
+    <span class="brand">Edmund's Mastermind</span> &bull; Agent-Investor Wealth DOMINATION Workbook &bull; Page 3
+  </div>
+</div>
+
+<div class="page-break"></div>
+
+<div class="page">
+
+  <h3>Framework 1: Deal Sourcing — Prompts & Templates</h3>
+
+  <h4>AI-Powered Deal Analysis Prompts</h4>
+  <p>Copy these prompts into ChatGPT or Claude for immediate deal analysis:</p>
+
+  <div class="prompt-block"><span class="prompt-label">For Evaluating Off-Market Deals:</span>
+I'm a licensed real estate agent evaluating a potential investment property. Here are the details: [address], [asking price], [bedrooms/bathrooms], [square footage], [year built], [condition]. The comparable sales in the area over the last 6 months range from [low] to [high]. Analyze this property as a rental investment: estimate monthly rent, calculate cap rate, cash-on-cash return assuming 25% down, and identify any red flags. Include estimated rehab costs if the property needs work.</div>
+
+  <div class="prompt-block"><span class="prompt-label">For Screening Expired Listings as Investments:</span>
+I'm reviewing expired listings in [zip code/neighborhood] for investment potential. Here are 5 expired listings: [paste MLS data]. For each property, tell me: (1) likely reason it didn't sell, (2) estimated discount I could negotiate from original list price, (3) potential monthly rental income, (4) whether it's better as a flip or buy-and-hold, and (5) estimated ROI on a 12-month hold. Rank them from best to worst investment opportunity.</div>
+
+  <div class="prompt-block"><span class="prompt-label">For Building an Agent Network Pipeline:</span>
+Write a professional email to 10 agents in my market letting them know I'm actively buying investment properties. I want: single-family homes and small multifamily (2-4 units), any condition, in [target neighborhoods]. Mention that I can close quickly, pay referral fees, and am flexible on terms. Make it professional but personal — not a mass blast. Include a follow-up schedule for staying top of mind.</div>
+
+  <div class="prompt-block"><span class="prompt-label">For Pre-Foreclosure Outreach:</span>
+Write a compassionate but direct letter to a homeowner facing foreclosure. I'm a licensed real estate agent who can help them explore options: selling before auction, loan modification guidance, or if the numbers work, purchasing the property directly at fair market value. The tone should be helpful and non-predatory. Include a clear call to action.</div>
+
+  <div class="prompt-block"><span class="prompt-label">For Market Rent Analysis:</span>
+Analyze rental comps for [address/neighborhood]. I need: average rent for [bedroom count] in this area, rent-to-price ratio, vacancy rate estimate, and whether rents are trending up or down over the last 12 months. Also suggest optimal rent positioning (market rate vs. slightly below for faster occupancy) based on current supply and demand indicators.</div>
+
+  <h3>Framework 1: Your Success Notes</h3>
+
+  <div class="light-box">
+    <p><strong>During the panel, write down:</strong></p>
+
+    <p>Deal sources the panelists use most often:</p>
+    <div class="write-line"></div>
+    <div class="write-line"></div>
+    <div class="write-line"></div>
+
+    <p>Agents in my network I should contact this week about pocket listings:</p>
+    <div class="write-line"></div>
+    <div class="write-line"></div>
+
+    <p>My top 3 target neighborhoods for investment properties:</p>
+    <div class="write-line"></div>
+    <div class="write-line"></div>
+    <div class="write-line"></div>
+
+    <p>Questions I want to ask during Q&amp;A:</p>
+    <div class="write-line"></div>
+    <div class="write-line"></div>
+  </div>
+
+  <div class="page-footer">
+    <span class="brand">Edmund's Mastermind</span> &bull; Agent-Investor Wealth DOMINATION Workbook &bull; Page 4
+  </div>
+</div>
+
+<div class="page-break"></div>
+
+<!-- ============================================ -->
+<!-- PAGES 5-7: FRAMEWORK 2 — COMMISSION TO CAPITAL -->
+<!-- ============================================ -->
+<div class="page">
+
+  <div class="navy-box" style="padding: 0.15in 0.25in;">
+    <h2 style="margin-top:0;">Framework 2: "The Commission-to-Capital" Acquisition Strategy</h2>
+    <p style="margin-bottom:0;"><em>Stop Spending Commissions. Start Deploying Them.</em></p>
+  </div>
+
+  <h4>What This Means for Your Bank Account</h4>
+  <ul>
+    <li>Every 3-4 commissions can fund a rental property acquisition</li>
+    <li>Creative financing lets you acquire with $0-$10K out of pocket</li>
+    <li>Your portfolio compounds — each property funds the next one</li>
+  </ul>
+
+  <h3>The Wealth Gap Between Agents and Agent-Investors</h3>
+
+  <p>The average real estate agent earns $49,700 per year (NAR, 2024). The average agent-investor with 10+ units earns that in passive income alone — on top of their commission income. The difference isn't talent. It's capital allocation.</p>
+
+  <p>Shelby Osborne, an agent-investor profiled in the research, started with a single house hack — living in one unit of a duplex while renting the other. Within 8 years, she scaled to over 50 units. Her commissions never changed. What changed was where they went: instead of lifestyle spending, they became down payments.</p>
+
+  <h4>The BRRRR Method for Agents</h4>
+
+  <p><strong>Buy</strong> a distressed property (using your insider deal flow). <strong>Rehab</strong> it (using your contractor network). <strong>Rent</strong> it (using your market knowledge to price it right). <strong>Refinance</strong> it (pulling out your capital). <strong>Repeat</strong>. Agents have an advantage at every single step of this process. You're not learning a new skill — you're applying skills you already have.</p>
+
+  <h4>Creative Financing Strategies</h4>
+
+  <table>
+    <tr>
+      <th>Strategy</th>
+      <th>Cash Required</th>
+      <th>Best For</th>
+    </tr>
+    <tr>
+      <td><strong>House Hacking</strong></td>
+      <td>3.5% FHA down</td>
+      <td>First investment property</td>
+    </tr>
+    <tr>
+      <td><strong>Seller Financing</strong></td>
+      <td>$0-5% (negotiable)</td>
+      <td>Motivated sellers, estate sales</td>
+    </tr>
+    <tr>
+      <td><strong>BRRRR</strong></td>
+      <td>Rehab costs (recycled)</td>
+      <td>Distressed properties</td>
+    </tr>
+    <tr>
+      <td><strong>Subject-To</strong></td>
+      <td>$0-$5K</td>
+      <td>Pre-foreclosures</td>
+    </tr>
+    <tr>
+      <td><strong>Partnerships</strong></td>
+      <td>$0 (you bring deal/management)</td>
+      <td>Capital-constrained agents</td>
+    </tr>
+    <tr>
+      <td><strong>HELOC on Primary</strong></td>
+      <td>$0 new cash</td>
+      <td>Agents with home equity</td>
+    </tr>
+    <tr>
+      <td><strong>Portfolio Loans</strong></td>
+      <td>20-25% down</td>
+      <td>Scaling beyond 10 units</td>
+    </tr>
+  </table>
+
+  <div class="page-footer">
+    <span class="brand">Edmund's Mastermind</span> &bull; Agent-Investor Wealth DOMINATION Workbook &bull; Page 5
+  </div>
+</div>
+
+<div class="page-break"></div>
+
+<div class="page">
+
+  <h3>Framework 2: Commission-to-Capital — Prompts & Templates</h3>
+
+  <h4>AI-Powered Financial Analysis Prompts</h4>
+
+  <div class="prompt-block"><span class="prompt-label">For Commission Allocation Planning:</span>
+I'm a real estate agent earning approximately $[annual GCI] in gross commission income. My monthly expenses are $[amount]. Create a "Commission-to-Capital" plan that allocates a percentage of each commission check toward investment property acquisition. Assume I need $[amount] for each down payment. Show me: (1) how many deals per year I need to close to fund one property acquisition, (2) a 5-year compounding projection if I acquire one property per year, and (3) projected passive income at year 5 with average rent of $[amount]/month per unit.</div>
+
+  <div class="prompt-block"><span class="prompt-label">For BRRRR Deal Analysis:</span>
+Analyze this potential BRRRR deal: Purchase price $[amount], estimated rehab $[amount], after-repair value $[amount], target monthly rent $[amount]. Assume a 75% LTV cash-out refinance after rehab. Calculate: (1) total cash invested, (2) cash returned after refinance, (3) remaining cash in deal, (4) annual cash-on-cash return, (5) cap rate, and (6) whether this deal meets the 1% rule. Also flag any risks.</div>
+
+  <div class="prompt-block"><span class="prompt-label">For Seller Financing Negotiation Script:</span>
+Write a conversation script for approaching a property seller about owner financing. The property is listed at $[price], has been on market [days] days, and the seller's motivation appears to be [reason]. I want to propose: [down payment]% down, [interest rate]% interest, [term]-year balloon, monthly payments of approximately $[amount]. Make the pitch focus on the seller's benefits: reliable income stream, tax advantages of installment sale, and premium price in exchange for terms.</div>
+
+  <div class="prompt-block"><span class="prompt-label">For Partnership Structure:</span>
+I'm a licensed real estate agent looking to partner with a capital partner on investment properties. I bring: deal sourcing, property management, market expertise, and my license (saving on commissions). They bring: capital for down payments and rehab. Draft a partnership proposal that outlines: equity split options (50/50, 60/40, sweat equity models), management fee structure, exit strategy, and decision-making framework. Include both LLC and JV options.</div>
+
+  <div class="prompt-block"><span class="prompt-label">For Portfolio Growth Projection:</span>
+I currently own [number] rental properties generating $[amount] per month in net rental income. My goal is to reach 50 units within [timeframe]. Assuming I can acquire [number] properties per year using a combination of BRRRR and seller financing, with average acquisition cost of $[amount] and average monthly cash flow of $[amount] per unit, project my portfolio growth year by year including: total units, monthly income, total equity, and net worth contribution. Factor in 3% annual appreciation and 2% annual rent increases.</div>
+
+  <h3>Framework 2: Your Capital Calculator</h3>
+
+  <div class="light-box no-break">
+    <p><strong>My Commission-to-Capital Numbers:</strong></p>
+
+    <div class="two-col">
+      <div>
+        <p>Average commission per deal: $<span class="write-line-short"></span></p>
+        <p>Deals closed per year: <span class="write-line-short"></span></p>
+        <p>Annual GCI: $<span class="write-line-short"></span></p>
+      </div>
+      <div>
+        <p>% allocated to investing: <span class="write-line-short"></span>%</p>
+        <p>Annual investment capital: $<span class="write-line-short"></span></p>
+        <p>Target down payment: $<span class="write-line-short"></span></p>
+      </div>
+    </div>
+
+    <p style="margin-top: 0.1in;"><strong>Result:</strong> I can fund <span class="write-line-short"></span> property acquisitions per year.</p>
+
+    <p>Financing strategy I'll use for my next acquisition:</p>
+    <div class="write-line"></div>
+    <div class="write-line"></div>
+  </div>
+
+  <div class="page-footer">
+    <span class="brand">Edmund's Mastermind</span> &bull; Agent-Investor Wealth DOMINATION Workbook &bull; Page 6
+  </div>
+</div>
+
+<div class="page-break"></div>
+
+<!-- ============================================ -->
+<!-- PAGES 7-9: FRAMEWORK 3 — SCALING & MANAGEMENT -->
+<!-- ============================================ -->
+<div class="page">
+
+  <div class="navy-box" style="padding: 0.15in 0.25in;">
+    <h2 style="margin-top:0;">Framework 3: "The Passive Income Machine" Scaling & Management</h2>
+    <p style="margin-bottom:0;"><em>From 5 Units to 50 Without Quitting Your Sales Business</em></p>
+  </div>
+
+  <h4>What This Means for Your Bank Account</h4>
+  <ul>
+    <li>Manage 50+ units on 5-10 hours per week using AI and automation</li>
+    <li>Reduce vacancy costs by 40-60% with AI-powered tenant screening</li>
+    <li>Eliminate midnight maintenance calls with automated systems</li>
+  </ul>
+
+  <h3>The Scaling Wall — and How to Break Through It</h3>
+
+  <p>Most agent-investors hit a wall between 5-10 units. The management burden starts competing with their sales business. This is the inflection point where amateurs quit and professionals systematize. The agents on today's panel didn't scale to 50 units by working harder — they scaled by building systems.</p>
+
+  <p>The key insight from agents who've crossed the 50-unit threshold: there's actually <em>less</em> work per unit at 50 than at 10, because scale justifies automation, staff, and professional management that doesn't make sense with a handful of doors.</p>
+
+  <h4>The Self-Manage vs. PM Decision</h4>
+
+  <table>
+    <tr>
+      <th>Factor</th>
+      <th>Self-Manage</th>
+      <th>Hire PM</th>
+    </tr>
+    <tr>
+      <td>Unit count</td>
+      <td>1-15 units</td>
+      <td>15+ units (or sooner)</td>
+    </tr>
+    <tr>
+      <td>Cost</td>
+      <td>Your time</td>
+      <td>8-10% of gross rent</td>
+    </tr>
+    <tr>
+      <td>Control</td>
+      <td>Full</td>
+      <td>Oversight required</td>
+    </tr>
+    <tr>
+      <td>Best for</td>
+      <td>Active agents, local properties</td>
+      <td>High-producing agents, remote properties</td>
+    </tr>
+  </table>
+
+  <h4>AI Tools for Property Management at Scale</h4>
+
+  <p>The technology available today makes managing a large portfolio dramatically easier than even 5 years ago:</p>
+
+  <ul>
+    <li><strong>Rent collection & accounting:</strong> Buildium, AppFolio, Stessa — automated rent collection, expense tracking, tax-ready reporting</li>
+    <li><strong>Tenant screening:</strong> AI-powered screening (RentPrep, TurboTenant) reduces bad tenant risk by 60%+</li>
+    <li><strong>Maintenance management:</strong> Property Meld, Latchel — tenants submit requests, AI triages and dispatches vendors automatically</li>
+    <li><strong>Lease management:</strong> DocuSign + AI lease review catches issues before they become problems</li>
+    <li><strong>Market monitoring:</strong> Rentometer, Mashvisor — AI tracks market rents so you're never underpriced</li>
+    <li><strong>Predictive maintenance:</strong> IoT sensors + AI flag HVAC, plumbing, and roof issues before they become emergencies</li>
+  </ul>
+
+  <h4>The Compounding Effect</h4>
+
+  <p>At 10 units averaging $200/month cash flow each, you generate $24,000/year. Reinvest that into your next property and within 5 years you're at 20+ units generating $48,000+ annually — approaching or exceeding the median agent income. At 50 units, you're generating $120,000+ in passive income. Your real estate sales career becomes optional, not mandatory.</p>
+
+  <div class="page-footer">
+    <span class="brand">Edmund's Mastermind</span> &bull; Agent-Investor Wealth DOMINATION Workbook &bull; Page 7
+  </div>
+</div>
+
+<div class="page-break"></div>
+
+<div class="page">
+
+  <h3>Framework 3: Scaling & Management — Prompts & Templates</h3>
+
+  <h4>AI-Powered Management Prompts</h4>
+
+  <div class="prompt-block"><span class="prompt-label">For Creating a Property Management SOP:</span>
+I'm a real estate agent managing [number] rental units while running an active sales business. Create a complete Standard Operating Procedure for my rental portfolio covering: tenant screening criteria, lease signing process, move-in/move-out procedures, maintenance request handling, rent collection and late payment policy, annual rent increase strategy, and emergency protocols. Format it as a step-by-step operations manual I can hand to a VA or property manager.</div>
+
+  <div class="prompt-block"><span class="prompt-label">For Tenant Screening Criteria:</span>
+Create a comprehensive tenant screening checklist for a [property type] renting at $[amount]/month in [city/state]. Include: minimum credit score, income-to-rent ratio, employment verification requirements, rental history criteria, criminal background parameters (compliant with Fair Housing), and red flags to watch for. Also draft the denial letter template for rejected applicants that complies with FCRA and adverse action requirements.</div>
+
+  <div class="prompt-block"><span class="prompt-label">For Portfolio Financial Dashboard:</span>
+Create a monthly financial dashboard template for my rental portfolio of [number] units. Include: gross rental income, vacancy rate, operating expenses by category (maintenance, insurance, taxes, management, utilities), net operating income, debt service, cash flow per unit, and portfolio-level metrics (total ROI, equity position, year-over-year growth). Format as a spreadsheet template I can update monthly.</div>
+
+  <div class="prompt-block"><span class="prompt-label">For Scaling Decision Analysis:</span>
+I currently own [number] rental units and self-manage. I'm considering hiring a property management company at 8% of gross rent. My portfolio generates $[amount] in monthly gross rent. Analyze the trade-off: calculate the PM cost vs. my time value (I earn approximately $[hourly rate] per hour in my real estate sales business and spend [hours] hours per week on property management). At what unit count does hiring a PM become the clear financial winner? Include the "hidden costs" of self-management beyond just time.</div>
+
+  <div class="prompt-block"><span class="prompt-label">For Rent Optimization:</span>
+Analyze my rental portfolio for rent optimization opportunities. Here are my properties: [list each property with current rent, bedroom count, square footage, and last rent increase date]. For each property, recommend: (1) whether a rent increase is justified, (2) the optimal new rent amount based on market comps, (3) the best time to implement the increase, and (4) a tenant communication script for the increase notice. Factor in tenant retention risk vs. revenue gain.</div>
+
+  <h3>Framework 3: Your Management Assessment</h3>
+
+  <div class="light-box no-break">
+    <p><strong>My Current (or Planned) Management Setup:</strong></p>
+
+    <p>Hours per week I can dedicate to property management: <span class="write-line-short"></span></p>
+    <p>My hourly earning rate in sales: $<span class="write-line-short"></span>/hr</p>
+    <p>Self-manage or hire PM? <span class="write-line-short"></span></p>
+
+    <p>AI tools I'll implement first:</p>
+    <div class="write-line"></div>
+    <div class="write-line"></div>
+
+    <p>The unit count where I'll transition to professional PM: <span class="write-line-short"></span></p>
+  </div>
+
+  <div class="page-footer">
+    <span class="brand">Edmund's Mastermind</span> &bull; Agent-Investor Wealth DOMINATION Workbook &bull; Page 8
+  </div>
+</div>
+
+<div class="page-break"></div>
+
+<!-- ============================================ -->
+<!-- PAGES 9-10: PANEL INTERVIEW NOTES -->
+<!-- ============================================ -->
+<div class="page">
+
+  <h1>Panel Interview Notes</h1>
+  <p>Use these pages to capture insights from the panel. The best takeaways often come from the unscripted moments.</p>
+
+  <div class="navy-box">
+    <h3>Key Questions to Listen For</h3>
+    <ul>
+      <li>How did they fund their first deal?</li>
+      <li>At what point did rental income exceed their commission income?</li>
+      <li>What was their biggest mistake — and what did it cost them?</li>
+      <li>How do they balance sales and property management?</li>
+      <li>What would they do differently if starting over today?</li>
+    </ul>
+  </div>
+
+  <h3>Panelist #1: ___________________</h3>
+
+  <div class="light-box">
+    <p>Portfolio size: <span class="write-line-short"></span> units</p>
+    <p>How he got started:</p>
+    <div class="write-line"></div>
+    <div class="write-line"></div>
+    <p>Financing strategies he uses:</p>
+    <div class="write-line"></div>
+    <div class="write-line"></div>
+    <p>Biggest lesson/mistake:</p>
+    <div class="write-line"></div>
+    <div class="write-line"></div>
+    <p>Key takeaway for my business:</p>
+    <div class="write-line"></div>
+  </div>
+
+  <h3>Panelist #2: ___________________</h3>
+
+  <div class="light-box">
+    <p>Portfolio size: <span class="write-line-short"></span> units</p>
+    <p>How they got started:</p>
+    <div class="write-line"></div>
+    <div class="write-line"></div>
+    <p>Financing strategies they use:</p>
+    <div class="write-line"></div>
+    <div class="write-line"></div>
+    <p>Biggest lesson/mistake:</p>
+    <div class="write-line"></div>
+    <div class="write-line"></div>
+    <p>Key takeaway for my business:</p>
+    <div class="write-line"></div>
+  </div>
+
+  <h3>Panelist #3: ___________________</h3>
+
+  <div class="light-box">
+    <p>Portfolio size: <span class="write-line-short"></span> units</p>
+    <p>How they got started:</p>
+    <div class="write-line"></div>
+    <p>Key takeaway for my business:</p>
+    <div class="write-line"></div>
+  </div>
+
+  <div class="page-footer">
+    <span class="brand">Edmund's Mastermind</span> &bull; Agent-Investor Wealth DOMINATION Workbook &bull; Page 9
+  </div>
+</div>
+
+<div class="page-break"></div>
+
+<div class="page">
+
+  <h3>Live Q&A Notes</h3>
+
+  <div class="light-box">
+    <p><strong>Questions I asked:</strong></p>
+    <div class="write-line"></div>
+    <div class="write-line"></div>
+    <div class="write-line"></div>
+
+    <p style="margin-top: 0.15in;"><strong>Answers/insights that apply to my situation:</strong></p>
+    <div class="write-line"></div>
+    <div class="write-line"></div>
+    <div class="write-line"></div>
+    <div class="write-line"></div>
+
+    <p style="margin-top: 0.15in;"><strong>Questions other members asked that were valuable:</strong></p>
+    <div class="write-line"></div>
+    <div class="write-line"></div>
+    <div class="write-line"></div>
+  </div>
+
+  <h3>Pitfalls the Panel Warned About</h3>
+
+  <div class="light-box">
+    <p>The research and experienced agent-investors highlight these common mistakes. Check which ones the panel discusses and note their specific advice:</p>
+
+    <ul class="check-list">
+      <li><strong>Overleveraging</strong> — buying too many properties too fast with too much debt</li>
+      <li><strong>Underestimating vacancy and maintenance reserves</strong> — not holding 6+ months of expenses</li>
+      <li><strong>Mixing personal and investment finances</strong> — no LLC or separate accounts</li>
+      <li><strong>Neglecting tenant screening</strong> — one bad tenant can wipe out a year of cash flow</li>
+      <li><strong>Ignoring market cycle timing</strong> — buying at peak without stress-testing the numbers</li>
+      <li><strong>Skipping inspections to "save money"</strong> — hidden structural/environmental issues</li>
+      <li><strong>Not building a contractor network early</strong> — overpaying for rehab kills returns</li>
+      <li><strong>Emotional buying</strong> — falling in love with a property instead of the numbers</li>
+    </ul>
+
+    <p>Panel's specific advice on avoiding these:</p>
+    <div class="write-line"></div>
+    <div class="write-line"></div>
+    <div class="write-line"></div>
+  </div>
+
+  <div class="page-footer">
+    <span class="brand">Edmund's Mastermind</span> &bull; Agent-Investor Wealth DOMINATION Workbook &bull; Page 10
+  </div>
+</div>
+
+<div class="page-break"></div>
+
+<!-- ============================================ -->
+<!-- PAGES 11-12: IMPLEMENTATION PLAN -->
+<!-- ============================================ -->
+<div class="page">
+
+  <h1>Your 30-Day Acquisition Plan</h1>
+  <p>Don't overthink it. Pick your strategy, set your targets, and execute. The panelists didn't get to 50 units by planning forever — they got there by acquiring one property at a time.</p>
+
+  <div class="two-col">
+    <div>
+      <div class="navy-box">
+        <h4 style="color: #00a8e1; margin-top: 0;">Week 1: Foundation</h4>
+        <ul class="check-list" style="color: #fff;">
+          <li>Define investment criteria (type, price range, target neighborhoods)</li>
+          <li>Set up deal sourcing alerts in MLS for investment-grade properties</li>
+          <li>Contact 5 agents in your network about pocket listings</li>
+          <li>Open a separate bank account for investment capital</li>
+          <li>Calculate your Commission-to-Capital allocation percentage</li>
+        </ul>
+      </div>
+
+      <div class="navy-box">
+        <h4 style="color: #00a8e1; margin-top: 0;">Week 2: Pipeline Building</h4>
+        <ul class="check-list" style="color: #fff;">
+          <li>Review 10+ potential investment properties from your deal flow</li>
+          <li>Run financial analysis on top 3 using AI prompts from this workbook</li>
+          <li>Contact 2 lenders about investment property financing options</li>
+          <li>Research creative financing for your best prospect</li>
+          <li>Identify potential partnership or financing partners</li>
+        </ul>
+      </div>
+    </div>
+
+    <div>
+      <div class="navy-box">
+        <h4 style="color: #00a8e1; margin-top: 0;">Week 3: Execution</h4>
+        <ul class="check-list" style="color: #fff;">
+          <li>Submit offer or LOI on your best investment prospect</li>
+          <li>Set up property management tools (Stessa, AppFolio, or Buildium)</li>
+          <li>Build your vendor/contractor list (plumber, electrician, handyman)</li>
+          <li>Draft your tenant screening criteria using AI prompt</li>
+          <li>Connect with your accountability partner for progress check</li>
+        </ul>
+      </div>
+
+      <div class="navy-box">
+        <h4 style="color: #00a8e1; margin-top: 0;">Week 4: Optimization</h4>
+        <ul class="check-list" style="color: #fff;">
+          <li>Review and negotiate terms on any active deal</li>
+          <li>Create your portfolio financial dashboard</li>
+          <li>Set up automated deal alerts for ongoing pipeline</li>
+          <li>Document your acquisition process as a repeatable SOP</li>
+          <li>Schedule 90-day portfolio review with accountability partner</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-divider">* * *</div>
+
+  <h3>Your Investment Criteria (Fill This Out NOW)</h3>
+
+  <div class="light-box no-break">
+    <div class="two-col">
+      <div>
+        <p>Property type: <span class="write-line-short"></span></p>
+        <p>Price range: $<span class="write-line-short"></span></p>
+        <p>Target cap rate: <span class="write-line-short"></span>%</p>
+        <p>Target cash flow/unit: $<span class="write-line-short"></span>/mo</p>
+      </div>
+      <div>
+        <p>Target neighborhoods:</p>
+        <div class="write-line"></div>
+        <div class="write-line"></div>
+        <p>Financing strategy: <span class="write-line-short"></span></p>
+        <p>Max out-of-pocket: $<span class="write-line-short"></span></p>
+      </div>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <span class="brand">Edmund's Mastermind</span> &bull; Agent-Investor Wealth DOMINATION Workbook &bull; Page 11
+  </div>
+</div>
+
+<div class="page-break"></div>
+
+<!-- ============================================ -->
+<!-- PAGE 12: PROFIT COMMITMENT CONTRACT -->
+<!-- ============================================ -->
+<div class="page">
+
+  <h1>Your Wealth-Building Commitment</h1>
+
+  <div class="sig-box">
+    <p><strong>Based on today's session, I commit to:</strong></p>
+
+    <p style="margin-top: 0.15in;"><strong>Primary Strategy:</strong> I will pursue my first (or next) investment property using the</p>
+    <div class="write-line"></div>
+    <p>strategy because it aligns with my current capital position and market knowledge.</p>
+
+    <p style="margin-top: 0.15in;"><strong>Capital Allocation:</strong> I will allocate <span class="write-line-short"></span>% of each commission check to my investment fund, targeting $<span class="write-line-short"></span> in acquisition capital within <span class="write-line-short"></span> months.</p>
+
+    <p style="margin-top: 0.15in;"><strong>Portfolio Target:</strong></p>
+    <ul>
+      <li>12-month goal: <span class="write-line-short"></span> properties acquired</li>
+      <li>36-month goal: <span class="write-line-short"></span> units in portfolio</li>
+      <li>Monthly passive income target: $<span class="write-line-short"></span></li>
+    </ul>
+
+    <p style="margin-top: 0.15in;"><strong>Accountability:</strong></p>
+    <p>Accountability partner: <span class="write-line-short"></span></p>
+    <p>Weekly check-in: Every <span class="write-line-short"></span> at <span class="write-line-short"></span></p>
+    <p>30-day review date: <span class="write-line-short"></span></p>
+
+    <p style="margin-top: 0.2in;"><strong>My Signature:</strong></p>
+    <div class="sig-line"></div>
+    <p style="margin-top: 0.05in; font-size: 9pt; color: #666;">Date: _______________</p>
+  </div>
+
+  <div class="section-divider">* * *</div>
+
+  <h2>Weekly Progress Scorecard</h2>
+
+  <div class="light-box">
+    <p>Week of: _______________</p>
+
+    <div class="two-col">
+      <div>
+        <ul class="check-list">
+          <li>Properties analyzed this week: ______</li>
+          <li>Offers/LOIs submitted: ______</li>
+          <li>Agents contacted for deals: ______</li>
+          <li>Financing conversations: ______</li>
+        </ul>
+      </div>
+      <div>
+        <ul class="check-list">
+          <li>Properties under contract: ______</li>
+          <li>Capital saved toward next deal: $______</li>
+          <li>New deal sources identified: ______</li>
+          <li>Next week's #1 priority:</li>
+        </ul>
+        <div class="write-line"></div>
+      </div>
+    </div>
+  </div>
+
+  <h2>Monthly ROI Assessment</h2>
+
+  <div class="light-box">
+    <p>Month: _______________</p>
+    <div class="two-col">
+      <div>
+        <p>Properties acquired this month: ______</p>
+        <p>Total portfolio units: ______</p>
+        <p>Monthly gross rent: $______</p>
+        <p>Monthly net cash flow: $______</p>
+      </div>
+      <div>
+        <p>Total portfolio equity: $______</p>
+        <p>Cash-on-cash return: ______%</p>
+        <p>Passive income as % of commission income: ______%</p>
+        <p>Next acquisition target date: ______</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <span class="brand">Edmund's Mastermind</span> &bull; Agent-Investor Wealth DOMINATION Workbook &bull; Page 12
+  </div>
+</div>
+
+<div class="page-break"></div>
+
+<!-- ============================================ -->
+<!-- PAGE 13: RESOURCES & SUPPORT -->
+<!-- ============================================ -->
+<div class="page">
+
+  <h1>Resources & Support</h1>
+
+  <h3>Recommended Tools</h3>
+
+  <table>
+    <tr>
+      <th>Category</th>
+      <th>Tool</th>
+      <th>Use For</th>
+    </tr>
+    <tr>
+      <td>Deal Analysis</td>
+      <td>DealCheck, BiggerPockets Calculator</td>
+      <td>Running numbers on potential acquisitions</td>
+    </tr>
+    <tr>
+      <td>Portfolio Tracking</td>
+      <td>Stessa (free), Baselane</td>
+      <td>Income/expense tracking, tax prep</td>
+    </tr>
+    <tr>
+      <td>Property Management</td>
+      <td>Buildium, AppFolio</td>
+      <td>Rent collection, maintenance, tenant portal</td>
+    </tr>
+    <tr>
+      <td>Tenant Screening</td>
+      <td>RentPrep, TurboTenant</td>
+      <td>Background, credit, eviction checks</td>
+    </tr>
+    <tr>
+      <td>Maintenance</td>
+      <td>Property Meld, Latchel</td>
+      <td>Automated maintenance dispatch</td>
+    </tr>
+    <tr>
+      <td>Market Analysis</td>
+      <td>Rentometer, Mashvisor, AirDNA</td>
+      <td>Rent comps, market trends, STR analysis</td>
+    </tr>
+    <tr>
+      <td>AI Assistant</td>
+      <td>ChatGPT, Claude</td>
+      <td>Deal analysis, tenant communication, SOPs</td>
+    </tr>
+    <tr>
+      <td>Legal</td>
+      <td>LegalZoom, local RE attorney</td>
+      <td>LLC formation, lease review</td>
+    </tr>
+  </table>
+
+  <h3>When You Need Help</h3>
+
+  <div class="accent-bar-section">
+    <p><strong>Implementation Questions:</strong> Post in Edmund's ChatGPT and Real Estate Mastermind Facebook group — 14,000+ members, many active investors.</p>
+    <p><strong>Deal Analysis Support:</strong> Use the AI prompts in this workbook first. If you need a second opinion, share in the group.</p>
+    <p><strong>Advanced Strategy:</strong> Monthly deep-dive sessions in Edmund's Mastermind cover specific investing strategies.</p>
+  </div>
+
+  <div class="section-divider">* * *</div>
+
+  <h3>Before You Log Off Today</h3>
+
+  <ul class="check-list">
+    <li>Investment criteria defined (page 11)</li>
+    <li>Commission-to-Capital allocation set (page 6)</li>
+    <li>Accountability partner identified and contacted</li>
+    <li>First week's action items from the 30-day plan started</li>
+    <li>AI tools set up (at minimum: Stessa for tracking, ChatGPT for analysis)</li>
+    <li>30-day review date scheduled with accountability partner</li>
+  </ul>
+
+  <div class="page-footer">
+    <span class="brand">Edmund's Mastermind</span> &bull; Agent-Investor Wealth DOMINATION Workbook &bull; Page 13
+  </div>
+</div>
+
+<div class="page-break"></div>
+
+<!-- ============================================ -->
+<!-- PAGE 14: CLOSING -->
+<!-- ============================================ -->
+<div class="page">
+
+  <div class="navy-box" style="text-align: center; padding: 0.4in;">
+    <h2 style="margin-top: 0; font-size: 16pt;">Your Agent-Investor Manifesto</h2>
+
+    <p style="font-size: 11pt; line-height: 1.8; font-style: italic; margin: 0.2in 0.3in;">
+      "While other agents debate whether the market is good enough to invest in, I'm using my insider advantage to acquire properties they'll never even know about. My commissions don't disappear anymore — they compound. Every deal I close builds two businesses: my sales income and my portfolio. I don't just sell real estate. I own it. And every month, my mailbox proves it."
+    </p>
+  </div>
+
+  <div style="margin-top: 0.3in;">
+    <h3>My Personal Wealth-Building Statement</h3>
+    <div class="write-line"></div>
+    <div class="write-line"></div>
+    <div class="write-line"></div>
+    <div class="write-line"></div>
+  </div>
+
+  <div style="text-align: center; margin-top: 0.5in;">
+    <div class="section-divider">* * *</div>
+
+    <p style="font-size: 10pt; color: #666; margin-top: 0.2in;">
+      &copy; 2026 Edmund's Mastermind &mdash; Your Agent-Investor Wealth System
+    </p>
+    <p style="font-size: 12pt; font-weight: 700; color: #00a8e1; margin-top: 0.08in;">
+      "Because Selling for Everyone Else is NOT an Option!"
+    </p>
+
+    <div style="margin-top: 0.3in;">
+      <p style="font-size: 10pt; color: #1a3e5c; font-weight: 600;">Edmund Bogen &amp; Team</p>
+      <p style="font-size: 9pt; color: #666;">Edmund's Mastermind &amp; Group Coaching</p>
+      <p style="font-size: 9pt; color: #666;">www.reignation.com</p>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <span class="brand">Edmund's Mastermind</span> &bull; Agent-Investor Wealth DOMINATION Workbook &bull; Page 14
+  </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,2415 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Weekly Email Team Workbook | The Edmund Bogen Team</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    html {
+      scroll-behavior: smooth;
+    }
+    body {
+      font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      line-height: 1.8;
+      color: #333333;
+      background-color: #ffffff;
+    }
+    /* Navigation */
+    .nav {
+      background-color: #1a3e5c;
+      padding: 20px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .nav-logo {
+      color: #ffffff;
+      font-size: 18px;
+      font-weight: 300;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      text-decoration: none;
+    }
+    .nav-links a {
+      color: #ffffff;
+      text-decoration: none;
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      margin-left: 30px;
+    }
+    .nav-links a:hover {
+      color: #00a8e1;
+    }
+    /* Hero Section */
+    .hero {
+      position: relative;
+      height: 500px;
+      background: linear-gradient(135deg, rgba(26,62,92,0.85) 0%, rgba(26,62,92,0.7) 100%), url('https://edmundbogen.github.io/weekly-email-workbook-hero.png') center/cover no-repeat;
+      display: flex;
+      align-items: flex-end;
+      padding: 60px;
+    }
+    .hero-content {
+      max-width: 900px;
+    }
+    .hero-category {
+      color: #00a8e1;
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      margin-bottom: 15px;
+    }
+    .hero-title {
+      color: #ffffff;
+      font-size: 42px;
+      font-weight: 300;
+      line-height: 1.2;
+      letter-spacing: -0.5px;
+      margin-bottom: 20px;
+    }
+    .hero-meta {
+      color: #e8e8e8;
+      font-size: 14px;
+      font-weight: 400;
+    }
+    .hero-meta span {
+      margin-right: 20px;
+    }
+    /* Article Container */
+    .article-container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 60px 40px;
+    }
+    /* Content Styles */
+    .article-content p {
+      font-size: 17px;
+      line-height: 1.9;
+      margin-bottom: 25px;
+      color: #333333;
+    }
+    .article-content h2 {
+      color: #1a3e5c;
+      font-size: 26px;
+      font-weight: 300;
+      letter-spacing: -0.3px;
+      margin: 50px 0 25px 0;
+      padding-bottom: 15px;
+      border-bottom: 2px solid #e8e8e8;
+    }
+    .article-content h3 {
+      color: #1a3e5c;
+      font-size: 18px;
+      font-weight: 600;
+      margin: 35px 0 15px 0;
+    }
+    .article-content h4 {
+      color: #1a3e5c;
+      font-size: 16px;
+      font-weight: 600;
+      margin: 25px 0 12px 0;
+    }
+    .article-content h5 {
+      color: #1a3e5c;
+      font-size: 15px;
+      font-weight: 600;
+      margin: 20px 0 10px 0;
+    }
+    .article-content strong {
+      font-weight: 600;
+      color: #1a3e5c;
+    }
+    .article-content ul, .article-content ol {
+      margin: 20px 0 25px 25px;
+    }
+    .article-content li {
+      font-size: 17px;
+      line-height: 1.8;
+      margin-bottom: 12px;
+    }
+    /* Pull Quote */
+    .pull-quote {
+      border-left: 4px solid #00a8e1;
+      padding: 25px 30px;
+      margin: 40px 0;
+      background-color: #f9f9f9;
+    }
+    .pull-quote p {
+      font-size: 20px;
+      font-weight: 300;
+      color: #1a3e5c;
+      line-height: 1.6;
+      margin: 0;
+      font-style: italic;
+    }
+    /* Research Box / Warning Box */
+    .research-box {
+      background-color: #1a3e5c;
+      padding: 35px;
+      margin: 40px 0;
+      color: #ffffff;
+    }
+    .research-box h4 {
+      color: #00a8e1;
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-bottom: 20px;
+    }
+    .research-box p {
+      color: #e8e8e8;
+      font-size: 15px;
+      line-height: 1.8;
+      margin-bottom: 15px;
+    }
+    .research-box p:last-child {
+      margin-bottom: 0;
+    }
+    .research-box ul, .research-box ol {
+      margin: 10px 0 15px 20px;
+    }
+    .research-box li {
+      color: #e8e8e8;
+      font-size: 15px;
+      line-height: 1.8;
+      margin-bottom: 8px;
+    }
+    .research-box strong {
+      color: #ffffff;
+    }
+
+    /* ==========================================
+       WORKBOOK-SPECIFIC STYLES
+       ========================================== */
+
+    /* Table of Contents Card */
+    .toc-card {
+      background-color: #1a3e5c;
+      padding: 40px;
+      margin: 0 0 50px 0;
+      border-radius: 4px;
+    }
+    .toc-card h3 {
+      color: #00a8e1;
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      margin-bottom: 25px;
+    }
+    .toc-card ol {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      counter-reset: toc-counter;
+    }
+    .toc-card ol li {
+      counter-increment: toc-counter;
+      margin-bottom: 12px;
+      padding-left: 0;
+      font-size: 14px;
+    }
+    .toc-card ol li::before {
+      content: counter(toc-counter, decimal-leading-zero);
+      color: #00a8e1;
+      font-weight: 600;
+      font-size: 13px;
+      margin-right: 12px;
+    }
+    .toc-card a {
+      color: #e8e8e8;
+      text-decoration: none;
+      font-weight: 400;
+      letter-spacing: 0.3px;
+      transition: color 0.2s ease;
+    }
+    .toc-card a:hover {
+      color: #00a8e1;
+    }
+
+    /* Brand-Styled Tables */
+    .brand-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 25px 0 35px 0;
+      font-size: 14px;
+      overflow-x: auto;
+      display: block;
+    }
+    .brand-table thead th {
+      background-color: #1a3e5c;
+      color: #ffffff;
+      font-weight: 500;
+      font-size: 11px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      padding: 14px 16px;
+      text-align: left;
+      border: none;
+      white-space: nowrap;
+    }
+    .brand-table tbody td {
+      padding: 12px 16px;
+      border-bottom: 1px solid #e8e8e8;
+      color: #333333;
+      vertical-align: top;
+      line-height: 1.6;
+    }
+    .brand-table tbody tr:nth-child(even) {
+      background-color: #f9f9f9;
+    }
+    .brand-table tbody tr:nth-child(odd) {
+      background-color: #ffffff;
+    }
+    .brand-table tbody td:first-child {
+      border-left: 3px solid #00a8e1;
+      font-weight: 500;
+      color: #1a3e5c;
+    }
+    @media (max-width: 768px) {
+      .brand-table {
+        font-size: 12px;
+      }
+      .brand-table thead th,
+      .brand-table tbody td {
+        padding: 8px 10px;
+      }
+    }
+
+    /* Code Blocks */
+    .code-block {
+      background-color: #1e293b;
+      color: #e2e8f0;
+      padding: 20px 24px;
+      border-radius: 4px;
+      font-family: 'Courier New', Courier, monospace;
+      font-size: 13px;
+      line-height: 1.7;
+      overflow-x: auto;
+      margin: 20px 0 30px 0;
+      white-space: pre;
+    }
+
+    /* Inline code */
+    .article-content code {
+      background-color: #f0f0f0;
+      color: #1a3e5c;
+      padding: 2px 7px;
+      border-radius: 3px;
+      font-family: 'Courier New', Courier, monospace;
+      font-size: 14px;
+    }
+
+    /* Checklist */
+    .checklist {
+      list-style: none;
+      margin: 20px 0 30px 0;
+      padding: 0;
+    }
+    .checklist li {
+      position: relative;
+      padding-left: 35px;
+      margin-bottom: 14px;
+      font-size: 15px;
+      line-height: 1.7;
+      color: #333333;
+    }
+    .checklist li::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 4px;
+      width: 20px;
+      height: 20px;
+      border: 2px solid #00a8e1;
+      border-radius: 3px;
+      background-color: #ffffff;
+    }
+
+    /* Step Numbers */
+    .step-header {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      margin: 50px 0 25px 0;
+      padding-bottom: 15px;
+      border-bottom: 2px solid #e8e8e8;
+    }
+    .step-number {
+      background-color: #1a3e5c;
+      color: #ffffff;
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      font-weight: 600;
+      flex-shrink: 0;
+    }
+    .step-header h2 {
+      color: #1a3e5c;
+      font-size: 26px;
+      font-weight: 300;
+      letter-spacing: -0.3px;
+      margin: 0;
+      padding: 0;
+      border: none;
+    }
+
+    /* Info Callout Box */
+    .info-box {
+      border-left: 4px solid #00a8e1;
+      background-color: #f0f9ff;
+      padding: 20px 25px;
+      margin: 25px 0;
+      border-radius: 0 4px 4px 0;
+    }
+    .info-box .info-label {
+      color: #00a8e1;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+    .info-box p {
+      font-size: 15px;
+      color: #333333;
+      line-height: 1.7;
+      margin-bottom: 10px;
+    }
+    .info-box p:last-child {
+      margin-bottom: 0;
+    }
+
+    /* Tip Box */
+    .tip-box {
+      border-left: 4px solid #00a8e1;
+      background-color: #f0f9ff;
+      padding: 20px 25px;
+      margin: 25px 0;
+      border-radius: 0 4px 4px 0;
+    }
+    .tip-box .tip-label {
+      color: #00a8e1;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+    .tip-box p, .tip-box li {
+      font-size: 15px;
+      color: #333333;
+      line-height: 1.7;
+    }
+
+    /* Warning Box */
+    .warning-box {
+      background-color: #1a3e5c;
+      padding: 25px 30px;
+      margin: 25px 0;
+      border-radius: 4px;
+      color: #ffffff;
+    }
+    .warning-box .warning-label {
+      color: #00a8e1;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+    .warning-box p {
+      color: #e8e8e8;
+      font-size: 15px;
+      line-height: 1.8;
+      margin-bottom: 10px;
+    }
+    .warning-box p:last-child {
+      margin-bottom: 0;
+    }
+    .warning-box strong {
+      color: #ffffff;
+    }
+
+    /* Quick Reference Card */
+    .quick-ref-card {
+      background: linear-gradient(135deg, #1a3e5c 0%, #143250 100%);
+      padding: 45px;
+      margin: 50px 0;
+      border-radius: 4px;
+      color: #ffffff;
+      border-top: 4px solid #00a8e1;
+    }
+    .quick-ref-card h3 {
+      color: #00a8e1;
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      margin-bottom: 25px;
+    }
+    .quick-ref-card ol {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      counter-reset: qr-counter;
+    }
+    .quick-ref-card ol li {
+      counter-increment: qr-counter;
+      padding: 14px 0 14px 50px;
+      position: relative;
+      font-size: 15px;
+      line-height: 1.7;
+      color: #e8e8e8;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+    .quick-ref-card ol li:last-child {
+      border-bottom: none;
+    }
+    .quick-ref-card ol li::before {
+      content: counter(qr-counter);
+      position: absolute;
+      left: 0;
+      top: 14px;
+      width: 32px;
+      height: 32px;
+      background-color: #00a8e1;
+      color: #ffffff;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      font-weight: 600;
+    }
+    .quick-ref-card .sub-items {
+      margin: 8px 0 0 0;
+      padding: 0;
+      list-style: none;
+    }
+    .quick-ref-card .sub-items li {
+      padding: 4px 0 4px 22px;
+      position: relative;
+      font-size: 14px;
+      border-bottom: none;
+      color: #c0d0e0;
+    }
+    .quick-ref-card .sub-items li::before {
+      content: '';
+      position: absolute;
+      left: 4px;
+      top: 12px;
+      width: 8px;
+      height: 8px;
+      border: 2px solid #00a8e1;
+      border-radius: 2px;
+      background: none;
+      font-size: 0;
+    }
+
+    /* Workflow Diagram */
+    .workflow-diagram {
+      background-color: #f4f4f4;
+      padding: 30px;
+      margin: 25px 0;
+      border-radius: 4px;
+      text-align: center;
+    }
+    .workflow-step {
+      display: inline-block;
+      background-color: #1a3e5c;
+      color: #ffffff;
+      padding: 12px 20px;
+      border-radius: 4px;
+      font-size: 13px;
+      font-weight: 500;
+      margin: 5px;
+    }
+    .workflow-arrow {
+      display: block;
+      color: #00a8e1;
+      font-size: 24px;
+      margin: 5px auto;
+      line-height: 1;
+    }
+    .workflow-parallel {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      margin: 5px 0;
+      flex-wrap: wrap;
+    }
+
+    /* Section Divider */
+    .section-divider {
+      border: none;
+      border-top: 1px solid #e8e8e8;
+      margin: 50px 0;
+    }
+
+    /* Meta Tag / Badge */
+    .meta-tag {
+      display: inline-block;
+      background-color: #f0f9ff;
+      color: #00a8e1;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      padding: 4px 12px;
+      border-radius: 3px;
+      margin-bottom: 10px;
+    }
+
+    /* Who/Time meta line */
+    .step-meta {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+      margin-bottom: 20px;
+    }
+    .step-meta-item {
+      font-size: 13px;
+      color: #666666;
+    }
+    .step-meta-item strong {
+      color: #1a3e5c;
+      font-weight: 600;
+    }
+
+    /* Author Section */
+    .author-section {
+      display: flex;
+      gap: 30px;
+      padding: 40px;
+      background-color: #f4f4f4;
+      margin-top: 60px;
+    }
+    .author-photo {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      object-fit: cover;
+      flex-shrink: 0;
+    }
+    .author-info h4 {
+      color: #1a3e5c;
+      font-size: 20px;
+      font-weight: 600;
+      margin-bottom: 5px;
+    }
+    .author-title {
+      color: #00a8e1;
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: 0.5px;
+      margin-bottom: 15px;
+    }
+    .author-bio {
+      color: #666666;
+      font-size: 14px;
+      line-height: 1.7;
+      margin-bottom: 15px;
+    }
+    .author-contact {
+      color: #1a3e5c;
+      font-size: 14px;
+      font-weight: 500;
+    }
+    .author-contact a {
+      color: #00a8e1;
+      text-decoration: none;
+    }
+    /* Footer */
+    .footer {
+      background-color: #1a3e5c;
+      padding: 40px;
+      text-align: center;
+    }
+    .footer-logo {
+      color: #ffffff;
+      font-size: 16px;
+      font-weight: 300;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-bottom: 20px;
+    }
+    .footer-text {
+      color: #a0a0a0;
+      font-size: 12px;
+      line-height: 1.8;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    /* Responsive */
+    @media (max-width: 768px) {
+      .hero {
+        height: auto;
+        padding: 40px 20px;
+      }
+      .hero-title {
+        font-size: 28px;
+      }
+      .article-container {
+        padding: 40px 20px;
+      }
+      .author-section {
+        flex-direction: column;
+        text-align: center;
+      }
+      .author-photo {
+        margin: 0 auto;
+      }
+      .nav {
+        flex-direction: column;
+        gap: 15px;
+      }
+      .step-header {
+        flex-direction: column;
+        text-align: center;
+      }
+      .toc-card {
+        padding: 25px;
+      }
+      .quick-ref-card {
+        padding: 25px;
+      }
+      .workflow-parallel {
+        flex-direction: column;
+        align-items: center;
+      }
+      .step-meta {
+        flex-direction: column;
+        gap: 5px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Navigation -->
+  <nav class="nav">
+    <a href="https://www.bogen.ai" class="nav-logo">The Edmund Bogen Team</a>
+    <div class="nav-links">
+      <a href="https://www.bogen.ai">Bogen.ai</a>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <header class="hero">
+    <div class="hero-content">
+      <div class="hero-category">Team Workbook</div>
+      <h1 class="hero-title">Weekly Market Intelligence Package &mdash; Team Workbook</h1>
+      <div class="hero-meta">
+        <span>The Edmund Bogen Team at Douglas Elliman</span>
+        <span>Version 2.0 &mdash; February 2026</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- Article Content -->
+  <article class="article-container">
+    <div class="article-content">
+
+      <!-- Table of Contents -->
+      <div class="toc-card">
+        <h3>Table of Contents</h3>
+        <ol>
+          <li><a href="#overview">Overview: What This Package Is</a></li>
+          <li><a href="#team-roles">Team Roles &amp; Responsibilities</a></li>
+          <li><a href="#timeline">The Complete Weekly Timeline</a></li>
+          <li><a href="#mls-data">STEP 1: MLS Data Collection (Currently Manual)</a></li>
+          <li><a href="#article">STEP 2: Writing the Featured Article</a></li>
+          <li><a href="#featured-listings">STEP 3: Gathering Featured Listings (Currently Manual)</a></li>
+          <li><a href="#hero-image">STEP 4: Preparing the Hero Image</a></li>
+          <li><a href="#template">STEP 5: Filling Out the Workflow Template</a></li>
+          <li><a href="#pipeline">STEP 6: Running the Agent Team Pipeline</a></li>
+          <li><a href="#review">STEP 7: Reviewing Validation &amp; Compliance Reports</a></li>
+          <li><a href="#deployment">STEP 8: Deployment to GitHub &amp; Constant Contact</a></li>
+          <li><a href="#verification">STEP 9: Post-Deployment Verification</a></li>
+          <li><a href="#files">Where Everything Lives (File Locations)</a></li>
+          <li><a href="#communities">The 21 Communities Reference</a></li>
+          <li><a href="#troubleshooting">Troubleshooting &amp; Common Issues</a></li>
+          <li><a href="#roadmap">Automation Roadmap</a></li>
+        </ol>
+      </div>
+
+      <!-- ============================================ -->
+      <!-- SECTION 1: OVERVIEW -->
+      <!-- ============================================ -->
+      <h2 id="overview">1. Overview: What This Package Is</h2>
+
+      <p>Every week, The Edmund Bogen Team publishes a <strong>Market Intelligence Package</strong> &mdash; a suite of synchronized content that goes out to our clients, prospects, and the 14,000+ members of Edmund's Mastermind community.</p>
+
+      <h3>What Gets Published Each Week</h3>
+
+      <table class="brand-table">
+        <thead>
+          <tr>
+            <th>Asset</th>
+            <th>What It Is</th>
+            <th>Where It Goes</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Email HTML</td>
+            <td>The main weekly email with article preview, market stats, community data, featured listings, and CTAs</td>
+            <td>Uploaded to <strong>Constant Contact</strong> for email blast</td>
+          </tr>
+          <tr>
+            <td>Article Page</td>
+            <td>Full-length feature article on a market topic</td>
+            <td>Deployed to <strong>GitHub Pages</strong> at edmundbogen.github.io</td>
+          </tr>
+          <tr>
+            <td>Market Dashboard</td>
+            <td>Interactive dashboard with charts, all 21 community stats, and featured article</td>
+            <td>Deployed to <strong>GitHub Pages</strong> at edmundbogen.github.io/luxury-community-dashboard/</td>
+          </tr>
+          <tr>
+            <td>Community Listings Pages</td>
+            <td>Individual pages showing all active listings for specific communities (always St. Andrews, plus others as needed)</td>
+            <td>Deployed to <strong>GitHub Pages</strong></td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h3>Why Consistency Matters</h3>
+
+      <div class="warning-box">
+        <div class="warning-label">Critical</div>
+        <p>All 4+ assets share the same data. The article title, date, hero image, market stats, and community numbers must be <strong>identical</strong> across every file. A mismatch (e.g., the email says "8 active listings" but the dashboard says "9") damages credibility with our luxury audience.</p>
+      </div>
+
+      <h3>How Long It Takes</h3>
+
+      <table class="brand-table">
+        <thead>
+          <tr>
+            <th>Phase</th>
+            <th>Current Time (Manual)</th>
+            <th>Target Time (Automated)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>MLS data collection</td>
+            <td>30-45 minutes</td>
+            <td>5 minutes (CSV export + script)</td>
+          </tr>
+          <tr>
+            <td>Article writing</td>
+            <td>30-60 minutes</td>
+            <td>30-60 minutes (stays manual &mdash; this is the creative work)</td>
+          </tr>
+          <tr>
+            <td>Featured listings gathering</td>
+            <td>15-20 minutes</td>
+            <td>5 minutes (with automation)</td>
+          </tr>
+          <tr>
+            <td>Hero image preparation</td>
+            <td>5-10 minutes</td>
+            <td>5-10 minutes (stays manual)</td>
+          </tr>
+          <tr>
+            <td>Template fill-out</td>
+            <td>10-15 minutes</td>
+            <td>5 minutes (with pre-populated data)</td>
+          </tr>
+          <tr>
+            <td>Running the AI pipeline</td>
+            <td>5-10 minutes</td>
+            <td>5-10 minutes</td>
+          </tr>
+          <tr>
+            <td>Review &amp; deployment</td>
+            <td>10-15 minutes</td>
+            <td>5-10 minutes (agent handles deployment)</td>
+          </tr>
+          <tr>
+            <td><strong>Total</strong></td>
+            <td><strong>~2 hours</strong></td>
+            <td><strong>~1 hour</strong></td>
+          </tr>
+        </tbody>
+      </table>
+
+      <hr class="section-divider">
+
+      <!-- ============================================ -->
+      <!-- SECTION 2: TEAM ROLES -->
+      <!-- ============================================ -->
+      <h2 id="team-roles">2. Team Roles &amp; Responsibilities</h2>
+
+      <h3>Who Does What</h3>
+
+      <table class="brand-table">
+        <thead>
+          <tr>
+            <th>Team Member</th>
+            <th>Primary Responsibility</th>
+            <th>When</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Nicole Hudson</td>
+            <td>Pulls all MLS data for 21 communities from FlexMLS. Compiles active listings, sold YTD, and absorption rates. Provides featured St. Andrews listing data.</td>
+            <td>Monday or Tuesday</td>
+          </tr>
+          <tr>
+            <td>Edmund Bogen</td>
+            <td>Writes the featured article (or assigns it). Selects/approves hero image. Final review of all output before deployment. Makes the "go/no-go" call.</td>
+            <td>Tuesday or Wednesday</td>
+          </tr>
+          <tr>
+            <td>Samantha Gornstein</td>
+            <td>May write featured articles focused on Polo Club or her specialty communities. Provides her own listing data when her communities are featured.</td>
+            <td>As assigned</td>
+          </tr>
+          <tr>
+            <td>Dina Ulrich</td>
+            <td>May write featured articles focused on Seven Bridges or her specialty communities. Provides her own listing data when her communities are featured.</td>
+            <td>As assigned</td>
+          </tr>
+          <tr>
+            <td>Any Team Member</td>
+            <td>Can fill out the workflow template and run the Claude pipeline once all data is collected.</td>
+            <td>Wednesday (target send day)</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h3>RACI for Each Step</h3>
+
+      <table class="brand-table">
+        <thead>
+          <tr>
+            <th>Step</th>
+            <th>Nicole</th>
+            <th>Edmund</th>
+            <th>Samantha/Dina</th>
+            <th>Any Team Member</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>MLS Data Collection</td>
+            <td><strong>R</strong> (Responsible)</td>
+            <td>I</td>
+            <td>I</td>
+            <td>&mdash;</td>
+          </tr>
+          <tr>
+            <td>Article Writing</td>
+            <td>I</td>
+            <td><strong>R</strong> or <strong>A</strong> (Approves)</td>
+            <td>R (if assigned)</td>
+            <td>&mdash;</td>
+          </tr>
+          <tr>
+            <td>Hero Image</td>
+            <td>I</td>
+            <td><strong>R</strong></td>
+            <td>&mdash;</td>
+            <td>&mdash;</td>
+          </tr>
+          <tr>
+            <td>Template Fill-Out</td>
+            <td>C (Consulted)</td>
+            <td>A (Approves)</td>
+            <td>C</td>
+            <td><strong>R</strong></td>
+          </tr>
+          <tr>
+            <td>Run AI Pipeline</td>
+            <td>&mdash;</td>
+            <td>A</td>
+            <td>&mdash;</td>
+            <td><strong>R</strong></td>
+          </tr>
+          <tr>
+            <td>Review Output</td>
+            <td>&mdash;</td>
+            <td><strong>R</strong> (Final approval)</td>
+            <td>C</td>
+            <td>C</td>
+          </tr>
+          <tr>
+            <td>Deploy</td>
+            <td>&mdash;</td>
+            <td>A</td>
+            <td>&mdash;</td>
+            <td><strong>R</strong></td>
+          </tr>
+        </tbody>
+      </table>
+
+      <hr class="section-divider">
+
+      <!-- ============================================ -->
+      <!-- SECTION 3: TIMELINE -->
+      <!-- ============================================ -->
+      <h2 id="timeline">3. The Complete Weekly Timeline</h2>
+
+      <div class="info-box">
+        <div class="info-label">Target</div>
+        <p>Email sends <strong>Wednesday at 9:00 AM</strong> (per SOP)</p>
+      </div>
+
+      <table class="brand-table">
+        <thead>
+          <tr>
+            <th>Day</th>
+            <th>Time</th>
+            <th>Task</th>
+            <th>Who</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Monday</td>
+            <td>Morning</td>
+            <td>Nicole begins pulling MLS data from FlexMLS</td>
+            <td>Nicole</td>
+          </tr>
+          <tr>
+            <td>Monday</td>
+            <td>Afternoon</td>
+            <td>Nicole delivers community stats (21 communities) + St. Andrews featured listings</td>
+            <td>Nicole</td>
+          </tr>
+          <tr>
+            <td>Tuesday</td>
+            <td>Morning</td>
+            <td>Edmund writes or finalizes the featured article</td>
+            <td>Edmund (or assigned author)</td>
+          </tr>
+          <tr>
+            <td>Tuesday</td>
+            <td>Afternoon</td>
+            <td>Hero image selected/created and uploaded to GitHub</td>
+            <td>Edmund</td>
+          </tr>
+          <tr>
+            <td>Tuesday</td>
+            <td>End of Day</td>
+            <td>All data collected &mdash; template can be filled out</td>
+            <td>Team</td>
+          </tr>
+          <tr>
+            <td>Wednesday</td>
+            <td>7:00 AM</td>
+            <td>Run Claude agent team pipeline</td>
+            <td>Any team member</td>
+          </tr>
+          <tr>
+            <td>Wednesday</td>
+            <td>7:30 AM</td>
+            <td>Review validation report + compliance report</td>
+            <td>Edmund</td>
+          </tr>
+          <tr>
+            <td>Wednesday</td>
+            <td>8:00 AM</td>
+            <td>Deploy to GitHub Pages + upload email to Constant Contact</td>
+            <td>Any team member</td>
+          </tr>
+          <tr>
+            <td>Wednesday</td>
+            <td>8:30 AM</td>
+            <td>Send test email to team</td>
+            <td>Any team member</td>
+          </tr>
+          <tr>
+            <td>Wednesday</td>
+            <td>9:00 AM</td>
+            <td><strong>Email sends to full list</strong></td>
+            <td>Constant Contact (scheduled)</td>
+          </tr>
+          <tr>
+            <td>Wednesday</td>
+            <td>9:30 AM</td>
+            <td>Post-deployment verification (check live URLs)</td>
+            <td>Any team member</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <hr class="section-divider">
+
+      <!-- ============================================ -->
+      <!-- STEP 1: MLS DATA COLLECTION -->
+      <!-- ============================================ -->
+      <div class="step-header" id="mls-data">
+        <div class="step-number">1</div>
+        <h2>STEP 1: MLS Data Collection (Currently Manual)</h2>
+      </div>
+
+      <div class="step-meta">
+        <div class="step-meta-item"><strong>Who:</strong> Nicole Hudson</div>
+        <div class="step-meta-item"><strong>Time required:</strong> 30-45 minutes (current) &rarr; 5 minutes (target, with automation)</div>
+        <div class="step-meta-item"><strong>Tool:</strong> FlexMLS (fl.flexmls.com)</div>
+      </div>
+
+      <h3>What Nicole Needs to Collect</h3>
+
+      <p>Nicole must produce two deliverables:</p>
+
+      <p><strong>Deliverable A: Community Stats Table</strong><br>
+      A table with all 21 communities showing Active listings, Sold YTD, and Absorption Rate.</p>
+
+      <p><strong>Deliverable B: St. Andrews Featured Listings</strong><br>
+      The top 3 St. Andrews Country Club listings with full property details.</p>
+
+      <hr class="section-divider">
+
+      <h3 id="deliverable-a">Deliverable A: Community Stats Table</h3>
+
+      <h4>What You're Looking For (Per Community)</h4>
+
+      <table class="brand-table">
+        <thead>
+          <tr>
+            <th>Data Point</th>
+            <th>Definition</th>
+            <th>Where to Find in FlexMLS</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Active</td>
+            <td>Total number of currently active (for sale) listings in the community</td>
+            <td>Run a search filtered to the community name, Status = Active</td>
+          </tr>
+          <tr>
+            <td>Sold YTD</td>
+            <td>Number of properties sold (closed) since January 1 of the current year</td>
+            <td>Run a search filtered to the community name, Status = Closed, Close Date = Jan 1 [year] to today</td>
+          </tr>
+          <tr>
+            <td>Absorption Rate</td>
+            <td>How fast inventory is selling. Formula: (Sold in last 12 months / 12) / Active listings x 100</td>
+            <td>Calculate manually or use FlexMLS market stats if available</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h4>Step-by-Step: Pulling Community Stats from FlexMLS</h4>
+
+      <p><strong>For EACH of the 21 communities, do the following:</strong></p>
+
+      <h5>Getting Active Listings Count</h5>
+
+      <ol>
+        <li>Log into FlexMLS at <strong>fl.flexmls.com</strong></li>
+        <li>Go to <strong>Search</strong> &rarr; <strong>Residential</strong></li>
+        <li>Set these filters:
+          <ul>
+            <li><strong>Status:</strong> Active</li>
+            <li><strong>City:</strong> Boca Raton (for most communities) or Delray Beach (for some)</li>
+            <li><strong>Subdivision/Community:</strong> [Enter the community name exactly]</li>
+            <li><strong>Property Type:</strong> Residential (include single family + condos/townhomes if the community has both)</li>
+          </ul>
+        </li>
+        <li>Run the search</li>
+        <li>Note the <strong>total count</strong> shown at the top of results &mdash; this is the <strong>Active</strong> number</li>
+        <li>Record it</li>
+      </ol>
+
+      <div class="info-box">
+        <div class="info-label">FlexMLS Name Variations</div>
+        <p>FlexMLS may use different names than we do. Common variations:</p>
+        <ul style="margin: 10px 0 0 20px; list-style: disc;">
+          <li>"St Andrews CC" or "St. Andrews Country Club"</li>
+          <li>"Polo Club of Boca Raton" or "Polo Club"</li>
+          <li>"Boca West CC" or "Boca West Country Club"</li>
+        </ul>
+      </div>
+
+      <h5>Getting Sold YTD Count</h5>
+
+      <ol>
+        <li>In the same search, change the filters:
+          <ul>
+            <li><strong>Status:</strong> Closed</li>
+            <li><strong>Close Date:</strong> January 1, [current year] to [today's date]</li>
+            <li>Keep the same Subdivision/Community filter</li>
+          </ul>
+        </li>
+        <li>Run the search</li>
+        <li>Note the <strong>total count</strong> &mdash; this is the <strong>Sold YTD</strong> number</li>
+        <li>Record it</li>
+      </ol>
+
+      <h5>Calculating Absorption Rate</h5>
+
+      <p>Formula:</p>
+
+      <div class="code-block">Monthly Absorption = Sold in Last 12 Months / 12
+Absorption Rate = Monthly Absorption / Active Listings x 100
+
+Example:
+- 24 sold in last 12 months &rarr; 24 / 12 = 2 per month
+- 10 active listings
+- Absorption Rate = 2 / 10 x 100 = 20%</div>
+
+      <p>If the community has 0 active listings or 0 sold, enter <strong>N/A</strong>.</p>
+
+      <h5>Shortcut: Saved Searches</h5>
+
+      <div class="tip-box">
+        <div class="tip-label">Recommended</div>
+        <p>Set up saved searches in FlexMLS for each community. This saves time every week.</p>
+      </div>
+
+      <ol>
+        <li>Create the search with the filters above</li>
+        <li>Save it as: <code>Weekly Email - [Community Name] - Active</code></li>
+        <li>Create a second saved search: <code>Weekly Email - [Community Name] - Sold YTD</code></li>
+        <li>Each week, just run all 42 saved searches (21 x 2) and record the counts</li>
+      </ol>
+
+      <div class="info-box">
+        <div class="info-label">Even Better Shortcut</div>
+        <p>If FlexMLS allows you to export a statistical report by subdivision, use that instead of running individual searches. Check <strong>Reports</strong> &rarr; <strong>Statistical</strong> &rarr; <strong>By Subdivision</strong> in FlexMLS.</p>
+      </div>
+
+      <h4>Output Format</h4>
+
+      <p>When done, Nicole's deliverable should look exactly like this:</p>
+
+      <div class="code-block">Community Name          | Active | Sold YTD | Absorption Rate
+St. Andrews Country Club |   8    |    1     | 12%
+Boca West Country Club   |  45    |   11     | 24%
+Royal Palm Yacht Club    |  36    |    2     | 6%
+Broken Sound             |  30    |    8     | 27%
+Addison Reserve          |  17    |    3     | 18%
+Lotus                    |  16    |    5     | 31%
+Boca Grove               |  13    |    1     | 8%
+Boca Bridges             |  12    |    0     | N/A
+Woodfield                |  12    |    7     | 58%
+Polo Club                |  11    |    7     | 64%
+The Oaks                 |  10    |    7     | 70%
+Seven Bridges            |  10    |    1     | 10%
+The Sanctuary            |  10    |    0     | N/A
+Mizner Country Club      |  10    |    2     | 20%
+Stonebridge              |  10    |    0     | N/A
+The Bridges              |   9    |    1     | 11%
+Bocaire Country Club     |   9    |    4     | 44%
+Seasons                  |   8    |    0     | N/A
+Long Lake Estates        |   5    |    0     | N/A
+Delaire Country Club     |   4    |    0     | N/A
+Le Lac                   |   0    |    0     | N/A</div>
+
+      <p><strong>Nicole must also provide the summary totals:</strong></p>
+      <ul>
+        <li><strong>Total Active (all 21 communities):</strong> [Sum of all Active columns]</li>
+        <li><strong>Total Sold YTD:</strong> [Sum of all Sold YTD columns]</li>
+      </ul>
+
+      <hr class="section-divider">
+
+      <h3 id="deliverable-b">Deliverable B: St. Andrews Featured Listings</h3>
+
+      <h4>What to Pull</h4>
+
+      <p>Select the <strong>top 3 most notable</strong> St. Andrews Country Club active listings. "Notable" means:</p>
+      <ul>
+        <li>Highest price (showcase the top of market)</li>
+        <li>New construction</li>
+        <li>Recently listed (freshest inventory)</li>
+        <li>Price reduced (shows market activity)</li>
+      </ul>
+
+      <h4>For Each Listing, Collect</h4>
+
+      <table class="brand-table">
+        <thead>
+          <tr>
+            <th>Field</th>
+            <th>Where to Find</th>
+            <th>Example</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Address</td>
+            <td>Listing detail in FlexMLS</td>
+            <td>17119 Whitehaven Drive</td>
+          </tr>
+          <tr>
+            <td>Price</td>
+            <td>Listing detail</td>
+            <td>$16,160,000</td>
+          </tr>
+          <tr>
+            <td>Bedrooms</td>
+            <td>Listing detail</td>
+            <td>6</td>
+          </tr>
+          <tr>
+            <td>Bathrooms</td>
+            <td>Listing detail (use total, e.g., 7.2 = 7 full + 2 half)</td>
+            <td>7.2</td>
+          </tr>
+          <tr>
+            <td>Living SqFt</td>
+            <td>Listing detail &mdash; use "Living Area" not "Total Area"</td>
+            <td>10,229</td>
+          </tr>
+          <tr>
+            <td>Year Built</td>
+            <td>Listing detail</td>
+            <td>2026</td>
+          </tr>
+          <tr>
+            <td>Lot SqFt</td>
+            <td>Listing detail &mdash; "Lot Size Sq Ft"</td>
+            <td>23,958</td>
+          </tr>
+          <tr>
+            <td>MLS Number</td>
+            <td>Top of listing detail (starts with RX-)</td>
+            <td>RX-11150516</td>
+          </tr>
+          <tr>
+            <td>Days on Market</td>
+            <td>Listing detail or calculate from list date</td>
+            <td>7</td>
+          </tr>
+          <tr>
+            <td>Feature Badge</td>
+            <td>Your judgment based on the listing</td>
+            <td>New Construction 2026</td>
+          </tr>
+          <tr>
+            <td>Link</td>
+            <td>Find this on bogenhomes.com (see below)</td>
+            <td>https://bogenhomes.com/homes-for-sale-details/...</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h4>Finding the bogenhomes.com Link</h4>
+
+      <ol>
+        <li>Go to <strong>bogenhomes.com</strong></li>
+        <li>Search for the property address or MLS number</li>
+        <li>Click into the listing</li>
+        <li>Copy the URL from your browser's address bar</li>
+        <li>It should look like: <code>https://bogenhomes.com/homes-for-sale-details/[ADDRESS-SLUG]/[MLS-NUMBER]/[ID]/</code></li>
+      </ol>
+
+      <div class="warning-box">
+        <div class="warning-label">Important</div>
+        <p><strong>Why bogenhomes.com and not FlexMLS?</strong> FlexMLS links require login. bogenhomes.com links are public and work for email recipients.</p>
+      </div>
+
+      <h4>St. Andrews Price Range</h4>
+
+      <p>Also note the overall price range for the <strong>St. Andrews Executive Summary stat</strong>:</p>
+      <ul>
+        <li><strong>Low:</strong> The lowest-priced active St. Andrews listing</li>
+        <li><strong>High:</strong> The highest-priced active St. Andrews listing</li>
+        <li>Format: <code>$1.9M&ndash;$16.16M</code></li>
+      </ul>
+
+      <hr class="section-divider">
+
+      <!-- ============================================ -->
+      <!-- STEP 2: WRITING THE ARTICLE -->
+      <!-- ============================================ -->
+      <div class="step-header" id="article">
+        <div class="step-number">2</div>
+        <h2>STEP 2: Writing the Featured Article</h2>
+      </div>
+
+      <div class="step-meta">
+        <div class="step-meta-item"><strong>Who:</strong> Edmund Bogen (or assigned author)</div>
+        <div class="step-meta-item"><strong>Time required:</strong> 30-60 minutes</div>
+      </div>
+
+      <div class="info-box">
+        <div class="info-label">Note</div>
+        <p>This step stays manual &mdash; it's the creative/strategic work that can't be automated.</p>
+      </div>
+
+      <h3>Article Requirements</h3>
+
+      <table class="brand-table">
+        <thead>
+          <tr>
+            <th>Element</th>
+            <th>Requirement</th>
+            <th>Example</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Title</td>
+            <td>Compelling, specific, relevant to luxury South Florida market</td>
+            <td>"The Hidden Cost of Selling Your Home Off-Market: What St. Andrews Country Club Sellers Need to Know"</td>
+          </tr>
+          <tr>
+            <td>Author</td>
+            <td>Must be a team member: Edmund Bogen, Samantha Gornstein, Dina Ulrich, or Nicole Hudson</td>
+            <td>Edmund Bogen</td>
+          </tr>
+          <tr>
+            <td>Date</td>
+            <td>Publication date in format: Month DD, YYYY. Must match the market data date.</td>
+            <td>February 4, 2026</td>
+          </tr>
+          <tr>
+            <td>Summary</td>
+            <td>2-3 sentences for the email preview</td>
+            <td>"Research suggests off-market sales can cost sellers significantly..."</td>
+          </tr>
+          <tr>
+            <td>Full Content</td>
+            <td>Long-form article, typically 800-1500 words</td>
+            <td>Multiple sections with H2 headings</td>
+          </tr>
+          <tr>
+            <td>Article Slug</td>
+            <td>URL-friendly version of the title</td>
+            <td>hidden-cost-off-market</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h3>Topic Selection Guidelines</h3>
+
+      <p>Good topics for the weekly article:</p>
+      <ul>
+        <li>Market trends affecting our 21 communities (interest rates, inventory shifts, price movements)</li>
+        <li>Luxury buyer/seller behavior insights</li>
+        <li>Regulatory changes impacting Florida real estate</li>
+        <li>Community-specific deep dives (St. Andrews new construction, Boca West activity)</li>
+        <li>Seasonal market analysis (snowbird season, summer slowdown)</li>
+        <li>Data-driven analysis using the community stats we already track</li>
+      </ul>
+
+      <h3>Writing Standards</h3>
+
+      <ul>
+        <li><strong>Tone:</strong> Professional, data-driven, authoritative &mdash; not salesy</li>
+        <li><strong>Voice:</strong> Institutional market intelligence (think Goldman Sachs research note meets luxury real estate)</li>
+        <li><strong>Structure:</strong> Use H2 headings to break up sections. No bullet points in body text unless specifically needed.</li>
+        <li><strong>Data citations:</strong> If citing specific statistics, note the source. The Fact-Check agent will flag unverified claims.</li>
+        <li><strong>Legal awareness:</strong> Avoid guaranteed outcomes ("prices WILL rise"), discriminatory language, or solicitation of other brokers' clients. The Compliance agent checks for these, but it's better to avoid them in writing.</li>
+      </ul>
+
+      <h3>Delivering the Article</h3>
+
+      <p>Write the article in any format (Google Doc, Word, Notes, plain text) and have it ready to paste into the workflow template. The article goes into the <code>[PASTE FULL ARTICLE HERE]</code> section of the template.</p>
+
+      <hr class="section-divider">
+
+      <!-- ============================================ -->
+      <!-- STEP 3: GATHERING FEATURED LISTINGS -->
+      <!-- ============================================ -->
+      <div class="step-header" id="featured-listings">
+        <div class="step-number">3</div>
+        <h2>STEP 3: Gathering Featured Listings (Currently Manual)</h2>
+      </div>
+
+      <div class="step-meta">
+        <div class="step-meta-item"><strong>Who:</strong> Nicole Hudson (or whoever pulls MLS data)</div>
+        <div class="step-meta-item"><strong>Time required:</strong> 15-20 minutes</div>
+        <div class="step-meta-item"><strong>Tool:</strong> FlexMLS + bogenhomes.com</div>
+      </div>
+
+      <h3>What's Needed</h3>
+
+      <p>For the <strong>St. Andrews Country Club</strong> section of the email, we feature the top 3 listings. For any additional community listings pages we're generating that week, we need ALL active listings for those communities.</p>
+
+      <h3>For St. Andrews Featured Listings (Top 3)</h3>
+
+      <p>See <a href="#deliverable-b" style="color: #00a8e1;">Deliverable B in Step 1</a> &mdash; this is collected at the same time as the community stats.</p>
+
+      <h3>For Additional Community Listings Pages</h3>
+
+      <p>If we're generating full listings pages for communities beyond St. Andrews (e.g., Polo Club, Seven Bridges), we need <strong>every active listing</strong> in that community.</p>
+
+      <p>For each listing, collect:</p>
+      <ul>
+        <li>Address</li>
+        <li>Price</li>
+        <li>Bedrooms, Bathrooms, Living SqFt, Year Built, Lot SqFt</li>
+        <li>MLS Number</li>
+        <li>Days on Market</li>
+        <li>Feature Badge (if applicable)</li>
+        <li>bogenhomes.com link</li>
+      </ul>
+
+      <div class="tip-box">
+        <div class="tip-label">Tip</div>
+        <p>In FlexMLS, run the active search for the community, then use the <strong>Export</strong> or <strong>Print</strong> function to get all listings in a structured format. Copy/paste from the export into the template.</p>
+      </div>
+
+      <hr class="section-divider">
+
+      <!-- ============================================ -->
+      <!-- STEP 4: HERO IMAGE -->
+      <!-- ============================================ -->
+      <div class="step-header" id="hero-image">
+        <div class="step-number">4</div>
+        <h2>STEP 4: Preparing the Hero Image</h2>
+      </div>
+
+      <div class="step-meta">
+        <div class="step-meta-item"><strong>Who:</strong> Edmund Bogen</div>
+        <div class="step-meta-item"><strong>Time required:</strong> 5-10 minutes</div>
+      </div>
+
+      <h3>Requirements</h3>
+
+      <table class="brand-table">
+        <thead>
+          <tr>
+            <th>Spec</th>
+            <th>Value</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Format</td>
+            <td>.png or .jpg</td>
+          </tr>
+          <tr>
+            <td>Minimum width</td>
+            <td>1200px (1920px preferred for article page)</td>
+          </tr>
+          <tr>
+            <td>Aspect ratio</td>
+            <td>Landscape (approximately 16:9)</td>
+          </tr>
+          <tr>
+            <td>Content</td>
+            <td>Related to the article topic &mdash; can be community photo, market graphic, headshot, editorial image</td>
+          </tr>
+          <tr>
+            <td>File naming</td>
+            <td>Descriptive, lowercase, hyphens: <code>edmund-hero.png</code>, <code>off-market-cost-hero.jpg</code></td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h3>Where to Upload</h3>
+
+      <p>The hero image must be live on GitHub Pages <strong>before</strong> the email sends, because the email references it by URL.</p>
+
+      <p><strong>Upload location:</strong> <code>edmundbogen.github.io/luxury-community-dashboard/[filename]</code></p>
+
+      <h4>How to upload (manual):</h4>
+      <ol>
+        <li>Copy the image to <code>/Users/edmundbogen/Documents/GitHub/edmundbogen.github.io/luxury-community-dashboard/</code></li>
+        <li>Git add, commit, and push</li>
+        <li>Verify it's accessible at: <code>https://edmundbogen.github.io/luxury-community-dashboard/[filename]</code></li>
+      </ol>
+
+      <h4>How to upload (via agent team):</h4>
+      <p>The GitHub Manager agent handles this during deployment. Just include the image file in the drafts directory.</p>
+
+      <hr class="section-divider">
+
+      <!-- ============================================ -->
+      <!-- STEP 5: FILLING THE TEMPLATE -->
+      <!-- ============================================ -->
+      <div class="step-header" id="template">
+        <div class="step-number">5</div>
+        <h2>STEP 5: Filling Out the Workflow Template</h2>
+      </div>
+
+      <div class="step-meta">
+        <div class="step-meta-item"><strong>Who:</strong> Any team member (once all data is collected)</div>
+        <div class="step-meta-item"><strong>Time required:</strong> 10-15 minutes</div>
+        <div class="step-meta-item"><strong>File:</strong> team-workflow-template.md (in the weekly-email-team-instructions skill)</div>
+      </div>
+
+      <h3>The Template Sections</h3>
+
+      <p>The template has 6 sections. Each must be complete before running the AI pipeline.</p>
+
+      <h4>Section 1: Article Details</h4>
+      <p>Fill in:</p>
+      <ul>
+        <li><strong>Article Title</strong> &mdash; exact title, this appears everywhere</li>
+        <li><strong>Author</strong> &mdash; check one name</li>
+        <li><strong>Publication Date</strong> &mdash; must match market data date</li>
+        <li><strong>Hero Image Filename</strong> &mdash; exact filename including extension</li>
+        <li><strong>Article Slug</strong> &mdash; URL-friendly version (lowercase, hyphens, no spaces)</li>
+        <li><strong>Email Summary</strong> &mdash; 2-3 sentences for the email preview</li>
+        <li><strong>Full Article Content</strong> &mdash; paste the entire article with headings</li>
+      </ul>
+
+      <h4>Section 2: Market Data</h4>
+      <p>Fill in:</p>
+      <ul>
+        <li><strong>Market Data As Of</strong> &mdash; must match the Article Date</li>
+        <li><strong>St. Andrews Price Range</strong> &mdash; low and high</li>
+        <li><strong>St. Andrews Active Listings</strong> &mdash; number</li>
+        <li><strong>Total Active (all 21 communities)</strong> &mdash; sum</li>
+        <li><strong>Total Sold YTD</strong> &mdash; sum</li>
+        <li><strong>2026 Status Label</strong> &mdash; a short descriptor (e.g., "Q1 Strong", "Spring Surge")</li>
+      </ul>
+
+      <h4>Section 3: All 21 Community Stats</h4>
+      <p>Paste Nicole's community stats table here. Must include all 21 communities with Active, Sold YTD, and Absorption Rate.</p>
+
+      <div class="warning-box">
+        <div class="warning-label">Critical Check</div>
+        <p>Count the communities. If there are fewer than 21, stop and figure out which are missing. The AI will catch this too, but it saves time to verify upfront.</p>
+      </div>
+
+      <h4>Section 4: Featured St. Andrews Listings</h4>
+      <p>Fill in all fields for each of the top 3 listings:</p>
+      <ul>
+        <li>Address, Price, Beds, Baths, SqFt, Year Built, Lot SqFt</li>
+        <li>MLS Number</li>
+        <li>Days on Market</li>
+        <li>Feature Badge (or None)</li>
+        <li>bogenhomes.com link</li>
+      </ul>
+
+      <h4>Section 5: Community Listings Pages to Generate</h4>
+      <p>Check which communities need full listings pages this week. St. Andrews is always checked. Others are added when:</p>
+      <ul>
+        <li>A community has unusual activity (many new listings, price changes)</li>
+        <li>A team member has a listing in that community</li>
+        <li>Edmund wants to feature a specific community</li>
+      </ul>
+
+      <h4>Section 6: Full Listing Data for Checked Communities</h4>
+      <p>For every community checked in Section 5, paste ALL active listings data. See format in the template.</p>
+
+      <h3>Pre-Submission Checklist</h3>
+
+      <p>Before pasting into Claude, verify:</p>
+
+      <ul class="checklist">
+        <li>All dates match (Article Date = Market Data Date)</li>
+        <li>Article title is finalized (no more edits after this point)</li>
+        <li>Hero image file exists and filename is correct</li>
+        <li>Author is selected</li>
+        <li>All 21 community stats are present (count them!)</li>
+        <li>Featured St. Andrews listings have all required fields</li>
+        <li>Property links are from bogenhomes.com (NOT FlexMLS direct links)</li>
+        <li>Full listing data provided for all checked communities</li>
+      </ul>
+
+      <hr class="section-divider">
+
+      <!-- ============================================ -->
+      <!-- STEP 6: RUNNING THE PIPELINE -->
+      <!-- ============================================ -->
+      <div class="step-header" id="pipeline">
+        <div class="step-number">6</div>
+        <h2>STEP 6: Running the Agent Team Pipeline</h2>
+      </div>
+
+      <div class="step-meta">
+        <div class="step-meta-item"><strong>Who:</strong> Any team member with Claude Code access</div>
+        <div class="step-meta-item"><strong>Time required:</strong> 5-10 minutes (mostly waiting + answering checkpoints)</div>
+      </div>
+
+      <h3>What Happens Behind the Scenes</h3>
+
+      <p>When you invoke the pipeline, a team of 6 AI agents coordinates automatically:</p>
+
+      <div class="workflow-diagram">
+        <div class="workflow-step">You paste the template</div>
+        <div class="workflow-arrow">&darr;</div>
+        <div class="workflow-step">Change Detector</div>
+        <span style="display:block; font-size: 12px; color: #666666; margin: 2px 0;">Finds last week's files, creates a safe working copy</span>
+        <div class="workflow-arrow">&darr;</div>
+        <div class="workflow-step">Content Writer</div>
+        <span style="display:block; font-size: 12px; color: #666666; margin: 2px 0;">Generates all HTML files in a drafts folder</span>
+        <div class="workflow-arrow">&darr;</div>
+        <div class="workflow-parallel">
+          <div>
+            <div class="workflow-step">Validator</div>
+            <span style="display:block; font-size: 12px; color: #666666; margin: 2px 0;">Checks brand, links, consistency, 21 communities</span>
+          </div>
+          <div>
+            <div class="workflow-step">Fact-Check &amp; Compliance</div>
+            <span style="display:block; font-size: 12px; color: #666666; margin: 2px 0;">Verifies data + legal compliance</span>
+          </div>
+        </div>
+        <div class="workflow-arrow">&darr;</div>
+        <div class="workflow-step">GitHub Manager</div>
+        <span style="display:block; font-size: 12px; color: #666666; margin: 2px 0;">Deploys everything in the correct order</span>
+      </div>
+
+      <h3>How to Run It</h3>
+
+      <h4>Option A: Using the team orchestrator</h4>
+      <div class="code-block">Open Claude Code and say:
+"Use the team-orchestrator agent to run the weekly email pipeline.
+Here's the filled template: [paste template]"</div>
+
+      <h4>Option B: Using the skill directly</h4>
+      <div class="code-block">Open Claude Code and say:
+"/weekly-email-team-instructions
+[paste filled template]"</div>
+
+      <p>Option A uses the full agent team (with change detection, cloning, fact-check, and managed deployment). Option B uses the skill directly with just the validator.</p>
+
+      <h3>What You'll Be Asked (Human Checkpoints)</h3>
+
+      <p>The pipeline will pause 3 times for your input:</p>
+
+      <h4>Checkpoint 1 &mdash; After Change Detection</h4>
+      <div class="pull-quote">
+        <p>"Here's what changed from last week: [change report]. Ready to generate?"</p>
+      </div>
+      <p>Review the changes. If something looks wrong (e.g., the wrong previous week was found), say so. Otherwise, confirm to proceed.</p>
+
+      <h4>Checkpoint 2 &mdash; After Validation &amp; Compliance</h4>
+      <div class="pull-quote">
+        <p>"All validations passed. These items were flagged for review: [list]. Proceed?"</p>
+      </div>
+      <p>Review any flagged items. Common flags:</p>
+      <ul>
+        <li>"Statistic on line 45 needs human verification" &mdash; check your source data</li>
+        <li>"This claim is framed as a guarantee" &mdash; consider softening the language</li>
+        <li>Compliance flags &mdash; review and approve or request changes</li>
+      </ul>
+
+      <h4>Checkpoint 3 &mdash; Before Deployment</h4>
+      <div class="pull-quote">
+        <p>"All checks passed. Ready to deploy to GitHub and copy email to output?"</p>
+      </div>
+      <p>This is the go/no-go decision. Once you confirm, files go live.</p>
+
+      <h3>What Gets Created</h3>
+
+      <table class="brand-table">
+        <thead>
+          <tr>
+            <th>File</th>
+            <th>Location</th>
+            <th>Purpose</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code>email.html</code></td>
+            <td><code>~/Desktop/weekly-email-output/email.html</code></td>
+            <td>Upload to Constant Contact</td>
+          </tr>
+          <tr>
+            <td><code>[article-slug].html</code></td>
+            <td>Deployed to GitHub Pages</td>
+            <td>Live article page</td>
+          </tr>
+          <tr>
+            <td><code>index.html</code></td>
+            <td>Deployed to GitHub Pages</td>
+            <td>Updated dashboard</td>
+          </tr>
+          <tr>
+            <td><code>st-andrews-listings.html</code></td>
+            <td>Deployed to GitHub Pages</td>
+            <td>Updated listings page</td>
+          </tr>
+          <tr>
+            <td>Additional listings pages</td>
+            <td>Deployed to GitHub Pages</td>
+            <td>If other communities were requested</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <p>Drafts are archived in: <code>~/Desktop/weekly-email-output/deployed/YYYY-MM-DD/</code></p>
+
+      <hr class="section-divider">
+
+      <!-- ============================================ -->
+      <!-- STEP 7: REVIEWING REPORTS -->
+      <!-- ============================================ -->
+      <div class="step-header" id="review">
+        <div class="step-number">7</div>
+        <h2>STEP 7: Reviewing Validation &amp; Compliance Reports</h2>
+      </div>
+
+      <div class="step-meta">
+        <div class="step-meta-item"><strong>Who:</strong> Edmund Bogen (final authority)</div>
+        <div class="step-meta-item"><strong>Time required:</strong> 5 minutes</div>
+      </div>
+
+      <h3>Validation Report</h3>
+
+      <p>You'll see a report like this:</p>
+
+      <div class="code-block">========================================
+VALIDATION COMPLETE
+========================================
+Author Consistency: PASS
+Cross-Asset Consistency: PASS
+Links: PASS (14 of 14 working)
+Property Hyperlinks: PASS
+Brand Compliance: PASS
+21 Communities: PASS
+
+OVERALL: READY TO DEPLOY
+========================================</div>
+
+      <p><strong>If anything says FAIL:</strong> The Content Writer agent will have already attempted to fix it. If it can't be fixed automatically, you'll be told what needs manual correction.</p>
+
+      <h3>Compliance Report</h3>
+
+      <div class="code-block">========================================
+LEGAL COMPLIANCE REPORT
+========================================
+Douglas Elliman Disclaimer: PRESENT in all files
+Fair Housing Compliance: PASS
+Florida Advertising Rules: PASS
+CAN-SPAM (email only): PASS
+Equal Housing: PASS
+
+FACT-CHECK FLAGS:
+- Line 23: "Off-market sales can cost sellers 5-15% less"
+  &rarr; Verify this statistic against NAR data
+
+OVERALL COMPLIANCE: COMPLIANT
+========================================</div>
+
+      <p><strong>What to do with fact-check flags:</strong></p>
+      <ul>
+        <li>Review each flagged claim</li>
+        <li>If you can verify it, approve to proceed</li>
+        <li>If you can't verify it, ask the Content Writer to soften the language (e.g., "some studies suggest" instead of a hard number)</li>
+      </ul>
+
+      <hr class="section-divider">
+
+      <!-- ============================================ -->
+      <!-- STEP 8: DEPLOYMENT -->
+      <!-- ============================================ -->
+      <div class="step-header" id="deployment">
+        <div class="step-number">8</div>
+        <h2>STEP 8: Deployment to GitHub &amp; Constant Contact</h2>
+      </div>
+
+      <div class="step-meta">
+        <div class="step-meta-item"><strong>Who:</strong> The GitHub Manager agent (automated) + manual Constant Contact upload</div>
+      </div>
+
+      <h3>What the Agent Handles Automatically</h3>
+
+      <ol>
+        <li>Pulls latest code from the GitHub repository</li>
+        <li>Copies hero image to the correct directory</li>
+        <li>Copies article page to the correct directory</li>
+        <li>Copies community listings pages to the correct directory</li>
+        <li>Updates the dashboard</li>
+        <li>Commits everything with a descriptive message</li>
+        <li>Pushes to GitHub (goes live on edmundbogen.github.io)</li>
+        <li>Copies email.html to the output directory</li>
+        <li>Archives the drafts</li>
+      </ol>
+
+      <h3>What You Do Manually</h3>
+
+      <h4>Upload email.html to Constant Contact:</h4>
+
+      <ol>
+        <li>Open Constant Contact</li>
+        <li>Create a new email campaign (or duplicate last week's)</li>
+        <li>Switch to the HTML editor / code view</li>
+        <li>Open <code>~/Desktop/weekly-email-output/email.html</code> in a text editor</li>
+        <li>Copy the entire HTML content</li>
+        <li>Paste it into Constant Contact's HTML editor</li>
+        <li>Send a test email to the team first</li>
+        <li>Schedule for Wednesday 9:00 AM (or send immediately if past that time)</li>
+      </ol>
+
+      <hr class="section-divider">
+
+      <!-- ============================================ -->
+      <!-- STEP 9: POST-DEPLOYMENT VERIFICATION -->
+      <!-- ============================================ -->
+      <div class="step-header" id="verification">
+        <div class="step-number">9</div>
+        <h2>STEP 9: Post-Deployment Verification</h2>
+      </div>
+
+      <div class="step-meta">
+        <div class="step-meta-item"><strong>Who:</strong> Any team member</div>
+        <div class="step-meta-item"><strong>Time required:</strong> 5 minutes</div>
+      </div>
+
+      <p>After deployment, verify these URLs are live and correct:</p>
+
+      <table class="brand-table">
+        <thead>
+          <tr>
+            <th>URL</th>
+            <th>What to Check</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code>edmundbogen.github.io/luxury-community-dashboard/</code></td>
+            <td>Dashboard loads, shows this week's date, correct stats</td>
+          </tr>
+          <tr>
+            <td><code>edmundbogen.github.io/luxury-community-dashboard/[article-slug].html</code></td>
+            <td>Article loads, correct title/author/date, images display</td>
+          </tr>
+          <tr>
+            <td><code>edmundbogen.github.io/luxury-community-dashboard/st-andrews-listings.html</code></td>
+            <td>Listings load, correct property count, links work</td>
+          </tr>
+          <tr>
+            <td><code>edmundbogen.github.io/luxury-community-dashboard/[hero-image]</code></td>
+            <td>Image loads (not broken)</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="info-box">
+        <div class="info-label">Note</div>
+        <p>GitHub Pages can take 1-5 minutes to deploy after a push. If you see a 404, wait a few minutes and refresh.</p>
+      </div>
+
+      <h3>Also Check the Test Email</h3>
+
+      <ul class="checklist">
+        <li>Hero image displays (not broken)</li>
+        <li>"Read Full Article" button links to the correct article page</li>
+        <li>"View All Listings" button links to the correct listings page</li>
+        <li>"View Interactive Dashboard" links to the dashboard</li>
+        <li>Community stats table shows all 21 communities</li>
+        <li>Author bio shows the correct author</li>
+        <li>Footer has the Douglas Elliman disclaimer</li>
+        <li>Unsubscribe link works</li>
+      </ul>
+
+      <hr class="section-divider">
+
+      <!-- ============================================ -->
+      <!-- WHERE EVERYTHING LIVES -->
+      <!-- ============================================ -->
+      <h2 id="files">13. Where Everything Lives</h2>
+
+      <h3>Local File Locations (Edmund's Machine)</h3>
+
+      <table class="brand-table">
+        <thead>
+          <tr>
+            <th>Location</th>
+            <th>What's There</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code>~/Desktop/weekly-email-output/</code></td>
+            <td>Production email output (email.html for Constant Contact upload)</td>
+          </tr>
+          <tr>
+            <td><code>~/Desktop/weekly-email-output/drafts/YYYY-MM-DD/</code></td>
+            <td>Working drafts for current week (safe to experiment)</td>
+          </tr>
+          <tr>
+            <td><code>~/Desktop/weekly-email-output/deployed/YYYY-MM-DD/</code></td>
+            <td>Archived copies of deployed weeks</td>
+          </tr>
+          <tr>
+            <td><code>~/Documents/GitHub/edmundbogen.github.io/</code></td>
+            <td>Local clone of the GitHub Pages repo</td>
+          </tr>
+          <tr>
+            <td><code>~/Documents/GitHub/edmundbogen.github.io/luxury-community-dashboard/</code></td>
+            <td>Where all web assets live</td>
+          </tr>
+          <tr>
+            <td><code>~/.claude/skills/weekly-email-team-instructions/</code></td>
+            <td>The AI skill that drives generation</td>
+          </tr>
+          <tr>
+            <td><code>~/.claude/agents/</code></td>
+            <td>The 7 AI agents that form the team</td>
+          </tr>
+          <tr>
+            <td><code>~/.claude/settings.json</code></td>
+            <td>Claude Code settings (agent teams enabled)</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h3>GitHub Repositories</h3>
+
+      <table class="brand-table">
+        <thead>
+          <tr>
+            <th>Repo</th>
+            <th>URL</th>
+            <th>Purpose</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code>edmundbogen.github.io</code></td>
+            <td>github.com/edmundbogen/edmundbogen.github.io</td>
+            <td>Deployment target &mdash; GitHub Pages serves all web content</td>
+          </tr>
+          <tr>
+            <td><code>weekly-email-team-instructions</code></td>
+            <td>github.com/edmundbogen/weekly-email-team-instructions</td>
+            <td>The skill definition repo (instructions, not output)</td>
+          </tr>
+          <tr>
+            <td><code>samantha-gornstein-weekly-email</code></td>
+            <td>github.com/edmundbogen/samantha-gornstein-weekly-email</td>
+            <td>Samantha's version of the email package</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h3>Live URLs</h3>
+
+      <table class="brand-table">
+        <thead>
+          <tr>
+            <th>URL</th>
+            <th>What It Is</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code>edmundbogen.github.io/luxury-community-dashboard/</code></td>
+            <td>Main market dashboard</td>
+          </tr>
+          <tr>
+            <td><code>edmundbogen.github.io/luxury-community-dashboard/st-andrews-listings.html</code></td>
+            <td>St. Andrews listings</td>
+          </tr>
+          <tr>
+            <td><code>edmundbogen.github.io/luxury-community-dashboard/index.html</code></td>
+            <td>Dashboard (same as above)</td>
+          </tr>
+          <tr>
+            <td><code>edmundbogen.github.io/luxury-community-dashboard/[article-slug].html</code></td>
+            <td>Weekly articles</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <hr class="section-divider">
+
+      <!-- ============================================ -->
+      <!-- 21 COMMUNITIES REFERENCE -->
+      <!-- ============================================ -->
+      <h2 id="communities">14. The 21 Communities Reference</h2>
+
+      <p>These are the 21 luxury communities we track every week. <strong>All 21 must appear in every email and dashboard.</strong></p>
+
+      <table class="brand-table">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Community Name</th>
+            <th>Typical Search Terms in FlexMLS</th>
+            <th>Notes</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>1</td>
+            <td>Addison Reserve</td>
+            <td>Addison Reserve</td>
+            <td>Delray Beach</td>
+          </tr>
+          <tr>
+            <td>2</td>
+            <td>Boca Bridges</td>
+            <td>Boca Bridges</td>
+            <td>Newer community</td>
+          </tr>
+          <tr>
+            <td>3</td>
+            <td>Boca Grove</td>
+            <td>Boca Grove</td>
+            <td>Boca Raton</td>
+          </tr>
+          <tr>
+            <td>4</td>
+            <td>Boca West Country Club</td>
+            <td>Boca West CC, Boca West Country Club</td>
+            <td>Largest community &mdash; usually highest active count</td>
+          </tr>
+          <tr>
+            <td>5</td>
+            <td>Bocaire Country Club</td>
+            <td>Bocaire CC, Bocaire Country Club</td>
+            <td>Boca Raton</td>
+          </tr>
+          <tr>
+            <td>6</td>
+            <td>Broken Sound</td>
+            <td>Broken Sound</td>
+            <td>Boca Raton, often high activity</td>
+          </tr>
+          <tr>
+            <td>7</td>
+            <td>Delaire Country Club</td>
+            <td>Delaire CC, Delaire Country Club</td>
+            <td>Smaller community</td>
+          </tr>
+          <tr>
+            <td>8</td>
+            <td>Le Lac</td>
+            <td>Le Lac</td>
+            <td>Very exclusive, often 0 active</td>
+          </tr>
+          <tr>
+            <td>9</td>
+            <td>Long Lake Estates</td>
+            <td>Long Lake Estates</td>
+            <td>Boca Raton</td>
+          </tr>
+          <tr>
+            <td>10</td>
+            <td>Lotus</td>
+            <td>Lotus</td>
+            <td>Boca Raton</td>
+          </tr>
+          <tr>
+            <td>11</td>
+            <td>Mizner Country Club</td>
+            <td>Mizner CC, Mizner Country Club</td>
+            <td>Delray Beach</td>
+          </tr>
+          <tr>
+            <td>12</td>
+            <td>Polo Club</td>
+            <td>Polo Club, Polo Club of Boca Raton</td>
+            <td>Samantha's specialty</td>
+          </tr>
+          <tr>
+            <td>13</td>
+            <td>Royal Palm Yacht Club</td>
+            <td>Royal Palm Yacht &amp; CC, Royal Palm Yacht Club</td>
+            <td>Boca Raton, waterfront</td>
+          </tr>
+          <tr>
+            <td>14</td>
+            <td>Seasons</td>
+            <td>Seasons</td>
+            <td>Boca Raton</td>
+          </tr>
+          <tr>
+            <td>15</td>
+            <td>Seven Bridges</td>
+            <td>Seven Bridges</td>
+            <td>Dina's specialty</td>
+          </tr>
+          <tr>
+            <td>16</td>
+            <td>St. Andrews Country Club</td>
+            <td>St Andrews CC, St. Andrews Country Club</td>
+            <td>Edmund's primary farm &mdash; always gets featured listings</td>
+          </tr>
+          <tr>
+            <td>17</td>
+            <td>Stonebridge</td>
+            <td>Stonebridge</td>
+            <td>Samantha's specialty</td>
+          </tr>
+          <tr>
+            <td>18</td>
+            <td>The Bridges</td>
+            <td>The Bridges</td>
+            <td>Delray Beach</td>
+          </tr>
+          <tr>
+            <td>19</td>
+            <td>The Oaks</td>
+            <td>The Oaks</td>
+            <td>Boca Raton</td>
+          </tr>
+          <tr>
+            <td>20</td>
+            <td>The Sanctuary</td>
+            <td>The Sanctuary</td>
+            <td>Boca Raton</td>
+          </tr>
+          <tr>
+            <td>21</td>
+            <td>Woodfield</td>
+            <td>Woodfield, Woodfield Country Club</td>
+            <td>Boca Raton</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h3>Spelling Matters</h3>
+
+      <div class="warning-box">
+        <div class="warning-label">Spelling Warnings</div>
+        <p>The AI validator checks exact spelling. Use the names exactly as shown in the table above. Common mistakes:</p>
+        <ul style="margin: 10px 0 0 20px; list-style: disc;">
+          <li style="color: #e8e8e8;">"Bocaire" not "Boccaire"</li>
+          <li style="color: #e8e8e8;">"Delaire" not "DeLaire" or "De Laire"</li>
+          <li style="color: #e8e8e8;">"Le Lac" not "LeLac" or "Le lac"</li>
+          <li style="color: #e8e8e8;">"St. Andrews" not "St Andrews" (note the period) &mdash; actually either is acceptable, just be consistent</li>
+        </ul>
+      </div>
+
+      <hr class="section-divider">
+
+      <!-- ============================================ -->
+      <!-- TROUBLESHOOTING -->
+      <!-- ============================================ -->
+      <h2 id="troubleshooting">15. Troubleshooting &amp; Common Issues</h2>
+
+      <h3>"I only have 19 communities, not 21"</h3>
+      <p>Check against the full list of 21. The most commonly forgotten are:</p>
+      <ul>
+        <li>Le Lac (often has 0/0/N/A &mdash; still must be included)</li>
+        <li>Long Lake Estates</li>
+        <li>Seasons</li>
+      </ul>
+
+      <h3>"The hero image shows as broken in the email"</h3>
+      <p>The image must be uploaded to GitHub Pages BEFORE the email sends. Verify:</p>
+      <ol>
+        <li>The image exists at <code>edmundbogen.github.io/luxury-community-dashboard/[filename]</code></li>
+        <li>The filename in the email HTML matches exactly (case-sensitive)</li>
+        <li>GitHub Pages has finished deploying (wait 1-5 minutes after push)</li>
+      </ol>
+
+      <h3>"The validator says links are broken"</h3>
+      <ul>
+        <li>If the article page hasn't been deployed yet, its link will 404 &mdash; this is expected if you're running validation before deployment</li>
+        <li>bogenhomes.com links may fail if the property was just listed and the IDX hasn't synced yet &mdash; wait and recheck</li>
+        <li>If a link is genuinely wrong, check the MLS number and address slug</li>
+      </ul>
+
+      <h3>"FlexMLS shows different numbers than last week but I didn't expect changes"</h3>
+      <p>This is normal. Listings go active, go under contract, close, or expire daily. The data is a snapshot of today, not a diff from last week. The Change Detector agent will show you exactly what changed.</p>
+
+      <h3>"The article author changed but the bio still shows Edmund"</h3>
+      <p>The Content Writer agent should handle this automatically if the Author field is set correctly in the template. If it doesn't, check that the Author checkbox in the template matches the intended author.</p>
+
+      <h3>"I need to regenerate just one file, not all of them"</h3>
+      <p>You can ask Claude directly: "Regenerate only the st-andrews-listings.html using the same data from this week." The agent team doesn't need to rerun the full pipeline for single-file fixes.</p>
+
+      <hr class="section-divider">
+
+      <!-- ============================================ -->
+      <!-- AUTOMATION ROADMAP -->
+      <!-- ============================================ -->
+      <h2 id="roadmap">16. Automation Roadmap</h2>
+
+      <h3>Current State (February 2026)</h3>
+
+      <table class="brand-table">
+        <thead>
+          <tr>
+            <th>Step</th>
+            <th>Automation Level</th>
+            <th>What's Manual</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>MLS data collection</td>
+            <td><strong>Fully manual</strong></td>
+            <td>Nicole logs into FlexMLS, runs searches for each community, records counts</td>
+          </tr>
+          <tr>
+            <td>Featured listings gathering</td>
+            <td><strong>Fully manual</strong></td>
+            <td>Nicole pulls property details and finds bogenhomes.com links</td>
+          </tr>
+          <tr>
+            <td>Article writing</td>
+            <td><strong>Manual (intentional)</strong></td>
+            <td>This is creative/strategic work &mdash; should stay human</td>
+          </tr>
+          <tr>
+            <td>Hero image</td>
+            <td><strong>Manual</strong></td>
+            <td>Selection and basic editing</td>
+          </tr>
+          <tr>
+            <td>Template fill-out</td>
+            <td><strong>Manual</strong></td>
+            <td>Pasting data into the template</td>
+          </tr>
+          <tr>
+            <td>HTML generation</td>
+            <td><strong>Fully automated</strong></td>
+            <td>&mdash;</td>
+          </tr>
+          <tr>
+            <td>Validation</td>
+            <td><strong>Fully automated</strong></td>
+            <td>&mdash;</td>
+          </tr>
+          <tr>
+            <td>Legal compliance</td>
+            <td><strong>Fully automated</strong></td>
+            <td>&mdash;</td>
+          </tr>
+          <tr>
+            <td>GitHub deployment</td>
+            <td><strong>Fully automated</strong></td>
+            <td>&mdash;</td>
+          </tr>
+          <tr>
+            <td>Constant Contact upload</td>
+            <td><strong>Manual</strong></td>
+            <td>Copy/paste HTML into Constant Contact</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h3>Phase 1: CSV Processor (Next to Build)</h3>
+
+      <p><strong>What it does:</strong> A Python script that reads FlexMLS CSV exports and produces the formatted community stats table and featured listings data, ready to paste into the template.</p>
+
+      <p><strong>Nicole's new workflow:</strong></p>
+      <ol>
+        <li>Log into FlexMLS</li>
+        <li>Run saved searches (already set up)</li>
+        <li>Export results as CSV</li>
+        <li>Run the Python script</li>
+        <li>Copy the formatted output into the template</li>
+      </ol>
+
+      <p><strong>Time savings:</strong> Cuts data collection from 30-45 minutes to ~5 minutes.</p>
+
+      <p><strong>Status:</strong> Ready to build. Needs a sample FlexMLS CSV export to build against.</p>
+
+      <h3>Phase 2: Spark API Integration (Pending Douglas Elliman)</h3>
+
+      <p><strong>What it does:</strong> Directly queries the FlexMLS database via the Spark API. No manual export needed. The script pulls all 21 communities' data automatically.</p>
+
+      <p><strong>Nicole's new workflow:</strong></p>
+      <ol>
+        <li>Run the script (or it runs on a schedule)</li>
+        <li>Review the output</li>
+        <li>Approve and paste into template (or it auto-populates the template)</li>
+      </ol>
+
+      <p><strong>Time savings:</strong> Eliminates manual FlexMLS work entirely.</p>
+
+      <p><strong>Status:</strong> Requires Douglas Elliman to request Spark API production credentials from BeachesMLS. Edmund to initiate this conversation.</p>
+
+      <div class="research-box">
+        <h4>Action Item for Edmund</h4>
+        <p>Contact your Douglas Elliman tech/marketing support and ask:</p>
+        <p><em>"I'd like to get Spark API access through our BeachesMLS data agreement for a custom market intelligence automation project. Can you help me request production API credentials?"</em></p>
+      </div>
+
+      <h3>Phase 3: MCP Server for Live MLS Data (Future)</h3>
+
+      <p><strong>What it does:</strong> An MCP server that connects Claude Code directly to your MLS data. You'd be able to say: "Pull this week's stats for all 21 communities" and Claude would query the MLS live.</p>
+
+      <p><strong>Status:</strong> The MLS industry is moving toward offering MCP servers, but BeachesMLS hasn't deployed one yet. The UNLOCK MLS RESO MCP Server is a working example. Check back in 6-12 months.</p>
+
+      <h3>Phase 4: End-to-End Automation (Vision)</h3>
+
+      <p>The ultimate workflow:</p>
+      <ol>
+        <li>Edmund writes the article (the only manual creative step)</li>
+        <li>Everything else happens automatically:
+          <ul>
+            <li>MLS data pulled via API</li>
+            <li>Template auto-populated</li>
+            <li>Agent team generates, validates, and deploys</li>
+            <li>Email uploaded to Constant Contact via API</li>
+          </ul>
+        </li>
+        <li>Edmund reviews and hits "send"</li>
+      </ol>
+
+      <p><strong>Estimated timeline:</strong> Achievable within 2026 if Spark API access is granted.</p>
+
+      <hr class="section-divider">
+
+      <!-- ============================================ -->
+      <!-- QUICK REFERENCE CARD -->
+      <!-- ============================================ -->
+      <div class="quick-ref-card">
+        <h3>Quick Reference Card</h3>
+        <p style="color: #c0d0e0; font-size: 14px; margin-bottom: 25px;">For the team member running the weekly pipeline:</p>
+        <ol>
+          <li>
+            Collect all inputs:
+            <ul class="sub-items">
+              <li>Nicole's community stats (21 communities)</li>
+              <li>Nicole's featured St. Andrews listings (top 3)</li>
+              <li>Article (written and finalized)</li>
+              <li>Hero image (filename noted)</li>
+              <li>Any additional community listing data</li>
+            </ul>
+          </li>
+          <li>Fill out team-workflow-template.md completely</li>
+          <li>Run pre-submission checklist (all dates match, 21 communities, etc.)</li>
+          <li>
+            Open Claude Code:<br>
+            <span style="color: #c0d0e0; font-style: italic;">"Use the team-orchestrator agent to run the weekly email pipeline. Here's the filled template: [paste]"</span>
+          </li>
+          <li>
+            Respond to 3 checkpoints:
+            <ul class="sub-items">
+              <li>After change detection &rarr; "Proceed"</li>
+              <li>After validation &rarr; Review flags &rarr; "Proceed"</li>
+              <li>Before deployment &rarr; "Deploy"</li>
+            </ul>
+          </li>
+          <li>Upload email.html to Constant Contact</li>
+          <li>Send test email to team</li>
+          <li>Schedule/send at 9:00 AM Wednesday</li>
+          <li>Verify live URLs after deployment</li>
+        </ol>
+      </div>
+
+    </div><!-- end article-content -->
+
+    <!-- Author Section -->
+    <div class="author-section">
+      <img src="https://edmundbogen.github.io/images/edmund-headshot.jpg" alt="Edmund Bogen" class="author-photo">
+      <div class="author-info">
+        <h4>Edmund Bogen</h4>
+        <div class="author-title">Luxury Real Estate Specialist | Douglas Elliman</div>
+        <p class="author-bio">Edmund Bogen leads The Edmund Bogen Team at Douglas Elliman, serving South Florida's most prestigious country club communities. This weekly market intelligence package delivers institutional-grade data and analysis to 14,000+ clients, prospects, and industry professionals across 21 luxury communities in Boca Raton and Delray Beach.</p>
+        <div class="author-contact">
+          561.706.5546 | <a href="mailto:edmund@bogenhomes.com">edmund@bogenhomes.com</a> | <a href="https://www.bogenhomes.com">bogenhomes.com</a>
+        </div>
+      </div>
+    </div>
+  </article>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-logo">The Edmund Bogen Team</div>
+    <p class="footer-text">
+      Douglas Elliman Real Estate | 444 E Palmetto Park Rd, Boca Raton, FL 33432<br><br>
+      This document is intended for internal team use. Equal Housing Opportunity.
+    </p>
+  </footer>
+</body>
+</html>

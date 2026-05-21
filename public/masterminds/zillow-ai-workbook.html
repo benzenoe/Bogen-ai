@@ -1,0 +1,1482 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Zillow's $2.6B Bet Against You — Complete Implementation Workbook</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #1a3e5c;
+    --cyan: #00a8e1;
+    --white: #ffffff;
+    --dark-text: #333333;
+    --light-bg: #f4f4f4;
+    --muted: #666666;
+    --bg: #ffffff;
+    --section-alt: #f4f4f4;
+    --card-bg: #ffffff;
+    --card-border: #e0e0e0;
+    --line-color: #cccccc;
+    --prompt-bg: #f4f4f4;
+    --prompt-border: #e0e0e0;
+    --cover-bg: #1a3e5c;
+  }
+
+  [data-theme="dark"] {
+    --bg: #0d1b2a;
+    --section-alt: #1a3e5c;
+    --dark-text: #e0e0e0;
+    --muted: #aaaaaa;
+    --card-bg: #162a3e;
+    --card-border: #2a4a6a;
+    --line-color: #3a5a7a;
+    --prompt-bg: #162a3e;
+    --prompt-border: #2a4a6a;
+    --light-bg: #162a3e;
+    --cover-bg: #0d1b2a;
+  }
+
+  @page {
+    size: letter;
+    margin: 0.6in 0.75in;
+    @bottom-center {
+      content: "Edmund's Mastermind | Zillow's $2.6B Bet Against You | April 2026 | Page " counter(page);
+      font-family: 'Montserrat', sans-serif;
+      font-size: 8pt;
+      color: #666666;
+    }
+  }
+
+  @media print {
+    .page-break { page-break-after: always; }
+    .no-break { page-break-inside: avoid; }
+    body { font-size: 10pt; background: #ffffff !important; color: #333333 !important; }
+    .theme-toggle, .pdf-download { display: none !important; }
+    .cover { min-height: 9.5in; }
+    .page { padding: 0; }
+    h1, h2, h3, h4 { color: #1a3e5c !important; }
+    .navy-box { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .prompt-block { background: #f4f4f4 !important; border-color: #e0e0e0 !important; color: #333333 !important; }
+    .light-box { background: #f4f4f4 !important; }
+    .footer-bar { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    [data-theme="dark"] { --bg: #ffffff; --dark-text: #333333; --section-alt: #f4f4f4; --card-bg: #ffffff; --prompt-bg: #f4f4f4; --light-bg: #f4f4f4; }
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Montserrat', sans-serif;
+    color: var(--dark-text);
+    line-height: 1.6;
+    font-size: 11pt;
+    background: var(--bg);
+    transition: background 0.3s ease, color 0.3s ease;
+  }
+
+  /* Theme Toggle */
+  .theme-toggle {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--navy);
+    padding: 8px 16px;
+    border-radius: 50px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.3);
+    cursor: pointer;
+    user-select: none;
+  }
+
+  .theme-toggle-label {
+    font-size: 9pt;
+    font-weight: 600;
+    color: var(--white);
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+
+  .toggle-switch {
+    width: 44px;
+    height: 24px;
+    background: #2a5a8a;
+    border-radius: 12px;
+    position: relative;
+    transition: background 0.3s ease;
+  }
+
+  .toggle-switch::after {
+    content: '';
+    position: absolute;
+    top: 3px;
+    left: 3px;
+    width: 18px;
+    height: 18px;
+    background: var(--white);
+    border-radius: 50%;
+    transition: transform 0.3s ease;
+  }
+
+  [data-theme="dark"] .toggle-switch {
+    background: var(--cyan);
+  }
+
+  [data-theme="dark"] .toggle-switch::after {
+    transform: translateX(20px);
+  }
+
+  /* PDF Download Button */
+  .pdf-download {
+    position: fixed;
+    top: 20px;
+    right: 180px;
+    z-index: 1000;
+  }
+
+  .pdf-download a {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--cyan);
+    color: var(--white);
+    padding: 8px 18px;
+    border-radius: 50px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 9pt;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    text-decoration: none;
+    box-shadow: 0 2px 12px rgba(0,168,225,0.3);
+    transition: background 0.3s ease, transform 0.15s ease;
+  }
+
+  .pdf-download a:hover {
+    background: #008aba;
+    transform: translateY(-1px);
+  }
+
+  .pdf-download a svg {
+    width: 14px;
+    height: 14px;
+    fill: currentColor;
+  }
+
+  /* Page Container */
+  .page {
+    max-width: 7.5in;
+    margin: 0 auto;
+    padding: 0.5in 0.25in;
+    position: relative;
+  }
+
+  /* Cover Page */
+  .cover {
+    text-align: center;
+    padding: 1in 0.5in;
+    background: var(--cover-bg);
+    color: var(--white);
+    min-height: 95vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .cover-hero {
+    width: 100%;
+    max-width: 6in;
+    border-radius: 8px;
+    margin-bottom: 0.4in;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.3);
+  }
+
+  .cover h1 {
+    font-size: 28pt;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 0.15in;
+    line-height: 1.2;
+    color: var(--white);
+  }
+
+  .cover .cover-subtitle {
+    font-size: 14pt;
+    font-weight: 300;
+    color: var(--cyan);
+    letter-spacing: 0.05em;
+    margin-bottom: 0.2in;
+    line-height: 1.4;
+  }
+
+  .cover .cover-tagline {
+    font-size: 11pt;
+    font-weight: 500;
+    color: var(--cyan);
+    font-style: italic;
+    margin-bottom: 0.5in;
+  }
+
+  .cover .cover-type {
+    font-size: 12pt;
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    border-top: 2px solid var(--cyan);
+    border-bottom: 2px solid var(--cyan);
+    padding: 0.1in 0.4in;
+    margin-bottom: 0.4in;
+  }
+
+  .cover .cover-date {
+    font-size: 11pt;
+    color: rgba(255,255,255,0.7);
+    margin-bottom: 0.15in;
+  }
+
+  .cover .cover-zoom {
+    font-size: 9pt;
+    color: rgba(255,255,255,0.5);
+    margin-bottom: 0.5in;
+  }
+
+  .cover .cover-zoom a {
+    color: var(--cyan);
+    text-decoration: none;
+  }
+
+  .cover .cover-brand {
+    font-size: 10pt;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.5);
+  }
+
+  .cover .cover-registration {
+    margin-top: 0.3in;
+    font-size: 10pt;
+    color: rgba(255,255,255,0.6);
+  }
+
+  .cover .cover-registration a {
+    color: var(--cyan);
+    text-decoration: none;
+    font-weight: 600;
+  }
+
+  /* Headers */
+  h1 {
+    font-size: 20pt;
+    font-weight: 700;
+    color: var(--navy);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 0.15in;
+  }
+
+  [data-theme="dark"] h1:not(.cover h1) { color: var(--cyan); }
+
+  h2 {
+    font-size: 15pt;
+    font-weight: 700;
+    color: var(--navy);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin-bottom: 0.12in;
+    margin-top: 0.25in;
+  }
+
+  [data-theme="dark"] h2 { color: var(--cyan); }
+
+  h3 {
+    font-size: 12pt;
+    font-weight: 600;
+    color: var(--navy);
+    margin-bottom: 0.08in;
+    margin-top: 0.15in;
+  }
+
+  [data-theme="dark"] h3 { color: #7fc8e8; }
+
+  h4 {
+    font-size: 10.5pt;
+    font-weight: 600;
+    color: var(--cyan);
+    margin-bottom: 0.06in;
+    margin-top: 0.1in;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+
+  p {
+    margin-bottom: 0.1in;
+    font-size: 10.5pt;
+    line-height: 1.55;
+  }
+
+  /* Accent Elements */
+  .accent-bar-section {
+    border-left: 4px solid var(--cyan);
+    padding-left: 0.2in;
+    margin: 0.15in 0;
+  }
+
+  .navy-box {
+    background: var(--navy);
+    color: var(--white);
+    padding: 0.2in 0.25in;
+    border-radius: 4px;
+    margin: 0.15in 0;
+  }
+
+  .navy-box h2, .navy-box h3 {
+    color: var(--cyan) !important;
+  }
+
+  .navy-box h4 {
+    color: var(--cyan) !important;
+  }
+
+  .navy-box p, .navy-box li {
+    color: var(--white);
+  }
+
+  .light-box {
+    background: var(--light-bg);
+    padding: 0.2in 0.25in;
+    border-radius: 4px;
+    margin: 0.15in 0;
+    transition: background 0.3s ease;
+  }
+
+  .cyan-highlight {
+    color: var(--cyan);
+    font-weight: 600;
+  }
+
+  /* Lists */
+  ul, ol {
+    margin: 0.08in 0;
+    padding-left: 0.3in;
+  }
+
+  li {
+    margin-bottom: 0.04in;
+    font-size: 10.5pt;
+    line-height: 1.5;
+  }
+
+  /* Prompt Blocks */
+  .prompt-block {
+    background: var(--prompt-bg);
+    border: 1px solid var(--prompt-border);
+    border-left: 4px solid var(--cyan);
+    padding: 0.15in 0.2in;
+    margin: 0.1in 0;
+    font-family: 'Courier New', monospace;
+    font-size: 8.5pt;
+    line-height: 1.5;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    color: var(--dark-text);
+    transition: background 0.3s ease, border-color 0.3s ease;
+  }
+
+  .prompt-label {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+    color: var(--cyan);
+    font-size: 9pt;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    margin-bottom: 0.06in;
+    display: block;
+  }
+
+  /* Worksheet Lines */
+  .write-line {
+    border-bottom: 1px solid var(--line-color);
+    height: 0.35in;
+    margin: 0.04in 0;
+    width: 100%;
+    transition: border-color 0.3s ease;
+  }
+
+  .write-line-label {
+    font-size: 9pt;
+    font-weight: 600;
+    color: var(--muted);
+    margin-top: 0.12in;
+    margin-bottom: 0.02in;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+  }
+
+  .write-line-short {
+    border-bottom: 1px solid var(--line-color);
+    height: 0.35in;
+    margin: 0.04in 0;
+    width: 3in;
+    display: inline-block;
+  }
+
+  .write-area {
+    border: 1px solid var(--line-color);
+    min-height: 1in;
+    margin: 0.08in 0;
+    border-radius: 4px;
+    width: 100%;
+  }
+
+  /* Checkbox Items */
+  .checkbox-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    margin-bottom: 0.06in;
+    font-size: 10.5pt;
+    line-height: 1.5;
+  }
+
+  .checkbox-item::before {
+    content: '';
+    flex-shrink: 0;
+    width: 14px;
+    height: 14px;
+    border: 2px solid var(--navy);
+    border-radius: 2px;
+    margin-top: 3px;
+  }
+
+  [data-theme="dark"] .checkbox-item::before {
+    border-color: var(--cyan);
+  }
+
+  /* System Number Badge */
+  .system-badge {
+    display: inline-block;
+    background: var(--cyan);
+    color: var(--white);
+    font-weight: 700;
+    font-size: 11pt;
+    width: 32px;
+    height: 32px;
+    line-height: 32px;
+    text-align: center;
+    border-radius: 50%;
+    margin-right: 8px;
+    vertical-align: middle;
+  }
+
+  /* Key Stat */
+  .stat-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 12px;
+    margin: 0.15in 0;
+  }
+
+  .stat-card {
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-top: 3px solid var(--cyan);
+    padding: 12px 16px;
+    border-radius: 4px;
+    text-align: center;
+    transition: background 0.3s ease, border-color 0.3s ease;
+  }
+
+  .stat-card .stat-number {
+    font-size: 20pt;
+    font-weight: 700;
+    color: var(--navy);
+    display: block;
+  }
+
+  [data-theme="dark"] .stat-card .stat-number { color: var(--cyan); }
+
+  .stat-card .stat-label {
+    font-size: 8pt;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--muted);
+  }
+
+  /* Footer Bar */
+  .footer-bar {
+    background: var(--navy);
+    color: rgba(255,255,255,0.5);
+    text-align: center;
+    padding: 0.15in;
+    font-size: 8pt;
+    letter-spacing: 0.05em;
+    margin-top: 0.3in;
+  }
+
+  /* Calculator Grid */
+  .calc-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px 24px;
+    margin: 0.1in 0;
+  }
+
+  .calc-grid .write-line-label {
+    grid-column: 1 / -1;
+  }
+
+  /* Manifesto */
+  .manifesto-text {
+    font-size: 13pt;
+    font-weight: 400;
+    line-height: 1.8;
+    text-align: center;
+    color: var(--white);
+    max-width: 5.5in;
+    margin: 0 auto;
+  }
+
+  .manifesto-text strong {
+    color: var(--cyan);
+  }
+
+  /* Week Section */
+  .week-header {
+    background: var(--navy);
+    color: var(--white);
+    padding: 8px 16px;
+    border-radius: 4px 4px 0 0;
+    font-weight: 700;
+    font-size: 11pt;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .week-body {
+    border: 1px solid var(--card-border);
+    border-top: none;
+    padding: 12px 16px;
+    border-radius: 0 0 4px 4px;
+    margin-bottom: 0.15in;
+    transition: border-color 0.3s ease;
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .page { padding: 0.3in 0.2in; }
+    .cover { padding: 0.5in 0.3in; }
+    .cover h1 { font-size: 20pt; }
+    h1 { font-size: 16pt; }
+    h2 { font-size: 13pt; }
+    .stat-grid { grid-template-columns: 1fr 1fr; }
+    .calc-grid { grid-template-columns: 1fr; }
+    .theme-toggle { top: 10px; right: 10px; padding: 6px 12px; }
+    .pdf-download { top: 10px; right: 140px; }
+    .pdf-download a { padding: 6px 12px; font-size: 8pt; }
+  }
+
+  @media (max-width: 480px) {
+    .cover h1 { font-size: 16pt; }
+    .cover .cover-subtitle { font-size: 11pt; }
+    .pdf-download { top: 56px; right: 10px; }
+    .theme-toggle { top: 10px; right: 10px; }
+    .stat-grid { grid-template-columns: 1fr; }
+  }
+
+  /* Commitment Signature */
+  .signature-section {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    margin-top: 0.3in;
+  }
+
+  .signature-section > div {
+    text-align: center;
+  }
+
+  /* Notes Grid */
+  .notes-lines .write-line {
+    height: 0.4in;
+  }
+
+  /* ROI Row */
+  .roi-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    gap: 8px;
+    margin: 0.1in 0;
+  }
+
+  .roi-grid .roi-header {
+    font-size: 8pt;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--navy);
+    padding: 6px;
+    background: var(--light-bg);
+    text-align: center;
+    border-radius: 3px;
+  }
+
+  [data-theme="dark"] .roi-grid .roi-header { color: var(--cyan); }
+
+  .roi-grid .roi-cell {
+    border-bottom: 1px solid var(--line-color);
+    height: 0.3in;
+  }
+</style>
+</head>
+<body data-theme="light">
+
+<!-- Theme Toggle -->
+<div class="theme-toggle" onclick="toggleTheme()" title="Toggle dark/light mode">
+  <span class="theme-toggle-label">Light</span>
+  <div class="toggle-switch"></div>
+  <span class="theme-toggle-label">Dark</span>
+</div>
+
+<!-- PDF Download -->
+<div class="pdf-download">
+  <a href="zillow-ai-workbook.pdf" download>
+    <svg viewBox="0 0 24 24"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
+    Download Workbook (PDF)
+  </a>
+</div>
+
+<!-- ============================================ -->
+<!-- PAGE 1: COVER -->
+<!-- ============================================ -->
+<div class="cover">
+  <img src="Images/zillow-ai-hero.png" alt="Zillow's $2.6B Bet Against You" class="cover-hero">
+  <div class="cover-type">Complete Implementation Workbook</div>
+  <h1>Zillow's $2.6B<br>Bet Against You</h1>
+  <div class="cover-subtitle">How to Stay Relevant When Buyers<br>Arrive Pre-Programmed</div>
+  <div class="cover-tagline">"Because Getting Outsmarted by an Algorithm is NOT an Option!"</div>
+  <div class="cover-date">April 8, 2026 | 9:00 AM ET</div>
+  <div class="cover-zoom">Zoom: <a href="https://us02web.zoom.us/j/83924796230">us02web.zoom.us/j/83924796230</a></div>
+  <div class="cover-brand">Edmund's Mastermind</div>
+  <div class="cover-registration"></div>
+</div>
+
+<div class="page-break"></div>
+
+<!-- ============================================ -->
+<!-- PAGE 2: MISSION & OVERVIEW -->
+<!-- ============================================ -->
+<div class="page">
+  <h1>Mission & Overview</h1>
+
+  <div class="accent-bar-section">
+    <h3>Why This Session Exists</h3>
+    <p>On March 25, 2026, Zillow officially launched AI Mode at their NYC investor summit. With 235 million monthly visitors now gaining access to conversational AI that can search homes, analyze comps, recommend offer strategies, and schedule tours, the real estate industry crossed a line it cannot uncross. The education phase that agents have relied on for decades to build trust and demonstrate value is being automated in real time.</p>
+    <p>This is not a drill. This is not a future prediction. This is happening right now.</p>
+  </div>
+
+  <div class="navy-box">
+    <h3>The Three Systems You Will Build Today</h3>
+    <ol>
+      <li><strong>The AI Translator Framework</strong> -- Position yourself as the agent who interprets, validates, and contextualizes what AI already told your clients.</li>
+      <li><strong>The Listing-Side Money Move</strong> -- Follow the money. Zillow is explicitly shifting investment toward listing agents. You should too.</li>
+      <li><strong>Your Competitive AI Stack</strong> -- Build your own AI toolkit that matches or exceeds what Zillow gives consumers for free.</li>
+    </ol>
+  </div>
+
+  <div class="stat-grid">
+    <div class="stat-card">
+      <span class="stat-number">235M</span>
+      <span class="stat-label">Monthly Zillow Visitors</span>
+    </div>
+    <div class="stat-card">
+      <span class="stat-number">50%</span>
+      <span class="stat-label">U.S. Closings via Dotloop</span>
+    </div>
+    <div class="stat-card">
+      <span class="stat-number">90%</span>
+      <span class="stat-label">Tours via ShowingTime</span>
+    </div>
+    <div class="stat-card">
+      <span class="stat-number">80%+</span>
+      <span class="stat-label">Top Teams on FUB</span>
+    </div>
+  </div>
+
+  <div class="light-box">
+    <h4>What You Will Walk Away With</h4>
+    <ul>
+      <li>A redefined value proposition that accounts for AI-informed consumers</li>
+      <li>18 battle-tested prompts you can deploy this week</li>
+      <li>A listing-side revenue strategy aligned with Zillow's investment direction</li>
+      <li>A personalized AI tool stack to outperform the algorithm</li>
+      <li>A 30-day implementation plan with weekly checkpoints</li>
+    </ul>
+  </div>
+
+  <div class="footer-bar">Edmund's Mastermind | Zillow's $2.6B Bet Against You | April 2026</div>
+</div>
+
+<div class="page-break"></div>
+
+<!-- ============================================ -->
+<!-- PAGES 3-4: SYSTEM 1 — THE AI TRANSLATOR FRAMEWORK -->
+<!-- ============================================ -->
+<div class="page">
+  <h2><span class="system-badge">1</span> The AI Translator Framework</h2>
+  <p style="font-style: italic; color: var(--muted); margin-bottom: 0.2in;">How to position yourself as the agent who interprets AI for clients</p>
+
+  <div class="navy-box">
+    <h3>The New Reality</h3>
+    <p>Zillow AI Mode launched March 25, 2026 at their NYC investor summit. This is not a beta test or a press release -- it is a fully operational conversational AI engine with access to every listing, every comp, and every market data point Zillow has accumulated over two decades. Here is what your buyers now have at their fingertips, 24 hours a day, before they ever call you:</p>
+  </div>
+
+  <h3>What Zillow AI Mode Actually Does</h3>
+  <ul>
+    <li><strong>Natural language search:</strong> Buyers describe what they want in plain English. No filters, no dropdowns, no learning curve. "Show me 3-bedroom homes in Boca Raton under $800K with a pool and updated kitchen" returns intelligent, ranked results.</li>
+    <li><strong>BuyAbility assessments:</strong> The AI evaluates what buyers can realistically afford and matches properties to their financial profile -- a conversation agents used to own exclusively.</li>
+    <li><strong>Offer strategy advice:</strong> Based on days on market, price history, comparable sales, and market conditions, Zillow AI suggests opening offer ranges and negotiation positioning.</li>
+    <li><strong>Tour scheduling via ShowingTime:</strong> Buyers can book property tours directly through the AI conversation without ever contacting an agent.</li>
+    <li><strong>Persistent memory:</strong> Unlike a one-time Google search, Zillow AI remembers buyer preferences across sessions. It builds a relationship over weeks, refining recommendations based on feedback. It learns what they like.</li>
+  </ul>
+
+  <div class="accent-bar-section">
+    <h3>The Education Phase Is Being Automated</h3>
+    <p>For decades, agents built trust during the education phase: explaining market conditions, walking clients through the buying process, interpreting data. That phase is now handled by AI before the buyer picks up the phone. The agents who survive this shift are the ones who redefine their value from educator to translator -- someone who interprets, validates, and adds the local context that no algorithm can provide.</p>
+  </div>
+
+  <h3>What AI Cannot Do (Your New Moat)</h3>
+  <ul>
+    <li><strong>Negotiate in real-time:</strong> AI can suggest an offer range. It cannot read the listing agent's tone, identify seller motivation, or adjust strategy mid-conversation.</li>
+    <li><strong>Inspect the property:</strong> AI cannot smell mold, hear highway noise, notice foundation cracks, or feel the energy of a neighborhood at 7 PM on a Tuesday.</li>
+    <li><strong>Manage the transaction:</strong> Escrow timelines, inspection negotiations, title issues, appraisal challenges, lender communication -- these require human judgment under pressure.</li>
+    <li><strong>Provide fiduciary duty:</strong> AI has no legal obligation to act in the client's best interest. You do. That distinction is worth emphasizing in every conversation.</li>
+    <li><strong>Offer local opinion:</strong> AI can tell a buyer the school rating. It cannot tell them which carpool lane moves fastest or which HOA board is difficult to work with.</li>
+  </ul>
+
+  <div class="footer-bar">Edmund's Mastermind | Zillow's $2.6B Bet Against You | April 2026</div>
+</div>
+
+<div class="page-break"></div>
+
+<div class="page">
+  <h2>System 1 Prompts: The AI Translator Framework</h2>
+  <p>Copy these prompts into ChatGPT, Claude, or your AI tool of choice. Customize the bracketed sections with your market, name, and specialization.</p>
+
+  <div class="no-break">
+    <span class="prompt-label">Prompt 1 -- Validate & Contextualize</span>
+    <div class="prompt-block">A buyer tells you Zillow AI suggested they offer 5% below asking because of 3 price cuts. Write a response that validates their research while adding local context they can't get from AI.
+
+Include: acknowledgment of their preparation, one specific insight about the property or neighborhood that Zillow wouldn't know (e.g., upcoming development, seller motivation, HOA assessment history), and a recommendation that demonstrates your strategic value. Tone: confident, collaborative, not defensive. Market: [YOUR MARKET]. Property type: [PROPERTY TYPE].</div>
+  </div>
+
+  <div class="no-break">
+    <span class="prompt-label">Prompt 2 -- Pre-Meeting Email Template</span>
+    <div class="prompt-block">Create a pre-meeting email template for buyers who've been using Zillow AI Mode, acknowledging their research and positioning your value as their strategic advisor.
+
+The email should: (1) compliment their preparation without being patronizing, (2) introduce 3 specific things you bring that AI cannot -- negotiation leverage, inspection expertise, and off-market access, (3) include one compelling question that makes them realize they need your expertise, (4) close with a clear call to action for a strategy session. Keep it under 250 words. Tone: professional, direct, zero fluff. Agent name: [YOUR NAME]. Brokerage: [YOUR BROKERAGE].</div>
+  </div>
+
+  <div class="no-break">
+    <span class="prompt-label">Prompt 3 -- Listing Presentation Talking Points</span>
+    <div class="prompt-block">Write 3 talking points for a listing presentation that addresses sellers who ask "Why do I need an agent when Zillow's AI can price my home?"
+
+Each talking point should: (1) acknowledge that AI pricing tools are impressive, (2) identify a specific limitation of algorithmic pricing (condition adjustments, hyperlocal comp selection, buyer psychology), (3) provide a real-world example of how an experienced agent's pricing strategy netted the seller more money. Format: headline + 2-3 sentence explanation. Tone: authoritative, not defensive. Market: [YOUR MARKET].</div>
+  </div>
+
+  <div class="no-break">
+    <span class="prompt-label">Prompt 4 -- Social Media Post</span>
+    <div class="prompt-block">Generate a social media post explaining why AI-informed buyers are actually BETTER clients for top agents.
+
+Angle: buyers who research with AI come prepared, ask smarter questions, and move faster -- which means less hand-holding and more strategic work. This is a win for agents who operate at a high level. Include: a hook that stops the scroll, 3-4 key points, a closing line that positions you as the agent who embraces AI rather than fears it. Platform: Instagram (caption format, 150-200 words). Hashtags: 5 relevant ones. Tone: confident, forward-thinking.</div>
+  </div>
+
+  <div class="no-break">
+    <span class="prompt-label">Prompt 5 -- The Offer Conversation Script</span>
+    <div class="prompt-block">Draft a script for when a buyer says "Zillow AI already told me what to offer" -- how do you add value without dismissing their research?
+
+Structure: (1) Opening acknowledgment -- validate that AI offer suggestions are a good starting point. (2) The pivot -- introduce 2-3 factors AI cannot account for: seller motivation, competing offers you know about through agent networks, inspection leverage, closing timeline flexibility. (3) The reframe -- position your recommendation not as contradicting AI but as adding the human intelligence layer. (4) The close -- get agreement to trust your strategy while keeping them feeling informed. Keep it conversational, 200 words max.</div>
+  </div>
+
+  <div class="no-break">
+    <span class="prompt-label">Prompt 6 -- Showing Checklist</span>
+    <div class="prompt-block">Create a one-page "What Zillow AI Can't Tell You About This Property" checklist I can hand to every buyer at a showing.
+
+Categories to cover: (1) Physical inspection items -- noise levels, natural light quality, storage adequacy, parking reality, neighbor proximity. (2) Neighborhood context -- school drop-off traffic, weekend noise, walkability after dark, HOA enforcement style. (3) Financial factors -- insurance cost reality, flood zone implications, assessment history, utility averages. (4) Transaction intelligence -- seller flexibility signals, listing agent reputation, competing buyer activity. Format: clean checklist with check boxes, organized by category, fits on one printed page. Include your branding at the top: [YOUR NAME], [YOUR PHONE], [YOUR WEBSITE].</div>
+  </div>
+
+  <div class="footer-bar">Edmund's Mastermind | Zillow's $2.6B Bet Against You | April 2026</div>
+</div>
+
+<div class="page-break"></div>
+
+<!-- ============================================ -->
+<!-- PAGE 5: SYSTEM 1 WORKSHEET -->
+<!-- ============================================ -->
+<div class="page">
+  <h2>Worksheet: Value Proposition Audit</h2>
+  <p>The AI Translator Framework starts with understanding what AI now handles that you used to own. Complete each section honestly.</p>
+
+  <div class="light-box">
+    <h4>Part A: Your Current Pitch</h4>
+    <p class="write-line-label">Write your current buyer pitch (the first 60 seconds when you meet a new client):</p>
+    <div class="write-line"></div>
+    <div class="write-line"></div>
+    <div class="write-line"></div>
+    <div class="write-line"></div>
+
+    <p class="write-line-label">Write your current listing pitch (why a seller should hire you):</p>
+    <div class="write-line"></div>
+    <div class="write-line"></div>
+    <div class="write-line"></div>
+    <div class="write-line"></div>
+  </div>
+
+  <div class="light-box" style="margin-top: 0.15in;">
+    <h4>Part B: What AI Now Handles</h4>
+    <p>Check each item that Zillow AI Mode now does for your buyers before they contact you:</p>
+    <div class="checkbox-item">Property search and filtering by natural language criteria</div>
+    <div class="checkbox-item">Market condition education (days on market, price trends, inventory levels)</div>
+    <div class="checkbox-item">Comparable sales analysis and pricing context</div>
+    <div class="checkbox-item">Offer strategy recommendations based on data</div>
+    <div class="checkbox-item">Affordability assessment and mortgage pre-qualification guidance</div>
+    <div class="checkbox-item">Tour scheduling and availability coordination</div>
+    <div class="checkbox-item">Neighborhood and school data research</div>
+    <div class="checkbox-item">Other: _______________________________________________</div>
+  </div>
+
+  <div class="light-box" style="margin-top: 0.15in;">
+    <h4>Part C: Your New Differentiator</h4>
+    <p class="write-line-label">Given what AI now handles, what is your NEW unique value to buyers?</p>
+    <div class="write-line"></div>
+    <div class="write-line"></div>
+    <div class="write-line"></div>
+
+    <p class="write-line-label">What is your NEW unique value to sellers?</p>
+    <div class="write-line"></div>
+    <div class="write-line"></div>
+    <div class="write-line"></div>
+
+    <p class="write-line-label">Your updated 60-second pitch (incorporating your AI Translator positioning):</p>
+    <div class="write-line"></div>
+    <div class="write-line"></div>
+    <div class="write-line"></div>
+    <div class="write-line"></div>
+  </div>
+
+  <div class="footer-bar">Edmund's Mastermind | Zillow's $2.6B Bet Against You | April 2026</div>
+</div>
+
+<div class="page-break"></div>
+
+<!-- ============================================ -->
+<!-- PAGES 6-7: SYSTEM 2 — THE LISTING-SIDE MONEY MOVE -->
+<!-- ============================================ -->
+<div class="page">
+  <h2><span class="system-badge">2</span> The Listing-Side Money Move</h2>
+  <p style="font-style: italic; color: var(--muted); margin-bottom: 0.2in;">Zillow is explicitly shifting investment toward listing agents. Follow the money.</p>
+
+  <div class="navy-box">
+    <h3>The Strategic Pivot You Cannot Ignore</h3>
+    <p>At the March 2026 investor summit, Zillow made its strategic direction explicit: the future of Zillow's business is built around listing agents, not buyer's agents. Every major product announcement -- Workspace, Preview, enhanced Dotloop, AI-powered listing tools -- is designed to make listing agents more productive, more sticky to the Zillow ecosystem, and more dependent on their platform. If you are primarily a buyer's agent, this is your signal to pivot.</p>
+  </div>
+
+  <h3>Zillow's Listing-Side Arsenal</h3>
+
+  <div class="accent-bar-section">
+    <h4>Zillow Workspace</h4>
+    <p>Zillow is combining Dotloop (transaction management), ShowingTime (tour coordination), and Aryeo (media/photography) into a single agentic AI-powered platform called Workspace. This is not three tools stitched together -- it is an integrated command center where AI handles scheduling, document preparation, status updates, and client communication. Listing agents who adopt Workspace will manage transactions faster and with fewer errors than agents using disconnected tools.</p>
+  </div>
+
+  <div class="accent-bar-section">
+    <h4>Zillow Preview (Coming Soon Listings)</h4>
+    <p>Zillow Preview is a proprietary "Coming Soon" marketplace powered by LLM technology. Listings appear on Zillow before hitting the MLS, giving sellers early exposure and listing agents an exclusive preview window. This directly competes with NAR's Clear Cooperation Policy debate and gives Zillow a unique inventory advantage. Agents who list with Preview get premium placement and AI-generated marketing materials.</p>
+  </div>
+
+  <div class="accent-bar-section">
+    <h4>The Numbers That Matter</h4>
+    <ul>
+      <li><strong>50% of U.S. closings</strong> go through Dotloop -- Zillow already owns the transaction layer</li>
+      <li><strong>90% of tours</strong> are coordinated through ShowingTime -- Zillow owns the showing layer</li>
+      <li><strong>Commission compression on the buyer side</strong> is accelerating post-NAR settlement, making buyer representation less profitable per transaction</li>
+      <li><strong>AI-generated tools</strong> for pricing analysis, CMA materials, and listing descriptions make listing agents more efficient while buyer-side tasks get automated for consumers</li>
+    </ul>
+  </div>
+
+  <h3>Why Listing Agents Win in the AI Era</h3>
+  <p>Listing agents control the transaction. They set the price, manage the showing process, negotiate from a position of power, and orchestrate the timeline. AI enhances these capabilities rather than replacing them. On the buyer side, AI is replacing the education and search functions that agents used to monetize. The math is clear: listing-side revenue is more defensible, more scalable, and more aligned with where Zillow is investing billions.</p>
+
+  <p>New AI-powered listing tools are emerging weekly: automated pricing analysis that accounts for condition and upgrades, CMA generation with market narrative, AI-written listing descriptions that test multiple versions for engagement, and predictive analytics that identify the optimal listing window. The listing agent who masters these tools becomes exponentially more productive than the one who ignores them.</p>
+
+  <div class="footer-bar">Edmund's Mastermind | Zillow's $2.6B Bet Against You | April 2026</div>
+</div>
+
+<div class="page-break"></div>
+
+<div class="page">
+  <h2>System 2 Prompts: The Listing-Side Money Move</h2>
+  <p>These prompts help you build listing-side authority and convert your business model toward the more defensible side of the transaction.</p>
+
+  <div class="no-break">
+    <span class="prompt-label">Prompt 1 -- Listing Presentation Pitch</span>
+    <div class="prompt-block">Write a listing presentation pitch that positions you as the agent who combines AI market analysis with boots-on-the-ground expertise.
+
+Structure: (1) Open with a bold statement about how the market has changed in the last 90 days. (2) Present your AI-powered pricing methodology -- how you use multiple AI tools to analyze comps, then layer your local knowledge to arrive at a strategic price. (3) Detail your marketing approach: AI-optimized listing descriptions, data-driven photography angles, targeted digital campaigns. (4) Close with your unique value: you are the agent who uses AI as a tool, not the agent being replaced by one. Length: 300-400 words. Tone: authoritative, data-driven, confident. Market: [YOUR MARKET].</div>
+  </div>
+
+  <div class="no-break">
+    <span class="prompt-label">Prompt 2 -- Seller Email Campaign (3 Emails)</span>
+    <div class="prompt-block">Create a seller-focused email campaign (3 emails) that educates homeowners on why AI makes professional listing agents MORE valuable, not less.
+
+Email 1 - Subject: "Your Home's Value Just Got Smarter" -- Introduce how AI pricing tools work, but explain why they miss condition, upgrades, and local demand signals. CTA: request your AI-enhanced home valuation.
+
+Email 2 - Subject: "What Zillow's AI Won't Tell Sellers" -- Cover 3 blind spots: staging ROI, timing strategy, and negotiation psychology. Position your expertise as the human layer. CTA: schedule a listing consultation.
+
+Email 3 - Subject: "The Agents Who Use AI vs. The Agents Being Replaced By It" -- Hard-hitting positioning piece. You are the agent who embraces AI tools to get sellers 5-10% more. CTA: "Let me show you the difference."
+
+Each email: 150-200 words, professional tone, clear CTA. Agent name: [YOUR NAME].</div>
+  </div>
+
+  <div class="no-break">
+    <span class="prompt-label">Prompt 3 -- Neighborhood Market Report Template</span>
+    <div class="prompt-block">Generate a neighborhood market report template using AI that you can customize with local knowledge sellers can't get from Zillow.
+
+Sections: (1) Market Snapshot -- median price, DOM, inventory, absorption rate for [NEIGHBORHOOD]. (2) Price Trend Analysis -- 6-month and 12-month trajectory with AI interpretation. (3) Competitive Positioning -- how this neighborhood compares to 3 adjacent areas. (4) Local Intelligence (YOUR section) -- upcoming developments, zoning changes, school redistricting, infrastructure projects, seasonal demand patterns. (5) Pricing Strategy Recommendation -- based on data + your expertise. (6) Your Bio and CTA. Format: professional, clean, suitable for PDF. Include placeholder spots for charts. Market: [YOUR MARKET].</div>
+  </div>
+
+  <div class="no-break">
+    <span class="prompt-label">Prompt 4 -- Buyer-to-Listing Conversion Script</span>
+    <div class="prompt-block">Draft a script for converting a buyer lead into a future listing lead by demonstrating your AI-powered market knowledge.
+
+Scenario: You are working with a buyer who just closed. During the relationship, you demonstrated deep market knowledge using AI tools. Now you want to position yourself as their listing agent when they eventually sell. Script should: (1) Reference specific AI-powered insights you provided during their purchase. (2) Introduce your listing-side capabilities. (3) Offer a complimentary annual AI market analysis of their new home's value. (4) Plant the seed: "When the time comes to sell, I want you to have an agent who uses every tool available -- including AI -- to get you top dollar." Length: 150 words. Tone: warm but professional.</div>
+  </div>
+
+  <div class="no-break">
+    <span class="prompt-label">Prompt 5 -- Social Media Series (3 Posts)</span>
+    <div class="prompt-block">Write a social media post series (3 posts) positioning yourself as the listing expert who uses AI tools better than any algorithm.
+
+Post 1: "I just ran my listing through 3 different AI pricing tools. Here's what happened..." -- Show how AI tools disagree with each other and why human judgment is the tiebreaker. Educational, authority-building.
+
+Post 2: "Sellers ask me if AI can replace their agent. Here's my honest answer." -- Transparent take: AI handles data, you handle strategy, negotiation, and the 47 things that go wrong between contract and closing.
+
+Post 3: Before/after case study. "This home's AI-estimated value: $X. What we actually sold it for: $X+. Here's how." -- Demonstrate tangible results from human expertise layered on AI tools.
+
+Each post: Instagram format, 100-150 words, scroll-stopping hook, 3-5 hashtags.</div>
+  </div>
+
+  <div class="no-break">
+    <span class="prompt-label">Prompt 6 -- Seller's AI Advantage Guide Outline</span>
+    <div class="prompt-block">Create a "Seller's AI Advantage Guide" outline -- a lead magnet showing sellers how working with an AI-equipped agent gets them 5-10% more.
+
+Structure: (1) Title page with compelling headline. (2) Introduction: "The New Rules of Selling in 2026." (3) Chapter 1: How AI Pricing Gets You Closer to Market Value (but not all the way). (4) Chapter 2: AI-Powered Marketing -- Descriptions, Targeting, and Timing That Algorithms Optimize. (5) Chapter 3: What AI Cannot Do -- Negotiation, Inspection Strategy, and the Human Moments That Win Deals. (6) Chapter 4: How to Choose an AI-Equipped Agent (criteria checklist). (7) Chapter 5: Your Home Sale Action Plan. (8) About the Agent + CTA. For each chapter, provide: headline, 3-4 key points to cover, one compelling statistic or example to include. Format: outline with enough detail to write the full guide.</div>
+  </div>
+
+  <div class="footer-bar">Edmund's Mastermind | Zillow's $2.6B Bet Against You | April 2026</div>
+</div>
+
+<div class="page-break"></div>
+
+<!-- ============================================ -->
+<!-- PAGE 8: SYSTEM 2 WORKSHEET -->
+<!-- ============================================ -->
+<div class="page">
+  <h2>Worksheet: Listing-Side Revenue Calculator</h2>
+  <p>Calculate the financial impact of shifting your business toward the listing side. Be specific with real numbers.</p>
+
+  <div class="light-box">
+    <h4>Part A: Current Business Mix</h4>
+    <div class="calc-grid">
+      <div>
+        <p class="write-line-label">Total closed transactions (last 12 months):</p>
+        <div class="write-line"></div>
+      </div>
+      <div>
+        <p class="write-line-label">Total GCI (last 12 months):</p>
+        <div class="write-line"></div>
+      </div>
+      <div>
+        <p class="write-line-label">Buyer-side transactions:</p>
+        <div class="write-line"></div>
+      </div>
+      <div>
+        <p class="write-line-label">Listing-side transactions:</p>
+        <div class="write-line"></div>
+      </div>
+      <div>
+        <p class="write-line-label">Average buyer-side commission:</p>
+        <div class="write-line"></div>
+      </div>
+      <div>
+        <p class="write-line-label">Average listing-side commission:</p>
+        <div class="write-line"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="light-box" style="margin-top: 0.15in;">
+    <h4>Part B: The Shift Scenario</h4>
+    <p>What happens if you shift 20% of your buyer-side business to listing-side?</p>
+    <div class="calc-grid">
+      <div>
+        <p class="write-line-label">Buyer transactions shifted to listings (20%):</p>
+        <div class="write-line"></div>
+      </div>
+      <div>
+        <p class="write-line-label">New listing-side total:</p>
+        <div class="write-line"></div>
+      </div>
+      <div>
+        <p class="write-line-label">Revenue from shifted listings (at listing commission rate):</p>
+        <div class="write-line"></div>
+      </div>
+      <div>
+        <p class="write-line-label">Revenue lost from reduced buyer transactions:</p>
+        <div class="write-line"></div>
+      </div>
+    </div>
+    <p class="write-line-label">Net revenue change from the 20% shift:</p>
+    <div class="write-line"></div>
+  </div>
+
+  <div class="light-box" style="margin-top: 0.15in;">
+    <h4>Part C: Strategic Actions</h4>
+    <p class="write-line-label">Three specific actions you will take this month to generate more listing leads:</p>
+    <p>1. <span style="display:inline-block; width: 90%; border-bottom: 1px solid var(--line-color); height: 0.3in;"></span></p>
+    <p>2. <span style="display:inline-block; width: 90%; border-bottom: 1px solid var(--line-color); height: 0.3in;"></span></p>
+    <p>3. <span style="display:inline-block; width: 90%; border-bottom: 1px solid var(--line-color); height: 0.3in;"></span></p>
+
+    <p class="write-line-label">One expired/FSBO script you will practice this week:</p>
+    <div class="write-line"></div>
+    <div class="write-line"></div>
+
+    <p class="write-line-label">Target listing-to-buyer ratio in 6 months:</p>
+    <div class="write-line"></div>
+  </div>
+
+  <div class="footer-bar">Edmund's Mastermind | Zillow's $2.6B Bet Against You | April 2026</div>
+</div>
+
+<div class="page-break"></div>
+
+<!-- ============================================ -->
+<!-- PAGES 9-10: SYSTEM 3 — YOUR COMPETITIVE AI STACK -->
+<!-- ============================================ -->
+<div class="page">
+  <h2><span class="system-badge">3</span> Your Competitive AI Stack</h2>
+  <p style="font-style: italic; color: var(--muted); margin-bottom: 0.2in;">Build your own AI toolkit to match what Zillow gives consumers</p>
+
+  <div class="navy-box">
+    <h3>The Arms Race Is Here</h3>
+    <p>Zillow just gave 235 million consumers access to AI that can search homes, analyze comps, and recommend offer strategies. If your tech stack has not evolved since 2023, you are bringing a flip phone to a smartphone fight. The good news: the tools you need are available right now, many of them free or already in your existing subscriptions. The bad news: most agents will not bother to learn them. That is your competitive advantage.</p>
+  </div>
+
+  <h3>Follow Up Boss: Your AI Command Center</h3>
+  <div class="accent-bar-section">
+    <p>Follow Up Boss is being transformed from a CRM into an AI-powered workflow engine. The centerpiece is <strong>Action Hub</strong>, which prioritizes opportunities based on consumer activity signals and generates draft messages using AI. Instead of manually sorting leads, Action Hub surfaces the hottest opportunities and drafts your response before you even open the app. Over 80% of top-performing teams already use FUB -- the AI upgrade is coming to your existing subscription.</p>
+    <p>Action Hub analyzes browsing behavior, saved searches, showing requests, and engagement patterns to rank your leads by likelihood to transact. It then generates personalized outreach messages that reference the specific properties and neighborhoods each lead has been researching. Your job shifts from lead management to lead approval -- review the AI suggestion, personalize it with one sentence, and send.</p>
+  </div>
+
+  <h3>Your AI Tool Categories</h3>
+  <ul>
+    <li><strong>Lead follow-up:</strong> AI-drafted responses based on lead behavior (FUB Action Hub, ChatGPT, Claude)</li>
+    <li><strong>Market analysis:</strong> AI-generated market reports, price trend analysis, neighborhood comparisons (ChatGPT + MLS data exports)</li>
+    <li><strong>Social media content:</strong> AI-written posts, carousels, video scripts that position you as the local expert (Claude, ChatGPT, Canva AI)</li>
+    <li><strong>CMA generation:</strong> AI-enhanced CMAs with market narrative and pricing strategy context</li>
+    <li><strong>Email marketing:</strong> AI-personalized drip campaigns that adapt based on recipient engagement</li>
+    <li><strong>Listing descriptions:</strong> AI-written luxury copy with multiple versions optimized for different platforms</li>
+  </ul>
+
+  <h3>Create Content AI Cannot</h3>
+  <div class="accent-bar-section">
+    <p>The single most important principle in the AI era: <strong>create content that only you can create.</strong> Zillow AI can generate market statistics. It cannot walk through your neighborhood with a camera. It cannot share your opinion on which restaurants are overrated. It cannot introduce the head of the HOA. It cannot show up at the school fundraiser.</p>
+    <p>Your defensible content strategy includes: local video tours with your face and voice, personal neighborhood guides with opinions (not just data), market commentary that includes your take (not just numbers), community event coverage, and referral network introductions. The more personality and locality you inject, the less replicable your content becomes.</p>
+  </div>
+
+  <h3>Specialize or Be Replaced</h3>
+  <p>Generalist agents are the most vulnerable to AI disruption. When AI can answer any general question about any market, the agent who knows "a little about everything" has zero competitive advantage. The agent who is the undisputed expert in three zip codes, one property type, or one buyer demographic has a moat that AI cannot cross. Specialization is no longer a growth strategy -- it is a survival strategy.</p>
+  <p>Own the relationship before Zillow does: community presence, local events, strategic content, referral networks, and personal brand authority in your niche. The agent who is known in the community will always beat the agent who is found by the algorithm.</p>
+
+  <div class="footer-bar">Edmund's Mastermind | Zillow's $2.6B Bet Against You | April 2026</div>
+</div>
+
+<div class="page-break"></div>
+
+<div class="page">
+  <h2>System 3 Prompts: Your Competitive AI Stack</h2>
+  <p>These prompts help you build an AI-powered workflow that outperforms what consumers get from Zillow for free.</p>
+
+  <div class="no-break">
+    <span class="prompt-label">Prompt 1 -- Weekly Market Update Email</span>
+    <div class="prompt-block">Using ChatGPT or Claude, create a weekly market update email template that includes AI-generated stats plus your personal market commentary -- something Zillow AI can't replicate.
+
+Structure: (1) Subject line with urgency or curiosity hook. (2) Opening: one sentence of personal market observation from your week (e.g., "I showed 6 homes in [NEIGHBORHOOD] this week and noticed..."). (3) Data section: 4-5 key stats for [YOUR MARKET] -- median price, new listings, DOM changes, price per sq ft trend, months of supply. (4) Your take: 2-3 sentences interpreting what the data means for buyers and sellers RIGHT NOW -- include an opinion AI wouldn't give. (5) Featured listing or market opportunity. (6) CTA: reply to discuss your situation. Total: 200-250 words. Tone: authoritative but accessible.</div>
+  </div>
+
+  <div class="no-break">
+    <span class="prompt-label">Prompt 2 -- Personalized Lead Follow-Up</span>
+    <div class="prompt-block">Build a prompt that generates personalized follow-up messages for leads based on their Zillow search behavior (price range, neighborhoods, property types).
+
+Input format: "Lead name: [NAME]. Price range: [RANGE]. Neighborhoods: [LIST]. Property type: [TYPE]. Days since last activity: [NUMBER]. Previous interactions: [BRIEF SUMMARY]."
+
+Output: Generate 3 message variations: (1) Text message (under 160 characters) referencing a specific property or neighborhood they searched. (2) Email (100-150 words) with a market insight relevant to their search criteria. (3) Voicemail script (30 seconds) that mentions something personal about the neighborhood they are researching. Each message should feel custom, not templated. Include a specific call to action. Never start with "I noticed you were looking at..."</div>
+  </div>
+
+  <div class="no-break">
+    <span class="prompt-label">Prompt 3 -- Luxury Listing Description Generator</span>
+    <div class="prompt-block">Create an AI-powered listing description generator prompt that produces luxury-level copy with your personal voice and local knowledge baked in.
+
+Input: Property details -- address, beds/baths, sqft, lot size, key features, upgrades, neighborhood, school district, your personal observations about the property (what you noticed when you walked it).
+
+Output: Generate 3 versions: (1) MLS description (250 words max) -- factual, feature-rich, keyword-optimized. (2) Social media version (100 words) -- emotional, lifestyle-focused, scroll-stopping hook. (3) Email blast version (150 words) -- compelling narrative that creates urgency. Each version should include at least one personal observation that only an agent who visited the property would know. Tone: luxury, sophisticated, zero cliches (no "nestled," "boasts," "entertainer's dream"). Voice: [YOUR BRAND VOICE DESCRIPTION].</div>
+  </div>
+
+  <div class="no-break">
+    <span class="prompt-label">Prompt 4 -- Local Expert Neighborhood Guide</span>
+    <div class="prompt-block">Write a prompt that analyzes a neighborhood and produces a "Local Expert Guide" no AI platform can match -- including personal restaurant picks, hidden gems, and community insights.
+
+Neighborhood: [NEIGHBORHOOD NAME, CITY, STATE].
+
+Generate a guide with these sections: (1) Neighborhood Overview -- history, vibe, who lives here, what makes it special. (2) Real Estate Snapshot -- price range, typical home style, lot sizes, HOA info. (3) My Personal Picks -- top 3 restaurants (with what to order), best coffee shop for remote work, hidden gem most residents don't know about, best walking/running route, the park locals prefer. (4) Schools & Families -- school ratings plus parent perspective (drop-off logistics, after-school options, community involvement). (5) The Honest Truth -- one thing to know before moving here that no listing will tell you. (6) Why I Recommend This Neighborhood For -- (3 buyer profiles this area fits). Include placeholders for photos. Format: ready to publish as a blog post or PDF lead magnet.</div>
+  </div>
+
+  <div class="no-break">
+    <span class="prompt-label">Prompt 5 -- 30-Day Social Media Calendar</span>
+    <div class="prompt-block">Generate a 30-day social media content calendar using AI that positions you as the go-to agent in your farm area.
+
+Parameters: Farm area: [YOUR FARM AREA]. Platform: Instagram. Posting frequency: 5x per week (M/W/F feed posts, T/Th stories/reels). Niche: [YOUR SPECIALIZATION].
+
+For each post, provide: (1) Day and format (feed post, reel, story, carousel). (2) Content theme (market update, listing showcase, local spotlight, personal brand, educational). (3) Hook/first line. (4) Key message (2-3 sentences). (5) CTA. (6) 3-5 hashtags.
+
+Rules: No more than 2 listing posts per week. At least 2 local/community posts per week. At least 1 personal brand post per week. Every post should subtly reinforce your expertise without being salesy. Include 2 "controversial take" posts that spark engagement.</div>
+  </div>
+
+  <div class="no-break">
+    <span class="prompt-label">Prompt 6 -- AI-Powered CMA Presentation</span>
+    <div class="prompt-block">Create a prompt that takes MLS data and generates a client-ready CMA presentation with market narrative and pricing strategy.
+
+Input: Subject property address, bed/bath/sqft, lot size, year built, condition, upgrades. Plus: 5-6 comparable sales with address, sale price, sale date, bed/bath/sqft, DOM, condition notes.
+
+Output: (1) Executive summary -- one paragraph positioning the property in the current market. (2) Comparable analysis -- for each comp, explain why it is relevant, adjustments you would make for condition/location/size, and what it tells us about pricing. (3) Market context -- current inventory, absorption rate, buyer demand level, seasonal factors. (4) Pricing strategy -- recommended list price with rationale, pricing range (aggressive/conservative/strategic), and expected DOM at each price point. (5) Your recommendation -- clear, confident pricing recommendation with reasoning a seller can understand. Format: professional, presentation-ready sections. Tone: data-driven authority.</div>
+  </div>
+
+  <div class="footer-bar">Edmund's Mastermind | Zillow's $2.6B Bet Against You | April 2026</div>
+</div>
+
+<div class="page-break"></div>
+
+<!-- ============================================ -->
+<!-- PAGE 11: SYSTEM 3 WORKSHEET -->
+<!-- ============================================ -->
+<div class="page">
+  <h2>Worksheet: AI Tool Audit</h2>
+  <p>Inventory your current tech stack, identify gaps, and build your implementation plan.</p>
+
+  <div class="light-box">
+    <h4>Part A: Current AI Tools</h4>
+    <p>List every AI or tech tool you currently use in your business:</p>
+
+    <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 4px 16px; margin: 0.1in 0;">
+      <div style="font-size: 8pt; font-weight: 700; text-transform: uppercase; color: var(--muted);">Tool Name</div>
+      <div style="font-size: 8pt; font-weight: 700; text-transform: uppercase; color: var(--muted);">Purpose</div>
+      <div style="font-size: 8pt; font-weight: 700; text-transform: uppercase; color: var(--muted);">Using AI Features? (Y/N)</div>
+      <div class="write-line"></div><div class="write-line"></div><div class="write-line"></div>
+      <div class="write-line"></div><div class="write-line"></div><div class="write-line"></div>
+      <div class="write-line"></div><div class="write-line"></div><div class="write-line"></div>
+      <div class="write-line"></div><div class="write-line"></div><div class="write-line"></div>
+      <div class="write-line"></div><div class="write-line"></div><div class="write-line"></div>
+      <div class="write-line"></div><div class="write-line"></div><div class="write-line"></div>
+    </div>
+  </div>
+
+  <div class="light-box" style="margin-top: 0.15in;">
+    <h4>Part B: Gap Analysis</h4>
+    <p>For each category, rate your current capability (1 = no tool, 5 = fully optimized):</p>
+    <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 4px 16px; margin: 0.1in 0;">
+      <div>Lead follow-up automation</div><div class="write-line"></div>
+      <div>Market analysis &amp; reporting</div><div class="write-line"></div>
+      <div>Social media content creation</div><div class="write-line"></div>
+      <div>CMA / pricing presentation</div><div class="write-line"></div>
+      <div>Email marketing personalization</div><div class="write-line"></div>
+      <div>Listing description writing</div><div class="write-line"></div>
+      <div>Video content production</div><div class="write-line"></div>
+      <div>Client communication (AI-assisted)</div><div class="write-line"></div>
+    </div>
+  </div>
+
+  <div class="light-box" style="margin-top: 0.15in;">
+    <h4>Part C: Implementation Priority</h4>
+    <p class="write-line-label">Top 2 tools/categories to implement this month:</p>
+    <p>1. <span style="display:inline-block; width: 90%; border-bottom: 1px solid var(--line-color); height: 0.3in;"></span></p>
+    <p>2. <span style="display:inline-block; width: 90%; border-bottom: 1px solid var(--line-color); height: 0.3in;"></span></p>
+
+    <p class="write-line-label">Estimated weekly time savings once implemented:</p>
+    <div class="write-line" style="width: 3in;"></div>
+
+    <p class="write-line-label">Who on your team needs to learn these tools?</p>
+    <div class="write-line"></div>
+
+    <p class="write-line-label">Budget allocated for AI tools (monthly):</p>
+    <div class="write-line" style="width: 3in;"></div>
+  </div>
+
+  <div class="footer-bar">Edmund's Mastermind | Zillow's $2.6B Bet Against You | April 2026</div>
+</div>
+
+<div class="page-break"></div>
+
+<!-- ============================================ -->
+<!-- PAGE 12: 30-DAY IMPLEMENTATION PLAN -->
+<!-- ============================================ -->
+<div class="page">
+  <h2>30-Day Implementation Plan</h2>
+  <p>Execution beats strategy. Check each box as you complete it. Share progress with your accountability partner weekly.</p>
+
+  <div class="week-header">Week 1: Reconnaissance & Audit (April 8-14)</div>
+  <div class="week-body">
+    <div class="checkbox-item">Test Zillow AI Mode yourself -- run 5 searches as a buyer in your market. Document what it gets right and wrong.</div>
+    <div class="checkbox-item">Complete the Value Proposition Audit worksheet (System 1). Write your new 60-second pitch.</div>
+    <div class="checkbox-item">Run the Listing-Side Revenue Calculator (System 2). Calculate your current ratio and target ratio.</div>
+    <div class="checkbox-item">Complete the AI Tool Audit (System 3). Identify your top 2 gaps.</div>
+    <div class="checkbox-item">Update your Follow Up Boss workflows -- ensure AI Action Hub is enabled (or request access).</div>
+    <div class="checkbox-item">Practice your new pitch with a colleague or accountability partner. Get honest feedback.</div>
+    <div class="checkbox-item">Choose your accountability partner for this 30-day sprint: _______________________________</div>
+  </div>
+
+  <div class="week-header">Week 2: Implement the AI Translator Framework (April 15-21)</div>
+  <div class="week-body">
+    <div class="checkbox-item">Use Prompt 1 (Validate & Contextualize) with your next buyer interaction. Document the result.</div>
+    <div class="checkbox-item">Send the pre-meeting email template (Prompt 2) to your next 3 buyer meetings.</div>
+    <div class="checkbox-item">Create your "What Zillow AI Can't Tell You" checklist (Prompt 6) and print 20 copies.</div>
+    <div class="checkbox-item">Post your first AI-positioning social media content (Prompt 4 from System 1).</div>
+    <div class="checkbox-item">Begin your listing-side pivot: identify 3 potential listing leads in your database.</div>
+    <div class="checkbox-item">Have one listing conversation using the AI + expertise positioning (System 2, Prompt 1).</div>
+    <div class="checkbox-item">Track buyer reactions to your new AI Translator approach. Notes: _______________________________</div>
+  </div>
+
+  <div class="week-header">Week 3: Build Your AI Stack (April 22-28)</div>
+  <div class="week-body">
+    <div class="checkbox-item">Set up your weekly market update email using Prompt 1 from System 3. Send to your database.</div>
+    <div class="checkbox-item">Create your first AI-powered Local Expert Guide (Prompt 4, System 3) for your primary farm area.</div>
+    <div class="checkbox-item">Generate your 30-day social media calendar (Prompt 5, System 3). Schedule the first week of content.</div>
+    <div class="checkbox-item">Use the listing description generator (Prompt 3, System 3) on your current or next listing.</div>
+    <div class="checkbox-item">Draft and send Email 1 of the seller campaign (Prompt 2, System 2) to your sphere.</div>
+    <div class="checkbox-item">Create one piece of "uncopyable" content -- local video tour, neighborhood guide, or market commentary with your opinion.</div>
+    <div class="checkbox-item">Test one new AI tool you identified in your gap analysis: _______________________________</div>
+  </div>
+
+  <div class="week-header">Week 4: Measure & Optimize (April 29 - May 5)</div>
+  <div class="week-body">
+    <div class="checkbox-item">Review email open rates and engagement from your AI-powered market update. Open rate: _______%</div>
+    <div class="checkbox-item">Count new listing conversations generated this month: _______ (target: 3+)</div>
+    <div class="checkbox-item">Measure social media engagement lift from AI-generated content vs. previous month.</div>
+    <div class="checkbox-item">Calculate time saved this week using AI tools: _______ hours</div>
+    <div class="checkbox-item">Send remaining seller campaign emails (Email 2 and 3, System 2).</div>
+    <div class="checkbox-item">Schedule a 15-minute call with your accountability partner to share wins and adjustments.</div>
+    <div class="checkbox-item">Set 3 goals for Month 2 based on what worked: _______________________________</div>
+  </div>
+
+  <div class="footer-bar">Edmund's Mastermind | Zillow's $2.6B Bet Against You | April 2026</div>
+</div>
+
+<div class="page-break"></div>
+
+<!-- ============================================ -->
+<!-- PAGE 13: COMMITMENT CONTRACT -->
+<!-- ============================================ -->
+<div class="page">
+  <h2>Commitment Contract</h2>
+  <p>Knowing is not enough. You have the systems, the prompts, and the plan. Now commit.</p>
+
+  <div class="navy-box" style="text-align: center; padding: 0.4in;">
+    <h3>My Commitment</h3>
+    <p style="font-size: 12pt; line-height: 1.8;">I understand that Zillow AI Mode has permanently changed how consumers interact with real estate. I refuse to ignore this shift and hope it goes away. I commit to implementing the three systems from today's session within 30 days. I will position myself as the AI Translator, shift my business toward the listing side, and build a competitive AI stack that makes me indispensable.</p>
+    <p style="font-size: 12pt; line-height: 1.8; margin-top: 0.15in;"><strong style="color: var(--cyan);">I will not be the agent who gets outsmarted by an algorithm.</strong></p>
+  </div>
+
+  <div style="margin-top: 0.4in;">
+    <h4>My Specific Commitments</h4>
+
+    <p class="write-line-label">System 1 -- AI Translator: I will implement this with my next _____ buyer meetings.</p>
+    <div class="write-line" style="width: 2in; display: inline-block;"></div>
+
+    <p class="write-line-label">System 2 -- Listing-Side Pivot: My listing-to-buyer ratio target by June 2026:</p>
+    <div class="write-line" style="width: 3in;"></div>
+
+    <p class="write-line-label">System 3 -- AI Stack: The 2 tools I will implement this month:</p>
+    <p>1. <span style="display:inline-block; width: 85%; border-bottom: 1px solid var(--line-color); height: 0.3in;"></span></p>
+    <p>2. <span style="display:inline-block; width: 85%; border-bottom: 1px solid var(--line-color); height: 0.3in;"></span></p>
+
+    <p class="write-line-label">My accountability partner:</p>
+    <div class="write-line" style="width: 4in;"></div>
+
+    <p class="write-line-label">We will check in every: <span style="display:inline-block; width: 1.5in; border-bottom: 1px solid var(--line-color); height: 0.3in;"></span> (weekly/biweekly)</p>
+  </div>
+
+  <div class="signature-section">
+    <div>
+      <div class="write-line"></div>
+      <p style="font-size: 9pt; color: var(--muted); margin-top: 4px;">Your Signature</p>
+    </div>
+    <div>
+      <div class="write-line"></div>
+      <p style="font-size: 9pt; color: var(--muted); margin-top: 4px;">Date</p>
+    </div>
+  </div>
+
+  <div class="light-box" style="margin-top: 0.4in; text-align: center;">
+    <p style="font-size: 10pt; font-weight: 600; color: var(--navy);">"The agents who will thrive in the AI era are not the ones who fear technology -- they are the ones who use it better than the technology uses them."</p>
+    <p style="font-size: 9pt; color: var(--muted); margin-top: 4px;">-- Edmund Bogen</p>
+  </div>
+
+  <div class="footer-bar">Edmund's Mastermind | Zillow's $2.6B Bet Against You | April 2026</div>
+</div>
+
+<div class="page-break"></div>
+
+<!-- ============================================ -->
+<!-- PAGE 14: NOTES & ROI TRACKER -->
+<!-- ============================================ -->
+<div class="page">
+  <h2>Notes & ROI Tracker</h2>
+
+  <h3>Session Notes</h3>
+  <div class="notes-lines">
+    <div class="write-line"></div>
+    <div class="write-line"></div>
+    <div class="write-line"></div>
+    <div class="write-line"></div>
+    <div class="write-line"></div>
+    <div class="write-line"></div>
+    <div class="write-line"></div>
+    <div class="write-line"></div>
+    <div class="write-line"></div>
+    <div class="write-line"></div>
+  </div>
+
+  <h3 style="margin-top: 0.3in;">30-Day ROI Tracker</h3>
+  <p>Track your measurable results from implementing the three systems.</p>
+
+  <div class="roi-grid">
+    <div class="roi-header">Metric</div>
+    <div class="roi-header">Week 1</div>
+    <div class="roi-header">Week 2</div>
+    <div class="roi-header">Week 3</div>
+
+    <div style="font-size: 9pt; padding: 4px 0;">Buyer meetings using AI Translator</div>
+    <div class="roi-cell"></div><div class="roi-cell"></div><div class="roi-cell"></div>
+
+    <div style="font-size: 9pt; padding: 4px 0;">New listing conversations</div>
+    <div class="roi-cell"></div><div class="roi-cell"></div><div class="roi-cell"></div>
+
+    <div style="font-size: 9pt; padding: 4px 0;">Listing presentations given</div>
+    <div class="roi-cell"></div><div class="roi-cell"></div><div class="roi-cell"></div>
+
+    <div style="font-size: 9pt; padding: 4px 0;">AI-generated content pieces</div>
+    <div class="roi-cell"></div><div class="roi-cell"></div><div class="roi-cell"></div>
+
+    <div style="font-size: 9pt; padding: 4px 0;">Social media posts published</div>
+    <div class="roi-cell"></div><div class="roi-cell"></div><div class="roi-cell"></div>
+
+    <div style="font-size: 9pt; padding: 4px 0;">Market update emails sent</div>
+    <div class="roi-cell"></div><div class="roi-cell"></div><div class="roi-cell"></div>
+
+    <div style="font-size: 9pt; padding: 4px 0;">Hours saved using AI tools</div>
+    <div class="roi-cell"></div><div class="roi-cell"></div><div class="roi-cell"></div>
+
+    <div style="font-size: 9pt; padding: 4px 0;">Leads generated</div>
+    <div class="roi-cell"></div><div class="roi-cell"></div><div class="roi-cell"></div>
+  </div>
+
+  <div class="roi-grid" style="margin-top: 0.15in;">
+    <div class="roi-header">Metric</div>
+    <div class="roi-header" style="grid-column: span 3;">Week 4 / Month Total</div>
+
+    <div style="font-size: 9pt; padding: 4px 0;">Total new listings secured</div>
+    <div class="roi-cell" style="grid-column: span 3;"></div>
+
+    <div style="font-size: 9pt; padding: 4px 0;">Total revenue attributed to AI tools</div>
+    <div class="roi-cell" style="grid-column: span 3;"></div>
+
+    <div style="font-size: 9pt; padding: 4px 0;">Total hours saved</div>
+    <div class="roi-cell" style="grid-column: span 3;"></div>
+
+    <div style="font-size: 9pt; padding: 4px 0;">Listing-to-buyer ratio (current)</div>
+    <div class="roi-cell" style="grid-column: span 3;"></div>
+  </div>
+
+  <div class="light-box" style="margin-top: 0.2in;">
+    <h4>Key Takeaways & Action Items</h4>
+    <div class="write-line"></div>
+    <div class="write-line"></div>
+    <div class="write-line"></div>
+    <div class="write-line"></div>
+    <div class="write-line"></div>
+  </div>
+
+  <div class="footer-bar">Edmund's Mastermind | Zillow's $2.6B Bet Against You | April 2026</div>
+</div>
+
+<div class="page-break"></div>
+
+<!-- ============================================ -->
+<!-- PAGE 15: CLOSING MANIFESTO -->
+<!-- ============================================ -->
+<div class="page">
+  <div class="navy-box" style="min-height: 7in; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 0.6in;">
+
+    <h2 style="color: var(--white) !important; font-size: 14pt; letter-spacing: 0.15em; margin-bottom: 0.4in;">The Zillow $2.6B Manifesto</h2>
+
+    <div class="manifesto-text">
+      The algorithm does not know your clients.<br><br>
+      It does not know that the couple in unit 4B are getting divorced and will take 15% under ask to close fast. It does not know that the school everyone wants is rezoning next year. It does not know that the builder cut corners on the roof in 2019.<br><br>
+      <strong>The algorithm has data. You have intelligence.</strong><br><br>
+      Data tells you a home sold for $850,000. Intelligence tells you it sold for $850,000 because the buyer's mother lives two doors down and they would have paid $900,000.<br><br>
+      Zillow gave consumers a powerful tool. Good. Let them show up prepared. Let them arrive with data in hand and questions ready. That makes your job easier, not harder -- if you are operating at the right level.<br><br>
+      <strong>The agents who fear AI are the agents who were already replaceable.</strong><br><br>
+      You are not that agent.<br><br>
+      You are the translator who turns data into decisions. You are the strategist who sees what algorithms miss. You are the negotiator who reads people, not spreadsheets. You are the local expert whose knowledge cannot be scraped, indexed, or automated.<br><br>
+      <strong>Getting outsmarted by an algorithm is NOT an option.</strong><br><br>
+      Not today. Not ever.<br><br>
+      Now go execute.
+    </div>
+
+    <div style="margin-top: 0.5in; border-top: 1px solid rgba(255,255,255,0.2); padding-top: 0.3in;">
+      <p style="color: var(--cyan); font-weight: 600; font-size: 11pt; letter-spacing: 0.1em; text-transform: uppercase;">Edmund's Mastermind</p>
+      <p style="color: rgba(255,255,255,0.5); font-size: 9pt; margin-top: 4px;"></p>
+      <p style="color: rgba(255,255,255,0.4); font-size: 8pt; margin-top: 8px;">Copyright 2026 Edmund Bogen. All rights reserved.</p>
+    </div>
+  </div>
+
+  <div class="footer-bar">Edmund's Mastermind | Zillow's $2.6B Bet Against You | April 2026</div>
+</div>
+
+<!-- ============================================ -->
+<!-- JAVASCRIPT: Theme Toggle -->
+<!-- ============================================ -->
+<script>
+  // Initialize theme from localStorage
+  (function() {
+    var saved = localStorage.getItem('zillow-workbook-theme');
+    if (saved === 'dark') {
+      document.documentElement.setAttribute('data-theme', 'dark');
+      document.body.setAttribute('data-theme', 'dark');
+    }
+  })();
+
+  function toggleTheme() {
+    var body = document.body;
+    var html = document.documentElement;
+    var current = body.getAttribute('data-theme');
+    var next = current === 'dark' ? 'light' : 'dark';
+    body.setAttribute('data-theme', next);
+    html.setAttribute('data-theme', next);
+    localStorage.setItem('zillow-workbook-theme', next);
+  }
+</script>
+
+</body>
+</html>
