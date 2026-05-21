@@ -129,6 +129,27 @@
       letter-spacing: 0.5px;
     }
 
+    .workbook-button {
+      display: inline-block;
+      margin-top: 20px;
+      padding: 12px 24px;
+      background: var(--cyan);
+      color: #ffffff;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 0.9rem;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      border: none;
+      cursor: pointer;
+    }
+
+    .workbook-button:hover {
+      background: #0d9fc8;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0,168,225,0.3);
+    }
+
     @media (max-width: 768px) {
       .mastermind-hero h1 {
         font-size: 2rem;
@@ -225,7 +246,7 @@
     <div class="workbooks-grid">
 
       <!-- Perplexity Computer -->
-      <a href="/masterminds/perplexity-computer-workbook.html" class="workbook-card">
+      <div class="workbook-card">
         <img src="/masterminds/perplexity-computer-hero.png" alt="Perplexity Computer" class="workbook-image">
         <div class="workbook-content">
           <h3 class="workbook-title">The AI agent your competition hopes you never find - Perplexity Computer!</h3>
@@ -234,11 +255,12 @@
             <span class="workbook-badge">Aug 12, 2026</span>
             <span>AI Research</span>
           </div>
+          <a href="https://edmundbogen.github.io/perplexity-computer-workbook/" target="_blank" class="workbook-button" onclick="event.stopPropagation()">View Workbook →</a>
         </div>
-      </a>
+      </div>
 
       <!-- Buyer-Broker Objections -->
-      <a href="/masterminds/buyer-broker-objections-workbook.html" class="workbook-card">
+      <div class="workbook-card">
         <img src="/masterminds/buyer-broker-objections-hero.png" alt="Buyer-broker objections. Yuck!" class="workbook-image">
         <div class="workbook-content">
           <h3 class="workbook-title">Buyer-broker objections. Yuck!</h3>
@@ -247,11 +269,12 @@
             <span class="workbook-badge">May 27, 2026</span>
             <span>Objection Handling</span>
           </div>
+          <a href="https://edmundbogen.github.io/buyer-broker-objections.html" target="_blank" class="workbook-button" onclick="event.stopPropagation()">View Workbook →</a>
         </div>
-      </a>
+      </div>
 
       <!-- Platform War -->
-      <a href="/masterminds/platform-war" class="workbook-card">
+      <div class="workbook-card">
         <img src="/masterminds/platform-war/battleground-hero.png" alt="The New Real Estate Battleground" class="workbook-image">
         <div class="workbook-content">
           <h3 class="workbook-title">The New Real Estate Battleground</h3>
@@ -261,11 +284,12 @@
             <span>18 AI Prompts</span>
             <span>16 Pages</span>
           </div>
+          <a href="https://www.bogen.ai/masterminds/platform-war" target="_blank" class="workbook-button" onclick="event.stopPropagation()">View Workbook →</a>
         </div>
-      </a>
+      </div>
 
       <!-- Claude Code Part 1 -->
-      <a href="/masterminds/claude-code-1" class="workbook-card">
+      <div class="workbook-card">
         <img src="/masterminds/claude-code-1/hero.png" alt="Claude Code Series - Part 1" class="workbook-image">
         <div class="workbook-content">
           <h3 class="workbook-title">Claude Code Series - Part 1</h3>
@@ -274,11 +298,12 @@
             <span class="workbook-badge">May 14, 2026</span>
             <span>Technical</span>
           </div>
+          <a href="https://www.bogen.ai/masterminds/claude-code-1/" target="_blank" class="workbook-button" onclick="event.stopPropagation()">View Workbook →</a>
         </div>
-      </a>
+      </div>
 
       <!-- AI Prospecting -->
-      <a href="/masterminds/prospecting-ai-age" class="workbook-card">
+      <div class="workbook-card">
         <img src="/masterminds/prospecting-ai-age/hero.png" alt="The AI Prospecting & Productivity System That Buys Back Your Week" class="workbook-image">
         <div class="workbook-content">
           <h3 class="workbook-title">The AI Prospecting & Productivity System That Buys Back Your Week</h3>
@@ -287,11 +312,12 @@
             <span class="workbook-badge">May 13, 2026</span>
             <span>AI Prospecting</span>
           </div>
+          <a href="https://www.bogen.ai/masterminds/prospecting-ai-age/" target="_blank" class="workbook-button" onclick="event.stopPropagation()">View Workbook →</a>
         </div>
-      </a>
+      </div>
 
       <!-- AI Search -->
-      <a href="/masterminds/ai-search" class="workbook-card">
+      <div class="workbook-card">
         <img src="/masterminds/ai-search/hero.png" alt="ChatGPT just picked one realtor in your city" class="workbook-image">
         <div class="workbook-content">
           <h3 class="workbook-title">ChatGPT just picked one realtor in your city — by name. (Spoiler: it isn't you.)</h3>
@@ -300,11 +326,12 @@
             <span class="workbook-badge">May 6, 2026</span>
             <span>Search Strategy</span>
           </div>
+          <a href="https://www.bogen.ai/masterminds/ai-search/" target="_blank" class="workbook-button" onclick="event.stopPropagation()">View Workbook →</a>
         </div>
-      </a>
+      </div>
 
       <!-- Listing Killer -->
-      <a href="/masterminds/listing-killer-workbook.html" class="workbook-card">
+      <div class="workbook-card">
         <img src="/masterminds/listing-killer-hero.png" alt="DEEP RESEARCH - The 10-Minute Listing Appointment Killer" class="workbook-image">
         <div class="workbook-content">
           <h3 class="workbook-title">DEEP RESEARCH - The 10-Minute Listing Appointment Killer</h3>
@@ -313,11 +340,12 @@
             <span class="workbook-badge">Apr 29, 2026</span>
             <span>High-Conversion</span>
           </div>
+          <a href="https://edmundbogen.github.io/listing-killer-workbook.pdf" target="_blank" class="workbook-button" onclick="event.stopPropagation()">View Workbook →</a>
         </div>
-      </a>
+      </div>
 
       <!-- AI Goal Domination -->
-      <a href="/masterminds/ai-goal-domination-workbook.html" class="workbook-card">
+      <div class="workbook-card">
         <img src="/masterminds/ai-goal-domination-hero.png" alt="92% of Goals Fail. Here's the System the Other 8% Use" class="workbook-image">
         <div class="workbook-content">
           <h3 class="workbook-title">92% of Goals Fail. Here's the System the Other 8% Use</h3>
@@ -326,11 +354,12 @@
             <span class="workbook-badge">Apr 22, 2026</span>
             <span>Goal System</span>
           </div>
+          <a href="https://www.bogen.ai/masterminds/ai-goal-domination-workbook.html" target="_blank" class="workbook-button" onclick="event.stopPropagation()">View Workbook →</a>
         </div>
-      </a>
+      </div>
 
       <!-- AI Phone Agent -->
-      <a href="/masterminds/ai-phone-agent-workbook.html" class="workbook-card">
+      <div class="workbook-card">
         <img src="/masterminds/ai-phone-agent-hero.png" alt="Your First AI Employee" class="workbook-image">
         <div class="workbook-content">
           <h3 class="workbook-title">Your First AI Employee: Hire a 24/7 Lead Qualifier for Less Than Your Phone Bill</h3>
@@ -339,11 +368,12 @@
             <span class="workbook-badge">Apr 15, 2026</span>
             <span>AI Voice</span>
           </div>
+          <a href="https://www.bogen.ai/masterminds/ai-phone-agent-workbook.html" target="_blank" class="workbook-button" onclick="event.stopPropagation()">View Workbook →</a>
         </div>
-      </a>
+      </div>
 
       <!-- Zillow's $2.6B Bet -->
-      <a href="/masterminds/zillow-ai-workbook.html" class="workbook-card">
+      <div class="workbook-card">
         <img src="/masterminds/zillow-ai-hero.png" alt="Zillow's $2.6B Bet Against You" class="workbook-image">
         <div class="workbook-content">
           <h3 class="workbook-title">Zillow's $2.6B Bet Against You (and how to make it work for you)</h3>
@@ -352,11 +382,12 @@
             <span class="workbook-badge">Apr 8, 2026</span>
             <span>Platform Defense</span>
           </div>
+          <a href="https://edmundbogen.github.io/zillow-ai-workbook.html" target="_blank" class="workbook-button" onclick="event.stopPropagation()">View Workbook →</a>
         </div>
-      </a>
+      </div>
 
       <!-- Pipeline -->
-      <a href="https://edmundbogen.github.io/pipeline-mastermind-workbook.pdf" class="workbook-card">
+      <div class="workbook-card">
         <img src="/masterminds/zillow-ai-hero.png" alt="YOUR PIPELINE IS LYING TO YOU" class="workbook-image">
         <div class="workbook-content">
           <h3 class="workbook-title">YOUR PIPELINE IS LYING TO YOU</h3>
@@ -365,11 +396,12 @@
             <span class="workbook-badge">Apr 1, 2026</span>
             <span>Pipeline Strategy</span>
           </div>
+          <a href="https://edmundbogen.github.io/pipeline-mastermind-workbook.pdf" target="_blank" class="workbook-button" onclick="event.stopPropagation()">View Workbook →</a>
         </div>
-      </a>
+      </div>
 
       <!-- Agent-Investor -->
-      <a href="/masterminds/agent-investor-workbook.html" class="workbook-card">
+      <div class="workbook-card">
         <img src="/masterminds/agent-investor-hero.png" alt="THE SMART AGENT-INVESTOR: WEALTH BUILDING SESSION" class="workbook-image">
         <div class="workbook-content">
           <h3 class="workbook-title">THE SMART AGENT-INVESTOR: WEALTH BUILDING SESSION</h3>
@@ -378,8 +410,9 @@
             <span class="workbook-badge">Mar 25, 2026</span>
             <span>Wealth Building</span>
           </div>
+          <a href="https://edmundbogen.github.io/agent-investor-workbook.html" target="_blank" class="workbook-button" onclick="event.stopPropagation()">View Workbook →</a>
         </div>
-      </a>
+      </div>
 
 
     </div>
