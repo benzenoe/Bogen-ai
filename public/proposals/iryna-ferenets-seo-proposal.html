@@ -342,6 +342,33 @@
     .diag-card h4 { margin: 0 0 0.4rem 0; color: var(--white); }
     .diag-card p { margin: 0; font-size: 0.92rem; }
 
+    /* Audit findings */
+    .audit-finding {
+      display: grid; grid-template-columns: 92px 1fr; gap: 1.1rem;
+      background: var(--navy2); border: 1px solid var(--border);
+      border-radius: 12px; padding: 1.15rem 1.35rem; margin: 0.75rem 0;
+      align-items: start;
+    }
+    .sev {
+      font-size: 0.64rem; font-weight: 800; text-transform: uppercase;
+      letter-spacing: 0.05em; padding: 0.32rem 0.4rem; border-radius: 6px;
+      text-align: center; white-space: nowrap;
+    }
+    .sev.crit { background: rgba(224,86,86,0.16); color: #e05656; }
+    .sev.high { background: rgba(232,136,74,0.16); color: var(--warn); }
+    .sev.mod  { background: rgba(217,180,0,0.18);  color: #c9a400; }
+    .sev.ok   { background: rgba(0,168,225,0.14);  color: var(--blue); }
+    .audit-finding h4 { margin: 0 0 0.35rem 0; color: var(--white); font-size: 1rem; }
+    .audit-finding p { margin: 0; font-size: 0.9rem; }
+    .fix-tag {
+      display: inline-block; font-size: 0.64rem; font-weight: 700;
+      text-transform: uppercase; letter-spacing: 0.05em;
+      color: var(--blue); background: rgba(0,168,225,0.1);
+      border: 1px solid rgba(0,168,225,0.3);
+      padding: 0.15rem 0.5rem; border-radius: 50px;
+      margin-left: 0.55rem; vertical-align: middle; white-space: nowrap;
+    }
+
     /* Rent vs Own comparison */
     .compare-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin: 2rem 0; }
     @media (max-width: 768px) { .compare-grid { grid-template-columns: 1fr; } }
@@ -528,7 +555,7 @@
       .section p { margin-bottom: 0.5rem; line-height: 1.5; }
       .section ul, .section ol { margin-bottom: 0.6rem; margin-top: 0.35rem; }
       .section li { margin-bottom: 0.3rem; line-height: 1.4; }
-      .card, .diag-card, .pillar { margin-bottom: 0.7rem; padding: 0.95rem; }
+      .card, .diag-card, .pillar, .audit-finding { margin-bottom: 0.55rem; padding: 0.85rem; }
       .feature-card, .stat-card { margin-bottom: 0.6rem; padding: 0.85rem; }
       .roi-banner, .compare-grid, .base-package-box { page-break-inside: avoid; }
       .pricing-calculator { display: block; }
@@ -650,7 +677,7 @@
       <div class="diag-num">2</div>
       <div>
         <h4>Your current site is nearly invisible to AI</h4>
-        <p>Luxury Presence sites are heavy JavaScript applications — each page of your current site weighs <strong>450–630 KB</strong>. AI crawlers (GPTBot, ClaudeBot, PerplexityBot) and modern search systems favor fast, clean, readable HTML. If an AI engine can't cleanly read your page, it cannot cite you in its answer.</p>
+        <p>Luxury Presence sites are heavy JavaScript applications. Our audit measured your homepage at <strong>8.5 MB across 117 requests</strong> — including <strong>5.6 MB of JavaScript</strong> that builds your content in the browser. AI crawlers (GPTBot, ClaudeBot, PerplexityBot) and modern search systems favor fast, clean, readable HTML. If an AI engine can't cleanly read your page, it cannot cite you in its answer.</p>
       </div>
     </div>
     <div class="diag-card">
@@ -664,6 +691,107 @@
     <div class="callout">
       <h4>The honest conclusion</h4>
       <p>You can do real, lasting SEO and AI-search optimization — but not on a rented Luxury Presence site. That's why this proposal starts where you are today, then shows you the upgrade that removes the ceiling entirely.</p>
+    </div>
+  </div>
+
+  <!-- Website Audit -->
+  <div class="section">
+    <span class="eyebrow">Website Audit</span>
+    <h2>What We Measured On Your Site</h2>
+    <p class="section-intro">On 22 May 2026 we ran a full technical audit of irynaferenets.com — page speed, structured data, crawler accessibility, and on-page SEO — measured directly from your live site. Here is what we found.</p>
+
+    <div class="stat-grid">
+      <div class="stat-card">
+        <div class="stat-label">Homepage Weight</div>
+        <div class="stat-value">8.5 MB</div>
+        <div class="stat-desc">Loaded across 117 requests</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">JavaScript</div>
+        <div class="stat-value">5.6 MB</div>
+        <div class="stat-desc">Your content is built by script, not served as HTML</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Load Time</div>
+        <div class="stat-value">3.9 s</div>
+        <div class="stat-desc">Above Google's 2.5-second "good" mark</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Schema Markup</div>
+        <div class="stat-value">0</div>
+        <div class="stat-desc">No structured data found, site-wide</div>
+      </div>
+    </div>
+
+    <h3>Findings, Ranked by Impact</h3>
+
+    <div class="audit-finding">
+      <span class="sev crit">Critical</span>
+      <div>
+        <h4>No structured data anywhere on your site<span class="fix-tag">Phase 1 + 2</span></h4>
+        <p>Not one page — homepage, listing pages, or your About page — carries schema markup. Google and AI assistants have no machine-readable way to know you are a New York real estate agent, where you work, or what your listings cost. Structured data is the foundation of AI-search visibility, and it is entirely absent.</p>
+      </div>
+    </div>
+
+    <div class="audit-finding">
+      <span class="sev crit">Critical</span>
+      <div>
+        <h4>5.6 MB of JavaScript renders your content<span class="fix-tag">Phase 2</span></h4>
+        <p>Your pages are assembled in the browser by script rather than served as readable HTML. Many AI crawlers do not run JavaScript — so they may see a nearly empty page. The single biggest reason you are hard to find in AI search is that your site is hard for AI to read.</p>
+      </div>
+    </div>
+
+    <div class="audit-finding">
+      <span class="sev high">High</span>
+      <div>
+        <h4>No answer-engine strategy in place<span class="fix-tag">Phase 1 + 2</span></h4>
+        <p>Your robots.txt gives no instruction to AI crawlers (GPTBot, ClaudeBot, PerplexityBot, Google-Extended), your content is not structured as extractable questions and answers, and there is no llms.txt. Nothing about the site is built to earn a citation inside an AI answer.</p>
+      </div>
+    </div>
+
+    <div class="audit-finding">
+      <span class="sev high">High</span>
+      <div>
+        <h4>Thin, generic listing-page titles<span class="fix-tag">Phase 1</span></h4>
+        <p>A live listing titled simply "2241 PLUMB 1ST Street 3M" — 24 characters, no neighborhood, no price, no mention of you. Listing pages are where buyers search; these titles give Google and AI almost nothing to rank or quote.</p>
+      </div>
+    </div>
+
+    <div class="audit-finding">
+      <span class="sev high">High</span>
+      <div>
+        <h4>Your domain authority is being built for someone else<span class="fix-tag">Phase 1 + 2</span></h4>
+        <p>Your domain authority sits near 5 out of 100. The cause is structural: the blog content you pay Luxury Presence to produce is published on their domain, not yours. Every article strengthens their site while leaving yours with almost no authority of its own.</p>
+      </div>
+    </div>
+
+    <div class="audit-finding">
+      <span class="sev mod">Moderate</span>
+      <div>
+        <h4>Inconsistent image alt text, no geo-tagging<span class="fix-tag">Phase 1</span></h4>
+        <p>Nearly half the images on your homepage carry empty or missing alt text, and images are not geo-tagged for local relevance. For a location-driven business, every untagged property and neighborhood image is a missed local-search signal.</p>
+      </div>
+    </div>
+
+    <div class="audit-finding">
+      <span class="sev mod">Moderate</span>
+      <div>
+        <h4>Slow load time hurts rankings and crawl depth<span class="fix-tag">Phase 2</span></h4>
+        <p>At 3.9 seconds to load, your homepage fails Google's Core Web Vitals "good" threshold. Slow pages rank lower, and crawlers — human or AI — give a heavy site less of their attention.</p>
+      </div>
+    </div>
+
+    <div class="audit-finding">
+      <span class="sev ok">Working</span>
+      <div>
+        <h4>What's already solid — and worth keeping</h4>
+        <p>To be fair to the fundamentals: your main pages have clear title tags and meta descriptions, a single H1 each, Open Graph tags, correct canonical URLs, and a working sitemap. The on-page basics are competent. The failures above are structural — and structural problems cannot be fixed on a platform you don't own.</p>
+      </div>
+    </div>
+
+    <div class="callout">
+      <h4>The pattern</h4>
+      <p>Every critical and high-priority finding traces back to one root cause: you don't own your website. Some can be improved immediately under Phase 1; the rest require the Phase 2 rebuild. This audit doesn't just diagnose the problem — it scopes the work.</p>
     </div>
   </div>
 
