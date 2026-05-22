@@ -1004,8 +1004,7 @@
                 <input type="checkbox" id="social" onclick="event.stopPropagation()" onchange="syncCard('social'); calculateTotal()">
                 <div class="config-card-title">Social Publishing System</div>
                 <div class="config-card-prices">
-                  <span class="config-card-setup">$400 setup</span>
-                  <span class="config-card-monthly">$50/mo</span>
+                  <span class="config-card-monthly">$400 once</span>
                 </div>
               </div>
               <div class="config-card-desc">Push new listings and blog posts to Facebook, Instagram, and LinkedIn in one click — turning every piece of content into multi-channel reach.</div>
@@ -1016,8 +1015,7 @@
                 <input type="checkbox" id="voice" onclick="event.stopPropagation()" onchange="syncCard('voice'); calculateTotal()">
                 <div class="config-card-title">AI Voice Lead Concierge</div>
                 <div class="config-card-prices">
-                  <span class="config-card-setup">$750 setup</span>
-                  <span class="config-card-monthly">$150/mo</span>
+                  <span class="config-card-monthly">$750 once</span>
                 </div>
               </div>
               <div class="config-card-desc">An inbound AI receptionist for missed calls — answers, books appointments, and relays messages so no lead slips away.</div>
@@ -1028,8 +1026,7 @@
                 <input type="checkbox" id="sms" onclick="event.stopPropagation()" onchange="syncCard('sms'); calculateTotal()">
                 <div class="config-card-title">SMS Lead-Response Bot</div>
                 <div class="config-card-prices">
-                  <span class="config-card-setup">$350 setup</span>
-                  <span class="config-card-monthly">$75/mo</span>
+                  <span class="config-card-monthly">$350 once</span>
                 </div>
               </div>
               <div class="config-card-desc">Instant, automated text replies to new inquiries — first response in seconds, every time.</div>
@@ -1040,8 +1037,7 @@
                 <input type="checkbox" id="kb" onclick="event.stopPropagation()" onchange="syncCard('kb'); calculateTotal()">
                 <div class="config-card-title">Knowledge-Base Assistant</div>
                 <div class="config-card-prices">
-                  <span class="config-card-setup">$450 setup</span>
-                  <span class="config-card-monthly">$65/mo</span>
+                  <span class="config-card-monthly">$450 once</span>
                 </div>
               </div>
               <div class="config-card-desc">An on-site AI assistant that answers buyer and seller questions instantly from your own content.</div>
@@ -1063,9 +1059,8 @@
         </div>
         <div class="payment-terms">
           <p><strong>Phase 1 retainer</strong> — billed monthly, begins on signing, no lock-in.</p>
-          <p><strong>Phase 2 build &amp; one-time add-ons</strong> — 50% to start, 50% on launch.</p>
-          <p><strong>Add-on monthly fees</strong> begin when each add-on goes live.</p>
-          <p>Ongoing hosting, IDX and compliance (~$120–$200/mo) are paid by you directly to vendors.</p>
+          <p><strong>Phase 2 build &amp; add-ons</strong> — one-time fees; 50% to start, 50% on launch.</p>
+          <p>Ongoing hosting, IDX, compliance and any AI-service usage are paid by you directly to vendors — Bogen.ai charges no recurring fee for the site or add-ons.</p>
         </div>
       </div>
     </div>
@@ -1217,10 +1212,10 @@
     const pricing = {
       build:  { setup: 7500, monthly: 0 },
       cms:    { setup: 600,  monthly: 0 },
-      social: { setup: 400,  monthly: 50 },
-      voice:  { setup: 750,  monthly: 150 },
-      sms:    { setup: 350,  monthly: 75 },
-      kb:     { setup: 450,  monthly: 65 }
+      social: { setup: 400,  monthly: 0 },
+      voice:  { setup: 750,  monthly: 0 },
+      sms:    { setup: 350,  monthly: 0 },
+      kb:     { setup: 450,  monthly: 0 }
     };
 
     function syncCard(id) {
