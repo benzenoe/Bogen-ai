@@ -1,0 +1,1099 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Iryna Ferenets — SEO &amp; AI Search Visibility Proposal | Bogen.ai</title>
+  <link rel="icon" type="image/png" href="../images/eb-logo-dark.png">
+  <link rel="shortcut icon" type="image/png" href="../images/eb-logo-dark.png">
+  <style>
+    :root {
+      --navy: #0d1620;
+      --navy2: #1a2332;
+      --navy3: #243044;
+      --blue: #00a8e1;
+      --gold: #ffd93d;
+      --white: #f0f4f8;
+      --gray: #8899aa;
+      --border: rgba(255,255,255,0.08);
+      --teal: #2B6166;
+      --warn: #e8884a;
+    }
+
+    [data-theme="light"] {
+      --navy: #ffffff;
+      --navy2: #f4f7f9;
+      --navy3: #e5e9ec;
+      --white: #1a2332;
+      --gray: #5a6c7d;
+      --border: rgba(0,0,0,0.08);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      line-height: 1.6;
+      color: var(--white);
+      background: var(--navy);
+    }
+
+    /* Fixed Navigation */
+    .nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      height: 85px;
+      background: rgba(13,22,32,0.95);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      z-index: 1000;
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      align-items: center;
+      padding: 0 2rem;
+      gap: 1rem;
+      transition: background 0.3s ease;
+    }
+    [data-theme="light"] .nav { background: rgba(255,255,255,0.95); }
+
+    .nav-left { display: flex; align-items: center; gap: 1rem; }
+    .nav-left a { display: inline-flex; align-items: center; position: relative; line-height: 0; }
+    .nav-left a:first-child { width: 45px; height: 45px; }
+    .nav-logo-bogen, .nav-logo-bogen-dark {
+      position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: contain;
+    }
+    .nav-logo-bogen { display: block; }
+    .nav-logo-bogen-dark { display: none; }
+    [data-theme="light"] .nav-logo-bogen { display: none; }
+    [data-theme="light"] .nav-logo-bogen-dark { display: block; }
+
+    .nav-center {
+      text-align: center;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: rgba(0,168,225,0.9);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      white-space: nowrap;
+    }
+    .nav-right { display: flex; align-items: center; gap: 1.5rem; justify-content: flex-end; }
+
+    .theme-toggle {
+      display: flex; align-items: center; gap: 8px;
+      background: rgba(0,168,225,0.1);
+      padding: 6px 12px;
+      border-radius: 50px;
+      border: 1px solid rgba(0,168,225,0.3);
+      cursor: pointer; user-select: none;
+      transition: all 0.2s;
+    }
+    .theme-toggle:hover { background: rgba(0,168,225,0.15); }
+    .theme-toggle-label {
+      font-size: 0.7rem; font-weight: 600; color: var(--blue);
+      letter-spacing: 0.05em; text-transform: uppercase;
+    }
+    .toggle-switch {
+      width: 36px; height: 20px;
+      background: rgba(0,168,225,0.2);
+      border-radius: 10px; position: relative;
+      transition: background 0.3s ease;
+    }
+    .toggle-switch::after {
+      content: ''; position: absolute; top: 2px; left: 2px;
+      width: 16px; height: 16px;
+      background: var(--blue); border-radius: 50%;
+      transition: transform 0.3s ease;
+    }
+    [data-theme="light"] .toggle-switch::after { transform: translateX(16px); }
+
+    .btn-book {
+      background: var(--blue); color: #fff;
+      padding: 0.4rem 1rem; border-radius: 8px;
+      font-size: 0.8rem; font-weight: 600;
+      text-decoration: none; transition: opacity 0.2s;
+      display: inline-block;
+    }
+    .btn-book:hover { opacity: 0.85; }
+
+    /* PDF Download Button */
+    .pdf-download { position: fixed; bottom: 30px; right: 30px; z-index: 999; }
+    .pdf-download button {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: var(--blue); color: #fff;
+      padding: 12px 24px; border: none; border-radius: 50px;
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      font-size: 0.85rem; font-weight: 600;
+      letter-spacing: 0.05em; text-transform: uppercase;
+      cursor: pointer;
+      box-shadow: 0 4px 20px rgba(0,168,225,0.4);
+      transition: all 0.3s ease;
+    }
+    .pdf-download button:hover {
+      background: #008aba; transform: translateY(-2px);
+      box-shadow: 0 6px 24px rgba(0,168,225,0.5);
+    }
+    .pdf-download button svg { width: 16px; height: 16px; fill: currentColor; }
+
+    /* PDF Preview Modal */
+    .pdf-modal-overlay {
+      display: none; position: fixed; inset: 0;
+      background: rgba(0,0,0,0.75); z-index: 10000;
+      align-items: center; justify-content: center;
+      backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px);
+    }
+    .pdf-modal-overlay.active { display: flex; }
+    .pdf-modal {
+      width: 90vw; max-width: 860px; height: 88vh;
+      background: #1a2332; border-radius: 12px;
+      display: flex; flex-direction: column;
+      box-shadow: 0 24px 64px rgba(0,0,0,0.5);
+    }
+    .pdf-modal-header {
+      padding: 1.25rem 1.5rem; background: #1a3e5c;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+      display: flex; align-items: center; justify-content: space-between;
+      border-radius: 12px 12px 0 0;
+    }
+    .pdf-modal-title { font-size: 1rem; font-weight: 700; color: #f0f4f8; letter-spacing: 0.02em; }
+    .pdf-modal-actions { display: flex; gap: 0.75rem; }
+    .btn-close-modal, .btn-confirm-download {
+      border: none; padding: 0.5rem 1rem; border-radius: 6px;
+      font-size: 0.85rem; font-weight: 600; cursor: pointer;
+      transition: all 0.2s; font-family: 'Segoe UI', system-ui, sans-serif;
+    }
+    .btn-close-modal { background: rgba(255,255,255,0.1); color: #f0f4f8; }
+    .btn-close-modal:hover { background: rgba(255,255,255,0.2); }
+    .btn-confirm-download { background: #00a8e1; color: #fff; }
+    .btn-confirm-download:hover { background: #0090c4; }
+    .pdf-modal-body { flex: 1; padding: 0; overflow: hidden; border-radius: 0 0 12px 12px; }
+    .pdf-modal-body iframe { width: 100%; height: 100%; border: none; background: #fff; }
+
+    @media (max-width: 768px) {
+      .pdf-modal { width: 95vw; height: 90vh; }
+      .pdf-modal-header { flex-direction: column; gap: 1rem; align-items: stretch; }
+      .pdf-modal-actions { width: 100%; }
+      .btn-close-modal, .btn-confirm-download { flex: 1; }
+    }
+
+    /* Hero / Cover */
+    .hero {
+      min-height: 100vh;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      text-align: center;
+      padding: 8rem 2rem 5rem;
+      background: radial-gradient(ellipse at 20% 50%, rgba(0,168,225,0.12) 0%, transparent 50%),
+                  radial-gradient(ellipse at 80% 20%, rgba(43,97,102,0.22) 0%, transparent 50%),
+                  linear-gradient(180deg, #0d1620 0%, #1a2332 100%);
+    }
+    [data-theme="light"] .hero {
+      background: radial-gradient(ellipse at 20% 50%, rgba(0,168,225,0.12) 0%, transparent 50%),
+                  radial-gradient(ellipse at 80% 20%, rgba(43,97,102,0.22) 0%, transparent 50%),
+                  linear-gradient(180deg, #0d1620 0%, #1a2332 100%);
+    }
+    [data-theme="light"] .hero * { color: #f0f4f8 !important; }
+    [data-theme="light"] .hero .hero-badge { color: var(--blue) !important; }
+
+    .hero-logos { display: flex; align-items: center; gap: 1.5rem; margin-bottom: 3rem; justify-content: center; }
+    .hero-logo { height: 78px; width: auto; filter: brightness(1.1); transition: opacity 0.2s ease; }
+    .hero-logos a:hover .hero-logo { opacity: 0.8; }
+
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      padding: 0.4rem 1rem;
+      background: rgba(0,168,225,0.08);
+      border: 1px solid rgba(0,168,225,0.3);
+      border-radius: 50px;
+      font-size: 0.75rem; font-weight: 700;
+      text-transform: uppercase; letter-spacing: 0.1em;
+      color: var(--blue); margin-bottom: 2rem;
+    }
+    .pulse-dot { width: 8px; height: 8px; background: var(--blue); border-radius: 50%; animation: pulse 2s infinite; }
+    @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.5; } }
+
+    h1 { font-size: clamp(2.2rem, 5vw, 3.8rem); font-weight: 800; margin-bottom: 1rem; line-height: 1.2; }
+    .hero-subtitle { font-size: 1.1rem; color: var(--gray); margin-bottom: 2rem; max-width: 720px; }
+    .hero-client { font-size: 1.25rem; font-weight: 600; color: var(--blue); margin-bottom: 0.35rem; }
+    .hero-client-sub { font-size: 0.95rem; color: var(--gray); margin-bottom: 0.75rem; }
+    .hero-date { font-size: 1rem; color: var(--gray); margin-bottom: 2rem; }
+    .hero-brand { font-size: 1.5rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; margin-top: 2rem; }
+    .hero-brand-sub { font-size: 0.9rem; color: var(--gray); margin-top: 0.5rem; }
+
+    /* Sections */
+    .section { max-width: 1100px; margin: 0 auto; padding: 5rem 2rem; }
+    h2 { font-size: clamp(1.6rem, 3vw, 2.4rem); font-weight: 800; color: var(--white); margin-bottom: 0.5rem; }
+    .section-intro { color: var(--gray); margin-bottom: 2rem; max-width: 780px; line-height: 1.8; }
+    h3 { font-size: 1.3rem; font-weight: 700; color: var(--white); margin: 2rem 0 1rem; }
+    h4 { font-size: 1rem; font-weight: 700; color: var(--white); margin: 1.5rem 0 1rem; }
+    p { color: var(--gray); margin-bottom: 1rem; line-height: 1.8; }
+    ul, ol { margin-bottom: 1.5rem; padding-left: 1.5rem; color: var(--gray); }
+    li { margin-bottom: 0.6rem; line-height: 1.6; }
+    strong { color: var(--white); font-weight: 600; }
+
+    .eyebrow {
+      display: inline-block;
+      font-size: 0.72rem; font-weight: 700;
+      text-transform: uppercase; letter-spacing: 0.12em;
+      color: var(--blue); margin-bottom: 0.75rem;
+    }
+
+    /* Cards */
+    .card {
+      background: var(--navy2); border: 1px solid var(--border);
+      border-radius: 16px; padding: 1.75rem; margin: 1.5rem 0;
+      transition: all 0.3s ease;
+    }
+    .card h3 { margin-top: 0; color: var(--blue); }
+    .card p { margin-bottom: 0.75rem; }
+    .card ul { margin-bottom: 0; }
+
+    /* Feature grid */
+    .feature-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 1.25rem; margin: 2rem 0;
+    }
+    .feature-card {
+      background: var(--navy2); border: 1px solid var(--border);
+      border-left: 4px solid var(--blue); border-radius: 12px;
+      padding: 1.5rem; transition: all 0.3s ease;
+    }
+    .feature-card h4 { margin: 0 0 0.5rem 0; color: var(--white); font-size: 1rem; }
+    .feature-card p { margin: 0; font-size: 0.9rem; color: var(--gray); }
+
+    /* Stat grid */
+    .stat-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+      gap: 1.25rem; margin: 2rem 0;
+    }
+    .stat-card {
+      background: var(--navy2); border: 1px solid var(--border);
+      border-top: 3px solid var(--blue); border-radius: 12px;
+      padding: 1.5rem; text-align: center;
+    }
+    .stat-label { font-size: 0.75rem; color: var(--gray); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.5rem; }
+    .stat-value { font-size: 2rem; font-weight: 800; color: var(--blue); margin-bottom: 0.5rem; line-height: 1.1; }
+    .stat-desc { font-size: 0.85rem; color: var(--gray); }
+
+    /* ROI banner */
+    .roi-banner {
+      background: linear-gradient(135deg, rgba(0,168,225,0.12), rgba(43,97,102,0.18));
+      border: 1px solid rgba(0,168,225,0.35);
+      border-radius: 16px;
+      padding: 2rem; margin: 2rem 0;
+      display: grid; grid-template-columns: auto 1fr; gap: 1.75rem; align-items: center;
+    }
+    .roi-figure { font-size: 3.2rem; font-weight: 900; color: var(--blue); line-height: 1; white-space: nowrap; }
+    .roi-text p { margin: 0; }
+    .roi-text .roi-lead { color: var(--white); font-weight: 600; font-size: 1.05rem; margin-bottom: 0.35rem; }
+    @media (max-width: 640px) {
+      .roi-banner { grid-template-columns: 1fr; text-align: center; gap: 1rem; }
+      .roi-figure { font-size: 2.6rem; }
+    }
+
+    /* Two-column split */
+    .split-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin: 1.5rem 0; }
+    @media (max-width: 768px) { .split-grid { grid-template-columns: 1fr; } }
+
+    .pillar {
+      background: var(--navy2); border: 1px solid var(--border);
+      border-radius: 16px; padding: 1.75rem;
+    }
+    .pillar-tag {
+      display: inline-block; font-size: 0.7rem; font-weight: 700;
+      text-transform: uppercase; letter-spacing: 0.08em;
+      padding: 0.3rem 0.7rem; border-radius: 50px;
+      background: rgba(0,168,225,0.12); color: var(--blue);
+      margin-bottom: 0.85rem;
+    }
+    .pillar h3 { margin-top: 0; }
+    .check-list { list-style: none; padding: 0; margin: 0.75rem 0 0 0; }
+    .check-list li {
+      position: relative; padding-left: 1.6rem; margin-bottom: 0.6rem;
+      font-size: 0.9rem; color: var(--gray); line-height: 1.5;
+    }
+    .check-list li::before {
+      content: '✓'; position: absolute; left: 0; top: 0;
+      color: var(--blue); font-weight: 800;
+    }
+
+    /* Callout */
+    .callout {
+      background: rgba(232,136,74,0.08);
+      border: 1px solid rgba(232,136,74,0.35);
+      border-left: 4px solid var(--warn);
+      border-radius: 12px; padding: 1.4rem 1.6rem; margin: 1.75rem 0;
+    }
+    .callout h4 { margin: 0 0 0.5rem 0; color: var(--warn); }
+    .callout p { margin: 0; font-size: 0.92rem; }
+
+    /* Diagnosis list */
+    .diag-card {
+      background: var(--navy2); border: 1px solid var(--border);
+      border-radius: 14px; padding: 1.5rem; margin: 1rem 0;
+      display: grid; grid-template-columns: auto 1fr; gap: 1.25rem; align-items: start;
+    }
+    .diag-num {
+      width: 42px; height: 42px; border-radius: 10px;
+      background: rgba(0,168,225,0.12); color: var(--blue);
+      font-weight: 800; font-size: 1.25rem;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .diag-card h4 { margin: 0 0 0.4rem 0; color: var(--white); }
+    .diag-card p { margin: 0; font-size: 0.92rem; }
+
+    /* Rent vs Own comparison */
+    .compare-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin: 2rem 0; }
+    @media (max-width: 768px) { .compare-grid { grid-template-columns: 1fr; } }
+    .compare-col {
+      border-radius: 16px; padding: 1.75rem; border: 1px solid var(--border);
+      background: var(--navy2);
+    }
+    .compare-col.rent { border-color: rgba(232,136,74,0.4); }
+    .compare-col.own {
+      border-color: var(--blue);
+      box-shadow: 0 0 0 1px var(--blue), 0 8px 28px rgba(0,168,225,0.15);
+    }
+    .compare-head { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 0.25rem; flex-wrap: wrap; gap: 0.5rem; }
+    .compare-head h3 { margin: 0; }
+    .compare-col.rent .compare-head h3 { color: var(--warn); }
+    .compare-col.own .compare-head h3 { color: var(--blue); }
+    .compare-sub { font-size: 0.82rem; color: var(--gray); margin-bottom: 1rem; }
+    .compare-row {
+      display: flex; justify-content: space-between; gap: 1rem;
+      padding: 0.7rem 0; border-bottom: 1px solid var(--border);
+      font-size: 0.9rem;
+    }
+    .compare-row:last-child { border-bottom: none; }
+    .compare-row .cr-label { color: var(--gray); }
+    .compare-row .cr-val { color: var(--white); font-weight: 600; text-align: right; }
+    .compare-col.own .cr-val { color: var(--blue); }
+    .compare-badge {
+      font-size: 0.68rem; font-weight: 700; text-transform: uppercase;
+      letter-spacing: 0.07em; padding: 0.25rem 0.6rem; border-radius: 50px;
+    }
+    .compare-col.rent .compare-badge { background: rgba(232,136,74,0.15); color: var(--warn); }
+    .compare-col.own .compare-badge { background: rgba(0,168,225,0.15); color: var(--blue); }
+
+    /* Base package box */
+    .base-package-box {
+      background: var(--navy2); border: 2px solid var(--blue);
+      border-radius: 12px; padding: 1.75rem; margin: 0 0 1.25rem 0;
+    }
+    .base-package-box h4 { margin-top: 0; color: var(--blue); }
+    .base-package-desc { color: var(--gray); font-size: 0.9rem; margin-bottom: 1rem; }
+    .base-includes-item {
+      position: relative; padding-left: 25px; margin-bottom: 8px;
+      color: var(--gray); font-size: 0.9rem;
+    }
+    .base-includes-item::before { content: '✓'; position: absolute; left: 0; color: var(--blue); font-weight: 700; }
+
+    /* Pricing calculator */
+    .pricing-calculator { display: grid; grid-template-columns: 1fr 320px; gap: 2rem; margin: 2rem 0; }
+    @media (max-width: 968px) { .pricing-calculator { grid-template-columns: 1fr; } }
+    .config-panel { background: var(--navy2); border: 1px solid var(--border); border-radius: 16px; padding: 2rem; }
+    .calculator-header { margin-bottom: 1.5rem; padding-bottom: 1rem; border-bottom: 1px solid var(--border); }
+    .calculator-header h3 { margin: 0 0 0.5rem 0; font-size: 1.4rem; color: var(--white); }
+    .calculator-header p { margin: 0; font-size: 0.9rem; color: var(--gray); }
+    .pricing-section { margin: 1.75rem 0 0 0; }
+    .pricing-section h4 {
+      margin-bottom: 1rem; font-size: 0.95rem; font-weight: 600;
+      text-transform: uppercase; letter-spacing: 0.05em; color: var(--white);
+    }
+    .addon-grid { display: grid; gap: 0.75rem; }
+    .config-card {
+      border: 1.5px solid var(--border); border-radius: 10px;
+      padding: 1rem; cursor: pointer; transition: all 0.2s ease; background: var(--navy);
+    }
+    .config-card:hover { border-color: var(--blue); background: rgba(0,168,225,0.04); transform: translateY(-1px); }
+    .config-card.active { border-color: var(--blue); background: rgba(0,168,225,0.08); box-shadow: 0 0 0 1px var(--blue); }
+    .config-card-header { display: grid; grid-template-columns: auto 1fr auto; gap: 0.75rem; align-items: flex-start; margin-bottom: 0.5rem; }
+    .config-card input[type="checkbox"] { width: 20px; height: 20px; margin-top: 2px; cursor: pointer; accent-color: var(--blue); }
+    .config-card-title { font-weight: 600; color: var(--white); font-size: 0.95rem; }
+    .config-card-prices { display: flex; gap: 0.85rem; align-items: baseline; justify-content: flex-end; white-space: nowrap; }
+    .config-card-setup { color: var(--gray); font-weight: 600; font-size: 0.9rem; }
+    .config-card-monthly { color: var(--blue); font-weight: 700; font-size: 1rem; }
+    .config-card-quote { color: var(--gold); font-weight: 700; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.05em; }
+    .config-card-desc { font-size: 0.85rem; color: var(--gray); line-height: 1.5; margin-left: 2.5rem; }
+
+    /* Sticky live quote */
+    .live-quote {
+      position: sticky; top: 105px; height: fit-content;
+      background: rgba(26,35,50,0.96);
+      backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+      border: 1.5px solid rgba(0,168,225,0.4);
+      border-radius: 16px; padding: 1.5rem;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.4), 0 0 0 1px rgba(0,168,225,0.1);
+    }
+    [data-theme="light"] .live-quote {
+      background: rgba(255,255,255,0.98);
+      border: 1.5px solid rgba(0,168,225,0.3);
+      box-shadow: 0 8px 32px rgba(0,0,0,0.1), 0 0 0 1px rgba(0,168,225,0.1);
+    }
+    @media (max-width: 968px) { .live-quote { position: relative; top: 0; } }
+    .live-quote h3 {
+      color: var(--white); margin: 0 0 1.25rem 0; text-align: center;
+      font-size: 1rem; text-transform: uppercase; letter-spacing: 0.1em; font-weight: 600;
+    }
+    .lq-row {
+      display: flex; justify-content: space-between; align-items: baseline;
+      padding: 0.85rem 0; border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+    [data-theme="light"] .lq-row { border-bottom: 1px solid rgba(26,35,50,0.1); }
+    .lq-label { font-size: 0.82rem; color: rgba(255,255,255,0.7); text-transform: uppercase; letter-spacing: 0.05em; font-weight: 500; }
+    [data-theme="light"] .lq-label { color: rgba(26,35,50,0.7); }
+    .lq-amount { font-size: 1.5rem; font-weight: 900; color: var(--white); transition: all 0.3s ease; }
+    .lq-amount small { font-size: 0.8rem; font-weight: 600; color: var(--gray); }
+    #totalMonthly { color: var(--blue) !important; }
+    .payment-terms {
+      margin-top: 1.25rem; padding-top: 1rem;
+      border-top: 1px solid rgba(255,255,255,0.1);
+      font-size: 0.78rem; color: rgba(255,255,255,0.6); line-height: 1.6;
+    }
+    [data-theme="light"] .payment-terms { border-top: 1px solid rgba(26,35,50,0.1); color: rgba(26,35,50,0.6); }
+    .payment-terms p { margin: 0 0 0.5rem 0; }
+    .payment-terms p:last-child { margin: 0; }
+
+    /* Timeline */
+    .timeline-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px,1fr)); gap: 1.25rem; margin: 1.5rem 0; }
+
+    /* Contact box */
+    .contact-box {
+      background: var(--navy2); border: 1px solid var(--border);
+      border-left: 4px solid var(--blue); border-radius: 12px;
+      padding: 1.5rem; margin: 2rem 0;
+    }
+    .contact-box h4 { margin-top: 0; color: var(--blue); }
+    .contact-box p { margin: 0.4rem 0; font-size: 0.95rem; }
+    .contact-box a { color: var(--blue); text-decoration: none; font-weight: 600; }
+    .contact-box a:hover { text-decoration: underline; }
+
+    /* Signature / acceptance */
+    .signature-section {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 2.5rem;
+      margin-top: 2rem; padding-top: 1.5rem;
+    }
+    @media (max-width: 640px) { .signature-section { grid-template-columns: 1fr; gap: 1.5rem; } }
+    .sig-block label {
+      display: block; font-size: 0.78rem; font-weight: 700;
+      text-transform: uppercase; letter-spacing: 0.06em; color: var(--gray);
+      margin-bottom: 2.25rem;
+    }
+    .sig-line { border-bottom: 1.5px solid var(--gray); height: 1px; margin-bottom: 0.4rem; }
+    .sig-caption { font-size: 0.78rem; color: var(--gray); }
+
+    /* Footer */
+    .footer {
+      background: var(--navy2); border-top: 1px solid var(--border);
+      padding: 3rem 2rem; display: flex; flex-direction: column;
+      align-items: center; gap: 1.25rem;
+    }
+    .footer-logo { height: 80px; width: auto; filter: brightness(1.1); }
+    .footer-logo-dark { display: none; height: 80px; width: auto; }
+    [data-theme="light"] .footer-logo { display: none; }
+    [data-theme="light"] .footer-logo-dark { display: block; }
+    .footer-content { text-align: center; }
+    .footer p { font-size: 0.85rem; color: var(--gray); margin: 0.4rem 0; }
+    .footer a { color: var(--blue); text-decoration: none; }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .nav { padding: 0 1rem; grid-template-columns: auto 1fr auto; }
+      .nav-center { font-size: 0.62rem; letter-spacing: 0.04em; }
+      .section { padding: 3rem 1rem; }
+      .hero { padding: 6rem 1rem 3rem; }
+      .hero-logo { height: 56px; }
+      .feature-grid, .stat-grid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 480px) {
+      .nav-center { display: none; }
+      .nav { grid-template-columns: auto 1fr; }
+    }
+
+    .page-break { page-break-after: always; }
+
+    /* Print */
+    @media print {
+      @page { size: letter; margin: 0.5in 0.65in; }
+      .nav, .btn-book, .theme-toggle, .pdf-download, .pdf-modal-overlay { display: none !important; }
+      .hero {
+        min-height: 9in; page-break-after: always;
+        padding: 2.5rem 1.5rem 2rem 1.5rem;
+        background: #0d1620 !important;
+        -webkit-print-color-adjust: exact; print-color-adjust: exact;
+      }
+      .section { padding: 1.25rem 0; page-break-inside: avoid; margin-bottom: 0.5rem; }
+      .section h2 { margin-top: 0.5rem; margin-bottom: 0.5rem; }
+      .section h3 { margin-top: 0.65rem; margin-bottom: 0.5rem; }
+      .section p { margin-bottom: 0.5rem; line-height: 1.5; }
+      .section ul, .section ol { margin-bottom: 0.6rem; margin-top: 0.35rem; }
+      .section li { margin-bottom: 0.3rem; line-height: 1.4; }
+      .card, .diag-card, .pillar { margin-bottom: 0.7rem; padding: 0.95rem; }
+      .feature-card, .stat-card { margin-bottom: 0.6rem; padding: 0.85rem; }
+      .roi-banner, .compare-grid, .base-package-box { page-break-inside: avoid; }
+      .pricing-calculator { display: block; }
+      .config-panel { margin-bottom: 1rem; }
+      .live-quote { position: relative; top: 0; page-break-inside: avoid; margin-top: 0.75rem; }
+      body { background: #ffffff !important; font-size: 9.5pt; line-height: 1.5; }
+      * { print-color-adjust: exact; -webkit-print-color-adjust: exact; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Fixed Navigation -->
+  <div class="nav">
+    <div class="nav-left">
+      <a href="https://www.bogen.ai" target="_blank">
+        <img src="../images/eb-logo.png" alt="Bogen.ai" class="nav-logo-bogen">
+        <img src="../images/eb-logo-old.png" alt="Bogen.ai" class="nav-logo-bogen-dark">
+      </a>
+    </div>
+    <div class="nav-center">SEO &amp; AI Search Visibility Proposal</div>
+    <div class="nav-right">
+      <div class="theme-toggle" onclick="toggleTheme()">
+        <span class="theme-toggle-label">Dark</span>
+        <div class="toggle-switch"></div>
+        <span class="theme-toggle-label">Light</span>
+      </div>
+      <a href="mailto:eytan@benzeno.com?subject=Iryna%20Ferenets%20SEO%20Proposal" class="btn-book">Get Started</a>
+    </div>
+  </div>
+
+  <!-- PDF Download Button -->
+  <div class="pdf-download">
+    <button id="downloadBtn">
+      <svg viewBox="0 0 24 24"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
+      Download PDF
+    </button>
+  </div>
+
+  <!-- Hero / Cover -->
+  <div class="hero">
+    <div class="hero-logos">
+      <a href="https://www.bogen.ai" target="_blank" style="line-height:0;">
+        <img src="../images/eb-logo.png" alt="Bogen.ai" class="hero-logo">
+      </a>
+    </div>
+    <div class="hero-badge">
+      <div class="pulse-dot"></div>
+      SEO &amp; AI Search Visibility Proposal
+    </div>
+    <h1>Iryna Ferenets Real Estate</h1>
+    <div class="hero-subtitle">Search Engine Optimization, Answer-Engine Optimization, and Digital Independence for the New York Market</div>
+    <div class="hero-client">Prepared for: Iryna Ferenets</div>
+    <div class="hero-client-sub">Licensed Associate Real Estate Broker — New York City</div>
+    <div class="hero-date">May 2026</div>
+    <div class="hero-brand">Bogen.ai</div>
+    <div class="hero-brand-sub">A Division of Dave T Productions</div>
+  </div>
+
+  <!-- Executive Summary -->
+  <div class="section">
+    <span class="eyebrow">Executive Summary</span>
+    <h2>Getting You Found — On Google and Inside AI</h2>
+    <p class="section-intro">You asked for two things: stronger SEO, and visibility when buyers and sellers ask AI tools like ChatGPT and Perplexity for a New York agent. This proposal delivers exactly that — and shows you how to do it without renting your web presence forever.</p>
+
+    <div class="card">
+      <h3>What You Told Us</h3>
+      <ul>
+        <li>Your website is <strong>rented from Luxury Presence at $500/month</strong> — you don't own it, and you can't leave with it.</li>
+        <li>Your <strong>domain authority is stuck at roughly 5/100</strong>, and the blog content you pay for sits on a Luxury Presence page, not your own site.</li>
+        <li>Luxury Presence quoted you <strong>another $1,500/month for SEO</strong> on a 12-month contract — from a team that asked <em>you</em> what needed to be done.</li>
+        <li>You want to show up in <strong>AI search — ChatGPT, Perplexity, Claude, Google AI Overviews</strong> — not just traditional Google results.</li>
+      </ul>
+    </div>
+
+    <h3>You've Already Proven Visibility Pays</h3>
+    <div class="roi-banner">
+      <div class="roi-figure">$27M</div>
+      <div class="roi-text">
+        <p class="roi-lead">Roughly $300 in self-managed Google Ads generated an estimated $27M in sales over two years.</p>
+        <p>That is the entire thesis of this proposal. When the right people can find you, the return compounds. SEO and AI-search visibility are the same play — they just keep working without a per-click bill.</p>
+      </div>
+    </div>
+
+    <h3>Our Approach — Two Phases</h3>
+    <div class="stat-grid">
+      <div class="stat-card">
+        <div class="stat-label">Phase 1 — Start Now</div>
+        <div class="stat-value">SEO + AEO</div>
+        <div class="stat-desc">A monthly retainer that begins immediately, on your existing site</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Phase 2 — The Upgrade</div>
+        <div class="stat-value">Own It</div>
+        <div class="stat-desc">Leave the subscription model — own your website outright</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">The Difference</div>
+        <div class="stat-value">A Team</div>
+        <div class="stat-desc">Practitioners who do the work — not a vendor reading from a script</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- The Diagnosis -->
+  <div class="section">
+    <span class="eyebrow">The Diagnosis</span>
+    <h2>Why Your SEO Isn't Working</h2>
+    <p class="section-intro">This isn't an effort problem — it's an architecture problem. Three structural issues are holding your visibility down, and all three trace back to one root cause: you don't own your website.</p>
+
+    <div class="diag-card">
+      <div class="diag-num">1</div>
+      <div>
+        <h4>You're renting your content</h4>
+        <p>Every blog post and page you've paid Luxury Presence to produce builds <em>their</em> domain's authority — not yours. That is why your domain authority is stuck near 5/100. You are paying to improve an asset you will never own.</p>
+      </div>
+    </div>
+    <div class="diag-card">
+      <div class="diag-num">2</div>
+      <div>
+        <h4>Your current site is nearly invisible to AI</h4>
+        <p>Luxury Presence sites are heavy JavaScript applications — each page of your current site weighs <strong>450–630 KB</strong>. AI crawlers (GPTBot, ClaudeBot, PerplexityBot) and modern search systems favor fast, clean, readable HTML. If an AI engine can't cleanly read your page, it cannot cite you in its answer.</p>
+      </div>
+    </div>
+    <div class="diag-card">
+      <div class="diag-num">3</div>
+      <div>
+        <h4>You can't touch the levers that matter</h4>
+        <p>On a rented site you can't fully control structured-data markup, the <code>robots.txt</code> file, page speed, or how content is organized for AI extraction. Those <em>are</em> the AEO levers. The platform that makes you unrankable is also the one selling you SEO.</p>
+      </div>
+    </div>
+
+    <div class="callout">
+      <h4>The honest conclusion</h4>
+      <p>You can do real, lasting SEO and AI-search optimization — but not on a rented Luxury Presence site. That's why this proposal starts where you are today, then shows you the upgrade that removes the ceiling entirely.</p>
+    </div>
+  </div>
+
+  <!-- Phase 1 -->
+  <div class="section">
+    <span class="eyebrow">Phase 1 — Start Immediately</span>
+    <h2>SEO + AEO On Your Existing Site</h2>
+    <p class="section-intro">No rebuild required to begin. We start optimizing within days of signing — capturing every ranking and AI-visibility point your current site allows while Phase 2 is prepared in parallel.</p>
+
+    <div class="split-grid">
+      <div class="pillar">
+        <span class="pillar-tag">Traditional SEO — Google</span>
+        <h3>Rank Higher in Search</h3>
+        <ul class="check-list">
+          <li>Technical SEO &amp; Core Web Vitals audit and fixes</li>
+          <li>On-page optimization — titles, meta descriptions, headings, internal linking</li>
+          <li>Google Business Profile optimization &amp; local citation building</li>
+          <li>Content strategy — neighborhood, buyer and seller guides</li>
+          <li>Backlink &amp; digital-PR outreach to lift domain authority</li>
+          <li>Image geo-tagging and alt-text for local relevance</li>
+          <li>Monthly rank tracking, Search Console &amp; GA4 reporting</li>
+        </ul>
+      </div>
+      <div class="pillar">
+        <span class="pillar-tag">Answer-Engine Optimization — AI</span>
+        <h3>Get Cited Inside AI</h3>
+        <ul class="check-list">
+          <li>Structured data / schema markup for AI extraction</li>
+          <li>Answer-first content — clear, quotable question-and-answer formatting</li>
+          <li>AI-crawler accessibility review — GPTBot, ClaudeBot, PerplexityBot, Google-Extended</li>
+          <li>Entity building — a consistent identity across the web so AI recognizes "Iryna Ferenets" as a New York real-estate authority</li>
+          <li>Citation-diversity outreach — getting you referenced on the third-party sources AI engines trust</li>
+          <li>AI-visibility tracking — monitoring when you actually appear in ChatGPT and Perplexity answers</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="base-package-box">
+      <h4>Phase 1 Investment — SEO + AEO Retainer: $1,500/month</h4>
+      <p class="base-package-desc">A flat monthly retainer with <strong>no 12-month lock-in</strong>. This is the same figure Luxury Presence quoted you for SEO alone — but here it includes full AI-search optimization, every deliverable above, and the freedom to leave any time.</p>
+      <div class="base-includes-item">All Search Engine Optimization deliverables listed above</div>
+      <div class="base-includes-item">All Answer-Engine Optimization deliverables listed above</div>
+      <div class="base-includes-item">Monthly performance report — rankings, traffic, and AI-visibility</div>
+      <div class="base-includes-item">Direct access to the people doing the work — no ticket queue</div>
+      <div class="base-includes-item">Month-to-month — cancel any time, no contract</div>
+    </div>
+
+    <div class="callout">
+      <h4>What Phase 1 cannot fix</h4>
+      <p>On a rented Luxury Presence site we cannot fully control site speed, structured data, the <code>robots.txt</code> file, or content ownership. Phase 1 captures every point available today — but the platform itself is a ceiling. Phase 2 removes it.</p>
+    </div>
+  </div>
+
+  <!-- Phase 2 -->
+  <div class="section">
+    <span class="eyebrow">Phase 2 — The Upgrade</span>
+    <h2>Stop Renting. Own Your Website.</h2>
+    <p class="section-intro">Today you pay $500 every month, forever, to rent a website you can never keep. Phase 2 ends that — one fixed build cost, and the site is yours outright. No subscription to Luxury Presence. No subscription to Bogen.ai. You own the asset.</p>
+
+    <div class="compare-grid">
+      <div class="compare-col rent">
+        <div class="compare-head">
+          <h3>Renting Today</h3>
+          <span class="compare-badge">Luxury Presence</span>
+        </div>
+        <div class="compare-sub">The subscription model</div>
+        <div class="compare-row"><span class="cr-label">Monthly cost</span><span class="cr-val">$500/mo — forever</span></div>
+        <div class="compare-row"><span class="cr-label">Who owns the site</span><span class="cr-val">Luxury Presence</span></div>
+        <div class="compare-row"><span class="cr-label">Where your content lives</span><span class="cr-val">Their domain</span></div>
+        <div class="compare-row"><span class="cr-label">If you ever leave</span><span class="cr-val">You lose the site</span></div>
+        <div class="compare-row"><span class="cr-label">Built for AI search</span><span class="cr-val">No</span></div>
+        <div class="compare-row"><span class="cr-label">Upfront cost</span><span class="cr-val">$0</span></div>
+        <div class="compare-row"><span class="cr-label">5-year website cost</span><span class="cr-val">$30,000 — own nothing</span></div>
+      </div>
+      <div class="compare-col own">
+        <div class="compare-head">
+          <h3>Owning With Bogen.ai</h3>
+          <span class="compare-badge">Recommended</span>
+        </div>
+        <div class="compare-sub">Buy the asset once</div>
+        <div class="compare-row"><span class="cr-label">Monthly cost</span><span class="cr-val">~$120–$200/mo — your vendors</span></div>
+        <div class="compare-row"><span class="cr-label">Who owns the site</span><span class="cr-val">You — outright</span></div>
+        <div class="compare-row"><span class="cr-label">Where your content lives</span><span class="cr-val">Your domain</span></div>
+        <div class="compare-row"><span class="cr-label">If you ever leave</span><span class="cr-val">You keep everything</span></div>
+        <div class="compare-row"><span class="cr-label">Built for AI search</span><span class="cr-val">Yes — from day one</span></div>
+        <div class="compare-row"><span class="cr-label">Upfront cost</span><span class="cr-val">$7,500 one-time</span></div>
+        <div class="compare-row"><span class="cr-label">5-year website cost</span><span class="cr-val">~$16,500 — and you own it</span></div>
+      </div>
+    </div>
+
+    <div class="roi-banner">
+      <div class="roi-figure">15&nbsp;months</div>
+      <div class="roi-text">
+        <p class="roi-lead">The one-time build cost of $7,500 equals just 15 months of the rent you already pay.</p>
+        <p>You are already spending $500/month. Redirect 15 months of it — once — and you own your website instead of renting it. From that point on, your site costs drop to roughly $120–$200/month, paid directly to your own vendors, and you never write Luxury Presence another check.</p>
+      </div>
+    </div>
+
+    <h3>What the $7,500 Build Includes</h3>
+    <div class="feature-grid">
+      <div class="feature-card">
+        <h4>A Website You Own Outright</h4>
+        <p>Code, content, design, and domain — all yours. No rental, no platform lock-in, ever.</p>
+      </div>
+      <div class="feature-card">
+        <h4>Built for Speed</h4>
+        <p>Lightweight, fast-loading HTML — the opposite of the 450–630 KB pages you have now.</p>
+      </div>
+      <div class="feature-card">
+        <h4>AI-Search Ready From Day One</h4>
+        <p>Schema markup, clean structure, and crawler access built in — so AI engines can read and cite you.</p>
+      </div>
+      <div class="feature-card">
+        <h4>Live IDX Listing Feed</h4>
+        <p>Integrated REBNY RLS property search — the IDX experience your buyers expect.</p>
+      </div>
+      <div class="feature-card">
+        <h4>Your Content, Migrated</h4>
+        <p>Every blog post and page moved onto your domain — so the ranking equity finally builds for you.</p>
+      </div>
+      <div class="feature-card">
+        <h4>Fully-Licensed Design</h4>
+        <p>Typography and assets cleanly licensed to you — no Luxury Presence copyright entanglements.</p>
+      </div>
+      <div class="feature-card">
+        <h4>Hosting Handoff</h4>
+        <p>Set up on infrastructure you control and own the logins to — not a landlord's account.</p>
+      </div>
+      <div class="feature-card">
+        <h4>30-Day Launch Support</h4>
+        <p>Post-launch support included so the transition off Luxury Presence is smooth.</p>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>After Launch — Your Costs, Fully Transparent</h3>
+      <p>Once the site is yours, you assume the running costs directly — and Bogen.ai marks up none of them. These are real third-party services you pay and control:</p>
+      <ul>
+        <li><strong>Hosting</strong> — approximately $20–$40/month</li>
+        <li><strong>IDX listing feed</strong> (REBNY RLS vendor) — approximately $50–$120/month</li>
+        <li><strong>REBNY compliance</strong> — roughly $42/month equivalent ($500/year)</li>
+      </ul>
+      <p style="margin-bottom:0;"><strong>Estimated total: ~$120–$200/month</strong> — paid straight to your vendors, versus $500/month to Luxury Presence for a site you never own.</p>
+    </div>
+  </div>
+
+  <!-- Investment Summary / Configurator -->
+  <div class="section">
+    <span class="eyebrow">Investment Summary</span>
+    <h2>Build Your Engagement</h2>
+    <p class="section-intro">Phase 1 is the headline service and begins right away. Phase 2 is the recommended upgrade. Optional AI add-ons are listed for interest — they're scoped and quoted separately after our discovery call.</p>
+
+    <div class="pricing-calculator">
+      <div class="config-panel">
+        <div class="calculator-header">
+          <h3>Your Selections</h3>
+          <p>Toggle items to see your investment update in real time</p>
+        </div>
+
+        <div class="base-package-box" style="margin-bottom:1.25rem;">
+          <h4>Phase 1 — SEO + AEO Retainer · $1,500/month</h4>
+          <p class="base-package-desc">Always included — the core engagement. Full SEO and AI-search optimization, month-to-month, no lock-in.</p>
+          <div class="base-includes-item">Begins within 5 business days of signing</div>
+          <div class="base-includes-item">Works on your existing site immediately</div>
+          <div class="base-includes-item">Monthly rankings, traffic &amp; AI-visibility reporting</div>
+        </div>
+
+        <div class="pricing-section" style="margin-top:0;">
+          <h4>Recommended Upgrade</h4>
+          <div class="addon-grid">
+            <div class="config-card active" onclick="toggleItem('build')">
+              <div class="config-card-header">
+                <input type="checkbox" id="build" checked onclick="event.stopPropagation()" onchange="syncCard('build'); calculateTotal()">
+                <div class="config-card-title">Phase 2 — Website Ownership Build</div>
+                <div class="config-card-prices">
+                  <span class="config-card-monthly">$7,500 once</span>
+                </div>
+              </div>
+              <div class="config-card-desc">A custom website you own outright, with live IDX feed, built fast and AI-ready. Equal to 15 months of your current rent. Replaces the $500/month Luxury Presence subscription.</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="pricing-section">
+          <h4>Optional AI Add-Ons — Scoped Separately</h4>
+          <div class="addon-grid">
+            <div class="config-card" onclick="toggleItem('voice')">
+              <div class="config-card-header">
+                <input type="checkbox" id="voice" onclick="event.stopPropagation()" onchange="syncCard('voice')">
+                <div class="config-card-title">AI Voice Lead Concierge</div>
+                <div class="config-card-prices"><span class="config-card-quote">Quote</span></div>
+              </div>
+              <div class="config-card-desc">An inbound AI receptionist for missed calls — answers, books appointments, and relays messages so no lead slips away.</div>
+            </div>
+            <div class="config-card" onclick="toggleItem('sms')">
+              <div class="config-card-header">
+                <input type="checkbox" id="sms" onclick="event.stopPropagation()" onchange="syncCard('sms')">
+                <div class="config-card-title">SMS Lead-Response Bot</div>
+                <div class="config-card-prices"><span class="config-card-quote">Quote</span></div>
+              </div>
+              <div class="config-card-desc">Instant, automated text replies to new inquiries — first response in seconds, every time.</div>
+            </div>
+            <div class="config-card" onclick="toggleItem('kb')">
+              <div class="config-card-header">
+                <input type="checkbox" id="kb" onclick="event.stopPropagation()" onchange="syncCard('kb')">
+                <div class="config-card-title">Knowledge-Base Assistant</div>
+                <div class="config-card-prices"><span class="config-card-quote">Quote</span></div>
+              </div>
+              <div class="config-card-desc">An on-site AI assistant that answers buyer and seller questions instantly from your own content.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="live-quote">
+        <h3>Your Investment</h3>
+        <div class="lq-row">
+          <span class="lq-label">Monthly — SEO + AEO</span>
+          <span class="lq-amount" id="totalMonthly">$1,500<small>/mo</small></span>
+        </div>
+        <div class="lq-row">
+          <span class="lq-label">One-Time — Website Build</span>
+          <span class="lq-amount" id="totalOneTime">$7,500</span>
+        </div>
+        <div class="payment-terms">
+          <p><strong>Phase 1 retainer</strong> — billed monthly, begins on signing, no lock-in.</p>
+          <p><strong>Phase 2 build</strong> — 50% to start, 50% on launch.</p>
+          <p>Optional AI add-ons are quoted separately after discovery.</p>
+          <p>Ongoing hosting, IDX and compliance (~$120–$200/mo) are paid by you directly to vendors.</p>
+        </div>
+      </div>
+    </div>
+
+    <p style="font-size:0.85rem; color:var(--gray);">A separate Google Ads / PPC management proposal is available on request — led by Eytan, drawing on 20 years of e-commerce paid-search experience.</p>
+  </div>
+
+  <!-- Timeline -->
+  <div class="section">
+    <span class="eyebrow">Timeline</span>
+    <h2>What Happens, And When</h2>
+    <div class="timeline-grid">
+      <div class="stat-card">
+        <div class="stat-label">Week 1</div>
+        <div class="stat-value">Kickoff</div>
+        <div class="stat-desc">SEO + AEO work begins within 5 business days of signing</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Weeks 1–8</div>
+        <div class="stat-value">Build</div>
+        <div class="stat-desc">Phase 2 website built in parallel — 6–8 weeks, including IDX integration</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Months 2–3</div>
+        <div class="stat-value">First Lift</div>
+        <div class="stat-desc">Early ranking movement and initial AI-search appearances</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Month 6+</div>
+        <div class="stat-value">Compounding</div>
+        <div class="stat-desc">Meaningful, durable visibility gains on Google and in AI answers</div>
+      </div>
+    </div>
+    <p style="font-size:0.85rem; color:var(--gray);">SEO and AEO are compounding investments — like the ad campaign that turned $300 into years of referrals, the returns build over time rather than switching on overnight.</p>
+  </div>
+
+  <!-- Why Bogen.ai -->
+  <div class="section">
+    <span class="eyebrow">Why Bogen.ai</span>
+    <h2>A Team You're Joining — Not a Vendor You're Hiring</h2>
+    <div class="feature-grid">
+      <div class="feature-card">
+        <h4>We Wrote the Book — Literally</h4>
+        <p>Edmund Bogen is the author of <em>Prompt to Close: The AI Playbook for Real Estate Professionals</em>. The "AI Search Masters" concepts you saw? This is the team that teaches them.</p>
+      </div>
+      <div class="feature-card">
+        <h4>20 Years of Paid-Search Expertise</h4>
+        <p>Eytan Benzeno brings two decades of e-commerce SEO and PPC experience — and owns your delivery relationship end to end.</p>
+      </div>
+      <div class="feature-card">
+        <h4>Practitioner-Built</h4>
+        <p>Real estate professionals and technologists who do the work themselves — never a rep asking you what needs to be done.</p>
+      </div>
+      <div class="feature-card">
+        <h4>Your Independence Is the Point</h4>
+        <p>We build assets you own and hand you the keys. Our success is measured by your visibility — not by locking you into a subscription.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Next Steps & Acceptance -->
+  <div class="section">
+    <span class="eyebrow">Next Steps</span>
+    <h2>How to Move Forward</h2>
+    <ol>
+      <li><strong>Confirm your engagement</strong> — Phase 1 retainer, with or without the Phase 2 build (we recommend both).</li>
+      <li><strong>Discovery call</strong> — we align on target neighborhoods, keywords, and AI-search priorities.</li>
+      <li><strong>Phase 1 begins</strong> — SEO + AEO work starts within 5 business days.</li>
+      <li><strong>Phase 2 build</strong> — your owned website launches in 6–8 weeks, and the Luxury Presence subscription ends.</li>
+    </ol>
+
+    <div class="contact-box">
+      <h4>Your Team</h4>
+      <p><strong>Eytan Benzeno</strong> — Delivery Lead, SEO &amp; Web</p>
+      <p>Email: <a href="mailto:eytan@benzeno.com">eytan@benzeno.com</a></p>
+      <p style="margin-top:0.85rem;"><strong>Edmund Bogen</strong> — Founder &amp; AI Strategist</p>
+      <p>Email: <a href="mailto:edmund@bogenhomes.com">edmund@bogenhomes.com</a></p>
+      <p>Phone: <a href="tel:5612357575">561-235-7575</a></p>
+    </div>
+
+    <div class="card">
+      <h3>Proposal Acceptance</h3>
+      <p>To proceed, sign below or simply reply by email. This confirms the Phase 1 SEO + AEO retainer at $1,500/month (month-to-month, no lock-in) and your selection regarding the Phase 2 website build at $7,500 one-time.</p>
+      <div class="signature-section">
+        <div class="sig-block">
+          <label>Accepted By — Iryna Ferenets</label>
+          <div class="sig-line"></div>
+          <div class="sig-caption">Signature</div>
+        </div>
+        <div class="sig-block">
+          <label>Date</label>
+          <div class="sig-line"></div>
+          <div class="sig-caption">Date</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>Thank You, Iryna</h3>
+      <p>You built a referral engine once with almost nothing but visibility and good work. We'd be glad to help you build the next one — on a foundation you actually own.</p>
+      <p style="margin-top:1rem; font-weight:600; color:var(--white);">— Eytan &amp; Edmund</p>
+      <p style="margin-top:0.35rem; font-size:0.9rem; color:var(--blue);">Bogen.ai — A Division of Dave T Productions</p>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div class="footer">
+    <a href="https://www.bogen.ai" target="_blank" style="line-height:0; display:inline-block;">
+      <img src="../images/eb-logo.png" alt="Bogen.ai" class="footer-logo">
+      <img src="../images/eb-logo-old.png" alt="Bogen.ai" class="footer-logo-dark">
+    </a>
+    <div class="footer-content">
+      <p>© 2026 Bogen.ai — A Division of Dave T Productions</p>
+      <p><a href="mailto:eytan@benzeno.com">eytan@benzeno.com</a> &nbsp;·&nbsp; <a href="mailto:edmund@bogenhomes.com">edmund@bogenhomes.com</a></p>
+    </div>
+  </div>
+
+  <!-- PDF Preview Modal -->
+  <div class="pdf-modal-overlay" id="pdfModal">
+    <div class="pdf-modal">
+      <div class="pdf-modal-header">
+        <div class="pdf-modal-title">Iryna Ferenets — SEO &amp; AI Search Proposal</div>
+        <div class="pdf-modal-actions">
+          <button class="btn-close-modal" id="closeModal">Close</button>
+          <button class="btn-confirm-download" id="confirmDownload">Download PDF</button>
+        </div>
+      </div>
+      <div class="pdf-modal-body">
+        <iframe id="pdfPreview"></iframe>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Theme toggle
+    function toggleTheme() {
+      const body = document.body;
+      const current = body.getAttribute('data-theme') || 'light';
+      const next = current === 'dark' ? 'light' : 'dark';
+      body.setAttribute('data-theme', next);
+      localStorage.setItem('iryna-proposal-theme', next);
+    }
+    (function() {
+      const saved = localStorage.getItem('iryna-proposal-theme');
+      document.body.setAttribute('data-theme', saved || 'light');
+    })();
+
+    // Configurator
+    const pricing = { build: { oneTime: 7500 } };
+
+    function syncCard(id) {
+      const cb = document.getElementById(id);
+      cb.closest('.config-card').classList.toggle('active', cb.checked);
+    }
+
+    function toggleItem(id) {
+      const cb = document.getElementById(id);
+      cb.checked = !cb.checked;
+      syncCard(id);
+      if (id === 'build') calculateTotal();
+    }
+
+    function calculateTotal() {
+      const monthly = 1500; // Phase 1 retainer — always included
+      let oneTime = 0;
+      const buildCb = document.getElementById('build');
+      if (buildCb && buildCb.checked) oneTime += pricing.build.oneTime;
+      document.getElementById('totalMonthly').innerHTML =
+        '$' + monthly.toLocaleString() + '<small>/mo</small>';
+      document.getElementById('totalOneTime').textContent = '$' + oneTime.toLocaleString();
+    }
+    calculateTotal();
+
+    // PDF modal
+    const downloadBtn = document.getElementById('downloadBtn');
+    const pdfModal = document.getElementById('pdfModal');
+    const closeModal = document.getElementById('closeModal');
+    const confirmDownload = document.getElementById('confirmDownload');
+    const pdfPreview = document.getElementById('pdfPreview');
+    const pdfPath = 'iryna-ferenets-seo-proposal.pdf';
+
+    downloadBtn.addEventListener('click', function() {
+      pdfModal.classList.add('active');
+      pdfPreview.src = pdfPath;
+    });
+    function closePdf() {
+      pdfModal.classList.remove('active');
+      pdfPreview.src = '';
+    }
+    closeModal.addEventListener('click', closePdf);
+    pdfModal.addEventListener('click', function(e) { if (e.target === this) closePdf(); });
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape' && pdfModal.classList.contains('active')) closePdf();
+    });
+    confirmDownload.addEventListener('click', function() {
+      const link = document.createElement('a');
+      link.href = pdfPath;
+      link.download = 'Iryna_Ferenets_SEO_Proposal.pdf';
+      link.click();
+    });
+  </script>
+
+</body>
+</html>
