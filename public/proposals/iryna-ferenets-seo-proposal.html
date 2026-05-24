@@ -472,6 +472,20 @@
     .lq-amount { font-size: 1.5rem; font-weight: 900; color: var(--white); transition: all 0.3s ease; }
     .lq-amount small { font-size: 0.8rem; font-weight: 600; color: var(--gray); }
     #totalMonthly { color: var(--blue) !important; }
+    .lq-finance {
+      margin-top: 0.9rem;
+      padding: 0.7rem 0.85rem;
+      background: rgba(0,168,225,0.08);
+      border: 1px dashed rgba(0,168,225,0.4);
+      border-radius: 8px;
+      font-size: 0.82rem;
+      color: rgba(255,255,255,0.85);
+      line-height: 1.45;
+      text-align: center;
+    }
+    [data-theme="light"] .lq-finance { color: rgba(26,35,50,0.85); }
+    .lq-finance strong { color: var(--blue); }
+
     .payment-terms {
       margin-top: 1.25rem; padding-top: 1rem;
       border-top: 1px solid rgba(255,255,255,0.1);
@@ -839,13 +853,13 @@
     </div>
 
     <div class="base-package-box">
-      <h4>Phase 1 Investment — SEO + AEO Retainer: $1,500/month</h4>
-      <p class="base-package-desc">A flat monthly retainer with <strong>no 12-month lock-in</strong>. This is the same figure Luxury Presence quoted you for SEO alone — but here it includes full AI-search optimization, every deliverable above, and the freedom to leave any time.</p>
+      <h4>Phase 1 Investment — SEO + AEO Retainer: $600/month</h4>
+      <p class="base-package-desc"><strong>Less than half</strong> the $1,500/month Luxury Presence quoted you for SEO alone — and their quote came on a 12-month contract from a team that asked <em>you</em> what needed to be done. Here you pay $600/month with a 6-month minimum, and you get the full AI-search optimization they couldn't even explain.</p>
       <div class="base-includes-item">All Search Engine Optimization deliverables listed above</div>
       <div class="base-includes-item">All Answer-Engine Optimization deliverables listed above</div>
       <div class="base-includes-item">Monthly performance report — rankings, traffic, and AI-visibility</div>
       <div class="base-includes-item">Direct access to the people doing the work — no ticket queue</div>
-      <div class="base-includes-item">Month-to-month — cancel any time, no contract</div>
+      <div class="base-includes-item">6-month minimum engagement — long enough to deliver results, then month-to-month</div>
     </div>
 
     <div class="callout">
@@ -886,20 +900,20 @@
         <div class="compare-row"><span class="cr-label">Where your content lives</span><span class="cr-val">Your domain</span></div>
         <div class="compare-row"><span class="cr-label">If you ever leave</span><span class="cr-val">You keep everything</span></div>
         <div class="compare-row"><span class="cr-label">Built for AI search</span><span class="cr-val">Yes — from day one</span></div>
-        <div class="compare-row"><span class="cr-label">Upfront cost</span><span class="cr-val">$7,500 one-time</span></div>
-        <div class="compare-row"><span class="cr-label">5-year website cost</span><span class="cr-val">~$16,500 — and you own it</span></div>
+        <div class="compare-row"><span class="cr-label">Upfront cost</span><span class="cr-val">$6,000 (or $500/mo × 13)</span></div>
+        <div class="compare-row"><span class="cr-label">5-year website cost</span><span class="cr-val">~$15,000 — and you own it</span></div>
       </div>
     </div>
 
     <div class="roi-banner">
-      <div class="roi-figure">15&nbsp;months</div>
+      <div class="roi-figure">$500/mo</div>
       <div class="roi-text">
-        <p class="roi-lead">The one-time build cost of $7,500 equals just 15 months of the rent you already pay.</p>
-        <p>You are already spending $500/month. Redirect 15 months of it — once — and you own your website instead of renting it. From that point on, your site costs drop to roughly $120–$200/month, paid directly to your own vendors, and you never write Luxury Presence another check.</p>
+        <p class="roi-lead">Pay $6,000 upfront, or finance $500/month for 13 months — the exact rent you already pay Luxury Presence.</p>
+        <p>You're already spending $500/month to rent a site you'll never own. Redirect that same $500 to us for 13 months instead — and at month 14 you stop paying and own the website outright. Or pay $6,000 cash upfront (just 12 months of your current rent). Either way, your only ongoing costs after launch are roughly $120–$200/month of your own vendor bills, and you never write Luxury Presence another check.</p>
       </div>
     </div>
 
-    <h3>What the $7,500 Build Includes</h3>
+    <h3>What the $6,000 Build Includes</h3>
     <div class="feature-grid">
       <div class="feature-card">
         <h4>A Website You Own Outright</h4>
@@ -961,8 +975,8 @@
         </div>
 
         <div class="base-package-box" style="margin-bottom:1.25rem;">
-          <h4>Phase 1 — SEO + AEO Retainer · $1,500/month</h4>
-          <p class="base-package-desc">Always included — the core engagement. Full SEO and AI-search optimization, month-to-month, no lock-in.</p>
+          <h4>Phase 1 — SEO + AEO Retainer · $600/month</h4>
+          <p class="base-package-desc">Always included — the core engagement. Full SEO and AI-search optimization, with a 6-month minimum engagement.</p>
           <div class="base-includes-item">Begins within 5 business days of signing</div>
           <div class="base-includes-item">Works on your existing site immediately</div>
           <div class="base-includes-item">Monthly rankings, traffic &amp; AI-visibility reporting</div>
@@ -976,10 +990,10 @@
                 <input type="checkbox" id="build" checked onclick="event.stopPropagation()" onchange="syncCard('build'); calculateTotal()">
                 <div class="config-card-title">Phase 2 — Website Ownership Build</div>
                 <div class="config-card-prices">
-                  <span class="config-card-monthly">$7,500 once</span>
+                  <span class="config-card-monthly">$6,000 once</span>
                 </div>
               </div>
-              <div class="config-card-desc">A custom website you own outright, with live IDX feed, built fast and AI-ready. Equal to 15 months of your current rent. Replaces the $500/month Luxury Presence subscription.</div>
+              <div class="config-card-desc">A custom website you own outright, with live IDX feed, built fast and AI-ready. $6,000 upfront — or finance at $500/month for 13 months (the exact rent you already pay Luxury Presence). Replaces the LP subscription forever.</div>
             </div>
           </div>
         </div>
@@ -1050,17 +1064,18 @@
       <div class="live-quote">
         <h3>Your Investment</h3>
         <div class="lq-row">
-          <span class="lq-label">Monthly Investment</span>
-          <span class="lq-amount" id="totalMonthly">$1,500<small>/mo</small></span>
+          <span class="lq-label">Monthly — SEO Retainer</span>
+          <span class="lq-amount" id="totalMonthly">$600<small>/mo</small></span>
         </div>
         <div class="lq-row">
           <span class="lq-label">One-Time Investment</span>
-          <span class="lq-amount" id="totalOneTime">$7,500</span>
+          <span class="lq-amount" id="totalOneTime">$6,000</span>
         </div>
+        <div class="lq-finance" id="financeLine">Or finance: <strong>$500/mo for 13 months</strong> (total $6,500)</div>
         <div class="payment-terms">
-          <p><strong>Phase 1 retainer</strong> — billed monthly, begins on signing, no lock-in.</p>
-          <p><strong>Phase 2 build &amp; add-ons</strong> — one-time fees; 50% to start, 50% on launch.</p>
-          <p>Ongoing hosting, IDX, compliance and any AI-service usage are paid by you directly to vendors — Bogen.ai charges no recurring fee for the site or add-ons.</p>
+          <p><strong>Phase 1 retainer</strong> — $600/month, billed monthly, 6-month minimum engagement.</p>
+          <p><strong>Phase 2 build &amp; add-ons</strong> — pay upfront (50% to start, 50% on launch) or finance at $500/month with a one-time 8.33% fee.</p>
+          <p>Ongoing hosting, IDX, compliance and any AI-service usage are paid by you directly to vendors — Bogen.ai charges no recurring site fee.</p>
         </div>
       </div>
     </div>
@@ -1136,6 +1151,7 @@
       <h4>Your Team</h4>
       <p><strong>Eytan Benzeno</strong> — Delivery Lead, SEO &amp; Web</p>
       <p>Email: <a href="mailto:eytan@benzeno.com">eytan@benzeno.com</a></p>
+      <p>Phone: <a href="tel:7867270696">786-727-0696</a></p>
       <p style="margin-top:0.85rem;"><strong>Edmund Bogen</strong> — Founder &amp; AI Strategist</p>
       <p>Email: <a href="mailto:edmund@bogenhomes.com">edmund@bogenhomes.com</a></p>
       <p>Phone: <a href="tel:5612357575">561-235-7575</a></p>
@@ -1143,7 +1159,7 @@
 
     <div class="card">
       <h3>Proposal Acceptance</h3>
-      <p>To proceed, sign below or simply reply by email. This confirms the Phase 1 SEO + AEO retainer at $1,500/month (month-to-month, no lock-in) and your selection regarding the Phase 2 website build at $7,500 one-time.</p>
+      <p>To proceed, sign below or simply reply by email. This confirms the Phase 1 SEO + AEO retainer at $600/month (6-month minimum engagement) and your selection regarding the Phase 2 website build at $6,000 upfront — or financed at $500/month over 13 months ($6,500 total).</p>
       <div class="signature-section">
         <div class="sig-block">
           <label>Accepted By — Iryna Ferenets</label>
@@ -1208,9 +1224,9 @@
       document.body.setAttribute('data-theme', saved || 'light');
     })();
 
-    // Configurator — setup = one-time, monthly = recurring
+    // Pricing — setup = cash price. Financing adds 8.33% (×13/12), paid at $500/mo until done.
     const pricing = {
-      build:  { setup: 7500, monthly: 0 },
+      build:  { setup: 6000, monthly: 0 },
       cms:    { setup: 600,  monthly: 0 },
       social: { setup: 400,  monthly: 0 },
       voice:  { setup: 750,  monthly: 0 },
@@ -1231,7 +1247,7 @@
     }
 
     function calculateTotal() {
-      let monthly = 1500; // Phase 1 SEO + AEO retainer — always included
+      let monthly = 600; // Phase 1 SEO + AEO retainer
       let oneTime = 0;
       for (const [id, p] of Object.entries(pricing)) {
         const cb = document.getElementById(id);
@@ -1240,6 +1256,17 @@
       document.getElementById('totalMonthly').innerHTML =
         '$' + monthly.toLocaleString() + '<small>/mo</small>';
       document.getElementById('totalOneTime').textContent = '$' + oneTime.toLocaleString();
+
+      // Financing alternative: cash × 13/12 (8.33% markup), paid $500/mo until done
+      const fLine = document.getElementById('financeLine');
+      if (oneTime > 0) {
+        const financed = Math.round(oneTime * 13 / 12);
+        const months = Math.ceil(financed / 500);
+        fLine.innerHTML = 'Or finance: <strong>$500/mo for ' + months + ' months</strong> (total $' + financed.toLocaleString() + ')';
+        fLine.style.display = '';
+      } else {
+        fLine.style.display = 'none';
+      }
     }
     calculateTotal();
 
